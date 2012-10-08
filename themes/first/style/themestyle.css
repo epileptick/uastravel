@@ -493,11 +493,18 @@ input#loginblock_username, input#loginblock_password {
   post
 */
 #add_form {
-  width:780px;
+  width:750px;
   margin-left: 2px;
   float:left;
   
 }
+
+#add_form_right {
+  width:220px;
+  border: 1px solid #c1c1c1;
+  float:right;
+}
+
 .topHolder {
   font-size: 18px;
   padding: 10px 10px 10px 10px;
@@ -615,11 +622,6 @@ input[Attributes Style] {
   
 }
 
-#add_form_right {
-  width:200px;
-  border: 1px solid #c1c1c1;
-  float:left;
-}
 /*
 #editor1 {
   width:320px;

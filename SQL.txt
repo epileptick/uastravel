@@ -1,0 +1,27 @@
+CREATE TABLE `ci_post` (
+  `pst_id` int(11) NOT NULL AUTO_INCREMENT,
+  `pst_title` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `pst_body` text CHARACTER SET utf8,
+  `pst_status` int(1) DEFAULT NULL,
+  `pst_level` int(3) DEFAULT NULL,
+  `pst_group` int(2) DEFAULT NULL,
+  `pst_url` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `pst_cr_date` date DEFAULT NULL,
+  `pst_cr_uid` int(11) DEFAULT NULL,
+  `pst_lu_date` date DEFAULT NULL,
+  `pst_lu_uid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`pst_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `ci_user` (
+  `usr_id` int(11) NOT NULL AUTO_INCREMENT,
+  `usr_username` varchar(255) DEFAULT NULL,
+  `usr_password` varchar(255) DEFAULT NULL,
+  `usr_facebook_id` varchar(50) DEFAULT NULL,
+  `usr_status` int(1) DEFAULT '0',
+  `usr_level` int(3) DEFAULT '100',
+  `usr_group` int(11) DEFAULT '0',
+  `usr_email` varchar(255) NOT NULL,
+  PRIMARY KEY (`usr_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
