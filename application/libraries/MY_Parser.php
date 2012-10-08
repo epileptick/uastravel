@@ -12,10 +12,10 @@ class MY_Parser extends CI_Parser {
         $this->CI = get_instance();
         
         //prepare data
-        $data['imagepath'] = "/themes/".$themeName."/images";
-        $data['stylepath'] = "/themes/".$themeName."/style";
-        $data['jspath'] = "/themes/".$themeName."/js";
-        $data['themepath'] = "/themes/".$themeName;
+        $data['imagepath'] = base_url("/themes/".$themeName."/images");
+        $data['stylepath'] = base_url("/themes/".$themeName."/style");
+        $data['jspath'] = base_url("/themes/".$themeName."/js");
+        $data['themepath'] = base_url("/themes/".$themeName);
         
         $data['maincontent'] = $this->CI->load->view("themes/".$themeName."/_Controller/".$template, $data, TRUE);
         
@@ -49,6 +49,7 @@ class MY_Parser extends CI_Parser {
         foreach(PageUtil::getVar("stylesheet") AS $stylesheet){
           $newHead .= "\n".$stylesheet;
         }
+        
         foreach(PageUtil::getVar("javascript") AS $javascript){
           $newHead .= "\n".$javascript;
         }
