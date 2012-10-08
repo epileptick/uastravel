@@ -6,18 +6,12 @@ class Post extends MY_Controller {
   }
   
   function index(){
-    
+    $this->read();
   }
   
-  function view($id=""){
-    if($id==""){
-      show_error($this->lang->line("post_lang_id_not_exist"));
-    }
-    echo "Post ID: $id";
-    
-  }
-  
-  function add(){
+
+
+  function create(){
   
     if($this->input->post("submit") != NULL){
       $postData = $this->postModel->add($this->input->post());
@@ -29,9 +23,44 @@ class Post extends MY_Controller {
     }else{
       $this->_fetch('add_form');
     }
-    
-    
   }
+
+  
+  function read($id=false, $limit=10, $offset=0){
+
+
+    if($id){ 
+      //Read 1 item     
+      $query = $this->db->get_where('ci_post', array('pst_url' => $id), $limit, $offset);
+      $data = array(
+                      "post" => $query->result()
+              );
+
+      $this->_fetch('read', $data);
+
+    }else{
+      //Read multiple item
+      $query = $this->db->get('ci_post');        
+      $data = array(
+                      "posts" => $query->result()
+
+              );
+
+      $this->_fetch('list', $data);
+    }
+  }
+
+  function update(){
+    //implement code here
+
+  } 
+
+
+  function delete(){
+    //implement code here
+
+  }  
+
 }
 
 ?>
