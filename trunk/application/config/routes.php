@@ -44,5 +44,16 @@ $route['404_override'] = '';
 $route['post/(:num)'] = 'post/view/$1';
 $route['post/(:num)/(:any)'] = 'post/view/$1';
 
+
+/*
+$route['post/(:num)'] = 'post/read/$1';
+$route['post/(:num)'] = 'post/read/$1';
+*/
+
+$route['p-(:any)'] = 'post/read/$1';
+
+
+
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
