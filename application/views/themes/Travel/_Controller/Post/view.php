@@ -1,0 +1,353 @@
+<?php
+
+?>
+
+
+ <!-- Header -->
+<header style="background-image:url(<?=$imagepath?>/placeholders/1280x1024/8.jpg);">
+	
+	<div class="container_12">
+
+		<!-- Title and navigation panel -->
+		<div id="panel" class="grid_12">
+
+			<!-- Title -->
+			<h1><a href="index.html">Travel</a></h1>
+
+			<!-- Navigation -->
+			<nav>
+				<ul>
+					<li>
+						<a href="browse.html" class="selected">Browse</a>
+						<ul>	
+							<li><a href="browse.html">Browse all</a></li>
+							<li><a href="browse_hotels.html">Browse hotels</a></li>
+							<li><a href="hotel.html" class="selected">Hotel</a></li>
+							<li><a href="trip.html">Trip</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="faq.html">Pages</a>
+						<ul>
+							<li><a href="faq.html">FAQ</a></li>
+							<li><a href="forms.html">Forms</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="blog.html">Blog</a>
+						<ul>
+							<li><a href="blog.html">Blog</a></li>
+							<li><a href="blogpost.html">Blogpost</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="contact.html">Contact</a>
+					</li>
+				</ul>
+
+				<!-- Search -->
+				<form action="#" class="black">
+					<input name="search" type="text" placeholder="Search..." />
+					<input type="submit" />
+				</form>
+			</nav>
+		
+		</div>
+
+	</div>
+
+	<!-- Heading -->
+	<h2>Marina Bay Sands</h2>
+
+</header>
+
+<!-- Main content -->
+<div class="container_12">
+
+	<!-- Description -->
+	<section class="description results_wide grid_12">
+
+		<a href="<?=$imagepath?>/placeholders/800x600/8.jpg" class="main_image fancybox"><img src="<?=$imagepath?>/placeholders/300x200/8.jpg" alt="" /></a>
+
+		<div>
+			<span>
+				<span class="boxed"><a href="#">Singapore, Republic of Singapore</a></span>
+			</span>
+			<span>
+				<span class="stars boxed">
+					<img src="<?=$imagepath?>/star_white_full.png" alt="" />
+					<img src="<?=$imagepath?>/star_white_full.png" alt="" />
+					<img src="<?=$imagepath?>/star_white_full.png" alt="" />
+					<img src="<?=$imagepath?>/star_white_half.png" alt="" />
+					<img src="<?=$imagepath?>/star_white_empty.png" alt="" />
+				</span>
+			</span>
+			<span>All inclusive</span>
+			<span>Wellness</span>
+			<span>Golf</span>
+		</div>
+
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam gravida, odio vel pretium consequat, mi felis facilisis lacus, sed elementum ligula massa sed est. Mauris mauris lectus, gravida id ullamcorper a, mattis eget leo.</p>
+		<p>Nunc imperdiet ipsum id risus aliquet ultrices porttitor nisl suscipit. <strong>Fusce at turpis</strong> eros, eu aliquam enim. Sed lobortis faucibus lacus, eget consectetur metus tempus eu. Nam id ullamcorper diam. In vel orci a libero convallis elementum vel egestas est.</p>
+
+	</section>
+
+	<!-- Image gallery -->
+	<section class="gallery grid_12">
+		
+		<!-- Slider navigation -->
+		<nav class="slider_nav">
+			<a href="#" class="left">&nbsp;</a>
+			<a href="#" class="right">&nbsp;</a>
+		</nav>
+
+		<!-- Slider -->
+		<div class="slider_wrapper">
+
+			<!-- Slider content -->
+			<div class="slider_content">
+				<a href="<?=$imagepath?>/placeholders/800x600/7.jpg">
+					<img src="<?=$imagepath?>/placeholders/150x110/7.jpg" alt="" />
+				</a>
+				<a href="<?=$imagepath?>/placeholders/800x600/8.jpg">
+					<img src="<?=$imagepath?>/placeholders/150x110/8.jpg" alt="" />
+				</a>
+				<a href="<?=$imagepath?>/placeholders/800x600/9.jpg">
+					<img src="<?=$imagepath?>/placeholders/150x110/9.jpg" alt="" />
+				</a>
+				<a href="<?=$imagepath?>/placeholders/800x600/12.jpg">
+					<img src="<?=$imagepath?>/placeholders/150x110/12.jpg" alt="" />
+				</a>
+				<a href="<?=$imagepath?>/placeholders/800x600/13.jpg">
+					<img src="<?=$imagepath?>/placeholders/150x110/13.jpg" alt="" />
+				</a>
+				<a href="<?=$imagepath?>/placeholders/800x600/14.jpg">
+					<img src="<?=$imagepath?>/placeholders/150x110/14.jpg" alt="" />
+				</a>
+				<a href="<?=$imagepath?>/placeholders/800x600/9.jpg">
+					<img src="<?=$imagepath?>/placeholders/150x110/9.jpg" alt="" />
+				</a>
+				<a href="<?=$imagepath?>/placeholders/800x600/12.jpg">
+					<img src="<?=$imagepath?>/placeholders/150x110/12.jpg" alt="" />
+				</a>
+			</div>
+
+		</div>
+
+	</section>
+
+	<div class="clearfix"></div>
+	<hr class="dashed grid_12" />
+
+	<!-- Simple text -->
+	<section class="text padded_right grid_8">
+		<h3 class="text_big">Vestibulum placerat rhoncus massa</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam faucibus placerat risus, ac vulputate enim facilisis eu. In sodales lacinia elit, ut rhoncus risus consequat sit amet. Suspendisse potenti. Nam imperdiet lacinia aliquet. Donec odio risus, dignissim id placerat et, molestie sed ligula.</p>
+		<p>Vestibulum placerat rhoncus massa, vel viverra ligula placerat sit amet. Aenean nibh sem, placerat ac laoreet ac, ullamcorper in est. Nulla facilisi. Suspendisse potenti. Maecenas mollis dui id lacus semper sit amet accumsan augue rhoncus. Ut sed felis eget mi placerat accumsan ut vel risus.</p>
+		<p>Phasellus aliquam sodales pharetra. Donec ornare felis quis quam volutpat ut venenatis dui scelerisque. Quisque feugiat lacus vel odio pulvinar vel sagittis nisl gravida.</p>
+	</section>
+
+	<!-- Video -->
+	<section class="video grid_4">
+		<iframe src="http://player.vimeo.com/video/27246366?color=ffffff"></iframe>
+	</section>
+
+	<div class="clearfix"></div>
+	<hr class="dashed grid_12" />
+	
+	<!-- Image slider -->
+	<section class="image_slider grid_4">
+
+		<!-- Navigation -->
+		<nav class="slider_nav">
+			<a href="#" class="left">&nbsp;</a>
+			<a href="#" class="right">&nbsp;</a>
+		</nav>
+
+		<!-- Content -->
+		<div class="slides">
+			<a href="<?=$imagepath?>/placeholders/800x600/9.jpg">
+				<img src="<?=$imagepath?>/placeholders/300x200/9.jpg" alt="" />
+			</a>
+			<a href="<?=$imagepath?>/placeholders/800x600/10.jpg">
+				<img src="<?=$imagepath?>/placeholders/300x200/10.jpg" alt="" />
+			</a>
+			<a href="<?=$imagepath?>/placeholders/800x600/7.jpg">
+				<img src="<?=$imagepath?>/placeholders/300x200/7.jpg" alt="" />
+			</a>
+		</div>
+
+	</section>
+
+	<!-- Simple text -->
+	<section class="text padded_left grid_8">
+		<h3 class="text_big">Nam imperdiet lacinia</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam faucibus placerat risus, ac vulputate enim facilisis eu. In sodales lacinia elit, ut rhoncus risus consequat sit amet. Suspendisse potenti. Nam imperdiet lacinia aliquet. Donec odio risus, dignissim id placerat et, molestie sed ligula.</p>
+		<p>Vestibulum placerat rhoncus massa, vel viverra ligula placerat sit amet. Aenean nibh sem, placerat ac laoreet ac, ullamcorper in est. Nulla facilisi. Suspendisse potenti. Maecenas mollis dui id lacus semper sit amet accumsan augue rhoncus. Ut sed felis eget mi placerat accumsan ut vel risus.</p>
+		<p>Phasellus aliquam sodales pharetra. Donec ornare felis quis quam volutpat ut venenatis dui scelerisque.</p>
+	</section>
+
+	<div class="clearfix"></div>
+	<hr class="dashed grid_12" />
+
+	<!-- Reservation form -->
+	<section class="search_box sidebar grid_4">
+
+		<h2>
+			<span data-form="find_hotel">Make a reservation</span>
+		</h2>
+
+		<!-- Find a hotel form -->
+		<form action="#" data-form="find_hotel" class="black">
+
+			<div class="half">
+				<label>Check in</label>
+				<input type="text" name="check_in" class="date" value="11/23/2011" />
+			</div>
+
+			<div class="half last">
+				<label>Check out</label>
+				<input type="text" name="check_out" class="date" value="11/23/2011" />
+			</div>
+
+			<div class="half">
+				<label>Guests</label>
+				<input type="text" name="guests" value="2" />		
+			</div>
+
+			<div class="half last">
+				<label>Rooms</label>
+				<input type="text" name="rooms" value="1" />		
+			</div>
+
+			<input type="submit" value="Search">
+
+		</form>
+
+	</section>
+
+	<!-- Map -->
+	<section class="map grid_4">
+		<script>
+			$(function() {
+				markers = "La Tour Eiffel, Paris"; // Set the address for marker
+				$("a#map").attr("href", "http://maps.google.com/maps?q=" + escape(markers)).html("<img />");
+				$("a#map img").attr("src", "http://maps.google.com/maps/api/staticmap?markers=" + escape(markers) + "&size=300x250&sensor=false");
+			});
+		</script>
+		<a href="#" id="map"></a>
+	</section>
+
+	<!-- Similar hotels -->
+	<section class="similar_hotels grid_4">
+		
+		<h2 class="section_heading">Similar hotels</h2>
+		<ul>
+			<li>
+				<a href="#" class="thumb"><img src="<?=$imagepath?>/placeholders/40x40/8.jpg" alt="" /></a>
+				<h3><a href="#">Marina Bay Sands</a></h3>
+				<span class="stars">
+					<img src="<?=$imagepath?>/star_full.png" alt="" />
+					<img src="<?=$imagepath?>/star_full.png" alt="" />
+					<img src="<?=$imagepath?>/star_full.png" alt="" />
+					<img src="<?=$imagepath?>/star_half.png" alt="" />
+					<img src="<?=$imagepath?>/star_empty.png" alt="" />
+				</span>
+				<div>
+					<span><a href="#">Malorca</a></span>
+					<span><strong>1 899 €</strong> / 10 nights</span>
+				</div>
+			</li>
+			<li>
+				<a href="#" class="thumb"><img src="<?=$imagepath?>/placeholders/40x40/8.jpg" alt="" /></a>
+				<h3><a href="#">Marina Bay Sands</a></h3>
+				<span class="stars">
+					<img src="<?=$imagepath?>/star_full.png" alt="" />
+					<img src="<?=$imagepath?>/star_full.png" alt="" />
+					<img src="<?=$imagepath?>/star_full.png" alt="" />
+					<img src="<?=$imagepath?>/star_half.png" alt="" />
+					<img src="<?=$imagepath?>/star_empty.png" alt="" />
+				</span>
+				<div>
+					<span><a href="#">Malorca</a></span>
+					<span><strong>2 399 €</strong> / 15 nights</span>
+				</div>
+			</li>
+			<li>
+				<a href="#" class="thumb"><img src="<?=$imagepath?>/placeholders/40x40/8.jpg" alt="" /></a>
+				<h3><a href="#">Marina Bay Sands</a></h3>
+				<span class="stars">
+					<img src="<?=$imagepath?>/star_full.png" alt="" />
+					<img src="<?=$imagepath?>/star_full.png" alt="" />
+					<img src="<?=$imagepath?>/star_full.png" alt="" />
+					<img src="<?=$imagepath?>/star_half.png" alt="" />
+					<img src="<?=$imagepath?>/star_empty.png" alt="" />
+				</span>
+				<div>
+					<span><a href="#">Malorca</a></span>
+					<span><strong>2 899 €</strong> / 19 nights</span>
+				</div>
+			</li>
+		</ul>
+		
+	</section>
+
+	<div class="clearfix"></div>
+	<hr class="dashed grid_12" />
+
+	<!-- Simple text -->
+	<section class="text grid_4">
+		<h3>Curabitur rutrum</h3>
+		<p>Curabitur rutrum lacinia dui vitae tempus. Etiam porttitor, metus id rutrum placerat, quam arcu lobortis magna, et ornare leo massa at massa. Aliquam tempor iaculis dui at pellentesque. Pellentesque accumsan consectetur dolor sed facilisis. Etiam sed purus sem, quis accumsan nunc.</p>
+	</section>
+
+	<!-- Simple text -->
+	<section class="text grid_4">
+		<h3>Sed vitae mauris</h3>
+		<p>Sed vitae mauris vitae elit porta rhoncus at eget augue. Pellentesque eu ante eu ante mollis eleifend. Praesent a eros elit, vitae dapibus sem. Morbi scelerisque nulla at lorem egestas fringilla. Proin sit amet lectus ac risus sagittis auctor. Nulla laoreet lobortis pulvinar.</p>
+	</section>
+
+	<!-- Simple text -->
+	<section class="text grid_4">
+		<h3>Sed vitae mauris</h3>
+		<p>Sed vitae mauris vitae elit porta rhoncus at eget augue. Pellentesque eu ante eu ante mollis eleifend. Praesent a eros elit, vitae dapibus sem. Morbi scelerisque nulla at lorem egestas fringilla. Proin sit amet lectus ac risus sagittis auctor. Nulla laoreet lobortis pulvinar.</p>
+	</section>
+	
+</div> 
+ 
+ 	<!-- Footer -->
+	<footer><div class="container_12">
+		
+		<nav class="grid_8">
+			<a href="#">Home</a>
+			<a href="#">Catalogue</a>
+			<a href="#">Blog</a>
+			<a href="#">Contact</a>
+			<a href="#">FAQ</a>
+		</nav>
+
+		<p class="address grid_4">
+			<strong>Travel Agency Inc.</strong><br />
+			<span>123 Wall Street , New York</span><br />
+			<span><a href="mailto:contact@travelagency.com">contact@travelagency.com</a></span>
+		</p>
+
+		<p class="copyright grid_8">
+			© 2011 Travel Agency
+		</p>
+
+	</div></footer>
+
+
+	<!-- Google Analytics -->
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-XXXXXXX-X']); // Set your Google Analytics ID here
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>

@@ -1,0 +1,168 @@
+
+/*
+  post
+*/
+#add_form {
+
+  float:left;
+  border-right: 1px solid #DBDBDB;
+}
+
+#add_form_right {
+  width: 309px;
+  float: right;
+  min-height: 642px;
+}
+
+.topHolder {
+  font-size: 18px;
+  padding: 10px 10px 10px 10px;
+  background-color: white;
+  min-width: 610px;
+  
+}
+
+.GM1BAGKBIIB, .GM1BAGKBGJB, .GM1BAGKBJJB {
+  display: inline-block;
+  vertical-align: middle;
+}
+.GM1BAGKBGJB {
+  color: #F26300;
+}
+.GM1BAGKBJJB {
+  color: #787878;
+}
+.GM1BAGKBGEC {
+  color: #999;
+}
+.GM1BAGKBHEC {
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  height: 27px;
+  line-height: 27px;
+  margin: 0;
+  padding-left: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-border-radius: 2px;
+}
+.GM1BAGKBNIB .blogg-button {
+  margin-right: 4px;
+}
+
+.blogg-title {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.topHolder input {
+  font-size: 13px;
+}
+
+.topHolder .titleField {
+  width: 450px;
+}
+
+input[type="text"] {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0 4px;
+  width: auto;
+  
+}
+input[Attributes Style] {
+  direction: ltr;
+  unicode-bidi: embed;
+}
+.blogg-button.blogg-primary {
+  background: -webkit-gradient(linear, left top, left bottom, from(#FDA352), to(#FB8F3D));
+}
+.blogg-button.blogg-primary:hover {
+  background: -webkit-gradient(linear, left top, left bottom, from(#fd934c), to(#f9760c));
+  border: 1px solid #eb5200;
+}
+.blogg-button.blogg-primary {
+  border: 1px solid #FB8F3D;
+  color: white;
+  width:auto;
+  height: auto;
+  padding:;
+  margin-bottom: 0;
+}
+
+.blogg-button {
+  background: -webkit-gradient(linear, left top, left bottom, from(whiteSmoke), to(#F1F1F1));
+  -webkit-border-radius: 2px;
+  -webkit-transition: all 0.2s;
+  -webkit-box-sizing: content-box;
+  -webkit-box-align: stretch;
+  -webkit-user-select: none;
+}
+.blogg-button {
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #222;
+  cursor: pointer !important;
+  height: 27px !important;
+  padding: 0 10px !important;
+  line-height: 26px !important;
+  margin: 0;
+  text-align: center;
+  box-sizing: content-box;
+  vertical-align: middle;
+  font-size: 11px;
+  font-weight: bold;
+  position: relative;
+}
+.blogg-button:hover {
+  border: 1px solid #c1c1c1;
+}
+
+#wrapper-editor {
+  width:630px;
+  background-color:#f3f3f3;
+  padding-top:20px;
+  padding-bottom:20px;
+  border-top: 1px solid #c1c1c1;
+  border-bottom: 1px solid #c1c1c1;
+  -moz-box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.10);
+  -webkit-box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.10);
+  box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.10);
+
+}
+#editor {
+  width:580px;
+  margin-left:auto;
+  margin-right:auto;
+  background-color:#f3f3f3;
+  min-height:500px;
+  position:relative;
+  
+}
+
+.mceExternalToolbar {
+    position: absolute !important ;
+    top: -126px !important ;
+    left:-25px;
+    width:630px !important ;
+    background:#f0f0ee !important ;
+    display:block !important;
+    border: none !important ;
+}
+#example1_pdw_toggle.mceButtonActive img {
+   -webkit-transform: rotate(180deg); /* Safari/Chrome */
+   -moz-transform: rotate(180deg); /* Firefox */
+   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2); /* IE */
+}
+
+#editorPanel {
+  width: 630px;
+  border-top: 1px solid #c1c1c1;
+  margin-bottom: 10px;
+  height: 90px;
+  padding-top:5px;
+}
+
+.mceExternalClose {
+  display:none !important;
+}

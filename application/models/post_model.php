@@ -48,6 +48,19 @@ class Post_model extends MY_Model {
     if(!isset($options["lu_uid"])){
       $options["lu_uid"] = 0;
     }
+    $options["url"] = trim($options["url"]);
+    if(!isset($options["url"])||$options["url"]==""){
+      $string = $options["title"];
+      $string = preg_replace("`\[.*\]`U","",$string);
+      $string = preg_replace('`&(amp;)?#?[a-z0-9]+;`i','-',$string);
+      $string = str_replace('%', '-percent', $string);
+      $string = htmlentities($string, ENT_COMPAT, 'utf-8');
+      $string = preg_replace( "`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);`i","\\1", $string );
+      $string = preg_replace( array("`[^a-z0-9ก-๙เ-า]`i","`[-]+`") , "-", $string);
+      $options["url"] = strtolower(trim($string, '-'));
+    }
+    
+    
     
     //Set data
     foreach($options AS $columnName=>$columnValue){

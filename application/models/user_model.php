@@ -83,7 +83,7 @@ class User_model extends MY_Model {
     if ($query->num_rows() > 0)
     {
       foreach($query->result() as $key=>$value){
-        $result = Utils::objectToArray($value);
+        $result = Util::objectToArray($value);
       }
       return $result;
     }else{
