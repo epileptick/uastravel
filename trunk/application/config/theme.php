@@ -1,3 +1,3 @@
 <?php
-$config['theme_name'] = "first"
+$config['theme_name'] = "Travel"
 ?>

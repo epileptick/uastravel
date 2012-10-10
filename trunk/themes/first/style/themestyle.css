@@ -500,9 +500,10 @@ input#loginblock_username, input#loginblock_password {
 }
 
 #add_form_right {
-  width:220px;
-  border: 1px solid #c1c1c1;
-  float:right;
+  width: 227px;
+  border-left: 1px solid #C1C1C1;
+  float: right;
+  min-height: 642px;
 }
 
 .topHolder {
