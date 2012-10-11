@@ -14,7 +14,7 @@ class Post extends MY_Controller {
   function create(){
   
     if($this->input->post("submit") != NULL){
-      $postData = $this->postModel->add($this->input->post());
+      $postData = $this->postModel->addRecord($this->input->post());
       if($postData){
         $this->_fetch('add_success');
       }else{

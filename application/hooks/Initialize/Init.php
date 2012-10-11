@@ -7,7 +7,6 @@ class Init {
   }
   
   function pageInit(){
-    
     PageUtil::registerVar("title",TRUE);
     PageUtil::registerVar("keywords",TRUE);
     PageUtil::registerVar("description",TRUE);

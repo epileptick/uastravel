@@ -11,7 +11,7 @@
 #add_form_right {
   width: 309px;
   float: right;
-  min-height: 642px;
+  background-color: #FAFAFA;
 }
 
 .topHolder {
@@ -62,6 +62,8 @@
 
 .topHolder .titleField {
   width: 450px;
+  -webkit-box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0.5);
 }
 
 input[type="text"] {
@@ -75,14 +77,16 @@ input[Attributes Style] {
   unicode-bidi: embed;
 }
 .blogg-button.blogg-primary {
-  background: -webkit-gradient(linear, left top, left bottom, from(#FDA352), to(#FB8F3D));
+  background: -webkit-gradient(linear, left top, left bottom, from(#FDA352), to(#FB8F3D)) !important ;
+  -webkit-box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0.5);
 }
 .blogg-button.blogg-primary:hover {
-  background: -webkit-gradient(linear, left top, left bottom, from(#fd934c), to(#f9760c));
+  background: -webkit-gradient(linear, left top, left bottom, from(#fd934c), to(#f9760c)) !important ;
   border: 1px solid #eb5200;
 }
 .blogg-button.blogg-primary {
-  border: 1px solid #FB8F3D;
+  border: 1px solid #FB8F3D  !important ;
   color: white;
   width:auto;
   height: auto;
@@ -91,7 +95,7 @@ input[Attributes Style] {
 }
 
 .blogg-button {
-  background: -webkit-gradient(linear, left top, left bottom, from(whiteSmoke), to(#F1F1F1));
+  background: -webkit-gradient(linear, left top, left bottom, from(whiteSmoke), to(#F1F1F1)) !important ;
   -webkit-border-radius: 2px;
   -webkit-transition: all 0.2s;
   -webkit-box-sizing: content-box;
@@ -165,4 +169,50 @@ input[Attributes Style] {
 
 .mceExternalClose {
   display:none !important;
+}
+
+/*
+side bar
+*/
+
+
+
+#add_form_right h2 {
+  font-size: 16px;
+  font-weight: normal;
+  margin-bottom: 12px;
+  display:block;
+  padding:10px;
+  line-height: 18px;
+  border-bottom:1px solid #c0dcc0;
+  margin-bottom:5px;
+}
+
+.side_bar_block {
+  padding:5px;
+  border-bottom:1px solid #c0dcc0;
+}
+
+.side_bar_block img {
+  padding:1px;
+  border:1px solid #c0dcc0;
+}
+
+.side_bar_block h3 {
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 12px;
+  display:block;
+  padding:10px;
+  padding-left:20px;
+  
+}
+.image {
+  background: url("../images/image.png") -0px 13px no-repeat;
+}
+.location {
+  background: url("../images/location.png") -0px 10px no-repeat;
+}
+.tag {
+  background: url("../images/tag.png") -0px 13px no-repeat;
 }

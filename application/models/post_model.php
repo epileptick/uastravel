@@ -19,7 +19,7 @@ class Post_model extends MY_Model {
     );
   }
   
-  function add($options=""){
+  function addRecord($options=""){
     if($options==""){
       return FALSE;
     }
@@ -72,7 +72,7 @@ class Post_model extends MY_Model {
     return $result;
   }
   
-  function update($options=""){
+  function updateRecord($options=""){
     if($options=""){
       return FALSE;
     }
