@@ -102,6 +102,7 @@ class MY_Parser extends CI_Parser {
     	{
     		return FALSE;
     	}
+      
       if($data != "")
     	foreach ($data as $key => $val)
     	{
@@ -114,7 +115,7 @@ class MY_Parser extends CI_Parser {
     			$template = $this->_parse_single($key, (string)$val, $template);
     		}
     	}
-    
+      
     	if ($return == FALSE)
     	{
     		$CI =& get_instance();

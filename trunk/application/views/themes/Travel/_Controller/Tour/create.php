@@ -1,4 +1,4 @@
-<br>
+<br />
 <div class="container_12">
 <h2>&nbsp;&nbsp;&nbsp;Add Tour Information</h2>
 </div>
@@ -7,7 +7,7 @@
 	<!-- Filter -->
 	<section class="grid_8">
 
-		<?php echo form_open("tour/create");?>
+		<?php echo form_open(base_url("tour/create"));?>
 			<div class="half">
 				<label>Tour Name :</label>
 				<input type="text" name="name">
