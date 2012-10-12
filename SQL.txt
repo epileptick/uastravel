@@ -1,17 +1,17 @@
-CREATE TABLE ci_post (
-  pst_id int(11) NOT NULL AUTO_INCREMENT,
-  pst_title varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  pst_body text CHARACTER SET utf8,
-  pst_status int(1) DEFAULT NULL,
-  pst_level int(3) DEFAULT NULL,
-  pst_group int(2) DEFAULT NULL,
-  pst_url varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  pst_cr_date date DEFAULT NULL,
-  pst_cr_uid int(11) DEFAULT NULL,
-  pst_lu_date date DEFAULT NULL,
-  pst_lu_uid int(11) DEFAULT NULL,
-  PRIMARY KEY (pst_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `ci_post` (
+  `pst_id` int(11) NOT NULL AUTO_INCREMENT,
+  `pst_title` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `pst_body` text CHARACTER SET utf8,
+  `pst_status` int(1) DEFAULT NULL,
+  `pst_level` int(3) DEFAULT NULL,
+  `pst_group` int(2) DEFAULT NULL,
+  `pst_url` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `pst_cr_date` timestamp DEFAULT NULL,
+  `pst_cr_uid` int(11) DEFAULT NULL,
+  `pst_lu_date` timestamp DEFAULT NULL,
+  `pst_lu_uid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`pst_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE ci_user (
@@ -24,4 +24,32 @@ CREATE TABLE ci_user (
   usr_group int(11) DEFAULT 0,
   usr_email varchar(255) NOT NULL,
   PRIMARY KEY (usr_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ci_tour` (
+  `tou_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tou_language_id` int(11) DEFAULT NULL,
+  `tou_code` varchar(255) DEFAULT NULL,
+  `tou_name` varchar(255) DEFAULT NULL,
+  `tou_description` text,
+  `tou_detail` text,
+  `tou_included` text,
+  `tou_remark` text,
+  `tou_discount` int(11) DEFAULT NULL,
+  `tou_thai_net_adult_price` int(50) DEFAULT NULL,
+  `tou_thai_net_child_price` int(50) DEFAULT NULL,
+  `tou_thai_sale_adult_price` int(50) DEFAULT NULL,
+  `tou_thai_sale_child_price` int(50) DEFAULT NULL,
+  `tou_foreigner_net_adult_price` int(50) DEFAULT NULL,
+  `tou_foreigner_net_child_price` int(50) DEFAULT NULL,
+  `tou_foreigner_sale_adult_price` int(50) DEFAULT NULL,
+  `tou_foreigner_sale_child_price` int(50) DEFAULT NULL,
+  `tou_amount_time` float DEFAULT NULL,
+  `tou_start_time` time DEFAULT NULL,
+  `tou_end_time` time DEFAULT NULL,
+  `tou_cr_date` timestamp NULL DEFAULT NULL,
+  `tou_cr_uid` int(11) DEFAULT NULL,
+  `tou_lu_date` timestamp NULL DEFAULT NULL,
+  `tou_lu_uid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`tou_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;   
