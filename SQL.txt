@@ -26,6 +26,7 @@ CREATE TABLE ci_user (
   PRIMARY KEY (usr_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+
 CREATE TABLE `ci_tour` (
   `tou_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `tou_language_id` int(11) DEFAULT NULL,
@@ -36,14 +37,10 @@ CREATE TABLE `ci_tour` (
   `tou_included` text,
   `tou_remark` text,
   `tou_discount` int(11) DEFAULT NULL,
-  `tou_thai_net_adult_price` int(50) DEFAULT NULL,
-  `tou_thai_net_child_price` int(50) DEFAULT NULL,
-  `tou_thai_sale_adult_price` int(50) DEFAULT NULL,
-  `tou_thai_sale_child_price` int(50) DEFAULT NULL,
-  `tou_foreigner_net_adult_price` int(50) DEFAULT NULL,
-  `tou_foreigner_net_child_price` int(50) DEFAULT NULL,
-  `tou_foreigner_sale_adult_price` int(50) DEFAULT NULL,
-  `tou_foreigner_sale_child_price` int(50) DEFAULT NULL,
+  `tou_net_adult_price` int(50) DEFAULT NULL,
+  `tou_net_child_price` int(50) DEFAULT NULL,
+  `tou_sale_adult_price` int(50) DEFAULT NULL,
+  `tou_sale_child_price` int(50) DEFAULT NULL,
   `tou_amount_time` float DEFAULT NULL,
   `tou_start_time` time DEFAULT NULL,
   `tou_end_time` time DEFAULT NULL,
@@ -53,3 +50,42 @@ CREATE TABLE `ci_tour` (
   `tou_lu_uid` int(11) DEFAULT NULL,
   PRIMARY KEY (`tou_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;   
+
+
+CREATE TABLE `ci_agent` (
+  `agn_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `agn_name` varchar(255) DEFAULT NULL,
+  `agn_firstname` varchar(255) DEFAULT NULL,
+  `agn_lastname` varchar(255) DEFAULT NULL,
+  `agn_address` text,
+  `agn_email` varchar(255) DEFAULT NULL,
+  `agn_telephone` text,
+  `agn_bookbank` text,
+  `agn_condition` text,
+  `agn_remark` text,
+  `agn_cr_date` timestamp NULL DEFAULT NULL,
+  `agn_cr_uid` int(11) DEFAULT NULL,
+  `agn_lu_date` timestamp NULL DEFAULT NULL,
+  `agn_lu_uid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`agn_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;   
+
+
+
+CREATE TABLE `ci_category` (
+  `cat_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cat_name` varchar(255) DEFAULT NULL,
+  `cat_description` TEXT,
+  PRIMARY KEY (`cat_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;  
+
+
+
+CREATE TABLE `ci_language` (
+  `lang_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `lang_acronym` varchar(255) DEFAULT NULL,
+  `lang_name` varchar(255) DEFAULT NULL,
+  `lang_image` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`lang_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;  
+
