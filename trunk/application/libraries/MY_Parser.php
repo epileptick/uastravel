@@ -7,7 +7,7 @@ class MY_Parser extends CI_Parser {
     private $_data = "";
     
     
-    public function parse($template, $data='', $return = FALSE) {
+    public function parse($template, $data='', $return = FALSE,$piece=FALSE) {
         $themeName = Config::getConfig('theme_name');
         
         $this->CI = get_instance();
@@ -19,8 +19,12 @@ class MY_Parser extends CI_Parser {
         $data['themepath'] = base_url("/themes/".$themeName);
         
         $data['maincontent'] = $this->CI->load->view("themes/".$themeName."/_Controller/".$template, $data, TRUE);
+        if(!$piece){
+          $template = $this->CI->load->view("themes/".$themeName."/master.php", $data, TRUE);
+        }else{
+          $template = $data['maincontent'];
+        }
         
-        $template = $this->CI->load->view("themes/".$themeName."/master.php", $data, TRUE);
         
         
         $template = $this->replace_include_keys($template);

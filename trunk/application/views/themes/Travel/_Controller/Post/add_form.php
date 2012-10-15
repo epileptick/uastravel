@@ -1,10 +1,144 @@
 <?php
 PageUtil::addVar("title",$this->lang->line("post_lang_add_post"));
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().'/style/form.css">');
+PageUtil::addVar("stylesheet",'<style type="text/css">@import url('.Util::ThemePath().'/js/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css);</style>');
+PageUtil::addVar("javascript",'<script type="text/javascript" src="http://bp.yahooapis.com/2.4.21/browserplus-min.js"></script>');
+PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::ThemePath().'/js/plupload/plupload.full.js"></script>');
+PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::ThemePath().'/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>');
+PageUtil::addVar("javascript",'<script type="text/javascript">
+$(document).ready(function(){
+    
+    $("#title, #editor").blur(function() {
+      autoSave();
+    });
+    function autoSave(){
+      if($("#id").val()!=0){
+        $.post(\''.base_url('post/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+      }else if($("#id").val()==0){
+        $.post(\''.base_url('post/create/').'\',{title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+      }
+    }
+    
+    function successHandler(data){
+      //alert(data);
+      var json = jQuery.parseJSON(data);
+      $("#id").val(json.id);
+      $("#status").html(json.status).show("slow").delay(5000).hide("slow");
+    }
+    
+    (function($){
+        $.fn.addImg = function(){
+            tinyMCE.execCommand(\'mceInsertContent\',false,\'<img src="\'+this.attr(\'src\')+\'"/>\');
+        };
+    })(jQuery);
+    //Uploader Control
+    $("#btnShow").css("display", "block");
+    $("#btnHide").css("display", "none");
+    $("#uploader").hide();
+    $("#btnHide").click(function() {
+      $("#uploader").hide("slow");
+      $("#btnShow").css("display", "block");
+      $("#btnHide").css("display", "none");
+    });
+    $("#btnShow").click(function() {
+      autoSave();
+      $("#uploader").show("slow");
+      $("#btnShow").css("display", "none");
+      $("#btnHide").css("display", "block");
+      $("#btnHide").addClass("hide-button");
+    });
+});
+// Convert divs to queue widgets when the DOM is ready
+$(document).ready(function() {
+  updateImages();
+  function updateImages(){  
+            $.post("'.base_url("/images/ajax_list").'", { post_id: $("#id").val() },
+            function(data) {
+              $("#side_bar_block_image").html(data).hide("slow").delay(200).show("slow");
+              $("#side_bar_block_image img").click(function() {
+                $(this).addImg();
+              });
+            });
+  }
+  
+	$("#uploader").pluploadQueue({
+		// General settings
+		runtimes : \'html5\',
+		url : \''.base_url("/images/ajax_upload").'\',
+		max_file_size : \'10mb\',
+		chunk_size : \'1mb\',
+		unique_names : true,
+    
+
+		// Resize images on clientside if we can
+		resize : {width : 320, height : 240, quality : 90},
+
+		// Specify what files to browse for
+		filters : [
+			{title : "Image files", extensions : "jpg,gif,png"},
+			{title : "Zip files", extensions : "zip"}
+		],
+
+		// Flash settings
+		flash_swf_url : \'/plupload/js/plupload.flash.swf\',
+
+		// Silverlight settings
+		silverlight_xap_url : \'/plupload/js/plupload.silverlight.xap\',
+    
+    init : {
+
+			StateChanged: function(up) {
+				// Called when the state of the queue is changed
+				//log(\'[StateChanged]\', up.state == plupload.STARTED ? "STARTED" : "STOPPED");
+        var uploader = $(\'#uploader\').pluploadQueue();
+        
+        if(up.state == plupload.STOPPED){
+          setTimeout(function() {
+                $( "#uploader" ).hide(\'slow\').delay(500).show(\'slow\');
+                uploader.splice();
+                $(".plupload_buttons").css("display", "inline");
+                $(".plupload_upload_status").css("display", "inline");
+                $(".plupload_start").addClass("plupload_disabled");
+                $(".plupload_upload_status").css("display", "none");
+                uploader.refresh();
+          }, 100 );
+          
+        }
+			},
+      
+			FileUploaded: function(up, file, info) {
+				// Called when a file has finished uploading
+				//log(\'[FileUploaded] File:\', file, "Info:", info);
+        
+        plupload.each(info, function(value, key) {
+       
+          if(key == "response"){
+            var value = jQuery.parseJSON(value);
+            if(value.result == "TRUE"){
+              updateImages();
+            }
+          }
+			  });
+        
+       
+        //$( "#side_bar_block_image" ).delay(100).fadeIn(1000);
+        
+			}
+		}
+	});
+    var $uploader = $("#uploader").pluploadQueue();
+    $uploader.settings.multipart_params = {post_id: $(\'#id\').val()};
+    
+});
+
+  
+</script>');
+
 PageUtil::addVar("javascript",'
 <script type="text/javascript">
 
   $(document).ready(function(){
+    
     tinyMCE.init({
         mode : "specific_textareas",
         editor_selector : "mceEditor",
@@ -14,6 +148,7 @@ PageUtil::addVar("javascript",'
         //theme_advanced_buttons1 : "justifyleft,justifycenter,justifyright,justifyfull",
         //theme_advanced_buttons2: ",tablecontrols,|,images,youtube,|,bold,italic,underline,strikethrough,|,undo,redo,|,cut,copy,paste,|,code",
         theme_advanced_buttons1 : "fullscreen,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+        
         
         theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
         theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
@@ -29,6 +164,9 @@ PageUtil::addVar("javascript",'
         autoresize_on_init: true,
         autoresize_hide_scrollbars: true
     });
+    
+    tinyMCE.triggerSave(false, true);
+    
     function ajaxfilemanager(field_name, url, type, win) {
 			var ajaxfilemanagerurl = "'.Util::ThemePath().'/js/tiny_mce/plugins/ajaxfilemanager/ajaxfilemanager.php";
 			var view = "detail";
@@ -92,32 +230,33 @@ PageUtil::addVar("javascript",'
       }
 
       function updateMarkerAddress(str) {
-        document.getElementById(\'address\').innerHTML = str;
+        document.getElementById(\'address\').value = str;
       }
 
       function initialize() {
-         var latLng = new google.maps.LatLng(7.968967853297759,98.32956784667977);
+        
+        var latLng = new google.maps.LatLng('.$post['pst_latitude'].','.$post['pst_longitude'].');
 
         var map = new google.maps.Map(document.getElementById(\'mapCanvas\'), {
-            scrollwheel: false,
+          scrollwheel: false,
           zoom: 11,
           center: latLng,
-          mapTypeId: google.maps.MapTypeId.HYBRID
+          mapTypeId: google.maps.MapTypeId.ROADMAP
         });
         
         
         marker = new google.maps.Marker({
           position: latLng,
-          title: \'<!--[$form.name]-->\',
+          title: \'\',
           map: map,
-          draggable: true
+          draggable: false
         });
         
         
-				markersArray.push(marker); 				
+        markersArray.push(marker); 
         google.maps.event.addListener(map, \'click\', function(e) {
           placeMarker(e.latLng, map);
-        });        
+        });
         
         // Update current position info.
         updateMarkerPosition(latLng);
@@ -181,32 +320,20 @@ PageUtil::addVar("javascript",'
 ');
 ?>
 
- <!-- Header -->
-<header style="background-image:url(<?=$imagepath?>/placeholders/1280x1024/13.jpg);">
 
-	<div class="container_12">
-    {_include menu}
-	</div>
-
-	<!-- Heading -->
-	<h2>Travel blog</h2>
-
-</header>
-
-<!-- Main content -->
-<div class="container_12">
 
 	<!-- Blogpost -->
 	<section class="blogpost grid_12">
-		
+  <h2 class="section_heading text_big"><?=$this->lang->line("post_lang_add_post")?></h2>
   <div id="add_form">
+  <div id="status"></div>
   <?php echo form_open(base_url('post/create')); ?>
-  
+  <input type="hidden" value="<?=$post['pst_id']?>" id="id" name="id" />
   <div class="topHolder">
     <span class="GM1BAGKBGJB blogg-title">โพสต์</span>
     <span class="GM1BAGKBJJB blogg-title">·</span>
     <?php
-    echo form_input('title', '', 'class="GM1BAGKBHEC titleField textField GM1BAGKBGEC" dir="ltr" title="ชื่อ" size="60"');
+    echo form_input('title', $post['pst_title'], 'id="title" class="GM1BAGKBHEC titleField textField GM1BAGKBGEC" dir="ltr" title="ชื่อ" size="60"');
     ?>
     <span class="GM1BAGKBNIB">
       <?php echo form_submit('submit', $this->lang->line("post_lang_submit"), 'class="blogg-button blogg-primary"'); ?>
@@ -216,23 +343,24 @@ PageUtil::addVar("javascript",'
   <div id="editorPanel"></div>
     <div id="wrapper-editor">
       <div id="editor">
-        <textarea name="body" class="mceEditor" style="width:100%"></textarea>
+        <textarea name="body" class="mceEditor" style="width:100%" id="txtBody" >
+        <?=$post['pst_body']?>
+        </textarea>
       </div>
       <div class="clear"></div>
     </div>
   </div>
     <div id="add_form_right">
-    <h2>{_ post_lang_configuration}</h2>
+    <h2 class="text_big">{_ post_lang_configuration}</h2>
       <div class="side_bar_block">
         <h3 class="image">{_ post_lang_image_manager}</h3>
-        <img src="<?=$imagepath?>/placeholders/66x66/8.jpg" border="0" />
-        <img src="<?=$imagepath?>/placeholders/66x66/1.jpg" border="0" />
-        <img src="<?=$imagepath?>/placeholders/66x66/2.jpg" border="0" />
-        <img src="<?=$imagepath?>/placeholders/66x66/3.jpg" border="0" />
-        <img src="<?=$imagepath?>/placeholders/66x66/4.jpg" border="0" />
-        <img src="<?=$imagepath?>/placeholders/66x66/5.jpg" border="0" />
-        <img src="<?=$imagepath?>/placeholders/66x66/6.jpg" border="0" />
-        <img src="<?=$imagepath?>/placeholders/66x66/7.jpg" border="0" />
+        <div id="side_bar_block_image">
+        </div>
+        <div id="uploader">
+      		<p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
+      	</div>
+        <span id="btnHide"  class="upload-button" onClick="return(false);"></span>
+        <span id="btnShow"  class="upload-button" onClick="return(false);"></span>
       </div>
       
       <div class="side_bar_block">
@@ -241,13 +369,15 @@ PageUtil::addVar("javascript",'
       
       <div class="side_bar_block">
         <h3 class="location">{_ post_lang_location}</h3>
-        <div id="mapCanvas" style="margin-bottom:20px;"></div>
+        <div id="mapCanvas"></div>
+        <input type="hidden" value="" id="longitude" name="longitude">
+        <input type="hidden" value="" id="latitude" name="latitude">
+        <input type="hidden" value="" id="address" name="address">
       </div>
     </div>
     <div class="clear"></div>
 	</section>
-
+  <?php echo form_close(); ?>
 	<div class="clearfix"></div>
-	<hr class="dashed grid_12">
-	
-</div> 
+
+	<hr class="dashed grid_12" />

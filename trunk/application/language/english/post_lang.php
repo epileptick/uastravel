@@ -6,4 +6,5 @@ $lang['post_lang_image_manager'] = "Images";
 $lang['post_lang_configuration'] = "Configuration";
 $lang['post_lang_tag'] = "Tag";
 $lang['post_lang_location'] = "Location";
+$lang['post_lang_post_saved'] = "Post Saved!";
 ?>
