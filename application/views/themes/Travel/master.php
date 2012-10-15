@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Travel - Premium HTML Template</title>
+	<title>UASTravel.com</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -28,19 +28,33 @@
 	<script src="<?=$jspath?>/libs/jquery-ui-1.8.16.custom.min.js"></script>
 	<script src="<?=$jspath?>/script.js"></script>
 	<script src="<?=$themepath?>/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-	<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
   
   <!-- Load TinyMCE -->
   <script type="text/javascript" src="<?=$jspath?>/tiny_mce/tiny_mce.js"></script>
 </head>
 <body>
 
+ <!-- Header -->
+<header style="background-image:url(<?=$imagepath?>/placeholders/1280x1024/13.jpg);">
+
+	<div class="container_12">
+    {_include menu}
+	</div>
+
+	<!-- Heading -->
+	<h2>Travel blog</h2>
+
+</header>
+
+<!-- Main content -->
+<div class="container_12">
 
 
 
   <?=$maincontent?>
 
-
+	
+</div> 
 
 	<!-- Google Analytics -->
 	<script type="text/javascript">

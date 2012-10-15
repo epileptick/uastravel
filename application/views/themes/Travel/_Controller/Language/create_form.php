@@ -1,5 +1,5 @@
 
-<br>
+<br />
 <div class="container_12">
 <h2>&nbsp;&nbsp;&nbsp;Add Category Information</h2>
 </div>
@@ -8,7 +8,7 @@
 	<!-- Filter -->
 	<section class="grid_12">
 
-		<?php echo form_open(base_url("index.php/language/create"));?>
+		<?php echo form_open(base_url("language/create"));?>
 	
 			<div class="half">
 				<label>Language Acronym :</label> <?php echo form_error('acronym', '<font color="red">', '</font>'); ?>

@@ -121,7 +121,7 @@ $autoload['model'] = array();
 |
 */
 
-$autoload['utils'] = array("user","util","config","FormUtil","PageUtil");
+$autoload['utils'] = array("user","util","config","FormUtil","PageUtil","Hash");
 
 
 /* End of file autoload.php */

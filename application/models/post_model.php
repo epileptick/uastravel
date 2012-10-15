@@ -11,6 +11,8 @@ class Post_model extends MY_Model {
                      'level'            => 'pst_level',
                      'group'            => 'pst_group',
                      'url'              => 'pst_url',
+                     'longitude'        => 'pst_longitude',
+                     'latitude'         => 'pst_latitude',
                      'cr_date'          => 'pst_cr_date',
                      'cr_uid'           => 'pst_cr_uid',
                      'lu_date'          => 'pst_lu_date',
@@ -23,16 +25,20 @@ class Post_model extends MY_Model {
     if($options==""){
       return FALSE;
     }
-
-    if(!$this->_required("title",$options)){
-      $this->_addError("invalid title");
-      return FALSE;
+    //var_dump($options);exit;
+    if($options['force']!=TRUE){
+      if(!$this->_required("title",$options)){
+        $this->_addError("invalid title");
+        return FALSE;
+      }
+      if(!$this->_required("body",$options)){
+        $this->_addError("invalid body");
+        return FALSE;
+      }
     }
-    if(!$this->_required("body",$options)){
-      $this->_addError("invalid body");
-      return FALSE;
+    if(!isset($options["title"])){
+      $options["title"] = "Title";
     }
-    
     if(!isset($options["status"])){
       $options["status"] = 1;
     }
@@ -48,7 +54,8 @@ class Post_model extends MY_Model {
     if(!isset($options["lu_uid"])){
       $options["lu_uid"] = 0;
     }
-    $options["url"] = trim($options["url"]);
+    
+    
     if(!isset($options["url"])||$options["url"]==""){
       $string = $options["title"];
       $string = preg_replace("`\[.*\]`U","",$string);
@@ -59,7 +66,7 @@ class Post_model extends MY_Model {
       $string = preg_replace( array("`[^a-z0-9ก-๙เ-า]`i","`[-]+`") , "-", $string);
       $options["url"] = strtolower(trim($string, '-'));
     }
-    
+    $options["url"] = trim($options["url"]);
     
     
     //Set data
@@ -69,28 +76,34 @@ class Post_model extends MY_Model {
       }
     }
     $result = $this->db->insert($this->_table);
-    return $result;
+    if($result){
+      return $this->db->insert_id();
+    }else{
+      $result;
+    }
+    
   }
   
   function updateRecord($options=""){
-    if($options=""){
+    if($options==""){
       return FALSE;
+    }
+    if($options['force']!=TRUE){
+      if(!$this->_required("title",$options)){
+        $this->_addError("invalid title");
+        return FALSE;
+      }
+      if(!$this->_required("body",$options)){
+        $this->_addError("invalid body");
+        return FALSE;
+      }
+      if(!$this->_required("id",$options)){
+        $this->_addError("id is not exist");
+        return FALSE;
+      }
     }
     
-    if(!$this->_required("title",$options)){
-      $this->_addError("invalid title");
-      return FALSE;
-    }
-    if(!$this->_required("body",$options)){
-      $this->_addError("invalid body");
-      return FALSE;
-    }
-    if(!$this->_required("id",$options)){
-      $this->_addError("id is not exist");
-      return FALSE;
-    }
-    
-    $options[lu_date] = 1;
+    $options['lu_date'] = date("Y-m-d");
     
     //Set data
     foreach($options AS $columnName=>$columnValue){
@@ -98,8 +111,40 @@ class Post_model extends MY_Model {
         $this->db->set($this->_column[$columnName], $columnValue); 
       }
     }
-    $this->db->where($this->_column[id], $options[id]);
-    $this->db->update($this->_table);
+    $this->db->where($this->_column['id'], $options['id']);
+    $result = $this->db->update($this->_table);
+    if($result){
+      return $options['id'];
+    }else{
+      $result;
+    }
+  }
+  
+  function readRecord($options=""){
+    if($options==""){
+      return FALSE;
+    }
+    if(!$this->_required("id",$options)){
+      $this->_addError("invalid id");
+      return FALSE;
+    }
+    
+    if(isset($options['id'])){
+      $this->db->where($this->_prefix.'_id',$options['id']);
+    }
+    $this->db->from($this->_table);
+    $query = $this->db->get();
+
+    if ($query->num_rows() > 0)
+    {
+      foreach($query->result() as $key=>$value){
+        $result = Util::objectToArray($value);
+      }
+      return $result;
+    }else{
+      return FALSE;
+    }
+    
   }
 }
 ?>

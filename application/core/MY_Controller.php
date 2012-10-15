@@ -9,8 +9,8 @@ class MY_Controller extends CI_Controller {
     $this->load->model(strtolower($this->_CLASS)."_model",strtolower($this->_CLASS)."Model");
   }
   
-  function _fetch($template,$data='',$return=FALSE){
-    return $this->parser->parse($this->_CLASS."/".$template,$data,$return);
+  function _fetch($template,$data='',$return=FALSE,$piece=FALSE){
+    return $this->parser->parse($this->_CLASS."/".$template,$data,$return,$piece);
   }
   
   
