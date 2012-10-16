@@ -12,9 +12,9 @@ class Location extends MY_Controller {
 
 
   function create($id=NULL){
-    if($this->input->post("submit") != NULL||$this->input->post("ajax")==TRUE){
+    if($this->input->post("submit") != NULL OR $this->input->post("ajax")==TRUE){
       $_post = $this->input->post();
-      if(isset($_post["id"])){
+      if( isset($_post["id"]) ){
         $postData = $this->locationModel->updateRecord($_post);
       }else{
         $postData = $this->locationModel->addRecord($_post);
@@ -26,7 +26,7 @@ class Location extends MY_Controller {
           $data['status'] = $this->_fetch('ajax_save_success',$data,TRUE,TRUE);
           echo json_encode($data);
           die;
-        }else{
+        }else{ 
           $data['post_data']['id'] = $postData;
           $this->_fetch('add_success',$data);
         }
@@ -36,16 +36,16 @@ class Location extends MY_Controller {
     }else{
       if($id==NULL){
         $data['post'] = array(
-                            'pst_id' => 0,
-                            'pst_latitude' => "7.951172174578056",
-                            'pst_longitude' => "98.34449018537998",
-                            'pst_title' => "",
-                            'pst_body' => ""
+                            'loc_id' => 0,
+                            'loc_latitude' => "7.951172174578056",
+                            'loc_longitude' => "98.34449018537998",
+                            'loc_title' => "",
+                            'loc_body' => ""
                             ); 
       }else{
         $postData = $this->locationModel->readRecord(array('id'=>$id));
         if(!$postData){
-          redirect(base_url("post/create"));
+          redirect(base_url("location/create"));
           die;
         }
         $data['post'] = $postData; 
@@ -55,26 +55,15 @@ class Location extends MY_Controller {
   }
 
   
-  function read($id=false, $limit=10, $offset=0){
+  function read($id=FALSE){
     if($id){ 
-      //Read 1 item     
-      $query = $this->db->get_where('ci_post', array('pst_url' => $id), $limit, $offset);
-      $data = array(
-                      "post" => $query->result()
-              );
-      $this->_fetch('read', $data);
-    }else{
-      //Read multiple item
-      $query = $this->db->get('ci_post');        
-      $data = array(
-              );
-      $this->_fetch('list', $data);
+      
     }
   }
 
   function update(){
     //implement code here
-
+    
   } 
 
 
