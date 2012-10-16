@@ -1,5 +1,5 @@
 <?php
-PageUtil::addVar("title",$this->lang->line("post_lang_add_post"));
+PageUtil::addVar("title",$this->lang->line("location_lang_add_post"));
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().'/style/form.css">');
 PageUtil::addVar("stylesheet",'<style type="text/css">@import url('.Util::ThemePath().'/js/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css);</style>');
 PageUtil::addVar("javascript",'<script type="text/javascript" src="http://bp.yahooapis.com/2.4.21/browserplus-min.js"></script>');
@@ -20,13 +20,13 @@ $(document).ready(function(){
     }
     
     function successHandler(data){
-      //alert(data);
       var json = jQuery.parseJSON(data);
       $("#id").val(json.id);
       $("#status").html(json.status).show("slow");
       $("#span_status").show("slow").delay(5000).hide("slow");
       var $uploader = $("#uploader").pluploadQueue();
-      $uploader.settings.multipart_params = {post_id: $(\'#id\').val()};
+      $uploader.settings.multipart_params = {location_id: $(\'#id\').val()};
+      $("#show_id").html(json.id);
     }
     
     (function($){
@@ -55,9 +55,8 @@ $(document).ready(function(){
 $(document).ready(function() {
   updateImages();
   function updateImages(){  
-            $.post("'.base_url("/images/ajax_list").'", { post_id: $("#id").val() },
+            $.post("'.base_url("/images/ajax_list").'", { location_id: $("#id").val() },
             function(data) {
-            
               $("#side_bar_block_image").html(data).hide("slow").delay(200).show("slow");
               $("#side_bar_block_image img").click(function() {
                 $(this).addImg();
@@ -206,7 +205,7 @@ PageUtil::addVar("javascript",'
 
       function initialize() {
         
-        var latLng = new google.maps.LatLng('.$post['pst_latitude'].','.$post['pst_longitude'].');
+        var latLng = new google.maps.LatLng('.$post['loc_latitude'].','.$post['loc_longitude'].');
 
         var map = new google.maps.Map(document.getElementById(\'mapCanvas\'), {
           scrollwheel: false,
@@ -295,19 +294,21 @@ PageUtil::addVar("javascript",'
 
 	<!-- Blogpost -->
 	<section class="blogpost grid_12">
-  <h2 class="section_heading text_big"><?=$this->lang->line("post_lang_add_post")?></h2>
+  <h2 class="section_heading text_big"><?=$this->lang->line("location_lang_add_post")?></h2>
   <div id="add_form">
+  <h2 id="show_id"><?=$post['loc_id']?></h2>
   <div id="status"></div>
+  
   <?php echo form_open(base_url('location/create')); ?>
-  <input type="hidden" value="<?=$post['pst_id']?>" id="id" name="id" />
+  <input type="hidden" value="<?=$post['loc_id']?>" id="id" name="id" />
   <div class="topHolder">
     <span class="GM1BAGKBGJB blogg-title">โพสต์</span>
     <span class="GM1BAGKBJJB blogg-title">·</span>
     <?php
-    echo form_input('title', $post['pst_title'], 'id="title" class="GM1BAGKBHEC titleField textField GM1BAGKBGEC" dir="ltr" title="ชื่อ" size="60"');
+    echo form_input('title', $post['loc_title'], 'id="title" class="GM1BAGKBHEC titleField textField GM1BAGKBGEC" dir="ltr" title="ชื่อ" size="60"');
     ?>
     <span class="GM1BAGKBNIB">
-      <?php echo form_submit('submit', $this->lang->line("post_lang_submit"), 'class="blogg-button blogg-primary"'); ?>
+      <?php echo form_submit('submit', $this->lang->line("location_lang_submit"), 'class="blogg-button blogg-primary"'); ?>
       <button class="blogg-button" tabindex="0" onClick="history.go(-1)">ปิด</button>
     </span>
   </div>
@@ -315,16 +316,16 @@ PageUtil::addVar("javascript",'
     <div id="wrapper-editor">
       <div id="editor">
         <textarea name="body" class="mceEditor" style="width:100%" id="txtBody" >
-        <?=$post['pst_body']?>
+        <?=$post['loc_body']?>
         </textarea>
       </div>
       <div class="clear"></div>
     </div>
   </div>
     <div id="add_form_right">
-    <h2 class="text_big">{_ post_lang_configuration}</h2>
+    <h2 class="text_big">{_ location_lang_configuration}</h2>
       <div class="side_bar_block">
-        <h3 class="image">{_ post_lang_image_manager}</h3>
+        <h3 class="image">{_ location_lang_image_manager}</h3>
         <div id="side_bar_block_image">
         </div>
         <div id="uploader">
@@ -335,11 +336,11 @@ PageUtil::addVar("javascript",'
       </div>
       
       <div class="side_bar_block">
-        <h3 class="tag">{_ post_lang_tag}</h3>
+        <h3 class="tag">{_ location_lang_tag}</h3>
       </div>
       
       <div class="side_bar_block">
-        <h3 class="location">{_ post_lang_location}</h3>
+        <h3 class="location">{_ location_lang_location}</h3>
         <div id="mapCanvas"></div>
         <input type="hidden" value="" id="longitude" name="longitude">
         <input type="hidden" value="" id="latitude" name="latitude">

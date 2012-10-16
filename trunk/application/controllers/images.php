@@ -34,7 +34,7 @@ class Images extends MY_Controller {
     
     
     // Settings
-    $targetDir = $dir_1.DIRECTORY_SEPARATOR.$_post["post_id"];
+    $targetDir = $dir_1.DIRECTORY_SEPARATOR.$_post["location_id"];
     //$targetDir = 'uploads';
     $cleanupTargetDir = true; // Remove old files
     $maxFileAge = 5 * 3600; // Temp file age in seconds
@@ -145,7 +145,7 @@ class Images extends MY_Controller {
      
       $fileURL = base_url($filePath);
       
-      $Obj = array(       'post_id'=> $_post['post_id'],
+      $Obj = array(       'location_id'=> $_post['location_id'],
                           'file_name' => $fileName,
                           'file_path' => $filePath,
                           'size' => filesize($filePath),

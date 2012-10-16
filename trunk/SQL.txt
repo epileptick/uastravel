@@ -1,4 +1,4 @@
-CREATE TABLE `ci_post` (
+CREATE TABLE `ci_location` (
   `pst_id` int(11) NOT NULL AUTO_INCREMENT,
   `pst_title` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `pst_body` text CHARACTER SET utf8,
@@ -97,7 +97,7 @@ CREATE TABLE `ci_images` (
   `img_file_name` varchar(255) DEFAULT NULL,
   `img_size` varchar(255) DEFAULT NULL,
   `img_type` varchar(255) DEFAULT NULL,
-  `img_post_id` int(11) DEFAULT NULL,
+  `img_location_id` int(11) DEFAULT NULL,
   `img_url` varchar(255) DEFAULT NULL,
   UNIQUE KEY `img_id` (`img_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
