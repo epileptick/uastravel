@@ -34,7 +34,9 @@ class Language extends MY_Controller {
         $this->_fetch('create_form');
       }else{
         $this->languageModel->addRecord($args);
-        $this->_fetch('create_success');
+        $data["language"] = $this->languageModel->getRecord();  
+        $data["message"] = "Create successful !!!";
+        $this->_fetch('list', $data);  
       }
     }
 
@@ -65,8 +67,9 @@ class Language extends MY_Controller {
 
     if($args["id"]) {
         $this->languageModel->updateRecord($args);
-        //exit;
-        $this->_fetch('create_success');        
+        $data["agent"] = $this->languageModel->getRecord();  
+        $data["message"] = "Update successful !!!";
+        $this->_fetch('list', $data);        
     } else {
         $this->languageModel->addRecord($args);
     } 
@@ -79,7 +82,8 @@ class Language extends MY_Controller {
     if($id) {
         $this->languageModel->deleteRecord($id);
 
-        $data["language"] = $this->languageModel->getRecord();  
+        $data["language"] = $this->languageModel->getRecord(); 
+        $data["message"] = "Delete successful !!!";    
         $this->_fetch('list', $data);        
     } 
   }  
