@@ -1,43 +1,40 @@
 <br>
 <style type="text/css">
-
-.round
-{
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-    padding: 5px;
-    border: 1px solid #000;
-}
-
-
-.numberCircle {
-    -webkit-border-radius: 999px;
-    -moz-border-radius: 999px;
-    border-radius: 999px;
-    behavior: url(PIE.htc);
-
-    width: 36px;
-    height: 36px;
-    padding: 8px;
-
-    background: #fff;
-    border: 2px solid #666;
-    color: #666;
-    text-align: center;
-
-    font: 32px Arial, sans-serif
-}
+li.alert_messagea{
+	text-align:center;
+	vertical-align:middle;
+	background-color:#61C419;
+	color:#FFFFFF;
+	font-size:12px;
+	font-weight:bold;
+	display:block;
+	width:125px;
+	height:10px;
+	float:left;
+	-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;
 }
 </style>
 
 <div class="container_12">
 
+<?php 
+	if(isset($message)){
+?>		
+		<ul >
+			<li class="alert_message">
+				<font color="green"><?php echo $message;?> [X] </font>
+			</li>		
+		</ul>	
+
+<?php 		
+	}
+?>	
+
 <section class="similar_hotels grid_12">
 		
-		<h2 class="section_heading">Language List</h2>
+		<h2 class="section_heading">Language List  [ <a href='<?php echo base_url("index.php/language/create");?>'>Create</a> ]</h2>	
 		<ul>
-
-			<?php 
+			<?php 			
 
 			if($language){
 				foreach ($language as $key => $value) {
