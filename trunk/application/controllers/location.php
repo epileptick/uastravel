@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Post extends MY_Controller {
+class Location extends MY_Controller {
   function __construct(){
     parent::__construct();
   }
@@ -15,9 +15,9 @@ class Post extends MY_Controller {
     if($this->input->post("submit") != NULL||$this->input->post("ajax")==TRUE){
       $_post = $this->input->post();
       if(isset($_post["id"])){
-        $postData = $this->postModel->updateRecord($_post);
+        $postData = $this->locationModel->updateRecord($_post);
       }else{
-        $postData = $this->postModel->addRecord($_post);
+        $postData = $this->locationModel->addRecord($_post);
       }
       
       if($postData){
@@ -43,7 +43,7 @@ class Post extends MY_Controller {
                             'pst_body' => ""
                             ); 
       }else{
-        $postData = $this->postModel->readRecord(array('id'=>$id));
+        $postData = $this->locationModel->readRecord(array('id'=>$id));
         if(!$postData){
           redirect(base_url("post/create"));
           die;
