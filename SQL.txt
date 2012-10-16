@@ -5,13 +5,15 @@ CREATE TABLE `ci_post` (
   `pst_status` int(1) DEFAULT NULL,
   `pst_level` int(3) DEFAULT NULL,
   `pst_group` int(2) DEFAULT NULL,
-  `pst_url` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `pst_cr_date` timestamp DEFAULT NULL,
+  `pst_url` varchar(255) DEFAULT NULL,
+  `pst_cr_date` date DEFAULT NULL,
   `pst_cr_uid` int(11) DEFAULT NULL,
-  `pst_lu_date` timestamp DEFAULT NULL,
+  `pst_lu_date` date DEFAULT NULL,
   `pst_lu_uid` int(11) DEFAULT NULL,
+  `pst_longitude` varchar(255) DEFAULT NULL,
+  `pst_latitude` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`pst_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
 
 CREATE TABLE ci_user (
@@ -89,3 +91,13 @@ CREATE TABLE `ci_language` (
   PRIMARY KEY (`lang_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;  
 
+
+CREATE TABLE `ci_images` (
+  `img_id` int(11) NOT NULL AUTO_INCREMENT,
+  `img_file_name` varchar(255) DEFAULT NULL,
+  `img_size` varchar(255) DEFAULT NULL,
+  `img_type` varchar(255) DEFAULT NULL,
+  `img_post_id` int(11) DEFAULT NULL,
+  `img_url` varchar(255) DEFAULT NULL,
+  UNIQUE KEY `img_id` (`img_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8; 

@@ -23,7 +23,8 @@ $(document).ready(function(){
       //alert(data);
       var json = jQuery.parseJSON(data);
       $("#id").val(json.id);
-      $("#status").html(json.status).show("slow").delay(5000).hide("slow");
+      $("#status").html(json.status).show("slow");
+      $("#span_status").show("slow").delay(5000).hide("slow");
     }
     
     (function($){
