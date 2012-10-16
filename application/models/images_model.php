@@ -19,13 +19,13 @@ class Images_model extends MY_Model {
     }
     
     $options["url"] = trim($options["url"]);
-    
     //Set data
     foreach($options AS $columnName=>$columnValue){
       if(array_key_exists($columnName, $this->_column)){
         $this->db->set($this->_column[$columnName], $columnValue); 
       }
     }
+    
     $result = $this->db->insert($this->_table);
     if($result){
       return $this->db->insert_id();
@@ -43,6 +43,7 @@ class Images_model extends MY_Model {
     foreach($options AS $columnName => $columnValue){
       if(array_key_exists($columnName, $this->_column)){
         $this->db->where($this->_column[$columnName],$columnValue);
+        
       }
     }
     $this->db->from($this->_table);

@@ -13,9 +13,9 @@ $(document).ready(function(){
     });
     function autoSave(){
       if($("#id").val()!=0){
-        $.post(\''.base_url('post/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+        $.post(\''.base_url('location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
       }else if($("#id").val()==0){
-        $.post(\''.base_url('post/create/').'\',{title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+        $.post(\''.base_url('location/create/').'\',{title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
       }
     }
     
@@ -25,6 +25,8 @@ $(document).ready(function(){
       $("#id").val(json.id);
       $("#status").html(json.status).show("slow");
       $("#span_status").show("slow").delay(5000).hide("slow");
+      var $uploader = $("#uploader").pluploadQueue();
+      $uploader.settings.multipart_params = {post_id: $(\'#id\').val()};
     }
     
     (function($){
@@ -55,6 +57,7 @@ $(document).ready(function() {
   function updateImages(){  
             $.post("'.base_url("/images/ajax_list").'", { post_id: $("#id").val() },
             function(data) {
+            
               $("#side_bar_block_image").html(data).hide("slow").delay(200).show("slow");
               $("#side_bar_block_image img").click(function() {
                 $(this).addImg();
@@ -72,7 +75,7 @@ $(document).ready(function() {
     
 
 		// Resize images on clientside if we can
-		resize : {width : 320, height : 240, quality : 90},
+		//resize : {width : 320, height : 240, quality : 90},
 
 		// Specify what files to browse for
 		filters : [
@@ -127,8 +130,7 @@ $(document).ready(function() {
 			}
 		}
 	});
-    var $uploader = $("#uploader").pluploadQueue();
-    $uploader.settings.multipart_params = {post_id: $(\'#id\').val()};
+    
     
 });
 
@@ -159,43 +161,11 @@ PageUtil::addVar("javascript",'
         theme_advanced_statusbar_location : "bottom",
         theme_advanced_resizing : false,
         theme_advanced_source_editor_width: 630,
-        file_browser_callback : "ajaxfilemanager",
         autoresize_min_height: 500,
         autoresize_not_availible_height: 10,
         autoresize_on_init: true,
         autoresize_hide_scrollbars: true
     });
-    
-    tinyMCE.triggerSave(false, true);
-    
-    function ajaxfilemanager(field_name, url, type, win) {
-			var ajaxfilemanagerurl = "'.Util::ThemePath().'/js/tiny_mce/plugins/ajaxfilemanager/ajaxfilemanager.php";
-			var view = "detail";
-			switch (type) {
-				case "image":
-				view = "thumbnail";
-					break;
-				case "media":
-					break;
-				case "flash": 
-					break;
-				case "file":
-					break;
-				default:
-					return false;
-			}
-      tinyMCE.activeEditor.windowManager.open({
-          url: "'.Util::ThemePath().'/js/tiny_mce/plugins/ajaxfilemanager/ajaxfilemanager.php?view=" + view,
-          width: 782,
-          height: 440,
-          inline : "yes",
-          close_previous : "no"
-      },{
-          window : win,
-          input : field_name
-      });
-      
-      }
   });
   
 </script>
@@ -328,7 +298,7 @@ PageUtil::addVar("javascript",'
   <h2 class="section_heading text_big"><?=$this->lang->line("post_lang_add_post")?></h2>
   <div id="add_form">
   <div id="status"></div>
-  <?php echo form_open(base_url('post/create')); ?>
+  <?php echo form_open(base_url('location/create')); ?>
   <input type="hidden" value="<?=$post['pst_id']?>" id="id" name="id" />
   <div class="topHolder">
     <span class="GM1BAGKBGJB blogg-title">โพสต์</span>
