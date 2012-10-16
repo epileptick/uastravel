@@ -96,8 +96,11 @@ class Language_model extends MY_Model {
   }
 
   function deleteRecord($id){
-    $this->db->where("lang_id", $id);
-    $this->db->delete("ci_language");
+    if($id){
+      $this->db->where("lang_id", $id);
+      $this->db->delete("ci_language");
+    }    
+
   }
 }
 ?>
