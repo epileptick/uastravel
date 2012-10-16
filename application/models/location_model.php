@@ -1,22 +1,22 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Post_model extends MY_Model {
+class Location_model extends MY_Model {
   function __construct(){
     parent::__construct();
-    $this->_prefix = "pst";
+    $this->_prefix = "loc";
     $this->_column = array(
-                     'id'               => 'pst_id',
-                     'title'            => 'pst_title',
-                     'body'             => 'pst_body',
-                     'status'           => 'pst_status',
-                     'level'            => 'pst_level',
-                     'group'            => 'pst_group',
-                     'url'              => 'pst_url',
-                     'longitude'        => 'pst_longitude',
-                     'latitude'         => 'pst_latitude',
-                     'cr_date'          => 'pst_cr_date',
-                     'cr_uid'           => 'pst_cr_uid',
-                     'lu_date'          => 'pst_lu_date',
-                     'lu_uid'           => 'pst_lu_uid'
+                     'id'               => 'loc_id',
+                     'title'            => 'loc_title',
+                     'body'             => 'loc_body',
+                     'status'           => 'loc_status',
+                     'level'            => 'loc_level',
+                     'group'            => 'loc_group',
+                     'url'              => 'loc_url',
+                     'longitude'        => 'loc_longitude',
+                     'latitude'         => 'loc_latitude',
+                     'cr_date'          => 'loc_cr_date',
+                     'cr_uid'           => 'loc_cr_uid',
+                     'lu_date'          => 'loc_lu_date',
+                     'lu_uid'           => 'loc_lu_uid'
                      
     );
   }
