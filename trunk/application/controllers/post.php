@@ -23,9 +23,9 @@ class Post extends MY_Controller {
       if($postData){
         if($this->input->post("ajax")==TRUE){
           $data['id'] = $postData;
-          $data['status'] = "<p>".$this->lang->line("post_lang_post_saved")."</p>";
+          $data['status'] = $this->_fetch('ajax_save_success',$data,TRUE,TRUE);
           echo json_encode($data);
-          exit;
+          die;
         }else{
           $data['post_data']['id'] = $postData;
           $this->_fetch('add_success',$data);

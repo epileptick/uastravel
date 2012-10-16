@@ -33,10 +33,19 @@
   <script type="text/javascript" src="<?=$jspath?>/tiny_mce/tiny_mce.js"></script>
 </head>
 <body>
-
- <!-- Header -->
+<?php 
+if($this->uri->segment(0)=="post"){
+?>
+ <!-- Post Header -->
 <header style="background-image:url(<?=$imagepath?>/placeholders/1280x1024/13.jpg);">
-
+<?php
+}else{
+?>
+ <!--Home Header -->
+<header style="background-image:url(<?=$imagepath?>/placeholders/1280x1024/12.jpg);">
+<?php
+}
+?>
 	<div class="container_12">
     {_include menu}
 	</div>
