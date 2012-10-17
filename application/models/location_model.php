@@ -27,36 +27,36 @@ class Location_model extends MY_Model {
     }
     //var_dump($options);exit;
     if($options['force']!=TRUE){
-      if(!$this->_required("title",$options)){
+      if(! $this->_required("title",$options)){
         $this->_addError("invalid title");
         return FALSE;
       }
-      if(!$this->_required("body",$options)){
+      if(! $this->_required("body",$options)){
         $this->_addError("invalid body");
         return FALSE;
       }
     }
-    if(!isset($options["title"])){
+    if(! isset($options["title"])){
       $options["title"] = "Title";
     }
-    if(!isset($options["status"])){
+    if(! isset($options["status"])){
       $options["status"] = 1;
     }
-    if(!isset($options["cr_date"])){
+    if(! isset($options["cr_date"])){
       $options["cr_date"] = date("Y-m-d");
     }
-    if(!isset($options["cr_uid"])){
+    if(! isset($options["cr_uid"])){
       $options["cr_uid"] = 0;
     }
-    if(!isset($options["lu_date"])){
+    if(! isset($options["lu_date"])){
       $options["lu_date"] = date("Y-m-d");
     }
-    if(!isset($options["lu_uid"])){
+    if(! isset($options["lu_uid"])){
       $options["lu_uid"] = 0;
     }
     
     
-    if(!isset($options["url"])||$options["url"]==""){
+    if(! isset($options["url"])||$options["url"]==""){
       $string = $options["title"];
       $string = preg_replace("`\[.*\]`U","",$string);
       $string = preg_replace('`&(amp;)?#?[a-z0-9]+;`i','-',$string);
