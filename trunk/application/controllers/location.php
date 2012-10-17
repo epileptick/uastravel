@@ -6,7 +6,7 @@ class Location extends MY_Controller {
   }
   
   function index(){
-    $this->read();
+    //$this->locationModel-
   }
   
 
