@@ -38,6 +38,8 @@ class Tour extends MY_Controller {
     ///////////////////////
     if($id){
 
+
+
       //Query data by tour_id
       $args["id"] = $id;      
       $data["tour"] = $this->tourModel->getRecord($args);
@@ -51,7 +53,7 @@ class Tour extends MY_Controller {
         $data["agencyTour"] = $this->agencytourModel->getRecord($agencyTour);  
 
 
-        if(is_array($data["agencyTour"])){
+        if(!empty($data["agencyTour"])){
           $this->load->model("agency_model", "agencyModel");  
           $field = "agn_id, agn_name"; 
           foreach ($data["agencyTour"] as $key => $value) {
@@ -72,7 +74,7 @@ class Tour extends MY_Controller {
         //print_r($data["tagTour"]); exit;
 
 
-        if(isset($data["tagTour"]) && $data["tagTour"]){
+        if(!empty($data["tagTour"]) && $data["tagTour"]){
           //$this->load->model("tag_model", "tagModel");  
           foreach ($data["tagTour"] as $key => $value) {
             //echo $value->tag_id; echo "<br>";
@@ -111,11 +113,15 @@ class Tour extends MY_Controller {
         ////////////////////////////////////////////
         //Add (AgencyTour) relationship data table 
         ////////////////////////////////////////////  
-        $this->load->model("agencytour_model", "agencytourModel"); 
-        foreach ($args["agency_tour"] as $key => $value) {
-          $args["agency_tour"][$key]["tour_id"] = $insertTourID;
+
+        if(!empty($args["agency_tour"])){
+          $this->load->model("agencytour_model", "agencytourModel"); 
+          foreach ($args["agency_tour"] as $key => $value) {
+            $args["agency_tour"][$key]["tour_id"] = $insertTourID;
+          }
+          $this->agencytourModel->addMultipleRecord($args["agency_tour"]);
+
         }
-        $this->agencytourModel->addMultipleRecord($args["agency_tour"]);
 
 
         ////////////////////////////////////////////
@@ -226,14 +232,17 @@ class Tour extends MY_Controller {
         ///////////////////////////////////////////
         // Update relationship table (AgencyTour)
         ///////////////////////////////////////////   
-        $this->load->model("agencytour_model", "agencytourModel");
-        $tagTour["tour_id"] = $args["id"]; 
-        $this->agencytourModel->deleteRecord($tagTour);
+        if(!empty($args["agency_tour"])){
 
-        foreach ($args["agency_tour"] as $key => $value) {
-          $args["agency_tour"][$key]["tour_id"] = $args["id"];
+          $this->load->model("agencytour_model", "agencytourModel");
+          $tagTour["tour_id"] = $args["id"]; 
+          $this->agencytourModel->deleteRecord($tagTour);
+
+          foreach ($args["agency_tour"] as $key => $value) {
+            $args["agency_tour"][$key]["tour_id"] = $args["id"];
+          }
+          $this->agencytourModel->addMultipleRecord($args["agency_tour"]);
         }
-        $this->agencytourModel->addMultipleRecord($args["agency_tour"]);
 
 
         //Query list data
@@ -268,8 +277,8 @@ class Tour extends MY_Controller {
     //Validate information
     $this->form_validation->set_rules('name', 'tour name', 'required');
     $this->form_validation->set_rules('description', 'description', 'required');
-    $this->form_validation->set_rules('detail', 'detail', 'required');
-    $this->form_validation->set_rules('included', 'included', 'required');
+    //$this->form_validation->set_rules('detail', 'detail', 'required');
+    //$this->form_validation->set_rules('included', 'included', 'required');
 
     //Validate price
     /*
