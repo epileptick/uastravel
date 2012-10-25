@@ -75,6 +75,10 @@ class Location_model extends MY_Model {
     if($options==""){
       return FALSE;
     }
+
+    if(empty($options['force'])){
+      $options['force'] = FALSE;
+    }
     if($options['force']!=TRUE){
       if(!$this->_required("id",$options)){
         $this->_addError("id is not exist");
