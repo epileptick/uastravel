@@ -162,5 +162,35 @@ class Tag_model extends MY_Model {
       $this->db->delete("ci_tag");
     }
   }
+
+
+
+  function cleanTagAndAddTag($tags = false){
+    ///////////////////////////////////////////
+    // Add Tag table sub table
+    /////////////////////////////////////////// 
+
+    //print_r($args); exit;
+    if(isset($tags)){
+      //Remove tags  junk          
+      $tags = str_replace('[', '', $tags);  
+      $tags = str_replace(']', '', $tags);      
+      $tags = str_replace('"', '', $tags);  
+
+      $tags = explode(",",  $tags);
+      $args["tags"] = array_unique($tags);
+
+      //Load tag_model
+      $this->load->model("tag_model","tagModel"); 
+      $args["field"] = "tag_id, tag_name";
+      $tagArray =  $this->tagModel->addMultipleRecord($args);
+
+      return $tagArray;    
+    }else{
+
+      return false;
+    }
+
+  }  
 }
 ?>
