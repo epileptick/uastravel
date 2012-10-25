@@ -7,6 +7,7 @@ class Tour_model extends MY_Model {
                      'id'                => 'tou_id',
                      'language_id'       => 'tou_language_id',
                      'code'              => 'tou_code',
+                     'url'               => 'tou_url',
                      'name'              => 'tou_name',
                      'description'       => 'tou_description',
                      'detail'            => 'tou_detail',
@@ -27,37 +28,49 @@ class Tour_model extends MY_Model {
     );
   }
   
-  function mapField($query){
-
-    foreach ($query as $key => $value) {
+  
+  function mapField($result){
+    
+    foreach ($result as $key => $value) {
+      $data = new stdClass();
       foreach ($value as $keyField => $valueFiled) {
-        //explode field name
         $keyExplode = explode("_", $keyField, 2);
         $newkey = $keyExplode[1];
-
-        //Create new data
-        $data->$newkey = $valueFiled;
+        $data->$newkey = $valueFiled; 
       }
-      $newQuery[] = $data;
+      $newResult[] = $data;      
     }
-    return $newQuery;
+
+    return $newResult;
   }
   
-  function getRecord($id=false){
+  function getRecord($args=false){
 
-    if($id){
-      $query = $this->db->get_where('ci_tour', array('tou_id' => $id), 1, 0);
-
+    if(isset($args["category"]) && isset($args["tour_name"]) ){
+      echo $args;
+    }else if(isset($args["category"])){
+      echo $args;
+    }else if(isset($args["id"])){
+      //Get page by id for create      
+      $query = $this->db->get_where('ci_tour', array('tou_id' => $args["id"]), 1, 0);
       if($query->num_rows > 0){
-        $newQuery = $this->mapField($query->result());
-        return $newQuery;
+        $newResult = $this->mapField($query->result());
+        return $newResult;
       }else{
         return false;
       }
     }else{
+      //Get list page
+      $this->db->order_by("tou_id", "asc");
       $query = $this->db->get("ci_tour");
-      return $query->result();      
-    }
+
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }    
 
   }
 
@@ -71,7 +84,8 @@ class Tour_model extends MY_Model {
           $this->db->set($this->_column[$columnName], $columnValue); 
         }
       }
-      $result = $this->db->insert($this->_table);
+      $this->db->insert($this->_table);
+      return $this->db->insert_id(); 
     }
     
     return ;
@@ -93,9 +107,11 @@ class Tour_model extends MY_Model {
     return ;
   }
 
-  function deleteRecord(){
-    $this->db->where("id", $this->url->segment(3));
-    $this->delete("ci_tour");
+  function deleteRecord($id=false){
+    if($id){
+      $this->db->where("tou_id", $id);
+      $this->db->delete("ci_tour");
+    }
   }
 }
 ?>
