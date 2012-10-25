@@ -25,22 +25,12 @@ class Location_model extends MY_Model {
     if($options==""){
       return FALSE;
     }
-    //var_dump($options);exit;
-    if($options['force']!=TRUE){
-      if(! $this->_required("title",$options)){
-        $this->_addError("invalid title");
-        return FALSE;
-      }
-      if(! $this->_required("body",$options)){
-        $this->_addError("invalid body");
-        return FALSE;
-      }
+
+    if(! isset($options["title"]) OR empty($options["title"])){
+      $options["title"] = $this->lang->line("location_lang_unnamed_location");
     }
-    if(! isset($options["title"])){
-      $options["title"] = "Title";
-    }
-    if(! isset($options["status"])){
-      $options["status"] = 1;
+    if(! isset($options["status"]) OR empty($options["status"])){
+      $options["status"] = 0;
     }
     if(! isset($options["cr_date"])){
       $options["cr_date"] = date("Y-m-d");
@@ -55,17 +45,14 @@ class Location_model extends MY_Model {
       $options["lu_uid"] = 0;
     }
     
-    
-    if(! isset($options["url"])||$options["url"]==""){
-      $string = $options["title"];
-      $string = preg_replace("`\[.*\]`U","",$string);
-      $string = preg_replace('`&(amp;)?#?[a-z0-9]+;`i','-',$string);
-      $string = str_replace('%', '-percent', $string);
-      $string = htmlentities($string, ENT_COMPAT, 'utf-8');
-      $string = preg_replace( "`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);`i","\\1", $string );
-      $string = preg_replace( array("`[^a-z0-9ก-๙เ-า]`i","`[-]+`") , "-", $string);
-      $options["url"] = strtolower(trim($string, '-'));
-    }
+    $string = $options["title"];
+    $string = preg_replace("`\[.*\]`U","",$string);
+    $string = preg_replace('`&(amp;)?#?[a-z0-9]+;`i','-',$string);
+    $string = str_replace('%', '-percent', $string);
+    $string = htmlentities($string, ENT_COMPAT, 'utf-8');
+    $string = preg_replace( "`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);`i","\\1", $string );
+    $string = preg_replace( array("`[^a-z0-9ก-๙เ-า]`i","`[-]+`") , "-", $string);
+    $options["url"] = strtolower(trim($string, '-'));
     $options["url"] = trim($options["url"]);
     
     
@@ -89,21 +76,25 @@ class Location_model extends MY_Model {
       return FALSE;
     }
     if($options['force']!=TRUE){
-      if(!$this->_required("title",$options)){
-        $this->_addError("invalid title");
-        return FALSE;
-      }
-      if(!$this->_required("body",$options)){
-        $this->_addError("invalid body");
-        return FALSE;
-      }
       if(!$this->_required("id",$options)){
         $this->_addError("id is not exist");
         return FALSE;
       }
     }
-    
+    if(! isset($options["title"]) OR empty($options["title"])){
+      $options["title"] = $this->lang->line("location_lang_unnamed_location");
+    }
     $options['lu_date'] = date("Y-m-d");
+    
+    $string = $options["title"];
+    $string = preg_replace("`\[.*\]`U","",$string);
+    $string = preg_replace('`&(amp;)?#?[a-z0-9]+;`i','-',$string);
+    $string = str_replace('%', '-percent', $string);
+    $string = htmlentities($string, ENT_COMPAT, 'utf-8');
+    $string = preg_replace( "`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);`i","\\1", $string );
+    $string = preg_replace( array("`[^a-z0-9ก-๙เ-า]`i","`[-]+`") , "-", $string);
+    $options["url"] = strtolower(trim($string, '-'));
+    $options["url"] = trim($options["url"]);
     
     //Set data
     foreach($options AS $columnName=>$columnValue){

@@ -73,8 +73,7 @@ class Tour_model extends MY_Model {
     }    
 
   }
-
-
+  
   function addRecord($data=false){
 
     if($data){
@@ -91,7 +90,6 @@ class Tour_model extends MY_Model {
     return ;
   }
   
-
   function updateRecord($data=false){
     if($data){
       //Set data
@@ -106,7 +104,7 @@ class Tour_model extends MY_Model {
     
     return ;
   }
-
+  
   function deleteRecord($id=false){
     if($id){
       $this->db->where("tou_id", $id);

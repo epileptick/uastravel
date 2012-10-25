@@ -6,51 +6,6 @@ PageUtil::addVar("javascript",'<script type="text/javascript" src="http://bp.yah
 PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::ThemePath().'/js/plupload/plupload.full.js"></script>');
 PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::ThemePath().'/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>');
 PageUtil::addVar("javascript",'<script type="text/javascript">
-$(document).ready(function(){
-    
-    $("#title, #editor").blur(function() {
-      autoSave();
-    });
-    function autoSave(){
-      if($("#id").val()!=0){
-        $.post(\''.base_url('location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
-      }else if($("#id").val()==0){
-        $.post(\''.base_url('location/create/').'\',{title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
-      }
-    }
-    
-    function successHandler(data){
-      var json = jQuery.parseJSON(data);
-      $("#id").val(json.id);
-      $("#status").html(json.status).show("slow");
-      $("#span_status").show("slow").delay(5000).hide("slow");
-      var $uploader = $("#uploader").pluploadQueue();
-      $uploader.settings.multipart_params = {location_id: $(\'#id\').val()};
-      $("#show_id").html(json.id);
-    }
-    
-    (function($){
-        $.fn.addImg = function(){
-            tinyMCE.execCommand(\'mceInsertContent\',false,\'<img src="\'+this.attr(\'src\')+\'"/>\');
-        };
-    })(jQuery);
-    //Uploader Control
-    $("#btnShow").css("display", "block");
-    $("#btnHide").css("display", "none");
-    $("#uploader").hide();
-    $("#btnHide").click(function() {
-      $("#uploader").hide("slow");
-      $("#btnShow").css("display", "block");
-      $("#btnHide").css("display", "none");
-    });
-    $("#btnShow").click(function() {
-      autoSave();
-      $("#uploader").show("slow");
-      $("#btnShow").css("display", "none");
-      $("#btnHide").css("display", "block");
-      $("#btnHide").addClass("hide-button");
-    });
-});
 // Convert divs to queue widgets when the DOM is ready
 $(document).ready(function() {
   updateImages();
@@ -64,35 +19,83 @@ $(document).ready(function() {
             });
   }
   
-	$("#uploader").pluploadQueue({
-		// General settings
-		runtimes : \'html5\',
-		url : \''.base_url("/images/ajax_upload").'\',
-		max_file_size : \'10mb\',
-		chunk_size : \'1mb\',
-		unique_names : true,
+  (function($){
+      $.fn.addImg = function(){
+          tinyMCE.execCommand(\'mceInsertContent\',false,\'<img src="\'+this.attr(\'src\')+\'"/>\');
+      };
+  })(jQuery);
+  
+  //Uploader Control
+  $("#btnShow").css("display", "block");
+  $("#btnHide").css("display", "none");
+  $("#uploader").hide();
+  $("#btnHide").click(function() {
+    $("#uploader").hide("slow");
+    $("#btnShow").css("display", "block");
+    $("#btnHide").css("display", "none");
+  });
+  
+  $("#btnShow").click(function() {
+    $("#uploader").show("slow");
+    $("#btnShow").css("display", "none");
+    $("#btnHide").css("display", "block");
+    $("#btnHide").addClass("hide-button");
+  });
+  
+  $("#title").blur(function() {
+    if($("#title").val() == "" ){
+      return 0;
+    }
+    autoSave();
+  });
+  function autoSave(){
+    if($("#id").val()!=0){
+      $.post(\''.base_url('location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+    }else if($("#id").val()==0){
+      $.post(\''.base_url('location/create/').'\',{title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+    }
+  }
+    
+  function successHandler(data){
+    //console.log(data);
+    var json = jQuery.parseJSON(data);
+    $("#id").val(json.id);
+    $("#status").html(json.status).show("slow");
+    $("#span_status").show("slow").delay(3000).hide("slow");
+    var $uploader = $("#uploader").pluploadQueue();
+    $uploader.settings.multipart_params = {location_id: $(\'#id\').val()};
+  }
+  $("#uploader").pluploadQueue({
+    // General settings
+    runtimes : \'html5\',
+    url : \''.base_url("/images/ajax_upload").'\',
+    max_file_size : \'10mb\',
+    chunk_size : \'1mb\',
+    unique_names : true,
     
 
-		// Resize images on clientside if we can
-		//resize : {width : 320, height : 240, quality : 90},
+    // Resize images on clientside if we can
+    //resize : {width : 320, height : 240, quality : 90},
 
-		// Specify what files to browse for
-		filters : [
-			{title : "Image files", extensions : "jpg,gif,png"},
-			{title : "Zip files", extensions : "zip"}
-		],
+    // Specify what files to browse for
+    filters : [
+      {title : "Image files", extensions : "jpg,gif,png"},
+      {title : "Zip files", extensions : "zip"}
+    ],
 
-		// Flash settings
-		flash_swf_url : \'/plupload/js/plupload.flash.swf\',
+    // Flash settings
+    flash_swf_url : \'/plupload/js/plupload.flash.swf\',
 
-		// Silverlight settings
-		silverlight_xap_url : \'/plupload/js/plupload.silverlight.xap\',
+    // Silverlight settings
+    silverlight_xap_url : \'/plupload/js/plupload.silverlight.xap\',
     
     init : {
-
-			StateChanged: function(up) {
-				// Called when the state of the queue is changed
-				//log(\'[StateChanged]\', up.state == plupload.STARTED ? "STARTED" : "STOPPED");
+      FilesAdded: function(up, files) {
+        autoSave();
+      },
+      StateChanged: function(up) {
+        // Called when the state of the queue is changed
+        //log(\'[StateChanged]\', up.state == plupload.STARTED ? "STARTED" : "STOPPED");
         var uploader = $(\'#uploader\').pluploadQueue();
         
         if(up.state == plupload.STOPPED){
@@ -107,11 +110,11 @@ $(document).ready(function() {
           }, 100 );
           
         }
-			},
+      },
       
-			FileUploaded: function(up, file, info) {
-				// Called when a file has finished uploading
-				//log(\'[FileUploaded] File:\', file, "Info:", info);
+      FileUploaded: function(up, file, info) {
+        // Called when a file has finished uploading
+        //log(\'[FileUploaded] File:\', file, "Info:", info);
         
         plupload.each(info, function(value, key) {
        
@@ -121,14 +124,14 @@ $(document).ready(function() {
               updateImages();
             }
           }
-			  });
+        });
         
        
         //$( "#side_bar_block_image" ).delay(100).fadeIn(1000);
         
-			}
-		}
-	});
+      }
+    }
+  });
     
     
 });
@@ -163,18 +166,19 @@ PageUtil::addVar("javascript",'
         autoresize_min_height: 500,
         autoresize_not_availible_height: 10,
         autoresize_on_init: true,
-        autoresize_hide_scrollbars: true
+        autoresize_hide_scrollbars: false
     });
+
+
   });
-  
 </script>
       
       <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
       <script type="text/javascript">
       var geocoder = new google.maps.Geocoder();    
-			var markersArray = [];
-			var marker;    
-			
+      var markersArray = [];
+      var marker;    
+      
       function geocodePosition(pos) {
         geocoder.geocode({
           latLng: pos
@@ -252,36 +256,36 @@ PageUtil::addVar("javascript",'
       
       function placeMarker(position, map) {
       
-      	//alert(position);
-      	//Clean marker point
-      	clearOverlays();
-      	
-      	//Make new marker object
+        //alert(position);
+        //Clean marker point
+        clearOverlays();
+        
+        //Make new marker object
         marker = new google.maps.Marker({
           position: position,
           map: map
         });
         
         //Add marker to array
-				markersArray.push(marker); 
-				
-				//Write marker to map       
+        markersArray.push(marker); 
+        
+        //Write marker to map       
         map.panTo(position);
         
         updateMarkerAddress(\'Clicking...\'); 
         
-				updateMarkerPosition(marker.getPosition()); 
-				
-				geocodePosition(marker.getPosition());
+        updateMarkerPosition(marker.getPosition()); 
+        
+        geocodePosition(marker.getPosition());
       }
       
-			function clearOverlays() {
-				if (markersArray) {
-					for (i in markersArray) {
-						markersArray[i].setMap(null);
-					}
-				}
-			}        
+      function clearOverlays() {
+        if (markersArray) {
+          for (i in markersArray) {
+            markersArray[i].setMap(null);
+          }
+        }
+      }        
 
       // Onload handler to fire off the app.
       google.maps.event.addDomListener(window, \'load\', initialize);
@@ -292,11 +296,10 @@ PageUtil::addVar("javascript",'
 
 
 
-	<!-- Blogpost -->
-	<section class="blogpost grid_12">
+  <!-- Blogpost -->
+  <section class="blogpost grid_12">
   <h2 class="section_heading text_big"><?=$this->lang->line("location_lang_add_post")?></h2>
   <div id="add_form">
-  <h2 id="show_id"><?=$post['loc_id']?></h2>
   <div id="status"></div>
   
   <?php echo form_open(base_url('location/create')); ?>
@@ -322,6 +325,7 @@ PageUtil::addVar("javascript",'
       <div class="clear"></div>
     </div>
   </div>
+
     <div id="add_form_right">
     <h2 class="text_big">{_ location_lang_configuration}</h2>
       <div class="side_bar_block">
@@ -329,8 +333,8 @@ PageUtil::addVar("javascript",'
         <div id="side_bar_block_image">
         </div>
         <div id="uploader">
-      		<p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
-      	</div>
+          <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
+        </div>
         <span id="btnHide"  class="upload-button" onClick="return(false);"></span>
         <span id="btnShow"  class="upload-button" onClick="return(false);"></span>
       </div>
@@ -342,14 +346,16 @@ PageUtil::addVar("javascript",'
       <div class="side_bar_block">
         <h3 class="location">{_ location_lang_location}</h3>
         <div id="mapCanvas"></div>
-        <input type="hidden" value="" id="longitude" name="longitude">
-        <input type="hidden" value="" id="latitude" name="latitude">
-        <input type="hidden" value="" id="address" name="address">
+        Longitude : <input value="<?php echo $post['loc_longitude'];?>" id="longitude" name="longitude">
+        <br />
+        Latitude : <input value="<?php echo $post['loc_latitude'];?>" id="latitude" name="latitude">
+        <br />
+        Address : <input value="" id="address" name="address">
       </div>
     </div>
     <div class="clear"></div>
-	</section>
+  </section>
   <?php echo form_close(); ?>
-	<div class="clearfix"></div>
+  <div class="clearfix"></div>
 
-	<hr class="dashed grid_12" />
+  <hr class="dashed grid_12" />
