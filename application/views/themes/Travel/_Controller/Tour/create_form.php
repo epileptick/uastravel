@@ -15,7 +15,6 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/datepicker/jquery-ui-sliderAccess.js").'"></script>');
 
 
-
 //Autosuggest && Autocomplete
 PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/autocomplete/autocomplete.js").'"></script>');
 
