@@ -32,7 +32,7 @@ li.alert_messagea{
 
 <section class="similar_hotels grid_12">
 		
-		<h2 class="section_heading">Language List  [ <a href='<?php echo base_url("index.php/language/create");?>'>Create</a> ]</h2>	
+		<h2 class="section_heading">Language List  [ <a href='<?php echo base_url("language/create");?>'>Create</a> ]</h2>	
 		<ul>
 			<?php 			
 
@@ -45,8 +45,8 @@ li.alert_messagea{
 					<span style="float:left; margin-left:10px;">	
 					<h3><a href="#"><?php echo $value->name;?></a></h3>
 					
-						[ <a href='<?php echo base_url("index.php/language/create/$value->id");?>'>Edit</a> ]
-						[ <a href='<?php echo base_url("index.php/language/delete/$value->id");?>'>Delete</a> ]
+						[ <a href='<?php echo base_url("language/create/$value->id");?>'>Edit</a> ]
+						[ <a href='<?php echo base_url("language/delete/$value->id");?>'>Delete</a> ]
 					</span><br>
 					<span style="margin-left:10px;"><?php echo $value->acronym;?></span>
 				</li>			
