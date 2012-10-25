@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Tag extends MY_Controller {
+class Category extends MY_Controller {
   function __construct(){
     parent::__construct();
   }
@@ -21,10 +21,10 @@ class Tag extends MY_Controller {
 
     if($id){
       $args["id"] = $id;
-      $data["tag"] = $this->tagModel->getRecord($args);
+      $data["category"] = $this->categoryModel->getRecord($args);
 
       //print_r($data); exit;
-      if($data["tag"]>0){
+      if($data["category"]>0){
         $this->_fetch('update_form', $data);
       }else{
         $this->_fetch('create_form');
@@ -34,8 +34,8 @@ class Tag extends MY_Controller {
       if($validate == FALSE){
         $this->_fetch('create_form');
       }else{
-        $this->tagModel->addRecord($args);
-        $data["tag"] = $this->tagModel->getRecord();  
+        $this->categoryModel->addRecord($args);
+        $data["agent"] = $this->categoryModel->getRecord();  
         $data["message"] = "Create successful !!!";
         $this->_fetch('list', $data);  
       }
@@ -49,44 +49,14 @@ class Tag extends MY_Controller {
 
     $args["id"] = $id;
     if($args["id"]){
-      $data["tag"] = $this->tagModel->getRecord($args);  
+      $data["category"] = $this->categoryModel->getRecord($args);  
       $this->_fetch('list', $data);
     }else{
-      $data["tag"] = $this->tagModel->getRecord();
+      $data["category"] = $this->categoryModel->getRecord();
       $this->_fetch('list', $data);
     }
+
   }
-  
-  function search($keyword=false){
-    //implement code here
-
-    $args["tag_name"] = $keyword;
-
-    if($keyword){
-      $data["tag"] = $this->tagModel->searchRecord($args);
-      $this->_fetch('list', $data);
-    }else{
-      return;
-    }
-  }
-
-
-  function jsonsearch($keyword=false){
-    //implement code here
-
-    $args["tag_name"] = $keyword;
-    # JSON-encode the response
-    $data["tag"] = json_encode($this->tagModel->searchRecord($args));
-    $this->_fetch('json', $data, false, true);
-  }
-
-
-  function jssearch($keyword=false){
-    $args["tag_name"] = $keyword;
-    $data["tag"] = $this->tagModel->searchRecord($args);
-    $this->_fetch('jsarray', $data, false, true);
-  }
-
 
   function update(){
 
@@ -97,22 +67,24 @@ class Tag extends MY_Controller {
     //print_r($args); exit;
 
     if($args["id"]) {
-        $this->tagModel->updateRecord($args);
+        $this->categoryModel->updateRecord($args);
 
-        $data["tag"] = $this->tagModel->getRecord();  
+        $data["agent"] = $this->categoryModel->getRecord();  
         $data["message"] = "Update successful !!!";
         $this->_fetch('list', $data);       
     } else {
-        $this->tagModel->addRecord($args);
+        $this->categoryModel->addRecord($args);
     } 
+
+
   } 
 
   function delete($id=false){
     //implement code here
     if($id) {
-        $this->tagModel->deleteRecord($id);
+        $this->categoryModel->deleteRecord($id);
 
-        $data["tag"] = $this->tagModel->getRecord();  
+        $data["agent"] = $this->categoryModel->getRecord();  
         $data["message"] = "Delete successful !!!";  
         $this->_fetch('list', $data);        
     } 
@@ -124,7 +96,8 @@ class Tag extends MY_Controller {
     $this->load->library('form_validation');
 
     //Validate information
-    $this->form_validation->set_rules('name', 'tag name', 'required');
+    $this->form_validation->set_rules('name', 'category name', 'required');
+    $this->form_validation->set_rules('description', 'description', 'required');
 
     return $this->form_validation->run();
 
