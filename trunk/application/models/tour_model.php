@@ -19,6 +19,8 @@ class Tour_model extends MY_Model {
                      'sale_adult_price'  => 'tou_sale_adult_price',
                      'sale_child_price'  => 'tou_sale_child_price',
                      'amount_time'       => 'tou_amount_time',
+                     'start_date'        => 'tou_start_date',
+                     'end_date'          => 'tou_end_date',
                      'start_time'        => 'tou_start_time',
                      'end_time'          => 'tou_end_time',
                      'cr_date'           => 'tou_cr_date',
