@@ -6,14 +6,21 @@ class Location extends MY_Controller {
   }
   
   function index(){
-    //$this->locationModel-
+    $locationData["location"] = $this->locationModel->get(array(
+                                              'limit'=>'',
+                                              'returnObj'=>'',
+                                              'order'=>'',
+                                              'where'=>''
+                                            )
+                                      );
+                                      
+    $this->_fetch("list",$locationData);
   }
-  
-
 
   function create($id=NULL){
+    $_post = $this->input->post();
     if($this->input->post("submit") != NULL OR $this->input->post("ajax")==TRUE){
-      $_post = $this->input->post();
+      
       if( isset($_post["id"]) ){
         $postData = $this->locationModel->updateRecord($_post);
       }else{
@@ -56,21 +63,43 @@ class Location extends MY_Controller {
 
   
   function read($id=FALSE){
-    if($id){ 
-      
+    if($id){
+      $locationData["location"] = $this->locationModel->get(array(
+                                                                'limit'=>'',
+                                                                'returnObj'=>'',
+                                                                'order'=>'',
+                                                                'where'=>"id=$id"
+                                                              )
+                                                        );
+                                      
+      $this->_fetch("view",$locationData);
     }
   }
 
   function update(){
     //implement code here
     
-  } 
+  }
 
 
-  function delete(){
+  function delete($id=NULL){
     //implement code here
-
-  }  
+    if(is_numeric($id)){
+      $this->locationModel->delete($id);
+      redirect(base_url("location"));
+    }
+    
+  }
+  function ajax_delete(){
+    //implement code here
+    $_post = $this->input->post();
+    foreach($_post AS $id=>$value){
+      if(!$this->locationModel->delete($id)){
+        return "FALSE";
+      }
+    }
+    return "TRUE";
+  }
 
 }
 

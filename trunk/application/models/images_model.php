@@ -8,7 +8,7 @@ class Images_model extends MY_Model {
                      'file_name'        => $this->_prefix.'_file_name',
                      'size'             => $this->_prefix.'_size',
                      'type'             => $this->_prefix.'_type',
-                     'post_id'          => $this->_prefix.'_post_id',
+                     'location_id'      => $this->_prefix.'_location_id',
                      'url'              => $this->_prefix.'_url'
                      );
   }
