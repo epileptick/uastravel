@@ -37,6 +37,14 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 			hourGrid: 4,
 			minuteGrid: 10
 		});
+
+		$('#start_date').datepicker({
+			dateFormat: "yy-mm-dd"
+		});
+
+		$('#end_date').datepicker({
+			dateFormat: "yy-mm-dd"
+		});	
 	});
 </script>
 
@@ -57,10 +65,13 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 
 			<label>Tour Description : </label> <?php echo form_error('description', '<font color="red">', '</font>'); ?>
 			<div class="textarea">
-				<textarea cols="30" rows="10" name="description"><?php echo $tour[0]->description;?></textarea>
+				<textarea cols="30" rows="150"  style="height:500px" name="description"><?php echo $tour[0]->description;?></textarea>
 			</div>
 			<div class="clearfix"></div>
+			<!--  End Tour information -->
 
+
+<!--
 			<label>Tour Detail : </label> <?php echo form_error('detail', '<font color="red">', '</font>'); ?>
 			<div class="textarea">
 				<textarea cols="30" rows="10" name="detail"><?php echo $tour[0]->description;?></textarea>
@@ -78,11 +89,27 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 				<textarea cols="30" rows="10" name="remark"><?php echo $tour[0]->remark;?></textarea>
 			</div>
 			<div class="clearfix"></div>
-			<!--  End Tour information -->
+-->
+
+
 
 
 			<!--  Start Time information -->
-			<hr class="dashed grid_7">			
+			<hr class="dashed grid_7">		
+
+
+			<div class="half">
+				<label>Start Date :</label><br>
+				<?php echo form_error('start_date', '<font color="red">', '</font>'); ?>
+				<input type="text" name="start_date" id="start_date" value="<?php echo $tour[0]->start_date;?>">
+			</div>	
+			<div class="half last">
+				<label>End Date :</label><br>
+				<?php echo form_error('end_date', '<font color="red">', '</font>'); ?>
+				<input type="text" name="end_date" id="end_date" value="<?php echo $tour[0]->end_date;?>">
+			</div>					
+			<div class="clearfix"></div>
+
 			<div class="half">
 				<label>Start time :</label><br>
 				<?php echo form_error('start_time', '<font color="red">', '</font>'); ?>
@@ -190,7 +217,14 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 						);
 
 					}					
-				});
+				})
+				.bind('tagClick', function(e, tag, value, callback)
+		        {
+		            var newValue = window.prompt('New value', value);
+
+		            if(newValue)
+		                callback(newValue);
+		        });
 
 			function tagSearch(str) {
 
@@ -274,7 +308,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 			foreach ($agencyTour as $key => $value) {			
 		?>
 			<script>
-				agencies[<?php echo $count;?>] = "<?php echo $value->agency_name;?>";
+				agencies[<?php echo $value->agency_id;?>] = "<?php echo $value->agency_name;?>";
 			</script>		
 			<li id='agency_price_<?php echo $value->agency_id;?>'>
 			     <div>			     	
@@ -354,6 +388,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 				alert("delete : "+agency_id);
 
 				$("#agency_price_"+agency_id).remove();
+				delete agencies[agency_id];	
 			}else{
 				//alert("add");
 			}
@@ -417,7 +452,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 			return agency_form;
 		}
 
-		var element = <?php echo $countAgencyTour;?>;
+		var element = <?php echo isset($countAgencyTour)?$countAgencyTour:0;?>;
 		var count = 0;
 		var num = 1;
 
@@ -443,7 +478,9 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 					var response = agencyValidateByName(agency_name);
 					//alert(response);
 					if(response.length>0 && response != 0){
-						agencies[count] = agency_name;
+
+						var responseData = response.split(",");
+						agencies[responseData[0]] = responseData[1];
 						count++;
 
 						var res = response.split(",");
@@ -492,12 +529,13 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 	$(document).ready(function() {
 
 		//"http://localhost/jquery/jquery-autocomplete/demo/search.php"
-		var url ="http://localhost/uastravel/tag/jssearch/";	
+		
+		var url ="<?php echo base_url('/agency/phpsearch/');?>";	
 		$("#query_agencyname").autocomplete(url, {
 			width: 260,
 			selectFirst: false,
 			urlType: "short",
-			shortUrl: "http://localhost/uastravel/agency/phpsearch/",
+			shortUrl: url,
 			hiddenId : "hidden_agency_id"
 		});
 
@@ -511,5 +549,5 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 
 
 <?php
-	print_r($agencyTour);
+	//print_r($tour);
 ?>

@@ -74,10 +74,13 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 
 			<label>Tour Description : </label> <?php echo form_error('description', '<font color="red">', '</font>'); ?>
 			<div class="textarea">
-				<textarea cols="30" rows="10" name="description"><?php echo set_value('description');?></textarea>
+				<textarea cols="30" rows="150" style="height:500px" name="description"><?php echo set_value('description');?></textarea>
 			</div>
 			<div class="clearfix"></div>
 
+			<!--  End Tour information -->
+
+<!--
 			<label>Tour Detail : </label> <?php echo form_error('detail', '<font color="red">', '</font>'); ?>
 			<div class="textarea">
 				<textarea cols="30" rows="10" name="detail"><?php echo set_value('detail');?></textarea>
@@ -95,7 +98,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 				<textarea cols="30" rows="10" name="remark"><?php echo set_value('remark');?></textarea>
 			</div>
 			<div class="clearfix"></div>
-			<!--  End Tour information -->
+		-->
 
 			<!--  Start Time information -->
 			<hr class="dashed grid_7">	
@@ -204,7 +207,14 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 						);
 
 					}
-				});
+				})
+				.bind('tagClick', function(e, tag, value, callback)
+		        {
+		            var newValue = window.prompt('New value', value);
+
+		            if(newValue)
+		                callback(newValue);
+		        });
 
 			function tagSearch(str) {
 
@@ -311,6 +321,8 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 			alert("delete : "+agency_id);
 
 			$("#agency_price_"+agency_id).remove();
+			delete agencies[agency_id];			
+
 		}else{
 			//alert("add");
 		}
@@ -322,7 +334,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 
 		var agency_form = "<li id='agency_price_"+agency_id+"'>";
 		agency_form += "   	<span style='font: 32px Arial, sans-serif; float:left;'>";
-		agency_form += "      "+num;
+		agency_form += "      [New]"
 		agency_form += "    </span>";
 		agency_form += "    <div>";
 		agency_form += "    	<span style='float:left; margin-left:10px; font: 20px Arial, sans-serif; width:auto'>";
@@ -393,7 +405,9 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 				var response = agencyValidateByName(tour_name);
 				//alert(response);
 				if(response.length>0 && response != 0){
-					agencies[count] = tour_name;
+
+					var responseData = response.split(",");
+					agencies[responseData[0]] = responseData[1];
 					count++;
 
 					var res = response.split(",");
@@ -445,13 +459,15 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" media="all" type="text/css
 <script type="text/javascript">
 $(document).ready(function() {
 
+
+	var url ="<?php echo base_url('/agency/phpsearch/');?>";
 	//"http://localhost/jquery/jquery-autocomplete/demo/search.php"
-	var url ="http://localhost/uastravel/tag/jssearch/";	
+	//var url ="http://localhost/uastravel/tag/jssearch/";	
 	$("#query_agencyname").autocomplete(url, {
 		width: 260,
 		selectFirst: false,
 		urlType: "short",
-		shortUrl: "http://localhost/uastravel/agency/phpsearch/",
+		shortUrl: url,
 		hiddenId : "hidden_agency_id"
 	});
 
