@@ -1,20 +1,15 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Tag_model extends MY_Model {
-
-
-  private $tag = false;
-  private $newTag = false;   
+class TagTour_model extends MY_Model {
   function __construct(){
     parent::__construct();
-    $this->_prefix = "tag";
+    $this->_prefix = "tat";
     $this->_column = array(
-                     'id'                => 'tag_id',
-                     'language_id'       => 'tag_language_id',
-                     'parent'            => 'tag_parent',
-                     'name'              => 'tag_name'
+                     'id'                => 'tat_id',
+                     'tag_id'            => 'tat_tag_id',
+                     'tour_id'           => 'tat_tour_id'
     );
   }
-  
+ 
   function mapField($result){
     
     foreach ($result as $key => $value) {
@@ -30,21 +25,39 @@ class Tag_model extends MY_Model {
 
     return $newResult;
   }
-
-
   
-  function getRecord($args=false, $field=false){
-    //print_r($args); 
+  function getRecord($args=false){
+    //print_r($args); exit;
 
-    if(isset($args["name"])){
-      //Get list page
-      ($field)?$this->db->select($field):"";
-
+    if(isset($args["tag_id"]) && isset($args["tour_id"]) ){
       //Get category by name
-      $query = $this->db->get_where('ci_tag', array('tag_name' => $args["name"]), 1, 0);
 
-      //print_r($query->result()); exit;
+      $data["tat_tag_id"] = $args["tag_id"];
+      $data["tat_tour_id"] = $args["tour_id"];
 
+      $query = $this->db->get_where('ci_tagtour', $data);
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }else if(isset($args["tag_id"])){
+      //Get category by name
+
+      $data["tat_tag_id"] = $args["tag_id"];      
+      $query = $this->db->get_where('ci_tagtour', $data);
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }else if(isset($args["tour_id"])){
+      //Get category by name
+      $data["tat_tour_id"] = $args["tour_id"];
+
+      $query = $this->db->get_where('ci_tagtour', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
         return $newResult;
@@ -52,11 +65,8 @@ class Tag_model extends MY_Model {
         return false;
       }
     }else if(isset($args["id"])){
-      //Get list page
-      ($field)?$this->db->select($field):"";
-
       //Get category by id      
-      $query = $this->db->get_where('ci_tag', array('tag_id' => $args["id"]), 1, 0);
+      $query = $this->db->get_where('ci_tagtour', array('agt_id' => $args["id"]), 1, 0);
 
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -64,11 +74,9 @@ class Tag_model extends MY_Model {
       }else{
         return false;
       }
-    }else{    
+    }else {
       //Get list page
-      ($field)?$this->db->select($field):"";
-
-      $query = $this->db->get("ci_tag");
+      $query = $this->db->get("ci_tagtour");
 
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -80,23 +88,9 @@ class Tag_model extends MY_Model {
 
   }
 
-  function searchRecord($args=false){
-
-    if($args){
-      $this->db->like($args);
-      $query = $this->db->get("ci_tag");
-      $newResult = array();
-      if($query->num_rows > 0){
-        $newResult = $this->mapField($query->result());
-        return $newResult;
-      }else{
-        return $newResult;
-      }      
-
-    }
-  }
 
   function addRecord($data=false){
+
     if($data){
       //Set data
       foreach($data AS $columnName=>$columnValue){
@@ -105,43 +99,42 @@ class Tag_model extends MY_Model {
         }
       }
       $this->db->insert($this->_table);
-      return $this->db->insert_id(); 
+
+      return $this->db->insert_id();
     }
     
     return ;
   }
   
 
+
  
   function addMultipleRecord($args=false){
+
+   //print_r($args); exit;
    //Check duplicate tag data
     if($args){
       //$tagNew = array();
       $count = 0;
-      foreach ($args["tags"] as $key => $value) {
-        $tagInput["name"] = $value;
-        $tagFound = $this->getRecord($tagInput, $args["field"]);  
-        if(!$tagFound){
-
-          $tagInsertID = $this->addRecord($tagInput);  
-
-          $this->tag[$count]->id = $tagInsertID;
-          $this->tag[$count]->name = $tagInput["name"];
-          //$this->newTag[] = $value;
-        }else{
-          $this->tag[$count] = $tagFound[0];
-        }
-
-        $count++;
+      $tag = false;
+      foreach ($args as $key => $value) {
+          $tagInsertID = $this->addRecord($value);  
+          //$tag[$count]->id = $tagInsertID;
+          //$tag[$count]->name = $tagInput["name"];
+         $count++;
       }
-
-      return $this->tag;
+      return ;
     }else{
       return ;
     }
-  }  
+
+    
+  }   
 
   function updateRecord($data=false){
+
+
+    //print_r($data); exit;
     if($data){
       //Set data
       foreach($data AS $columnName=>$columnValue){
@@ -149,17 +142,21 @@ class Tag_model extends MY_Model {
           $this->db->set($this->_column[$columnName], $columnValue); 
         }
       }
-      $query = $this->db->where("tag_id", $data["id"]);
-      $query = $this->db->update("ci_tag");
+      //$query = $this->db->where("agt_agency_id", $data["agency_id"]);
+      $query = $this->db->where("tat_tour_id", $data["tour_id"]);
+      $query = $this->db->update("ci_tagtour");
     }
     
     return ;
   }
 
   function deleteRecord($args=false){
-    if($args["id"]){
-      $this->db->where("tag_id", $id);
-      $this->db->delete("ci_tag");
+    if(isset($args["id"])){
+      $this->db->where("tat_id", $args["id"]);
+      $this->db->delete("ci_tagtour");
+    }else if(isset($args["tour_id"])){
+      $this->db->where("tat_tour_id", $args["tour_id"]);
+      $this->db->delete("ci_tagtour");
     }
   }
 }
