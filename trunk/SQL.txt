@@ -1,18 +1,18 @@
 CREATE TABLE `ci_location` (
-  `pst_id` int(11) NOT NULL AUTO_INCREMENT,
-  `pst_title` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `pst_body` text CHARACTER SET utf8,
-  `pst_status` int(1) DEFAULT NULL,
-  `pst_level` int(3) DEFAULT NULL,
-  `pst_group` int(2) DEFAULT NULL,
-  `pst_url` varchar(255) DEFAULT NULL,
-  `pst_cr_date` date DEFAULT NULL,
-  `pst_cr_uid` int(11) DEFAULT NULL,
-  `pst_lu_date` date DEFAULT NULL,
-  `pst_lu_uid` int(11) DEFAULT NULL,
-  `pst_longitude` varchar(255) DEFAULT NULL,
-  `pst_latitude` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`pst_id`)
+  `loc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `loc_title` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `loc_body` text CHARACTER SET utf8,
+  `loc_status` int(1) DEFAULT NULL,
+  `loc_level` int(3) DEFAULT NULL,
+  `loc_group` int(2) DEFAULT NULL,
+  `loc_url` varchar(255) DEFAULT NULL,
+  `loc_cr_date` date DEFAULT NULL,
+  `loc_cr_uid` int(11) DEFAULT NULL,
+  `loc_lu_date` date DEFAULT NULL,
+  `loc_lu_uid` int(11) DEFAULT NULL,
+  `loc_longitude` varchar(255) DEFAULT NULL,
+  `loc_latitude` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`loc_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
 
@@ -38,14 +38,11 @@ CREATE TABLE `ci_tour` (
   `tou_detail` text,
   `tou_included` text,
   `tou_remark` text,
-  `tou_discount` int(11) DEFAULT NULL,
-  `tou_net_adult_price` int(50) DEFAULT NULL,
-  `tou_net_child_price` int(50) DEFAULT NULL,
-  `tou_sale_adult_price` int(50) DEFAULT NULL,
-  `tou_sale_child_price` int(50) DEFAULT NULL,
   `tou_amount_time` float DEFAULT NULL,
   `tou_start_time` time DEFAULT NULL,
   `tou_end_time` time DEFAULT NULL,
+  `tou_start_date` time DEFAULT NULL,
+  `tou_end_date` time DEFAULT NULL,
   `tou_cr_date` timestamp NULL DEFAULT NULL,
   `tou_cr_uid` int(11) DEFAULT NULL,
   `tou_lu_date` timestamp NULL DEFAULT NULL,
@@ -54,7 +51,7 @@ CREATE TABLE `ci_tour` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;   
 
 
-CREATE TABLE `ci_agent` (
+CREATE TABLE `ci_agency` (
   `agn_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `agn_name` varchar(255) DEFAULT NULL,
   `agn_firstname` varchar(255) DEFAULT NULL,
@@ -62,8 +59,11 @@ CREATE TABLE `ci_agent` (
   `agn_address` text,
   `agn_email` varchar(255) DEFAULT NULL,
   `agn_telephone` text,
+  `agn_fax` text,
+  `agn_website` varchar(255) DEFAULT NULL, 
+  `agn_credittime` int,                       
+  `agn_condition` text,                     
   `agn_bookbank` text,
-  `agn_condition` text,
   `agn_remark` text,
   `agn_cr_date` timestamp NULL DEFAULT NULL,
   `agn_cr_uid` int(11) DEFAULT NULL,
@@ -73,13 +73,50 @@ CREATE TABLE `ci_agent` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;   
 
 
+CREATE TABLE `ci_agencytour` (
+  `agt_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `agt_agency_id` int(11) DEFAULT NULL,
+  `agt_tour_id` int(11) DEFAULT NULL,
+  `agt_sale_adult_price` int(50) DEFAULT NULL,
+  `agt_net_adult_price` int(50) DEFAULT NULL,
+  `agt_discount_adult_price` int(50) DEFAULT NULL,
+  `agt_sale_child_price` int(50) DEFAULT NULL,
+  `agt_net_child_price` int(50) DEFAULT NULL,
+  `agt_discount_child_price` int(50) DEFAULT NULL,
+  PRIMARY KEY (`agt_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
 
-CREATE TABLE `ci_category` (
-  `cat_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `cat_name` varchar(255) DEFAULT NULL,
-  `cat_description` TEXT,
-  PRIMARY KEY (`cat_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;  
+CREATE TABLE `ci_tag` (
+  `tag_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tag_language_id` int(11) DEFAULT NULL,
+  `tag_parent` int(11) DEFAULT NULL,
+  `tag_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`tag_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ci_tagtour` (
+  `tat_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tat_tag_id` int(11) DEFAULT NULL,
+  `tat_tour_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`tat_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `ci_taglocation` (
+  `lot_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `lot_location_id` int(11) DEFAULT NULL,
+  `lot_tour_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`lot_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
+
+CREATE TABLE `ci_locationtour` (
+  `lot_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `lot_location_id` int(11) DEFAULT NULL,
+  `lot_tour_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`lot_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
+
 
 
 
@@ -98,6 +135,12 @@ CREATE TABLE `ci_images` (
   `img_size` varchar(255) DEFAULT NULL,
   `img_type` varchar(255) DEFAULT NULL,
   `img_location_id` int(11) DEFAULT NULL,
+  `img_tour_id` int(11) DEFAULT NULL,
+  `img_packagetour_id` int(11) DEFAULT NULL,
+  `img_hotel_id` int(11) DEFAULT NULL,
+  `img_tranfer_id` int(11) DEFAULT NULL,
   `img_url` varchar(255) DEFAULT NULL,
   UNIQUE KEY `img_id` (`img_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
+
+
