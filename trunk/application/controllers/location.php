@@ -19,6 +19,10 @@ class Location extends MY_Controller {
 
   function create($id=NULL){
     $_post = $this->input->post();
+
+
+
+    print_r($_post); 
     if($this->input->post("submit") != NULL OR $this->input->post("ajax")==TRUE){
       
       if( isset($_post["id"]) ){
@@ -26,7 +30,7 @@ class Location extends MY_Controller {
       }else{
         $postData = $this->locationModel->addRecord($_post);
       }
-      
+      print_r($postData);  exit;
       if($postData){
         if($this->input->post("ajax")==TRUE){
           $data['id'] = $postData;
@@ -35,6 +39,25 @@ class Location extends MY_Controller {
           die;
         }else{ 
           $data['post_data']['id'] = $postData;
+
+        print_r($_post); exit;
+        ////////////////////////////////////////////
+        //Add (TagTour) relationship data table 
+        ////////////////////////////////////////////         
+        $this->load->model("tag_model", "tagModel");       
+        $this->load->model("tagtour_model", "tagTourModel");
+        $count = 0; 
+        $tagTour = false;
+        $tagArray = $this->tagModel->cleanTagAndAddTag($_post["tags"]);
+
+        foreach ($tagArray as $key => $value) {
+          $tagLocation[$count]["tag_id"] = $value->id;
+          $tagLocation[$count]["location_id"] = $data['id'];
+          $count++;
+        }
+        $this->tagLocationModel->addMultipleRecord($tagLocation);
+
+
           $this->_fetch('add_success',$data);
         }
       }else{

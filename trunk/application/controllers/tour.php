@@ -111,8 +111,6 @@ class Tour extends MY_Controller {
         ////////////////////////////////////////////
         //Add (AgencyTour) relationship data table 
         ////////////////////////////////////////////  
-
-        //print_r($args["agency_tour"]); exit;
         $this->load->model("agencytour_model", "agencytourModel"); 
         foreach ($args["agency_tour"] as $key => $value) {
           $args["agency_tour"][$key]["tour_id"] = $insertTourID;
