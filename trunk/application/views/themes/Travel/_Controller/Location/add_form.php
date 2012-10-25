@@ -339,8 +339,134 @@ PageUtil::addVar("javascript",'
         <span id="btnShow"  class="upload-button" onClick="return(false);"></span>
       </div>
       
+
+
+<?php
+  //Autosuggest && Autocomplete
+  PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/autocomplete/autocomplete.js").'"></script>');
+
+?>      
       <div class="side_bar_block">
-        <h3 class="tag">{_ location_lang_tag}</h3>
+        <h3 class="tag">{_ location_lang_tag} <span style="cursor:pointer;"  id="show_all">show all</span></h3>
+          <textarea id="textarea" class="example" rows="1" style="width: 250px;"></textarea>
+          <br>
+          <span id="show_all_result">
+            <?php
+              //print_r($tag); 
+
+            if(is_array($tag)){
+              $count = 1;
+              foreach ($tag as $key => $value) {
+                # code...
+                if($count == count($tag)){
+                ?>  
+                  <font color='6182E6'>
+                    <span   style="cursor:pointer;" 
+                        onClick="this.style.color='red'"
+                          id='addtag<?php echo $count; ?>'
+                      ><?php echo $value->name; ?></span>
+                    </font>
+                <?php           
+                }else{          
+                ?>  
+                  <font color='6182E6'><span  style="cursor:pointer; " 
+                        onClick="this.style.color='red'"
+                          id='addtag<?php echo $count; ?>'
+                      ><?php echo $value->name; ?></span>
+                    </font>,          
+                <?php 
+                }
+
+                $count++;
+              }
+            }
+            ?>
+          </span>
+          <script type="text/javascript">
+            var validate = "";
+            //Function tag 
+            $('#textarea')
+              .textext({
+                plugins : 'tags autocomplete'
+              })
+              .bind('getSuggestions', function(e, data)
+              {
+                //Get tag data
+                if(data.query.length == 1){
+                  var list = tagSearch(data.query);
+
+                  var textext = $(e.target).textext()[0];
+                  var query = (data ? data.query : '') || '';
+
+                  validate = textext.itemManager().filter(list, query)
+                
+                  //Show suggestion list 
+                  $(this).trigger(
+                    'setSuggestions',
+                    { result : validate }
+                  );
+                }else if( validate.length > 0){
+                  var list = tagSearch(data.query);
+
+                  var textext = $(e.target).textext()[0];
+                  var query = (data ? data.query : '') || '';
+
+                  validate = textext.itemManager().filter(list, query)
+                
+                  //Show suggestion list 
+                  $(this).trigger(
+                    'setSuggestions',
+                    { result : validate }
+                  );
+
+                }
+              });
+
+            function tagSearch(str) {
+
+              var url ="<?php echo base_url('/tag/jssearch/');?>"+str;
+              var response = $.ajax({ type: "GET",   
+                                      url: url,   
+                                      async: false
+                                    }).responseText;
+
+              var list = response.split(/,/);
+
+              return list;
+            }       
+          </script>
+
+          <script type="text/javascript">
+
+
+          //Function display tag 
+          $("#show_all_result").hide();
+          $("#show_all").click(function () {
+            $("#show_all_result").toggle("slow");
+          }); 
+
+          </script>   
+          <?php
+
+            //echo $tag;
+            if(!empty($tag)){
+              if(is_array($tag)){
+                $count = 1;
+                foreach ($tag as $key => $value) {
+                  # code...
+                ?>
+                  <script type="text/javascript">
+                    $('#addtag<?php echo $count; ?>').bind('click', function(e){
+                      //alert($('#addtag<?php echo $count; ?>').text());
+                          $('#textarea').textext()[0].tags().addTags([ $('#addtag<?php echo $count; ?>').text() ]);
+                      });
+                  </script> 
+                <?php     
+                  $count++;
+                }
+              }
+            }
+          ?>
       </div>
       
       <div class="side_bar_block">
