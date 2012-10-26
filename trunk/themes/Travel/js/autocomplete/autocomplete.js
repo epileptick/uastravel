@@ -67,8 +67,22 @@
 	u="postInit",
 	v="ready",
 	w={itemManager:d,plugins:[],ext:{},
-	html:{wrap:'<div class="text-core"><div class="text-wrap"/></div>',hidden:'<input name="tags" id="tags" type="hidden" />'},
-	keys:{8:"backspace",9:"tab",13:"enter!",27:"escape!",37:"left",38:"up!",39:"right",40:"down!",46:"delete",108:"numpadEnter"}};
+	html:{
+		wrap:'<div class="text-core"><div class="text-wrap"/></div>',
+		hidden:'<input name="jquerytag" id="jquerytag" type="hidden" />'
+	},
+	keys:{
+		8:"backspace",
+		9:"tab",
+		13:"enter!",
+		27:"escape!",
+		37:"left",
+		38:"up!",
+		39:"right",
+		40:"down!",
+		46:"delete",
+		108:"numpadEnter"
+	}};
 	if(!f)
 		throw new Error("JSON.stringify() not found");
 
@@ -96,7 +110,10 @@
 			g=a(d.opts(m)),
 			e=a(d.opts(n)),
 			b.wrap(g).keydown(function(a){return d.onKeyDown(a)}).keyup(function(a){return d.onKeyUp(a)}).data("textext",d),
-			a(d).data({hiddenInput:e,wrapElement:b.parents(".text-wrap").first(),input:b}),
+			a(d).data({
+				hiddenInput:e,
+				wrapElement:b.parents(".text-wrap").first(),input:b}
+				),
 			e.attr("name",b.attr("name")),
 			b.attr("name",null),
 			e.insertAfter(b),
@@ -122,7 +139,11 @@
 		h.wrapElement=function(){return a(this).data("wrapElement")},
 		h.invalidateBounds=function(){var a=this,b=a.input(),c=a.wrapElement(),d=c.parent(),e=a.originalWidth+"px",f;a.trigger(p),f=b.outerHeight()+"px",b.css({width:e}),c.css({width:e,height:f}),d.css({height:f}),a.trigger(q)},
 		h.focusInput=function(){this.input()[0].focus()},h.serializeData=f,
-		h.hiddenInput=function(b){return a(this).data("hiddenInput")},
+		h.hiddenInput=function(b){
+
+			//alert(a(this).data("hiddenInput").text());
+			return a(this).data("hiddenInput");
+		},
 		h.getWeightedEventResponse=function(a,b){var c=this,d={},e=0;c.trigger(a,d,b);for(var f in d)e=Math.max(e,f);return d[e]},
 		h.getFormData=function(a){var b=this,c=b.getWeightedEventResponse(r,a||0);b.trigger(s,c.form),b.trigger(t,c.input)},
 		h.onAnyKeyUp=function(a,b){this.getFormData(b)},
@@ -132,7 +153,15 @@
 			//alert(b);
 			c.hiddenInput().val(c.serializeData(b))
 		},
-		h.onGetFormData=function(a,b){var c=this.input().val();b[0]=z(c,c)},a(["Down","Up"]).each(function(){var a=this.toString();h["onKey"+a]=function(b){var c=this,d=c.opts(o)[b.keyCode],e=!0;return d&&(e=d.substr(-1)!="!",d=d.replace("!",""),c.trigger(d+"Key"+a),a=="Up"&&c._lastKeyDown==b.keyCode&&(c._lastKeyDown=null,c.trigger(d+"KeyPress")),a=="Down"&&(c._lastKeyDown=b.keyCode)),c.trigger("anyKey"+a,b.keyCode),e}}),h=e.prototype,h.on=y,h.formDataObject=z,
+		h.onGetFormData=function(a,b){
+			var c=this.input().val();
+			b[0]=z(c,c)},a(["Down","Up"]).each(function(){
+				var a=this.toString();
+				h["onKey"+a]=function(b){
+					var c=this,
+					d=c.opts(o)[b.keyCode],
+					e=!0;
+					return d&&(e=d.substr(-1)!="!",d=d.replace("!",""),c.trigger(d+"Key"+a),a=="Up"&&c._lastKeyDown==b.keyCode&&(c._lastKeyDown=null,c.trigger(d+"KeyPress")),a=="Down"&&(c._lastKeyDown=b.keyCode)),c.trigger("anyKey"+a,b.keyCode),e}}),h=e.prototype,h.on=y,h.formDataObject=z,
 		h.init=function(a){throw new Error("Not implemented")},
 		h.baseInit=function(b,c){var d=this;b._defaults=a.extend(!0,b._defaults,c),d._core=b,d._timers={}},
 		h.startTimer=function(a,b,c){var d=this;d.stopTimer(a),d._timers[a]=setTimeout(function(){delete d._timers[a],c.apply(d)},b*1e3)},
@@ -336,7 +365,9 @@
 			}
 		})(jQuery);
 
-(function(a){function b(){}a.fn.textext.TextExtTags=b,a.fn.textext.addPlugin("tags",b);
+(function(a){function b(){}
+	a.fn.textext.TextExtTags=b,
+	a.fn.textext.addPlugin("tags",b);
 	var c=b.prototype,
 	d=".",
 	e="text-tags-on-top",
