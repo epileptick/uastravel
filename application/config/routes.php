@@ -41,19 +41,20 @@
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 
-$route['post/(:num)'] = 'post/view/$1';
+$route['โพส/(:num)'] = 'location/create/$1';
 $route['post/(:num)/(:any)'] = 'post/view/$1';
 
 
 /*
 $route['post/(:num)'] = 'post/read/$1';
 $route['post/(:num)'] = 'post/read/$1';
-*/
+
 
 $route['p-(:any)'] = 'post/read/$1';
-
-
-
+$route['tour-_(:any)-__(:any)'] = 'tour/read/$1/$2';
+$route['tour-_(:any)'] = 'tour/read/$1/$2';
+$route['tour-(:any)'] = 'tour/read/$1/$2';
+*/
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

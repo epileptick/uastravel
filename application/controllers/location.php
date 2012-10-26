@@ -47,7 +47,7 @@ class Location extends MY_Controller {
         $count = 0; 
         $tagTour = false;
         $tagArray = $this->tagModel->cleanTagAndAddTag($_post["tags"]);
-
+        var_dump($_post);
         foreach ($tagArray as $key => $value) {
           $tagLocation[$count]["tag_id"] = $value->id;
           $tagLocation[$count]["location_id"] = $data['id'];

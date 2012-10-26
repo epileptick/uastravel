@@ -85,7 +85,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript")">
 
       function initialize() {
         
-        var latLng = new google.maps.LatLng('.set_value('latitude',"7.951172174578056").','.set_value('longitude',"98.34449018537998").');
+        var latLng = new google.maps.LatLng('.$tour[0]->latitude.','.$tour[0]->longitude.');
 
         var map = new google.maps.Map(document.getElementById(\'mapCanvas\'), {
           scrollwheel: false,
@@ -355,9 +355,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 			<div class="clearfix"></div>
 
 			<label>Tour Description : </label> <?php echo form_error('description', '<font color="red">', '</font>'); ?>
-			<div class="textarea">
-				<textarea cols="30" rows="150"  style="height:500px" name="description"><?php echo $tour[0]->description;?></textarea>
-			</div>
+				<textarea cols="30" rows="150"  style="height:500px" name="description" class="mceEditor"><?php echo $tour[0]->description;?></textarea>
 			<div class="clearfix"></div>
 			<!--  End Tour information -->
 
@@ -575,9 +573,9 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 	<section class="simple_sidebar grid_4">
     <h3 class="image">Map</h3>
     <div id="mapCanvas" style="height: 300px;"></div>
-        Longitude : <input value="<?php echo set_value('longitude',"98.34449018537998");?>" id="longitude" name="longitude">
+        Longitude : <input value="<?php echo $tour[0]->longitude;?>" id="longitude" name="longitude">
         <br />
-        Latitude : <input value="<?php echo set_value('latitude',"7.951172174578056");?>" id="latitude" name="latitude">
+        Latitude : <input value="<?php echo $tour[0]->latitude;?>" id="latitude" name="latitude">
         <br />
         Address : <input value="" id="address" name="address">
   </section>

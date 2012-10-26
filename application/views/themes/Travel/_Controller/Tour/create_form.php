@@ -615,7 +615,7 @@ $(document).ready(function() {
 	</section>
 </div>
 
-<?php echo form_close();?>	
+
 
 
 <script type="text/javascript">
@@ -789,7 +789,7 @@ $(document).ready(function() {
 
 });
 </script>
-
+<?php echo form_close();?>	
 
 
 		
