@@ -22,7 +22,7 @@ class Location extends MY_Controller {
 
 
 
-    print_r($_post); 
+    //print_r($_post); 
     if($this->input->post("submit") != NULL OR $this->input->post("ajax")==TRUE){
       
       if( isset($_post["id"]) ){
@@ -30,7 +30,7 @@ class Location extends MY_Controller {
       }else{
         $postData = $this->locationModel->addRecord($_post);
       }
-      print_r($postData);  exit;
+      //print_r($postData);  exit;
       if($postData){
         if($this->input->post("ajax")==TRUE){
           $data['id'] = $postData;
@@ -40,7 +40,7 @@ class Location extends MY_Controller {
         }else{ 
           $data['post_data']['id'] = $postData;
 
-        print_r($_post); exit;
+        //print_r($_post); exit;
         ////////////////////////////////////////////
         //Add (TagTour) relationship data table 
         ////////////////////////////////////////////         
