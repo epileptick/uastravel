@@ -69,7 +69,7 @@
 	w={itemManager:d,plugins:[],ext:{},
 	html:{
 		wrap:'<div class="text-core"><div class="text-wrap"/></div>',
-		hidden:'<input name="jquerytag" id="jquerytag" type="hidden" />'
+		hidden:'<input id="jquerytag" type="hidden" />'
 	},
 	keys:{
 		8:"backspace",

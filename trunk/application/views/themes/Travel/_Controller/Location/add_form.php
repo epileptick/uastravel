@@ -401,7 +401,7 @@ PageUtil::addVar("javascript",'
     
       <div class="side_bar_block">
         <h3 class="tag">{_ location_lang_tag} <span style="cursor:pointer;"  id="show_all">show all</span></h3>
-          <textarea id="textarea" name="textarea" class="example" rows="1" style="width: 250px;"></textarea>
+          <textarea id="textarea" name="jquerytag" class="example" rows="1" style="width: 250px;"></textarea>
           <script>
             //Rewrite tag value
             $(document).ready(function(){
