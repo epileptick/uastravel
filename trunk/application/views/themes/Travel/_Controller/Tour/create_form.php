@@ -136,6 +136,15 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 		
 		<label>Tag</label><label style="position:absolute;right:240px;"><span style="cursor:pointer;"  id="show_all">show all</span></label>
 		<textarea id="textarea" class="example" rows="1" style="width: 250px;"></textarea>
+          <script>
+            //Rewrite tag value
+            $(document).ready(function(){
+              $("#save").live('click', function() {
+                $("#tags").val($("#jquerytag").val());          
+              });
+            });
+          </script>          
+          <input type="hidden"id="tags" name="tags" value="">  		
 		<br>
 		<span id="show_all_result">
 			<?php
