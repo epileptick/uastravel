@@ -20,8 +20,6 @@ class Location extends MY_Controller {
   function create($id=NULL){
     $_post = $this->input->post();
 
-
-
     //print_r($_post); 
     if($this->input->post("submit") != NULL OR $this->input->post("ajax")==TRUE){
       
@@ -94,7 +92,6 @@ class Location extends MY_Controller {
                                                                 'where'=>"id=$id"
                                                               )
                                                         );
-                                      
       $this->_fetch("view",$locationData);
     }
   }

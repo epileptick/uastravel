@@ -5,12 +5,15 @@ PageUtil::addVar("stylesheet",'<style type="text/css">@import url('.Util::ThemeP
 PageUtil::addVar("javascript",'<script type="text/javascript" src="http://bp.yahooapis.com/2.4.21/browserplus-min.js"></script>');
 PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::ThemePath().'/js/plupload/plupload.full.js"></script>');
 PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::ThemePath().'/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>');
+//Autosuggest && Autocomplete
+PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/autocomplete/autocomplete.js").'"></script>');
 PageUtil::addVar("javascript",'<script type="text/javascript">
 // Convert divs to queue widgets when the DOM is ready
 $(document).ready(function() {
+  
   updateImages();
   function updateImages(){  
-            $.post("'.base_url("/images/ajax_list").'", { location_id: $("#id").val() },
+            $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:1 },
             function(data) {
               $("#side_bar_block_image").html(data).hide("slow").delay(200).show("slow");
               $("#side_bar_block_image img").click(function() {
@@ -49,6 +52,8 @@ $(document).ready(function() {
     autoSave();
   });
   function autoSave(){
+    //console.log($("#textarea").val());
+    //console.log($("#tags").val());
     if($("#id").val()!=0){
       $.post(\''.base_url('location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
     }else if($("#id").val()==0){
@@ -57,13 +62,13 @@ $(document).ready(function() {
   }
     
   function successHandler(data){
-    //console.log(data);
+    console.log(data);
     var json = jQuery.parseJSON(data);
     $("#id").val(json.id);
     $("#status").html(json.status).show("slow");
     $("#span_status").show("slow").delay(3000).hide("slow");
     var $uploader = $("#uploader").pluploadQueue();
-    $uploader.settings.multipart_params = {location_id: $(\'#id\').val()};
+    $uploader.settings.multipart_params = {parent_id: $(\'#id\').val(), table_id:1};
   }
   $("#uploader").pluploadQueue({
     // General settings
@@ -73,7 +78,7 @@ $(document).ready(function() {
     chunk_size : \'1mb\',
     unique_names : true,
     
-
+    
     // Resize images on clientside if we can
     //resize : {width : 320, height : 240, quality : 90},
 
@@ -115,7 +120,7 @@ $(document).ready(function() {
       FileUploaded: function(up, file, info) {
         // Called when a file has finished uploading
         //log(\'[FileUploaded] File:\', file, "Info:", info);
-        
+        console.log(info);
         plupload.each(info, function(value, key) {
        
           if(key == "response"){
@@ -143,7 +148,58 @@ PageUtil::addVar("javascript",'
 <script type="text/javascript">
 
   $(document).ready(function(){
-    
+    var validate = "";
+    //Function tag 
+    $("#textarea")
+      .textext({
+        plugins : "tags autocomplete"
+      })
+      .bind("getSuggestions", function(e, data)
+      {
+        //Get tag data
+        if(data.query.length == 1){
+          var list = tagSearch(data.query);
+
+          var textext = $(e.target).textext()[0];
+          var query = (data ? data.query : "") || "";
+
+          validate = textext.itemManager().filter(list, query)
+        
+          //Show suggestion list 
+          $(this).trigger(
+            "setSuggestions",
+            { result : validate }
+          );
+        }else if( validate.length > 0){
+          var list = tagSearch(data.query);
+
+          var textext = $(e.target).textext()[0];
+          var query = (data ? data.query : "") || "";
+
+          validate = textext.itemManager().filter(list, query)
+        
+          //Show suggestion list 
+          $(this).trigger(
+            "setSuggestions",
+            { result : validate }
+          );
+
+        }
+      });
+      
+    function tagSearch(str) {
+
+              var url ="'.base_url("/tag/jssearch/").'"+str;
+              var response = $.ajax({ type: "GET",   
+                                      url: url,   
+                                      async: false
+                                    }).responseText;
+
+              var list = response.split(/,/);
+
+              return list;
+            }       
+            
     tinyMCE.init({
         mode : "specific_textareas",
         editor_selector : "mceEditor",
@@ -342,16 +398,10 @@ PageUtil::addVar("javascript",'
       
 
 
-<?php
-  //Autosuggest && Autocomplete
-  PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/autocomplete/autocomplete.js").'"></script>');
-
-?>      
-
     
       <div class="side_bar_block">
         <h3 class="tag">{_ location_lang_tag} <span style="cursor:pointer;"  id="show_all">show all</span></h3>
-          <textarea id="textarea" class="example" rows="1" style="width: 250px;"></textarea>
+          <textarea id="textarea" name="textarea" class="example" rows="1" style="width: 250px;"></textarea>
           <script>
             //Rewrite tag value
             $(document).ready(function(){
@@ -394,69 +444,13 @@ PageUtil::addVar("javascript",'
             }
             ?>
           </span>
-          <script type="text/javascript">
-            var validate = "";
-            //Function tag 
-            $('#textarea')
-              .textext({
-                plugins : 'tags autocomplete'
-              })
-              .bind('getSuggestions', function(e, data)
-              {
-                //Get tag data
-                if(data.query.length == 1){
-                  var list = tagSearch(data.query);
-
-                  var textext = $(e.target).textext()[0];
-                  var query = (data ? data.query : '') || '';
-
-                  validate = textext.itemManager().filter(list, query)
-                
-                  //Show suggestion list 
-                  $(this).trigger(
-                    'setSuggestions',
-                    { result : validate }
-                  );
-                }else if( validate.length > 0){
-                  var list = tagSearch(data.query);
-
-                  var textext = $(e.target).textext()[0];
-                  var query = (data ? data.query : '') || '';
-
-                  validate = textext.itemManager().filter(list, query)
-                
-                  //Show suggestion list 
-                  $(this).trigger(
-                    'setSuggestions',
-                    { result : validate }
-                  );
-
-                }
-              });
-
-            function tagSearch(str) {
-
-              var url ="<?php echo base_url('/tag/jssearch/');?>"+str;
-              var response = $.ajax({ type: "GET",   
-                                      url: url,   
-                                      async: false
-                                    }).responseText;
-
-              var list = response.split(/,/);
-
-              return list;
-            }       
-          </script>
 
           <script type="text/javascript">
-
-
           //Function display tag 
           $("#show_all_result").hide();
           $("#show_all").click(function () {
             $("#show_all_result").toggle("slow");
           }); 
-
           </script>   
           <?php
 

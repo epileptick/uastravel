@@ -30,7 +30,7 @@ class Tour extends MY_Controller {
 
     $this->load->model("tag_model","tagModel"); 
     $field = "tag_id, tag_name";  
-    $data["tag"] = $this->tagModel->getRecord(false, $field);  
+    $data["tag"] = $this->tagModel->getRecord(false, $field);
 
 
     ///////////////////////

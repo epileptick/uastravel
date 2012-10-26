@@ -1,5 +1,5 @@
-
 <?php
+PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().'/style/tour.css">');
 /////////////////////
 //Start Datepicker
 ////////////////////
@@ -14,10 +14,298 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://code.
 PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/datepicker/jquery-ui-timepicker-addon.js").'"></script>');
 PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/datepicker/jquery-ui-sliderAccess.js").'"></script>');
 
+//plupload
+PageUtil::addVar("stylesheet",'<style type="text/css">@import url('.Util::ThemePath().'/js/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css);</style>');
+PageUtil::addVar("javascript",'<script type="text/javascript" src="http://bp.yahooapis.com/2.4.21/browserplus-min.js"></script>');
+PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::ThemePath().'/js/plupload/plupload.full.js"></script>');
+PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::ThemePath().'/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>');
 
 //Autosuggest && Autocomplete
 PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/autocomplete/autocomplete.js").'"></script>');
+PageUtil::addVar("javascript", '<script type="text/javascript")">
+  
+  tinyMCE.init({
+    mode : "specific_textareas",
+    editor_selector : "mceEditor",
+    width: "100%",
+    theme : "advanced",
+    plugins : "youtube, inlinepopups,autoresize,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+    //theme_advanced_buttons1 : "justifyleft,justifycenter,justifyright,justifyfull",
+    //theme_advanced_buttons2: ",tablecontrols,|,images,youtube,|,bold,italic,underline,strikethrough,|,undo,redo,|,cut,copy,paste,|,code",
+    theme_advanced_buttons1 : "fullscreen,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+    
+    
+    theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+    theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,ltr,rtl,|,fullscreen",
+    theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreakcut,|,copy,paste,pastetext,pasteword,|,image,youtube,|",
+    theme_advanced_toolbar_align : "left",
+    theme_advanced_statusbar_location : "bottom",
+    theme_advanced_resizing : false,
+    theme_advanced_source_editor_width: 630,
+    autoresize_min_height: 500,
+    autoresize_not_availible_height: 10,
+    autoresize_on_init: true,
+    autoresize_hide_scrollbars: false
+  });
+  </script>
+  
+      
+      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+      <script type="text/javascript">
+      var geocoder = new google.maps.Geocoder();    
+      var markersArray = [];
+      var marker;    
+      
+      function geocodePosition(pos) {
+        geocoder.geocode({
+          latLng: pos
+        }, function(responses) {
+          if (responses && responses.length > 0) {
+            updateMarkerAddress(responses[0].formatted_address);
+          } else {
+            updateMarkerAddress(\'Cannot determine address at this location.\');
+          }
+        });
+      }
 
+      function updateMarkerStatus(str) {
+        document.getElementById(\'markerStatus\').innerHTML = str;
+      }
+
+      function updateMarkerPosition(latLng) {
+
+        document.getElementById("latitude").value = latLng.lat();
+        document.getElementById("longitude").value = latLng.lng();
+
+
+      }
+
+      function updateMarkerAddress(str) {
+        document.getElementById(\'address\').value = str;
+      }
+
+      function initialize() {
+        
+        var latLng = new google.maps.LatLng('.set_value('latitude',"7.951172174578056").','.set_value('longitude',"98.34449018537998").');
+
+        var map = new google.maps.Map(document.getElementById(\'mapCanvas\'), {
+          scrollwheel: false,
+          zoom: 11,
+          center: latLng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        
+        
+        marker = new google.maps.Marker({
+          position: latLng,
+          title: \'\',
+          map: map,
+          draggable: false
+        });
+        
+        
+        markersArray.push(marker); 
+        google.maps.event.addListener(map, \'click\', function(e) {
+          placeMarker(e.latLng, map);
+        });
+        
+        // Update current position info.
+        updateMarkerPosition(latLng);
+        geocodePosition(latLng);
+        
+        /*
+        // Add dragging event listeners.
+        google.maps.event.addListener(marker, \'dragstart\', function() {
+          updateMarkerAddress(\'Dragging...\');
+        });
+        
+        google.maps.event.addListener(marker, \'drag\', function() {
+          updateMarkerStatus(\'Dragging...\');
+          updateMarkerPosition(marker.getPosition());
+        });
+        
+        google.maps.event.addListener(marker, \'dragend\', function() {
+          updateMarkerStatus(\'Drag ended\');
+          geocodePosition(marker.getPosition());
+        });
+        */
+      }
+      
+      function placeMarker(position, map) {
+      
+        //alert(position);
+        //Clean marker point
+        clearOverlays();
+        
+        //Make new marker object
+        marker = new google.maps.Marker({
+          position: position,
+          map: map
+        });
+        
+        //Add marker to array
+        markersArray.push(marker); 
+        
+        //Write marker to map       
+        map.panTo(position);
+        
+        updateMarkerAddress(\'Clicking...\'); 
+        
+        updateMarkerPosition(marker.getPosition()); 
+        
+        geocodePosition(marker.getPosition());
+      }
+      
+      function clearOverlays() {
+        if (markersArray) {
+          for (i in markersArray) {
+            markersArray[i].setMap(null);
+          }
+        }
+      }        
+
+      // Onload handler to fire off the app.
+      google.maps.event.addDomListener(window, \'load\', initialize);
+      
+      </script>
+  ');
+  
+PageUtil::addVar("javascript",'<script type="text/javascript">
+// Convert divs to queue widgets when the DOM is ready
+$(document).ready(function() {
+  
+  updateImages();
+  function updateImages(){  
+            $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:2 },
+            function(data) {
+              $("#side_bar_block_image").html(data).hide("slow").delay(200).show("slow");
+              $("#side_bar_block_image img").click(function() {
+                $(this).addImg();
+              });
+            });
+  }
+  
+  (function($){
+      $.fn.addImg = function(){
+          tinyMCE.execCommand(\'mceInsertContent\',false,\'<img src="\'+this.attr(\'src\')+\'"/>\');
+      };
+  })(jQuery);
+  
+  //Uploader Control
+  $("#btnShow").css("display", "block");
+  $("#btnHide").css("display", "none");
+  $("#uploader").hide();
+  $("#btnHide").click(function() {
+    $("#uploader").hide("slow");
+    $("#btnShow").css("display", "block");
+    $("#btnHide").css("display", "none");
+  });
+  
+  $("#btnShow").click(function() {
+    $("#uploader").show("slow");
+    $("#btnShow").css("display", "none");
+    $("#btnHide").css("display", "block");
+    $("#btnHide").addClass("hide-button");
+  });
+  
+  $("#title").blur(function() {
+    if($("#title").val() == "" ){
+      return 0;
+    }
+    autoSave();
+  });
+  function autoSave(){
+    //console.log($("#textarea").val());
+    //console.log($("#tags").val());
+    if($("#id").val()!=0){
+      $.post(\''.base_url('location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+    }else if($("#id").val()==0){
+      $.post(\''.base_url('location/create/').'\',{title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+    }
+  }
+    
+  function successHandler(data){
+    //console.log(data);
+    var json = jQuery.parseJSON(data);
+    $("#id").val(json.id);
+    $("#status").html(json.status).show("slow");
+    $("#span_status").show("slow").delay(3000).hide("slow");
+    var $uploader = $("#uploader").pluploadQueue();
+    $uploader.settings.multipart_params = {parent_id: $(\'#id\').val(),table_id:2};
+  }
+  $("#uploader").pluploadQueue({
+    // General settings
+    runtimes : \'html5\',
+    url : \''.base_url("/images/ajax_upload").'\',
+    max_file_size : \'10mb\',
+    chunk_size : \'1mb\',
+    unique_names : true,
+    
+
+    // Resize images on clientside if we can
+    //resize : {width : 320, height : 240, quality : 90},
+
+    // Specify what files to browse for
+    filters : [
+      {title : "Image files", extensions : "jpg,gif,png"},
+      {title : "Zip files", extensions : "zip"}
+    ],
+
+    // Flash settings
+    flash_swf_url : \'/plupload/js/plupload.flash.swf\',
+
+    // Silverlight settings
+    silverlight_xap_url : \'/plupload/js/plupload.silverlight.xap\',
+    
+    init : {
+      FilesAdded: function(up, files) {
+        autoSave();
+      },
+      StateChanged: function(up) {
+        // Called when the state of the queue is changed
+        //log(\'[StateChanged]\', up.state == plupload.STARTED ? "STARTED" : "STOPPED");
+        var uploader = $(\'#uploader\').pluploadQueue();
+        
+        if(up.state == plupload.STOPPED){
+          setTimeout(function() {
+                $( "#uploader" ).hide(\'slow\').delay(500).show(\'slow\');
+                uploader.splice();
+                $(".plupload_buttons").css("display", "inline");
+                $(".plupload_upload_status").css("display", "inline");
+                $(".plupload_start").addClass("plupload_disabled");
+                $(".plupload_upload_status").css("display", "none");
+                uploader.refresh();
+          }, 100 );
+          
+        }
+      },
+      
+      FileUploaded: function(up, file, info) {
+        // Called when a file has finished uploading
+        //log(\'[FileUploaded] File:\', file, "Info:", info);
+        
+        plupload.each(info, function(value, key) {
+       
+          if(key == "response"){
+            var value = jQuery.parseJSON(value);
+            if(value.result == "TRUE"){
+              updateImages();
+            }
+          }
+        });
+        
+       
+        //$( "#side_bar_block_image" ).delay(100).fadeIn(1000);
+        
+      }
+    }
+  });
+    
+    
+});
+
+  
+</script>');
 /////////////////////
 //End Datepicker
 ////////////////////
@@ -73,9 +361,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 			<div class="clearfix"></div>
 
 			<label>Tour Description : </label> <?php echo form_error('description', '<font color="red">', '</font>'); ?>
-			<div class="textarea">
-				<textarea cols="30" rows="150" style="height:500px" name="description"><?php echo set_value('description');?></textarea>
-			</div>
+				<textarea cols="30" rows="150" style="height:500px" name="description" class="mceEditor"><?php echo set_value('description');?></textarea>
 			<div class="clearfix"></div>
 
 			<!--  End Tour information -->
@@ -272,16 +558,37 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 	<!-- End Sidebar Tag -->
 
 
-
-
-
-
+  <!-- Start Map -->
+	<section class="simple_sidebar grid_4">
+    <h3 class="image">Map</h3>
+    <div id="mapCanvas" style="height: 300px;"></div>
+        Longitude : <input value="<?php echo set_value('longitude',"98.34449018537998");?>" id="longitude" name="longitude">
+        <br />
+        Latitude : <input value="<?php echo set_value('latitude',"7.951172174578056");?>" id="latitude" name="latitude">
+        <br />
+        Address : <input value="" id="address" name="address">
+  </section>
+  <!-- End Map -->
+  
+  <!-- Start Image -->
+  <section class="simple_sidebar grid_4">
+      <h3 class="image">{_ location_lang_image_manager}</h3>
+      <div id="side_bar_block_image">
+      </div>
+      <div id="uploader">
+        <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
+      </div>
+      <span id="btnHide"  class="upload-button" ></span>
+      <span id="btnShow"  class="upload-button" >Show</span>
+    </div>
+  </section>
+  <!-- End Image -->
 
 
 	<!-- Agency Information -->
 	<style type="text/css">
 	.similar_hotels div{
-		height: auto;
+    height: auto;
 	}
 	</style>
 
