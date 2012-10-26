@@ -304,6 +304,7 @@ PageUtil::addVar("javascript",'
   
   <?php echo form_open(base_url('location/create')); ?>
   <input type="hidden" value="<?=$post['loc_id']?>" id="id" name="id" />
+  <span id="fedfe"></span>
   <div class="topHolder">
     <span class="GM1BAGKBGJB blogg-title">โพสต์</span>
     <span class="GM1BAGKBJJB blogg-title">·</span>
@@ -311,7 +312,7 @@ PageUtil::addVar("javascript",'
     echo form_input('title', $post['loc_title'], 'id="title" class="GM1BAGKBHEC titleField textField GM1BAGKBGEC" dir="ltr" title="ชื่อ" size="60"');
     ?>
     <span class="GM1BAGKBNIB">
-      <?php echo form_submit('submit', $this->lang->line("location_lang_submit"), 'class="blogg-button blogg-primary"'); ?>
+      <?php echo form_submit('submit', $this->lang->line("location_lang_submit"), 'class="blogg-button blogg-primary" id="save"'); ?>
       <button class="blogg-button" tabindex="0" onClick="history.go(-1)">ปิด</button>
     </span>
   </div>
@@ -346,9 +347,20 @@ PageUtil::addVar("javascript",'
   PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/autocomplete/autocomplete.js").'"></script>');
 
 ?>      
+
+    
       <div class="side_bar_block">
         <h3 class="tag">{_ location_lang_tag} <span style="cursor:pointer;"  id="show_all">show all</span></h3>
           <textarea id="textarea" class="example" rows="1" style="width: 250px;"></textarea>
+          <script>
+            //Rewrite tag value
+            $(document).ready(function(){
+              $("#save").live('click', function() {
+                $("#tags").val($("#jquerytag").val());          
+              });
+            });
+          </script>          
+          <input type="hidden"id="tags" name="tags" value="">  
           <br>
           <span id="show_all_result">
             <?php
