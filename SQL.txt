@@ -13,7 +13,7 @@ CREATE TABLE `ci_location` (
   `loc_longitude` varchar(255) DEFAULT NULL,
   `loc_latitude` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`loc_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE ci_user (
@@ -38,17 +38,22 @@ CREATE TABLE `ci_tour` (
   `tou_detail` text,
   `tou_included` text,
   `tou_remark` text,
+  `tou_discount` int(11) DEFAULT NULL,
+  `tou_net_adult_price` int(50) DEFAULT NULL,
+  `tou_net_child_price` int(50) DEFAULT NULL,
+  `tou_sale_adult_price` int(50) DEFAULT NULL,
+  `tou_sale_child_price` int(50) DEFAULT NULL,
   `tou_amount_time` float DEFAULT NULL,
+  `tou_start_date` date DEFAULT NULL,
+  `tou_end_date` date DEFAULT NULL,
   `tou_start_time` time DEFAULT NULL,
   `tou_end_time` time DEFAULT NULL,
-  `tou_start_date` time DEFAULT NULL,
-  `tou_end_date` time DEFAULT NULL,
   `tou_cr_date` timestamp NULL DEFAULT NULL,
   `tou_cr_uid` int(11) DEFAULT NULL,
   `tou_lu_date` timestamp NULL DEFAULT NULL,
   `tou_lu_uid` int(11) DEFAULT NULL,
   PRIMARY KEY (`tou_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;   
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;  
 
 
 CREATE TABLE `ci_agency` (
@@ -104,10 +109,10 @@ CREATE TABLE `ci_tagtour` (
 
 
 CREATE TABLE `ci_taglocation` (
-  `lot_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `lot_location_id` int(11) DEFAULT NULL,
-  `lot_tour_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`lot_id`)
+  `tao_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tao_location_id` int(11) DEFAULT NULL,
+  `tao_tour_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`tao_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
 
 CREATE TABLE `ci_locationtour` (
