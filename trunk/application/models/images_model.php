@@ -8,7 +8,8 @@ class Images_model extends MY_Model {
                      'file_name'        => $this->_prefix.'_file_name',
                      'size'             => $this->_prefix.'_size',
                      'type'             => $this->_prefix.'_type',
-                     'location_id'      => $this->_prefix.'_location_id',
+                     'parent_id'        => $this->_prefix.'_parent_id',
+                     'table_id'         => $this->_prefix.'_table_id',
                      'url'              => $this->_prefix.'_url'
                      );
   }

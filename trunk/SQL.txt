@@ -48,6 +48,8 @@ CREATE TABLE `ci_tour` (
   `tou_end_date` date DEFAULT NULL,
   `tou_start_time` time DEFAULT NULL,
   `tou_end_time` time DEFAULT NULL,
+  `tou_longitude` varchar(255) DEFAULT NULL,
+  `tou_latitude` varchar(255) DEFAULT NULL,
   `tou_cr_date` timestamp NULL DEFAULT NULL,
   `tou_cr_uid` int(11) DEFAULT NULL,
   `tou_lu_date` timestamp NULL DEFAULT NULL,

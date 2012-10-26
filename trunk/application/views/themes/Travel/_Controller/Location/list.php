@@ -10,17 +10,22 @@ $(document).ready(function() {
       $(this).find("#location-list-control").removeClass("display-block");
     }
   );
-  $("li, input:checkbox").click(
+  $("input:checkbox, li").click(
     function () {
+    	
       var checkBoxes = $(this).find("input:checkbox");
       checkBoxes.prop("checked", !checkBoxes.prop("checked"));
-      $(this).toggleClass("highlight");
+      if(checkBoxes.prop("checked")){
+        $(this).addClass("highlight");
+      }else{
+        $(this).removeClass("highlight");
+      }
     }
   );
+  
   $("input:checkbox").click(
     function () {
       $(this).prop("checked", !$(this).prop("checked"));
-
     }
   );
   $("#btnSelect").click(
@@ -92,7 +97,6 @@ function selectAll(){
             </button>
          </div>
        </div>
-       
     </div>
     <?php echo form_open('','name="locationList" id="locationList"'); ?>
     <ul id="location-list">

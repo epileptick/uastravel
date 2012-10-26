@@ -17,6 +17,8 @@ class Images extends MY_Controller {
   function ajax_upload(){ 
     $_post = $this->input->post();
     
+    $table_id = $_post['table_id'];
+    
     // HTTP headers for no cache etc
     header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
     header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
@@ -33,7 +35,8 @@ class Images extends MY_Controller {
     
     
     // Settings
-    $targetDir = $dir_1.DIRECTORY_SEPARATOR.$_post["location_id"];
+    $targetDir = $dir_1.DIRECTORY_SEPARATOR.$_post["parent_id"];
+    
     //$targetDir = 'uploads';
     $cleanupTargetDir = true; // Remove old files
     $maxFileAge = 5 * 3600; // Temp file age in seconds
@@ -144,7 +147,8 @@ class Images extends MY_Controller {
      
       $fileURL = base_url($filePath);
       
-      $Obj = array(       'location_id'=> $_post['location_id'],
+      $Obj = array(       'parent_id'=> $_post['parent_id'],
+                          'table_id' => $table_id,
                           'file_name' => $fileName,
                           'file_path' => $filePath,
                           'size' => filesize($filePath),

@@ -96,7 +96,7 @@ $autoload['config'] = array("facebook","theme");
 |
 */
 
-$autoload['language'] = array("global","user","theme","location");
+$autoload['language'] = array("global","user","theme","location","tour");
 
 
 /*

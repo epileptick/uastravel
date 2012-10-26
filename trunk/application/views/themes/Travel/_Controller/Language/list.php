@@ -51,10 +51,10 @@ li.alert_messagea{
       <?php          
         }
       }else{
-      ?>              
+      ?>
         <li>
           <span>Data not found</span>
-        </li>      
+        </li>
       <?php
       }
       ?>

@@ -23,6 +23,8 @@ class Tour_model extends MY_Model {
                      'end_date'          => 'tou_end_date',
                      'start_time'        => 'tou_start_time',
                      'end_time'          => 'tou_end_time',
+                     'end_longitude'     => 'tou_longitude',
+                     'end_latitude'      => 'tou_latitude',
                      'cr_date'           => 'tou_cr_date',
                      'cr_uid'            => 'tou_cr_uid',
                      'lu_date'           => 'tou_lu_date',

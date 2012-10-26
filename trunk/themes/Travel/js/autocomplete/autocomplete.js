@@ -67,7 +67,7 @@
 	u="postInit",
 	v="ready",
 	w={itemManager:d,plugins:[],ext:{},
-	html:{wrap:'<div class="text-core"><div class="text-wrap"/></div>',hidden:'<input name="tags" type="hidden" />'},
+	html:{wrap:'<div class="text-core"><div class="text-wrap"/></div>',hidden:'<input name="tags" id="tags" type="hidden" />'},
 	keys:{8:"backspace",9:"tab",13:"enter!",27:"escape!",37:"left",38:"up!",39:"right",40:"down!",46:"delete",108:"numpadEnter"}};
 	if(!f)
 		throw new Error("JSON.stringify() not found");
