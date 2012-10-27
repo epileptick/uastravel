@@ -81,10 +81,11 @@ class Tag_model extends MY_Model {
   }
 
   function searchRecord($args=false){
-
     if($args){
       $this->db->like($args);
       $query = $this->db->get("ci_tag");
+
+      //print_r($args); exit;
       $newResult = array();
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -181,9 +182,8 @@ class Tag_model extends MY_Model {
       $args["tags"] = array_unique($tags);
 
       //Load tag_model
-      $this->load->model("tag_model","tagModel"); 
       $args["field"] = "tag_id, tag_name";
-      $tagArray =  $this->tagModel->addMultipleRecord($args);
+      $tagArray =  $this->addMultipleRecord($args);
 
       return $tagArray;    
     }else{
