@@ -4,17 +4,42 @@ class Location extends MY_Controller {
   function __construct(){
     parent::__construct();
   }
+  function _index($where=""){
+    $locationData["location"] = $this->locationModel->get($where);
+    return $locationData;
+  }
   
   function index(){
-    $locationData["location"] = $this->locationModel->get(array(
-                                              'limit'=>'',
-                                              'returnObj'=>'',
-                                              'order'=>'',
-                                              'where'=>''
-                                            )
-                                      );
+    echo "Admin";
+    $tag = $this->uri->segment(2);
+    $where = array(
+                  'limit'=>'',
+                  'returnObj'=>'',
+                  'order'=>'',
+                  'where'=>''
+                );
+    if(empty($tag)){
+      //$where['where'] = array('');
+    }
+    $locationData["location"] = $this->locationModel->get($where);
                                       
     $this->_fetch("list",$locationData);
+  }
+  
+  function user_index(){
+    $tag = $this->uri->segment(2);
+    $where = array(
+                  'limit'=>'',
+                  'returnObj'=>'',
+                  'order'=>'',
+                  'where'=>''
+                );
+    if(empty($tag)){
+      //$where['where'] = array('');
+    }
+    $result = $this->_index($where);
+                                      
+    $this->_fetch("user_list",$result);
   }
 
   function create($id=NULL){
@@ -84,7 +109,7 @@ class Location extends MY_Controller {
   }
 
   
-  function read($id=FALSE){
+  function read($id=FALSE){  
     if($id){
       $this->load->model("images_model", "imagesModel");
       $locationData["location"] = $this->locationModel->get($id);
