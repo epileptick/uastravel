@@ -1,353 +1,512 @@
-<?php
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
 
+<?php 
+PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("/themes/Travel/tour/stylesheets/foundation.css").'">');
+PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("/themes/Travel/tour/stylesheets/style.css").'">');
+PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("/themes/Travel/tour/stylesheets/app.css").'">');
+PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("/themes/Travel/javascripts/modernizr.foundation.js").'"></script>');
+
+preg_match('/MSIE (.*?);/', $_SERVER['HTTP_USER_AGENT'], $matches);
+
+if (count($matches)>1){
+  //Then we're using IE
+  $version = $matches[1];
+
+  switch(true){
+    case ($version<=8):
+      //IE 8 or under!
+      break;
+
+    case ($version==9):
+      //IE9!
+      PageUtil::addVar("javascript", '<script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>');
+      break;
+
+    default:
+      //You get the idea
+  }
+}
 ?>
 
+</head>
+<body style="background: #ededed url('/themes/Travel/tour/images/bg1.jpg') no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
+  <div class="overly-bg"></div>
+  <div id="wrapper">
+    <!-- Menu -->
+    <div class="row">
+      <div class="twelve columns">
+        <nav class="top-bar">
+          <ul>
+            <li class="name"><a href=""> <img src="<?php echo base_url('themes/Travel/tour/images/logo.png');?>"></a></li>
+            <li class="toggle-topbar"><a href="#"></a></li>
+          </ul>
+          <section>
+            <ul class="right">
+              <li><a href="#">หน้าแรก</a></li>
+              <li><a class="active" href="#">แหล่งท่องเที่ยว</a></li>
+              <li><a href="#">แพ๊คเกจทัวร์</a></li>          
+              <li><a href="#">เกี่ยวกับเรา</a></li>
+              <li><a href="#">ติดต่อเรา</a></li>
+              <li><a href="#">โปรโมชั่น</a></li>            
+            </ul>
+          </section>
+        </nav>
+      </div>
+    </div>
+    <!-- End Menu -->
 
- <!-- Header -->
-<header style="background-image:url(<?=$imagepath?>/placeholders/1280x1024/8.jpg);">
-	
-	<div class="container_12">
+    <!-- Title -->
+    <div class="row">
+      <div class="twelve columns">
+        <a href="" class="arrow previous tooltip_nw" title="แหล่งท่องเที่ยวก่อนหน้า">แหล่งท่องเที่ยวก่อนหน้า</a>
+        <h1 class="title"><?php echo $location['title'];?>
+          <span class="subtitle">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</span>
+        </h1>
+        <a href="" class="arrow next tooltip_ne" title="แหล่งท่องเที่ยวถัดไป">แหล่งท่องเที่ยวถัดไป</a>
+      </div>
+    </div>
+    <!-- End Title -->
 
-		<!-- Title and navigation panel -->
-		<div id="panel" class="grid_12">
+    <!-- Gallery -->
+    <div class="row">
+      <section class="gallery_pc">
+        <div class="eight columns">
+          <div id="gallery" class="content">
+            <div id="controls" class="controls"></div>
+            <div class="slideshow-container">
+              <div id="loading" class="loader"></div>
+              <div id="slideshow" class="slideshow"></div>
+            </div>
+            <div id="caption" class="caption-container"></div>
+          </div>
+        </div>
+        <div class="four columns">
+          <div id="thumbs" class="navigation">
+            <ul class="thumbs noscript">
+            <?php
+            
+            foreach($images AS $image):
+            ?>
+              <li>
+                <a class="thumb"  href="<?php echo $image['url'];?>" title="หมู่เกาะสิมิลัน">
+                  <img src="<?php echo $image['url'];?>" alt="หมู่เกาะสิมิลัน" />
+                </a>
+                <div class="captions">
+                  <div class="image-title"><?php echo $location['title'];?></div>
+                  <div class="image-desc"><?php echo $location['body'][0];?></div>
+                </div>
+              </li>
+            <?php
+            endforeach;
+            ?>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="gallery_mobile">
+        <ul id="gallery_mobile">
+          <li><a href="/themes/Travel/tour/images/gallery/1.png"><img src="/themes/Travel/tour/images/gallery/1.png" alt="หมู่เกาะสิมิลัน" /></a></li>
+          <li><a href="/themes/Travel/tour/images/gallery/1.png"><img src="/themes/Travel/tour/images/gallery/2.png" alt="หมู่เกาะสิมิลัน" /></a></li>
+          <li><a href="/themes/Travel/tour/images/gallery/1.png"><img src="/themes/Travel/tour/images/gallery/2.png" alt="หมู่เกาะสิมิลัน" /></a></li>
+          <li><a href="/themes/Travel/tour/images/gallery/1.png"><img src="/themes/Travel/tour/images/gallery/2.png" alt="หมู่เกาะสิมิลัน" /></a></li>
+          <li><a href="/themes/Travel/tour/images/gallery/1.png"><img src="/themes/Travel/tour/images/gallery/2.png" alt="หมู่เกาะสิมิลัน" /></a></li>
+          <li><a href="/themes/Travel/tour/images/gallery/1.png"><img src="/themes/Travel/tour/images/gallery/2.png" alt="หมู่เกาะสิมิลัน" /></a></li>
+          <li><a href="/themes/Travel/tour/images/gallery/1.png"><img src="/themes/Travel/tour/images/gallery/2.png" alt="หมู่เกาะสิมิลัน" /></a></li>
+          <li><a href="/themes/Travel/tour/images/gallery/1.png"><img src="/themes/Travel/tour/images/gallery/2.png" alt="หมู่เกาะสิมิลัน" /></a></li>
+          <li><a href="/themes/Travel/tour/images/gallery/1.png"><img src="/themes/Travel/tour/images/gallery/2.png" alt="หมู่เกาะสิมิลัน" /></a></li>
+          <li><a href="/themes/Travel/tour/images/gallery/1.png"><img src="/themes/Travel/tour/images/gallery/2.png" alt="หมู่เกาะสิมิลัน" /></a></li>
+          <li><a href="/themes/Travel/tour/images/gallery/1.png"><img src="/themes/Travel/tour/images/gallery/2.png" alt="หมู่เกาะสิมิลัน" /></a></li>
+          <li><a href="/themes/Travel/tour/images/gallery/1.png"><img src="/themes/Travel/tour/images/gallery/2.png" alt="หมู่เกาะสิมิลัน" /></a></li>
+          <li><a href="/themes/Travel/tour/images/gallery/1.png"><img src="/themes/Travel/tour/images/gallery/2.png" alt="หมู่เกาะสิมิลัน" /></a></li>  
+        </ul>
+      </section>
+    </div>
+    <div class="row">
+      <section class="article">
+        <div class="row border">
+          <div class="seven columns">
+            <h3><?php echo $location['title'];?></h3>
+          </div>
+          <div class="five columns">
+          </div>
+        </div>
+        <div class="four columns">
+          <?php 
+          if(! empty($location['body'][0])){
+            echo $location['body'][0];
+          }
+          ?>
+        </div>
+        <div class="four columns">
+          <?php 
+          if(! empty($location['body'][1])){
+            echo $location['body'][1];
+          }
+          ?>
+        </div>
+        <div class="four columns">
+          <?php 
+          if(! empty($location['body'][2])){
+            echo $location['body'][2];
+          }
+          ?>
+          
+        </div>      
+      </section>
+    </div>
 
-			<!-- Title -->
-			<h1><a href="index.html">Travel</a></h1>
+    <div class="row">
+      <div class="eight columns">
+        <div class="row">
+          <div class="twelve columns">
+            <h3>แผนที่</h3>
+            <div class="map">
+              <img src="<?php echo base_url('themes/Travel/tour/images/map.png');?>"> <!-- กำหนดแผนที่กว้าง 100% -->
+            </div>
+            <div class="border"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="six columns">
+            <h3>กฎระเบียบข้อห้าม</h3>
+            <p>การท่องเที่ยวพักผ่อนในเขตพื้นที่ของอุทยานแห่งชาติ มีกฎระเบียบที่  นักท่องเที่ยวผู้มีจิตสำนึกทุกคนต้องยึดถือปฏิบัติเพื่อให้เกิดความ  เรียบร้อยในการใช้พื้นที่ร่วมกันอย่างยั่งยืนถาวร ดังนี้</p>
+            <ul class="square">
+              <li>ไม่เก็บทุกอย่างออกจากพื้นที่นอกจากขยะ</li>
+              <li>ไม่ส่งเสียงดังอันเป็นการรบกวนผู้อื่น รวมทั้งสัตว์ป่า</li>
+              <li>ไม่ล่า ทำลาย หรือกระทำการใดๆ อันจะทำให้พืช สัตว์ และสภาพ แวดล้อมเสียหาย</li>
+              <li>ไม่ส่งเสียงดังอันเป็นการรบกวนผู้อื่น รวมทั้งสัตว์ป่า</li>
+            </ul>
+          </div>
+          <div class="six columns">
+            <h3>การเดินทาง</h3>
+            <p>นักท่องเที่ยวส่วนใหญ่จะไปลงเรือที่ท่าเรือทับละมุ จ.พังงาจาก ทางหลวง หมายเลข 4 (ช่วงระนอง-พังงา) ช่วง ต.ลำแก่น มีทาง แยกขวาไปท่าเรือ ทับละมุอีกประมาณ 5 กิโลเมตร ก่อนถึงท่าเรือ ด้านซ้ายมือเป็นที่ตั้งของ ที่ทำการและศูนย์บริการนักท่องเที่ยวอุทยานแห่งชาติหมู่เกาะสิมิลันหากเดินทางโดยรถโดยสารประจำทางจากสถานีขนส่งสายใต้ ก่อนถึงท่าเรือ ด้านซ้ายมือเป็นที่ตั้งของ สามารถ ไปได้ทุกคันที่วิ่งสายระนอง-พังงา ลงที่ทางแยกไปท่าเรือทับละมุแล้ว ต่อ รถรับจ้างมาที่ท่าเรือ</p>
+          </div>
+        </div>
+      </div>
+      <div class="four columns">
+        <h3>แพ็กเก็จทัวร์แนะนำ</h3>
+        <div class="list_packet">
+          <div class="row">
+            <div class="twelve columns">
+              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/1.png');?>"></a>
+            </div>
+            <div class="twelve columns">
+              <div class="title_tour">
+                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
+              </div>
+              <div class="rating one_star" style="display:none"></div>
+              <div class="rating two_star" style="display:none"></div>
+              <div class="rating three_star"></div>
+              <div class="rating four_star" style="display:none"></div>
+              <div class="rating five_star"style="display:none"></div>
+              <div class="clearfix"></div>
+              <div class="border"></div>
+            </div>
+            <div class="twelve columns">
+              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
+              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
+              <div class="price"><span>8,780 B</span> / 3 วัน</div>
+            </div>
+          </div>
+        </div>
+        <div class="list_packet">
+          <div class="row">
+            <div class="twelve columns">
+              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/2.png');?>"></a>
+            </div>
+            <div class="twelve columns">
+              <div class="title_tour">
+                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
+              </div>
+              <div class="rating one_star" style="display:none"></div>
+              <div class="rating two_star" style="display:none"></div>
+              <div class="rating three_star"></div>
+              <div class="rating four_star" style="display:none"></div>
+              <div class="rating five_star"style="display:none"></div>
+              <div class="clearfix"></div>
+              <div class="border"></div>
+            </div>
+            <div class="twelve columns">
+              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
+              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
+              <div class="price"><span>8,780 B</span> / 3 วัน</div>
+            </div>
+          </div>
+        </div>
+        <div class="list_packet">
+          <div class="row">
+            <div class="twelve columns">
+              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/3.png')?>"></a>
+            </div>
+            <div class="twelve columns">
+              <div class="title_tour">
+                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
+              </div>
+              <div class="rating one_star" style="display:none"></div>
+              <div class="rating two_star" style="display:none"></div>
+              <div class="rating three_star"></div>
+              <div class="rating four_star" style="display:none"></div>
+              <div class="rating five_star"style="display:none"></div>
+              <div class="clearfix"></div>
+              <div class="border"></div>
+            </div>
+            <div class="twelve columns">
+              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
+              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
+              <div class="price"><span>8,780 B</span> / 3 วัน</div>
+            </div>
+          </div>
+        </div>
+        <div class="list_packet">
+          <div class="row">
+            <div class="twelve columns">
+              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/4.png'); ?>"></a>
+            </div>
+            <div class="twelve columns">
+              <div class="title_tour">
+                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
+              </div>
+              <div class="rating one_star" style="display:none"></div>
+              <div class="rating two_star" style="display:none"></div>
+              <div class="rating three_star"></div>
+              <div class="rating four_star" style="display:none"></div>
+              <div class="rating five_star"style="display:none"></div>
+              <div class="clearfix"></div>
+              <div class="border"></div>
+            </div>
+            <div class="twelve columns">
+              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
+              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
+              <div class="price"><span>8,780 B</span> / 3 วัน</div>
+            </div>
+          </div>
+        </div>
+        <div class="list_packet">
+          <div class="row">
+            <div class="twelve columns">
+              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/5.png');?>"></a>
+            </div>
+            <div class="twelve columns">
+              <div class="title_tour">
+                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
+              </div>
+              <div class="rating one_star" style="display:none"></div>
+              <div class="rating two_star" style="display:none"></div>
+              <div class="rating three_star"></div>
+              <div class="rating four_star" style="display:none"></div>
+              <div class="rating five_star"style="display:none"></div>
+              <div class="clearfix"></div>
+              <div class="border"></div>
+            </div>
+            <div class="twelve columns">
+              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
+              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
+              <div class="price"><span>8,780 B</span> / 3 วัน</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-			<!-- Navigation -->
-			<nav>
-				<ul>
-					<li>
-						<a href="browse.html" class="selected">Browse</a>
-						<ul>	
-							<li><a href="browse.html">Browse all</a></li>
-							<li><a href="browse_hotels.html">Browse hotels</a></li>
-							<li><a href="hotel.html" class="selected">Hotel</a></li>
-							<li><a href="trip.html">Trip</a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="faq.html">Pages</a>
-						<ul>
-							<li><a href="faq.html">FAQ</a></li>
-							<li><a href="forms.html">Forms</a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="blog.html">Blog</a>
-						<ul>
-							<li><a href="blog.html">Blog</a></li>
-							<li><a href="blogpost.html">Blogpost</a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="contact.html">Contact</a>
-					</li>
-				</ul>
+      <div class="row">
+        <div class="facebook_comment">
+          <div class="twelve columns">
+            <h3>แสดงความคิดเห็น</h3>
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/th_TH/all.js#xfbml=1&appId=357467797616103";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <div class="fb-comments" data-href="http://xn--42cga5cfx1dle5e0agb2ixai5l6f.com" data-num-posts="2" data-width=""></div>
+          </div>
+        </div>
+      </div>
 
-				<!-- Search -->
-				<form action="#" class="black">
-					<input name="search" type="text" placeholder="Search..." />
-					<input type="submit" />
-				</form>
-			</nav>
-		
-		</div>
+    <footer>
+      <div class="row">
+        <div class="seven columns">
+          <nav>
+            <ul class="menu_footer">
+              <li><a href="">หน้าแรก</a></li>
+              <li><a href="">แพ็คเกจทัวร์</a></li>
+              <li><a href="">เกี่ยวกับเรา</a></li>
+              <li><a href="">ติดต่อเรา</a></li>
+              <li><a href="">โปรโมชั่น</a></li>                           
+            </ul>
+          </nav>
+          <div class="clearfix"></div>
+          <p>Copyright © Uastravel.com</p>          
+        </div>
+        <div class="five columns">
+          <div class="address">
+            <p>Uastravel</p>
+            <p>uastravel@hotmail.com</p>
+            <p>31/1 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Gallery -->
+  </div>
+  <script src="/themes/Travel/tour/javascripts/jquery.js"></script>
+  <script src="/themes/Travel/tour/javascripts/foundation.min.js"></script>
+  
+  <!-- Initialize JS Plugins -->
+  <script src="/themes/Travel/tour/javascripts/app.js"></script>
 
-	</div>
+  <!-- Gallery -->
+  <script type="text/javascript" src="/themes/Travel/tour/javascripts/gallery/js/jquery.galleriffic.js"></script>
+  <script type="text/javascript" src="/themes/Travel/tour/javascripts/gallery/js/jquery.opacityrollover.js"></script>
+  <!-- We only want the thunbnails to display when javascript is disabled -->
+  <script type="text/javascript">
+    document.write('<style>.noscript { display: none; }</style>');
+  </script>
+  <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        // We only want these styles applied when javascript is enabled
+        $('div.content').css('display', 'block');
 
-	<!-- Heading -->
-	<h2>Marina Bay Sands</h2>
+        // Initially set opacity on thumbs and add
+        // additional styling for hover effect on thumbs
+        var onMouseOutOpacity = 1;
+        $('#thumbs ul.thumbs li').opacityrollover({
+          mouseOutOpacity:   onMouseOutOpacity,
+          mouseOverOpacity:  0.67,
+          fadeSpeed:         'fast',
+          exemptionSelector: '.selected'
+        });
+        
+        // Initialize Advanced Galleriffic Gallery
+        var gallery = $('#thumbs').galleriffic({
+          delay:                     2500,
+          numThumbs:                 15,
+          preloadAhead:              10,
+          enableTopPager:            true,
+          enableBottomPager:         true,
+          maxPagesToShow:            7,
+          imageContainerSel:         '#slideshow',
+          controlsContainerSel:      '#controls',
+          captionContainerSel:       '#caption',
+          loadingContainerSel:       '#loading',
+          renderSSControls:          true,
+          renderNavControls:         true,
+          playLinkText:              'Play Slideshow',
+          pauseLinkText:             'Pause Slideshow',
+          prevLinkText:              'รูปก่อนหน้า',
+          nextLinkText:              'รูปถัดไป',
+          nextPageLinkText:          'Next &rsaquo;',
+          prevPageLinkText:          '&lsaquo; Prev',
+          enableHistory:             false,
+          autoStart:                 false,
+          syncTransitions:           true,
+          defaultTransitionDuration: 900,
+          onSlideChange:             function(prevIndex, nextIndex) {
+            // 'this' refers to the gallery, which is an extension of $('#thumbs')
+            this.find('ul.thumbs').children()
+              .eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
+              .eq(nextIndex).fadeTo('fast', 0.67);
+          },
+          onPageTransitionOut:       function(callback) {
+            this.fadeTo('fast', 0.0, callback);
+          },
+          onPageTransitionIn:        function() {
+            this.fadeTo('fast', 1.0);
+          }
+        });
+      });
+  </script>
+  
+  <!-- Gallery Mobile -->  
+  <link href="/themes/Travel/tour/javascripts/gallery_mobie/photoswipe.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="/themes/Travel/tour/javascripts/gallery_mobie/lib/klass.min.js"></script>
+  <script type="text/javascript" src="/themes/Travel/tour/javascripts/gallery_mobie/code.photoswipe-3.0.5.min.js"></script>
+  
+  
+  <script type="text/javascript">
 
-</header>
+    (function(window, PhotoSwipe){
+    
+      document.addEventListener('DOMContentLoaded', function(){
+      
+        var
+          options = {},
+          instance = PhotoSwipe.attach( window.document.querySelectorAll('#gallery_mobile a'), options );
+      
+      }, false);
+      
+      
+    }(window, window.Code.PhotoSwipe));
+    
+  </script>
 
-<!-- Main content -->
-<div class="container_12">
+  <!-- To top scrollbar  -->  
+  <script src="/themes/Travel/tour/javascripts/top-scrollbar/js/easing.js" type="text/javascript"></script>
+  <!-- UItoTop plugin -->
+  <script src="/themes/Travel/tour/javascripts/top-scrollbar/js/jquery.ui.totop.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" media="screen,projection" href="/themes/Travel/tour/javascripts/top-scrollbar/css/ui.totop.css" />
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var defaults = {
+          containerID: 'moccaUItoTop', // fading element id
+        containerHoverClass: 'moccaUIhover', // fading element hover class
+        scrollSpeed: 1200,
+        easingType: 'linear' 
+      };
+      
+      $().UItoTop({ easingType: 'easeOutQuart' });
+      
+    });
+  </script>
 
-	<!-- Description -->
-	<section class="description results_wide grid_12">
+  <!-- Tooltip -->  
+  <script type="text/javascript" src="/themes/Travel/tour/javascripts/powertip/jquery.powertip.js"></script>
+  <link rel="stylesheet" type="text/css" href="/themes/Travel/tour/javascripts/powertip/jquery.powertip.css" />
+  <script type="text/javascript">
+    $(function() {
+      // placement examples
+      $('.tooltip_n').powerTip({placement: 'n'});
+      $('.east').powerTip({placement: 'e'});
+      $('.south').powerTip({placement: 's'});
+      $('.west').powerTip({placement: 'w'});
+      $('.tooltip_nw').powerTip({placement: 'nw'});
+      $('.tooltip_ne').powerTip({placement: 'ne'});
+      $('.south-west').powerTip({placement: 'sw'});
+      $('.tooltip_se').powerTip({placement: 'se'});
 
-		<a href="<?=$imagepath?>/placeholders/800x600/8.jpg" class="main_image fancybox"><img src="<?=$imagepath?>/placeholders/300x200/8.jpg" alt="" /></a>
+      // mouse follow examples
+      $('#mousefollow-examples div').powerTip({followMouse: true});
 
-		<div>
-			<span>
-				<span class="boxed"><a href="#">Singapore, Republic of Singapore</a></span>
-			</span>
-			<span>
-				<span class="stars boxed">
-					<img src="<?=$imagepath?>/star_white_full.png" alt="" />
-					<img src="<?=$imagepath?>/star_white_full.png" alt="" />
-					<img src="<?=$imagepath?>/star_white_full.png" alt="" />
-					<img src="<?=$imagepath?>/star_white_half.png" alt="" />
-					<img src="<?=$imagepath?>/star_white_empty.png" alt="" />
-				</span>
-			</span>
-			<span>All inclusive</span>
-			<span>Wellness</span>
-			<span>Golf</span>
-		</div>
+      // mouse-on examples
+      $('#mouseon-examples div').data('powertipjq', $([
+        '<p><b>Here is some content</b></p>',
+        '<p><a href="http://stevenbenner.com/">Maybe a link</a></p>',
+        '<p><code>{ placement: \'e\', mouseOnToPopup: true }</code></p>'
+      ].join('\n')));
+      $('#mouseon-examples div').powerTip({
+        placement: 'e',
+        mouseOnToPopup: true
+      });
 
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam gravida, odio vel pretium consequat, mi felis facilisis lacus, sed elementum ligula massa sed est. Mauris mauris lectus, gravida id ullamcorper a, mattis eget leo.</p>
-		<p>Nunc imperdiet ipsum id risus aliquet ultrices porttitor nisl suscipit. <strong>Fusce at turpis</strong> eros, eu aliquam enim. Sed lobortis faucibus lacus, eget consectetur metus tempus eu. Nam id ullamcorper diam. In vel orci a libero convallis elementum vel egestas est.</p>
+      // api examples
+      $('#api-open').on('click', function() {
+        $.powerTip.showTip($('#mouseon-examples div'));
+      });
+      $('#api-close').on('click', function() {
+        $.powerTip.closeTip();
+      });
+    });
+  </script>
 
-	</section>
-
-	<!-- Image gallery -->
-	<section class="gallery grid_12">
-		
-		<!-- Slider navigation -->
-		<nav class="slider_nav">
-			<a href="#" class="left">&nbsp;</a>
-			<a href="#" class="right">&nbsp;</a>
-		</nav>
-
-		<!-- Slider -->
-		<div class="slider_wrapper">
-
-			<!-- Slider content -->
-			<div class="slider_content">
-				<a href="<?=$imagepath?>/placeholders/800x600/7.jpg">
-					<img src="<?=$imagepath?>/placeholders/150x110/7.jpg" alt="" />
-				</a>
-				<a href="<?=$imagepath?>/placeholders/800x600/8.jpg">
-					<img src="<?=$imagepath?>/placeholders/150x110/8.jpg" alt="" />
-				</a>
-				<a href="<?=$imagepath?>/placeholders/800x600/9.jpg">
-					<img src="<?=$imagepath?>/placeholders/150x110/9.jpg" alt="" />
-				</a>
-				<a href="<?=$imagepath?>/placeholders/800x600/12.jpg">
-					<img src="<?=$imagepath?>/placeholders/150x110/12.jpg" alt="" />
-				</a>
-				<a href="<?=$imagepath?>/placeholders/800x600/13.jpg">
-					<img src="<?=$imagepath?>/placeholders/150x110/13.jpg" alt="" />
-				</a>
-				<a href="<?=$imagepath?>/placeholders/800x600/14.jpg">
-					<img src="<?=$imagepath?>/placeholders/150x110/14.jpg" alt="" />
-				</a>
-				<a href="<?=$imagepath?>/placeholders/800x600/9.jpg">
-					<img src="<?=$imagepath?>/placeholders/150x110/9.jpg" alt="" />
-				</a>
-				<a href="<?=$imagepath?>/placeholders/800x600/12.jpg">
-					<img src="<?=$imagepath?>/placeholders/150x110/12.jpg" alt="" />
-				</a>
-			</div>
-
-		</div>
-
-	</section>
-
-	<div class="clearfix"></div>
-	<hr class="dashed grid_12" />
-
-	<!-- Simple text -->
-	<section class="text padded_right grid_8">
-		<h3 class="text_big">Vestibulum placerat rhoncus massa</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam faucibus placerat risus, ac vulputate enim facilisis eu. In sodales lacinia elit, ut rhoncus risus consequat sit amet. Suspendisse potenti. Nam imperdiet lacinia aliquet. Donec odio risus, dignissim id placerat et, molestie sed ligula.</p>
-		<p>Vestibulum placerat rhoncus massa, vel viverra ligula placerat sit amet. Aenean nibh sem, placerat ac laoreet ac, ullamcorper in est. Nulla facilisi. Suspendisse potenti. Maecenas mollis dui id lacus semper sit amet accumsan augue rhoncus. Ut sed felis eget mi placerat accumsan ut vel risus.</p>
-		<p>Phasellus aliquam sodales pharetra. Donec ornare felis quis quam volutpat ut venenatis dui scelerisque. Quisque feugiat lacus vel odio pulvinar vel sagittis nisl gravida.</p>
-	</section>
-
-	<!-- Video -->
-	<section class="video grid_4">
-		<iframe src="http://player.vimeo.com/video/27246366?color=ffffff"></iframe>
-	</section>
-
-	<div class="clearfix"></div>
-	<hr class="dashed grid_12" />
-	
-	<!-- Image slider -->
-	<section class="image_slider grid_4">
-
-		<!-- Navigation -->
-		<nav class="slider_nav">
-			<a href="#" class="left">&nbsp;</a>
-			<a href="#" class="right">&nbsp;</a>
-		</nav>
-
-		<!-- Content -->
-		<div class="slides">
-			<a href="<?=$imagepath?>/placeholders/800x600/9.jpg">
-				<img src="<?=$imagepath?>/placeholders/300x200/9.jpg" alt="" />
-			</a>
-			<a href="<?=$imagepath?>/placeholders/800x600/10.jpg">
-				<img src="<?=$imagepath?>/placeholders/300x200/10.jpg" alt="" />
-			</a>
-			<a href="<?=$imagepath?>/placeholders/800x600/7.jpg">
-				<img src="<?=$imagepath?>/placeholders/300x200/7.jpg" alt="" />
-			</a>
-		</div>
-
-	</section>
-
-	<!-- Simple text -->
-	<section class="text padded_left grid_8">
-		<h3 class="text_big">Nam imperdiet lacinia</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam faucibus placerat risus, ac vulputate enim facilisis eu. In sodales lacinia elit, ut rhoncus risus consequat sit amet. Suspendisse potenti. Nam imperdiet lacinia aliquet. Donec odio risus, dignissim id placerat et, molestie sed ligula.</p>
-		<p>Vestibulum placerat rhoncus massa, vel viverra ligula placerat sit amet. Aenean nibh sem, placerat ac laoreet ac, ullamcorper in est. Nulla facilisi. Suspendisse potenti. Maecenas mollis dui id lacus semper sit amet accumsan augue rhoncus. Ut sed felis eget mi placerat accumsan ut vel risus.</p>
-		<p>Phasellus aliquam sodales pharetra. Donec ornare felis quis quam volutpat ut venenatis dui scelerisque.</p>
-	</section>
-
-	<div class="clearfix"></div>
-	<hr class="dashed grid_12" />
-
-	<!-- Reservation form -->
-	<section class="search_box sidebar grid_4">
-
-		<h2>
-			<span data-form="find_hotel">Make a reservation</span>
-		</h2>
-
-		<!-- Find a hotel form -->
-		<form action="#" data-form="find_hotel" class="black">
-
-			<div class="half">
-				<label>Check in</label>
-				<input type="text" name="check_in" class="date" value="11/23/2011" />
-			</div>
-
-			<div class="half last">
-				<label>Check out</label>
-				<input type="text" name="check_out" class="date" value="11/23/2011" />
-			</div>
-
-			<div class="half">
-				<label>Guests</label>
-				<input type="text" name="guests" value="2" />		
-			</div>
-
-			<div class="half last">
-				<label>Rooms</label>
-				<input type="text" name="rooms" value="1" />		
-			</div>
-
-			<input type="submit" value="Search">
-
-		</form>
-
-	</section>
-
-	<!-- Map -->
-	<section class="map grid_4">
-		<script>
-			$(function() {
-				markers = "La Tour Eiffel, Paris"; // Set the address for marker
-				$("a#map").attr("href", "http://maps.google.com/maps?q=" + escape(markers)).html("<img />");
-				$("a#map img").attr("src", "http://maps.google.com/maps/api/staticmap?markers=" + escape(markers) + "&size=300x250&sensor=false");
-			});
-		</script>
-		<a href="#" id="map"></a>
-	</section>
-
-	<!-- Similar hotels -->
-	<section class="similar_hotels grid_4">
-		
-		<h2 class="section_heading">Similar hotels</h2>
-		<ul>
-			<li>
-				<a href="#" class="thumb"><img src="<?=$imagepath?>/placeholders/40x40/8.jpg" alt="" /></a>
-				<h3><a href="#">Marina Bay Sands</a></h3>
-				<span class="stars">
-					<img src="<?=$imagepath?>/star_full.png" alt="" />
-					<img src="<?=$imagepath?>/star_full.png" alt="" />
-					<img src="<?=$imagepath?>/star_full.png" alt="" />
-					<img src="<?=$imagepath?>/star_half.png" alt="" />
-					<img src="<?=$imagepath?>/star_empty.png" alt="" />
-				</span>
-				<div>
-					<span><a href="#">Malorca</a></span>
-					<span><strong>1 899 €</strong> / 10 nights</span>
-				</div>
-			</li>
-			<li>
-				<a href="#" class="thumb"><img src="<?=$imagepath?>/placeholders/40x40/8.jpg" alt="" /></a>
-				<h3><a href="#">Marina Bay Sands</a></h3>
-				<span class="stars">
-					<img src="<?=$imagepath?>/star_full.png" alt="" />
-					<img src="<?=$imagepath?>/star_full.png" alt="" />
-					<img src="<?=$imagepath?>/star_full.png" alt="" />
-					<img src="<?=$imagepath?>/star_half.png" alt="" />
-					<img src="<?=$imagepath?>/star_empty.png" alt="" />
-				</span>
-				<div>
-					<span><a href="#">Malorca</a></span>
-					<span><strong>2 399 €</strong> / 15 nights</span>
-				</div>
-			</li>
-			<li>
-				<a href="#" class="thumb"><img src="<?=$imagepath?>/placeholders/40x40/8.jpg" alt="" /></a>
-				<h3><a href="#">Marina Bay Sands</a></h3>
-				<span class="stars">
-					<img src="<?=$imagepath?>/star_full.png" alt="" />
-					<img src="<?=$imagepath?>/star_full.png" alt="" />
-					<img src="<?=$imagepath?>/star_full.png" alt="" />
-					<img src="<?=$imagepath?>/star_half.png" alt="" />
-					<img src="<?=$imagepath?>/star_empty.png" alt="" />
-				</span>
-				<div>
-					<span><a href="#">Malorca</a></span>
-					<span><strong>2 899 €</strong> / 19 nights</span>
-				</div>
-			</li>
-		</ul>
-		
-	</section>
-
-	<div class="clearfix"></div>
-	<hr class="dashed grid_12" />
-
-	<!-- Simple text -->
-	<section class="text grid_4">
-		<h3>Curabitur rutrum</h3>
-		<p>Curabitur rutrum lacinia dui vitae tempus. Etiam porttitor, metus id rutrum placerat, quam arcu lobortis magna, et ornare leo massa at massa. Aliquam tempor iaculis dui at pellentesque. Pellentesque accumsan consectetur dolor sed facilisis. Etiam sed purus sem, quis accumsan nunc.</p>
-	</section>
-
-	<!-- Simple text -->
-	<section class="text grid_4">
-		<h3>Sed vitae mauris</h3>
-		<p>Sed vitae mauris vitae elit porta rhoncus at eget augue. Pellentesque eu ante eu ante mollis eleifend. Praesent a eros elit, vitae dapibus sem. Morbi scelerisque nulla at lorem egestas fringilla. Proin sit amet lectus ac risus sagittis auctor. Nulla laoreet lobortis pulvinar.</p>
-	</section>
-
-	<!-- Simple text -->
-	<section class="text grid_4">
-		<h3>Sed vitae mauris</h3>
-		<p>Sed vitae mauris vitae elit porta rhoncus at eget augue. Pellentesque eu ante eu ante mollis eleifend. Praesent a eros elit, vitae dapibus sem. Morbi scelerisque nulla at lorem egestas fringilla. Proin sit amet lectus ac risus sagittis auctor. Nulla laoreet lobortis pulvinar.</p>
-	</section>
-	
-</div> 
- 
- 	<!-- Footer -->
-	<footer><div class="container_12">
-		
-		<nav class="grid_8">
-			<a href="#">Home</a>
-			<a href="#">Catalogue</a>
-			<a href="#">Blog</a>
-			<a href="#">Contact</a>
-			<a href="#">FAQ</a>
-		</nav>
-
-		<p class="address grid_4">
-			<strong>Travel Agency Inc.</strong><br />
-			<span>123 Wall Street , New York</span><br />
-			<span><a href="mailto:contact@travelagency.com">contact@travelagency.com</a></span>
-		</p>
-
-		<p class="copyright grid_8">
-			© 2011 Travel Agency
-		</p>
-
-	</div></footer>
-
-
-	<!-- Google Analytics -->
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-XXXXXXX-X']); // Set your Google Analytics ID here
-		_gaq.push(['_trackPageview']);
-
-		(function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
+</body>
+</html>

@@ -131,7 +131,8 @@ class MY_Model extends CI_Model {
             if(is_numeric($options['where'])){
               $this->db->where($this->_prefix."_".$this->_pk,$options['where']);
             }else{
-              $this->db->where($this->_prefix."_".trim($options['where']));
+              //$exploded = explode("=",$options['where']);
+              //$this->db->where($this->_prefix."_".trim()); 
             }
           }
         }

@@ -109,7 +109,7 @@ function selectAll(){
           <span><input type="checkbox" name="<?php echo $value["id"];?>" id="location_<?php echo $value["id"];?>"></span>
           <div>
             <span>  
-            <h3><a href="<?php echo base_url("location/create/$value[id]");?>"><?php echo $value["title"];?></a></h3>
+            <h3><a href="<?php echo base_url("location/read/$value[id]");?>" target="_blank"><?php echo $value["title"];?></a></h3>
             </span>
             <span class="description"><?php echo trim(substr(strip_tags($value["body"]),0,100));?></span>
             

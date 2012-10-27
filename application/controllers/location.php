@@ -19,7 +19,8 @@ class Location extends MY_Controller {
 
   function create($id=NULL){
     $_post = $this->input->post();
-
+    
+    $_post['body'] = preg_replace("/<p[^>]*><\\/p[^>]*>/", '', $_post['body']); 
     //print_r($_post); 
     if($this->input->post("submit") != NULL OR $this->input->post("ajax")==TRUE){
       
@@ -44,13 +45,13 @@ class Location extends MY_Controller {
         ////////////////////////////////////////////         
         $this->load->model("tag_model", "tagModel");       
         $this->load->model("tagtour_model", "tagTourModel");
+        $this->load->model("taglocation_model", "tagLocationModel");
         $count = 0; 
         $tagTour = false;
         $tagArray = $this->tagModel->cleanTagAndAddTag($_post["tags"]);
-        var_dump($_post);
         foreach ($tagArray as $key => $value) {
           $tagLocation[$count]["tag_id"] = $value->id;
-          $tagLocation[$count]["location_id"] = $data['id'];
+          $tagLocation[$count]["location_id"] = $data['post_data']['id'];
           $count++;
         }
         $this->tagLocationModel->addMultipleRecord($tagLocation);
@@ -85,14 +86,15 @@ class Location extends MY_Controller {
   
   function read($id=FALSE){
     if($id){
-      $locationData["location"] = $this->locationModel->get(array(
-                                                                'limit'=>'',
-                                                                'returnObj'=>'',
-                                                                'order'=>'',
-                                                                'where'=>"id=$id"
-                                                              )
-                                                        );
-      $this->_fetch("view",$locationData);
+      $this->load->model("images_model", "imagesModel");
+      $locationData["location"] = $this->locationModel->get($id);
+      $locationData["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$id,'table_id'=>1)));
+      //var_dump($locationData["images"]);exit;
+      $locationData["location"] = $locationData["location"][0];
+      //Prepare for three column
+      $locationData["location"]['body'] =  explode("<hr />",preg_replace("/<p[^>]*>[\s|&nbsp;]*<\/p>/", '', $locationData["location"]['body']));
+      
+      $this->_fetch("view",$locationData,FALSE,TRUE);
     }
   }
 
