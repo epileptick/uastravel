@@ -12,7 +12,7 @@
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("/themes/Travel/tour/stylesheets/foundation.css").'">');
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("/themes/Travel/tour/stylesheets/style.css").'">');
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("/themes/Travel/tour/stylesheets/app.css").'">');
-PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("/themes/Travel/javascripts/modernizr.foundation.js").'"></script>');
+PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("/themes/Travel/tour/javascripts/modernizr.foundation.js").'"></script>');
 
 preg_match('/MSIE (.*?);/', $_SERVER['HTTP_USER_AGENT'], $matches);
 
@@ -52,10 +52,10 @@ if (count($matches)>1){
             <ul class="right">
               <li><a href="#">หน้าแรก</a></li>
               <li><a class="active" href="#">แหล่งท่องเที่ยว</a></li>
-              <li><a href="#">แพ๊คเกจทัวร์</a></li>          
+              <li><a href="#">แพ๊คเกจทัวร์</a></li>
               <li><a href="#">เกี่ยวกับเรา</a></li>
               <li><a href="#">ติดต่อเรา</a></li>
-              <li><a href="#">โปรโมชั่น</a></li>            
+              <li><a href="#">โปรโมชั่น</a></li>
             </ul>
           </section>
         </nav>
@@ -101,7 +101,7 @@ if (count($matches)>1){
                 </a>
                 <div class="captions">
                   <div class="image-title"><?php echo $location['title'];?></div>
-                  <div class="image-desc"><?php echo $location['body'][0];?></div>
+                  <div class="image-desc"></div>
                 </div>
               </li>
             <?php

@@ -38,23 +38,46 @@
 |
 */
 
+include(APPPATH."utils/CILangUtil.php");
+
+
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 
-$route['โพส/(:num)'] = 'location/create/$1';
-$route['post/(:num)/(:any)'] = 'post/view/$1';
+
+//location
+$route['admin/'.LangUtil::line("url_lang_location")] = 'location/index';
+$route['admin/'.LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/read/$3';
+$route['admin/'.LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/read/$2';
+$route['admin/'.LangUtil::line("url_lang_location").'/(:any)'] = 'location/index'; //for Tag
+$route['admin/'.LangUtil::line("url_lang_location")] = 'location/index';
+
+$route[LangUtil::line("url_lang_location")] = 'location/user_index';
+$route[LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/user_read/$3';
+$route[LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/user_read/$2';
+$route[LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_index'; //for Tag
+$route[LangUtil::line("url_lang_location")] = 'location/user_index';
 
 
-/*
-$route['post/(:num)'] = 'post/read/$1';
-$route['post/(:num)'] = 'post/read/$1';
+//tour
+$route['admin/'.LangUtil::line("url_lang_tour")] = 'tour/index';
+$route['admin/'.LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/read/$3';
+$route['admin/'.LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/read/$2';
+$route['admin/'.LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/index'; //for Tag
+$route['admin/'.LangUtil::line("url_lang_tour")] = 'tour/index';
+
+$route[LangUtil::line("url_lang_tour")] = 'tour/user_index';
+$route[LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/user_read/$3';
+$route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_read/$2';
+$route[LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/user_index'; //for Tag
+$route[LangUtil::line("url_lang_tour")] = 'tour/user_index';
 
 
-$route['p-(:any)'] = 'post/read/$1';
-$route['tour-_(:any)-__(:any)'] = 'tour/read/$1/$2';
-$route['tour-_(:any)'] = 'tour/read/$1/$2';
-$route['tour-(:any)'] = 'tour/read/$1/$2';
-*/
+//Tag
+$route['admin/(:any)'] = 'tag/index/$1';
+
+$route['/(:any)'] = 'tag/user_index/$1';
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
