@@ -44,17 +44,24 @@ class Tag extends MY_Controller {
   }
 
   
-  function read($id=false){
+  function read($tag=false){
     //implement code here
+    if($tag){
+      if(is_numeric($tag)){
+        $args["id"] = $tag;  
+        $data["tag"] = $this->tagModel->getRecord($args);  
+        $this->_fetch('list', $data);
+      }else{
 
-    $args["id"] = $id;
-    if($args["id"]){
-      $data["tag"] = $this->tagModel->getRecord($args);  
-      $this->_fetch('list', $data);
+        $args["name"] = $tag;        
+        $data["tag"] = $this->tagModel->getRecord($args);  
+        $this->_fetch('list', $data);
+      }
     }else{
       $data["tag"] = $this->tagModel->getRecord();
       $this->_fetch('list', $data);
     }
+   
   }
   
   function search($keyword=false){
@@ -82,8 +89,10 @@ class Tag extends MY_Controller {
 
 
   function jssearch($keyword=false){
-    $args["tag_name"] = $keyword;
-    $data["tag"] = $this->tagModel->searchRecord($args);
+
+    //print_r($keyword);
+    $tag["tag_name"] = $keyword;
+    $data["tag"] = $this->tagModel->searchRecord($tag);
     $this->_fetch('jsarray', $data, false, true);
   }
 
