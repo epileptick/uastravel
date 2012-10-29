@@ -17,11 +17,6 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("themes/T
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("themes/Travel/tour/stylesheets/app.css").'">');
 PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/javascripts/modernizr.foundation.js").'"></script>');
 
-
-
-
-
-
 preg_match('/MSIE (.*?);/', $_SERVER['HTTP_USER_AGENT'], $matches);
 
 if (count($matches)>1){
@@ -44,6 +39,11 @@ if (count($matches)>1){
 }
 ?>
 
+
+<?php print_r($tour); ?>
+
+
+<?php print_r($tag);?>
 </head>
 <body style="background: #ededed url("<?php echo base_url('themes/Travel/tour/images/bg1.jpg');?>") no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
   <div class="overly-bg"></div>
@@ -75,7 +75,7 @@ if (count($matches)>1){
     <div class="row">
       <div class="twelve columns">
         <a href="" class="arrow previous tooltip_nw" title="แหล่งท่องเที่ยวก่อนหน้า">แหล่งท่องเที่ยวก่อนหน้า</a>
-        <h1 class="title">หมู่เกาะสิมิลัน
+        <h1 class="title"><?php echo  $tour[0]->name; ?>
           <span class="subtitle">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</span>
         </h1>
         <a href="" class="arrow next tooltip_ne" title="แหล่งท่องเที่ยวถัดไป">แหล่งท่องเที่ยวถัดไป</a>
@@ -256,17 +256,202 @@ if (count($matches)>1){
         </ul>
       </section>
     </div>
+
+
+
+
+    <!-- Start display tour-->
+    <div class="row">
+      <section class="article">
+
+
+
+
+      <div class="eight columns">
+
+        <!-- Start display Title -->
+        <div class="row border">
+          <div class="twelve columns">
+            <h3><?php echo  $tour[0]->name; ?></h3> 
+            <?php
+              foreach ($tag as $key => $value) {
+                # code...
+                echo $value[0]->name;
+                echo ",";
+              }
+            ?>
+          </div>
+        </div>
+        <!-- End display Title -->
+
+        <!-- Start display Title -->
+        <div class="row">
+          <div class="twelve columns">
+            <p>
+              <?php echo  $tour[0]->description; ?>
+            </p>
+          </div>          
+
+        </div>
+      </div>
+
+
+      <div class="four columns">
+        right
+
+        <h3>แพ็กเก็จทัวร์แนะนำ</h3>
+        <div class="list_packet">
+          <div class="row">
+            <div class="twelve columns">
+              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/1.png');?>"></a>
+            </div>
+            <div class="twelve columns">
+              <div class="title_tour">
+                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
+              </div>
+              <div class="rating one_star" style="display:none"></div>
+              <div class="rating two_star" style="display:none"></div>
+              <div class="rating three_star"></div>
+              <div class="rating four_star" style="display:none"></div>
+              <div class="rating five_star"style="display:none"></div>
+              <div class="clearfix"></div>
+              <div class="border"></div>
+            </div>
+            <div class="twelve columns">
+              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
+              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
+              <div class="price"><span>8,780 B</span> / 3 วัน</div>
+            </div>
+          </div>
+        </div>
+        <div class="list_packet">
+          <div class="row">
+            <div class="twelve columns">
+              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/2.png');?>"></a>
+            </div>
+            <div class="twelve columns">
+              <div class="title_tour">
+                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
+              </div>
+              <div class="rating one_star" style="display:none"></div>
+              <div class="rating two_star" style="display:none"></div>
+              <div class="rating three_star"></div>
+              <div class="rating four_star" style="display:none"></div>
+              <div class="rating five_star"style="display:none"></div>
+              <div class="clearfix"></div>
+              <div class="border"></div>
+            </div>
+            <div class="twelve columns">
+              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
+              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
+              <div class="price"><span>8,780 B</span> / 3 วัน</div>
+            </div>
+          </div>
+        </div>
+        <div class="list_packet">
+          <div class="row">
+            <div class="twelve columns">
+              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/3.png')?>"></a>
+            </div>
+            <div class="twelve columns">
+              <div class="title_tour">
+                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
+              </div>
+              <div class="rating one_star" style="display:none"></div>
+              <div class="rating two_star" style="display:none"></div>
+              <div class="rating three_star"></div>
+              <div class="rating four_star" style="display:none"></div>
+              <div class="rating five_star"style="display:none"></div>
+              <div class="clearfix"></div>
+              <div class="border"></div>
+            </div>
+            <div class="twelve columns">
+              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
+              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
+              <div class="price"><span>8,780 B</span> / 3 วัน</div>
+            </div>
+          </div>
+        </div>
+        <div class="list_packet">
+          <div class="row">
+            <div class="twelve columns">
+              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/4.png'); ?>"></a>
+            </div>
+            <div class="twelve columns">
+              <div class="title_tour">
+                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
+              </div>
+              <div class="rating one_star" style="display:none"></div>
+              <div class="rating two_star" style="display:none"></div>
+              <div class="rating three_star"></div>
+              <div class="rating four_star" style="display:none"></div>
+              <div class="rating five_star"style="display:none"></div>
+              <div class="clearfix"></div>
+              <div class="border"></div>
+            </div>
+            <div class="twelve columns">
+              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
+              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
+              <div class="price"><span>8,780 B</span> / 3 วัน</div>
+            </div>
+          </div>
+        </div>
+        <div class="list_packet">
+          <div class="row">
+            <div class="twelve columns">
+              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/5.png');?>"></a>
+            </div>
+            <div class="twelve columns">
+              <div class="title_tour">
+                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
+              </div>
+              <div class="rating one_star" style="display:none"></div>
+              <div class="rating two_star" style="display:none"></div>
+              <div class="rating three_star"></div>
+              <div class="rating four_star" style="display:none"></div>
+              <div class="rating five_star"style="display:none"></div>
+              <div class="clearfix"></div>
+              <div class="border"></div>
+            </div>
+            <div class="twelve columns">
+              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
+              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
+              <div class="price"><span>8,780 B</span> / 3 วัน</div>
+            </div>
+          </div>
+        </div>
+      </div>   
+
+
+  
+    </section>     
+  </div>    <!-- End display tour-->
+
+
+
+
+
+
     <div class="row">
       <section class="article">
         <div class="row border">
           <div class="seven columns">
-            <h3>หมู่เกาะสิมิลัน</h3>
+            <h3><?php echo  $tour[0]->name; ?></h3> 
+            <?php
+              foreach ($tag as $key => $value) {
+                # code...
+                echo $value[0]->name;
+                echo ",";
+              }
+            ?>
           </div>
           <div class="five columns">
           </div>
         </div>
         <div class="four columns">
-          <p>หมู่เกาะสิมิลัน"คือสรวงสวรรค์ใต้สมุทรที่อุดมไปด้วยชีวิตน้อยใหญ่มากมาย ไม่ว่าจะเป็นปะการัง และหมู่ฝูงปลา มีน้ำใสราว แผ่นกระจกและมีหาดทรายที่ขาวสะอาดงดงาม สิมิลันมีชื่อ เสียง ทางด้านมีแหล่งน้ำลึกที่สวยงาม ติดอันดับ 1 ใน 10 ของโลก และภาพหินเรือใบเป็นภาพสัญลักษณ์ของอุทยาน แห่งชาติหมู่เกาะสิมิลัน ซิ่งตั้งอยู่ที่เกาะ8 (สิมิลัน) ที่มีความงด งามมากและถือเป็นจุดเด่นของสิมิลันอุทยานแห่งชาติ หมู่เกาะ สิมิลัน ประกอบด้วยพื้นดินที่เป็นเกาะต่างๆ เขาหินแกรนิตสูง ชัน หาดทราย โขดหิน ลักษณะรูปร่างต่างๆ ชายฝั่งของเกาะ ต่างๆมีลักษณะเว้าแหว่งไม่เป็นระเบียบ เนื่องจากตั้งอยู่ในส่วน ทะเลนอกได้รับอิทธิพลจากการกัดเซาะของคลื่นทะเลโดยตรง เรียงตัวตามแนวทิศเหนือใต้พื้นน้ำเป็นส่วนหนึ่งของทะเลอันดามัน มหาสมุทรอินเดียตะวันออก บริเวณไหล่ทวีปติดชายฝั่ง  </p>
+          <p>
+            <?php echo  $tour[0]->description; ?>
+          </p>
         </div>
         <div class="four columns">
           <p>หมู่เกาะสิมิลัน"คือสรวงสวรรค์ใต้สมุทรที่อุดมไปด้วยชีวิตน้อยใหญ่มากมายไม่ว่าจะเป็นปะการังและหมู่ฝูงปลา มีน้ำใสราว แผ่นกระจกและมีหาดทรายที่ขาวสะอาดงดงาม สิมิลันมีชื่อเสียงทางด้านมีแหล่งน้ำลึกที่สวยงาม ติดอันดับนของโลกและภาพหินเรือใบเป็นภาพสัญลักษณ์ของอุทยาน แห่งชาติหมู่เกาะสิมิลัน ซิ่งตั้งอยู่ที่เกาะ8 (สิมิลัน) ที่มีความงดงามมากและถือเป็นจุดเด่นของสิมิลันอุทยานแห่งชาติ หมู่เกาะ สิมิลัน ประกอบด้วยพื้นดินที่เป็นเกาะต่างๆ เขาหินแกรนิตสูง ชัน หาดทราย โขดหิน ลักษณะรูปร่างต่างๆ ชายฝั่งของเกาะต่างๆมีลักษณะเว้าแหว่งไม่เป็นระเบียบ เนื่องจากตั้งอยู่ในส่วนทะเลนอกได้รับอิทธิพลจากการกัดเซาะของคลื่นทะเลโดยตรงเรียงตัวตามแนวทิศเหนือใต้พื้นน้ำเป็นส่วนหนึ่งของทะเลอันดามันมหาสมุทรอินเดียตะวันออกบริเวณไหล่ทวีปติดชายฝั่งตะวันตกของจังหวัดพังงา</p>
