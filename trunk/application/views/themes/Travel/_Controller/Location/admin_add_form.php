@@ -55,9 +55,9 @@ $(document).ready(function() {
     //console.log($("#textarea").val());
     //console.log($("#tags").val());
     if($("#id").val()!=0){
-      $.post(\''.base_url('location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+      $.post(\''.base_url('admin/location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
     }else if($("#id").val()==0){
-      $.post(\''.base_url('location/create/').'\',{title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+      $.post(\''.base_url('admin/location/create/').'\',{title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
     }
   }
     
@@ -358,7 +358,7 @@ PageUtil::addVar("javascript",'
   <div id="add_form">
   <div id="status"></div>
   
-  <?php echo form_open(base_url('location/create')); ?>
+  <?php echo form_open(base_url('admin/location/create')); ?>
   <input type="hidden" value="<?=$post['loc_id']?>" id="id" name="id" />
   <span id="fedfe"></span>
   <div class="topHolder">
