@@ -128,8 +128,6 @@ class TagTour_model extends MY_Model {
     }else{
       return ;
     }
-
-    
   }   
 
   function updateRecord($data=false){

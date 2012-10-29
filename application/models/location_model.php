@@ -66,7 +66,7 @@ class Location_model extends MY_Model {
     if($result){
       return $this->db->insert_id();
     }else{
-      $result;
+      return $result;
     }
     
   }
@@ -108,10 +108,12 @@ class Location_model extends MY_Model {
     }
     $this->db->where($this->_column['id'], $options['id']);
     $result = $this->db->update($this->_table);
+
+    //print_r($options);
     if($result){
       return $options['id'];
     }else{
-      $result;
+      return $result;
     }
   }
   
