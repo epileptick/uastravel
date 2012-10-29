@@ -326,7 +326,7 @@ if (count($matches)>1){
               js.src = "//connect.facebook.net/th_TH/all.js#xfbml=1&appId=357467797616103";
               fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));</script>
-            <div class="fb-comments" data-href="http://xn--42cga5cfx1dle5e0agb2ixai5l6f.com" data-num-posts="2" data-width=""></div>
+            <div class="fb-comments" data-href="<?php echo base_url('location/'.$location['url']."-".$location['id']);?>" data-num-posts="2" data-width=""></div>
           </div>
         </div>
       </div>
