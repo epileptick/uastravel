@@ -46,8 +46,12 @@ CREATE TABLE `ci_tour` (
   `tou_amount_time` float DEFAULT NULL,
   `tou_start_date` date DEFAULT NULL,
   `tou_end_date` date DEFAULT NULL,
-  `tou_start_time` time DEFAULT NULL,
-  `tou_end_time` time DEFAULT NULL,
+  `tou_start_time1` time DEFAULT NULL,
+  `tou_end_time1` time DEFAULT NULL,
+  `tou_start_time2` time DEFAULT NULL,
+  `tou_end_time2` time DEFAULT NULL,
+  `tou_longitude` text,
+  `tou_latitude` text,
   `tou_longitude` varchar(255) DEFAULT NULL,
   `tou_latitude` varchar(255) DEFAULT NULL,
   `tou_cr_date` timestamp NULL DEFAULT NULL,
@@ -111,10 +115,10 @@ CREATE TABLE `ci_tagtour` (
 
 
 CREATE TABLE `ci_taglocation` (
-  `tao_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `tao_location_id` int(11) DEFAULT NULL,
-  `tao_tour_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`tao_id`)
+  `tal_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tal_location_id` int(11) DEFAULT NULL,
+  `tal_tag_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`tal_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
 
 CREATE TABLE `ci_locationtour` (
