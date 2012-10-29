@@ -61,7 +61,8 @@
 					<span style="margin-left:12px;">
 
 						[ <a href='<?php echo base_url("admin/tour/create/$value->id");?>'>Edit</a> ]
-						[ <a href='<?php echo base_url("admin/tour/delete/$value->id");?>'>Delete</a> ]						
+						[ <a href='<?php echo base_url("admin/tour/delete/$value->id");?>'>Delete</a> ]	
+						[ <a href='<?php echo base_url("tour/$value->name-$value->id");?>'>View</a> ]						
 					</span>
 				</li>			
 			<?php					

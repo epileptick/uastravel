@@ -43,7 +43,7 @@ if (count($matches)>1){
 <?php print_r($tour); ?>
 
 
-<?php print_r($tag);?>
+<?php (!empty($tag))?print_r($tag):"";?>
 </head>
 <body style="background: #ededed url("<?php echo base_url('themes/Travel/tour/images/bg1.jpg');?>") no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
   <div class="overly-bg"></div>
@@ -274,11 +274,14 @@ if (count($matches)>1){
           <div class="twelve columns">
             <h3><?php echo  $tour[0]->name; ?></h3> 
             <?php
-              foreach ($tag as $key => $value) {
-                # code...
-                echo $value[0]->name;
-                echo ",";
+              if(!empty($tag)){
+                foreach ($tag as $key => $value) {
+                  # code...
+                  echo $value[0]->name;
+                  echo ",";
+                }
               }
+
             ?>
           </div>
         </div>
@@ -438,10 +441,13 @@ if (count($matches)>1){
           <div class="seven columns">
             <h3><?php echo  $tour[0]->name; ?></h3> 
             <?php
-              foreach ($tag as $key => $value) {
-                # code...
-                echo $value[0]->name;
-                echo ",";
+
+              if(!empty($tag)){
+                foreach ($tag as $key => $value) {
+                  # code...
+                  echo $value[0]->name;
+                  echo ",";
+                }
               }
             ?>
           </div>
