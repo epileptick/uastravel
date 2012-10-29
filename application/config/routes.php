@@ -46,27 +46,29 @@ $route['404_override'] = '';
 
 
 //location
-$route['admin/'.LangUtil::line("url_lang_location")] = 'location/index';
-$route['admin/'.LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/read/$3';
-$route['admin/'.LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/read/$2';
-$route['admin/'.LangUtil::line("url_lang_location").'/(:any)'] = 'location/index'; //for Tag
-$route['admin/'.LangUtil::line("url_lang_location")] = 'location/index';
+$route['admin/'.LangUtil::line("url_lang_location")] = 'location/admin_index';
+$route['admin/'.LangUtil::line("url_lang_location")."/create/(:any)"] = 'location/admin_create/$1';
+$route['admin/'.LangUtil::line("url_lang_location")."/create"] = 'location/admin_create';
+$route['admin/'.LangUtil::line("url_lang_location")."/ajax_delete"] = 'location/ajax_delete';
+$route['admin/'.LangUtil::line("url_lang_location")."/delete/(:any)"] = 'location/admin_delete/$1';
+$route['admin/'.LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/admin_view/$3';
+$route['admin/'.LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/admin_view/$2';
+$route['admin/'.LangUtil::line("url_lang_location").'/(:any)'] = 'location/admin_index'; //for Tag
+$route['admin/'.LangUtil::line("url_lang_location")] = 'location/admin_index';
 
-$route[LangUtil::line("url_lang_location")] = 'location/user_index';
-$route[LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/user_read/$3';
-$route[LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/user_read/$2';
+
+$route[LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/user_view/$3';
+$route[LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/user_view/$2';
 $route[LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_index'; //for Tag
 $route[LangUtil::line("url_lang_location")] = 'location/user_index';
 
 
 //tour
-$route['admin/'.LangUtil::line("url_lang_tour")] = 'tour/index';
 $route['admin/'.LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/read/$3';
 $route['admin/'.LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/read/$2';
 $route['admin/'.LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/index'; //for Tag
 $route['admin/'.LangUtil::line("url_lang_tour")] = 'tour/index';
 
-$route[LangUtil::line("url_lang_tour")] = 'tour/user_index';
 $route[LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/user_read/$3';
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_read/$2';
 $route[LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/user_index'; //for Tag
@@ -74,8 +76,6 @@ $route[LangUtil::line("url_lang_tour")] = 'tour/user_index';
 
 
 //Tag
-$route['admin/(:any)'] = 'tag/index/$1';
-
 $route['/(:any)'] = 'tag/user_index/$1';
 
 

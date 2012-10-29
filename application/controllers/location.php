@@ -9,21 +9,20 @@ class Location extends MY_Controller {
     return $locationData;
   }
   
-  function index(){
-    echo "Admin";
+  function admin_index(){
     $tag = $this->uri->segment(2);
     $where = array(
                   'limit'=>'',
                   'returnObj'=>'',
-                  'order'=>'',
+                  'order'=>'id desc',
                   'where'=>''
                 );
     if(empty($tag)){
       //$where['where'] = array('');
     }
-    $locationData["location"] = $this->locationModel->get($where);
+    $result = $this->_index($where);
                                       
-    $this->_fetch("list",$locationData);
+    $this->_fetch("admin_list",$result);
   }
   
   function user_index(){
@@ -41,8 +40,8 @@ class Location extends MY_Controller {
                                       
     $this->_fetch("user_list",$result);
   }
-
-  function create($id=NULL){
+  
+  function admin_create($id=NULL){
     $_post = $this->input->post();
     
     $_post['body'] = preg_replace("/<p[^>]*><\\/p[^>]*>/", '', $_post['body']); 
@@ -63,26 +62,24 @@ class Location extends MY_Controller {
           die;
         }else{ 
           $data['post_data']['id'] = $postData;
-
-        //print_r($_post); exit;
-        ////////////////////////////////////////////
-        //Add (TagTour) relationship data table 
-        ////////////////////////////////////////////         
-        $this->load->model("tag_model", "tagModel");       
-        $this->load->model("tagtour_model", "tagTourModel");
-        $this->load->model("taglocation_model", "tagLocationModel");
-        $count = 0; 
-        $tagTour = false;
-        $tagArray = $this->tagModel->cleanTagAndAddTag($_post["tags"]);
-        foreach ($tagArray as $key => $value) {
-          $tagLocation[$count]["tag_id"] = $value->id;
-          $tagLocation[$count]["location_id"] = $data['post_data']['id'];
-          $count++;
-        }
-        $this->tagLocationModel->addMultipleRecord($tagLocation);
-
-
-          $this->_fetch('add_success',$data);
+          //print_r($_post); exit;
+          ////////////////////////////////////////////
+          //Add (TagTour) relationship data table 
+          ////////////////////////////////////////////         
+          $this->load->model("tag_model", "tagModel");       
+          $this->load->model("tagtour_model", "tagTourModel");
+          $this->load->model("taglocation_model", "tagLocationModel");
+          $count = 0;
+          $tagTour = false;
+          $tagArray = $this->tagModel->cleanTagAndAddTag($_post["tags"]);
+          foreach ($tagArray as $key => $value) {
+            $tagLocation[$count]["tag_id"] = $value->id;
+            $tagLocation[$count]["location_id"] = $data['post_data']['id'];
+            $count++;
+          }
+          $this->tagLocationModel->addMultipleRecord($tagLocation);
+          
+          $this->_fetch('admin_add_success',$data);
         }
       }else{
         echo "submit failed";
@@ -95,21 +92,20 @@ class Location extends MY_Controller {
                             'loc_longitude' => "98.34449018537998",
                             'loc_title' => "",
                             'loc_body' => ""
-                            ); 
+                            );
       }else{
         $postData = $this->locationModel->readRecord(array('id'=>$id));
         if(!$postData){
-          redirect(base_url("location/create"));
+          redirect(base_url("admin/location/create"));
           die;
         }
         $data['post'] = $postData; 
       }
-      $this->_fetch('add_form',$data);
+      $this->_fetch('admin_add_form',$data);
     }
   }
-
   
-  function read($id=FALSE){  
+  function user_view($id=FALSE){  
     if($id){
       $this->load->model("images_model", "imagesModel");
       $locationData["location"] = $this->locationModel->get($id);
@@ -119,21 +115,20 @@ class Location extends MY_Controller {
       //Prepare for three column
       $locationData["location"]['body'] =  explode("<hr />",preg_replace("/<p[^>]*>[\s|&nbsp;]*<\/p>/", '', $locationData["location"]['body']));
       
-      $this->_fetch("view",$locationData,FALSE,TRUE);
+      $this->_fetch("user_view",$locationData,FALSE,TRUE);
     }
   }
-
+  
   function update(){
     //implement code here
     
   }
-
-
-  function delete($id=NULL){
+  
+  function admin_delete($id=NULL){
     //implement code here
     if(is_numeric($id)){
       $this->locationModel->delete($id);
-      redirect(base_url("location"));
+      redirect(base_url("admin/location"));
     }
     
   }
