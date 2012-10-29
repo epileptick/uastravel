@@ -148,58 +148,7 @@ PageUtil::addVar("javascript",'
 <script type="text/javascript">
 
   $(document).ready(function(){
-    var validate = "";
-    //Function tag 
-    $("#textarea")
-      .textext({
-        plugins : "tags autocomplete"
-      })
-      .bind("getSuggestions", function(e, data)
-      {
-        //Get tag data
-        if(data.query.length == 1){
-          var list = tagSearch(data.query);
-
-          var textext = $(e.target).textext()[0];
-          var query = (data ? data.query : "") || "";
-
-          validate = textext.itemManager().filter(list, query)
-        
-          //Show suggestion list 
-          $(this).trigger(
-            "setSuggestions",
-            { result : validate }
-          );
-        }else if( validate.length > 0){
-          var list = tagSearch(data.query);
-
-          var textext = $(e.target).textext()[0];
-          var query = (data ? data.query : "") || "";
-
-          validate = textext.itemManager().filter(list, query)
-        
-          //Show suggestion list 
-          $(this).trigger(
-            "setSuggestions",
-            { result : validate }
-          );
-
-        }
-      });
-      
-    function tagSearch(str) {
-
-              var url ="'.base_url("/tag/jssearch/").'"+str;
-              var response = $.ajax({ type: "GET",   
-                                      url: url,   
-                                      async: false
-                                    }).responseText;
-
-              var list = response.split(/,/);
-
-              return list;
-            }       
-            
+ 
     tinyMCE.init({
         mode : "specific_textareas",
         editor_selector : "mceEditor",
@@ -445,13 +394,88 @@ PageUtil::addVar("javascript",'
             ?>
           </span>
 
-          <script type="text/javascript">
-          //Function display tag 
-          $("#show_all_result").hide();
-          $("#show_all").click(function () {
-            $("#show_all_result").toggle("slow");
-          }); 
-          </script>   
+   <script type="text/javascript">
+
+      //Start update tag 
+      $('#textarea')
+        .textext({
+          plugins : 'tags autocomplete'
+          <?php
+            //Check has tag data
+            if(isset($tag_query)){
+          ?>
+
+            ,tagsItems : [  <?php  
+                      foreach ($tag_query as $key => $value) {
+                        # code...
+                        echo "'".$value->name."',";
+                      }
+                    ?>
+                  ]
+          <?php
+            }
+          ?>
+        })
+        .bind('getSuggestions', function(e, data)
+        {
+          //Get tag data
+          if(data.query.length == 1){
+            var list = tagSearch(data.query);
+
+            var textext = $(e.target).textext()[0];
+            var query = (data ? data.query : '') || '';
+
+            validate = textext.itemManager().filter(list, query)
+          
+            //Show suggestion list 
+            $(this).trigger(
+              'setSuggestions',
+              { result : validate }
+            );
+          }else if( validate.length > 0){
+            var list = tagSearch(data.query);
+
+            var textext = $(e.target).textext()[0];
+            var query = (data ? data.query : '') || '';
+
+            validate = textext.itemManager().filter(list, query)
+          
+            //Show suggestion list 
+            $(this).trigger(
+              'setSuggestions',
+              { result : validate }
+            );
+
+          }         
+        }).bind('tagClick', function(e, tag, value, callback){
+          var newValue = window.prompt('New value', value);
+
+          if(newValue)
+              callback(newValue);
+        });
+        //End update tag
+
+
+      function tagSearch(str) {
+
+        var url ="<?php echo base_url('/tag/jssearch/');?>"+str;
+        var response = $.ajax({ type: "GET",   
+                                url: url,   
+                                async: false
+                              }).responseText;
+
+        var list = response.split(/,/);
+
+        return list;
+      } 
+
+
+      //Function display tag 
+      $("#show_all_result").hide();
+      $("#show_all").click(function () {
+        $("#show_all_result").toggle("slow");
+      }); 
+    </script>   
           <?php
 
             //echo $tag;
@@ -474,7 +498,6 @@ PageUtil::addVar("javascript",'
             }
           ?>
       </div>
-      
       <div class="side_bar_block">
         <h3 class="location">{_ location_lang_location}</h3>
         <div id="mapCanvas"></div>
