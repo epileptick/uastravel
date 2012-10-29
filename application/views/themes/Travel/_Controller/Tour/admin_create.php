@@ -228,55 +228,8 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 	</section>
 
 
-	<!-- Sidebar start period-->
+	<!-- Start tag -->
 	<section class="simple_sidebar grid_4">
-		<label>Period</label><br>
-			<div class="half" style="width:120px;">
-				<label>Start Date :</label><br>
-				<?php echo form_error('start_date', '<font color="red">', '</font>'); ?>
-				<input style="width:120px;" type="text" name="start_date" id="start_date" value="<?php echo set_value('start_date');?>">
-			</div>	
-			<div class="half last" style="width:120px;">
-				<label>End Date :</label><br>
-				<?php echo form_error('end_date', '<font color="red">', '</font>'); ?>
-				<input type="text" name="end_date" id="end_date" value="<?php echo set_value('end_date');?>">
-			</div>					
-			<div class="clearfix"></div>
-	</section>
-	<!-- Sidebar end period-->
-
-	<!-- Sidebar start time period-->
-	<section class="simple_sidebar grid_4">
-		<label>Time Period</label><br>
-		<div class="half" style="width:120px;">
-			<label>Start time[1] :</label><br>
-			<?php echo form_error('start_time1', '<font color="red">', '</font>'); ?>
-			<input type="text" name="start_time1" id="start_time1" value="<?php echo set_value('start_time1');?>">
-		</div>	
-		<div class="half last" style="width:120px;">
-			<label>End time[1] :</label><br>
-			<?php echo form_error('end_time1', '<font color="red">', '</font>'); ?>
-			<input type="text" name="end_time1" id="end_time1" value="<?php echo set_value('end_time1');?>">
-		</div>					
-		<div class="clearfix"></div>	
-
-		<div class="half" style="width:120px;">
-			<label>Start time[2] :</label><br>
-			<?php echo form_error('start_time2', '<font color="red">', '</font>'); ?>
-			<input type="text" name="start_time2" id="start_time2" value="<?php echo set_value('start_time2');?>">
-		</div>	
-		<div class="half last" style="width:120px;">
-			<label>End time[2] :</label><br>
-			<?php echo form_error('end_time2', '<font color="red">', '</font>'); ?>
-			<input type="text" name="end_time2" id="end_time2" value="<?php echo set_value('end_time2');?>">
-		</div>					
-		<div class="clearfix"></div>			
-	</section>
-	<!-- Sidebar end time period-->
-
-
-	<section class="simple_sidebar grid_4">
-		
 		<label>Tag</label><label style="position:absolute;right:240px;"><span style="cursor:pointer;"  id="show_all">show all</span></label>
 		<textarea id="textarea" class="example" rows="1" style="width: 250px;"></textarea>
           <script>
@@ -383,8 +336,6 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 		</script>
 
 		<script type="text/javascript">
-
-
 		//Function display tag 
 		$("#show_all_result").hide();
 		$("#show_all").click(function () {
@@ -411,9 +362,54 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 			}
 		?>
 	</section>	
-
 	<!-- End Sidebar Tag -->
+	<!-- Sidebar start period-->
+	<section class="simple_sidebar grid_4">
+		<label>Period</label><br>
+			<div class="half" style="width:120px;">
+				<label>Start Date :</label><br>
+				<?php echo form_error('start_date', '<font color="red">', '</font>'); ?>
+				<input style="width:120px;" type="text" name="start_date" id="start_date" value="<?php echo set_value('start_date');?>">
+			</div>	
+			<div class="half last" style="width:120px;">
+				<label>End Date :</label><br>
+				<?php echo form_error('end_date', '<font color="red">', '</font>'); ?>
+				<input type="text" name="end_date" id="end_date" value="<?php echo set_value('end_date');?>">
+			</div>					
+			<div class="clearfix"></div>
+	</section>
+	<!-- Sidebar end period-->
 
+	<!-- Sidebar start time period-->
+	<section class="simple_sidebar grid_4">
+		<label>Time Period</label><br>
+		<div class="half" style="width:120px;">
+			<label>Start time[1] :</label><br>
+			<?php echo form_error('start_time1', '<font color="red">', '</font>'); ?>
+			<input type="text" name="start_time1" id="start_time1" value="<?php echo set_value('start_time1');?>">
+		</div>	
+		<div class="half last" style="width:120px;">
+			<label>End time[1] :</label><br>
+			<?php echo form_error('end_time1', '<font color="red">', '</font>'); ?>
+			<input type="text" name="end_time1" id="end_time1" value="<?php echo set_value('end_time1');?>">
+		</div>					
+		<div class="clearfix"></div>	
+
+		<div class="half" style="width:120px;">
+			<label>Start time[2] :</label><br>
+			<?php echo form_error('start_time2', '<font color="red">', '</font>'); ?>
+			<input type="text" name="start_time2" id="start_time2" value="<?php echo set_value('start_time2');?>">
+		</div>	
+		<div class="half last" style="width:120px;">
+			<label>End time[2] :</label><br>
+			<?php echo form_error('end_time2', '<font color="red">', '</font>'); ?>
+			<input type="text" name="end_time2" id="end_time2" value="<?php echo set_value('end_time2');?>">
+		</div>					
+		<div class="clearfix"></div>			
+	</section>
+	<!-- Sidebar end time period-->
+
+	<!-- Start map -->
 	<section class="simple_sidebar grid_4">
         <h3 class="">{_ location_lang_location}</h3>
         <div id="mapCanvas" style="height:300px;"></div>
@@ -423,7 +419,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
         <br />
         Address : <input value="" id="address" name="address">
 	</section>	
-
+	<!-- End map -->
 
 
 	<!-- Agency Information -->

@@ -81,6 +81,122 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 	});
 </script>
 
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+      var geocoder = new google.maps.Geocoder();    
+      var markersArray = [];
+      var marker;    
+      
+      function geocodePosition(pos) {
+        geocoder.geocode({
+          latLng: pos
+        }, function(responses) {
+          if (responses && responses.length > 0) {
+            updateMarkerAddress(responses[0].formatted_address);
+          } else {
+            updateMarkerAddress('Cannot determine address at this location.');
+          }
+        });
+      }
+
+      function updateMarkerStatus(str) {
+        document.getElementById('markerStatus').innerHTML = str;
+      }
+
+      function updateMarkerPosition(latLng) {
+
+        document.getElementById("latitude").value = latLng.lat();
+        document.getElementById("longitude").value = latLng.lng();
+
+
+      }
+
+      function updateMarkerAddress(str) {
+        document.getElementById('address').value = str;
+      }
+
+      function initialize() {
+
+      	var initLatitude = '7.887868';
+      	var initLongitude = '98.376846';
+      	<?php
+	      	if(!empty($tour[0]->latitude)  && !empty($tour[0]->longitude)){
+	     ?>
+	     		initLatitude = <?php echo $tour[0]->latitude;?>;
+	     		initLongitude = <?php echo $tour[0]->longitude;?>;
+	    <?php
+	      	}
+        ?>
+        var latLng = new google.maps.LatLng(initLatitude, initLongitude);
+
+        var map = new google.maps.Map(document.getElementById('mapCanvas'), {
+          scrollwheel: false,
+          zoom: 11,
+          center: latLng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        
+        
+        marker = new google.maps.Marker({
+          position: latLng,
+          title: '',
+          map: map,
+          draggable: false
+        });
+        
+        
+        markersArray.push(marker); 
+        google.maps.event.addListener(map, 'click', function(e) {
+          placeMarker(e.latLng, map);
+        });
+        
+        // Update current position info.
+        updateMarkerPosition(latLng);
+        geocodePosition(latLng);
+        
+ 
+      }
+      
+      function placeMarker(position, map) {
+      
+        //alert(position);
+        //Clean marker point
+        clearOverlays();
+        
+        //Make new marker object
+        marker = new google.maps.Marker({
+          position: position,
+          map: map
+        });
+        
+        //Add marker to array
+        markersArray.push(marker); 
+        
+        //Write marker to map       
+        map.panTo(position);
+        
+        updateMarkerAddress('Clicking...'); 
+        
+        updateMarkerPosition(marker.getPosition()); 
+        
+        geocodePosition(marker.getPosition());
+      }
+      
+      function clearOverlays() {
+        if (markersArray) {
+          for (i in markersArray) {
+            markersArray[i].setMap(null);
+          }
+        }
+      }        
+
+      // Onload handler to fire off the app.
+      google.maps.event.addDomListener(window, 'load', initialize);
+      
+</script>
+
+
 <div class="container_12">
 
 	<!-- Form -->
@@ -175,10 +291,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 
 		
 		<script type="text/javascript">
-
 			var validate = "";
-
-
 			//Start update tag 
 			$('#textarea')
 				.textext({
@@ -257,13 +370,11 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 		</script>
 
 		<script type="text/javascript">
-
-
-		//Function display tag 
-		$("#show_all_result").hide();
-		$("#show_all").click(function () {
-			$("#show_all_result").toggle("slow");
-		}); 
+			//Function display tag 
+			$("#show_all_result").hide();
+			$("#show_all").click(function () {
+				$("#show_all_result").toggle("slow");
+			}); 
 		</script>	
 
 		<?php
@@ -333,9 +444,17 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 	<!-- Sidebar end time period-->
 
 
-
-
-
+	<!-- Start map -->
+	<section class="simple_sidebar grid_4">
+        <h3 class="">{_ location_lang_location}</h3>
+        <div id="mapCanvas" style="height:300px;"></div>
+        Longitude : <input value="<?php echo set_value('longitude');?>" id="longitude" name="longitude" value="<?php echo $tour[0]->longitude;?>">
+        <br />
+        Latitude : <input value="<?php echo set_value('latitude');?>" id="latitude" name="latitude" value="<?php echo $tour[0]->latitude;?>">
+        <br />
+        Address : <input value="" id="address" name="address">
+	</section>	
+	<!-- End map -->
 
 
 
