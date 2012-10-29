@@ -4,9 +4,9 @@ class TagLocation_model extends MY_Model {
     parent::__construct();
     $this->_prefix = "tao";
     $this->_column = array(
-                     'id'                => 'tao_id',
-                     'tag_id'            => 'tao_tag_id',
-                     'location_id'       => 'tao_location_id'
+                     'id'                => 'tal_id',
+                     'tag_id'            => 'tal_tag_id',
+                     'location_id'       => 'tal_location_id'
     );
   }
  
@@ -32,8 +32,8 @@ class TagLocation_model extends MY_Model {
     if(isset($args["tag_id"]) && isset($args["location_id"]) ){
       //Get category by name
 
-      $data["tao_tag_id"] = $args["tag_id"];
-      $data["tao_location_id"] = $args["location_id"];
+      $data["tal_tag_id"] = $args["tag_id"];
+      $data["tal_location_id"] = $args["location_id"];
 
       $query = $this->db->get_where('ci_tagtour', $data);
       if($query->num_rows > 0){
@@ -45,7 +45,7 @@ class TagLocation_model extends MY_Model {
     }else if(isset($args["tag_id"])){
       //Get category by name
 
-      $data["tat_tag_id"] = $args["tag_id"];      
+      $data["tal_tag_id"] = $args["tag_id"];      
       $query = $this->db->get_where('ci_taglocation', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -53,9 +53,9 @@ class TagLocation_model extends MY_Model {
       }else{
         return false;
       }
-    }else if(isset($args["tour_id"])){
+    }else if(isset($args["location_id"])){
       //Get category by name
-      $data["tat_location_id"] = $args["location_id"];
+      $data["tal_location_id"] = $args["location_id"];
 
       $query = $this->db->get_where('ci_taglocation', $data);
       if($query->num_rows > 0){
@@ -66,7 +66,7 @@ class TagLocation_model extends MY_Model {
       }
     }else if(isset($args["id"])){
       //Get category by id      
-      $query = $this->db->get_where('ci_taglocation', array('agt_id' => $args["id"]), 1, 0);
+      $query = $this->db->get_where('ci_taglocation', array('tal_id' => $args["id"]), 1, 0);
 
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -143,7 +143,7 @@ class TagLocation_model extends MY_Model {
         }
       }
       //$query = $this->db->where("agt_agency_id", $data["agency_id"]);
-      $query = $this->db->where("tat_location_id", $data["location_id"]);
+      $query = $this->db->where("tal_location_id", $data["location_id"]);
       $query = $this->db->update("ci_taglocation");
     }
     
@@ -152,10 +152,10 @@ class TagLocation_model extends MY_Model {
 
   function deleteRecord($args=false){
     if(isset($args["id"])){
-      $this->db->where("tao_id", $args["id"]);
+      $this->db->where("tal_id", $args["id"]);
       $this->db->delete("ci_taglocation");
-    }else if(isset($args["tour_id"])){
-      $this->db->where("tao_location_id", $args["location_id"]);
+    }else if(isset($args["location_id"])){
+      $this->db->where("tal_location_id", $args["location_id"]);
       $this->db->delete("ci_taglocation");
     }
   }
