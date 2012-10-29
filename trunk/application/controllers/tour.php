@@ -12,29 +12,31 @@ class Tour extends MY_Controller {
   }
 
 
-  function user_view($tour_name=false){
+  function user_view($id=false){
 
-    //Tour
-    $tour["tour_name"] = $tour_name;
+    //Get Tour
+    $tour["id"] = $id;
+    $tour["tour_id"] = $id;    
     $data["tour"] = $this->tourModel->getRecord($tour); 
-    $tour["tour_id"] = $data["tour"][0]->id;
 
 
+    ///print_r($data); exit;
     //Tag
     $this->load->model("tagtour_model", "tagtourModel");
     $tagtourQuery["tag"] = $this->tagtourModel->getRecord($tour);
+    //print_r($tagtourQuery); exit;
 
+    if(!empty($tagtourQuery["tag"])){
+      //TagTour
+      $count = 0;
+      foreach ($tagtourQuery["tag"] as $key => $value) {
+        $this->load->model("tag_model", "tagModel");
 
-    //TagTour
-    $count = 0;
-    foreach ($tagtourQuery["tag"] as $key => $value) {
-      $this->load->model("tag_model", "tagModel");
-
-      $tag["id"] = $value->tag_id;
-      $data["tag"][] = $this->tagModel->getRecord($tag);
-      $count++;
+        $tag["id"] = $value->tag_id;
+        $data["tag"][] = $this->tagModel->getRecord($tag);
+        $count++;
+      }
     }
-
     //Return
     $this->_fetch('user_view', $data, false, true);        
 
