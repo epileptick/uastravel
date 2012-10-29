@@ -5,20 +5,65 @@ class Tour extends MY_Controller {
     parent::__construct();
   }
   
-  function index(){
-    //Default function for call read method
-    $this->read();
-  }
   
+  function user_index(){
+    //Default function for call read method
+    $this->user_list();
+  }
 
-  function create($id=false){
+
+  function user_view($tour_name=false){
+
+    //Tour
+    $tour["tour_name"] = $tour_name;
+    $data["tour"] = $this->tourModel->getRecord($tour); 
+    $tour["tour_id"] = $data["tour"][0]->id;
+
+
+    //Tag
+    $this->load->model("tagtour_model", "tagtourModel");
+    $tagtourQuery["tag"] = $this->tagtourModel->getRecord($tour);
+
+
+    //TagTour
+    $count = 0;
+    foreach ($tagtourQuery["tag"] as $key => $value) {
+      $this->load->model("tag_model", "tagModel");
+
+      $tag["id"] = $value->tag_id;
+      $data["tag"][] = $this->tagModel->getRecord($tag);
+      $count++;
+    }
+
+    //Return
+    $this->_fetch('user_view', $data, false, true);        
+
+  }
+
+
+  /////////////////////////////////////////
+  //
+  //  Admin method
+  //
+  /////////////////////////////////////////
+  function admin_index(){
+    //Default function for call read method
+    $this->admin_list();
+  }
+
+
+  function admin_list(){
+      $data["tour"] = $this->tourModel->getRecord();   
+      $this->_fetch('admin_list', $data);
+   }
+
+  function admin_create($id=false){
     //implement code here  
 
     //Get argument from post page
     $args = $this->input->post();
 
 
-    //print_r($args); exit;
 
     //Send argument to validate function
     $validate = $this->validate($args);
@@ -28,18 +73,15 @@ class Tour extends MY_Controller {
     $this->load->model("language_model","languageModel");  
     $data["language"] = $this->languageModel->getRecord();    
 
+
     $this->load->model("tag_model","tagModel"); 
     $field = "tag_id, tag_name";  
-    $data["tag"] = $this->tagModel->getRecord(false, $field);
-
+    $data["tag"] = $this->tagModel->getRecord(false, $field);   
 
     ///////////////////////
     //Check update (id)
     ///////////////////////
     if($id){
-
-
-
       //Query data by tour_id
       $args["id"] = $id;      
       $data["tour"] = $this->tourModel->getRecord($args);
@@ -65,15 +107,11 @@ class Tour extends MY_Controller {
           }
         }
 
-        //print_r($data["agencyTour"]); exit;
-
         //Query (TagTour) relationship data table by tour_id
         $this->load->model("tagtour_model", "tagtourModel");  
         $tagTour["tour_id"] = $id;
         $data["tagTour"] = $this->tagtourModel->getRecord($tagTour, $field);  
         //print_r($data["tagTour"]); exit;
-
-
         if(!empty($data["tagTour"]) && $data["tagTour"]){
           //$this->load->model("tag_model", "tagModel");  
           foreach ($data["tagTour"] as $key => $value) {
@@ -88,10 +126,11 @@ class Tour extends MY_Controller {
 
 
         //Send data to update form
-        $this->_fetch('update_form', $data);
+        $this->_fetch('admin_update', $data);
       }else{
         //Send to create form
-        $this->_fetch('create_form', $data);
+            
+        $this->_fetch('admin_create', $data);
       }
 
 
@@ -101,7 +140,12 @@ class Tour extends MY_Controller {
     }else{
       if($validate == FALSE){
         //Send to create form
-        $this->_fetch('create_form', $data);
+
+        $this->load->model("tag_model","tagModel"); 
+        $field = "tag_id, tag_name";  
+        $data["tag"] = $this->tagModel->getRecord(false, $field);   
+
+        $this->_fetch('admin_create', $data);
       }else{
 
         ////////////////////////////////////////////
@@ -109,11 +153,10 @@ class Tour extends MY_Controller {
         //////////////////////////////////////////// 
         $insertTourID =  $this->tourModel->addRecord($args);
 
-
+        //print_r($insertTourID); exit;
         ////////////////////////////////////////////
         //Add (AgencyTour) relationship data table 
         ////////////////////////////////////////////  
-
         if(!empty($args["agency_tour"])){
           $this->load->model("agencytour_model", "agencytourModel"); 
           foreach ($args["agency_tour"] as $key => $value) {
@@ -130,8 +173,9 @@ class Tour extends MY_Controller {
         $this->load->model("tagtour_model", "tagTourModel");
         $count = 0; 
         $tagTour = false;
-
-        $tagArray = $this->cleanTagAndAddTag($args["tags"]);
+        
+        $this->load->model("tag_model", "tagModel");
+        $tagArray = $this->tagModel->cleanTagAndAddTag($args["tags"]);
         foreach ($tagArray as $key => $value) {
           $tagTour[$count]["tag_id"] = $value->id;
           $tagTour[$count]["tour_id"] = $insertTourID;
@@ -145,38 +189,65 @@ class Tour extends MY_Controller {
 
         //Send data to list page        
         $data["message"] = "Create successful !!!";
-        $this->_fetch('list', $data); 
+        $this->_fetch('admin_list', $data); 
       }
     }
 
   }
 
+
+
   
-  function read($category=false, $tourname=false){
+  function admin_view($tag=false, $tourname=false){
     //implement code here
 
-    //Get argument from url
-    $args["category"] = $category;
-    $args["tourname"] = $tourname;
+     //Get argument from url
+    $tour["name"] = $tourname;
+    $tag["name"] = $tag;
 
 
-    if($args["category"] && $args["tourname"]){
 
-      echo "category && tourname";
+    if($tag["name"] && $tour["name"]){
+
+      echo "tag && tour";
+    }else if($tag["name"]){
+      ////////////////////////////////////////////
+      //Get tag data
+      ////////////////////////////////////////////        
+      $this->load->model("tag_model", "tagModel");
+      $tagQuery["tag"] = $this->tagModel->getRecord($tag);
+      $tagArgument["tag_id"] = $tagQuery["tag"][0]->id;
+      //print_r($data["tag"][0]); exit;
+
+      ////////////////////////////////////////////
+      //Get tagtour data
+      ////////////////////////////////////////////        
+      $this->load->model("tagtour_model", "tagtourModel");
+      $tagtourQuery["tag"] = $this->tagtourModel->getRecord($tagArgument);
+
+      $count = 0;
+      foreach ($tagtourQuery["tag"] as $key => $value) {
+        # code...
+        $tour["id"] = $value->tour_id;
+
+        $tourQuery = $this->tourModel->getRecord($tour);  
+        $data["tour"][$count] = $tourQuery[0];
+        $data["tour"][$count]->tag_id = $value->tag_id;
+        $data["tour"][$count]->tag_name = $tagQuery["tag"][0]->name;
+        $count++;
+      }
 
 
-      $data["tour"] = $this->tourModel->getRecord($args);
-
-    }else if($args["category"]){
-      echo "category";
-      $data["tour"] = $this->tourModel->getRecord($args);
-    }else{
-      $data["tour"] = $this->tourModel->getRecord();   
+      ////////////////////////////////////////////
+      //Get tour data
+      //////////////////////////////////////////// 
+      //print_r($data) ; exit;
       $this->_fetch('list', $data);
+      //$this->_fetch('userview', $data, false, true);          
     }
   }
 
-  function update(){
+  function admin_update(){
 
 
     //Get argument from post page
@@ -194,17 +265,6 @@ class Tour extends MY_Controller {
         //Update & get current tour id
         $updateTourID = $this->tourModel->updateRecord($args);
 
-/*
-        ///////////////////////////////////////////
-        // Update relationship table (AgencyTour)
-        ///////////////////////////////////////////        
-        $this->load->model("agencytour_model","agencytourModel"); 
-        $agencyTour["agency_id"] = $args["agency_id"];
-        $agencyTour["tour_id"] = $args["id"]; 
-        $this->agencytourModel->updateRecord($agencyTour); 
-*/
-
-
         ////////////////////////////////////////////
         //Add (TagTour) relationship data table 
         ////////////////////////////////////////////        
@@ -219,9 +279,11 @@ class Tour extends MY_Controller {
 
         //Call insert tag
         //print_r($args["tags"]); exit;
-        $tagArray = $this->cleanTagAndAddTag($args["tags"]);
+        $tag["name"] = $args["tags"];
+        $this->load->model("tag_model", "tagModel");        
+        $tagArray = $this->tagModel->cleanTagAndAddTag($tag["name"]);
 
-        //print_r($tagArray);
+        //print_r($tagArray); exit;
         foreach ($tagArray as $key => $value) {
           $tagTourAdd[$count]["tag_id"] = $value->id;
           $tagTourAdd[$count]["tour_id"] = $args["id"];
@@ -251,21 +313,21 @@ class Tour extends MY_Controller {
 
         //Fetch data to list page
         $data["message"] = "Update successful !!!";
-        $this->_fetch('list', $data);       
+        $this->_fetch('admin_list', $data);       
     } else {
         $this->tourModel->addRecord($args);
     } 
 
   } 
 
-  function delete($id=false){
+  function admin_delete($id=false){
     //implement code here
     if($id) {
         $this->tourModel->deleteRecord($id);
 
         $data["tour"] = $this->tourModel->getRecord();  
         $data["message"] = "Delete successful !!!";  
-        $this->_fetch('list', $data);        
+        $this->_fetch('admin_list', $data);        
     } 
   }  
 
@@ -281,47 +343,21 @@ class Tour extends MY_Controller {
     //$this->form_validation->set_rules('included', 'included', 'required');
 
     //Validate price
-    /*
-    $this->form_validation->set_rules('net_adult_price', 'net price for adult', 'required|integer');
-    $this->form_validation->set_rules('net_child_price', 'net price for child', 'required|integer');
-    $this->form_validation->set_rules('sale_adult_price', 'sale price for adult', 'required|integer');
-    $this->form_validation->set_rules('sale_child_price', 'sale price for child', 'required|integer');
-*/
+    
+    //$this->form_validation->set_rules('net_adult_price', 'net price for adult', 'required|integer');
+    //$this->form_validation->set_rules('net_child_price', 'net price for child', 'required|integer');
+    //$this->form_validation->set_rules('sale_adult_price', 'sale price for adult', 'required|integer');
+    //$this->form_validation->set_rules('sale_child_price', 'sale price for child', 'required|integer');
+
     //Validate time
-    $this->form_validation->set_rules('start_time', 'start time', 'required');
-    $this->form_validation->set_rules('end_time', 'end time', 'required');
+    //$this->form_validation->set_rules('start_time', 'start time', 'required');
+    //$this->form_validation->set_rules('end_time', 'end time', 'required');
 
     return $this->form_validation->run();
 
   }
 
-  function cleanTagAndAddTag($tags = false){
-    ///////////////////////////////////////////
-    // Add Tag table sub table
-    /////////////////////////////////////////// 
 
-    //print_r($args); exit;
-    if(isset($tags)){
-      //Remove tags  junk          
-      $tags = str_replace('[', '', $tags);  
-      $tags = str_replace(']', '', $tags);      
-      $tags = str_replace('"', '', $tags);  
-
-      $tags = explode(",",  $tags);
-      $args["tags"] = array_unique($tags);
-
-      //Load tag_model
-      $this->load->model("tag_model","tagModel"); 
-      $args["field"] = "tag_id, tag_name";
-      $tagArray =  $this->tagModel->addMultipleRecord($args);
-
-      return $tagArray;    
-    }else{
-
-      return false;
-    }
-
-  }
 
 }
 
