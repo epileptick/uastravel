@@ -41,7 +41,7 @@
 include(APPPATH."utils/CILangUtil.php");
 
 
-$route['default_controller'] = "location/user_index";
+$route['default_controller'] = "location/user_view/17";
 $route['404_override'] = '';
 
 
