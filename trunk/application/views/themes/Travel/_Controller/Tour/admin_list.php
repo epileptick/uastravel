@@ -45,7 +45,7 @@
 ?>	
 <section class="similar_hotels grid_12">
 		
-		<h2 class="section_heading">Tour List [ <a href='<?php echo base_url("tour/create");?>'>Create</a> ]</h2>
+		<h2 class="section_heading">Tour List [ <a href='<?php echo base_url("admin/tour/create");?>'>Create</a> ]</h2>
 		<ul>
 
 			<?php 
@@ -57,11 +57,12 @@
 					<span style="font: 32px Arial, sans-serif; float:left;"><?php echo $value->id;?></span>
 					<span style="float:left; margin-left:10px;">	
 					<h3><a href="#"><?php echo $value->name;?></a></h3>
-					
-						[ <a href='<?php echo base_url("tour/create/$value->id");?>'>Edit</a> ]
-						[ <a href='<?php echo base_url("tour/delete/$value->id");?>'>Delete</a> ]
 					</span><br>
-					<span style="margin-left:28px;"><?php echo $value->description;?></span>
+					<span style="margin-left:12px;">
+
+						[ <a href='<?php echo base_url("admin/tour/create/$value->id");?>'>Edit</a> ]
+						[ <a href='<?php echo base_url("admin/tour/delete/$value->id");?>'>Delete</a> ]						
+					</span>
 				</li>			
 			<?php					
 				}
