@@ -212,7 +212,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 			<textarea  class="mceEditor" cols="30" rows="10" name="description"><?php echo set_value('description');?></textarea>
 			<div class="clearfix"></div><br>
 
-			<label>Tour Detail : </label> <?php echo form_error('detail', '<font color="red">', '</font>'); ?>
+			<label>Program & Itinerary : </label> <?php echo form_error('detail', '<font color="red">', '</font>'); ?>
 			<textarea cols="30"  class="mceEditor"  rows="10" name="detail"><?php echo set_value('detail');?></textarea>
 			<div class="clearfix"></div><br>
 
