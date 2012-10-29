@@ -21,8 +21,10 @@ class Tour_model extends MY_Model {
                      'amount_time'       => 'tou_amount_time',
                      'start_date'        => 'tou_start_date',
                      'end_date'          => 'tou_end_date',
-                     'start_time'        => 'tou_start_time',
-                     'end_time'          => 'tou_end_time',
+                     'start_time1'        => 'tou_start_time1',
+                     'end_time1'          => 'tou_end_time1',
+                     'start_time2'        => 'tou_start_time2',
+                     'end_time2'          => 'tou_end_time2',
                      'longitude'         => 'tou_longitude',
                      'latitude'          => 'tou_latitude',
                      'cr_date'           => 'tou_cr_date',
@@ -50,13 +52,21 @@ class Tour_model extends MY_Model {
   
   function getRecord($args=false){
 
-    if(isset($args["category"]) && isset($args["tour_name"]) ){
-      echo $args;
-    }else if(isset($args["category"])){
+    if(isset($args["tag"]) && isset($args["tour_name"]) ){
       echo $args;
     }else if(isset($args["id"])){
       //Get page by id for create      
       $query = $this->db->get_where('ci_tour', array('tou_id' => $args["id"]), 1, 0);
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }else if(isset($args["tour_name"])){
+      //Get page by id for create      
+      $query = $this->db->get_where('ci_tour', array('tou_name' => $args["tour_name"]), 1, 0);
+      
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
         return $newResult;
