@@ -44,11 +44,12 @@ class TagTour_model extends MY_Model {
       }
     }else if(isset($args["tag_id"])){
       //Get category by name
-
+      //print_r($args); exit;
       $data["tat_tag_id"] = $args["tag_id"];      
-      $query = $this->db->get_where('ci_tagtour', $data);
+      $query = $this->db->get_where('ci_tagtour', $data);   
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
+
         return $newResult;
       }else{
         return false;
@@ -56,7 +57,7 @@ class TagTour_model extends MY_Model {
     }else if(isset($args["tour_id"])){
       //Get category by name
       $data["tat_tour_id"] = $args["tour_id"];
-
+      print_r($args);
       $query = $this->db->get_where('ci_tagtour', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
