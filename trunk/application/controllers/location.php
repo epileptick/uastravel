@@ -4,11 +4,6 @@ class Location extends MY_Controller {
   function __construct(){
     parent::__construct();
   }
-  
-  function index($where=""){
-    $this->user_index();
-  }
-  
   function _index($where=""){
     $locationData["location"] = $this->locationModel->get($where);
     return $locationData;
@@ -50,13 +45,53 @@ class Location extends MY_Controller {
     $_post = $this->input->post();
     
     $_post['body'] = preg_replace("/<p[^>]*><\\/p[^>]*>/", '', $_post['body']); 
-    //print_r($_post); 
+
     if($this->input->post("submit") != NULL OR $this->input->post("ajax")==TRUE){
       
       if( isset($_post["id"]) ){
         $postData = $this->locationModel->updateRecord($_post);
-      }else{
+
+
+        ////////////////////////////////////////////
+        //Update (TagLocation) relationship data table 
+        ////////////////////////////////////////////        
+        $this->load->model("taglocation_model", "taglocationModel");
+        //Remove tag in tagtour table
+        $tagLocation["location_id"] = $postData; 
+        $this->taglocationModel->deleteRecord($tagLocation);
+        $count = 0;
+        //Call insert tag
+        //print_r($args["tags"]); exit;
+        $tag["name"] = $_post["tags"];
+        $this->load->model("tag_model", "tagModel");        
+        $tagArray = $this->tagModel->cleanTagAndAddTag($tag["name"]);
+
+        //print_r($tagArray); exit;
+        foreach ($tagArray as $key => $value) {
+          $tagLocationAdd[$count]["tag_id"] = $value->id;
+          $tagLocationAdd[$count]["location_id"] = $postData;
+          $count++;
+        }
+        $this->taglocationModel->addMultipleRecord($tagLocationAdd);    
+
+
+      }else{        
         $postData = $this->locationModel->addRecord($_post);
+
+        ////////////////////////////////////////////
+        //Add (TagTour) relationship data table 
+        ////////////////////////////////////////////         
+        $this->load->model("tag_model", "tagModel");
+        $this->load->model("taglocation_model", "tagLocationModel");
+        $count = 0;
+        $tagTour = false;
+        $tagArray = $this->tagModel->cleanTagAndAddTag($_post["tags"]);
+        foreach ($tagArray as $key => $value) {
+          $tagLocation[$count]["tag_id"] = $value->id;
+          $tagLocation[$count]["location_id"] = $postData;
+          $count++;
+        }
+        $this->tagLocationModel->addMultipleRecord($tagLocation);        
       }
       //print_r($postData);  exit;
       if($postData){
@@ -65,25 +100,9 @@ class Location extends MY_Controller {
           $data['status'] = $this->_fetch('ajax_save_success',$data,TRUE,TRUE);
           echo json_encode($data);
           die;
-        }else{
+        }else{ 
           $data['post_data']['id'] = $postData;
           //print_r($_post); exit;
-          ////////////////////////////////////////////
-          //Add (TagTour) relationship data table 
-          ////////////////////////////////////////////         
-          $this->load->model("tag_model", "tagModel");       
-          $this->load->model("tagtour_model", "tagTourModel");
-          $this->load->model("taglocation_model", "tagLocationModel");
-          $count = 0;
-          $tagTour = false;
-          $tagArray = $this->tagModel->cleanTagAndAddTag($_post["tags"]);
-          foreach ($tagArray as $key => $value) {
-            $tagLocation[$count]["tag_id"] = $value->id;
-            $tagLocation[$count]["location_id"] = $data['post_data']['id'];
-            $count++;
-          }
-          $this->tagLocationModel->addMultipleRecord($tagLocation);
-          
           $this->_fetch('admin_add_success',$data);
         }
       }else{
@@ -104,13 +123,37 @@ class Location extends MY_Controller {
           redirect(base_url("admin/location/create"));
           die;
         }
+
+
+        //Query (TagTour) relationship data table by tour_id
+        $this->load->model("taglocation_model", "taglocationModel");  
+        $tagLocation["location_id"] = $id;
+        $data["tagLocation"] = $this->taglocationModel->getRecord($tagLocation);  
+        //print_r($data["tagTour"]); exit;
+        if(!empty($data["tagLocation"]) && $data["tagLocation"]){
+          //$this->load->model("tag_model", "tagModel");  
+          foreach ($data["tagLocation"] as $key => $value) {
+            //echo $value->tag_id; echo "<br>";
+            $this->load->model("tag_model","tagModel"); 
+            $tagTour["id"] = $value->tag_id;
+            $tag_result = $this->tagModel->getRecord($tagTour);
+            $data["tag_query"][] = $tag_result[0];
+          }
+        }         
         $data['post'] = $postData; 
       }
+ 
+
+
+    $this->load->model("tag_model","tagModel"); 
+    $field = "tag_id, tag_name";  
+    $data["tag"] = $this->tagModel->getRecord(false, $field);   
+
       $this->_fetch('admin_add_form',$data);
     }
   }
   
-  function user_view($id=FALSE){
+  function user_view($id=FALSE){  
     if($id){
       $this->load->model("images_model", "imagesModel");
       $locationData["location"] = $this->locationModel->get($id);

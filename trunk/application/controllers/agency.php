@@ -5,13 +5,13 @@ class Agency extends MY_Controller {
     parent::__construct();
   }
   
-  function index(){
+  function admin_index(){
     //echo "tour";
-    $this->read();
+    $this->admin_list();
   }
   
 
-  function create($id=false){
+  function admin_create($id=false){
     //implement code here  
 
     $args = $this->input->post();
@@ -25,43 +25,46 @@ class Agency extends MY_Controller {
 
       //print_r($data); exit;
       if($data["agency"]>0){
-        $this->_fetch('update_form', $data);
+        $this->_fetch('admin_update', $data);
       }else{
-        $this->_fetch('create_form');
+        $this->_fetch('admin_create');
       }
 
     }else{
       if($validate == FALSE){
-        $this->_fetch('create_form');
+        $this->_fetch('admin_create');
       }else{
         $this->agencyModel->addRecord($args);
         $data["agency"] = $this->agencyModel->getRecord();  
         $data["message"] = "Create successful !!!";
-        $this->_fetch('list', $data);  
+        $this->_fetch('admin_list', $data);  
       }
     }
 
   }
 
-  
-  function read($id=false){
+  function admin_list(){
+    $data["agency"] = $this->agencyModel->getRecord();  
+    $this->_fetch('admin_list', $data);
+  }
+
+  function admin_view($id=false){
     //implement code here
 
     $args["id"] = $id;
     if($args["id"]){
       $data["agency"] = $this->agencyModel->getRecord($args);  
-      $this->_fetch('list', $data);
+      $this->_fetch('admin_list', $data);
     }else{
       $data["agency"] = $this->agencyModel->getRecord();  
-      $this->_fetch('list', $data);
+      $this->_fetch('admin_list', $data);
     }
 
   }
 
-  function update(){
+  function admin_update(){
 
     $args = $this->input->post();
-  
     $validate = $this->validate($args);
 
     //print_r($args); exit;
@@ -70,7 +73,7 @@ class Agency extends MY_Controller {
         $this->agencyModel->updateRecord($args);
         $data["agency"] = $this->agencyModel->getRecord();  
         $data["message"] = "Update successful !!!";
-        $this->_fetch('list', $data);     
+        $this->_fetch('admin_list', $data);     
     } else {
         $this->agencyModel->addRecord($args);
     } 
@@ -78,14 +81,14 @@ class Agency extends MY_Controller {
 
   } 
 
-  function delete($id=false){
+  function admin_delete($id=false){
     //implement code here
     if($id) {
         $this->agencyModel->deleteRecord($id);
 
         $data["agent"] = $this->agencyModel->getRecord();  
         $data["message"] = "Delete successful !!!";  
-        $this->_fetch('list', $data);        
+        $this->_fetch('admin_list', $data);        
     } 
   } 
 
@@ -107,14 +110,14 @@ class Agency extends MY_Controller {
   function phpsearch($keyword=false){
     $args["agn_name"] = $keyword;
     $data["agency"] = $this->agencyModel->searchRecord($args);
-    $this->_fetch('phparray', $data, false, true);
+    $this->_fetch('user_phparray', $data, false, true);
   }  
 
   function hasdata($keyword=false){
     $args["notlike"] = "yes";
     $args["agn_name"] = $keyword;
     $data["agency"] = $this->agencyModel->searchRecord($args);
-    $this->_fetch('textarray', $data, false, true);
+    $this->_fetch('user_textarray', $data, false, true);
   } 
 }
 
