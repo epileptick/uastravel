@@ -4,6 +4,11 @@ class Location extends MY_Controller {
   function __construct(){
     parent::__construct();
   }
+  
+  function index($where=""){
+    $this->user_index();
+  }
+  
   function _index($where=""){
     $locationData["location"] = $this->locationModel->get($where);
     return $locationData;
@@ -60,7 +65,7 @@ class Location extends MY_Controller {
           $data['status'] = $this->_fetch('ajax_save_success',$data,TRUE,TRUE);
           echo json_encode($data);
           die;
-        }else{ 
+        }else{
           $data['post_data']['id'] = $postData;
           //print_r($_post); exit;
           ////////////////////////////////////////////
@@ -105,7 +110,7 @@ class Location extends MY_Controller {
     }
   }
   
-  function user_view($id=FALSE){  
+  function user_view($id=FALSE){
     if($id){
       $this->load->model("images_model", "imagesModel");
       $locationData["location"] = $this->locationModel->get($id);

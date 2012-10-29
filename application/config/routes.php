@@ -41,7 +41,7 @@
 include(APPPATH."utils/CILangUtil.php");
 
 
-$route['default_controller'] = "home";
+$route['default_controller'] = "location/user_index";
 $route['404_override'] = '';
 
 
@@ -64,15 +64,28 @@ $route[LangUtil::line("url_lang_location")] = 'location/user_index';
 
 
 //tour
-$route['admin/'.LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/read/$3';
-$route['admin/'.LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/read/$2';
-$route['admin/'.LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/index'; //for Tag
-$route['admin/'.LangUtil::line("url_lang_tour")] = 'tour/index';
+$route['admin/'.LangUtil::line("url_lang_tour")] = 'tour/admin_index';
+$route['admin/'.LangUtil::line("url_lang_tour").'/update'] = 'tour/admin_update';
+$route['admin/'.LangUtil::line("url_lang_tour").'/delete/(:num)'] = 'tour/admin_delete/$1';
+$route['admin/'.LangUtil::line("url_lang_tour").'/create'] = 'tour/admin_create';
+$route['admin/'.LangUtil::line("url_lang_tour").'/create/(:num)'] = 'tour/admin_create/$1';
+$route['admin/'.LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/admin_view/$3';
+$route['admin/'.LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/admin_view/$2';
+$route['admin/'.LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/admin_list'; //for Tag
 
-$route[LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/user_read/$3';
-$route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_read/$2';
-$route[LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/user_index'; //for Tag
-$route[LangUtil::line("url_lang_tour")] = 'tour/user_index';
+$route[LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/user_view/$3';
+$route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
+$route[LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/user_list/$1'; //for Tag
+
+//Agency
+$route['admin/'.LangUtil::line("url_lang_agency")] = 'agency/admin_index';
+$route['admin/'.LangUtil::line("url_lang_agency").'/update'] = 'agency/admin_update';
+$route['admin/'.LangUtil::line("url_lang_agency").'/delete'] = 'agency/admin_delete';
+$route['admin/'.LangUtil::line("url_lang_agency").'/create/(:num)'] = 'agency/admin_create/$1';
+$route['admin/'.LangUtil::line("url_lang_agency").'/create'] = 'agency/admin_create';
+$route['admin/'.LangUtil::line("url_lang_agency").'/(:any)/(:any)-(:num)'] = 'agency/admin_view/$3';
+$route['admin/'.LangUtil::line("url_lang_agency").'/(:any)-(:num)'] = 'agency/admin_view/$2';
+$route['admin/'.LangUtil::line("url_lang_agency").'/(:any)'] = 'agency/admin_list'; //for Tag
 
 
 //Tag
