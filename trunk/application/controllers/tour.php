@@ -291,7 +291,7 @@ class Tour extends MY_Controller {
         ////////////////////////////////////////////
         //Add (TagTour) relationship data table 
         ////////////////////////////////////////////  
-        if(!empty($args["agency_tour"])){ 
+        if(!empty($args["tags"])){ 
           $this->load->model("tagtour_model", "tagTourModel");
           $this->tagTourModel->updateRecord($args);
         }
@@ -299,7 +299,7 @@ class Tour extends MY_Controller {
         ///////////////////////////////////////////
         // Update relationship table (AgencyTour)
         ///////////////////////////////////////////   
-        if(!empty($args["tags"])){
+        if(!empty($args["agency_tour"])){
           $this->load->model("agencytour_model", "agencytourModel");
           $this->agencytourModel->updateRecord($args);
         }

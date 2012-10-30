@@ -54,24 +54,9 @@ class Location extends MY_Controller {
         ////////////////////////////////////////////
         //Update (TagLocation) relationship data table 
         ////////////////////////////////////////////        
-        $this->load->model("taglocation_model", "taglocationModel");
-        //Remove tag in tagtour table
-        $tagLocation["location_id"] = $postData; 
-        $this->taglocationModel->deleteRecord($tagLocation);
-        $count = 0;
-        //Call insert tag
-        //print_r($args["tags"]); exit;
-        if(!empty($_post["tags"])){
-          $tag["name"] = $_post["tags"];
-          $this->load->model("tag_model", "tagModel");        
-          $tagArray = $this->tagModel->cleanTagAndAddTag($tag["name"]);
-          //print_r($tagArray); exit;
-          foreach ($tagArray as $key => $value) {
-            $tagLocationAdd[$count]["tag_id"] = $value->id;
-            $tagLocationAdd[$count]["location_id"] = $postData;
-            $count++;
-          }
-          $this->taglocationModel->addMultipleRecord($tagLocationAdd);    
+        if(!empty($_post["tags"])){ 
+          $this->load->model("taglocation_model", "taglocationModel");
+          $this->taglocationModel->updateRecord($_post);
         }
         
 
