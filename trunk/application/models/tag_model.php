@@ -187,7 +187,6 @@ class Tag_model extends MY_Model {
 
       return $tagArray;    
     }else{
-
       return false;
     }
   }  
