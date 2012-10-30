@@ -139,19 +139,16 @@ CREATE TABLE `ci_language` (
   PRIMARY KEY (`lang_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;  
 
-
 CREATE TABLE `ci_images` (
   `img_id` int(11) NOT NULL AUTO_INCREMENT,
-  `img_file_name` varchar(255) DEFAULT NULL,
-  `img_size` varchar(255) DEFAULT NULL,
-  `img_type` varchar(255) DEFAULT NULL,
-  `img_location_id` int(11) DEFAULT NULL,
-  `img_tour_id` int(11) DEFAULT NULL,
-  `img_packagetour_id` int(11) DEFAULT NULL,
-  `img_hotel_id` int(11) DEFAULT NULL,
-  `img_tranfer_id` int(11) DEFAULT NULL,
-  `img_url` varchar(255) DEFAULT NULL,
+  `img_file_name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `img_size` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `img_type` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `img_parent_id` int(11) DEFAULT NULL,
+  `img_url` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `img_table_id` int(2) DEFAULT NULL,
   UNIQUE KEY `img_id` (`img_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;  
+
 
 
