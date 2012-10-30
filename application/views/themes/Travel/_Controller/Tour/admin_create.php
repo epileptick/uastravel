@@ -485,6 +485,24 @@ $(document).ready(function() {
 		?>
 	</section>	
 	<!-- End Sidebar Tag -->
+  
+  
+  	<!-- Start Images -->
+  <section class="simple_sidebar grid_4">
+		<label>{_ location_lang_image_manager}</label>
+        <div id="side_bar_block_image">
+        </div>
+        <div id="uploader">
+          <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
+        </div>
+        <span id="btnHide"  class="upload-button" onClick="return(false);"></span>
+        <span id="btnShow"  class="upload-button" onClick="return(false);">Show</span>
+			<div class="clearfix"></div>
+	</section>
+	<!-- End Images -->
+  
+  
+  
 	<!-- Sidebar start period-->
 	<section class="simple_sidebar grid_4">
 		<label>Period</label><br>
@@ -545,18 +563,6 @@ $(document).ready(function() {
 
 
 
-  <section class="simple_sidebar grid_4">
-		<label>{_ location_lang_image_manager}</label>
-        <div id="side_bar_block_image">
-        </div>
-        <div id="uploader">
-          <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
-        </div>
-        <span id="btnHide"  class="upload-button" onClick="return(false);"></span>
-        <span id="btnShow"  class="upload-button" onClick="return(false);">Show</span>
-			<div class="clearfix"></div>
-	</section>
-  
   
 
 	<!-- Agency Information -->

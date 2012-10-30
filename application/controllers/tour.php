@@ -176,10 +176,10 @@ class Tour extends MY_Controller {
           $this->load->model("images_model","imagesModel"); 
           $options = array(
                             'where'=>array(
-                                          'parent_id'=>$insertTourID
+                                          'parent_id'=>$args['fakeid']
                                           ),
                             'set'=>array(
-                                          'parent_id'=>$args['fakeid'])
+                                          'parent_id'=>$insertTourID)
                           );
           $this->imagesModel->update($options);
         }

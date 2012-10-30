@@ -174,6 +174,7 @@ class MY_Model extends CI_Model {
     }
     
     if(!empty($options['id']) OR !empty($options['where'])){
+    
       if(!empty($options['id'])){
         $this->db->where($this->_column['id'], $options['id']);
       }else{
@@ -181,18 +182,20 @@ class MY_Model extends CI_Model {
           $this->db->where($this->_getColumn($whereKey), $whereValue);
         }
       }
+      
       if(!empty($options['set'])){
-        foreach($options['set'] AS $setKey=>$setValue){
-          $this->db->set($this->_getColumn($setKey), $setValue);
+        foreach($options['set'] AS $setKey=>$setVal){
+          
+          $set[$this->_getColumn($setKey)] = $setVal;
+        }
+        $result = $this->db->update($this->_table,$set);
+        if(!empty($options['id'])){
+          $objData = $options['id'];
+        }else{
+          $objData = $result;
         }
       }else{
         return false;
-      }
-      $result = $this->db->update($this->_table);
-      if(!empty($options['id'])){
-        $objData = $options['id'];
-      }else{
-        $objData = $result;
       }
     }else{
       $result = $this->db->insert($this->_table);
