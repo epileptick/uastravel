@@ -22,6 +22,7 @@ class MY_Model extends CI_Model {
   }
   
   function update($options = NULL){
+
     return $this->_save($options);
   }
   
@@ -172,10 +173,27 @@ class MY_Model extends CI_Model {
       }
     }
     
-    if($options['id']){
-      $this->db->where($this->_column['id'], $options['id']);
+    if(!empty($options['id']) OR !empty($options['where'])){
+      if(!empty($options['id'])){
+        $this->db->where($this->_column['id'], $options['id']);
+      }else{
+        foreach($options['where'] AS $whereKey=>$whereValue){
+          $this->db->where($this->_getColumn($whereKey), $whereValue);
+        }
+      }
+      if(!empty($options['set'])){
+        foreach($options['set'] AS $setKey=>$setValue){
+          $this->db->set($this->_getColumn($setKey), $setValue);
+        }
+      }else{
+        return false;
+      }
       $result = $this->db->update($this->_table);
-      $objData = $options['id'];
+      if(!empty($options['id'])){
+        $objData = $options['id'];
+      }else{
+        $objData = $result;
+      }
     }else{
       $result = $this->db->insert($this->_table);
       $objData = $this->db->insert_id();

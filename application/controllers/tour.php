@@ -13,7 +13,6 @@ class Tour extends MY_Controller {
 
 
   function user_view($id=false){
-
     //print_r($id); exit;
     //Get Tour
     $tour["id"] = $id;
@@ -57,10 +56,8 @@ class Tour extends MY_Controller {
     //print_r($agencytourQuery);
     //print_r($data["price"][0]->sale_adult_price); exit;
 
-
-
     //Return
-    $this->_fetch('user_view', $data, false, true);        
+    $this->_fetch('user_view', $data, false, true);
 
   }
 
@@ -99,7 +96,7 @@ class Tour extends MY_Controller {
     $this->load->model("tag_model","tagModel"); 
     $field = "tag_id, tag_name";  
     $data["tag"] = $this->tagModel->getRecord(false, $field);   
-
+    
     ///////////////////////
     //Check update (id)
     ///////////////////////
@@ -115,18 +112,18 @@ class Tour extends MY_Controller {
         $this->load->model("agencytour_model", "agencytourModel");  
         $agencyTour["tour_id"] = $id;
         $data["agencyTour"] = $this->agencytourModel->getRecord($agencyTour);  
+        
         if(!empty($data["agencyTour"])){
           $this->load->model("agency_model", "agencyModel");  
           $field = "agn_id, agn_name"; 
           foreach ($data["agencyTour"] as $key => $value) {
-            # code...
             $agency["id"] = $value->agency_id;
             $queryAgency = $this->agencyModel->getRecord($agency);  
             //print_r($queryAgency);
             $data["agencyTour"][$key]->agency_name = $queryAgency[0]->name;
           }
-        }
-
+        } 
+           
         //Query (TagTour) relationship data table by tour_id
         $this->load->model("tagtour_model", "tagtourModel");  
         $tagTour["tour_id"] = $id;
@@ -143,7 +140,6 @@ class Tour extends MY_Controller {
           }
 
         }
-
 
         //Send data to update form
         $this->_fetch('admin_update', $data);
@@ -171,8 +167,23 @@ class Tour extends MY_Controller {
         //Add (Tour) main table 
         //////////////////////////////////////////// 
         $insertTourID =  $this->tourModel->addRecord($args);
+        
+        
+        ////////////////////////////////////////////
+        //Update images parent_id 
+        //////////////////////////////////////////// 
+        if(!empty($insertTourID)){
+          $this->load->model("images_model","imagesModel"); 
+          $options = array(
+                            'where'=>array(
+                                          'parent_id'=>$insertTourID
+                                          ),
+                            'set'=>array(
+                                          'parent_id'=>$args['fakeid'])
+                          );
+          $this->imagesModel->update($options);
+        }
 
-        //print_r($insertTourID); exit;
         ////////////////////////////////////////////
         //Add (AgencyTour) relationship data table 
         ////////////////////////////////////////////  
@@ -184,7 +195,6 @@ class Tour extends MY_Controller {
           $this->agencytourModel->addMultipleRecord($args["agency_tour"]);
 
         }
-
 
         ////////////////////////////////////////////
         //Add (TagTour) relationship data table 
@@ -201,14 +211,8 @@ class Tour extends MY_Controller {
           $count++;
         }
         $this->tagTourModel->addMultipleRecord($tagTour);
-
-
-        //Query list data
-        $data["tour"] = $this->tourModel->getRecord();  
-
-        //Send data to list page        
-        $data["message"] = "Create successful !!!";
-        $this->_fetch('admin_list', $data); 
+        
+        redirect(base_url("admin/tour/"));
       }
     }
 

@@ -31,7 +31,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
         
         
         marker = new google.maps.Marker({
-          position: latLng,
+          position: latLng, 
           title: \'\',
           map: map,
           draggable: false
