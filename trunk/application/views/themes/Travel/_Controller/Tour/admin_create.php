@@ -1,5 +1,7 @@
-
 <?php
+
+$fakeId = rand(100000,999999);
+
 /////////////////////
 //Start Datepicker
 ////////////////////
@@ -21,6 +23,125 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 /////////////////////
 //End Datepicker
 ////////////////////
+PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().'/style/tour.css">');
+PageUtil::addVar("stylesheet",'<style type="text/css">@import url('.Util::ThemePath().'/js/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css);</style>');
+PageUtil::addVar("javascript",'<script type="text/javascript" src="http://bp.yahooapis.com/2.4.21/browserplus-min.js"></script>');
+PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::ThemePath().'/js/plupload/plupload.full.js"></script>');
+PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::ThemePath().'/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>');
+PageUtil::addVar("javascript",'<script type="text/javascript">
+//Convert divs to queue widgets when the DOM is ready
+$(document).ready(function() {
+  
+  updateImages();
+  function updateImages(){
+            $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:2 },
+            function(data) {
+              $("#side_bar_block_image").html(data).hide("slow").delay(200).show("slow");
+              $("#side_bar_block_image img").click(function() {
+                $(this).addImg();
+              });
+            });
+  }
+  
+  (function($){
+      $.fn.addImg = function(){
+          tinyMCE.execCommand(\'mceInsertContent\',false,\'<img src="\'+this.attr(\'src\')+\'"/>\');
+      };
+  })(jQuery);
+  
+  //Uploader Control
+  $("#btnShow").css("display", "block");
+  $("#btnHide").css("display", "none");
+  $("#uploader").hide();
+  $("#btnHide").click(function() {
+    $("#uploader").hide("slow");
+    $("#btnShow").css("display", "block");
+    $("#btnHide").css("display", "none");
+  });
+  
+  $("#btnShow").click(function() {
+    $("#uploader").show("slow");
+    $("#btnShow").css("display", "none");
+    $("#btnHide").css("display", "block");
+    $("#btnHide").addClass("hide-button");
+  });
+  
+  
+  $("#uploader").pluploadQueue({
+    // General settings
+    runtimes : \'html5\',
+    url : \''.base_url("/images/ajax_upload").'\',
+    max_file_size : \'10mb\',
+    chunk_size : \'1mb\',
+    unique_names : true,
+    
+    
+    // Resize images on clientside if we can
+    //resize : {width : 320, height : 240, quality : 90},
+
+    // Specify what files to browse for
+    filters : [
+      {title : "Image files", extensions : "jpg,gif,png"},
+      {title : "Zip files", extensions : "zip"}
+    ],
+
+    // Flash settings
+    flash_swf_url : \'/plupload/js/plupload.flash.swf\',
+
+    // Silverlight settings
+    silverlight_xap_url : \'/plupload/js/plupload.silverlight.xap\',
+    
+    init : {
+      FilesAdded: function(up, files) {
+        //autoSave();
+        var $uploader = $("#uploader").pluploadQueue();
+        $uploader.settings.multipart_params = {parent_id: $("#id").val(), table_id:2};
+      },
+      StateChanged: function(up) {
+        // Called when the state of the queue is changed
+        //log(\'[StateChanged]\', up.state == plupload.STARTED ? "STARTED" : "STOPPED");
+        var uploader = $(\'#uploader\').pluploadQueue();
+        
+        if(up.state == plupload.STOPPED){
+          setTimeout(function() {
+                $( "#uploader" ).hide(\'slow\').delay(500).show(\'slow\');
+                uploader.splice();
+                $(".plupload_buttons").css("display", "inline");
+                $(".plupload_upload_status").css("display", "inline");
+                $(".plupload_start").addClass("plupload_disabled");
+                $(".plupload_upload_status").css("display", "none");
+                uploader.refresh();
+          }, 100 );
+          
+        }
+      },
+      
+      FileUploaded: function(up, file, info) {
+        // Called when a file has finished uploading
+        //log(\'[FileUploaded] File:\', file, "Info:", info);
+        console.log(info);
+        plupload.each(info, function(value, key) {
+       
+          if(key == "response"){
+            var value = jQuery.parseJSON(value);
+            if(value.result == "TRUE"){
+              updateImages();
+            }
+          }
+        });
+        
+       
+        //$( "#side_bar_block_image" ).delay(100).fadeIn(1000);
+        
+      }
+    }
+  });
+    
+    
+});
+
+  
+</script>');
 ?>
 
 <script>
@@ -184,6 +305,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 
 	
 <?php echo form_open(base_url("admin/tour/create"));?>	
+<input type="hidden"  id="id"  name="fakeid"  value="<?php echo $fakeId;?>" />
 <div class="container_12">
 
 	<!-- Filter -->
@@ -204,7 +326,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 			<!--  Start Tour information -->		
 			<div class="half">
 				<label>Tour Name :</label> <?php echo form_error('name', '<font color="red">', '</font>'); ?>
-				<input type="text" name="name" value="<?php echo set_value('name');?>">
+				<input type="text" name="name" id="name" value="<?php echo set_value('name');?>">
 			</div>
 			<div class="clearfix"></div>
 
@@ -240,7 +362,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
               });
             });
           </script>          
-          <input type="hidden"id="tags" name="tags" value="">  		
+          <input type="hidden"id="tags" name="tags" value="">
 		<br>
 		<span id="show_all_result">
 			<?php
@@ -422,6 +544,21 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 	<!-- End map -->
 
 
+
+  <section class="simple_sidebar grid_4">
+		<label>{_ location_lang_image_manager}</label>
+        <div id="side_bar_block_image">
+        </div>
+        <div id="uploader">
+          <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
+        </div>
+        <span id="btnHide"  class="upload-button" onClick="return(false);"></span>
+        <span id="btnShow"  class="upload-button" onClick="return(false);">Show</span>
+			<div class="clearfix"></div>
+	</section>
+  
+  
+
 	<!-- Agency Information -->
 	<style type="text/css">
 	.similar_hotels div{
@@ -436,9 +573,9 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 				<input type="search" id="query_agencyname" style="width:30%;" disabled/>
 				<input type="hidden" id="hidden_agency_id" />
 				
-				<span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_new_agency">[ Add New ]<span>
+				<span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_new_agency">[ Add New ]</span>
 
-				<span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_agency">[ Add to tour ]<span>
+				<span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_agency">[ Add to tour ]</span>
 			</span>
 		</h2>
 		<br>
@@ -633,7 +770,6 @@ $(document).ready(function() {
 
 });
 </script>
-
 
 
 		

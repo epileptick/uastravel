@@ -57,6 +57,7 @@ class Tour_model extends MY_Model {
     }else if(isset($args["id"])){
       //Get page by id for create      
       $query = $this->db->get_where('ci_tour', array('tou_id' => $args["id"]), 1, 0);
+
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
         return $newResult;
@@ -66,7 +67,7 @@ class Tour_model extends MY_Model {
     }else if(isset($args["tour_name"])){
       //Get page by id for create      
       $query = $this->db->get_where('ci_tour', array('tou_name' => $args["tour_name"]), 1, 0);
-      
+
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
         return $newResult;
@@ -80,6 +81,7 @@ class Tour_model extends MY_Model {
 
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
+          
         return $newResult;
       }else{
         return false;

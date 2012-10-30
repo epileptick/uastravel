@@ -47,7 +47,7 @@ class Location extends MY_Controller {
 
     if($this->input->post("submit") != NULL OR $this->input->post("ajax")==TRUE){
       
-      if( isset($_post["id"]) ){
+      if( isset($_post["id"]) ){ 
         $postData = $this->locationModel->updateRecord($_post);
 
 
