@@ -568,28 +568,30 @@ if (count($matches)>1){
             <form name="input" action="#" method="get">
               <div class="row">
                 <div class="six columns">
-                  Where ? <br>
+                  <label>Where ?</label>
                   <input type="text" name="user">
-                  Check-in  <br>
+                  <label>Check-in </label>
                   <input type="text" name="user">
                 </div> 
                 <div class="six columns">
-                  Guest
+                  <label>Guest
                   <select name="guest">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
-                  </select><br><br>
-                  Rooms
-                  <select name="guest">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select> <br>  <br> 
+                  </select>
+                  </label>
+                  <label>Rooms
+                    <select name="guest">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                  </label>
 
-                  <input type="submit" value="Submit">         
+                  <button type="submit" class="btn">Submit</button>        
                 </div> 
 
               </div> 

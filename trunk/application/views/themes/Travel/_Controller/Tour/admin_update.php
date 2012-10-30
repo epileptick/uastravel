@@ -325,7 +325,7 @@ $(document).ready(function() {
 	<!-- Form -->
 	<?php echo form_open(base_url("admin/tour/update"));?>	
 	<section class="grid_8">
-		<h2 class="section_heading">Add Tour Information [ <a href="<?php echo base_url("admin/tour");?>">list</a> ]</h2>
+		<h2 class="section_heading">Add Tour Information [ <a href="<?php echo base_url("admin/tour");?>">list</a> ]  [ <a target="_blank" href="<?php echo base_url("tour/".$tour[0]->name."-".$tour[0]->id);?>">View</a> ]</h2>
 		<br>		
 			<input type="hidden" name="id" id="id" value="<?php echo $tour[0]->id;?>">
 			<!--  Start Tour information -->		
