@@ -58,6 +58,7 @@ class TagLocation_model extends MY_Model {
       $data["tal_location_id"] = $args["location_id"];
 
       $query = $this->db->get_where('ci_taglocation', $data);
+          //print_r($query->result()); exit;
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
         return $newResult;
@@ -131,6 +132,8 @@ class TagLocation_model extends MY_Model {
     
   }   
 
+
+/*
   function updateRecord($data=false){
 
 
@@ -149,7 +152,128 @@ class TagLocation_model extends MY_Model {
     
     return ;
   }
+*/
 
+
+  function updateRecord($args=false){
+    //Get taglocation by tour_id
+    $taglocation["location_id"] = $args["id"];
+    $query = $this->getRecord($taglocation);
+
+    //Get tag by tagname
+    $tags = str_replace('[', '', $args["tags"]);  
+    $tags = str_replace(']', '', $tags);      
+    $tags = str_replace('"', '', $tags);  
+    $tags = explode(",",  $tags);
+    $tags = array_unique($tags);
+    $this->load->model("tag_model", "tagModel");
+    $tagInput = array();
+    $count = 0;
+    foreach ($tags as $key => $value) {
+      $tag["name"] = $value;
+      $tagQuery = $this->tagModel->getRecord($tag);
+
+      if(empty($tagQuery)){
+        $input[$count]->id = $this->tagModel->addRecord($tag);
+        $input[$count]->name = $tag["name"];
+      }else{
+        $input[$count] = $tagQuery[0];   
+      }
+      $count++;
+    }
+
+
+    //print_r($input);
+    //print_r($query); exit;
+
+    $update = false;
+    $updateCount = 0;
+    $updateArray = array();
+    $updateData =  array();
+
+    $deleteCount = 0;
+    $deleteArray = array();
+
+    $insert = false;
+    $insertCount = 0;
+    $insertArray = array();
+
+
+
+    //Loop check update && delete
+    foreach ($query as $keyQuery => $valueQuery) {
+        //echo "Query : ".$valueQuery->tag_id;
+        //echo "<br><br>";
+
+        foreach ($input as $keyInput => $valueInput) {
+            //echo "Input : ".$valueInput->id;
+            //echo "<br><br>";            
+            if($valueQuery->tag_id == $valueInput->id){
+                $update = true;
+                $updateData = $valueInput;
+            }
+        }
+
+        if($update){
+            //Update
+            $updateArray[$updateCount] = $updateData;
+            $updateCount++;  
+            $update = false;  
+        }else{
+            //Delete
+            $deleteArray[$deleteCount] = $valueQuery;
+            $deleteCount++; 
+        }     
+    }
+
+
+    //Loop check insert
+    foreach ($input as $keyInput => $valueInput) {
+        foreach ($query as $keyQuery => $valueQuery) {          
+            if($valueInput->id == $valueQuery->tag_id){
+                $insert = true;
+                //$insertData = $valueInput;
+            }
+        }
+
+        //Insert
+        if($insert){
+            $insert = false;  
+        }else{
+            $insertArray[$insertCount] = $valueInput;
+            $insertTagLocation[$insertCount]["tag_id"] = $valueInput->id;
+            $insertTagLocation[$insertCount]["location_id"] = $args["id"];
+            $insertCount++; 
+        }     
+    }
+    //return $updateArray;
+
+
+ 
+
+    if(!empty($insertTagLocation)){
+      $this->addMultipleRecord($insertTagLocation);
+    }
+
+    if(!empty($deleteArray)){
+      foreach ($deleteArray as $key => $value) {
+        # code...
+        $deleteTagTour["id"] = $value->id;
+        $this->deleteRecord($deleteTagTour);
+      }
+
+    }
+    //exit;
+  /*  
+      echo "Update : ";
+      echo "<br><br>";
+      print_r($updateArray);
+      echo "<br><br>";
+    
+    exit;
+     */   
+    return ;
+  }  
   function deleteRecord($args=false){
     if(isset($args["id"])){
       $this->db->where("tal_id", $args["id"]);
