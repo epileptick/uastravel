@@ -14,18 +14,18 @@ class Tour extends MY_Controller {
 
   function user_view($id=false){
 
+    //print_r($id); exit;
     //Get Tour
     $tour["id"] = $id;
-    $tour["tour_id"] = $id;    
+    $tagtour["tour_id"] = $id;
+    $agencytour["tour_id"] = $id;      
     $data["tour"] = $this->tourModel->getRecord($tour); 
 
 
-    ///print_r($data); exit;
+    //print_r($data); exit;
     //Tag
     $this->load->model("tagtour_model", "tagtourModel");
-    $tagtourQuery["tag"] = $this->tagtourModel->getRecord($tour);
-    //print_r($tagtourQuery); exit;
-
+    $tagtourQuery["tag"] = $this->tagtourModel->getRecord($tagtour);
     if(!empty($tagtourQuery["tag"])){
       //TagTour
       $count = 0;
@@ -37,6 +37,28 @@ class Tour extends MY_Controller {
         $count++;
       }
     }
+
+
+    //Price
+    $this->load->model("agencytour_model", "agencytourModel");
+    $agencytourQuery["price"] = $this->agencytourModel->getRecord($agencytour);
+
+
+    $maxAgencyPrice->sale_adult_price = 0;
+    foreach ($agencytourQuery["price"] as $key => $value) {
+      # code...
+      if($value->sale_adult_price > $maxAgencyPrice->sale_adult_price){
+        $data["price"][0] = $value;
+      }
+    }
+
+
+
+    //print_r($agencytourQuery);
+    //print_r($data["price"][0]->sale_adult_price); exit;
+
+
+
     //Return
     $this->_fetch('user_view', $data, false, true);        
 
@@ -64,8 +86,6 @@ class Tour extends MY_Controller {
 
     //Get argument from post page
     $args = $this->input->post();
-
-
 
     //Send argument to validate function
     $validate = $this->validate($args);
@@ -95,8 +115,6 @@ class Tour extends MY_Controller {
         $this->load->model("agencytour_model", "agencytourModel");  
         $agencyTour["tour_id"] = $id;
         $data["agencyTour"] = $this->agencytourModel->getRecord($agencyTour);  
-
-
         if(!empty($data["agencyTour"])){
           $this->load->model("agency_model", "agencyModel");  
           $field = "agn_id, agn_name"; 
@@ -131,7 +149,6 @@ class Tour extends MY_Controller {
         $this->_fetch('admin_update', $data);
       }else{
         //Send to create form
-            
         $this->_fetch('admin_create', $data);
       }
 
@@ -269,43 +286,18 @@ class Tour extends MY_Controller {
 
         ////////////////////////////////////////////
         //Add (TagTour) relationship data table 
-        ////////////////////////////////////////////        
-        $this->load->model("tagtour_model", "tagTourModel");
-        $count = 0; 
-        $tagTour = false;
-
-        //Remove tag in tagtour table
-        $tagTour["tour_id"] = $args["id"]; 
-        $this->tagTourModel->deleteRecord($tagTour);
-
-
-        //Call insert tag
-        //print_r($args["tags"]); exit;
-        $tag["name"] = $args["tags"];
-        $this->load->model("tag_model", "tagModel");        
-        $tagArray = $this->tagModel->cleanTagAndAddTag($tag["name"]);
-
-        //print_r($tagArray); exit;
-        foreach ($tagArray as $key => $value) {
-          $tagTourAdd[$count]["tag_id"] = $value->id;
-          $tagTourAdd[$count]["tour_id"] = $args["id"];
-          $count++;
+        ////////////////////////////////////////////  
+        if(!empty($args["agency_tour"])){ 
+          $this->load->model("tagtour_model", "tagTourModel");
+          $this->tagTourModel->updateRecord($args);
         }
-        $this->tagTourModel->addMultipleRecord($tagTourAdd);
 
         ///////////////////////////////////////////
         // Update relationship table (AgencyTour)
         ///////////////////////////////////////////   
-        if(!empty($args["agency_tour"])){
-
+        if(!empty($args["tags"])){
           $this->load->model("agencytour_model", "agencytourModel");
-          $tagTour["tour_id"] = $args["id"]; 
-          $this->agencytourModel->deleteRecord($tagTour);
-
-          foreach ($args["agency_tour"] as $key => $value) {
-            $args["agency_tour"][$key]["tour_id"] = $args["id"];
-          }
-          $this->agencytourModel->addMultipleRecord($args["agency_tour"]);
+          $this->agencytourModel->updateRecord($args);
         }
 
 
