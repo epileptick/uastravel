@@ -17,6 +17,40 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("themes/T
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("themes/Travel/tour/stylesheets/app.css").'">');
 PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/javascripts/modernizr.foundation.js").'"></script>');
 
+
+PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+      <script type="text/javascript">
+
+      function initialize() {
+        
+        var latLng = new google.maps.LatLng('.$tour[0]->latitude.','.$tour[0]->longitude.');
+
+        var map = new google.maps.Map(document.getElementById(\'mapCanvas\'), {
+          scrollwheel: false,
+          zoom: 16,
+          center: latLng,
+          disableDefaultUI:false,
+          streetViewControl:true,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        
+        
+        marker = new google.maps.Marker({
+          position: latLng,
+          title: \'\',
+          map: map,
+          draggable: false
+        });
+        
+      }
+      
+
+      // Onload handler to fire off the app.
+      google.maps.event.addDomListener(window, \'load\', initialize);
+      
+      </script>');
+
+
 preg_match('/MSIE (.*?);/', $_SERVER['HTTP_USER_AGENT'], $matches);
 
 if (count($matches)>1){
@@ -40,10 +74,10 @@ if (count($matches)>1){
 ?>
 
 
-<?php print_r($tour); ?>
+<?php //print_r($tour); ?>
 
 
-<?php (!empty($tag))?print_r($tag):"";?>
+<?php //(!empty($tag))?print_r($tag):"";?>
 </head>
 <body style="background: #ededed url("<?php echo base_url('themes/Travel/tour/images/bg1.jpg');?>") no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
   <div class="overly-bg"></div>
@@ -260,48 +294,129 @@ if (count($matches)>1){
 
 
 
-    <!-- Start display tour-->
+    <!-- Start column -->
     <div class="row">
       <section class="article">
 
 
-
-
-      <div class="eight columns">
-
-        <!-- Start display Title -->
-        <div class="row border">
-          <div class="twelve columns">
-            <h3><?php echo  $tour[0]->name; ?></h3> 
-            <?php
-              if(!empty($tag)){
-                foreach ($tag as $key => $value) {
-                  # code...
-                  echo $value[0]->name;
-                  echo ",";
+        <!-- ////////////// -->
+        <!-- Start left column-->
+        <!-- ////////////// -->
+        <div class="eight columns">
+          <!-- Start Title -->
+          <div class="row border">
+            <div class="twelve columns">
+              <h2><?php echo  $tour[0]->name; ?></h2> 
+              <?php
+                if(!empty($tag)){
+                  foreach ($tag as $key => $value) {
+                    # code...
+                    echo $value[0]->name;
+                    echo ",";
+                  }
                 }
-              }
-
-            ?>
+              ?>
+            </div>
           </div>
-        </div>
-        <!-- End display Title -->
+          <!-- End Title -->
 
-        <!-- Start display Title -->
-        <div class="row">
-          <div class="twelve columns">
-            <p>
-              <?php echo  $tour[0]->description; ?>
-            </p>
-          </div>          
+          <!-- Start description-->
+          <div class="row">
+            <div class="twelve columns">
+              <p>
+                <?php echo $tour[0]->description; ?>
+              </p>
+            </div>          
+          </div>
+          <!-- End description -->
 
-        </div>
-      </div>
+          <!-- Start itenery-->
+          <div class="row">
+            <div class="twelve columns">
+              <p>
+                <h3>Program & Itinerary</h3> 
+                <?php echo $tour[0]->detail; ?>
+              </p>
+            </div>          
+          </div>
+          <!-- End itenery -->
 
+          <!-- Start includes-->
+          <div class="row">
+            <div class="twelve columns">
+              <p>
+                <h3>Tour Includes</h3> 
+                <?php echo $tour[0]->included; ?>
+              </p>
+            </div>          
+          </div>
+          <!-- End includes -->
+
+          <!-- Start remark-->
+          <div class="row">
+            <div class="twelve columns">
+              <p>
+                <h3>Tour Remark</h3> 
+                <?php echo $tour[0]->remark; ?>
+              </p>
+            </div>          
+          </div>
+          <!-- End includes -->
+
+
+          <!-- Start remark-->
+          <div class="row">
+            <div class="twelve columns">
+              <p>
+                <h3>Tour Remark</h3> 
+                <?php echo $tour[0]->remark; ?>
+              </p>
+            </div>          
+          </div>
+          <!-- End includes -->     
+
+
+
+
+          <!-- Start price-->
+          <div class="row">
+            <div class="twelve columns">
+              <p>   
+                 <h3>ราคาทัวร์</h3> 
+                 Adult
+                <?php echo currencyFormat($price[0]->sale_adult_price); ?> บาท 
+                <br>
+                 Child
+                <?php echo currencyFormat($price[0]->sale_child_price); ?> บาท
+              </p>
+            </div>          
+          </div>
+          <!-- End price --> 
+
+
+<?php
+  function currencyFormat($number, $fractional=false) { 
+      if ($fractional) { 
+          $number = sprintf('%.2f', $number); 
+      } 
+      while (true) { 
+          $replaced = preg_replace('/(-?\d+)(\d\d\d)/', '$1,$2', $number); 
+          if ($replaced != $number) { 
+              $number = $replaced; 
+          } else { 
+              break; 
+          } 
+      } 
+      return $number; 
+  }  
+?>
+
+        </div> 
+        <!-- ////////////// -->
+        <!-- End left column-->
+        <!-- ////////////// -->
 
       <div class="four columns">
-        right
-
         <h3>แพ็กเก็จทัวร์แนะนำ</h3>
         <div class="list_packet">
           <div class="row">
@@ -428,80 +543,66 @@ if (count($matches)>1){
 
   
     </section>     
-  </div>    <!-- End display tour-->
+  </div>    
+  <!-- End display tour-->
 
 
-
-
-
-
-    <div class="row">
-      <section class="article">
-        <div class="row border">
-          <div class="seven columns">
-            <h3><?php echo  $tour[0]->name; ?></h3> 
-            <?php
-
-              if(!empty($tag)){
-                foreach ($tag as $key => $value) {
-                  # code...
-                  echo $value[0]->name;
-                  echo ",";
-                }
-              }
-            ?>
-          </div>
-          <div class="five columns">
-          </div>
-        </div>
-        <div class="four columns">
-          <p>
-            <?php echo  $tour[0]->description; ?>
-          </p>
-        </div>
-        <div class="four columns">
-          <p>หมู่เกาะสิมิลัน"คือสรวงสวรรค์ใต้สมุทรที่อุดมไปด้วยชีวิตน้อยใหญ่มากมายไม่ว่าจะเป็นปะการังและหมู่ฝูงปลา มีน้ำใสราว แผ่นกระจกและมีหาดทรายที่ขาวสะอาดงดงาม สิมิลันมีชื่อเสียงทางด้านมีแหล่งน้ำลึกที่สวยงาม ติดอันดับนของโลกและภาพหินเรือใบเป็นภาพสัญลักษณ์ของอุทยาน แห่งชาติหมู่เกาะสิมิลัน ซิ่งตั้งอยู่ที่เกาะ8 (สิมิลัน) ที่มีความงดงามมากและถือเป็นจุดเด่นของสิมิลันอุทยานแห่งชาติ หมู่เกาะ สิมิลัน ประกอบด้วยพื้นดินที่เป็นเกาะต่างๆ เขาหินแกรนิตสูง ชัน หาดทราย โขดหิน ลักษณะรูปร่างต่างๆ ชายฝั่งของเกาะต่างๆมีลักษณะเว้าแหว่งไม่เป็นระเบียบ เนื่องจากตั้งอยู่ในส่วนทะเลนอกได้รับอิทธิพลจากการกัดเซาะของคลื่นทะเลโดยตรงเรียงตัวตามแนวทิศเหนือใต้พื้นน้ำเป็นส่วนหนึ่งของทะเลอันดามันมหาสมุทรอินเดียตะวันออกบริเวณไหล่ทวีปติดชายฝั่งตะวันตกของจังหวัดพังงา</p>
-        </div>
-        <div class="four columns">
-          <div class="flex-video">
-            <iframe width="420" height="315" src="http://www.youtube.com/embed/zoyUmN8mXRc" frameborder="0" allowfullscreen></iframe>
-          </div>
-          <p>หมู่เกาะสิมิลัน"คือสรวงสวรรค์ใต้สมุทรที่อุดมไปด้วยชีวิตน้อยใหญ่มากมาย ไม่ว่าจะเป็นปะการัง และหมู่ฝูงปลา มีน้ำใสราว แผ่นกระจกและมีหาดทรายที่ขาวสะอาดงดงาม สิมิลันมีชื่อ เสียง ทางด้านมีแหล่งน้ำลึกที่สวยงาม ติดอันดับ 1 ใน 10 ของโลก และภาพหินเรือใบเป็นภาพสัญลักษณ์ของอุทยาน แห่งชาติหมู่เกาะสิมิลันซิ่งตั้งอยู่ที่เกาะ8 (สิมิลันะะ) ที่มีความงด
-          </p>
-        </div>      
-      </section>
-    </div>
-
+    <!-- Start display map-->
     <div class="row">
       <div class="eight columns">
         <div class="row">
           <div class="twelve columns">
             <h3>แผนที่</h3>
             <div class="map">
-              <img src="<?php echo base_url('themes/Travel/tour/images/map.png');?>"> <!-- กำหนดแผนที่กว้าง 100% -->
+              <div id="mapCanvas" style="width:100%;height:277px;"></div>
             </div>
             <div class="border"></div>
           </div>
-        </div>
-        <div class="row">
-          <div class="six columns">
-            <h3>กฎระเบียบข้อห้าม</h3>
-            <p>การท่องเที่ยวพักผ่อนในเขตพื้นที่ของอุทยานแห่งชาติ มีกฎระเบียบที่  นักท่องเที่ยวผู้มีจิตสำนึกทุกคนต้องยึดถือปฏิบัติเพื่อให้เกิดความ  เรียบร้อยในการใช้พื้นที่ร่วมกันอย่างยั่งยืนถาวร ดังนี้</p>
-            <ul class="square">
-              <li>ไม่เก็บทุกอย่างออกจากพื้นที่นอกจากขยะ</li>
-              <li>ไม่ส่งเสียงดังอันเป็นการรบกวนผู้อื่น รวมทั้งสัตว์ป่า</li>
-              <li>ไม่ล่า ทำลาย หรือกระทำการใดๆ อันจะทำให้พืช สัตว์ และสภาพ แวดล้อมเสียหาย</li>
-              <li>ไม่ส่งเสียงดังอันเป็นการรบกวนผู้อื่น รวมทั้งสัตว์ป่า</li>
-            </ul>
-          </div>
-          <div class="six columns">
-            <h3>การเดินทาง</h3>
-            <p>นักท่องเที่ยวส่วนใหญ่จะไปลงเรือที่ท่าเรือทับละมุ จ.พังงาจาก ทางหลวง หมายเลข 4 (ช่วงระนอง-พังงา) ช่วง ต.ลำแก่น มีทาง แยกขวาไปท่าเรือ ทับละมุอีกประมาณ 5 กิโลเมตร ก่อนถึงท่าเรือ ด้านซ้ายมือเป็นที่ตั้งของ ที่ทำการและศูนย์บริการนักท่องเที่ยวอุทยานแห่งชาติหมู่เกาะสิมิลันหากเดินทางโดยรถโดยสารประจำทางจากสถานีขนส่งสายใต้ ก่อนถึงท่าเรือ ด้านซ้ายมือเป็นที่ตั้งของ สามารถ ไปได้ทุกคันที่วิ่งสายระนอง-พังงา ลงที่ทางแยกไปท่าเรือทับละมุแล้ว ต่อ รถรับจ้างมาที่ท่าเรือ</p>
-          </div>
-        </div>
-      </div>
+        </div>  
+
+     <!-- Start find hotel-->
+      <div class="row">
+        <div class="twelve columns">
+          <p>   
+            <h3>ค้นหาโรงแรม</h3> 
+            <form name="input" action="#" method="get">
+              <div class="row">
+                <div class="six columns">
+                  Where ? <br>
+                  <input type="text" name="user">
+                  Check-in  <br>
+                  <input type="text" name="user">
+                </div> 
+                <div class="six columns">
+                  Guest
+                  <select name="guest">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select><br><br>
+                  Rooms
+                  <select name="guest">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select> <br>  <br> 
+
+                  <input type="submit" value="Submit">         
+                </div> 
+
+              </div> 
+
+            </form>             
+          </p>
+        </div> 
+      </div>           
+    <!-- End  find hotel --> 
+      </div>  
+
       <div class="four columns">
-        <h3>แพ็กเก็จทัวร์แนะนำ</h3>
+        <h3>โรงแรมแนะนำ</h3>
         <div class="list_packet">
           <div class="row">
             <div class="twelve columns">
@@ -622,25 +723,14 @@ if (count($matches)>1){
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div> 
 
-      <div class="row">
-        <div class="facebook_comment">
-          <div class="twelve columns">
-            <h3>แสดงความคิดเห็น</h3>
-            <div id="fb-root"></div>
-            <script>(function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0];
-              if (d.getElementById(id)) return;
-              js = d.createElement(s); js.id = id;
-              js.src = "//connect.facebook.net/th_TH/all.js#xfbml=1&appId=357467797616103";
-              fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));</script>
-            <div class="fb-comments" data-href="http://xn--42cga5cfx1dle5e0agb2ixai5l6f.com" data-num-posts="2" data-width=""></div>
-          </div>
-        </div>
-      </div>
+    </div>
+    <!-- End display map-->
+
+
+
+
 
     <footer>
       <div class="row">
