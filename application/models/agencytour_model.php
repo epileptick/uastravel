@@ -135,104 +135,114 @@ class AgencyTour_model extends MY_Model {
 
 
     //Get tagtour by tour_id
-    $agency["tour_id"] = $args["id"];
-    $query = $this->getRecord($agency);
-    //print_r($args); exit;
 
 
-    foreach ($args["agency_tour"] as $key => $value) {
-      $args["agency_tour"][$key]["tour_id"] = $args["id"];
-    }
+    if(!empty($args["agency_tour"])){
+      $agency["tour_id"] = $args["id"];
+      $query = $this->getRecord($agency);      
+      foreach ($args["agency_tour"] as $key => $value) {
+        $args["agency_tour"][$key]["tour_id"] = $args["id"];
+      }
 
-    $input = $args["agency_tour"];
-    if(empty($query)){
-      //Insert new data
-      $this->agencytourModel->addMultipleRecord($args["agency_tour"]);
+      $input = $args["agency_tour"];
+
+
+      if(empty($query) && !empty($args["agency_tour"])){
+
+      
+        //Insert new data
+        $this->agencytourModel->addMultipleRecord($args["agency_tour"]);
+      }else{
+
+
+
+        //print_r($input);
+        //print_r($query); exit;
+
+        $update = false;
+        $updateCount = 0;
+        $updateArray = array();
+        $updateData =  array();
+
+        $deleteCount = 0;
+        $deleteArray = array();
+
+        $insert = false;
+        $insertCount = 0;
+        $insertArray = array();
+        $insertAgencyTour = array();
+
+
+
+        //Loop check update && delete
+        foreach ($query as $keyQuery => $valueQuery) {
+          foreach ($input as $keyInput => $valueInput) {         
+            if($valueQuery->agency_id == $valueInput["agency_id"]){
+                $update = true;
+                $updateData = $valueInput;
+            }
+          }
+
+          if($update){
+            //Update
+            $updateArray[$updateCount] = $updateData;
+            $updateCount++;  
+            $update = false;  
+          }else{
+            //Delete
+            $deleteArray[$deleteCount] = $valueQuery;
+            $deleteCount++; 
+          }     
+        }
+
+
+        //Loop check insert
+        foreach ($input as $keyInput => $valueInput) {
+          foreach ($query as $keyQuery => $valueQuery) {          
+            if($valueInput["agency_id"] == $valueQuery->agency_id){
+                $insert = true;
+            }
+          }
+
+          //Insert
+          if($insert){
+              $insert = false;  
+          }else{
+              $insertArray[$insertCount] = $valueInput;
+              $insertAgencyTour[$insertCount]["agency_id"] = $valueInput["agency_id"];
+              $insertAgencyTour[$insertCount]["tour_id"] = $args["id"];
+              $insertCount++; 
+          }     
+        }
+
+        if(!empty($insertArray)){ 
+          $this->addMultipleRecord($insertArray);
+        } //End check update new data
+
+        if(!empty($deleteArray)){
+          foreach ($deleteArray as $key => $value) {
+            # code...
+            $deleteAgencyTour["id"] = $value->id;
+            $this->deleteRecord($deleteAgencyTour);
+          }
+        } //End check delete data*/
+
+
+        if(!empty($updateArray)){ 
+          //print_r($updateArray); exit;
+          foreach ($updateArray as $key => $value) {
+            # code...
+            $this->_updateRecord($value);
+          }
+        } //End check update new data
+
+      } //End main check new data
+
     }else{
 
-      //print_r($input);
-      //print_r($query); exit;
+      return;
+    }//End check agency data
 
-      $update = false;
-      $updateCount = 0;
-      $updateArray = array();
-      $updateData =  array();
-
-      $deleteCount = 0;
-      $deleteArray = array();
-
-      $insert = false;
-      $insertCount = 0;
-      $insertArray = array();
-      $insertAgencyTour = array();
-
-
-
-      //Loop check update && delete
-      foreach ($query as $keyQuery => $valueQuery) {
-        foreach ($input as $keyInput => $valueInput) {         
-          if($valueQuery->agency_id == $valueInput["agency_id"]){
-              $update = true;
-              $updateData = $valueInput;
-          }
-        }
-
-        if($update){
-          //Update
-          $updateArray[$updateCount] = $updateData;
-          $updateCount++;  
-          $update = false;  
-        }else{
-          //Delete
-          $deleteArray[$deleteCount] = $valueQuery;
-          $deleteCount++; 
-        }     
-      }
-
-
-      //Loop check insert
-      foreach ($input as $keyInput => $valueInput) {
-        foreach ($query as $keyQuery => $valueQuery) {          
-          if($valueInput["agency_id"] == $valueQuery->agency_id){
-              $insert = true;
-          }
-        }
-
-        //Insert
-        if($insert){
-            $insert = false;  
-        }else{
-            $insertArray[$insertCount] = $valueInput;
-            $insertAgencyTour[$insertCount]["agency_id"] = $valueInput["agency_id"];
-            $insertAgencyTour[$insertCount]["tour_id"] = $args["id"];
-            $insertCount++; 
-        }     
-      }
-   
-
-      if(!empty($insertAgencyTour)){ 
-        $this->addMultipleRecord($insertAgencyTour);
-      } //End check update new data
-
-      if(!empty($deleteArray)){
-        foreach ($deleteArray as $key => $value) {
-          # code...
-          $deleteAgencyTour["id"] = $value->id;
-          $this->deleteRecord($deleteAgencyTour);
-        }
-      } //End check delete data*/
-
-
-      if(!empty($updateArray)){ 
-        //print_r($updateArray); exit;
-        foreach ($updateArray as $key => $value) {
-          # code...
-          $this->_updateRecord($value);
-        }
-      } //End check update new data
-
-    } //End main check new data
-      
     return ;
   }  
 
