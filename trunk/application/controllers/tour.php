@@ -12,6 +12,13 @@ class Tour extends MY_Controller {
   }
 
 
+  function user_list($id=false){
+      $data = "";   
+      $this->_fetch('user_list', $data, false, true);
+
+  }
+
+
   function user_view($id=false){
     //print_r($id); exit;
     //Get Tour
