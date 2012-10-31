@@ -383,11 +383,23 @@ if (count($matches)>1){
             <div class="twelve columns">
               <p>   
                  <h3>ราคาทัวร์</h3> 
-                 Adult
-                <?php echo currencyFormat($price[0]->sale_adult_price); ?> บาท 
-                <br>
-                 Child
-                <?php echo currencyFormat($price[0]->sale_child_price); ?> บาท
+                 <?php
+                    if(!empty($price[0]->sale_adult_price)){
+                  ?>
+                    <p>
+                     Adult
+                    <?php echo currencyFormat($price[0]->sale_adult_price); ?> บาท 
+                    <br>
+                     Child
+                    <?php echo currencyFormat($price[0]->sale_child_price); ?> บาท
+                    </p>
+                  <?php
+                    }else{
+
+                      echo "<p>โทร. 076-331280, 088-7655433 หรือ 088-7661657<br>";
+                      echo "แฟกซ์. 076-331273</p>";
+                    }
+                 ?>
               </p>
             </div>          
           </div>
