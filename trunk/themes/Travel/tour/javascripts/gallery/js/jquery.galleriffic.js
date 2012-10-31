@@ -385,7 +385,6 @@
 				if (this.$controlsContainer) {
 					this.$controlsContainer
 						.find('div.ss-controls a').removeClass().addClass('play')
-						.attr('title', this.playLinkText)
 						.attr('href', '#play')
 						.html(this.playLinkText);
 				}
@@ -400,7 +399,6 @@
 				if (this.$controlsContainer) {
 					this.$controlsContainer
 						.find('div.ss-controls a').removeClass().addClass('pause')
-						.attr('title', this.pauseLinkText)
 						.attr('href', '#pause')
 						.html(this.pauseLinkText);
 				}
@@ -627,7 +625,7 @@
 
 				// Construct new hidden span for the image
 				var newSlide = this.$imageContainer
-					.append('<span class="image-wrapper current"><a class="advance-link" rel="history" href="#'+this.data[nextIndex].hash+'" title="'+imageData.title+'"></a></span>')
+					.append('<span class="image-wrapper current"><a class="advance-link" rel="history" href="#'+this.data[nextIndex].hash+'"></a></span>')
 					.find('span.current').css('opacity', '0');
 				
 				newSlide.find('a')

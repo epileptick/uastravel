@@ -23,5 +23,8 @@
 	z-index:-2;
     /* counteracts global img modification by twitter bootstrap library */
     max-width: none !important;
+    position: absolute !important;
+    top: 0px !important;
+    left: 0px !important;
 
 }
