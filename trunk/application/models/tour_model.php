@@ -9,6 +9,7 @@ class Tour_model extends MY_Model {
                      'code'              => 'tou_code',
                      'url'               => 'tou_url',
                      'name'              => 'tou_name',
+                     'short_description' => 'tou_short_description',
                      'description'       => 'tou_description',
                      'detail'            => 'tou_detail',
                      'included'          => 'tou_included',
