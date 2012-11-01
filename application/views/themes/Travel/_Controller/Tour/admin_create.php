@@ -334,6 +334,10 @@ $(document).ready(function() {
 			<textarea  class="mceEditor" cols="30" rows="10" name="description"><?php echo set_value('description');?></textarea>
 			<div class="clearfix"></div><br>
 
+			<label>Short Description : </label> <?php echo form_error('short_description', '<font color="red">', '</font>'); ?>
+				<input type="text" name="short_description" id="short_description" value="<?php echo set_value('short_description');?>">
+			<div class="clearfix"></div><br>
+			
 			<label>Program & Itinerary : </label> <?php echo form_error('detail', '<font color="red">', '</font>'); ?>
 			<textarea cols="30"  class="mceEditor"  rows="10" name="detail"><?php echo set_value('detail');?></textarea>
 			<div class="clearfix"></div><br>
