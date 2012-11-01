@@ -344,6 +344,8 @@ class Tour extends MY_Controller {
     //Validate information
     $this->form_validation->set_rules('name', 'tour name', 'required');
     $this->form_validation->set_rules('description', 'description', 'required');
+    $this->form_validation->set_rules('short_description', 'short_description', 'required');
+
     //$this->form_validation->set_rules('detail', 'detail', 'required');
     //$this->form_validation->set_rules('included', 'included', 'required');
 
