@@ -52,17 +52,87 @@ $(document).ready(function() {
     autoSave();
   });
   function autoSave(){
-    //console.log($("#textarea").val());
-    //console.log($("#tags").val());
+    //console.log(tinyMCE.get("txtBody").getContent());
+    //console.log(tinyMCE.get("txtSuggestion").getContent());
+    //console.log(tinyMCE.get("txtRoute").getContent());
     if($("#id").val()!=0){
-      $.post(\''.base_url('admin/location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+      $.post(\''.base_url('admin/location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
     }else if($("#id").val()==0){
-      $.post(\''.base_url('admin/location/create/').'\',{title: $("#title").val(), body:tinyMCE.activeEditor.getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+      $.post(\''.base_url('admin/location/create/').'\',{title: $("#title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
     }
   }
+  
+  
+    tinyMCE.init({
+        mode : "specific_textareas",
+        editor_selector : "mceEditor",
+        width: "100%",
+        theme : "advanced",
+        plugins : "youtube, inlinepopups,autoresize,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+        //theme_advanced_buttons1 : "justifyleft,justifycenter,justifyright,justifyfull",
+        //theme_advanced_buttons2: ",tablecontrols,|,images,youtube,|,bold,italic,underline,strikethrough,|,undo,redo,|,cut,copy,paste,|,code",
+        theme_advanced_buttons1 : "fullscreen,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+        
+        
+        theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+        theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+        theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreakcut,|,copy,paste,pastetext,pasteword,|,image,youtube,|",
+        theme_advanced_toolbar_location : "external",
+        theme_advanced_toolbar_align : "left",
+        theme_advanced_statusbar_location : "bottom",
+        theme_advanced_resizing : false,
+        theme_advanced_source_editor_width: 630,
+        autoresize_min_height: 500,
+        autoresize_not_availible_height: 10,
+        autoresize_on_init: true,
+        autoresize_hide_scrollbars: false,
+        setup : function (ed)
+        {
+            ed.onDeactivate.add (function (ed)
+            {
+                autoSave();
+            });
+        }
+    });
+    
+    tinyMCE.init({
+        mode : "specific_textareas",
+        editor_selector : "mceEditor2",
+        width: "100%",
+        theme : "advanced",
+        plugins : "youtube, inlinepopups,autoresize,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+        theme_advanced_buttons1 : "justifyleft,justifycenter,justifyright,justifyfull,|,bold,italic,underline,strikethrough,|,bullist,numlist,",
+        //theme_advanced_buttons2: "",
+        //theme_advanced_buttons1 : "fullscreen,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+        
+        
+        //theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+        //theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+        //theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreakcut,|,copy,paste,pastetext,pasteword,|,image,youtube,|",
+        theme_advanced_toolbar_align : "left",
+        theme_advanced_statusbar_location : "bottom",
+        theme_advanced_resizing : false,
+        theme_advanced_source_editor_width: 630,
+        autoresize_min_height: 300,
+        autoresize_not_availible_height: 10,
+        autoresize_on_init: true,
+        autoresize_hide_scrollbars: false,
+        setup : function (ed)
+        {
+            ed.onDeactivate.add (function (ed)
+            {
+                autoSave();
+            });
+        }
+    });
+    function myHandleEvent(e) {
+        if(e.type == "blur"){
+            alert("Hey");
+        }
+    }
     
   function successHandler(data){
-    console.log(data);
+    //console.log(data);
     var json = jQuery.parseJSON(data);
     $("#id").val(json.id);
     $("#status").html(json.status).show("slow");
@@ -120,7 +190,7 @@ $(document).ready(function() {
       FileUploaded: function(up, file, info) {
         // Called when a file has finished uploading
         //log(\'[FileUploaded] File:\', file, "Info:", info);
-        console.log(info);
+        //console.log(info);
         plupload.each(info, function(value, key) {
        
           if(key == "response"){
@@ -145,39 +215,6 @@ $(document).ready(function() {
 </script>');
 
 PageUtil::addVar("javascript",'
-<script type="text/javascript">
-
-  $(document).ready(function(){
- 
-    tinyMCE.init({
-        mode : "specific_textareas",
-        editor_selector : "mceEditor",
-        width: "100%",
-        theme : "advanced",
-        plugins : "youtube, inlinepopups,autoresize,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
-        //theme_advanced_buttons1 : "justifyleft,justifycenter,justifyright,justifyfull",
-        //theme_advanced_buttons2: ",tablecontrols,|,images,youtube,|,bold,italic,underline,strikethrough,|,undo,redo,|,cut,copy,paste,|,code",
-        theme_advanced_buttons1 : "fullscreen,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
-        
-        
-        theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-        theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
-        theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreakcut,|,copy,paste,pastetext,pasteword,|,image,youtube,|",
-        theme_advanced_toolbar_location : "external",
-        theme_advanced_toolbar_align : "left",
-        theme_advanced_statusbar_location : "bottom",
-        theme_advanced_resizing : false,
-        theme_advanced_source_editor_width: 630,
-        autoresize_min_height: 500,
-        autoresize_not_availible_height: 10,
-        autoresize_on_init: true,
-        autoresize_hide_scrollbars: false
-    });
-
-
-  });
-</script>
-      
       <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
       <script type="text/javascript">
       var geocoder = new google.maps.Geocoder();    
@@ -303,6 +340,7 @@ PageUtil::addVar("javascript",'
 
   <!-- Blogpost -->
   <section class="blogpost grid_12">
+  
   <h2 class="section_heading text_big"><?=$this->lang->line("location_lang_add_post")?></h2>
   <div id="add_form">
   <div id="status"></div>
@@ -314,7 +352,7 @@ PageUtil::addVar("javascript",'
     <span class="GM1BAGKBGJB blogg-title">โพสต์</span>
     <span class="GM1BAGKBJJB blogg-title">·</span>
     <?php
-    echo form_input('title', $post['loc_title'], 'id="title" class="GM1BAGKBHEC titleField textField GM1BAGKBGEC" dir="ltr" title="ชื่อ" size="60"');
+      echo form_input('title', $post['loc_title'], 'id="title" class="GM1BAGKBHEC titleField textField GM1BAGKBGEC" dir="ltr" title="ชื่อ" size="60"');
     ?>
     <span class="GM1BAGKBNIB">
       <?php echo form_submit('submit', $this->lang->line("location_lang_submit"), 'class="blogg-button blogg-primary" id="save"'); ?>
@@ -330,9 +368,24 @@ PageUtil::addVar("javascript",'
       </div>
       <div class="clear"></div>
     </div>
+    <hr class="dashed" />
+    <div class="grid_4">
+    <h3 class="text_big"><?=$this->lang->line("location_lang_suggestion")?></h3>
+      <textarea name="suggestion" class="mceEditor2" style="width:100%" id="txtSuggestion" >
+          <?=$post['loc_suggestion']?>
+      </textarea>
+      <hr class="dashed" />
+    </div>
+    <div class="grid_4">
+    <h3 class="text_big"><?=$this->lang->line("location_lang_route")?></h3>
+      <textarea name="route" class="mceEditor2" style="width:100%" id="txtRoute" >
+        <?=$post['loc_route']?>
+      </textarea>
+      <hr class="dashed" />
+    </div>
   </div>
-
-    <div id="add_form_right">
+  
+  <div id="add_form_right">
     <h2 class="text_big">{_ location_lang_configuration}</h2>
       <div class="side_bar_block">
         <h3 class="image">{_ location_lang_image_manager}</h3>
@@ -342,12 +395,9 @@ PageUtil::addVar("javascript",'
           <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
         </div>
         <span id="btnHide"  class="upload-button" onClick="return(false);"></span>
-        <span id="btnShow"  class="upload-button" onClick="return(false);"></span>
+        <span id="btnShow"  class="upload-button" onClick="return(false);">Show</span>
       </div>
       
-
-
-    
       <div class="side_bar_block">
         <h3 class="tag">{_ location_lang_tag} <span style="cursor:pointer;"  id="show_all">show all</span></h3>
           <textarea id="textarea" name="jquerytag" class="example" rows="1" style="width: 250px;"></textarea>
@@ -358,13 +408,12 @@ PageUtil::addVar("javascript",'
                 $("#tags").val($("#jquerytag").val());          
               });
             });
-          </script>          
+          </script>
           <input type="hidden"id="tags" name="tags" value="">  
           <br>
           <span id="show_all_result">
             <?php
-              //print_r($tag); 
-
+              //print_r($tag);
             if(is_array($tag)){
               $count = 1;
               foreach ($tag as $key => $value) {
@@ -387,7 +436,6 @@ PageUtil::addVar("javascript",'
                     </font>,          
                 <?php 
                 }
-
                 $count++;
               }
             }
