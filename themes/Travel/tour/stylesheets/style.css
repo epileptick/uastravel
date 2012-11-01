@@ -23,6 +23,9 @@ img{
 	visibility: hidden;
 	width: 0;
 }
+label{
+	font-size: 20px;
+}
 /* ---------------------------------------------------------------------- */
 /*	Typography
 /* ---------------------------------------------------------------------- */
@@ -239,7 +242,7 @@ a.next:hover{
 /*	Gallery
 /* ---------------------------------------------------------------------- */
 .gallery_pc{
-	margin: 0 15px;
+	margin: 0 15px 10px 15px;
 	background: #fff;
 	overflow: hidden;
 	height: 448px;
@@ -534,7 +537,7 @@ div.pagination span.ellipsis {
 /*	gallery_mobile
 /* ---------------------------------------------------------------------- */
 .gallery_mobile{
-	margin: 0 15px;
+	margin: 0 15px 10px 15px;
 	background: #fff;
 	overflow: hidden;
 	padding: 3px 3px 0px 0px;
@@ -603,8 +606,9 @@ div.pagination span.ellipsis {
 .article{
 	background: #fff;
 	height: auto;
-	overflow: hidden;
-	margin: 10px 15px 10px 15px;
+	position: relative;
+	margin: 0px 15px 10px 15px;
+	padding: 0 15px 0 15px;
 	-webkit-border-radius: 2px;	
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -619,11 +623,11 @@ div.pagination span.ellipsis {
 }
 .row .border{
 	border-bottom: dashed 1px #c2c2c2; 
-	margin: 0 0 10px 0;
+	margin-bottom: 10px;  
 }
 .map{
 	border: 3px #fff solid;
-	margin: 0 0 25px 0;
+	margin: 0 0 0px 0;
 	-webkit-border-radius: 2px;	
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -631,13 +635,232 @@ div.pagination span.ellipsis {
 	      -moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.2);
 	        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 }
-.map{
+.lt-ie9 .map{
 	border-radius: 2px;
 	box-shadow: 0px 1px 1px #8a8a8a;
 	behavior: url(stylesheets/PIE.htc);
 }
+.box_white_in_columns{
+	background: #fff;
+	overflow: hidden;
+	padding: 0 10px 0 10px;
+	margin: 0 0 10px 0;
+	-webkit-border-radius: 2px;	
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	-webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+	      -moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.2);
+	        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.lt-ie9 .box_white_in_columns{
+	border-radius: 2px;
+	box-shadow: 0px 1px 1px #8a8a8a;
+	behavior: url(stylesheets/PIE.htc);
+}
+.box_white_in_row{
+	background: #fff;
+	height: auto;
+	margin: 10px 15px 10px 15px;
+	-webkit-border-radius: 2px;	
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	-webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+	      -moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.2);
+	        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.lt-ie9  .box_white_in_row{
+	border-radius: 2px;
+	box-shadow: 0px 1px 1px #8a8a8a;
+	behavior: url(stylesheets/PIE.htc);
+}
+
+
+.tags{
+	margin:0;
+	padding:0;
+	list-style:none;
+	min-height: 35px;
+}
+.tags li{
+	position: relative;
+}
+.tags li, .tags a{
+	float:left;
+	height:24px;
+	line-height:24px;
+	font-size:11px;
+	font-size: 20px;
+	color: #4E4E4E;
+	padding: 0 8px 0 0px;
+}
+.tags a:hover{
+	color: #0089E0;
+
+}
+
+.tags a.tags_name{
+	padding:0 10px 0 12px;
+	margin:  0 10px 0 0;
+	background:#0089e0;
+	color:#fff;
+	text-decoration:none;
+	-moz-border-radius-bottomleft:4px;
+	-webkit-border-bottom-left-radius:4px;	
+	border-bottom-left-radius:4px;
+	-moz-border-radius-topleft:4px;
+	-webkit-border-top-left-radius:4px;	
+	border-top-left-radius:4px;	
+	} 
+.tags a.tags_name:before{
+	content:"";
+	float:left;
+	position:absolute;
+	top:0;
+	right: 6px;
+	width:0;
+	height:0;
+	border-color:transparent  transparent transparent #0089e0 ;
+	border-style:solid;
+	border-width:12px 0px 12px 12px;		
+	}
+.tags a.tags_name:after{
+	content:"";
+	position:absolute;
+	top:10px;
+	right: 16px;
+	float:left;
+	width:4px;
+	height:4px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+	background:#fff;
+	-moz-box-shadow:-1px -1px 2px #004977;
+	-webkit-box-shadow:-1px -1px 2px #004977;
+	box-shadow:-1px -1px 2px #004977;
+	}
+.color_blue{
+	color: #0089E0;
+}
+.article_tour p{
+	padding-left: 5px; 
+}
+ul.disc{
+	margin-left: 10px;
+}
+ul.disc li{
+	font-size: 20px;
+}
+
+.price_booking {
+	background: #F2F2F2;
+	border: solid 1px #E6E6E6;
+	margin: 15px;
+	padding: 10px 10px 10px 10px;
+	height: auto;
+	-webkit-border-radius: 2px;
+	   -moz-border-radius: 2px;
+          border-radius: 2px;
+	-webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+	      -moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.3);
+	        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+
+}
+.price_booking .columns{
+	padding: 0 0px; 
+}
+
+.price_booking .four{
+	padding: 0 15px; 
+}
+
+.price_booking span{
+	display: block;
+	font-size: 20px;
+	color: #FE5214;
+	line-height: 30px;
+}
+.price_booking span strong{
+	color: #4E4E4E;
+	font-weight: normal;
+	font-size: 22px;
+}
+.price_booking span.title{
+	font-size: 30px;
+}
+.booking{
+	float: right;
+}
+.price_booking .button{
+	background: #FE5214;
+	border: 1px solid #df420a;
+	font-size: 22px;
+	font-family: 'db_helvethaica_Regula';
+	font-weight: normal;
+	padding: 3px 15px 3px 13px;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	        border-radius: 3px;
+}
+.price_booking .button:hover{
+	background: #e43c00;
+
+}
+@media only screen and (max-width: 767px) {
+	.booking{
+		float: none;
+	}
+	.price_booking{
+		text-align: center;
+	}
+	.price_booking .button{
+		padding: 10px 20px 11px;
+	}
+}
+form.search_hotel div.custom.dropdown a.current{
+	line-height: 30px;
+
+}
+form.search_hotel div.custom.dropdown a.selector{
+	height: 32px;
+
+}
+
+form.search_hotel div.custom.dropdown{
+	margin-bottom: 16px;
+	width: 100% !important;
+}
+form.search_hotel div.custom.dropdown.open ul{
+	width: 100% !important;	
+
+}
+
+form.search_hotel .button{
+	float: right;
+	margin: 25px 0px 0px 0px;
+	background: #0089E0;
+	font-size: 22px;
+	font-family: 'db_helvethaica_Regula';
+	font-weight: normal;
+	padding: 3px 15px 3px 13px;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	        border-radius: 3px;
+}
+form.search_hotel .button:hover{
+	background: #0072ba;
+}
+@media only screen and (max-width: 767px) {
+	form.search_hotel .button{
+		float: none;
+		margin: 0 0px 12px 0px !important;
+		padding: 10px 20px 11px;
+		display: inline-block;
+	}
+
+}
 /* ---------------------------------------------------------------------- */
-/*	Article
+/*	Footer
 /* ---------------------------------------------------------------------- */
 footer{
 	border-top: solid 1px #c8c7c7; 
@@ -683,7 +906,6 @@ ul.menu_footer li a:hover{
 	text-align: right;
 	font-size: 20px;
 	margin: 0px;
-
 }
 /* ---------------------------------------------------------------------- */
 /*	List Packet Tour
@@ -805,7 +1027,7 @@ ul.menu_footer li a:hover{
 	-moz-border-radius: 2px;
 	border-radius: 2px;
 }
-.facebook_comment{
+.lt-ie9 .facebook_comment{
 	border-radius: 2px;
 	box-shadow: 0px 1px 1px #8a8a8a;
 	behavior: url(stylesheets/PIE.htc);
