@@ -7,6 +7,8 @@ class Location_model extends MY_Model {
                      'id'               => 'loc_id',
                      'title'            => 'loc_title',
                      'body'             => 'loc_body',
+                     'suggestion'       => 'loc_suggestion',
+                     'route'            => 'loc_route',
                      'status'           => 'loc_status',
                      'level'            => 'loc_level',
                      'group'            => 'loc_group',

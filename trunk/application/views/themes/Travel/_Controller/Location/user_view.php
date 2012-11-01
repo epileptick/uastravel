@@ -12,23 +12,21 @@
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("/themes/Travel/tour/stylesheets/foundation.css").'">');
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("/themes/Travel/tour/stylesheets/style.css").'">');
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("/themes/Travel/tour/stylesheets/app.css").'">');
+PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("/themes/Travel/style/location_view.css").'">');
 PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("/themes/Travel/tour/javascripts/modernizr.foundation.js").'"></script>');
 PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
       <script type="text/javascript">
-
       function initialize() {
-        
+      
         var latLng = new google.maps.LatLng('.$location['latitude'].','.$location['longitude'].');
-
         var map = new google.maps.Map(document.getElementById(\'mapCanvas\'), {
           scrollwheel: false,
-          zoom: 16,
+          zoom: 13,
           center: latLng,
           disableDefaultUI:false,
           streetViewControl:true,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
-        
         
         marker = new google.maps.Marker({
           position: latLng, 
@@ -36,10 +34,8 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
           map: map,
           draggable: false
         });
-        
       }
       
-
       // Onload handler to fire off the app.
       google.maps.event.addDomListener(window, \'load\', initialize);
       
@@ -99,7 +95,9 @@ if (count($matches)>1){
       <div class="twelve columns">
         <a href="" class="arrow previous tooltip_nw" title="แหล่งท่องเที่ยวก่อนหน้า">แหล่งท่องเที่ยวก่อนหน้า</a>
         <h1 class="title"><?php echo $location['title'];?>
-          <span class="subtitle">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</span>
+          <?php if(!empty($location['subtitle'])): ?>
+          <span class="subtitle"><?php echo $location['subtitle'];?></span>
+          <?php endif; ?>
         </h1>
         <a href="" class="arrow next tooltip_ne" title="แหล่งท่องเที่ยวถัดไป">แหล่งท่องเที่ยวถัดไป</a>
       </div>
@@ -127,8 +125,8 @@ if (count($matches)>1){
             foreach($images AS $image):
             ?>
               <li>
-                <a class="thumb"  href="<?php echo $image['url'];?>" title="หมู่เกาะสิมิลัน">
-                  <img src="<?php echo $image['url'];?>" alt="หมู่เกาะสิมิลัน" />
+                <a class="thumb"  href="<?php echo $image['url'];?>" title="<?php echo $location['title'];?>">
+                  <img src="<?php echo $image['url'];?>" alt="<?php echo $location['title'];?>" />
                 </a>
                 <div class="captions">
                   <div class="image-title"><?php echo $location['title'];?></div>
@@ -148,8 +146,8 @@ if (count($matches)>1){
             foreach($images AS $image):
             ?>
               <li>
-                <a href="<?php echo $image['url'];?>" title="หมู่เกาะสิมิลัน" >
-                  <img src="<?php echo $image['url'];?>" alt="หมู่เกาะสิมิลัน" />
+                <a href="<?php echo $image['url'];?>" title="<?php echo $location['title'];?>" >
+                  <img src="<?php echo $image['url'];?>" alt="<?php echo $location['title'];?>" />
                 </a>
               </li>
             <?php
@@ -187,7 +185,6 @@ if (count($matches)>1){
             echo $location['body'][2];
           }
           ?>
-          
         </div>      
       </section>
     </div>
@@ -198,28 +195,41 @@ if (count($matches)>1){
           <div class="twelve columns">
             <h3>แผนที่</h3>
             <div class="map">
-            
-              <div id="mapCanvas" style="width:100%;height:277px;"></div>
-              
+              <?php
+                if(empty($location['suggestion']) AND empty($location['route'])):
+              ?>
+              <div id="mapCanvas" style="height:650px;"></div>
+              <?php
+                else:
+              ?>
+              <div id="mapCanvas" style="height:277px;"></div>
+              <div class="border"></div>
+              <?php
+                endif;
+              ?>
             </div>
-            <div class="border"></div>
+            
           </div>
         </div>
         <div class="row">
+          <?php 
+            if(! empty($location['suggestion'])):
+          ?>
           <div class="six columns">
-            <h3>กฎระเบียบข้อห้าม</h3>
-            <p>การท่องเที่ยวพักผ่อนในเขตพื้นที่ของอุทยานแห่งชาติ มีกฎระเบียบที่  นักท่องเที่ยวผู้มีจิตสำนึกทุกคนต้องยึดถือปฏิบัติเพื่อให้เกิดความ  เรียบร้อยในการใช้พื้นที่ร่วมกันอย่างยั่งยืนถาวร ดังนี้</p>
-            <ul class="square">
-              <li>ไม่เก็บทุกอย่างออกจากพื้นที่นอกจากขยะ</li>
-              <li>ไม่ส่งเสียงดังอันเป็นการรบกวนผู้อื่น รวมทั้งสัตว์ป่า</li>
-              <li>ไม่ล่า ทำลาย หรือกระทำการใดๆ อันจะทำให้พืช สัตว์ และสภาพ แวดล้อมเสียหาย</li>
-              <li>ไม่ส่งเสียงดังอันเป็นการรบกวนผู้อื่น รวมทั้งสัตว์ป่า</li>
-            </ul>
+            <h3>{_ location_lang_suggestion}</h3>
+            <?php echo $location['suggestion'];?>
           </div>
+          <?php 
+            endif;
+            if(! empty($location['route'])):
+          ?>
           <div class="six columns">
-            <h3>การเดินทาง</h3>
-            <p>นักท่องเที่ยวส่วนใหญ่จะไปลงเรือที่ท่าเรือทับละมุ จ.พังงาจาก ทางหลวง หมายเลข 4 (ช่วงระนอง-พังงา) ช่วง ต.ลำแก่น มีทาง แยกขวาไปท่าเรือ ทับละมุอีกประมาณ 5 กิโลเมตร ก่อนถึงท่าเรือ ด้านซ้ายมือเป็นที่ตั้งของ ที่ทำการและศูนย์บริการนักท่องเที่ยวอุทยานแห่งชาติหมู่เกาะสิมิลันหากเดินทางโดยรถโดยสารประจำทางจากสถานีขนส่งสายใต้ ก่อนถึงท่าเรือ ด้านซ้ายมือเป็นที่ตั้งของ สามารถ ไปได้ทุกคันที่วิ่งสายระนอง-พังงา ลงที่ทางแยกไปท่าเรือทับละมุแล้ว ต่อ รถรับจ้างมาที่ท่าเรือ</p>
+            <h3>{_ location_lang_route}</h3>
+            <?php echo $location['route'];?>
           </div>
+          <?php 
+            endif;
+          ?>
         </div>
       </div>
       <div class="four columns">

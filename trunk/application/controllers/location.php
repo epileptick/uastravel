@@ -103,7 +103,9 @@ class Location extends MY_Controller {
                             'loc_latitude' => "7.951172174578056",
                             'loc_longitude' => "98.34449018537998",
                             'loc_title' => "",
-                            'loc_body' => ""
+                            'loc_body' => "",
+                            'loc_suggestion' => "",
+                            'loc_route' => ""
                             );
       }else{
         $postData = $this->locationModel->readRecord(array('id'=>$id));
@@ -112,14 +114,13 @@ class Location extends MY_Controller {
           die;
         }
 
-
         //Query (TagTour) relationship data table by tour_id
         $this->load->model("taglocation_model", "taglocationModel");  
         $tagLocation["location_id"] = $id;
         $data["tagLocation"] = $this->taglocationModel->getRecord($tagLocation);  
         //print_r($data["tagTour"]); exit;
         if(!empty($data["tagLocation"]) && $data["tagLocation"]){
-          //$this->load->model("tag_model", "tagModel");  
+          //$this->load->model("tag_model", "tagModel");
           foreach ($data["tagLocation"] as $key => $value) {
             //echo $value->tag_id; echo "<br>";
             $this->load->model("tag_model","tagModel"); 
@@ -130,12 +131,10 @@ class Location extends MY_Controller {
         }         
         $data['post'] = $postData; 
       }
- 
 
-
-    $this->load->model("tag_model","tagModel"); 
-    $field = "tag_id, tag_name";  
-    $data["tag"] = $this->tagModel->getRecord(false, $field);   
+      $this->load->model("tag_model","tagModel"); 
+      $field = "tag_id, tag_name";
+      $data["tag"] = $this->tagModel->getRecord(false, $field);
 
       $this->_fetch('admin_add_form',$data);
     }
@@ -149,6 +148,11 @@ class Location extends MY_Controller {
       //var_dump($locationData["images"]);exit;
       $locationData["location"] = $locationData["location"][0];
       //Prepare for three column
+      //var_dump($locationData["location"]['body']);
+      if(preg_match("#<blockquote>(.*)</blockquote>#smiU", $locationData["location"]['body'],$matches)){
+        $locationData["location"]['body'] = str_replace($matches[0], '', $locationData["location"]['body']);
+        $locationData["location"]['subtitle'] = strip_tags($matches[1]);
+      }
       $locationData["location"]['body'] =  explode("<hr />",preg_replace("/<p[^>]*>[\s|&nbsp;]*<\/p>/", '', $locationData["location"]['body']));
       
       $this->_fetch("user_view",$locationData,FALSE,TRUE);
@@ -166,8 +170,8 @@ class Location extends MY_Controller {
       $this->locationModel->delete($id);
       redirect(base_url("admin/location"));
     }
-    
   }
+  
   function ajax_delete(){
     //implement code here
     $_post = $this->input->post();
@@ -178,7 +182,7 @@ class Location extends MY_Controller {
     }
     return "TRUE";
   }
-
+  
 }
 
 ?>
