@@ -337,10 +337,11 @@ $(document).ready(function() {
 
 			<label>Tour Description : </label> <?php echo form_error('description', '<font color="red">', '</font>'); ?>
 				<textarea cols="30"  class="mceEditor"  rows="150" name="description"><?php echo $tour[0]->description;?></textarea>
-			<div class="clearfix"></div>
-			<!--  End Tour information -->
+			<div class="clearfix"></div><br>
 
-
+			<label>Short Description : </label> <?php echo form_error('short_description', '<font color="red">', '</font>'); ?>
+				<input type="text" name="short_description" value="<?php echo $tour[0]->short_description;?>">
+			<div class="clearfix"></div><br>
 
 			<label>Program & Itinerary : </label> <?php echo form_error('detail', '<font color="red">', '</font>'); ?>
 				<textarea cols="30"  class="mceEditor" rows="10" name="detail"><?php echo $tour[0]->detail;?></textarea>
