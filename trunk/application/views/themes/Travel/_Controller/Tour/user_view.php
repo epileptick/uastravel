@@ -321,37 +321,88 @@
             <?php echo $tour[0]->detail;?>
           </p>
 
-          <div class="row">
-            <div class="five columns">
-              <h3>Tour Includes</h3>
-                <!--
-              <ul class="disc">
-                <li>รถรับส่งโรงแรม-ท่าเรือ-โรงแรม  </li>
-                <li>ค่าเรือเดินทาง</li>
-                <li>อุปกรณ์ดำผิวน้ำและเสื้อชูชีพ</li>
-                <li>อาหารกลางวัน </li>
-                <li>มัคคุเทศก์ </li>
-                <li>ประกันภัย </li>
-              </ul>
-              -->
-              <p>
-                <?php echo $tour[0]->included;?>
-              </p>
-            </div>
 
-            <div class="seven columns">
-              <h3>Tour Remark</h3>
-              <p>
-                <?php echo $tour[0]->remark;?>
-              </p>  
-              <!--
-              <ul class="disc">
-                <li>โปรแกรมทัวร์อาจเปลี่ยนแปลงได้ตามความเหมาะสมขึ้นอยู่กับสภาพภูมิอากาศ</li>
-                <li>เกาะตาชัยเปิดให้เข้าสัมผัสความงามตั้งแต่เดือนพ.ย.-เม.ย. ของทุกปี</li>
-              </ul>
-              -->
+
+          <?php 
+            if(!empty($tour[0]->included) && !empty($tour[0]->remark)){
+          ?>
+            <div class="row">
+              <div class="five columns">
+                <h3>Tour Includes</h3>
+                <!--
+                <ul class="disc">
+                  <li>รถรับส่งโรงแรม-ท่าเรือ-โรงแรม</li>
+                  <li>ค่าเรือเดินทาง</li>
+                  <li>อุปกรณ์ดำผิวน้ำและเสื้อชูชีพ</li>
+                  <li>อาหารกลางวัน </li>
+                  <li>มัคคุเทศก์ </li>
+                  <li>ประกันภัย </li>
+                </ul>
+                -->
+                <p>
+                  <?php echo (!empty($tour[0]->included)?$tour[0]->included:"");?>
+                </p>
+              </div>
+
+              <div class="seven columns">
+                <h3>Tour Remark</h3>
+                <p>
+                  <?php echo $tour[0]->remark;?>
+                </p>  
+                <!--
+                <ul class="disc">
+                  <li>โปรแกรมทัวร์อาจเปลี่ยนแปลงได้ตามความเหมาะสมขึ้นอยู่กับสภาพภูมิอากาศ</li>
+                  <li>เกาะตาชัยเปิดให้เข้าสัมผัสความงามตั้งแต่เดือนพ.ย.-เม.ย. ของทุกปี</li>
+                </ul>
+                -->
+              </div>
             </div>
-          </div>
+          <?php
+          }else if(!empty($tour[0]->included)){
+          ?>
+            <div class="row">
+              <div class="five columns">
+                <h3>Tour Includes</h3>
+                  <!--
+                <ul class="disc">
+                  <li>รถรับส่งโรงแรม-ท่าเรือ-โรงแรม</li>
+                  <li>ค่าเรือเดินทาง</li>
+                  <li>อุปกรณ์ดำผิวน้ำและเสื้อชูชีพ</li>
+                  <li>อาหารกลางวัน </li>
+                  <li>มัคคุเทศก์ </li>
+                  <li>ประกันภัย </li>
+                </ul>
+                -->
+                <p>
+                  <?php echo (!empty($tour[0]->included)?$tour[0]->included:"");?>
+                </p>
+              </div>
+            </div>              
+          <?php
+          }else if(!empty($tour[0]->remark)){
+          ?>
+            <div class="row">
+              <div class="five columns">
+                <h3>Tour Remark</h3>
+                  <!--
+                <ul class="disc">
+                  <li>รถรับส่งโรงแรม-ท่าเรือ-โรงแรม</li>
+                  <li>ค่าเรือเดินทาง</li>
+                  <li>อุปกรณ์ดำผิวน้ำและเสื้อชูชีพ</li>
+                  <li>อาหารกลางวัน </li>
+                  <li>มัคคุเทศก์ </li>
+                  <li>ประกันภัย </li>
+                </ul>
+                -->
+                <p>
+                  <?php echo (!empty($tour[0]->included)?$tour[0]->remark:"");?>
+                </p>
+              </div>
+            </div>
+          <?php
+          }
+          ?>
+
 
 
           <div class="row">
@@ -384,7 +435,7 @@
                     
                       if(!empty($price[0]->sale_child_price)){
                         echo number_format($price[0]->sale_child_price, 0);
-                        echo "บาท";
+                        echo " บาท";
                       }else{
                         echo "Call";
                         echo " บาท";
