@@ -12,8 +12,14 @@ class Tour extends MY_Controller {
   }
 
 
-  function user_list($id=false){
+  function user_list(){
       $data = "";   
+/*
+      //Query tag menu (province)
+    $this->load->model("tag_model", "tagModel");
+      $data["tag"][] = $this->tagModel->getRecord($tag);
+*/
+
       $this->_fetch('user_list', $data, false, true);
 
   }
@@ -49,14 +55,16 @@ class Tour extends MY_Controller {
     $this->load->model("agencytour_model", "agencytourModel");
     $agencytourQuery["price"] = $this->agencytourModel->getRecord($agencytour);
 
-
-    $maxAgencyPrice->sale_adult_price = 0;
-    foreach ($agencytourQuery["price"] as $key => $value) {
-      # code...
-      if($value->sale_adult_price > $maxAgencyPrice->sale_adult_price){
-        $data["price"][0] = $value;
+    if(!empty($agencytourQuery["price"])){
+      $maxAgencyPrice->sale_adult_price = 0;
+      foreach ($agencytourQuery["price"] as $key => $value) {
+        # code...
+        if($value->sale_adult_price > $maxAgencyPrice->sale_adult_price){
+          $data["price"][0] = $value;
+        }
       }
     }
+
 
 
 
@@ -90,6 +98,7 @@ class Tour extends MY_Controller {
 
     //Get argument from post page
     $args = $this->input->post();
+    $args["url"] = Util::url_title($args["name"]);
 
     //Send argument to validate function
     $validate = $this->validate($args);
@@ -282,6 +291,7 @@ class Tour extends MY_Controller {
 
     //Get argument from post page
     $args = $this->input->post();
+    $args["url"] = Util::url_title($args["name"]);
 
     //print_r($args); exit;
 
