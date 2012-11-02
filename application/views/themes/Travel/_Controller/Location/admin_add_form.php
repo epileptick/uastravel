@@ -16,8 +16,17 @@ $(document).ready(function() {
             $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:1 },
             function(data) {
               $("#side_bar_block_image").html(data).hide("slow").delay(200).show("slow");
+              $(".image_list").mouseover(function() {
+                $(this).find("a").css("display","block");
+              }).mouseout(function(){
+                $(this).find("a").css("display","none");
+              });
               $("#side_bar_block_image img").click(function() {
                 $(this).addImg();
+              });
+              $("#side_bar_block_image img a").click(function() {
+                $(this).delImg();
+                return false;
               });
             });
   }
@@ -25,6 +34,13 @@ $(document).ready(function() {
   (function($){
       $.fn.addImg = function(){
           tinyMCE.execCommand(\'mceInsertContent\',false,\'<img src="\'+this.attr(\'src\')+\'"/>\');
+      };
+  })(jQuery);
+  
+  (function($){
+      $.fn.delImg = function(){
+          console.log(this.attr("href"));
+          
       };
   })(jQuery);
   
@@ -125,11 +141,7 @@ $(document).ready(function() {
             });
         }
     });
-    function myHandleEvent(e) {
-        if(e.type == "blur"){
-            alert("Hey");
-        }
-    }
+
     
   function successHandler(data){
     //console.log(data);
