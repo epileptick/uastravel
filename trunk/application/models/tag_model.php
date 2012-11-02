@@ -11,7 +11,8 @@ class Tag_model extends MY_Model {
                      'id'                => 'tag_id',
                      'language_id'       => 'tag_language_id',
                      'parent'            => 'tag_parent',
-                     'name'              => 'tag_name'
+                     'name'              => 'tag_name',
+                     'url'               => 'tag_url'
     );
   }
   
