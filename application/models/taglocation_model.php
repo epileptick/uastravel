@@ -174,6 +174,7 @@ class TagLocation_model extends MY_Model {
       $tagQuery = $this->tagModel->getRecord($tag);
 
       if(empty($tagQuery)){
+        $tag["url"] = Util::url_title($value);
         $input[$count]->id = $this->tagModel->addRecord($tag);
         $input[$count]->name = $tag["name"];
       }else{
