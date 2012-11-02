@@ -70,7 +70,7 @@
           </div>
         </div>
         <div class="four columns">
-          <div id="thumbs" class="navigation">
+          <div id="thumbs" class="navigation">  
             <ul class="thumbs noscript">
               <li>
                 <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h1.png');?>" >
@@ -290,7 +290,7 @@
         <div class="box_white_in_columns article_tour">
           <div class="row">
             <div class="six columns">
-              <h3>หมู่เกาะสิมิลัน</h3>
+              <h3><?php echo $tour[0]->name;?></h3>
             </div>
             <div class="six columns">
               <div class="social_network">
@@ -450,7 +450,7 @@
                 </div>
               <div class="clearfix"></div>
               </div>
-          </div>
+          </div>        
         <div class="border"></div>
         <div class="row">
           <div class="twelve columns">
@@ -465,8 +465,37 @@
           </div> <!-- End Row tags  -->
         </div>   
         </div><!-- End box_white_in_columns-->
+
+
+          <div class="row">
+            <div class="twelve columns">
+              <!-- Map -->
+              <h3>แผนที่</h3>
+              <div class="map">
+                <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+                <script type="text/javascript">
+                      var map;
+                      function initialize() {
+                        var myOptions = {
+                          zoom: 13,
+                          center: new google.maps.LatLng(8.648996,97.646386),
+                          mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+                        map = new google.maps.Map(document.getElementById('map_canvas'),
+                            myOptions);
+                        }
+                 
+                      google.maps.event.addDomListener(window, 'load', initialize);
+                </script>
+                <div id="map_canvas" style="width:100%;height:280px;"></div>
+              </div>
+              <!-- End Map -->
+            </div>
+          </div>          
       </div>
       <div class="four columns">
+        
+        <!-- Packet -->
         <h3>แพ็กเก็จทัวร์แนะนำ</h3>
         <div class="list_packet">
           <div class="row">
@@ -612,88 +641,11 @@
             </div>
           </div>
         </div>
-      </div><!--Packet-->
-    </div>
-    <div class="row">
-        <div class="eight columns">
-          <div class="row">
-            <div class="twelve columns">
-              <h3>แผนที่</h3>
-              <div class="map">
-                <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-                <script type="text/javascript">
-                      var map;
-                      function initialize() {
-                        var myOptions = {
-                          zoom: 13,
-                          center: new google.maps.LatLng(8.648996,97.646386),
-                          mapTypeId: google.maps.MapTypeId.ROADMAP
-                        };
-                        map = new google.maps.Map(document.getElementById('map_canvas'),
-                            myOptions);
-                        }
-                 
-                      google.maps.event.addDomListener(window, 'load', initialize);
-                </script>
-                <div id="map_canvas" style="width:100%;height:280px;"></div>
-              </div>
-            </div>
-          </div><!-- Map -->
+        <!-- End Packet -->
 
-          <div class="row">
-            <div class="box_white_in_row">
-              <div class="twelve columns">
-                <h3>ค้นหาโรงแรม</h3>
-              </div>
-              <form class="custom search_hotel">
-                <div class="eight columns">
-                  <label>Where ?</label>
-                  <input type="text" name="user">
-                </div>
-                <div class="four columns">
-                  <div class="row">
-                    <div class="six columns">
-                      <label>Guest </label>
-                      <select name="guest">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                      </select>
-                    </div>
-                    <div class="six columns">
-                      <label>Rooms </label>
-                      <select name="guest">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="four columns">
-                  <label>Check-in </label>
-                  <input type="text" name="user">
-                </div>
-                <div class="four columns">
-                  <label>Check-out </label>
-                  <input type="text" name="user">
-                </div>
-                <div class="two columns">
-                  <label>Nights </label>
-                  <p>1</p>
-                </div>
-                <div class="two columns">
-                  <button type="submit" class="small button">ค้นหา</button> 
-                </div>
-                     
-              </form>
-              <div class="clearfix"></div>
-            </div><!-- box_white_in_row -->
-          </div><!-- Hotel Search -->
-        </div><!-- Map & Hotel Search-->
-        <div class="four columns">
+
+          <br/>
+          <!-- Hotel Recommend-->
           <h3>โรงแรมแนะนำ</h3>
           <div class="list_packet">
             <div class="row">
@@ -791,8 +743,71 @@
               </div>
             </div>
           </div>
-        </div><!-- Hotel Recommend-->
+          <!-- End Hotel Recommend-->
+      </div>
+    </div>
 
+    <!--
+    <div class="row">
+        <div class="eight columns">
+          <div class="row">
+            <div class="box_white_in_row">
+              <div class="twelve columns">
+                <h3>ค้นหาโรงแรม</h3>
+              </div>
+              <form class="custom search_hotel">
+                <div class="eight columns">
+                  <label>Where ?</label>
+                  <input type="text" name="user">
+                </div>
+                <div class="four columns">
+                  <div class="row">
+                    <div class="six columns">
+                      <label>Guest </label>
+                      <select name="guest">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                    </div>
+                    <div class="six columns">
+                      <label>Rooms </label>
+                      <select name="guest">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="four columns">
+                  <label>Check-in </label>
+                  <input type="text" name="user">
+                </div>
+                <div class="four columns">
+                  <label>Check-out </label>
+                  <input type="text" name="user">
+                </div>
+                <div class="two columns">
+                  <label>Nights </label>
+                  <p>1</p>
+                </div>
+                <div class="two columns">
+                  <button type="submit" class="small button">ค้นหา</button> 
+                </div>
+                     
+              </form>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+
+        </div>
+        <div class="four columns">
+
+        </div>
+        -->
     </div>
 
     <div class="row">
