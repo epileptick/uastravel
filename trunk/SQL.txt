@@ -1,17 +1,19 @@
-CREATE TABLE `ci_location` (
+REATE TABLE `ci_location` (
   `loc_id` int(11) NOT NULL AUTO_INCREMENT,
   `loc_title` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `loc_body` text CHARACTER SET utf8,
   `loc_status` int(1) DEFAULT NULL,
   `loc_level` int(3) DEFAULT NULL,
   `loc_group` int(2) DEFAULT NULL,
-  `loc_url` varchar(255) DEFAULT NULL,
+  `loc_url` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `loc_cr_date` date DEFAULT NULL,
   `loc_cr_uid` int(11) DEFAULT NULL,
   `loc_lu_date` date DEFAULT NULL,
   `loc_lu_uid` int(11) DEFAULT NULL,
-  `loc_longitude` varchar(255) DEFAULT NULL,
-  `loc_latitude` varchar(255) DEFAULT NULL,
+  `loc_longitude` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `loc_latitude` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `loc_suggestion` text CHARACTER SET utf8,
+  `loc_route` text CHARACTER SET utf8,
   PRIMARY KEY (`loc_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
