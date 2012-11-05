@@ -132,10 +132,16 @@ class TagTour_model extends MY_Model {
 
   function updateRecord($args=false){
     //Get tagtour by tour_id
-    $tagtour["tour_id"] = $args["id"];
-    $query = $this->getRecord($tagtour);
+
+
 
     //Get tag by tagname
+
+    if($args["tags"]=="[]"){
+      return ;
+    } 
+
+    //print_r($args["tags"]); exit;
     $tags = str_replace('[', '', $args["tags"]);  
     $tags = str_replace(']', '', $tags);      
     $tags = str_replace('"', '', $tags);  
@@ -144,6 +150,15 @@ class TagTour_model extends MY_Model {
     $this->load->model("tag_model", "tagModel");
     $tagInput = array();
     $count = 0;
+
+
+
+
+
+    $tagtour["tour_id"] = $args["id"];
+    $query = $this->getRecord($tagtour);
+
+
     foreach ($tags as $key => $value) {
       $tag["name"] = $value;
       $tagQuery = $this->tagModel->getRecord($tag);
@@ -174,72 +189,78 @@ class TagTour_model extends MY_Model {
     $insertCount = 0;
     $insertArray = array();
 
+    if(!empty($query)){
+      //Loop check update && delete
+      foreach ($query as $keyQuery => $valueQuery) {
+          //echo "Query : ".$valueQuery->tag_id;
+          //echo "<br><br>";
+
+          foreach ($input as $keyInput => $valueInput) {
+              //echo "Input : ".$valueInput->id;
+              //echo "<br><br>";            
+              if($valueQuery->tag_id == $valueInput->id){
+                  $update = true;
+                  $updateData = $valueInput;
+              }
+          }
+
+          if($update){
+              //Update
+              $updateArray[$updateCount] = $updateData;
+              $updateCount++;  
+              $update = false;  
+          }else{
+              //Delete
+              $deleteArray[$deleteCount] = $valueQuery;
+              $deleteCount++; 
+          }     
+      }
+
+      //Loop check insert
+      foreach ($input as $keyInput => $valueInput) {
+          //echo "Query : ".$valueInput->id;
+          //echo "<br><br>";
+          foreach ($query as $keyQuery => $valueQuery) {
+              //echo "Input : ".$valueQuery->tag_id;
+              //echo "<br><br>";            
+              if($valueInput->id == $valueQuery->tag_id){
+                  $insert = true;
+                  //$insertData = $valueInput;
+              }
+          }
+
+          //Insert
+          if($insert){
+              //$updateArray[$updateCount] = $insertData;
+              //$updateCount++;  
+              $insert = false;  
+          }else{
+              $insertArray[$insertCount] = $valueInput;
+              $insertTag[$insertCount]["tag_id"] = $valueInput->id;
+              $insertTag[$insertCount]["tour_id"] = $args["id"];
+              $insertCount++; 
+          }     
+      }
+      //return $updateArray;
 
 
-    //Loop check update && delete
-    foreach ($query as $keyQuery => $valueQuery) {
-        //echo "Query : ".$valueQuery->tag_id;
-        //echo "<br><br>";
+    //End check empty $query
+    }else{ 
 
-        foreach ($input as $keyInput => $valueInput) {
-            //echo "Input : ".$valueInput->id;
-            //echo "<br><br>";            
-            if($valueQuery->tag_id == $valueInput->id){
-                $update = true;
-                $updateData = $valueInput;
-            }
-        }
+      foreach ($input as $keyInput => $valueInput) {
+        $insertArray[$insertCount] = $valueInput;
+        $insertTag[$insertCount]["tag_id"] = $valueInput->id;
+        $insertTag[$insertCount]["tour_id"] = $args["id"];
+        $insertCount++; 
+      }
 
-        if($update){
-            //Update
-            $updateArray[$updateCount] = $updateData;
-            $updateCount++;  
-            $update = false;  
-        }else{
-            //Delete
-            $deleteArray[$deleteCount] = $valueQuery;
-            $deleteCount++; 
-        }     
     }
-
-
-    //Loop check insert
-    foreach ($input as $keyInput => $valueInput) {
-        //echo "Query : ".$valueInput->id;
-        //echo "<br><br>";
-        foreach ($query as $keyQuery => $valueQuery) {
-            //echo "Input : ".$valueQuery->tag_id;
-            //echo "<br><br>";            
-            if($valueInput->id == $valueQuery->tag_id){
-                $insert = true;
-                //$insertData = $valueInput;
-            }
-        }
-
-        //Insert
-        if($insert){
-            //$updateArray[$updateCount] = $insertData;
-            //$updateCount++;  
-            $insert = false;  
-        }else{
-            $insertArray[$insertCount] = $valueInput;
-            $insertTagTour[$insertCount]["tag_id"] = $valueInput->id;
-            $insertTagTour[$insertCount]["tour_id"] = $args["id"];
-            $insertCount++; 
-        }     
-    }
-    //return $updateArray;
-
 
  
 
-    if(!empty($insertTagTour)){
-      /*echo "Insert : ";
-      echo "<br><br>";
-      print_r($insertTagTour);
-      echo "<br><br>";    
-      */     
-      $this->addMultipleRecord($insertTagTour);
+    if(!empty($insertTag)){
+  
+      $this->addMultipleRecord($insertTag);
     }
 
     if(!empty($deleteArray)){
@@ -251,8 +272,8 @@ class TagTour_model extends MY_Model {
 */
       foreach ($deleteArray as $key => $value) {
         # code...
-        $deleteTagTour["id"] = $value->id;
-        $this->deleteRecord($deleteTagTour);
+        $deleteTag["id"] = $value->id;
+        $this->deleteRecord($deleteTag);
       }
 
     }
