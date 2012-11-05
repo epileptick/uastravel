@@ -125,6 +125,7 @@ class Tour extends MY_Controller {
 
 
   function admin_list(){
+
       $data["tour"] = $this->tourModel->getRecord();   
       $this->_fetch('admin_list', $data);
    }
@@ -134,7 +135,6 @@ class Tour extends MY_Controller {
 
     //Get argument from post page
     $args = $this->input->post();
-    $args["url"] = Util::url_title($args["name"]);
 
     //Send argument to validate function
     $validate = $this->validate($args);
@@ -219,6 +219,10 @@ class Tour extends MY_Controller {
         //Add (Tour) main table 
         //////////////////////////////////////////// 
         $insertTourID =  $this->tourModel->addRecord($args);
+
+        $args["url"] = Util::url_title($args["name"])."-".$insertTourID;
+        $tour["id"] = $insertTourID;
+        $insertTourID =  $this->tourModel->updateRecord($tour);
         
         
         ////////////////////////////////////////////
@@ -327,7 +331,7 @@ class Tour extends MY_Controller {
 
     //Get argument from post page
     $args = $this->input->post();
-    $args["url"] = Util::url_title($args["name"]);
+    $args["url"] = Util::url_title($args["name"])."-".$args["id"];
 
     //print_r($args); exit;
 
