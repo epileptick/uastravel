@@ -235,7 +235,7 @@ $(document).ready(function() {
 
       function initialize() {
         
-        var latLng = new google.maps.LatLng('7.887868','98.376846');
+        var latLng = new google.maps.LatLng('7.893989','98.407288');
 
         var map = new google.maps.Map(document.getElementById('mapCanvas'), {
           scrollwheel: false,
@@ -492,7 +492,7 @@ $(document).ready(function() {
   
   
   	<!-- Start Images -->
-  <section class="simple_sidebar grid_4">
+  	<section class="simple_sidebar grid_4">
 		<label>{_ location_lang_image_manager}</label>
         <div id="side_bar_block_image">
         </div>
@@ -504,8 +504,7 @@ $(document).ready(function() {
 			<div class="clearfix"></div>
 	</section>
 	<!-- End Images -->
-  
-  
+
   
 	<!-- Sidebar start period-->
 	<section class="simple_sidebar grid_4">
