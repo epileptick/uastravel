@@ -409,6 +409,5 @@ class Tour extends MY_Controller {
     return $this->form_validation->run();
 
   }
-
 }
 ?>
