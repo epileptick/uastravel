@@ -175,7 +175,7 @@
                       <div class="list_attractions transition nonmetal" data-category="transition">
 
                         <div class="sticker new">New</div>
-                        <a href="detail.html">
+                        <a href="<?php echo base_url('tour/'.$value->url);?>">
                           <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p5.png');?>">
                           <div><span></span></div>
                         </a>
