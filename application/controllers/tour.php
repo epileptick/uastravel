@@ -340,6 +340,7 @@ class Tour extends MY_Controller {
     $validate = $this->validate($args);
 
 
+
     if($args["id"]) {
 
         //Update & get current tour id
@@ -359,6 +360,11 @@ class Tour extends MY_Controller {
         if(!empty($args["agency_tour"])){
           $this->load->model("agencytour_model", "agencytourModel");
           $this->agencytourModel->updateRecord($args);
+        }else{
+          $this->load->model("agencytour_model", "agencytourModel");
+          $tour["tour_id"] = $args["id"];
+          $this->agencytourModel->deleteRecord($tour);
+
         }
 
 

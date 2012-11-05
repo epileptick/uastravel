@@ -67,7 +67,7 @@ class Agency extends MY_Controller {
     $args = $this->input->post();
     $validate = $this->validate($args);
 
-    //print_r($args); exit;
+    print_r($args); exit;
 
     if($args["id"]) {
         $this->agencyModel->updateRecord($args);
