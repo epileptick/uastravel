@@ -129,16 +129,28 @@
                         <div id="options" class="nav-collapse collapse">
                           <ul id="filters" class="option-set nav" data-option-key="filter">
                             <li><a href="#filter" data-option-value="*" class="selected">ทั้งหมด</a></li>
-                            <li><a href="#filter" data-option-value=".nonmetal">พัทยา</a></li>
-                            <li><a href="#filter" data-option-value=".metal">ภูเก็ต</a></li>
-                            <li><a href="#filter" data-option-value=".post-transition">กรุงเทพ</a></li>
-                            <li><a href="#filter" data-option-value=".nonmetal">เชียงใหม่</a></li>
-                            <li><a href="#filter" data-option-value=".inner-transition">กระบี่่</a></li>
-                            <li><a href="#filter" data-option-value=".alkali, .alkaline-earth">พังงา</a></li>
-                            <li><a href="#filter" data-option-value=":not(.transition)">แม่ฮ่องสอน</a></li>
-                            <li><a href="#filter" data-option-value=".metal:not(.transition)">เบตง</a></li>
-                            <li><a href="#filter" data-option-value=".nonmetal">ปาย</a></li>
-                            <li><a href="#filter" data-option-value=".metal">ชะอำ </a></li>  
+                            <?php
+                              $effect = array('.nonmetal', 
+                                              '.post-transition', 
+                                              '.inner-transition', 
+                                              '.alkali, .alkaline-earth',
+                                              ':not(.transition)',
+                                              '.metal:not(.transition)'
+                                        );
+                              $count = 0;
+                              $count_effect = 0;
+                              foreach ($menu as $key => $value) {
+                                if($count % 6 == 0){
+                                  $count_effect = 0;
+                                }else{
+                                  $count_effect++;
+                                }
+                            ?>
+                              <li><a href="#filter" data-option-value="<?php echo $effect[$count_effect];?>"><?php echo $value->name ?></a></li>
+                            <?php                                 
+                                $count++;                      
+                              }
+                            ?>
                           </ul>
                           <form class="navbar-form pull-right" id="searchForm">
                             <fieldset>
@@ -156,7 +168,12 @@
                 <div class="span12">
                   <div id="attractions" style="display:none;" class="clickable variable-sizes">
 
-                      <div class="list_attractions transition metal" data-category="transition">
+
+                      <?php
+                        foreach ($tour as $key => $value) {
+                      ?>
+                      <div class="list_attractions transition nonmetal" data-category="transition">
+
                         <div class="sticker new">New</div>
                         <a href="detail.html">
                           <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p5.png');?>">
@@ -164,7 +181,7 @@
                         </a>
                         <div class="row-fluid">
                           <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
+                            <h3><a href="detail.html"><?php echo $value->name; ?></a></h3>
                           </div>
                           <div class="span4">
                             <div class="rating one_star" style="display:none"></div>
@@ -186,6 +203,10 @@
                           </div>
                         </div>
                       </div>
+
+                      <?php
+                        }
+                      ?>
                     
                       
                           
@@ -219,449 +240,7 @@
                         </div>
                       </div>
                       
-                          
-                      <div class="list_attractions post-transition metal" data-category="post-transition">
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p3.png');?>">
-                          <div><span></span></div>
-                        </a>
-                            <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                          
-                      <div class="list_attractions transition metal" data-category="transition">
-                        <div class="sticker popular">Popular</div>
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p1.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                          
-                      <div class="list_attractions alkaline-earth metal" data-category="alkaline-earth">
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p2.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                          
-                      <div class="list_attractions transition metal" data-category="transition">
-                        <div class="sticker recommend">Recommend</div>
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p6.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                          
-                      <div class="list_attractions post-transition metal" data-category="post-transition">
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p9.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
-                    
-                      
-                          
-                      <div class="list_attractions metalloid" data-category="metalloid">
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p4.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
-                    
-                      
-                          
-                      <div class="list_attractions transition metal" data-category="transition">
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p10.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
-                    
-                      
-                          
-                      <div class="list_attractions lanthanoid metal inner-transition" data-category="lanthanoid">
-                        <div class="sticker recommend">Popular</div>
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p7.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
-                    
-                      
-                          
-                      <div class="list_attractions noble-gas nonmetal" data-category="noble-gas">
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p14.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
-                    
-                      
-                          
-                      <div class="list_attractions alkali metal" data-category="alkali">
-                        <div class="sticker new">New</div>
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p12.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
-                    
-                      
-                          
-                      <div class="list_attractions other nonmetal" data-category="other">
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p13.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
-                    
-                      
-                          
-                      <div class="list_attractions actinoid metal inner-transition" data-category="actinoid">
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p8.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                          
-                      <div class="list_attractions actinoid metal inner-transition" data-category="actinoid">
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p15.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
 
-                      <div class="list_attractions actinoid metal inner-transition" data-category="actinoid">
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p16.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
                       <nav id="page_nav">
                         <a href="pages/2.html"></a>
                       </nav>

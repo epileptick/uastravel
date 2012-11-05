@@ -57,6 +57,9 @@
     <!-- End Title -->
 
     <!-- Gallery -->
+    <?php
+    if(!empty($images)){
+    ?>
     <div class="row">
       <section class="gallery_pc">
         <div class="eight columns">
@@ -72,219 +75,54 @@
         <div class="four columns">
           <div id="thumbs" class="navigation">  
             <ul class="thumbs noscript">
+              <?php
+                //print_r($images); exit;
+              if(!empty($images)){
+                foreach ($images as $key => $value) {
+              ?>
               <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h1.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s1.png');?>" alt="หมู่เกาะสิมิลัน" />
+                <a class="thumb"  href="<?php echo $value['url'];?>" >
+                  <img src="<?php echo $value['url'];?>" alt="หมู่เกาะสิมิลัน" />
                   <div><span></span></div>
                 </a>
                 <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
+                  <div class="image-title"><?php echo $tour[0]->name;?></div>
+                  <div class="image-desc"><?php echo $tour[0]->short_description;?></div>
                 </div>
               </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h2.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s2.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h3.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s3.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h4.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s4.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h5.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s5.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h6.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s6.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h7.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s7.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h8.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s8.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h9.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s9.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h10.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s10.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h11.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s11.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h12.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s12.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h13.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s13.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h14.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s14.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-
-              <li>
-                <a class="thumb"  href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h15.png');?>" >
-                  <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s15.png');?>" alt="หมู่เกาะสิมิลัน" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title">หมู่เกาะสิมิลัน</div>
-                  <div class="image-desc">มัลดีฟเมืองไทย สวรรค์เหนือผืนทราย ใต้ฟ้าคราม</div>
-                </div>
-              </li>
-              
+              <?php
+                }
+              }
+              ?>
             </ul>
           </div>
         </div>
       </section>
       <section class="gallery_mobile">
         <ul id="gallery_mobile">
-          <li>
-            <a href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h1.png');?>">
-              <img src="<?php echo base_url('themes/Travel/tour/images/gallery/large/h1.png');?>" alt="หมู่เกาะสิมิลัน" /></a></li>
-          <li>
-            <a href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h2.png');?>">
-              <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s2.png');?>" alt="หมู่เกาะสิมิลัน" /></a></li>
-          <li>
-            <a href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h3.png');?>">
-              <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s3.png');?>" alt="หมู่เกาะสิมิลัน" /></a></li>
-          <li>
-            <a href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h4.png');?>">
-              <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s4.png');?>" alt="หมู่เกาะสิมิลัน" /></a></li>
-          <li>
-            <a href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h5.png');?>">
-              <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s5.png');?>" alt="หมู่เกาะสิมิลัน" /></a></li>
-          <li>
-          <a href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h6.png');?>">
-            <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s6.png');?>" alt="หมู่เกาะสิมิลัน" /></a></li>
-          <li>
-          <a href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h7.png');?>">
-            <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s7.png');?>" alt="หมู่เกาะสิมิลัน" /></a></li>
-          <li>
-          <a href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h8.png');?>">
-            <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s8.png');?>" alt="หมู่เกาะสิมิลัน" /></a></li>
-          <li>
-          <a href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h9.png');?>">
-            <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s9.png');?>" alt="หมู่เกาะสิมิลัน" /></a></li>
-          <li>
-          <a href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h10.png');?>">
-            <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s10.png');?>" alt="หมู่เกาะสิมิลัน" /></a></li>
-          <li>
-          <a href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h11.png');?>">
-            <img src="<?php echo base_url('themes/Travel/tour/mages/gallery/thumb/s11.png');?>" alt="หมู่เกาะสิมิลัน" /></a></li>
-          <li>
-          <a href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h12.png');?>">
-            <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s12.png');?>" alt="หมู่เกาะสิมิลัน" /></a></li>
-          <li>
-          <a href="<?php echo base_url('themes/Travel/tour/images/gallery/large/h13.png');?>">
-            <img src="<?php echo base_url('themes/Travel/tour/images/gallery/thumb/s13.png');?>" alt="หมู่เกาะสิมิลัน" /></a></li> 
+          <?php
+            //print_r($images); exit;
+          if(!empty($images)){
+            foreach ($images as $key => $value) {
+          ?>
+            <li>
+              <a href="<?php echo $value['url'];?>">
+                <img src="<<?php echo $value['url'];?>" alt="<?php echo $tour[0]->name;?>" />
+              </a>
+            </li>              
+          <?php
+            }
+          }
+          ?> 
         </ul>
       </section>
     </div>
+    <!-- End Gallery -->
+    <?php
+    }
+    ?>
+
+    <!-- Tour Information -->
     <div class="row">
       <div class="eight columns">
         <div class="box_white_in_columns article_tour">
@@ -465,37 +303,61 @@
           </div> <!-- End Row tags  -->
         </div>   
         </div><!-- End box_white_in_columns-->
+        <!-- End Tour Information -->
 
-
+        <!-- Map -->
           <div class="row">
             <div class="twelve columns">
-              <!-- Map -->
               <h3>แผนที่</h3>
               <div class="map">
                 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
                 <script type="text/javascript">
+                      <?php
+                        if($tour[0]->latitude && $tour[0]->longitude){
+                      ?>
+                          var lat = <?php echo $tour[0]->latitude;?>;
+                          var lon = <?php echo $tour[0]->longitude;?>;
+                      <?php
+                        }else{
+                      ?>
+                          var lat = 7.893989;
+                          var lon = 98.407288;
+                      <?php
+                        }
+                      ?>                
                       var map;
+                      var latLng = new google.maps.LatLng(lat, lon);
                       function initialize() {
                         var myOptions = {
                           zoom: 13,
-                          center: new google.maps.LatLng(8.648996,97.646386),
+                          center: latLng,
                           mapTypeId: google.maps.MapTypeId.ROADMAP
                         };
                         map = new google.maps.Map(document.getElementById('map_canvas'),
                             myOptions);
-                        }
+
+                        marker = new google.maps.Marker({
+                          position: latLng, 
+                          title: '<?php echo $tour[0]->name;?>',
+                          map: map,
+                          draggable: false
+                        });                        
+                      }
                  
                       google.maps.event.addDomListener(window, 'load', initialize);
                 </script>
                 <div id="map_canvas" style="width:100%;height:280px;"></div>
               </div>
-              <!-- End Map -->
             </div>
           </div>          
       </div>
+      <!-- End Map -->
+
+
+
+      <!-- Right bar -->
       <div class="four columns">
-        
-        <!-- Packet -->
+        <!-- Packet -->        
         <h3>แพ็กเก็จทัวร์แนะนำ</h3>
         <div class="list_packet">
           <div class="row">
@@ -746,7 +608,8 @@
           <!-- End Hotel Recommend-->
       </div>
     </div>
-
+    <!-- End Right bar -->
+    
     <!--
     <div class="row">
         <div class="eight columns">
