@@ -67,7 +67,7 @@ class Agency extends MY_Controller {
     $args = $this->input->post();
     $validate = $this->validate($args);
 
-    print_r($args); exit;
+    //print_r($args); exit;
 
     if($args["id"]) {
         $this->agencyModel->updateRecord($args);
@@ -86,7 +86,7 @@ class Agency extends MY_Controller {
     if($id) {
         $this->agencyModel->deleteRecord($id);
 
-        $data["agent"] = $this->agencyModel->getRecord();  
+        $data["agency"] = $this->agencyModel->getRecord();  
         $data["message"] = "Delete successful !!!";  
         $this->_fetch('admin_list', $data);        
     } 
@@ -101,6 +101,8 @@ class Agency extends MY_Controller {
     $this->form_validation->set_rules('name', 'name', 'required');
     $this->form_validation->set_rules('firstname', 'firstname', 'required');
     $this->form_validation->set_rules('lastname', 'lastname', 'required');
+    $this->form_validation->set_rules('email', 'email', 'required');
+    $this->form_validation->set_rules('telephone', 'telephone', 'required');
 
     return $this->form_validation->run();
 
