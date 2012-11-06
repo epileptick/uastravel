@@ -76,14 +76,15 @@ $route['admin/'.LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/admin_list'; 
 $route[LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/user_view/$3';
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
 $route[LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/user_list/$1'; //for Tag
+$route[LangUtil::line("url_lang_tour").'/test'] = 'tour/user_test'; //for Tag
 $route[LangUtil::line("url_lang_tour")] = 'tour/user_index'; //list tour
 
 //Agency
 $route['admin/'.LangUtil::line("url_lang_agency")] = 'agency/admin_index';
 $route['admin/'.LangUtil::line("url_lang_agency").'/update'] = 'agency/admin_update';
-$route['admin/'.LangUtil::line("url_lang_agency").'/delete'] = 'agency/admin_delete';
-$route['admin/'.LangUtil::line("url_lang_agency").'/create/(:num)'] = 'agency/admin_create/$1';
+$route['admin/'.LangUtil::line("url_lang_agency").'/delete/(:num)'] = 'agency/admin_delete/$1';
 $route['admin/'.LangUtil::line("url_lang_agency").'/create'] = 'agency/admin_create';
+$route['admin/'.LangUtil::line("url_lang_agency").'/create/(:num)'] = 'agency/admin_create/$1';
 $route['admin/'.LangUtil::line("url_lang_agency").'/(:any)/(:any)-(:num)'] = 'agency/admin_view/$3';
 $route['admin/'.LangUtil::line("url_lang_agency").'/(:any)-(:num)'] = 'agency/admin_view/$2';
 $route['admin/'.LangUtil::line("url_lang_agency").'/(:any)'] = 'agency/admin_list'; //for Tag
