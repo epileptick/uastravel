@@ -68,7 +68,7 @@ class Agency_model extends MY_Model {
     }else{
       //Get list page
       ($field)?$this->db->select($field):"";
-
+      $this->db->order_by('CONVERT( agn_name USING tis620 ) ASC');    
       $query = $this->db->get("ci_agency");
 
       if($query->num_rows > 0){

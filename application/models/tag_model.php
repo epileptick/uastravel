@@ -69,6 +69,8 @@ class Tag_model extends MY_Model {
       //Get list page
       ($field)?$this->db->select($field):"";
 
+      $this->db->order_by('CONVERT( tag_name USING tis620 ) ASC');
+      //$this->db->order_by("tag_name", "asc"); 
       $query = $this->db->get("ci_tag");
 
       if($query->num_rows > 0){
