@@ -25,7 +25,8 @@ class TagTour_model extends MY_Model {
 
     return $newResult;
   }
-  
+
+
   function getRecord($args=false){
     //print_r($args); exit;
 
@@ -42,11 +43,22 @@ class TagTour_model extends MY_Model {
       }else{
         return false;
       }
+    }else if(isset($args["tag_id"]) && $args["join"]){
+      //Get category by name
+      //print_r($args); exit;
+      $data["tat_tag_id"] = $args["tag_id"];
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
+      $query = $this->db->get_where('ci_tagtour', $data);   
+
+      return $query->result();
+
     }else if(isset($args["tag_id"])){
       //Get category by name
       //print_r($args); exit;
       $data["tat_tag_id"] = $args["tag_id"];      
       $query = $this->db->get_where('ci_tagtour', $data);   
+
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
 

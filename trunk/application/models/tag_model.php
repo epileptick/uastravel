@@ -44,7 +44,7 @@ class Tag_model extends MY_Model {
       //Get category by name
       $query = $this->db->get_where('ci_tag', array('tag_name' => $args["name"]), 1, 0);
 
-      //print_r($query->result()); exit;
+      //print_r($args["name"]); exit;
 
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
