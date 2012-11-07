@@ -38,6 +38,7 @@
             <nav>
               <ul>
                 <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
+                <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
                 <li class="active"><a href="<?php echo base_url('tour');?>">แพ็คเกจทัวร์</a></li>
                 <li><a href="#">โปรโมชั่น</a></li> 
                 <li><a href="#">เกี่ยวกับเรา</a></li>
@@ -75,43 +76,6 @@
                 }(document, 'script', 'facebook-jssdk'));
                 </script>
             </div>
-            <!--
-              <div id="fb-root"></div>
-              <script>(function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = "//connect.facebook.net/th_TH/all.js#xfbml=1&appId=357467797616103";
-                fjs.parentNode.insertBefore(js, fjs);
-              }(document, 'script', 'facebook-jssdk'));</script>
-              <div class="facebookOuter"> 
-                <div class="facebookInner"> 
-                  <div 
-                  class="fb-like-box" 
-                  data-href="https://www.facebook.com/usedInstrument" 
-                  data-width="182" data-height="320" 
-                  data-colorscheme="dark" 
-                  data-show-faces="true" 
-                  data-stream="false" 
-                  data-header="false"
-                  css="stylesheets/fb-code.css"
-                  >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="like_button">
-              <div id="fb-root"></div>
-              <script>(function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = "//connect.facebook.net/th_TH/all.js#xfbml=1&appId=357467797616103";
-                fjs.parentNode.insertBefore(js, fjs);
-              }(document, 'script', 'facebook-jssdk'));</script>
-              <div class="fb-like" data-href="https://www.facebook.com/usedInstrument" data-send="true" data-layout="button_count" data-width="200" data-show-faces="true" data-colorscheme="dark"  data-font="tahoma"></div>
-            </div>
-          -->
           <div class="footer_menu"></div>
           <div class="shadow"></div>
           </div><!--/sidebar-->
@@ -127,12 +91,36 @@
                         </button>
                         <span class="brand">Filter :</span>
                         <div id="options" class="nav-collapse collapse">
-                          <ul id="filters" class="option-set nav" data-option-key="filter">
-                            <li><a href="#filter" data-option-value="*" class="selected">ทั้งหมด</a></li>
+                          <ul class="option-set nav" >
+                            <?php
+                            if($menu[0]->select_all == 1){
+                            ?>
+                              <li><a href="<?php echo base_url('tour');?>" class="selected">ทั้งหมด</a></li>
+                            <?php
+                            }else{
+                            ?>
+                              <li><a href="<?php echo base_url('tour');?>">ทั้งหมด</a></li>
+                            <?php
+                            }
+                            ?>
+
+
                             <?php
                                foreach ($menu as $key => $value) {
                               ?>
-                              <li><a href="#filter" data-option-value="<?php echo $value->effect;?>"><?php echo $value->name ?></a></li>
+                              <li>
+                                <a href="<?php echo base_url('tour/'.$value->url);?>" 
+                                  <?php  
+                                    if($value->select == 1){
+                                      echo "class='selected'";
+                                    }else{
+                                      echo "";
+                                    }
+                                  ?>
+                                >
+                                  <?php echo $value->name; ?>
+                                </a>
+                              </li>
                             <?php                                                     
                               }
                             ?>
@@ -156,84 +144,59 @@
 
                       <?php
                         //print_r($tour); exit;
-                        foreach ($tour as $key => $value) {
-                      ?>
-                      <div class="list_attractions <?php echo $value->effect;?>" data-category="transition">
-                        <!-- div class="sticker new">New</div -->
-                        <a href="<?php echo base_url('tour/'.$value->url);?>">
-                          <?php
-                            if($value->first_image){
-                          ?>
-                              <img src="<?php echo $value->first_image;?>">
-                          <?php
-                            }
-                          ?>
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="<?php echo base_url('tour/'.$value->url);?>"><?php echo $value->name; ?></a></h3>
+
+                        if(!empty($tour)){
+
+                          foreach ($tour as $key => $value) {
+                        ?>
+                          <div class="list_attractions" data-category="transition">
+                            <!-- div class="sticker new">New</div -->
+                            <a href="<?php echo base_url('tour/'.$value->tou_url);?>">
+                              <?php
+                                if($value->tou_first_image){
+                              ?>
+                                  <img src="<?php echo $value->tou_first_image;?>">
+                              <?php
+                                }
+                              ?>
+                              <div><span></span></div>
+                            </a>
+                            <div class="row-fluid">
+                              <div class="span8">
+                                <h3><a href="<?php echo base_url('tour/'.$value->tou_url);?>"><?php echo $value->tou_name; ?></a></h3>
+                              </div>
+                              <div class="span4">
+                                <div class="rating one_star" style="display:none"></div>
+                                <div class="rating two_star" style="display:none"></div>
+                                <div class="rating three_star"></div>
+                                <div class="rating four_star" style="display:none"></div>
+                                <div class="rating five_star"style="display:none"></div>
+                              </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="border"></div>
+                            <div class="row-fluid">
+                              <div class="span7">
+                                <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
+                                <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
+                              </div>
+                              <div class="span5">
+                                <span class="tag">
+                                  <a href="<?php echo base_url('tour/'.$value->tag_url);?>" style="color: #0CACE1;">
+                                    <?php echo $value->tag_name; ?>
+                                  </a>
+                                </span>
+                                <span class="icon  tag_icon"></span>
+                              </div>
+                            </div>
                           </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">
-                              <a href="<?php echo base_url('tour/'.$value->tag_url);?>" style="color: #0CACE1;"><?php echo $value->tag_name; ?></a>
-                            </span>
-                            <span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
 
                       <?php
-                        }
+                          }
+                        }//End loop tour 
                       ?>
                     
-                      
-                          
-                      <div class="list_attractions metalloid" data-category="metalloid">
-                        <a href="detail.html">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p11.png');?>">
-                          <div><span></span></div>
-                        </a>
-                        <div class="row-fluid">
-                          <div class="span8">
-                            <h3><a href="detail.html">เกาะเมียงหรือเกาะสี่</a></h3>
-                          </div>
-                          <div class="span4">
-                            <div class="rating one_star" style="display:none"></div>
-                            <div class="rating two_star" style="display:none"></div>
-                            <div class="rating three_star"></div>
-                            <div class="rating four_star" style="display:none"></div>
-                            <div class="rating five_star"style="display:none"></div>
-                          </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="border"></div>
-                        <div class="row-fluid">
-                          <div class="span7">
-                            <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                            <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                          </div>
-                          <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
-                          </div>
-                        </div>
-                      </div>
-                      
+                  
 
                       <nav id="page_nav">
                         <a href="pages/2.html"></a>

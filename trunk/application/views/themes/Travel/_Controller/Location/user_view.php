@@ -77,9 +77,9 @@ if (count($matches)>1){
           </ul>
           <section>
             <ul class="right">
-              <li><a href="#">หน้าแรก</a></li>
-              <li><a class="active" href="#">แหล่งท่องเที่ยว</a></li>
-              <li><a href="#">แพ๊คเกจทัวร์</a></li>
+              <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
+              <li><a class="active"  href="<?php echo base_url('location');?>">แหล่งท่องเที่ยว</a></li>
+              <li><a href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์</a></li>          
               <li><a href="#">เกี่ยวกับเรา</a></li>
               <li><a href="#">ติดต่อเรา</a></li>
               <li><a href="#">โปรโมชั่น</a></li>
