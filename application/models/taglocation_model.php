@@ -35,13 +35,23 @@ class TagLocation_model extends MY_Model {
       $data["tal_tag_id"] = $args["tag_id"];
       $data["tal_location_id"] = $args["location_id"];
 
-      $query = $this->db->get_where('ci_tagtour', $data);
+      $query = $this->db->get_where('ci_taglocation', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
         return $newResult;
       }else{
         return false;
       }
+    }else if(isset($args["tag_id"]) && $args["join"]){
+      //Get category by name
+      //print_r($args); exit;
+      $data["tal_tag_id"] = $args["tag_id"];
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taglocation.tal_tag_id');
+      $this->db->join('ci_location', 'ci_location.loc_id = ci_taglocation.tal_location_id');         
+      $query = $this->db->get_where('ci_taglocation', $data);   
+
+      return $query->result();
+
     }else if(isset($args["tag_id"])){
       //Get category by name
 
