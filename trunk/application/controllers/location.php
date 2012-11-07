@@ -40,86 +40,99 @@ class Location extends MY_Controller {
     $this->_fetch("user_list",$result);
   }
 
-  
-  function user_list($id=false){
-      $data = "";   
 
-      //Menu
-      $type["type_id"] = 4;
+  function _location_menu($select=false){
+      $type["type_id"] = 2;
       $this->load->model("tagtype_model", "tagtypeModel");   
       $tagtypeQuery = $this->tagtypeModel->getRecord($type);
 
+      $this->load->model("tag_model", "tagModel");  
 
-      //':not(.transition)',
-      $effect = array('.nonmetal', 
-                      '.post-transition', 
-                      '.inner-transition', 
-                      '.alkali, .alkaline-earth',
-                      '.metal:not(.transition)'
-                );
-      $count_effect = 0;
+
+
       $count = 0;
       foreach ($tagtypeQuery as $key => $value) {
-
-
-        if($count % 5 == 0){
-          $count_effect = 0;
-        }else{
-          $count_effect++;
-        }        
         //Menu Tag
-        $tag["id"] = $value->tag_id;
-        $this->load->model("tag_model", "tagModel");        
+        $tag["id"] = $value->tag_id;      
         $tagQuery = $this->tagModel->getRecord($tag);
-        $data["menu"][$count] = $tagtypeQuery[$count];
-        $data["menu"][$count]->name = $tagQuery[0]->name;
-        $data["menu"][$count]->effect = $effect[$count_effect];
-        $tourWihtTag[$tag["id"]]["tag_name"] = $tagQuery[0]->name;
-        $tourWihtTag[$tag["id"]]["tag_url"] = $tagQuery[0]->url;
-        $tourWihtTag[$tag["id"]]["effect"] = $effect[$count_effect];
+        $menu[$count]->tag_id = $tagQuery[0]->id;
+        $menu[$count]->name = $tagQuery[0]->name;
+        $menu[$count]->url = $tagQuery[0]->url;
 
-        //Tour Tag
-        $taglocation["tag_id"] = $value->tag_id;
-        $this->load->model("taglocation_model", "taglocationModel");
-        $taglocationQuery[$count] = $this->taglocationModel->getRecord($taglocation);
-
-
-        $countLocation = 0;
-        $countTagLocation = 0;
-        foreach ($taglocationQuery as $key => $valueTagLocation) {
-          if(!empty($valueTagLocation)){
-            //$valueTagTour[$countTagTour]->tag = $tagQuery[0]->name;
-            //$countTagTour++;
-            foreach ($valueTagLocation as $key => $valueLocation) {
-              //print_r($valueTour); exit;
-              //$valueTour->tag_name = $tagQuery[0]->name;
-              $location["id"] = $valueLocation->location_id;
-              $locationTemp[$countLocation] = $this->locationModel->getRecord($location); 
-              $locationTemp[$countLocation][0]->tag_id = $valueLocation->tag_id; 
-
-              $tag["id"] = $valueLocation->tag_id;     
-              $tagQueryForLocation = $this->tagModel->getRecord($tag);
-              $locationTemp[$countLocation][0]->tag_name = $locationWihtTag[$tag["id"]]["tag_name"];
-              $locationTemp[$countLocation][0]->tag_url = $locationWihtTag[$tag["id"]]["tag_url"];
-              $locationTemp[$countLocation][0]->effect = str_replace(".", "", $locationWihtTag[$tag["id"]]["effect"]);
-              $data["location"][$countLocation] = $tourTemp[$countLocation][0];
-              $countLocation++;           
-            }        
-          }
-
-        }        
+        //Select all
+        if($select){
+          $menu[$count]->select_all = 0;
+        }else{
+          $menu[$count]->select_all = 1;
+        }
+        //Select element
+        if($select && $select == $tagQuery[0]->name){
+          $menu[$count]->select = 1;
+        }else{
+          $menu[$count]->select = 0;
+        }
 
         $count++;
-
-     
       }
 
+      return $menu;
+      //print_r($menu);  exit;
+  }
 
 
+  function _location_list($tags){
+
+    //print_r($tags); exit;
+    $count = 0;
+    $this->load->model("taglocation_model", "taglocationModel");
+    foreach ($tags as $key => $valueTag) {
+      //Tour Tag
+      $tagLocation["tag_id"] = $valueTag->tag_id;
+      $tagLocation["join"] = true;
+      $tagLocationQuery = $this->taglocationModel->getRecord($tagLocation);
+
+      //print_r($tagLocationQuery); exit;
+      if(!empty($tagLocationQuery)){
+        foreach ($tagLocationQuery as $key => $value) {
+          # code...
+          $location[$count] = $value;
+          $count++;
+        }
+      }
+
+    }
+
+    if(!empty($location)){
+      return $location;
+    }else{
+      return ;
+    }
+
+  }  
+  
+  function user_list($tag=false){
     
-    //exit;
-    //print_r($data); exit;  
-    
+    $data["menu"]= $this->_location_menu($tag);
+
+
+    if($tag){
+      //Tag
+      $argTag["name"] = $tag;      
+      $tagQuery = $this->tagModel->getRecord($argTag);
+
+      if(!empty($tagQuery)){
+        $tagForLocation[0]->tag_id = $tagQuery[0]->id;        
+        //Tour
+       $data["location"] = $this->_location_list($tagForLocation);    
+      }else{
+        $data["location"] = false;
+      }
+    }else{
+      //Send tag for get data
+      $data["location"] = $this->_location_list($data["menu"]);
+    }
+
+    //print_r($data); exit;
     $this->_fetch('user_list', $data, false, true);
 
   }
