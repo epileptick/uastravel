@@ -22,12 +22,19 @@ class Tour_model extends MY_Model {
                      'amount_time'       => 'tou_amount_time',
                      'start_date'        => 'tou_start_date',
                      'end_date'          => 'tou_end_date',
-                     'start_time1'        => 'tou_start_time1',
-                     'end_time1'          => 'tou_end_time1',
-                     'start_time2'        => 'tou_start_time2',
-                     'end_time2'          => 'tou_end_time2',
+                     'start_month'       => 'tou_start_month',
+                     'end_month'         => 'tou_end_month',
+                     'start_time1'       => 'tou_start_time1',
+                     'end_time1'         => 'tou_end_time1',
+                     'start_time2'       => 'tou_start_time2',
+                     'end_time2'         => 'tou_end_time2',
+                     'start_time3'       => 'tou_start_time3',
+                     'end_time3'         => 'tou_end_time3',
                      'longitude'         => 'tou_longitude',
                      'latitude'          => 'tou_latitude',
+                     'first_image'       => 'tou_first_image',
+                     'background_image'  => 'tou_background_image',
+                     'banner_image'      => 'tou_banner_image',
                      'cr_date'           => 'tou_cr_date',
                      'cr_uid'            => 'tou_cr_uid',
                      'lu_date'           => 'tou_lu_date',
@@ -77,7 +84,8 @@ class Tour_model extends MY_Model {
       }
     }else{
       //Get list page
-      $this->db->order_by("tou_id", "asc");
+      //$this->db->order_by("tou_id", "asc");
+      $this->db->order_by('CONVERT( tou_name USING tis620 ) ASC');    
       $query = $this->db->get("ci_tour");
 
       if($query->num_rows > 0){
