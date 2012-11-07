@@ -15,85 +15,98 @@ class Tour extends MY_Controller {
       $this->_fetch('user_test', "", false, true);
   }
   
-  function user_list($id=false){
-      $data = "";   
 
-      //Menu
+  function _tour_menu($select=false){
       $type["type_id"] = 4;
       $this->load->model("tagtype_model", "tagtypeModel");   
       $tagtypeQuery = $this->tagtypeModel->getRecord($type);
 
+      $this->load->model("tag_model", "tagModel");  
 
-      //':not(.transition)',
-      $effect = array('.nonmetal', 
-                      '.post-transition', 
-                      '.inner-transition', 
-                      '.alkali, .alkaline-earth',
-                      '.metal:not(.transition)'
-                );
-      $count_effect = 0;
+
+
       $count = 0;
       foreach ($tagtypeQuery as $key => $value) {
-
-
-        if($count % 5 == 0){
-          $count_effect = 0;
-        }else{
-          $count_effect++;
-        }        
         //Menu Tag
-        $tag["id"] = $value->tag_id;
-        $this->load->model("tag_model", "tagModel");        
+        $tag["id"] = $value->tag_id;      
         $tagQuery = $this->tagModel->getRecord($tag);
-        $data["menu"][$count] = $tagtypeQuery[$count];
-        $data["menu"][$count]->name = $tagQuery[0]->name;
-        $data["menu"][$count]->effect = $effect[$count_effect];
-        $tourWihtTag[$tag["id"]]["tag_name"] = $tagQuery[0]->name;
-        $tourWihtTag[$tag["id"]]["tag_url"] = $tagQuery[0]->url;
-        $tourWihtTag[$tag["id"]]["effect"] = $effect[$count_effect];
+        $menu[$count]->tag_id = $tagQuery[0]->id;
+        $menu[$count]->name = $tagQuery[0]->name;
+        $menu[$count]->url = $tagQuery[0]->url;
 
-        //Tour Tag
-        $tagtour["tag_id"] = $value->tag_id;
-        $this->load->model("tagtour_model", "tagtourModel");
-        $tagtourQuery[$count] = $this->tagtourModel->getRecord($tagtour);
-
-
-        $countTour = 0;
-        $countTagTour = 0;
-        foreach ($tagtourQuery as $key => $valueTagTour) {
-          if(!empty($valueTagTour)){
-            //$valueTagTour[$countTagTour]->tag = $tagQuery[0]->name;
-            //$countTagTour++;
-            foreach ($valueTagTour as $key => $valueTour) {
-              //print_r($valueTour); exit;
-              //$valueTour->tag_name = $tagQuery[0]->name;
-              $tour["id"] = $valueTour->tour_id;
-              $tourTemp[$countTour] = $this->tourModel->getRecord($tour); 
-              $tourTemp[$countTour][0]->tag_id = $valueTour->tag_id; 
-
-              $tag["id"] = $valueTour->tag_id;     
-              $tagQueryForTour = $this->tagModel->getRecord($tag);
-              $tourTemp[$countTour][0]->tag_name = $tourWihtTag[$tag["id"]]["tag_name"];
-              $tourTemp[$countTour][0]->tag_url = $tourWihtTag[$tag["id"]]["tag_url"];
-              $tourTemp[$countTour][0]->effect = str_replace(".", "", $tourWihtTag[$tag["id"]]["effect"]);
-              $data["tour"][$countTour] = $tourTemp[$countTour][0];
-              $countTour++;           
-            }        
-          }
-
-        }        
+        //Select all
+        if($select){
+          $menu[$count]->select_all = 0;
+        }else{
+          $menu[$count]->select_all = 1;
+        }
+        //Select element
+        if($select && $select == $tagQuery[0]->name){
+          $menu[$count]->select = 1;
+        }else{
+          $menu[$count]->select = 0;
+        }
 
         $count++;
-
-     
       }
 
+      return $menu;
+      //print_r($menu);  exit;
+  }
 
 
-    
-    //exit;
-    //print_r($data); exit;  
-    
+  function _tour_list($tags){
+
+    //print_r($tags); exit;
+    $count = 0;
+    $this->load->model("tagtour_model", "tagtourModel");
+    foreach ($tags as $key => $valueTag) {
+      //Tour Tag
+      $tagtour["tag_id"] = $valueTag->tag_id;
+      $tagtour["join"] = true;
+      $tagtourQuery = $this->tagtourModel->getRecord($tagtour);
+
+    //print_r($tagtourQuery);
+      if(!empty($tagtourQuery)){
+        foreach ($tagtourQuery as $key => $value) {
+          # code...
+          $tour[$count] = $value;
+          $count++;
+        }
+      }
+
+    }
+
+    if(!empty($tour)){
+      return $tour;
+    }else{
+      return ;
+    }
+
+  }  
+
+  function user_list($tag=false){
+
+    $data["menu"]= $this->_tour_menu($tag);
+
+    if($tag){
+      //Tag
+      $argTag["name"] = $tag;      
+      $tagQuery = $this->tagModel->getRecord($argTag);
+      
+      if(!empty($tagQuery)){
+        $tagForTour[0]->tag_id = $tagQuery[0]->id;        
+        //Tour
+       $data["tour"] = $this->_tour_list($tagForTour);    
+      }else{
+        $data["tour"] = false;
+      }
+    }else{
+      //Send tag for get data
+      $data["tour"] = $this->_tour_list($data["menu"]);
+    }
+
+    //print_r($data);   
     $this->_fetch('user_list', $data, false, true);
 
   }
