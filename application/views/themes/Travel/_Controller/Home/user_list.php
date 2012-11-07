@@ -37,8 +37,8 @@
             <div class="line"></div>
             <nav>
               <ul>
-                <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
-                <li class="active"><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
+                <li class="active"><a href="<?php echo base_url();?>">หน้าแรก</a></li>
+                <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
                 <li><a href="<?php echo base_url('tour');?>">แพ็คเกจทัวร์</a></li>
                 <li><a href="#">โปรโมชั่น</a></li> 
                 <li><a href="#">เกี่ยวกับเรา</a></li>
@@ -95,11 +95,11 @@
                             <?php
                             if($menu[0]->select_all == 1){
                             ?>
-                              <li><a href="<?php echo base_url('location');?>" class="selected">ทั้งหมด</a></li>
+                              <li><a href="<?php echo base_url();?>" class="selected">ทั้งหมด</a></li>
                             <?php
                             }else{
                             ?>
-                              <li><a href="<?php echo base_url('location');?>">ทั้งหมด</a></li>
+                              <li><a href="<?php echo base_url();?>">ทั้งหมด</a></li>
                             <?php
                             }
                             ?>
@@ -109,7 +109,7 @@
                                foreach ($menu as $key => $value) {
                               ?>
                               <li>
-                                <a href="<?php echo base_url('location/'.$value->url);?>" 
+                                <a href="<?php echo base_url($value->url);?>" 
                                   <?php  
                                     if($value->select == 1){
                                       echo "class='selected'";
@@ -145,28 +145,57 @@
                       <?php
                         //print_r($tour); exit;
 
-                        if(!empty($location)){
+                        if(!empty($home)){
 
-                          foreach ($location as $key => $value) {
+                          foreach ($home as $key => $value) {
                         ?>
                           <div class="list_attractions" data-category="transition">
                             <!-- div class="sticker new">New</div -->
-                            <a href="<?php echo base_url('location/'.$value->loc_url);?>">
+                            <?php 
+                              if(isset($value->tou_url)){
+                            ?>
+                                <a href="<?php echo base_url($value->tou_url);?>">
+                            <?php
+                              }else if(isset($value->loc_url)){
+                            ?>
+                                <a href="<?php echo base_url($value->loc_url);?>">
+                            <?php
+                              }
+                            ?>  
                               <?php
-                                if($value->loc_first_image){
+                                if($value->tou_first_image){
                               ?>
-                                  <img src="<?php echo $value->loc_first_image;?>">
+                                  <img src="<?php echo $value->tou_first_image;?>">
                               <?php
                                 }
                               ?>
                               <div><span></span></div>
                             </a>
+
+
+                            <!-- Title/Name-->
                             <div class="row-fluid">
                               <div class="span8">
                                 <h3>
-                                  <a href="<?php echo base_url('location/'.$value->loc_url.'-'.$value->loc_id);?>">
-                                  <?php echo $value->loc_title; ?>
-                                  </a>
+                                  <?php 
+                                    if(isset($value->tou_url)){
+                                  ?>
+                                      <a href="<?php echo base_url('tour/'.$value->tou_url);?>">
+                                  <?php
+                                    }else if(isset($value->loc_url)){
+                                  ?>
+                                      <a href="<?php echo base_url('location/'.$value->loc_url.'-'.$value->loc_id);?>">
+                                  <?php
+                                    }
+                                  ?>  
+                                  <?php 
+                                    if(isset($value->tou_name)){
+                                      echo $value->tou_name;
+                                    }else if(isset($value->loc_title)){
+                                      echo $value->loc_title;
+                                    }
+                                  ?>  
+                                  </a>                                
                                 </h3>
                               </div>
                               <div class="span4">
@@ -186,7 +215,17 @@
                               </div>
                               <div class="span5">
                                 <span class="tag">
+                                <?php 
+                                  if(isset($value->tou_name)){
+                                ?>
+                                  <a href="<?php echo base_url('tour/'.$value->tag_url);?>" style="color: #0CACE1;">
+                                <?php
+                                  }else if(isset($value->loc_title)){
+                                ?>
                                   <a href="<?php echo base_url('location/'.$value->tag_url);?>" style="color: #0CACE1;">
+                                <?php
+                                  }
+                                ?> 
                                     <?php echo $value->tag_name; ?>
                                   </a>
                                 </span>
