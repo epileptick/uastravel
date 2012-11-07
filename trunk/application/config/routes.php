@@ -41,7 +41,7 @@
 include(APPPATH."utils/CILangUtil.php");
 
 
-$route['default_controller'] = "location/user_view/17";
+$route['default_controller'] = "home";
 $route['404_override'] = '';
 
 
@@ -59,8 +59,8 @@ $route['admin/'.LangUtil::line("url_lang_location")] = 'location/admin_index';
 
 $route[LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/user_view/$3';
 $route[LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/user_view/$2';
-$route[LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_index'; //for Tag
-$route[LangUtil::line("url_lang_location")] = 'location/user_index';
+$route[LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_list/$1'; //for Tag
+$route[LangUtil::line("url_lang_location")] = 'location/user_list';
 
 
 //tour
@@ -77,7 +77,7 @@ $route[LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/user_vie
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
 $route[LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/user_list/$1'; //for Tag
 $route[LangUtil::line("url_lang_tour").'/test'] = 'tour/user_test'; //for Tag
-$route[LangUtil::line("url_lang_tour")] = 'tour/user_index'; //list tour
+$route[LangUtil::line("url_lang_tour")] = 'tour/user_list'; //list tour
 
 //Agency
 $route['admin/'.LangUtil::line("url_lang_agency")] = 'agency/admin_index';
@@ -91,7 +91,7 @@ $route['admin/'.LangUtil::line("url_lang_agency").'/(:any)'] = 'agency/admin_lis
 
 
 //Tag
-$route['/(:any)'] = 'tag/user_index/$1';
+$route['(:any)'] = 'home/user_list/$1';
 
 
 /* End of file routes.php */
