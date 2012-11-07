@@ -130,25 +130,10 @@
                           <ul id="filters" class="option-set nav" data-option-key="filter">
                             <li><a href="#filter" data-option-value="*" class="selected">ทั้งหมด</a></li>
                             <?php
-                              $effect = array('.nonmetal', 
-                                              '.post-transition', 
-                                              '.inner-transition', 
-                                              '.alkali, .alkaline-earth',
-                                              ':not(.transition)',
-                                              '.metal:not(.transition)'
-                                        );
-                              $count = 0;
-                              $count_effect = 0;
-                              foreach ($menu as $key => $value) {
-                                if($count % 6 == 0){
-                                  $count_effect = 0;
-                                }else{
-                                  $count_effect++;
-                                }
-                            ?>
-                              <li><a href="#filter" data-option-value="<?php echo $effect[$count_effect];?>"><?php echo $value->name ?></a></li>
-                            <?php                                 
-                                $count++;                      
+                               foreach ($menu as $key => $value) {
+                              ?>
+                              <li><a href="#filter" data-option-value="<?php echo $value->effect;?>"><?php echo $value->name ?></a></li>
+                            <?php                                                     
                               }
                             ?>
                           </ul>
@@ -170,18 +155,24 @@
 
 
                       <?php
+                        //print_r($tour); exit;
                         foreach ($tour as $key => $value) {
                       ?>
-                      <div class="list_attractions transition nonmetal" data-category="transition">
-
-                        <div class="sticker new">New</div>
+                      <div class="list_attractions <?php echo $value->effect;?>" data-category="transition">
+                        <!-- div class="sticker new">New</div -->
                         <a href="<?php echo base_url('tour/'.$value->url);?>">
-                          <img src="<?php echo base_url('themes/Travel/tour/images/attractions/p5.png');?>">
+                          <?php
+                            if($value->first_image){
+                          ?>
+                              <img src="<?php echo $value->first_image;?>">
+                          <?php
+                            }
+                          ?>
                           <div><span></span></div>
                         </a>
                         <div class="row-fluid">
                           <div class="span8">
-                            <h3><a href="detail.html"><?php echo $value->name; ?></a></h3>
+                            <h3><a href="<?php echo base_url('tour/'.$value->url);?>"><?php echo $value->name; ?></a></h3>
                           </div>
                           <div class="span4">
                             <div class="rating one_star" style="display:none"></div>
@@ -199,7 +190,10 @@
                             <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
                           </div>
                           <div class="span5">
-                            <span class="tag">กระบี่</span><span class="icon  tag_icon"></span>
+                            <span class="tag">
+                              <a href="<?php echo base_url('tour/'.$value->tag_url);?>" style="color: #0CACE1;"><?php echo $value->tag_name; ?></a>
+                            </span>
+                            <span class="icon  tag_icon"></span>
                           </div>
                         </div>
                       </div>

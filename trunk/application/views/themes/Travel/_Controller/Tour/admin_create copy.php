@@ -504,7 +504,45 @@ $(document).ready(function() {
 			<div class="clearfix"></div>
 	</section>
 	<!-- End Images -->
-
+  
+  	<!-- First Images -->
+	<script type="text/javascript" src="<?php echo base_url('themes/Travel/js/ajaxuploadimage/scripts/jquery.form.js');?>"></script>
+	<script type="text/javascript">
+		function getImage(){
+			var url = "<?php echo base_url('admin/tour/uploadfirstimage');?>"
+			$.get(url,{mod: 'getImage'},function(d){ 
+				if(d==0)
+					$("#showImage").fadeOut(); 
+				else{
+					$("#showImage").fadeOut(function(){
+						$("#showImage").attr("src",d);
+						$("#showImage").fadeIn();
+					});
+				}
+				
+			});
+		}
+	</script> 	
+  	<section class="simple_sidebar grid_4">
+		<label>First image</label>
+		<form action="" method="post" enctype="multipart/form-data" name="form" id="form">
+		  <table width="100%" border="0" cellspacing="7" cellpadding="2">
+		    <tr>
+		      <td align="center"><h1>Upload Image Auto!</h1></td>
+		    </tr>
+		    <tr>
+		      <td align="center"><div ><img id="showImage" style="display:none;" src="" /></div></td>
+		    </tr>
+		    <tr>
+		      <td align="center"><label for="file"><iframe style="width:100%" height="75" frameborder="0" src="<?php echo base_url('admin/tour/uploadfirstimage');?>"></iframe></label>
+		      </td>
+		    </tr>
+		  </table>
+		</form>
+		<div class="clearfix"></div>
+	</section>
+	<!-- End First Images -->
+  
   
 	<!-- Sidebar start period-->
 	<section class="simple_sidebar grid_4">
@@ -579,20 +617,10 @@ $(document).ready(function() {
 		<h2 class="section_heading" >
 			<span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
 				Agency Information 
-				<!-- input type="search" id="query_agencyname" style="width:30%;" disabled/  -->
-				<select id="query_agencyname">
-
-				<?php 
-					foreach ($agency as $key => $value) {
-				?>
-				  <option value="<?php echo $value->name;?>"><?php echo $value->name;?></option>
-				<?php
-					}
-				?>	
-				</select>				
+				<input type="search" id="query_agencyname" style="width:30%;" disabled/>
 				<input type="hidden" id="hidden_agency_id" />
 				
-				<!-- span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_new_agency">[ Add New ]</span -->
+				<span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_new_agency">[ Add New ]</span>
 
 				<span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_agency">[ Add to tour ]</span>
 			</span>

@@ -612,10 +612,20 @@ $(document).ready(function() {
 		<h2 class="section_heading" >
 			<span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
 				Agency Information 
-				<input type="search" id="query_agencyname" style="width:30%;" disabled/>
+				<!-- input type="search" id="query_agencyname" style="width:30%;" disabled/ -->
+				<select id="query_agencyname">
+				<?php 
+					foreach ($agency as $key => $value) {
+						# code...
+				?>
+				  <option value="<?php echo $value->name;?>"><?php echo $value->name;?></option>
+				<?php
+					}
+				?>	
+				</select>				
 				<input type="hidden" id="hidden_agency_id" />
 				
-				<span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_new_agency">[ Add New ]<span>
+				<!-- span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_new_agency">[ Add New ]<span -->
 
 				<span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_agency">[ Add to tour ]<span>
 			</span>

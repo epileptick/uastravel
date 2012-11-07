@@ -294,11 +294,17 @@
           <div class="twelve columns">
             <ul class="tags">
               <li><a class="tags_name" href="#">Tags</a></li>
-              <li><a href="#">fullday</a></li>
-              <li><a href="#">หมู่เกาะสุรินทร์</a></li>
-              <li><a href="#">อ่าวเต่า</a></li>
-              <li><a href="#">อ่าวผักกาด</a></li>
-              <li><a href="#">เกาะตอรินลา</a></li>
+              <?php
+                //print_r($tag);
+                if(!empty($tag)){
+
+                  foreach ($tag as $key => $value) {
+              ?>
+                    <li><a href="<?php echo base_url($value->url);?>"><?php echo $value->name; ?></a></li>
+              <?php
+                  }
+                }
+              ?>
             </ul>
           </div> <!-- End Row tags  -->
         </div>   
