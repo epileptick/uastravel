@@ -14,37 +14,87 @@ class Tour extends MY_Controller {
   function user_test(){
       $this->_fetch('user_test', "", false, true);
   }
+  
   function user_list($id=false){
       $data = "";   
 
       //Menu
-      $type["type_id"] = 1;
+      $type["type_id"] = 4;
       $this->load->model("tagtype_model", "tagtypeModel");   
-      $data["menu"] = $this->tagtypeModel->getRecord($type);
+      $tagtypeQuery = $this->tagtypeModel->getRecord($type);
 
 
+      //':not(.transition)',
+      $effect = array('.nonmetal', 
+                      '.post-transition', 
+                      '.inner-transition', 
+                      '.alkali, .alkaline-earth',
+                      '.metal:not(.transition)'
+                );
+      $count_effect = 0;
       $count = 0;
-      foreach ($data["menu"] as $key => $value) {
-        # code...
+      foreach ($tagtypeQuery as $key => $value) {
 
 
-        $this->load->model("tag_model", "tagModel");
+        if($count % 5 == 0){
+          $count_effect = 0;
+        }else{
+          $count_effect++;
+        }        
+        //Menu Tag
         $tag["id"] = $value->tag_id;
+        $this->load->model("tag_model", "tagModel");        
         $tagQuery = $this->tagModel->getRecord($tag);
-
-        //print_r($tagQuery); exit;
+        $data["menu"][$count] = $tagtypeQuery[$count];
         $data["menu"][$count]->name = $tagQuery[0]->name;
+        $data["menu"][$count]->effect = $effect[$count_effect];
+        $tourWihtTag[$tag["id"]]["tag_name"] = $tagQuery[0]->name;
+        $tourWihtTag[$tag["id"]]["tag_url"] = $tagQuery[0]->url;
+        $tourWihtTag[$tag["id"]]["effect"] = $effect[$count_effect];
+
+        //Tour Tag
+        $tagtour["tag_id"] = $value->tag_id;
+        $this->load->model("tagtour_model", "tagtourModel");
+        $tagtourQuery[$count] = $this->tagtourModel->getRecord($tagtour);
+
+
+        $countTour = 0;
+        $countTagTour = 0;
+        foreach ($tagtourQuery as $key => $valueTagTour) {
+          if(!empty($valueTagTour)){
+            //$valueTagTour[$countTagTour]->tag = $tagQuery[0]->name;
+            //$countTagTour++;
+            foreach ($valueTagTour as $key => $valueTour) {
+              //print_r($valueTour); exit;
+              //$valueTour->tag_name = $tagQuery[0]->name;
+              $tour["id"] = $valueTour->tour_id;
+              $tourTemp[$countTour] = $this->tourModel->getRecord($tour); 
+              $tourTemp[$countTour][0]->tag_id = $valueTour->tag_id; 
+
+              $tag["id"] = $valueTour->tag_id;     
+              $tagQueryForTour = $this->tagModel->getRecord($tag);
+              $tourTemp[$countTour][0]->tag_name = $tourWihtTag[$tag["id"]]["tag_name"];
+              $tourTemp[$countTour][0]->tag_url = $tourWihtTag[$tag["id"]]["tag_url"];
+              $tourTemp[$countTour][0]->effect = str_replace(".", "", $tourWihtTag[$tag["id"]]["effect"]);
+              $data["tour"][$countTour] = $tourTemp[$countTour][0];
+              $countTour++;           
+            }        
+          }
+
+        }        
+
         $count++;
+
+     
       }
-      //print_r($data); exit;
 
 
-      //Tour
-      $data["tour"] = $this->tourModel->getRecord();
 
-
-      $this->load->model("tag_model", "tagModel");      
-      $this->_fetch('user_list', $data, false, true);
+    
+    //exit;
+    //print_r($data); exit;  
+    
+    $this->_fetch('user_list', $data, false, true);
 
   }
 
@@ -70,7 +120,8 @@ class Tour extends MY_Controller {
           $this->load->model("tag_model", "tagModel");
 
           $tag["id"] = $value->tag_id;
-          $data["tag"][] = $this->tagModel->getRecord($tag);
+          $tagQuery = $this->tagModel->getRecord($tag);
+          $data["tag"][] = $tagQuery[0];
           $count++;
         }
       }
@@ -148,7 +199,15 @@ class Tour extends MY_Controller {
     $this->load->model("tag_model","tagModel"); 
     $field = "tag_id, tag_name";  
     $data["tag"] = $this->tagModel->getRecord(false, $field);   
-    
+
+
+    $this->load->model("agency_model","agencyModel"); 
+    $field = "agn_id, agn_name";  
+    $data["agency"] = $this->agencyModel->getRecord(false, $field);   
+
+
+    //print_r($data["agency"]); exit;
+
     ///////////////////////
     //Check update (id)
     ///////////////////////
@@ -274,9 +333,6 @@ class Tour extends MY_Controller {
 
   }
 
-
-
-  
   function admin_view($tag=false, $tourname=false){
     //implement code here
 

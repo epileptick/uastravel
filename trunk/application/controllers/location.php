@@ -39,6 +39,92 @@ class Location extends MY_Controller {
                                       
     $this->_fetch("user_list",$result);
   }
+
+  
+  function user_list($id=false){
+      $data = "";   
+
+      //Menu
+      $type["type_id"] = 4;
+      $this->load->model("tagtype_model", "tagtypeModel");   
+      $tagtypeQuery = $this->tagtypeModel->getRecord($type);
+
+
+      //':not(.transition)',
+      $effect = array('.nonmetal', 
+                      '.post-transition', 
+                      '.inner-transition', 
+                      '.alkali, .alkaline-earth',
+                      '.metal:not(.transition)'
+                );
+      $count_effect = 0;
+      $count = 0;
+      foreach ($tagtypeQuery as $key => $value) {
+
+
+        if($count % 5 == 0){
+          $count_effect = 0;
+        }else{
+          $count_effect++;
+        }        
+        //Menu Tag
+        $tag["id"] = $value->tag_id;
+        $this->load->model("tag_model", "tagModel");        
+        $tagQuery = $this->tagModel->getRecord($tag);
+        $data["menu"][$count] = $tagtypeQuery[$count];
+        $data["menu"][$count]->name = $tagQuery[0]->name;
+        $data["menu"][$count]->effect = $effect[$count_effect];
+        $tourWihtTag[$tag["id"]]["tag_name"] = $tagQuery[0]->name;
+        $tourWihtTag[$tag["id"]]["tag_url"] = $tagQuery[0]->url;
+        $tourWihtTag[$tag["id"]]["effect"] = $effect[$count_effect];
+
+        //Tour Tag
+        $taglocation["tag_id"] = $value->tag_id;
+        $this->load->model("taglocation_model", "taglocationModel");
+        $taglocationQuery[$count] = $this->taglocationModel->getRecord($taglocation);
+
+
+        $countLocation = 0;
+        $countTagLocation = 0;
+        foreach ($taglocationQuery as $key => $valueTagLocation) {
+          if(!empty($valueTagLocation)){
+            //$valueTagTour[$countTagTour]->tag = $tagQuery[0]->name;
+            //$countTagTour++;
+            foreach ($valueTagLocation as $key => $valueLocation) {
+              //print_r($valueTour); exit;
+              //$valueTour->tag_name = $tagQuery[0]->name;
+              $location["id"] = $valueLocation->location_id;
+              $locationTemp[$countLocation] = $this->locationModel->getRecord($location); 
+              $locationTemp[$countLocation][0]->tag_id = $valueLocation->tag_id; 
+
+              $tag["id"] = $valueLocation->tag_id;     
+              $tagQueryForLocation = $this->tagModel->getRecord($tag);
+              $locationTemp[$countLocation][0]->tag_name = $locationWihtTag[$tag["id"]]["tag_name"];
+              $locationTemp[$countLocation][0]->tag_url = $locationWihtTag[$tag["id"]]["tag_url"];
+              $locationTemp[$countLocation][0]->effect = str_replace(".", "", $locationWihtTag[$tag["id"]]["effect"]);
+              $data["location"][$countLocation] = $tourTemp[$countLocation][0];
+              $countLocation++;           
+            }        
+          }
+
+        }        
+
+        $count++;
+
+     
+      }
+
+
+
+    
+    //exit;
+    //print_r($data); exit;  
+    
+    $this->_fetch('user_list', $data, false, true);
+
+  }
+
+
   
   function admin_create($id=NULL){
     $_post = $this->input->post();
