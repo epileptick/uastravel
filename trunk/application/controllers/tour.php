@@ -292,7 +292,7 @@ class Tour extends MY_Controller {
         //////////////////////////////////////////// 
         $insertTourID =  $this->tourModel->addRecord($args);
 
-        $args["url"] = Util::url_title($args["name"])."-".$insertTourID;
+        //$args["url"] = Util::url_title($args["name"])."-".$insertTourID;
         $tour["id"] = $insertTourID;
         $insertTourID =  $this->tourModel->updateRecord($tour);
         
@@ -400,7 +400,7 @@ class Tour extends MY_Controller {
 
     //Get argument from post page
     $args = $this->input->post();
-    $args["url"] = Util::url_title($args["name"])."-".$args["id"];
+    //$args["url"] = Util::url_title($args["name"])."-".$args["id"];
 
     //print_r($args); exit;
 
