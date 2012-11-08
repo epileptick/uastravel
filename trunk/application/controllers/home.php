@@ -99,7 +99,7 @@ class Home extends MY_Controller {
 
     if($tag){
       //Tag
-      $argTag["name"] = $tag;      
+      $argTag["url"] = $tag;      
       $tagQuery = $this->tagModel->getRecord($argTag);
 
       if(!empty($tagQuery)){
