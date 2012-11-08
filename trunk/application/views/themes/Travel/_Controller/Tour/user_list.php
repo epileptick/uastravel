@@ -151,7 +151,7 @@
                         ?>
                           <div class="list_attractions" data-category="transition">
                             <!-- div class="sticker new">New</div -->
-                            <a href="<?php echo base_url('tour/'.$value->tou_url);?>">
+                            <a href="<?php echo base_url('tour/'.$value->tou_url.'-'.$value->tou_id);?>">
                               <?php
                                 if($value->tou_first_image){
                               ?>
@@ -163,7 +163,7 @@
                             </a>
                             <div class="row-fluid">
                               <div class="span8">
-                                <h3><a href="<?php echo base_url('tour/'.$value->tou_url);?>"><?php echo $value->tou_name; ?></a></h3>
+                                <h3><a href="<?php echo base_url('tour/'.$value->tou_url.'-'.$value->tou_id);?>"><?php echo $value->tou_name; ?></a></h3>
                               </div>
                               <div class="span4">
                                 <div class="rating one_star" style="display:none"></div>
