@@ -300,7 +300,7 @@
 
                   foreach ($tag as $key => $value) {
               ?>
-                    <li><a href="<?php echo base_url($value->url);?>"><?php echo $value->name; ?></a></li>
+                    <li><a href="<?php echo base_url('/tour/'.$value->url);?>"><?php echo $value->name; ?></a></li>
               <?php
                   }
                 }
