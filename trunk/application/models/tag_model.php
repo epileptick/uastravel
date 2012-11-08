@@ -177,7 +177,7 @@ class Tag_model extends MY_Model {
 
   function deleteRecord($args=false){
     if($args["id"]){
-      $this->db->where("tag_id", $id);
+      $this->db->where("tag_id", $args["id"]);
       $this->db->delete("ci_tag");
     }
   }
