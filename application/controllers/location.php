@@ -117,7 +117,7 @@ class Location extends MY_Controller {
 
     if($tag){
       //Tag
-      $argTag["name"] = $tag;      
+      $argTag["url"] = $tag;      
       $tagQuery = $this->tagModel->getRecord($argTag);
 
       if(!empty($tagQuery)){
@@ -253,7 +253,24 @@ class Location extends MY_Controller {
         $locationData["location"]['subtitle'] = strip_tags($matches[1]);
       }
       $locationData["location"]['body'] =  explode("<hr />",preg_replace("/<p[^>]*>[\s|&nbsp;]*<\/p>/", '', $locationData["location"]['body']));
-      
+
+      //Tag
+      $location["location_id"] = $id;
+      $this->load->model("taglocation_model", "taglocationModel");
+      $tagLocationQuery["tag"] = $this->taglocationModel->getRecord($location);
+      if(!empty($tagLocationQuery["tag"])){
+        //TagTour
+        $count = 0;
+        foreach ($tagLocationQuery["tag"] as $key => $value) {
+          $this->load->model("tag_model", "tagModel");
+
+          $tag["id"] = $value->tag_id;
+          $tagQuery = $this->tagModel->getRecord($tag);
+          $locationData["tag"][] = $tagQuery[0];
+          $count++;
+        }
+      }
+
       $this->_fetch("user_view",$locationData,FALSE,TRUE);
     }
   }
