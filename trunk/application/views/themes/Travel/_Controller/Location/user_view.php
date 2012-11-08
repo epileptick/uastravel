@@ -105,6 +105,9 @@ if (count($matches)>1){
     <!-- End Title -->
 
     <!-- Gallery -->
+    <?php
+      if(!empty($images)):
+    ?>      
     <div class="row">
       <section class="gallery_pc">
         <div class="eight columns">
@@ -117,32 +120,34 @@ if (count($matches)>1){
             <div id="caption" class="caption-container"></div>
           </div>
         </div>
-        <div class="four columns">
-          <div id="thumbs" class="navigation">
-            <ul class="thumbs noscript">
-            <?php
-            
-            foreach($images AS $image):
-            ?>
-              <li>
-                <a class="thumb"  href="<?php echo $image['url'];?>" title="<?php echo $location['title'];?>">
-                  <img src="<?php echo $image['url'];?>" alt="<?php echo $location['title'];?>" />
-                </a>
-                <div class="captions">
-                  <div class="image-title"><?php echo $location['title'];?></div>
-                  <div class="image-desc"></div>
-                </div>
-              </li>
-            <?php
-            endforeach;
-            ?>
-            </ul>
+      
+          <div class="four columns">
+            <div id="thumbs" class="navigation">
+              <ul class="thumbs noscript">
+              <?php
+              foreach($images AS $image):
+              ?>
+                <li>
+                  <a class="thumb"  href="<?php echo $image['url'];?>" title="<?php echo $location['title'];?>">
+                    <img src="<?php echo $image['url'];?>" alt="<?php echo $location['title'];?>" />
+                  </a>
+                  <div class="captions">
+                    <div class="image-title"><?php echo $location['title'];?></div>
+                    <div class="image-desc"></div>
+                  </div>
+                </li>
+              <?php
+              endforeach;
+              ?>
+              </ul>
+            </div>
           </div>
-        </div>
-      </section>
-      <section class="gallery_mobile">
-        <ul id="gallery_mobile">
-        <?php
+        </section>
+
+          <section class="gallery_mobile">
+            <ul id="gallery_mobile">
+
+            <?php
             foreach($images AS $image):
             ?>
               <li>
@@ -153,9 +158,15 @@ if (count($matches)>1){
             <?php
             endforeach;
             ?>
-        </ul>
-      </section>
-    </div>
+              </ul>
+            </section>
+        </div>
+
+    <?php
+      endif;
+    ?>    
+    <!-- End Gallery -->
+
     <div class="row">
       <section class="article">
         <div class="row border">
@@ -187,24 +198,28 @@ if (count($matches)>1){
           ?>
         </div>   
 
-          <div class="row">
-            <div class="twelve columns">
-              <ul class="tags">
-                <li><a class="tags_name" href="#">Tags</a></li>
-                <?php
-                  //print_r($tag);
-                  if(!empty($tag)){
+        <!-- Tag -->
+        <div class="row">
+          <div class="twelve columns">
+          <div class="border"></div>
+            <ul class="tags">
+              <li><a class="tags_name" href="#">Tags</a></li>
+              <?php
+                //print_r($tag);
+                if(!empty($tag)){
 
-                    foreach ($tag as $key => $value) {
-                ?>
-                      <li><a href="<?php echo base_url('/location/'.$value->url);?>"><?php echo $value->name; ?></a></li>
-                <?php
-                    }
+                  foreach ($tag as $key => $value) {
+              ?>
+                    <li><a href="<?php echo base_url('/location/'.$value->url);?>"><?php echo $value->name; ?></a></li>
+              <?php
                   }
-                ?>
-              </ul>
-            </div> <!-- End Row tags  -->
-          </div>  
+                }
+              ?>
+            </ul>
+          </div> 
+        </div> 
+        <!-- End Tag -->
+
       </section>
     </div>
  
