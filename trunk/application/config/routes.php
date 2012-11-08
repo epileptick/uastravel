@@ -123,6 +123,7 @@ $route['images/ajax_upload'] = 'images/ajax_upload';
 
 
 //Home
+$route['admin'] = 'home/admin_list';
 $route['(:any)'] = 'home/user_list/$1';
 
 ///////// Urls end
