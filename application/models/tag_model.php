@@ -123,6 +123,8 @@ class Tag_model extends MY_Model {
           $this->db->set($this->_column[$columnName], $columnValue); 
         }
       }
+
+      $this->db->set("tag_url", Util::url_title($data["name"]));
       $this->db->insert($this->_table);
       return $this->db->insert_id(); 
     }
@@ -168,6 +170,8 @@ class Tag_model extends MY_Model {
           $this->db->set($this->_column[$columnName], $columnValue); 
         }
       }
+
+      $this->db->set("tag_url", Util::url_title($data["name"]));
       $query = $this->db->where("tag_id", $data["id"]);
       $query = $this->db->update("ci_tag");
     }

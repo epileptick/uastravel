@@ -108,6 +108,7 @@ class Tour_model extends MY_Model {
           $this->db->set($this->_column[$columnName], $columnValue); 
         }
       }
+      $this->db->set("tou_url", Util::url_title($data["name"]));
       $this->db->insert($this->_table);
       return $this->db->insert_id(); 
     }
@@ -123,6 +124,7 @@ class Tour_model extends MY_Model {
           $this->db->set($this->_column[$columnName], $columnValue); 
         }
       }
+      $this->db->set("tou_url", Util::url_title($data["name"]));
       $query = $this->db->where("tou_id", $data["id"]);
       $query = $this->db->update("ci_tour");
     }
