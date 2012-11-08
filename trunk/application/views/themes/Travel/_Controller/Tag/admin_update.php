@@ -2,9 +2,9 @@
 
 	<!-- Filter -->
 	<section class="grid_12">
-		<h2 class="section_heading">Add Tag Information [ <a href="<?php echo base_url("tag");?>">list</a> ]</h2>
+		<h2 class="section_heading">Add Tag Information [ <a href="<?php echo base_url("admin/tag");?>">list</a> ]</h2>
 		<br>
-		<?php echo form_open(base_url("tag/update"));?>
+		<?php echo form_open(base_url("admin/tag/update"));?>
 
 			<input type="hidden" name="id" value="<?php echo $tag[0]->id;?>">
 			<!--  Start Catgeory information -->		
