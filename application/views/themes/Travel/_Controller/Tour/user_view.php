@@ -58,7 +58,7 @@
 
     <!-- Gallery -->
     <?php
-    if(!empty($images)){
+    if(!empty($images)):
     ?>
     <div class="row">
       <section class="gallery_pc">
@@ -117,10 +117,10 @@
         </ul>
       </section>
     </div>
-    <!-- End Gallery -->
     <?php
-    }
-    ?>
+      endif;
+    ?>    
+    <!-- End Gallery -->
 
     <!-- Tour Information -->
     <div class="row">
