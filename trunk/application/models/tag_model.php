@@ -52,6 +52,21 @@ class Tag_model extends MY_Model {
       }else{
         return false;
       }
+    }else if(isset($args["url"])){
+      //Get list page
+      ($field)?$this->db->select($field):"";
+
+      //Get category by name
+      $query = $this->db->get_where('ci_tag', array('tag_url' => $args["url"]), 1, 0);
+
+      //print_r($args["name"]); exit;
+
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
     }else if(isset($args["id"])){
       //Get list page
       ($field)?$this->db->select($field):"";
