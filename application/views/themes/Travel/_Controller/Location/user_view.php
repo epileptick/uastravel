@@ -185,10 +185,29 @@ if (count($matches)>1){
             echo $location['body'][2];
           }
           ?>
-        </div>      
+        </div>   
+
+          <div class="row">
+            <div class="twelve columns">
+              <ul class="tags">
+                <li><a class="tags_name" href="#">Tags</a></li>
+                <?php
+                  //print_r($tag);
+                  if(!empty($tag)){
+
+                    foreach ($tag as $key => $value) {
+                ?>
+                      <li><a href="<?php echo base_url('/location/'.$value->url);?>"><?php echo $value->name; ?></a></li>
+                <?php
+                    }
+                  }
+                ?>
+              </ul>
+            </div> <!-- End Row tags  -->
+          </div>  
       </section>
     </div>
-
+ 
     <div class="row">
       <div class="eight columns">
         <div class="row">
