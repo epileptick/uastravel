@@ -119,5 +119,9 @@ class Home extends MY_Controller {
     $this->_fetch('user_list', $data, false, true);
 
   }
+
+  function admin_list(){
+    $this->_fetch('admin_list');
+  }
 }
 ?>
