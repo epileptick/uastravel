@@ -89,8 +89,28 @@ $route['admin/'.LangUtil::line("url_lang_agency").'/(:any)/(:any)-(:num)'] = 'ag
 $route['admin/'.LangUtil::line("url_lang_agency").'/(:any)-(:num)'] = 'agency/admin_view/$2';
 $route['admin/'.LangUtil::line("url_lang_agency").'/(:any)'] = 'agency/admin_list'; //for Tag
 
+$route['agency/hasdata/(:any)'] = 'agency/hasdata/$1'; //for Tag
+$route['agency/phpsearch/(:any)'] = 'agency/phpsearch/$1'; //for Tag
 
 //Tag
+$route['admin/tag'] = 'tag/admin_list';
+$route['admin/tag/update'] = 'tag/admin_update';
+$route['admin/tag/delete/(:num)'] = 'tag/admin_delete/$1';
+$route['admin/tag/create'] = 'tag/admin_create';
+$route['admin/tag/create/(:num)'] = 'tag/admin_create/$1';
+$route['admin/tag/(:any)/(:any)-(:num)'] = 'tag/admin_view/$3';
+$route['admin/tag/(:any)-(:num)'] = 'tag/admin_view/$2';
+$route['admin/tag/(:any)'] = 'tag/admin_list'; //for Tag
+
+$route['tag/jssearch/(:any)'] = 'tag/jssearch/$1';
+$route['tag/jssearch'] = 'tag/jssearch';
+$route['tag/jsonsearch/(:any)'] = 'tag/jsonsearch/$1';
+
+//Images
+$route['images/ajax_list'] = 'images/ajax_list';
+
+
+//Home
 $route['(:any)'] = 'home/user_list/$1';
 
 
