@@ -33,7 +33,6 @@ class Tag extends MY_Controller {
       if($validate == FALSE){
         $this->_fetch('admin_create');
       }else{
-        $args["url"] = Util::url_title($args["name"]);
         $this->tagModel->addRecord($args);
         $data["tag"] = $this->tagModel->getRecord();  
         $data["message"] = "Create successful !!!";
@@ -68,7 +67,6 @@ class Tag extends MY_Controller {
   function admin_update(){
 
     $args = $this->input->post();
-    $args["url"] = Util::url_title($args["name"]);
   
     $validate = $this->validate($args);
 
