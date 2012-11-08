@@ -36,33 +36,38 @@ CREATE TABLE `ci_tour` (
   `tou_language_id` int(11) DEFAULT NULL,
   `tou_code` varchar(255) DEFAULT NULL,
   `tou_name` varchar(255) DEFAULT NULL,
+  `tou_short_description` text,
   `tou_description` text,
   `tou_detail` text,
   `tou_included` text,
   `tou_remark` text,
   `tou_discount` int(11) DEFAULT NULL,
-  `tou_net_adult_price` int(50) DEFAULT NULL,
-  `tou_net_child_price` int(50) DEFAULT NULL,
-  `tou_sale_adult_price` int(50) DEFAULT NULL,
-  `tou_sale_child_price` int(50) DEFAULT NULL,
   `tou_amount_time` float DEFAULT NULL,
   `tou_start_date` date DEFAULT NULL,
   `tou_end_date` date DEFAULT NULL,
+  `tou_start_month` int(11) DEFAULT NULL,
+  `tou_end_month` int(11) DEFAULT NULL,
   `tou_start_time1` time DEFAULT NULL,
   `tou_end_time1` time DEFAULT NULL,
   `tou_start_time2` time DEFAULT NULL,
   `tou_end_time2` time DEFAULT NULL,
-  `tou_longitude` text,
-  `tou_latitude` text,
-  `tou_longitude` varchar(255) DEFAULT NULL,
-  `tou_latitude` varchar(255) DEFAULT NULL,
+  `tou_start_time3` time DEFAULT NULL,
+  `tou_end_time3` time DEFAULT NULL,
+  `tou_latitude` double DEFAULT NULL,
+  `tou_longitude` double DEFAULT NULL,
+  `tou_first_image` varchar(255) DEFAULT NULL,
+  `tou_background_image` varchar(255) DEFAULT NULL,
+  `tou_banner_image` varchar(255) DEFAULT NULL,
   `tou_cr_date` timestamp NULL DEFAULT NULL,
   `tou_cr_uid` int(11) DEFAULT NULL,
   `tou_lu_date` timestamp NULL DEFAULT NULL,
   `tou_lu_uid` int(11) DEFAULT NULL,
+  `tou_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`tou_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;  
+) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
+
+#ALTER TABLE ci_tour ADD tou_short_description text AFTER tou_name;
 
 CREATE TABLE `ci_agency` (
   `agn_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -99,10 +104,24 @@ CREATE TABLE `ci_agencytour` (
   PRIMARY KEY (`agt_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
 
+CREATE TABLE `ci_price` (
+  `pri_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `pri_agency_id` int(11) DEFAULT NULL,
+  `pri_tour_id` int(11) DEFAULT NULL,
+  `pri_sale_adult_price` int(50) DEFAULT NULL,
+  `pri_net_adult_price` int(50) DEFAULT NULL,
+  `pri_discount_adult_price` int(50) DEFAULT NULL,
+  `pri_sale_child_price` int(50) DEFAULT NULL,
+  `pri_net_child_price` int(50) DEFAULT NULL,
+  `pri_discount_child_price` int(50) DEFAULT NULL,
+  PRIMARY KEY (`pri_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
+
+
 CREATE TABLE `ci_tag` (
   `tag_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `tag_language_id` int(11) DEFAULT NULL,
-  `tag_parent` int(11) DEFAULT NULL,
+  `tag_parent` int(11) DEFAULT 0,
   `tag_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`tag_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -115,22 +134,12 @@ CREATE TABLE `ci_tagtour` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
-
 CREATE TABLE `ci_taglocation` (
   `tal_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `tal_location_id` int(11) DEFAULT NULL,
   `tal_tag_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`tal_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
-
-CREATE TABLE `ci_locationtour` (
-  `lot_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `lot_location_id` int(11) DEFAULT NULL,
-  `lot_tour_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`lot_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
-
-
 
 
 CREATE TABLE `ci_language` (
@@ -152,5 +161,19 @@ CREATE TABLE `ci_images` (
   UNIQUE KEY `img_id` (`img_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;  
 
+CREATE TABLE `ci_type` (
+  `typ_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `typ_language_id` int(11) DEFAULT NULL,
+  `typ_name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `typ_description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`typ_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
 
+CREATE TABLE `ci_tagtype` (
+  `tty_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tty_tag_id` int(11) DEFAULT NULL,
+  `tty_type_id` int(11) DEFAULT NULL,
+  `tty_parent_id` int(11) DEFAULT '0',
+  PRIMARY KEY (`tty_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
