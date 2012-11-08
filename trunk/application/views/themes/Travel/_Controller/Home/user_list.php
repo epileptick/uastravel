@@ -180,7 +180,7 @@
                                   <?php 
                                     if(isset($value->tou_url)){
                                   ?>
-                                      <a href="<?php echo base_url('tour/'.$value->tou_url);?>">
+                                      <a href="<?php echo base_url('tour/'.$value->tou_url.'-'.$value->tou_id);?>">
                                   <?php
                                     }else if(isset($value->loc_url)){
                                   ?>
