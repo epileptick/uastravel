@@ -5,17 +5,16 @@ class Tag extends MY_Controller {
     parent::__construct();
   }
   
-  function index(){
+  function admin_index(){
     //echo "tour";
-    $this->read();
+    $this->admin_list();
   }
   
 
-  function create($id=false){
+  function admin_create($id=false){
     //implement code here  
 
     $args = $this->input->post();
-
     $validate = $this->validate($args);
     
 
@@ -25,44 +24,78 @@ class Tag extends MY_Controller {
 
       //print_r($data); exit;
       if($data["tag"]>0){
-        $this->_fetch('update_form', $data);
+        $this->_fetch('admin_update', $data);
       }else{
-        $this->_fetch('create_form');
+        $this->_fetch('admin_create');
       }
 
     }else{
       if($validate == FALSE){
-        $this->_fetch('create_form');
+        $this->_fetch('admin_create');
       }else{
+        $args["url"] = Util::url_title($args["name"]);
         $this->tagModel->addRecord($args);
         $data["tag"] = $this->tagModel->getRecord();  
         $data["message"] = "Create successful !!!";
-        $this->_fetch('list', $data);  
+        $this->_fetch('admin_list', $data);  
       }
     }
 
   }
 
   
-  function read($tag=false){
+  function admin_list($tag=false){
     //implement code here
     if($tag){
       if(is_numeric($tag)){
         $args["id"] = $tag;  
         $data["tag"] = $this->tagModel->getRecord($args);  
-        $this->_fetch('list', $data);
+        $this->_fetch('admin_list', $data);
       }else{
 
         $args["name"] = $tag;        
         $data["tag"] = $this->tagModel->getRecord($args);  
-        $this->_fetch('list', $data);
+        $this->_fetch('admin_list', $data);
       }
     }else{
       $data["tag"] = $this->tagModel->getRecord();
-      $this->_fetch('list', $data);
+      $this->_fetch('admin_list', $data);
     }
    
   }
+
+  
+  function admin_update(){
+
+    $args = $this->input->post();
+    $args["url"] = Util::url_title($args["name"]);
+  
+    $validate = $this->validate($args);
+
+    //print_r($args); exit;
+
+    if($args["id"]) {
+        $this->tagModel->updateRecord($args);
+
+        $data["tag"] = $this->tagModel->getRecord();  
+        $data["message"] = "Update successful !!!";
+        $this->_fetch('admin_list', $data);       
+    } else {
+        $this->tagModel->addRecord($args);
+    } 
+  } 
+
+  function admin_delete($id=false){
+    //implement code here
+    if($id) {
+        $args["id"] = $id;
+        $this->tagModel->deleteRecord($args);
+
+        $data["tag"] = $this->tagModel->getRecord();  
+        $data["message"] = "Delete successful !!!";  
+        $this->_fetch('admin_list', $data);        
+    } 
+  }  
   
   function search($keyword=false){
     //implement code here
@@ -71,7 +104,7 @@ class Tag extends MY_Controller {
 
     if($keyword){
       $data["tag"] = $this->tagModel->searchRecord($args);
-      $this->_fetch('list', $data);
+      $this->_fetch('user_list', $data);
     }else{
       return;
     }
@@ -84,7 +117,7 @@ class Tag extends MY_Controller {
     $args["tag_name"] = $keyword;
     # JSON-encode the response
     $data["tag"] = json_encode($this->tagModel->searchRecord($args));
-    $this->_fetch('json', $data, false, true);
+    $this->_fetch('user_json', $data, false, true);
   }
 
 
@@ -93,39 +126,8 @@ class Tag extends MY_Controller {
     //print_r($keyword);
     $tag["tag_name"] = $keyword;
     $data["tag"] = $this->tagModel->searchRecord($tag);
-    $this->_fetch('jsarray', $data, false, true);
+    $this->_fetch('user_jsarray', $data, false, true);
   }
-
-
-  function update(){
-
-    $args = $this->input->post();
-  
-    $validate = $this->validate($args);
-
-    //print_r($args); exit;
-
-    if($args["id"]) {
-        $this->tagModel->updateRecord($args);
-
-        $data["tag"] = $this->tagModel->getRecord();  
-        $data["message"] = "Update successful !!!";
-        $this->_fetch('list', $data);       
-    } else {
-        $this->tagModel->addRecord($args);
-    } 
-  } 
-
-  function delete($id=false){
-    //implement code here
-    if($id) {
-        $this->tagModel->deleteRecord($id);
-
-        $data["tag"] = $this->tagModel->getRecord();  
-        $data["message"] = "Delete successful !!!";  
-        $this->_fetch('list', $data);        
-    } 
-  }  
 
   function validate(){
 
