@@ -6,8 +6,14 @@ class Agency extends MY_Controller {
   }
   
   function admin_index(){
-    //echo "tour";
-    $this->admin_list();
+    //Default function for call read method
+    $keyword = $this->input->post();
+
+    if($keyword){
+      $this->_search();
+    }else{
+      $this->admin_list();
+    }
   }
   
 
@@ -106,6 +112,20 @@ class Agency extends MY_Controller {
 
     return $this->form_validation->run();
 
+  }
+
+
+  function _search(){
+    //Get argument from post page
+    $keyword = $this->input->post();
+
+    if($keyword){
+      $args["agn_name"] = $keyword["search"];
+      $data["agency"] = $this->agencyModel->searchRecord($args);
+      $this->_fetch('admin_list', $data);
+    }else{
+      return;
+    }
   }
 
 
