@@ -16,7 +16,6 @@ class MY_Model extends CI_Model {
     $this->_column = array();
   }
   
-  
   function add($options = NULL){
     return $this->_save($options);
   }
@@ -100,7 +99,11 @@ class MY_Model extends CI_Model {
     }
     
     if(isset($options['order']) AND ! empty($options['order'])){
-      $this->db->order_by($this->_prefix."_".trim($options['order']));
+    
+      $orderPart = explode(" ",$options['order']);
+      if($this->_getColumn($orderPart[0])){
+        $this->db->order_by($this->_prefix."_".trim($options['order']));
+      }
     }else{
       $this->db->order_by($this->_prefix."_".$this->_pk." desc");
     }
@@ -160,6 +163,10 @@ class MY_Model extends CI_Model {
     }else{
       return FALSE;
     }
+  }
+  
+  public function count_rows($options = NULL){
+    return count($this->get($options));
   }
   
   protected function _save($options = NULL){
@@ -261,7 +268,14 @@ class MY_Model extends CI_Model {
         $result[$key] = $this->_column[$value];
       }
     }else{
-      $result = $this->_column[$field];
+      if(!empty($this->_column[$field])){
+        $result = $this->_column[$field];
+      }else{
+        $result = FALSE;
+      }
+        
+      
+      
     }
     return $result;
   }
