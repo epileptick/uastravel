@@ -98,22 +98,6 @@ class Tag_model extends MY_Model {
 
   }
 
-  function searchRecord($args=false){
-    if($args){
-      $this->db->like($args);
-      $query = $this->db->get("ci_tag");
-
-      //print_r($args); exit;
-      $newResult = array();
-      if($query->num_rows > 0){
-        $newResult = $this->mapField($query->result());
-        return $newResult;
-      }else{
-        return $newResult;
-      }      
-
-    }
-  }
 
   function addRecord($data=false){
     if($data){
@@ -211,6 +195,26 @@ class Tag_model extends MY_Model {
     }else{
       return false;
     }
-  }  
+  }
+
+
+  function searchRecord($args=false){
+    if($args){
+      $this->db->like($args);
+      $this->db->order_by('CONVERT( tag_name USING tis620 ) ASC');    
+      $query = $this->db->get("ci_tag");
+
+      //print_r($args); exit;
+      $newResult = array();
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return $newResult;
+      }      
+
+    }
+  }   
+
 }
 ?>

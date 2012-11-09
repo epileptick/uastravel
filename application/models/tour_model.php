@@ -138,5 +138,23 @@ class Tour_model extends MY_Model {
       $this->db->delete("ci_tour");
     }
   }
+
+
+  function searchRecord($args=false){
+    if($args){
+      $this->db->like($args);
+      $this->db->order_by('CONVERT( tou_name USING tis620 ) ASC');    
+      $query = $this->db->get("ci_tour");
+
+      //print_r($args); exit;
+      $newResult = array();
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return $newResult;
+      }      
+    }
+  }  
 }
 ?>
