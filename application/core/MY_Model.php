@@ -138,7 +138,7 @@ class MY_Model extends CI_Model {
               $this->db->where($this->_prefix."_".$this->_pk,$options['where']);
             }else{
               //$exploded = explode("=",$options['where']);
-              //$this->db->where($this->_prefix."_".trim()); 
+              $this->db->where($this->_prefix."_".trim()); 
             }
           }
         }
