@@ -43,7 +43,8 @@ class Agency extends MY_Controller {
         $this->agencyModel->addRecord($args);
         $data["agency"] = $this->agencyModel->getRecord();  
         $data["message"] = "Create successful !!!";
-        $this->_fetch('admin_list', $data);  
+        //Redirect
+        redirect(base_url("admin/agency"));   
       }
     }
 
@@ -79,9 +80,13 @@ class Agency extends MY_Controller {
         $this->agencyModel->updateRecord($args);
         $data["agency"] = $this->agencyModel->getRecord();  
         $data["message"] = "Update successful !!!";
-        $this->_fetch('admin_list', $data);     
+
+        //Redirect
+        redirect(base_url("admin/agency"));  
     } else {
         $this->agencyModel->addRecord($args);
+        //Redirect
+        redirect(base_url("admin/agency"));  
     } 
 
 
@@ -93,8 +98,9 @@ class Agency extends MY_Controller {
         $this->agencyModel->deleteRecord($id);
 
         $data["agency"] = $this->agencyModel->getRecord();  
-        $data["message"] = "Delete successful !!!";  
-        $this->_fetch('admin_list', $data);        
+        $data["message"] = "Delete successful !!!";
+        //Redirect
+        redirect(base_url("admin/agency"));         
     } 
   } 
 

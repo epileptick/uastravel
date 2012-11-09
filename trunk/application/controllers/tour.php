@@ -192,7 +192,7 @@ class Tour extends MY_Controller {
     //Default function for call read method
     $keyword = $this->input->post();
 
-    if($keyword){
+    if(!empty($keyword["search"])){
       $this->_search("admin_list");
     }else{
       $this->admin_list();
@@ -285,9 +285,9 @@ class Tour extends MY_Controller {
       }
 
 
-      ///////////////////////
-      //End update (id)
-      ///////////////////////
+    ///////////////////////
+    //End update (id)
+    ///////////////////////
     }else{
       if($validate == FALSE){
         //Send to create form
@@ -352,6 +352,7 @@ class Tour extends MY_Controller {
         }
         $this->tagTourModel->addMultipleRecord($tagTour);
         
+        //Redirect
         redirect(base_url("admin/tour/"));
       }
     }
@@ -447,17 +448,13 @@ class Tour extends MY_Controller {
           $this->agencytourModel->deleteRecord($tour);
 
         }
-
-
-        //Query list data
-        $data["tour"] = $this->tourModel->getRecord();  
-
-
-        //Fetch data to list page
-        $data["message"] = "Update successful !!!";
-        $this->_fetch('admin_list', $data);       
+    
+        //Redirect
+        redirect(base_url("admin/tour")); 
     } else {
         $this->tourModel->addRecord($args);
+        //Redirect
+        redirect(base_url("admin/tour")); 
     } 
 
   } 
@@ -468,8 +465,9 @@ class Tour extends MY_Controller {
         $this->tourModel->deleteRecord($id);
 
         $data["tour"] = $this->tourModel->getRecord();  
-        $data["message"] = "Delete successful !!!";  
-        $this->_fetch('admin_list', $data);        
+        $data["message"] = "Delete successful !!!";
+        //Redirect
+        redirect(base_url("admin/tour"));      
     } 
   }  
 

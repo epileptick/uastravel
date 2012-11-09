@@ -40,7 +40,8 @@ class Tag extends MY_Controller {
         $this->tagModel->addRecord($args);
         $data["tag"] = $this->tagModel->getRecord();  
         $data["message"] = "Create successful !!!";
-        $this->_fetch('admin_list', $data);  
+        //Redirect
+        redirect(base_url("admin/tag"));  
       }
     }
 
@@ -81,9 +82,12 @@ class Tag extends MY_Controller {
 
         $data["tag"] = $this->tagModel->getRecord();  
         $data["message"] = "Update successful !!!";
-        $this->_fetch('admin_list', $data);       
+        //Redirect
+        redirect(base_url("admin/tag"));       
     } else {
         $this->tagModel->addRecord($args);
+        //Redirect
+        redirect(base_url("admin/tag"));  
     } 
   } 
 
@@ -95,7 +99,8 @@ class Tag extends MY_Controller {
 
         $data["tag"] = $this->tagModel->getRecord();  
         $data["message"] = "Delete successful !!!";  
-        $this->_fetch('admin_list', $data);        
+        //Redirect
+        redirect(base_url("admin/tag"));      
     } 
   }  
   
