@@ -10,34 +10,47 @@ class Location extends MY_Controller {
   }
   
   function admin_index(){
-    $tag = $this->uri->segment(2);
-    $where = array(
-                  'limit'=>'',
-                  'returnObj'=>'',
-                  'order'=>'id desc',
-                  'where'=>''
-                );
-    if(empty($tag)){
-      //$where['where'] = array('');
+
+    $keyword = $this->input->post();
+
+    if($keyword){
+      $this->_search("admin_list");
+    }else{
+      $tag = $this->uri->segment(2);
+      $where = array(
+                    'limit'=>'',
+                    'returnObj'=>'',
+                    'order'=>'CONVERT( loc_title USING tis620 ) ASC',
+                    'where'=>''
+                  );
+      if(empty($tag)){
+        //$where['where'] = array('');
+      }
+      $result = $this->_index($where);
+      $this->_fetch("admin_list",$result);
     }
-    $result = $this->_index($where);
-    $this->_fetch("admin_list",$result);
   }
   
   function user_index(){
-    $tag = $this->uri->segment(2);
-    $where = array(
-                  'limit'=>'',
-                  'returnObj'=>'',
-                  'order'=>'',
-                  'where'=>''
-                );
-    if(empty($tag)){
-      //$where['where'] = array('');
+    $keyword = $this->input->post();
+
+    if($keyword){
+      $this->_search("user_list");
+    }else{
+      $tag = $this->uri->segment(2);
+      $where = array(
+                    'limit'=>'',
+                    'returnObj'=>'',
+                    'order'=>'CONVERT( loc_title USING tis620 ) ASC',
+                    'where'=>''
+                  );
+      if(empty($tag)){
+        //$where['where'] = array('');
+      }
+      $result = $this->_index($where);
+                                        
+      $this->_fetch("user_list",$result);
     }
-    $result = $this->_index($where);
-                                      
-    $this->_fetch("user_list",$result);
   }
 
 
@@ -112,8 +125,8 @@ class Location extends MY_Controller {
   
   function user_list($tag=false){
     
+      
     $data["menu"]= $this->_location_menu($tag);
-
 
     if($tag){
       //Tag
@@ -298,6 +311,30 @@ class Location extends MY_Controller {
     }
     return "TRUE";
   }
+
+
+
+  function _search($render="user_list"){
+    //Get argument from post page
+    $keyword = $this->input->post();
+
+    if($keyword){
+      $where = array(
+                      'limit'=>'',
+                      'returnObj'=>'',
+                      'order'=>'CONVERT( loc_title USING tis620 ) ASC',
+                      'where'=>array('loc_title LIKE'=>'%'.$keyword["search"].'%')
+                    );
+        if(empty($tag)){
+          //$where['where'] = array('');
+        }
+        $result = $this->_index($where);
+                                          
+        $this->_fetch($render,$result);
+    }else{
+      return;
+    }
+  }  
   
 }
 

@@ -4,11 +4,17 @@ class Tour extends MY_Controller {
   function __construct(){
     parent::__construct();
   }
-  
-  
+
+
   function user_index(){
     //Default function for call read method
-    $this->user_list();
+    $keyword = $this->input->post();
+
+    if($keyword){
+      $this->_search("user_list");
+    }else{
+      $this->user_list();
+    }
   }
 
   function user_test(){
@@ -184,7 +190,13 @@ class Tour extends MY_Controller {
   /////////////////////////////////////////
   function admin_index(){
     //Default function for call read method
-    $this->admin_list();
+    $keyword = $this->input->post();
+
+    if($keyword){
+      $this->_search("admin_list");
+    }else{
+      $this->admin_list();
+    }
   }
 
 
@@ -487,6 +499,19 @@ class Tour extends MY_Controller {
 
     return $this->form_validation->run();
 
+  }
+
+  function _search($render = "user_list"){
+    //Get argument from post page
+    $keyword = $this->input->post();
+
+    if($keyword){
+      $args["tou_name"] = $keyword["search"];
+      $data["tour"] = $this->tourModel->searchRecord($args);
+      $this->_fetch($render, $data);
+    }else{
+      return;
+    }
   }
 
 }

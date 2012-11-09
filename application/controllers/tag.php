@@ -6,8 +6,12 @@ class Tag extends MY_Controller {
   }
   
   function admin_index(){
-    //echo "tour";
-    $this->admin_list();
+    $keyword = $this->input->post();
+    if($keyword){
+      $this->_search("admin_list");
+    }else{
+      $this->admin_list();
+    }
   }
   
 
@@ -95,6 +99,23 @@ class Tag extends MY_Controller {
     } 
   }  
   
+
+
+  function _search($render = "user_list"){
+    //Get argument from post page
+    $keyword = $this->input->post();
+
+
+    if($keyword){
+      $args["tag_name"] = $keyword["search"];
+      $data["tag"] = $this->tagModel->searchRecord($args);
+      $this->_fetch($render, $data);
+    }else{
+      return;
+    }
+  }
+
+
   function search($keyword=false){
     //implement code here
 
