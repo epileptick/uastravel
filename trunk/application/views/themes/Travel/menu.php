@@ -38,7 +38,7 @@
 				</ul>
 
 				<!-- Search -->
-				<form action="#" class="black">
+				<form method="post" action="<?php echo base_url(uri_string());?>" class="black">
 					<input name="search" type="text" placeholder="Search..." />
 					<input type="submit" />
 				</form>
