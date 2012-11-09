@@ -93,7 +93,7 @@ $route[LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/user_vie
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
 $route[LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/user_list/$1'; //for Tag
 $route[LangUtil::line("url_lang_tour").'/test'] = 'tour/user_test'; //for Tag
-$route[LangUtil::line("url_lang_tour")] = 'tour/user_list'; //list tour
+$route[LangUtil::line("url_lang_tour")] = 'tour/user_index'; //list tour
 
 
 //Agency
@@ -110,7 +110,7 @@ $route['agency/hasdata/(:any)'] = 'agency/hasdata/$1'; //for Tag
 $route['agency/phpsearch/(:any)'] = 'agency/phpsearch/$1'; //for Tag
 
 //Tag
-$route['admin/tag'] = 'tag/admin_list';
+$route['admin/tag'] = 'tag/admin_index';
 $route['admin/tag/update'] = 'tag/admin_update';
 $route['admin/tag/delete/(:num)'] = 'tag/admin_delete/$1';
 $route['admin/tag/create'] = 'tag/admin_create';
