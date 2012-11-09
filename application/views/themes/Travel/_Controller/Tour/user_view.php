@@ -26,7 +26,11 @@
       <div class="twelve columns">
         <nav class="top-bar">
           <ul>
-            <li class="name"><a href=""> <img src="<?php echo base_url('themes/Travel/tour/images/logo.png');?>"></a></li>
+            <li class="name">
+              <a href="<?php echo base_url();?>"> 
+                <img src="<?php echo base_url('themes/Travel/tour/images/logo.png');?>">
+              </a>
+            </li>
             <li class="toggle-topbar"><a href="#"></a></li>
           </ul>
           <section>

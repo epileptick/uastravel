@@ -166,6 +166,17 @@ $(document).ready(function() {
 			minuteGrid: 10
 		});		
 
+		$('#start_time3').timepicker({
+			hourGrid: 4,
+			minuteGrid: 10
+		});
+
+		$('#end_time3').timepicker({
+			hourGrid: 4,
+			minuteGrid: 10
+		});	
+
+		/*
 		$('#start_date').datepicker({
 			dateFormat: "yy-mm-dd"
 		});
@@ -173,6 +184,7 @@ $(document).ready(function() {
 		$('#end_date').datepicker({
 			dateFormat: "yy-mm-dd"
 		});	
+		*/
 
 	    tinyMCE.init({
 	        mode : "specific_textareas",
@@ -508,18 +520,49 @@ $(document).ready(function() {
   
 	<!-- Sidebar start period-->
 	<section class="simple_sidebar grid_4">
-		<label>Period</label><br>
-			<div class="half" style="width:120px;">
-				<label>Start Date :</label><br>
-				<?php echo form_error('start_date', '<font color="red">', '</font>'); ?>
-				<input style="width:120px;" type="text" name="start_date" id="start_date" value="<?php echo set_value('start_date');?>">
-			</div>	
-			<div class="half last" style="width:120px;">
-				<label>End Date :</label><br>
-				<?php echo form_error('end_date', '<font color="red">', '</font>'); ?>
-				<input type="text" name="end_date" id="end_date" value="<?php echo set_value('end_date');?>">
-			</div>					
-			<div class="clearfix"></div>
+		<label>Tour Period</label><br>
+		<div class="half" style="width:120px;">
+			<label>Start Month :</label><br>
+			<?php
+				$options = array(
+				                  '1'  => 'มกราคม',
+				                  '2'  => 'กุมภาพันธ์',
+				                  '3'  => 'มีนาคม',
+				                  '4'  => 'เมษายน',
+				                  '5'  => 'พฤษภาคม',
+				                  '6'  => 'มิถุยายน',
+				                  '7'  => 'กรกฎาคม',
+				                  '8'  => 'สิงหาคม',
+				                  '9'  => 'กันยายน',
+				                  '10' => 'ตุลาคม',
+				                  '11' => 'พฤศจิกายน',
+				                  '12' => 'ธันวาคม',
+				                );
+				echo form_dropdown('start_month', $options);
+			?>
+		</div>	
+
+		<div class="half last" style="width:120px;">
+			<label>End Month :</label><br>
+			<?php
+				$options = array(
+				                  '1'  => 'มกราคม',
+				                  '2'  => 'กุมภาพันธ์',
+				                  '3'  => 'มีนาคม',
+				                  '4'  => 'เมษายน',
+				                  '5'  => 'พฤษภาคม',
+				                  '6'  => 'มิถุยายน',
+				                  '7'  => 'กรกฎาคม',
+				                  '8'  => 'สิงหาคม',
+				                  '9'  => 'กันยายน',
+				                  '10' => 'ตุลาคม',
+				                  '11' => 'พฤศจิกายน',
+				                  '12' => 'ธันวาคม',
+				                );
+				echo form_dropdown('end_month', $options);
+			?>
+		</div>					
+		<div class="clearfix"></div>
 	</section>
 	<!-- Sidebar end period-->
 
@@ -548,7 +591,19 @@ $(document).ready(function() {
 			<?php echo form_error('end_time2', '<font color="red">', '</font>'); ?>
 			<input type="text" name="end_time2" id="end_time2" value="<?php echo set_value('end_time2');?>">
 		</div>					
-		<div class="clearfix"></div>			
+		<div class="clearfix"></div>	
+
+		<div class="half" style="width:120px;">
+			<label>Start time[3] :</label><br>
+			<?php echo form_error('start_time3', '<font color="red">', '</font>'); ?>
+			<input type="text" name="start_time3" id="start_time3" value="<?php echo set_value('start_time3');?>">
+		</div>	
+		<div class="half last" style="width:120px;">
+			<label>End time[3] :</label><br>
+			<?php echo form_error('end_time3', '<font color="red">', '</font>'); ?>
+			<input type="text" name="end_time3" id="end_time3" value="<?php echo set_value('end_time3');?>">
+		</div>					
+		<div class="clearfix"></div>		
 	</section>
 	<!-- Sidebar end time period-->
 
