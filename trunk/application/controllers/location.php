@@ -3,7 +3,9 @@
 class Location extends MY_Controller {
   function __construct(){
     parent::__construct();
+    //var_dump($this->lang->lang());
   }
+  
   function _index($where=""){
     $locationData["location"] = $this->locationModel->get($where);
     return $locationData;
@@ -11,10 +13,37 @@ class Location extends MY_Controller {
   
   function admin_index(){
 
+    $result = array();
+    
+    $config['per_page'] = 10; 
+    
+    $config['prev_link'] = '<img class="blogg-button-image" alt="โพสต์ใหม่" src="/themes/Travel/images/left_arrow.png">';
+    $config['prev_tag_open'] = '<button class="blogg-button blogg-collapse-right" title="โพสต์ใหม่" disabled="" tabindex="0">';
+    $config['prev_tag_close'] = '</button>';
+    
+    $config['next_link'] = '<img class="blogg-button-image" alt="โพสต์เก่า" src="/themes/Travel/images/right_arrow.png">';
+    $config['next_tag_open'] = '<button class="blogg-button blogg-button-page blogg-collapse-left" title="โพสต์เก่า"  tabindex="0">';
+    $config['next_tag_close'] = '</button>';
+    
+    $config['num_tag_open'] = '<button class="blogg-button blogg-button-page blogg-collapse-right blogg-collapse-left" title="โพสต์เก่า"  tabindex="0">';
+    $config['num_tag_close'] = '</button>';
+    
+    $config['cur_tag_open'] = '<button class="blogg-button blogg-collapse-right blogg-collapse-left" title="โพสต์เก่า" disabled="true" tabindex="0">';
+    $config['cur_tag_close'] = '</button>';
+    
+    //get all the URI segments for pagination and sorting
+    $segment_array = $this->uri->segment_array();
+    $segment_count = $this->uri->total_segments();
+
     $keyword = $this->input->post();
 
     if($keyword){
-      $this->_search("admin_list");
+      $where = array(
+                      'limit'=>'',
+                      'returnObj'=>'',
+                      'order'=>'CONVERT( loc_title USING tis620 ) ASC',
+                      'where'=>array('loc_title LIKE'=>'%'.$keyword["search"].'%')
+                    );
     }else{
       $tag = $this->uri->segment(2);
       $where = array(
@@ -23,12 +52,40 @@ class Location extends MY_Controller {
                     'order'=>'CONVERT( loc_title USING tis620 ) ASC',
                     'where'=>''
                   );
-      if(empty($tag)){
-        //$where['where'] = array('');
-      }
-      $result = $this->_index($where);
-      $this->_fetch("admin_list",$result);
     }
+    
+    $this->load->library('pagination');
+    $config['base_url'] = site_url(join("/",$segment_array));
+    $config['total_rows'] = $this->locationModel->count_rows($where);
+    
+    $result['total_rows'] = $config['total_rows'];
+    
+    //getting the records and limit setting
+    if (ctype_digit($segment_array[$segment_count])) {
+      $this->db->limit($config['per_page'],$segment_array[$segment_count]);
+      $result['start_offset'] = $segment_array[$segment_count]+1;
+      $result['end_offset'] = $segment_array[$segment_count]+$config['per_page'];
+      if(($result['end_offset'])>$config['total_rows']){
+       $result['end_offset'] = $result['total_rows'];
+      }
+      array_pop($segment_array);
+    } else {
+      $this->db->limit($config['per_page']);
+      $result['start_offset'] = 1;
+      
+    }
+
+
+    $config['base_url'] = site_url(join("/",$segment_array));
+    $config['uri_segment'] = count($segment_array)+1;
+    
+    $result = array_merge($result,$this->_index($where));
+    $result['end_offset'] = count($result['location']);
+    //initialize pagination
+    $this->pagination->initialize($config);
+    //load the view
+    $this->_fetch("admin_list",$result);
+
   }
   
   function user_index(){
@@ -153,16 +210,20 @@ class Location extends MY_Controller {
 
   
   function admin_create($id=NULL){
+
     $_post = $this->input->post();
+    
+
     
     $_post['body'] = preg_replace("/<p[^>]*><\\/p[^>]*>/", '', $_post['body']); 
 
     if($this->input->post("submit") != NULL OR $this->input->post("ajax")==TRUE){
       
+      
+      
       if( isset($_post["id"]) ){ 
         $postData = $this->locationModel->updateRecord($_post);
-
-
+        //var_dump($postData);
         ////////////////////////////////////////////
         //Update (TagLocation) relationship data table 
         ////////////////////////////////////////////        
@@ -179,7 +240,7 @@ class Location extends MY_Controller {
         if(!empty($_post["tags"])){
           ////////////////////////////////////////////
           //Add (TagTour) relationship data table 
-          ////////////////////////////////////////////         
+          ////////////////////////////////////////////
           $this->load->model("tag_model", "tagModel");
           $this->load->model("taglocation_model", "tagLocationModel");
           $count = 0;
@@ -193,7 +254,54 @@ class Location extends MY_Controller {
           $this->tagLocationModel->addMultipleRecord($tagLocation);        
         }
       }
-      //print_r($postData);  exit;
+      
+      if($this->input->post("ajax")!=TRUE){
+        //Upload and update Images
+        $this->load->library('upload');
+        $dir = Hash::make("location_images")->hash(md5($postData));
+  
+        if(!file_exists($dir)){
+          mkdir($dir, 0755,true);
+        }else{
+          Util::rrmdir($dir);
+        }
+        
+        $config[0]['upload_path'] = $dir;
+        $config[0]['allowed_types'] = 'gif|jpg|png';
+        $config[0]['file_name'] = md5($postData)."_first.jpg";
+        $this->upload->initialize($config[0]);
+        $this->upload->do_upload("frist_image");
+        $_firstImg = $this->upload->data();
+        //echo $this->upload->display_errors();
+        //var_dump($_firstImg);
+        
+        $config[1]['upload_path'] = $dir;
+        $config[1]['allowed_types'] = 'gif|jpg|png';
+        $config[1]['file_name'] = md5($postData)."_background.jpg";
+        $this->upload->initialize($config[1]);
+        $this->upload->do_upload("background_image");
+        $_backgroundImg = $this->upload->data();
+        //echo $this->upload->display_errors();
+        //var_dump($_backgroundImg);
+        
+        $config[2]['upload_path'] = $dir;
+        $config[2]['allowed_types'] = 'gif|jpg|png';
+        $config[2]['file_name'] = md5($postData)."_banner.jpg";
+        $this->upload->initialize($config[2]);
+        $this->upload->do_upload("banner_image");
+        $_bannerImg = $this->upload->data();
+        //echo $this->upload->display_errors();
+        //var_dump($dir);
+        
+        $imgData["first_image"] = base_url("/".$dir."/".$_firstImg["file_name"]);
+        $imgData["background_image"] = base_url("/".$dir."/".$_backgroundImg["file_name"]);
+        $imgData["banner_image"] = base_url("/".$dir."/".$_bannerImg["file_name"]);
+
+        $imgData["id"] = $postData;
+        $this->locationModel->updateRecord($imgData);
+      }
+      
+      
       if($postData){
         if($this->input->post("ajax")==TRUE){
           $data['id'] = $postData;
@@ -202,7 +310,6 @@ class Location extends MY_Controller {
           die;
         }else{ 
           $data['post_data']['id'] = $postData;
-          //print_r($_post); exit;
           $this->_fetch('admin_add_success',$data);
         }
       }else{
@@ -253,6 +360,7 @@ class Location extends MY_Controller {
   }
   
   function user_view($id=FALSE){  
+    
     if($id){
       $this->load->model("images_model", "imagesModel");
       $locationData["location"] = $this->locationModel->get($id);

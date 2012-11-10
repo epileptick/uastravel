@@ -20,6 +20,7 @@
   min-width: 610px;
   height: auto !important;
 }
+
 .bottom-shadow {
   -webkit-box-bot-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.1);
@@ -98,6 +99,16 @@ input[Attributes Style] {
   direction: ltr;
   unicode-bidi: embed;
 }
+
+.form_input {
+  width:290px;
+  height: 32px;
+  color: #999;
+  moz-box-shadow: inset 0px 0px 1px rgba(0,0,0,0.5);
+  -webkit-box-shadow: inset 0px 0px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0px 0px 1px rgba(0, 0, 0, 0.5);
+  -moz-border-radius: 3px;
+}
 .blogg-button.blogg-primary {
   background: -webkit-gradient(linear, left top, left bottom, from(#FDA352), to(#FB8F3D)) !important ;
   -webkit-box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0.5);
@@ -115,6 +126,17 @@ input[Attributes Style] {
   padding:;
   margin-bottom: 0;
 }
+.blogg-button-active {
+  background-color:white !important;
+}
+.blogg-button a {
+  display:block !important ;
+  width:auto !important ;
+  height: auto !important ;
+  padding: 0 10px !important;
+}
+
+
 
 .blogg-button {
   background: -webkit-gradient(linear, left top, left bottom, from(whiteSmoke), to(#F1F1F1)) !important ;
@@ -124,6 +146,7 @@ input[Attributes Style] {
   -webkit-box-align: stretch;
   -webkit-user-select: none;
 }
+
 .blogg-button {
   border-radius: 2px;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -140,16 +163,21 @@ input[Attributes Style] {
   font-weight: bold;
   position: relative;
 }
+
+.blogg-button-page {
+  padding: 0 !important;
+}
+
 .blogg-button:hover {
   border: 1px solid #c1c1c1;
 }
 .blogg-button.blogg-collapse-left {
-  margin-left: -3px;
+  margin-left: 1px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 .blogg-button.blogg-collapse-right {
-  margin-right: -3px;
+  margin-right: 1px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -292,6 +320,9 @@ side bar
   padding:10px;
   padding-left:20px;
   width:100%;
+}
+.side_bar_block p {
+  margin-bottom: 2px;
 }
 .image {
   background: url("../images/image.png") -0px 13px no-repeat;

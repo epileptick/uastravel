@@ -64,7 +64,7 @@ $autoload['libraries'] = array("database","session","parser");
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url','form');
+$autoload['helper'] = array('url','form','url_helper','language_helper');
 
 
 /*
@@ -96,7 +96,7 @@ $autoload['config'] = array("facebook","theme");
 |
 */
 
-$autoload['language'] = array("global","user","theme","location","tour","url");
+$autoload['language'] = array("global","user","theme","location","tour","url","tag");
 
 
 /*

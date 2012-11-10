@@ -52,15 +52,15 @@ $route['^(en|th|de|fr|nl)$'] = $route['default_controller'];
 ////////// Urls start
 
 //location
-$route['admin/'.LangUtil::line("url_lang_location")] = 'location/admin_index';
-$route['admin/'.LangUtil::line("url_lang_location")."/create/(:any)"] = 'location/admin_create/$1';
-$route['admin/'.LangUtil::line("url_lang_location")."/create"] = 'location/admin_create';
-$route['admin/'.LangUtil::line("url_lang_location")."/ajax_delete"] = 'location/ajax_delete';
-$route['admin/'.LangUtil::line("url_lang_location")."/delete/(:any)"] = 'location/admin_delete/$1';
-$route['admin/'.LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/admin_view/$3';
-$route['admin/'.LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/admin_view/$2';
-$route['admin/'.LangUtil::line("url_lang_location").'/(:any)'] = 'location/admin_index'; //for Tag
-$route['admin/'.LangUtil::line("url_lang_location")] = 'location/admin_index';
+$route['admin/location'] = 'location/admin_index';
+$route['admin/location/create/(:any)'] = 'location/admin_create/$1';
+$route['admin/location/create'] = 'location/admin_create';
+$route['admin/location/ajax_delete'] = 'location/ajax_delete';
+$route['admin/location/delete/(:any)'] = 'location/admin_delete/$1';
+$route['admin/location/(:any)/(:any)-(:num)'] = 'location/admin_view/$3';
+$route['admin/location/(:any)-(:num)'] = 'location/admin_view/$2';
+$route['admin/location/(:any)'] = 'location/admin_index'; //for Tag
+$route['admin/location'] = 'location/admin_index';
 
 $route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/user_view/$4';
 $route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/user_view/$3';

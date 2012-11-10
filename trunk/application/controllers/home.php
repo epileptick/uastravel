@@ -22,30 +22,34 @@ class Home extends MY_Controller {
 
 
       $count = 0;
-      foreach ($tagtypeQuery as $key => $value) {
-        //Menu Tag
-        $tag["id"] = $value->tag_id;      
-        $tagQuery = $this->tagModel->getRecord($tag);
-        $menu[$count]->tag_id = $tagQuery[0]->id;
-        $menu[$count]->name = $tagQuery[0]->name;
-        $menu[$count]->url = $tagQuery[0]->url;
-
-        //Select all
-        if($select){
-          $menu[$count]->select_all = 0;
-        }else{
-          $menu[$count]->select_all = 1;
+      if(!empty($tagtypeQuery)){
+        foreach ($tagtypeQuery as $key => $value) {
+          //Menu Tag
+          $tag["id"] = $value->tag_id;      
+          $tagQuery = $this->tagModel->getRecord($tag);
+          $menu[$count]->tag_id = $tagQuery[0]->id;
+          $menu[$count]->name = $tagQuery[0]->name;
+          $menu[$count]->url = $tagQuery[0]->url;
+  
+          //Select all
+          if($select){
+            $menu[$count]->select_all = 0;
+          }else{
+            $menu[$count]->select_all = 1;
+          }
+          //Select element
+          if($select && $select == $tagQuery[0]->name){
+            $menu[$count]->select = 1;
+          }else{
+            $menu[$count]->select = 0;
+          }
+  
+          $count++;
         }
-        //Select element
-        if($select && $select == $tagQuery[0]->name){
-          $menu[$count]->select = 1;
-        }else{
-          $menu[$count]->select = 0;
-        }
-
-        $count++;
+      }else{
+        $menu = FALSE;
       }
-
+      
       return $menu;
       //print_r($menu);  exit;
   }
@@ -57,41 +61,40 @@ class Home extends MY_Controller {
     $count = 0;
     $this->load->model("tagtour_model", "tagtourModel");
     $this->load->model("taglocation_model", "taglocationModel");
-    foreach ($tags as $key => $valueTag) {
-      //Tour Tag
-      $tag["tag_id"] = $valueTag->tag_id;
-      $tag["join"] = true;
-
-      //Tour
-      $tagtourQuery = $this->tagtourModel->getRecord($tag);
-      if(!empty($tagtourQuery)){
-        foreach ($tagtourQuery as $key => $value) {
-          # code...
-          $home[$count] = $value;
-          $count++;
+    
+    if(!empty($tags)){
+      foreach ($tags as $key => $valueTag) {
+        //Tour Tag
+        $tag["tag_id"] = $valueTag->tag_id;
+        $tag["join"] = true;
+        //Tour
+        $tagtourQuery = $this->tagtourModel->getRecord($tag);
+        if(!empty($tagtourQuery)){
+          foreach ($tagtourQuery as $key => $value) {
+            # code...
+            $home[$count] = $value;
+            $count++;
+          }
         }
+        //Location
+        $tagLocationQuery = $this->taglocationModel->getRecord($tag);
+        if(!empty($tagLocationQuery)){
+          foreach ($tagLocationQuery as $key => $value) {
+            # code...
+            $home[$count] = $value;
+            $count++;
+          }
+        }      
       }
-
-      //Location
-      $tagLocationQuery = $this->taglocationModel->getRecord($tag);
-      if(!empty($tagLocationQuery)){
-        foreach ($tagLocationQuery as $key => $value) {
-          # code...
-          $home[$count] = $value;
-          $count++;
-        }
-      }      
-
     }
-
+    
     //print_r($home); exit;
     if(!empty($home)){
       return $home;
     }else{
-      return ;
+      return FALSE;
     }
-
-  }  
+  }
 
   function user_list($tag=false){
   	//print_r($tag); exit;
