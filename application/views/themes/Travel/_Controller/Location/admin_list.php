@@ -84,17 +84,10 @@ function selectAll(){
       
       <div class="GM1BAGKBG5B">
         <div>
-          <span class="GM1BAGKBD5B">1-50 จาก 119</span>
-            <button class="blogg-button blogg-collapse-right" title="โพสต์ใหม่" disabled="" tabindex="0">
-              <img class="blogg-button-image" alt="โพสต์ใหม่" src="<?php echo $imagepath."/left_arrow.png" ?>">
-            </button>
-            <button class="blogg-button blogg-menu-button blogg-collapse-right blogg-collapse-left" aria-haspopup="true" title="ไปที่หน้าเว็บ หน้าปัจจุบันคือ 1" tabindex="0">
-              <span class="blogg-menu-button-content">1</span>
-              <span class="blogg-disclosureindicator"></span>
-            </button>
-            <button class="blogg-button blogg-collapse-left" title="โพสต์เก่า" tabindex="0">
-              <img class="blogg-button-image" alt="โพสต์เก่า" src="<?php echo $imagepath."/right_arrow.png" ?>">
-            </button>
+          <span class="GM1BAGKBD5B"><?php echo $start_offset;?>-<?php echo $end_offset;?> จาก <?php echo $total_rows;?></span>
+            <?php
+              echo $this->pagination->create_links();
+            ?>
          </div>
        </div>
     </div>
@@ -129,6 +122,7 @@ function selectAll(){
       ?>
     </ul>
     <?php echo form_close(); ?>
+    
   </section>
-
+  
 </div>

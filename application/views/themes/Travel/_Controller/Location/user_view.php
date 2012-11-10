@@ -64,7 +64,20 @@ if (count($matches)>1){
 ?>
 
 </head>
+<?php 
+var_dump($location);
+if(!empty($location['background_image'])){
+?>
+<body style="background: #ededed url('<?php echo $location['background_image']; ?>') no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
+<?php 
+}else{
+?>
 <body style="background: #ededed url('/themes/Travel/tour/images/bg1.jpg') no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
+<?php 
+}
+?>
+
+
   <div class="overly-bg"></div>
   <div id="wrapper">
     <!-- Menu -->

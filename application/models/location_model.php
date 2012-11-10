@@ -15,6 +15,9 @@ class Location_model extends MY_Model {
                      'url'              => 'loc_url',
                      'longitude'        => 'loc_longitude',
                      'latitude'         => 'loc_latitude',
+                     'first_image'      => 'loc_first_image',
+                     'background_image' => 'loc_background_image',
+                     'banner_image'     => 'loc_banner_image',
                      'cr_date'          => 'loc_cr_date',
                      'cr_uid'           => 'loc_cr_uid',
                      'lu_date'          => 'loc_lu_date',
@@ -28,7 +31,7 @@ class Location_model extends MY_Model {
       return FALSE;
     }
 
-    if(! isset($options["title"]) OR empty($options["title"])){
+    if((! isset($options["title"]) OR empty($options["title"])) AND $options["id"] == 0){
       $options["title"] = $this->lang->line("location_lang_unnamed_location");
     }
     if(! isset($options["status"]) OR empty($options["status"])){
@@ -87,20 +90,19 @@ class Location_model extends MY_Model {
         return FALSE;
       }
     }
-    if(! isset($options["title"]) OR empty($options["title"])){
-      $options["title"] = $this->lang->line("location_lang_unnamed_location");
-    }
+
     $options['lu_date'] = date("Y-m-d");
-    
-    $string = $options["title"];
-    $string = preg_replace("`\[.*\]`U","",$string);
-    $string = preg_replace('`&(amp;)?#?[a-z0-9]+;`i','-',$string);
-    $string = str_replace('%', '-percent', $string);
-    $string = htmlentities($string, ENT_COMPAT, 'utf-8');
-    $string = preg_replace( "`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);`i","\\1", $string );
-    $string = preg_replace( array("`[^a-z0-9ก-๙เ-า]`i","`[-]+`") , "-", $string);
-    $options["url"] = strtolower(trim($string, '-'));
-    $options["url"] = trim($options["url"]);
+    if(!empty($options["title"])){
+      $string = $options["title"];
+      $string = preg_replace("`\[.*\]`U","",$string);
+      $string = preg_replace('`&(amp;)?#?[a-z0-9]+;`i','-',$string);
+      $string = str_replace('%', '-percent', $string);
+      $string = htmlentities($string, ENT_COMPAT, 'utf-8');
+      $string = preg_replace( "`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);`i","\\1", $string );
+      $string = preg_replace( array("`[^a-z0-9ก-๙เ-า]`i","`[-]+`") , "-", $string);
+      $options["url"] = strtolower(trim($string, '-'));
+      $options["url"] = trim($options["url"]);
+    }
     
     //Set data
     foreach($options AS $columnName=>$columnValue){

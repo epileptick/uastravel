@@ -93,6 +93,7 @@
                         <div id="options" class="nav-collapse collapse">
                           <ul class="option-set nav" >
                             <?php
+                            if(!empty($menu))
                             if($menu[0]->select_all == 1){
                             ?>
                               <li><a href="<?php echo base_url();?>" class="selected">ทั้งหมด</a></li>
@@ -103,11 +104,11 @@
                             <?php
                             }
                             ?>
-
-
+                            
                             <?php
-                               foreach ($menu as $key => $value) {
-                              ?>
+                              if(!empty($menu))
+                              foreach ($menu as $key => $value) {
+                            ?>
                               <li>
                                 <a href="<?php echo base_url($value->url);?>" 
                                   <?php  

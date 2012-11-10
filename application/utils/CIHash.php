@@ -29,7 +29,7 @@ class HashingClass {
         function hash($string)
         {
                 $hashing = $this->hash_algorithm($string);
-                $path = $this->parent_dir.DIRECTORY_SEPARATOR.$this->sub_dir;
+                $path = $this->parent_dir.'/'.$this->sub_dir;
                 if ($hash_dirs = $this->_path($hashing))
                 {
                         $path .= '/'.$hash_dirs;

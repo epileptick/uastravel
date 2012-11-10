@@ -10,7 +10,23 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 PageUtil::addVar("javascript",'<script type="text/javascript">
 // Convert divs to queue widgets when the DOM is ready
 $(document).ready(function() {
-  
+  function autoSave(){
+    setTimeout(
+    function() 
+      {
+        //do something special
+      },
+      5000
+    );
+    //console.log(tinyMCE.get("txtBody").getContent());
+    //console.log(tinyMCE.get("txtSuggestion").getContent());
+    //console.log(tinyMCE.get("txtRoute").getContent());
+    if($("#id").val()!=0){
+      $.post(\''.base_url('admin/location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+    }else if($("#id").val()==0){
+      $.post(\''.base_url('admin/location/create/').'\',{title: $("#title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+    }
+  }
   updateImages();
   function updateImages(){  
             $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:1 },
@@ -65,19 +81,10 @@ $(document).ready(function() {
     if($("#title").val() == "" ){
       return 0;
     }
+
     autoSave();
   });
-  function autoSave(){
-    //console.log(tinyMCE.get("txtBody").getContent());
-    //console.log(tinyMCE.get("txtSuggestion").getContent());
-    //console.log(tinyMCE.get("txtRoute").getContent());
-    if($("#id").val()!=0){
-      $.post(\''.base_url('admin/location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
-    }else if($("#id").val()==0){
-      $.post(\''.base_url('admin/location/create/').'\',{title: $("#title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
-    }
-  }
-  
+
   
     tinyMCE.init({
         mode : "specific_textareas",
@@ -357,7 +364,7 @@ PageUtil::addVar("javascript",'
   <div id="add_form">
   <div id="status"></div>
   
-  <?php echo form_open(base_url('admin/location/create')); ?>
+  <?php echo form_open(base_url('admin/location/create'),'enctype="multipart/form-data"'); ?>
   <input type="hidden" value="<?=$post['loc_id']?>" id="id" name="id" />
   <span id="fedfe"></span>
   <div class="topHolder">
@@ -409,6 +416,22 @@ PageUtil::addVar("javascript",'
         <span id="btnHide"  class="upload-button" onClick="return(false);"></span>
         <span id="btnShow"  class="upload-button" onClick="return(false);">Show</span>
       </div>
+      
+      <div class="side_bar_block">
+        <p>First Image (Minimum width: 300px)</p>
+        <?php
+          echo form_upload('frist_image', '', 'class="form_input"');
+        ?>
+        <p>Background Image (1920px * 800px)</p>
+        <?php
+          echo form_upload('background_image', '', 'class="form_input"');
+        ?>
+        <p>Banner Image (770px * 180px)</p>
+        <?php
+          echo form_upload('banner_image', '', 'class="form_input"');
+        ?>
+      </div>
+      
       
       <div class="side_bar_block">
         <h3 class="tag">{_ location_lang_tag} <span style="cursor:pointer;"  id="show_all">show all</span></h3>
