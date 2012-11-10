@@ -85,6 +85,11 @@ class Tour_model extends MY_Model {
     }else{
       //Get list page
       //$this->db->order_by("tou_id", "asc");
+
+      if($args["limit"] && $args["offset"]){
+        $this->db->limit($args["limit"], $args["offset"]);
+      }
+
       $this->db->order_by('CONVERT( tou_name USING tis620 ) ASC');    
       $query = $this->db->get("ci_tour");
 
