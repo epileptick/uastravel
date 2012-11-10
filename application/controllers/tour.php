@@ -84,9 +84,9 @@ class Tour extends MY_Controller {
       $tagQuery = $this->tagModel->getRecord($argTag);
       
       if(!empty($tagQuery)){
-        $tagForTour[0]->tag_id = $tagQuery[0]->id;        
+        $tagForTour[0]->tag_id = $tagQuery[0]->id;
         //Tour
-       $data["tour"] = $this->_tour_list($tagForTour);    
+       $data["tour"] = $this->_tour_list($tagForTour);
       }else{
         $data["tour"] = false;
       }
@@ -222,7 +222,6 @@ class Tour extends MY_Controller {
 
     //Send argument to validate function
     $validate = $this->validate($args);
-    
 
     //Load other model
     $this->load->model("language_model","languageModel");  
@@ -282,17 +281,15 @@ class Tour extends MY_Controller {
             $tag_result = $this->tagModel->getRecord($tagTour);
             $data["tag_query"][] = $tag_result[0];
           }
-
         }
-
+        
         //Send data to update form
         $this->_fetch('admin_update', $data);
       }else{
         //Send to create form
         $this->_fetch('admin_create', $data);
       }
-
-
+    
     ///////////////////////
     //End update (id)
     ///////////////////////
@@ -316,6 +313,8 @@ class Tour extends MY_Controller {
         //$tour["id"] = $insertTourID;
         //$insertTourID =  $this->tourModel->updateRecord($tour);
         
+
+        $this->_uploadImage($insertTourID);
         
         ////////////////////////////////////////////
         //Update images parent_id 
@@ -454,9 +453,8 @@ class Tour extends MY_Controller {
           $this->load->model("agencytour_model", "agencytourModel");
           $tour["tour_id"] = $args["id"];
           $this->agencytourModel->deleteRecord($tour);
-
         }
-    
+        $this->_uploadImage($args["id"]);
         //Redirect
         redirect(base_url("admin/tour")); 
     } else {
@@ -518,6 +516,54 @@ class Tour extends MY_Controller {
     }else{
       return;
     }
+  }
+  
+  function _uploadImage($TourID=""){
+    if(empty($TourID)){
+      return FALSE;
+    }
+    
+    //Upload and update Images
+    $this->load->library('upload');
+    $dir = Hash::make("tour_images")->hash(md5($TourID));
+
+    if(!file_exists($dir)){
+      mkdir($dir, 0755,true);
+    }else{
+      Util::rrmdir($dir);
+    }
+    
+    $config[0]['upload_path'] = $dir;
+    $config[0]['allowed_types'] = 'gif|jpg|png';
+    $config[0]['file_name'] = md5($TourID)."_first.jpg";
+    $this->upload->initialize($config[0]);
+    $this->upload->do_upload("frist_image");
+    $_firstImg = $this->upload->data();
+
+    
+    $config[1]['upload_path'] = $dir;
+    $config[1]['allowed_types'] = 'gif|jpg|png';
+    $config[1]['file_name'] = md5($TourID)."_background.jpg";
+    $this->upload->initialize($config[1]);
+    $this->upload->do_upload("background_image");
+    $_backgroundImg = $this->upload->data();
+
+    
+    $config[2]['upload_path'] = $dir;
+    $config[2]['allowed_types'] = 'gif|jpg|png';
+    $config[2]['file_name'] = md5($TourID)."_banner.jpg";
+    $this->upload->initialize($config[2]);
+    $this->upload->do_upload("banner_image");
+    $_bannerImg = $this->upload->data();
+    echo $this->upload->display_errors();
+    
+    $imgData["first_image"] = base_url("/".$dir."/".$_firstImg["file_name"]);
+    $imgData["background_image"] = base_url("/".$dir."/".$_backgroundImg["file_name"]);
+    $imgData["banner_image"] = base_url("/".$dir."/".$_bannerImg["file_name"]);
+
+    $imgData["id"] = $TourID;
+    var_dump($imgData);
+    return $this->tourModel->updateRecord($imgData);
   }
 
 }

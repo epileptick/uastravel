@@ -39,9 +39,7 @@ class Language extends MY_Controller {
         $this->_fetch('list', $data);  
       }
     }
-
   }
-
   
   function read($id=false){
     //implement code here
