@@ -26,6 +26,25 @@ class TagTour_model extends MY_Model {
     return $newResult;
   }
 
+  function countRecord($args = false){
+
+    $count = 0;
+    if(!empty($args["tag_id"]) && $args["join"]  && $args["in"] ){
+      $this->db->select('COUNT(tat_tour_id) AS count_tour');
+      $this->db->from('ci_tagtour');
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
+      $this->db->where_in('tat_tag_id', $args["tag_id"]); 
+      $query = $this->db->get();
+      $count = $query->result(); 
+      return $count[0]->count_tour;
+    }else{  
+      $count = $this->db->count_all('ci_tagtour');
+      return $count;
+    }
+
+
+  }
 
   function getRecord($args=false){
     //print_r($args); exit;
@@ -43,6 +62,26 @@ class TagTour_model extends MY_Model {
       }else{
         return false;
       }
+
+    }else if(!empty($args["tag_id"]) && $args["join"] && $args["in"]){
+
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
+
+      if($args["limit"]>-1 && $args["offset"] > -1){
+        $this->db->limit($args["limit"], $args["offset"]);
+      }
+
+      $this->db->where_in('tat_tag_id', $args["tag_id"]);  
+
+      $this->db->order_by('CONVERT( ci_tour.tou_name USING tis620 ) ASC');  
+
+      $query = $this->db->get('ci_tagtour');   
+      //$names = array('Frank', 'Todd', 'James');
+      //$this->db->where_in('username', $names);
+
+      return $query->result();
+
     }else if(isset($args["tag_id"]) && $args["join"]){
       //Get category by name
       //print_r($args); exit;
