@@ -29,8 +29,6 @@ class Tour extends MY_Controller {
 
       $this->load->model("tag_model", "tagModel");  
 
-
-
       $count = 0;
       foreach ($tagtypeQuery as $key => $value) {
         //Menu Tag
@@ -63,32 +61,16 @@ class Tour extends MY_Controller {
 
   function _tour_list($tags){
 
-    //print_r($tags); exit;
     $count = 0;
     $this->load->model("tagtour_model", "tagtourModel");
-    foreach ($tags as $key => $valueTag) {
-      //Tour Tag
-      $tagtour["tag_id"] = $valueTag->tag_id;
-      $tagtour["join"] = true;
-      $tagtourQuery = $this->tagtourModel->getRecord($tagtour);
+    $tour = $this->tagtourModel->getRecord($tags);
 
-    //print_r($tagtourQuery);
-      if(!empty($tagtourQuery)){
-        foreach ($tagtourQuery as $key => $value) {
-          # code...
-          $tour[$count] = $value;
-          $count++;
-        }
-      }
-
-    }
-
+    //print_r($tour); exit;
     if(!empty($tour)){
       return $tour;
     }else{
       return ;
     }
-
   }  
 
   function user_list($tag=false){
@@ -96,6 +78,7 @@ class Tour extends MY_Controller {
     $data["menu"]= $this->_tour_menu($tag);
 
     if($tag){
+      //Filter by tag
       //Tag
       $argTag["url"] = $tag;      
       $tagQuery = $this->tagModel->getRecord($argTag);
@@ -108,9 +91,34 @@ class Tour extends MY_Controller {
         $data["tour"] = false;
       }
     }else{
+
+      //Filter all
+      foreach ($data["menu"] as $key => $valueTag) {
+        $tagtour["tag_id"][] = $valueTag->tag_id;
+      }
+      $tagtour["join"] = true;
+      $tagtour["in"] = true;
+      $tagtour["limit"] = 10;
+      $tagtour["offset"] = ($this->uri->segment(2))?$this->uri->segment(2):0;   
+
+
+      //Pagination
+      $this->load->library('pagination');
+      $config['per_page'] = $tagtour["limit"];
+      $config['base_url'] = base_url("tour");
+      $this->load->model("tagtour_model", "tagtourModel");
+      $config['total_rows'] = $this->tagtourModel->countRecord($tagtour);
+      $this->pagination->initialize($config); 
+
       //Send tag for get data
-      $data["tour"] = $this->_tour_list($data["menu"]);
+      $data["tour"] = $this->_tour_list($tagtour);
+
+      //print_r(count($data["tour"])); exit;
     }
+
+
+
+
 
     //print_r($data);   
     $this->_fetch('user_list', $data, false, true);
