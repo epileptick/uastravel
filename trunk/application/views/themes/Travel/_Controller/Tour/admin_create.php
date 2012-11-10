@@ -316,7 +316,7 @@ $(document).ready(function() {
 </script>
 
 	
-<?php echo form_open(base_url("admin/tour/create"));?>	
+<?php echo form_open(base_url("admin/tour/create"),'enctype="multipart/form-data"');?>	
 <input type="hidden"  id="id"  name="fakeid"  value="<?php echo $fakeId;?>" />
 <div class="container_12">
 
@@ -514,6 +514,24 @@ $(document).ready(function() {
         <span id="btnHide"  class="upload-button" onClick="return(false);"></span>
         <span id="btnShow"  class="upload-button" onClick="return(false);">Show</span>
 			<div class="clearfix"></div>
+	</section>
+  
+  <section class="simple_sidebar grid_4">
+		<label>{_ location_lang_image_manager}</label>
+			
+      <p>First Image (Minimum width: 300px)</p>
+      <?php
+        echo form_upload('frist_image', '', 'class="form_input"');
+      ?>
+      <p>Background Image (1920px * 800px)</p>
+      <?php
+        echo form_upload('background_image', '', 'class="form_input"');
+      ?>
+      <p>Banner Image (770px * 180px)</p>
+      <?php
+        echo form_upload('banner_image', '', 'class="form_input"');
+      ?>
+      <div class="clearfix"></div>
 	</section>
 	<!-- End Images -->
 

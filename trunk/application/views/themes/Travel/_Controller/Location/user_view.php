@@ -65,7 +65,6 @@ if (count($matches)>1){
 
 </head>
 <?php 
-var_dump($location);
 if(!empty($location['background_image'])){
 ?>
 <body style="background: #ededed url('<?php echo $location['background_image']; ?>') no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
