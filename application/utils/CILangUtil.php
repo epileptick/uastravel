@@ -43,7 +43,8 @@ class LangUtil{
         $uri_segment['lang'] = $uri_expl[0];
         $uri_segment['language'] = $languages[$uri_segment['lang']];
       }else{
-        $uri_segment['lang'] = array_keys($languages)[0];
+        $arrayLang = array_keys($languages);
+        $uri_segment['lang'] = $arrayLang[0];
         $uri_segment['language'] = $languages[$uri_segment['lang']];
       }
       return $uri_segment;

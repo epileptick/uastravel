@@ -210,10 +210,8 @@ class Location extends MY_Controller {
 
   
   function admin_create($id=NULL){
-
     $_post = $this->input->post();
     
-
     
     $_post['body'] = preg_replace("/<p[^>]*><\\/p[^>]*>/", '', $_post['body']); 
 
