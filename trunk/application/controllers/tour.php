@@ -313,8 +313,8 @@ class Tour extends MY_Controller {
         $insertTourID =  $this->tourModel->addRecord($args);
 
         //$args["url"] = Util::url_title($args["name"])."-".$insertTourID;
-        $tour["id"] = $insertTourID;
-        $insertTourID =  $this->tourModel->updateRecord($tour);
+        //$tour["id"] = $insertTourID;
+        //$insertTourID =  $this->tourModel->updateRecord($tour);
         
         
         ////////////////////////////////////////////
