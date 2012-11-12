@@ -29,7 +29,7 @@ class TagTour_model extends MY_Model {
   function countRecord($args = false){
 
     $count = 0;
-    if(!empty($args["tag_id"]) && $args["join"]  && $args["in"] ){
+    if(!empty($args["tag_id"]) && !empty($args["join"])  && !empty($args["in"]) ){
       $this->db->select('COUNT(tat_tour_id) AS count_tour');
       $this->db->from('ci_tagtour');
       $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
@@ -63,12 +63,12 @@ class TagTour_model extends MY_Model {
         return false;
       }
 
-    }else if(!empty($args["tag_id"]) && $args["join"] && $args["in"]){
+    }else if(!empty($args["tag_id"]) && !empty($args["join"]) && !empty($args["in"])){
 
       $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
       $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
 
-      if($args["limit"]>-1 && $args["offset"] > -1){
+      if(isset($args["limit"])>-1 && isset($args["offset"]) > -1){
         $this->db->limit($args["limit"], $args["offset"]);
       }
 
@@ -82,7 +82,7 @@ class TagTour_model extends MY_Model {
 
       return $query->result();
 
-    }else if(isset($args["tag_id"]) && $args["join"]){
+    }else if(!empty($args["tag_id"]) && !empty($args["join"])){
       //Get category by name
       //print_r($args); exit;
       $data["tat_tag_id"] = $args["tag_id"];
@@ -92,7 +92,7 @@ class TagTour_model extends MY_Model {
 
       return $query->result();
 
-    }else if(isset($args["tag_id"])){
+    }else if(!empty($args["tag_id"])){
       //Get category by name
       //print_r($args); exit;
       $data["tat_tag_id"] = $args["tag_id"];      
@@ -105,7 +105,7 @@ class TagTour_model extends MY_Model {
       }else{
         return false;
       }
-    }else if(isset($args["tour_id"])){
+    }else if(!empty($args["tour_id"])){
       //Get category by name
       $data["tat_tour_id"] = $args["tour_id"];
       //print_r($args);
@@ -116,7 +116,7 @@ class TagTour_model extends MY_Model {
       }else{
         return false;
       }
-    }else if(isset($args["id"])){
+    }else if(!empty($args["id"])){
       //Get category by id      
       $query = $this->db->get_where('ci_tagtour', array('agt_id' => $args["id"]), 1, 0);
 
