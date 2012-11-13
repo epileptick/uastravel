@@ -521,7 +521,7 @@ $(document).ready(function() {
 			
       <p>First Image (Minimum width: 300px)</p>
       <?php
-        echo form_upload('frist_image', '', 'class="form_input"');
+        echo form_upload('first_image', '', 'class="form_input"');
       ?>
       <p>Background Image (1920px * 800px)</p>
       <?php
