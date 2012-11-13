@@ -67,6 +67,7 @@ $route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'lo
 $route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_list/$2'; //for Tag
 $route[$lang_set.'/'.LangUtil::line("url_lang_location")] = 'location/user_list';
 
+$route[LangUtil::line("url_lang_location").'/(:num)'] = 'location/user_index';
 $route[LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/user_view/$3';
 $route[LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/user_view/$2';
 $route[LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_list/$1'; //for Tag
@@ -84,14 +85,13 @@ $route['admin/'.LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour
 $route['admin/'.LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/admin_view/$2';
 $route['admin/'.LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/admin_list'; //for Tag
 
-$route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:num)'] = 'tour/user_index/$1';
+$route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:num)'] = 'tour/user_index';
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/user_view/$3';
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/user_list/$1'; //for Tag
-$route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/test'] = 'tour/user_test'; //for Tag
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour")] = 'tour/user_list'; //list tour
 
-$route[LangUtil::line("url_lang_tour").'/(:num)'] = 'tour/user_index/$1';
+$route[LangUtil::line("url_lang_tour").'/(:num)'] = 'tour/user_index';
 $route[LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/user_view/$3';
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
 $route[LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/user_list/$1'; //for Tag
@@ -133,6 +133,7 @@ $route['images/ajax_upload'] = 'images/ajax_upload';
 
 //Home
 $route['admin'] = 'home/admin_list';
+$route['(:num)'] = 'home/user_list';
 $route['(:any)'] = 'home/user_list/$1';
 
 ///////// Urls end
