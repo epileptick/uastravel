@@ -54,72 +54,83 @@ class Home extends MY_Controller {
       //print_r($menu);  exit;
   }
 
+  function _shuffle_assoc($list) { 
+    if (!is_array($list)) return $list; 
+
+    $keys = array_keys($list); 
+    shuffle($keys); 
+    $random = array(); 
+    foreach ($keys as $key) { 
+      $random[] = $list[$key]; 
+    }
+    return $random; 
+  }
 
   function _home_list($tags){
 
-    //print_r($tags); exit;
-    $count = 0;
-    $this->load->model("tagtour_model", "tagtourModel");
-    $this->load->model("taglocation_model", "taglocationModel");
-    
     if(!empty($tags)){
       foreach ($tags as $key => $valueTag) {
-        //Tour Tag
-        $tag["tag_id"] = $valueTag->tag_id;
-        $tag["join"] = true;
         //Tour
-        $tagtourQuery = $this->tagtourModel->getRecord($tag);
-        if(!empty($tagtourQuery)){
-          foreach ($tagtourQuery as $key => $value) {
-            # code...
-            $home[$count] = $value;
-            $count++;
-          }
-        }
+        $this->load->model("tagtour_model", "tagtourModel");
+        $tour = $this->tagtourModel->getRecord($tags);
+        
         //Location
-        $tagLocationQuery = $this->taglocationModel->getRecord($tag);
-        if(!empty($tagLocationQuery)){
-          foreach ($tagLocationQuery as $key => $value) {
-            # code...
-            $home[$count] = $value;
-            $count++;
-          }
-        }      
+        $this->load->model("taglocation_model", "taglocationModel");
+        $location = $this->taglocationModel->getRecord($tags);
       }
     }
     
-    //print_r($home); exit;
+    $home = array_merge($tour, $location);
+
+    //print_r($this->_shuffle_assoc($home)); exit;
     if(!empty($home)){
-      return $home;
+      return $this->_shuffle_assoc($home);
     }else{
       return FALSE;
     }
   }
 
   function user_list($tag=false){
-  	//print_r($tag); exit;
+
+    $per_page = 4;    
     $data["menu"]= $this->_home_menu($tag);
 
     if($tag){
-      //Tag
       $argTag["url"] = $tag;      
       $tagQuery = $this->tagModel->getRecord($argTag);
 
       if(!empty($tagQuery)){
-      	$tagForHome[0]->tag_id = $tagQuery[0]->id;      	
-	      //Tour
-	     $data["home"] = $this->_home_list($tagForHome);  	
-      }else{
-      	$data["home"] = false;
-      }
+        $query["tag_id"] = $tagQuery[0]->id;
+        $query["join"] = true;
+        $query["per_page"] = $per_page;
+        $query["offset"] = ($this->uri->segment(2))?($this->uri->segment(2)-1)*$query["per_page"]:0;   
 
+        //Tour
+        $data["home"] = $this->_home_list($query);    
+      }else{
+        $data["home"] = false;
+      }
     }else{
-      //Send tag for get data
-      $data["home"] = $this->_home_list($data["menu"]);
+      //Filter all
+      foreach ($data["menu"] as $key => $valueTag) {
+        $query["tag_id"][] = $valueTag->tag_id;
+      }
+      $query["join"] = true;
+      $query["in"] = true;
+      $query["per_page"] = $per_page;
+      $query["offset"] = ($this->uri->segment(1))?($this->uri->segment(1)-1)*$query["per_page"]:0;  
+
+      
+      $data["home"] = $this->_home_list($query); 
     }
 
-    //print_r($data);   exit;
-    $this->_fetch('user_list', $data, false, true);
+    //print_r($query); exit;
+    if($query["offset"]>0){
+      $this->_fetch('user_listnextpage', $data, false, true);
+    }else{
+      //print_r($data);   
+      $this->_fetch('user_list', $data, false, true);
+    }
 
   }
 

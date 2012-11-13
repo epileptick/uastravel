@@ -75,53 +75,72 @@ class Tour extends MY_Controller {
 
   function user_list($tag=false){
 
+
+    $per_page = 6;
     $data["menu"]= $this->_tour_menu($tag);
 
     if($tag){
+      //////////////////////////////////////////////////////
+      // List by tag
+      // algorithm : localhost/uastravel/tour/tag/page
+      // example : localhost/uastravel/tour/เชียงใหม่
+      //           localhost/uastravel/tour/เชียงใหม่/2
+      //           localhost/uastravel/tour/เชียงใหม่/3
+      //////////////////////////////////////////////////////
+
       //Filter by tag
       //Tag
       $argTag["url"] = $tag;      
       $tagQuery = $this->tagModel->getRecord($argTag);
-      
       if(!empty($tagQuery)){
-        $tagForTour[0]->tag_id = $tagQuery[0]->id;
+        $query["tag_id"] = $tagQuery[0]->id;
+        $query["join"] = true;
+        $query["per_page"] = $per_page;
+        $query["offset"] = ($this->uri->segment(3))?($this->uri->segment(3)-1)*$query["per_page"]:0;   
         //Tour
-       $data["tour"] = $this->_tour_list($tagForTour);
+       $data["tour"] = $this->_tour_list($query);
       }else{
         $data["tour"] = false;
       }
     }else{
+      //////////////////////////////////////////////////////
+      // List all 
+      // algorithm : localhost/uastravel/tour/page
+      // example : localhost/uastravel/tour/
+      //           localhost/uastravel/tour/2
+      //           localhost/uastravel/tour/3
+      //////////////////////////////////////////////////////
 
       //Filter all
       foreach ($data["menu"] as $key => $valueTag) {
-        $tagtour["tag_id"][] = $valueTag->tag_id;
+        $query["tag_id"][] = $valueTag->tag_id;
       }
-      $tagtour["join"] = true;
-      $tagtour["in"] = true;
-      $tagtour["limit"] = 10;
-      $tagtour["offset"] = ($this->uri->segment(2))?$this->uri->segment(2):0;   
+      $query["join"] = true;
+      $query["in"] = true;
+      $query["per_page"] = $per_page;
+      $query["offset"] = ($this->uri->segment(2))?($this->uri->segment(2)-1)*$query["per_page"]:0;   
 
-
+      ///print_r($tagtour); exit;
       //Pagination
+      /*
       $this->load->library('pagination');
-      $config['per_page'] = $tagtour["limit"];
+      $config['per_page'] = $tagtour["per_page"];
       $config['base_url'] = base_url("tour");
       $this->load->model("tagtour_model", "tagtourModel");
       $config['total_rows'] = $this->tagtourModel->countRecord($tagtour);
       $this->pagination->initialize($config); 
-
+      */
       //Send tag for get data
-      $data["tour"] = $this->_tour_list($tagtour);
-
-      //print_r(count($data["tour"])); exit;
+      $data["tour"] = $this->_tour_list($query);
     }
+      //print_r($data);   exit;
 
-
-
-
-
-    //print_r($data);   
-    $this->_fetch('user_list', $data, false, true);
+    if($query["offset"]>0){
+      $this->_fetch('user_listnextpage', $data, false, true);
+    }else{
+      //print_r($data);   
+      $this->_fetch('user_list', $data, false, true);
+    }
 
   }
 

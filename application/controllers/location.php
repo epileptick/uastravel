@@ -94,6 +94,8 @@ class Location extends MY_Controller {
     if($keyword){
       $this->_search("user_list");
     }else{
+
+      /*
       $tag = $this->uri->segment(2);
       $where = array(
                     'limit'=>'',
@@ -107,6 +109,9 @@ class Location extends MY_Controller {
       $result = $this->_index($where);
                                         
       $this->_fetch("user_list",$result);
+
+      */
+      $this->user_list();
     }
   }
 
@@ -152,25 +157,9 @@ class Location extends MY_Controller {
 
   function _location_list($tags){
 
-    //print_r($tags); exit;
     $count = 0;
     $this->load->model("taglocation_model", "taglocationModel");
-    foreach ($tags as $key => $valueTag) {
-      //Tour Tag
-      $tagLocation["tag_id"] = $valueTag->tag_id;
-      $tagLocation["join"] = true;
-      $tagLocationQuery = $this->taglocationModel->getRecord($tagLocation);
-
-      //print_r($tagLocationQuery); exit;
-      if(!empty($tagLocationQuery)){
-        foreach ($tagLocationQuery as $key => $value) {
-          # code...
-          $location[$count] = $value;
-          $count++;
-        }
-      }
-
-    }
+    $location = $this->taglocationModel->getRecord($tags);
 
     if(!empty($location)){
       return $location;
@@ -181,29 +170,46 @@ class Location extends MY_Controller {
   }  
   
   function user_list($tag=false){
-    
-      
+
+    $per_page = 6;    
     $data["menu"]= $this->_location_menu($tag);
 
     if($tag){
-      //Tag
       $argTag["url"] = $tag;      
       $tagQuery = $this->tagModel->getRecord($argTag);
 
       if(!empty($tagQuery)){
-        $tagForLocation[0]->tag_id = $tagQuery[0]->id;        
+        $query["tag_id"] = $tagQuery[0]->id;
+        $query["join"] = true;
+        $query["per_page"] = $per_page;
+        $query["offset"] = ($this->uri->segment(3))?($this->uri->segment(3)-1)*$query["per_page"]:0;   
+
         //Tour
-       $data["location"] = $this->_location_list($tagForLocation);    
+        $data["location"] = $this->_location_list($query);    
       }else{
         $data["location"] = false;
       }
     }else{
-      //Send tag for get data
-      $data["location"] = $this->_location_list($data["menu"]);
+      //Filter all
+      foreach ($data["menu"] as $key => $valueTag) {
+        $query["tag_id"][] = $valueTag->tag_id;
+      }
+      $query["join"] = true;
+      $query["in"] = true;
+      $query["per_page"] = $per_page;
+      $query["offset"] = ($this->uri->segment(2))?($this->uri->segment(2)-1)*$query["per_page"]:0;  
+
+      
+      $data["location"] = $this->_location_list($query); 
     }
 
-    //print_r($data); exit;
-    $this->_fetch('user_list', $data, false, true);
+
+    if($query["offset"]>0){
+      $this->_fetch('user_listnextpage', $data, false, true);
+    }else{
+      //print_r($data);   
+      $this->_fetch('user_list', $data, false, true);
+    }    
 
   }
 
