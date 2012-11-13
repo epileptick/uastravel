@@ -66,8 +66,9 @@ class Location extends MY_Controller {
       $result['start_offset'] = $segment_array[$segment_count]+1;
       $result['end_offset'] = $segment_array[$segment_count]+$config['per_page'];
       if(($result['end_offset'])>$config['total_rows']){
-       $result['end_offset'] = $result['total_rows'];
+        $result['end_offset'] = $result['total_rows'];
       }
+
       array_pop($segment_array);
     } else {
       $this->db->limit($config['per_page']);
@@ -80,7 +81,10 @@ class Location extends MY_Controller {
     $config['uri_segment'] = count($segment_array)+1;
     
     $result = array_merge($result,$this->_index($where));
-    $result['end_offset'] = count($result['location']);
+    if((count($result['location'])+1)>$result['start_offset']){
+      $result['end_offset'] = count($result['location']);
+    }
+
     //initialize pagination
     $this->pagination->initialize($config);
     //load the view

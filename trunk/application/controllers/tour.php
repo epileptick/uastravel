@@ -581,7 +581,6 @@ class Tour extends MY_Controller {
     $imgData["banner_image"] = base_url("/".$dir."/".$_bannerImg["file_name"]);
 
     $imgData["id"] = $TourID;
-    var_dump($imgData);
     return $this->tourModel->updateRecord($imgData);
   }
 
