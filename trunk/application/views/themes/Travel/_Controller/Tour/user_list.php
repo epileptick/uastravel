@@ -1,3 +1,14 @@
+<?php
+  //print_r($tour); exit;
+/*
+  if(isset($this->pagination)){
+    echo $this->pagination->create_links();
+    echo "<br><br><br><br>";
+  }
+*/
+
+?>
+
 <!DOCTYPE html>
 <!--[if IE ]>    <html class="no-js ie-all" lang="en"> <![endif]-->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -144,6 +155,8 @@
 
                       <?php
                         //print_r($tour); exit;
+                        //echo $this->pagination->create_links();
+                        //echo "<br><br><br><br>";
 
                         if(!empty($tour)){
 
@@ -199,7 +212,7 @@
                   
 
                       <nav id="page_nav">
-                        <a href="pages/2.html"></a>
+                        <a href="<?php echo base_url(uri_string().'/2');?>"></a>
                       </nav>
 
                   </div> <!-- #attractions -->
