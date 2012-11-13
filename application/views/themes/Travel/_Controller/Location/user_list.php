@@ -151,7 +151,7 @@
                         ?>
                           <div class="list_attractions" data-category="transition">
                             <!-- div class="sticker new">New</div -->
-                            <a href="<?php echo base_url('location/'.$value->loc_url);?>">
+                            <a href="<?php echo base_url('location/'.$value->loc_url.'-'.$value->loc_id);?>">
                               <?php
                                 if($value->loc_first_image){
                               ?>
@@ -203,7 +203,7 @@
                   
 
                       <nav id="page_nav">
-                        <a href="pages/2.html"></a>
+                        <a href="<?php echo base_url(uri_string().'/2');?>"></a>
                       </nav>
 
                   </div> <!-- #attractions -->

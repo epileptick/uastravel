@@ -240,10 +240,9 @@
                         }//End loop tour 
                       ?>
                     
-                  
 
                       <nav id="page_nav">
-                        <a href="pages/2.html"></a>
+                        <a href="<?php echo base_url(uri_string().'/2');?>"></a>
                       </nav>
 
                   </div> <!-- #attractions -->
