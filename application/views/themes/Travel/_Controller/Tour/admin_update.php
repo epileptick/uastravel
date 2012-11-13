@@ -335,7 +335,7 @@ $(document).ready(function() {
 <div class="container_12">
 
 	<!-- Form -->
-	<?php echo form_open(base_url("admin/tour/update"),'enctype="multipart/form-data"');?>	
+	<?php echo form_open(base_url("admin/tour/update"),'enctype="multipart/form-data"');?>
 	<section class="grid_8">
 		<h2 class="section_heading">Add Tour Information [ <a href="<?php echo base_url("admin/tour");?>">list</a> ]  [ <a target="_blank" href="<?php echo base_url("tour/".$tour[0]->name."-".$tour[0]->id);?>">View</a> ]</h2>
 		<br>		
@@ -550,7 +550,7 @@ $(document).ready(function() {
 			
       <p>First Image (Minimum width: 300px)</p>
       <?php
-        echo form_upload('frist_image', '', 'class="form_input"');
+        echo form_upload('first_image', '', 'class="form_input"');
       ?>
       <p>Background Image (1920px * 800px)</p>
       <?php

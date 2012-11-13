@@ -264,47 +264,57 @@ class Location extends MY_Controller {
       }
       
       if($this->input->post("ajax")!=TRUE){
+            
         //Upload and update Images
         $this->load->library('upload');
         $dir = Hash::make("location_images")->hash(md5($postData));
-  
+        
         if(!file_exists($dir)){
           mkdir($dir, 0755,true);
-        }else{
-          Util::rrmdir($dir);
         }
         
-        $config[0]['upload_path'] = $dir;
-        $config[0]['allowed_types'] = 'gif|jpg|png';
-        $config[0]['file_name'] = md5($postData)."_first.jpg";
-        $this->upload->initialize($config[0]);
-        $this->upload->do_upload("frist_image");
-        $_firstImg = $this->upload->data();
-        //echo $this->upload->display_errors();
-        //var_dump($_firstImg);
         
-        $config[1]['upload_path'] = $dir;
-        $config[1]['allowed_types'] = 'gif|jpg|png';
-        $config[1]['file_name'] = md5($postData)."_background.jpg";
-        $this->upload->initialize($config[1]);
-        $this->upload->do_upload("background_image");
-        $_backgroundImg = $this->upload->data();
-        //echo $this->upload->display_errors();
-        //var_dump($_backgroundImg);
+        if(!empty($_FILES['first_image']["name"])){
+          if(file_exists($dir."/".md5($postData)."_first.jpg")){
+            Util::rrmdir($dir."/".md5($postData)."_first.jpg");
+            
+          }
+          $config[0]['upload_path'] = $dir;
+          $config[0]['allowed_types'] = 'gif|jpg|png';
+          $config[0]['file_name'] = md5($postData)."_first.jpg";
+          $this->upload->initialize($config[0]);
+          $this->upload->do_upload("first_image");
+          $_firstImg = $this->upload->data();
+          $imgData["first_image"] = base_url("/".$dir."/".$_firstImg["file_name"]);
+          
+        }
         
-        $config[2]['upload_path'] = $dir;
-        $config[2]['allowed_types'] = 'gif|jpg|png';
-        $config[2]['file_name'] = md5($postData)."_banner.jpg";
-        $this->upload->initialize($config[2]);
-        $this->upload->do_upload("banner_image");
-        $_bannerImg = $this->upload->data();
-        //echo $this->upload->display_errors();
-        //var_dump($dir);
+        if(!empty($_FILES['background_image']["name"])){
+          if(file_exists($dir."/".md5($postData)."_background.jpg")){
+            Util::rrmdir($dir."/".md5($postData)."_background.jpg");
+          }
+          $config[1]['upload_path'] = $dir;
+          $config[1]['allowed_types'] = 'gif|jpg|png';
+          $config[1]['file_name'] = md5($postData)."_background.jpg";
+          $this->upload->initialize($config[1]);
+          $this->upload->do_upload("background_image");
+          $_backgroundImg = $this->upload->data();
+          $imgData["background_image"] = base_url("/".$dir."/".$_backgroundImg["file_name"]);
+        }
+    
+        if(!empty($_FILES['banner_image']["name"])){
+          if(file_exists($dir."/".md5($postData)."_banner.jpg")){
+            Util::rrmdir($dir."/".md5($postData)."_banner.jpg");
+          }
+          $config[2]['upload_path'] = $dir;
+          $config[2]['allowed_types'] = 'gif|jpg|png';
+          $config[2]['file_name'] = md5($postData)."_banner.jpg";
+          $this->upload->initialize($config[2]);
+          $this->upload->do_upload("banner_image");
+          $_bannerImg = $this->upload->data();
+          $imgData["banner_image"] = base_url("/".$dir."/".$_bannerImg["file_name"]);
+        }
         
-        $imgData["first_image"] = base_url("/".$dir."/".$_firstImg["file_name"]);
-        $imgData["background_image"] = base_url("/".$dir."/".$_backgroundImg["file_name"]);
-        $imgData["banner_image"] = base_url("/".$dir."/".$_bannerImg["file_name"]);
-
         $imgData["id"] = $postData;
         $this->locationModel->updateRecord($imgData);
       }
