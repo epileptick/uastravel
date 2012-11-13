@@ -49,7 +49,7 @@ class TagTour_model extends MY_Model {
   function getRecord($args=false){
     //print_r($args); exit;
 
-    if(isset($args["tag_id"]) && isset($args["tour_id"]) ){
+    if(!empty($args["tag_id"]) && !empty($args["tour_id"]) ){
       //Get category by name
 
       $data["tat_tag_id"] = $args["tag_id"];
@@ -68,17 +68,15 @@ class TagTour_model extends MY_Model {
       $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
       $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
 
-      if(isset($args["limit"])>-1 && isset($args["offset"]) > -1){
-        $this->db->limit($args["limit"], $args["offset"]);
-      }
-
       $this->db->where_in('tat_tag_id', $args["tag_id"]);  
 
       $this->db->order_by('CONVERT( ci_tour.tou_name USING tis620 ) ASC');  
 
+      if($args["per_page"] > -1 && $args["offset"] > -1){
+        $this->db->limit($args["per_page"], $args["offset"]);
+      }
+      //print_r($args); exit;
       $query = $this->db->get('ci_tagtour');   
-      //$names = array('Frank', 'Todd', 'James');
-      //$this->db->where_in('username', $names);
 
       return $query->result();
 
@@ -87,9 +85,14 @@ class TagTour_model extends MY_Model {
       //print_r($args); exit;
       $data["tat_tag_id"] = $args["tag_id"];
       $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
-      $query = $this->db->get_where('ci_tagtour', $data);   
+      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id'); 
+      $this->db->order_by('CONVERT( ci_tour.tou_name USING tis620 ) ASC');  
 
+      if($args["per_page"] > -1 && $args["offset"] > -1){
+        $this->db->limit($args["per_page"], $args["offset"]);
+      } 
+        
+      $query = $this->db->get_where('ci_tagtour', $data);
       return $query->result();
 
     }else if(!empty($args["tag_id"])){

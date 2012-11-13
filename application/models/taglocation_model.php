@@ -42,12 +42,40 @@ class TagLocation_model extends MY_Model {
       }else{
         return false;
       }
-    }else if(isset($args["tag_id"]) && $args["join"]){
+
+    }else if(!empty($args["tag_id"]) && !empty($args["join"]) && !empty($args["in"])){
       //Get category by name
+
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taglocation.tal_tag_id');
+      $this->db->join('ci_location', 'ci_location.loc_id = ci_taglocation.tal_location_id');
+      $this->db->where_in('tal_tag_id', $args["tag_id"]);  
+
+      $this->db->order_by('CONVERT( ci_location.loc_title USING tis620 ) ASC');  
+
+      if($args["per_page"] > -1 && $args["offset"] > -1){
+        $this->db->limit($args["per_page"], $args["offset"]);
+      }
+
       //print_r($args); exit;
+      $query = $this->db->get('ci_taglocation');  
+
+      return $query->result();
+
+    }else if(isset($args["tag_id"]) && $args["join"]){
+
+      //Get category by name
+      //print_r($args);
       $data["tal_tag_id"] = $args["tag_id"];
       $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taglocation.tal_tag_id');
-      $this->db->join('ci_location', 'ci_location.loc_id = ci_taglocation.tal_location_id');         
+      $this->db->join('ci_location', 'ci_location.loc_id = ci_taglocation.tal_location_id'); 
+
+
+      $this->db->order_by('CONVERT( ci_location.loc_title USING tis620 ) ASC');  
+
+      if($args["per_page"] > -1 && $args["offset"] > -1){
+        $this->db->limit($args["per_page"], $args["offset"]);
+      }
+
       $query = $this->db->get_where('ci_taglocation', $data);   
 
       return $query->result();
