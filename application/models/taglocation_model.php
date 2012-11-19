@@ -6,7 +6,11 @@ class TagLocation_model extends MY_Model {
     $this->_column = array(
                      'id'                => 'tal_id',
                      'tag_id'            => 'tal_tag_id',
-                     'location_id'       => 'tal_location_id'
+                     'location_id'       => 'tal_location_id',
+                     'cr_date'           => 'tal_cr_date',
+                     'cr_uid'            => 'tal_cr_uid',
+                     'lu_date'           => 'tal_lu_date',
+                     'lu_uid'            => 'tal_lu_uid' 
     );
   }
  
@@ -43,42 +47,151 @@ class TagLocation_model extends MY_Model {
         return false;
       }
 
+    }else if(!empty($args["tag_id"]) && !empty($args["join"]) && !empty($args["firstpage"])){
+
+      //First tour 
+      $this->db->select('tal_location_id, tal_tag_id');
+      $this->db->where('tal_tag_id', 1);
+      $this->db->join('ci_location', 'ci_location.loc_id = ci_taglocation.tal_location_id');  
+      if($args["per_page"] > -1 && $args["offset"] > -1){
+        $this->db->limit($args["per_page"], $args["offset"]);
+      }   
+      $firsttour = $this->db->get('ci_taglocation')->result(); 
+
+      if(!empty($firsttour)){
+
+        $count = 0;
+        foreach ($firsttour as $key => $value) {
+          //Get tour data
+          unset($this->db);
+          $this->db->select('tal_location_id, tal_tag_id');
+          $this->db->where('tal_location_id', $value->tal_location_id);
+          $this->db->where('tal_tag_id', $args["tag_id"]);  
+          $firsttaglocationBuffer = $this->db->get('ci_taglocation')->result();
+          if(!empty($firsttaglocationBuffer)){
+            $firsttaglocation[] = $firsttaglocationBuffer[0];
+          }
+        }
+
+        if(!empty($firsttaglocation)){
+          $count = 0;
+          foreach ($firsttaglocation as $key => $value) {
+
+            //Get tour data
+            unset($this->db);
+            $this->db->select('loc_id, loc_title, loc_url, loc_first_image');
+            $this->db->where('loc_id', $value->tal_location_id);
+            $query = $this->db->get('ci_location');
+            $tourBuffer = $query->result(); 
+            $result[$count]["location"] = $tourBuffer[0];
+
+
+            //Get tag data
+            unset($this->db);
+            $this->db->where('tal_location_id', $value->tal_location_id);
+            $this->db->where_in('tal_tag_id', $args["menu"]);
+            $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taglocation.tal_tag_id');
+            $query = $this->db->get('ci_taglocation');
+            $result[$count]["tag"] = $query->result();
+
+            $count++;
+          }
+        }else{
+          return false;
+        }
+      }else{
+        return false;
+      }
+
+      if(!empty($result)){
+        return $result;
+      }else{
+        return false;
+      }
+
     }else if(!empty($args["tag_id"]) && !empty($args["join"]) && !empty($args["in"])){
-      //Get category by name
 
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taglocation.tal_tag_id');
-      $this->db->join('ci_location', 'ci_location.loc_id = ci_taglocation.tal_location_id');
+      //Get distinct location_id from ci_location
+      $this->db->select('tal_location_id');
+      $this->db->distinct("tal_location_id");
       $this->db->where_in('tal_tag_id', $args["tag_id"]);  
-
-      $this->db->order_by('CONVERT( ci_location.loc_title USING tis620 ) ASC');  
-
+      $this->db->join('ci_location', 'ci_location.loc_id = ci_taglocation.tal_location_id');         
+      $this->db->order_by('tal_location_id DESC');  
       if($args["per_page"] > -1 && $args["offset"] > -1){
         $this->db->limit($args["per_page"], $args["offset"]);
       }
+      $location = $this->db->get('ci_taglocation')->result(); 
 
-      //print_r($args); exit;
-      $query = $this->db->get('ci_taglocation');  
 
-      return $query->result();
+      $count = 0;
+      foreach ($location as $key => $value) {
+
+        //Get tour data
+        unset($this->db);
+        $this->db->where('loc_id', $value->tal_location_id);
+        $query = $this->db->get('ci_location');
+        $locationBuffer = $query->result(); 
+        $result[$count]["location"] = $locationBuffer[0];
+
+
+        //Get tag data
+        unset($this->db);
+        $this->db->where('tal_location_id', $value->tal_location_id);
+        $this->db->where_in('tal_tag_id', $args["menu"]);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taglocation.tal_tag_id');
+        $query = $this->db->get('ci_taglocation');
+        $result[$count]["tag"] = $query->result();
+
+        $count++;
+      }
+
+      if(!empty($result)){
+        return $result;
+      }else{
+        return false;
+      }
+
 
     }else if(isset($args["tag_id"]) && $args["join"]){
 
-      //Get category by name
-      //print_r($args);
-      $data["tal_tag_id"] = $args["tag_id"];
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taglocation.tal_tag_id');
-      $this->db->join('ci_location', 'ci_location.loc_id = ci_taglocation.tal_location_id'); 
-
-
-      $this->db->order_by('CONVERT( ci_location.loc_title USING tis620 ) ASC');  
-
+      //Get distinct location_id from ci_location
+      $this->db->select('tal_location_id');
+      $this->db->distinct("tal_location_id");
+      $this->db->where('tal_tag_id', $args["tag_id"]);  
+      $this->db->join('ci_location', 'ci_location.loc_id = ci_taglocation.tal_location_id');         
+      $this->db->order_by('tal_location_id DESC');  
       if($args["per_page"] > -1 && $args["offset"] > -1){
         $this->db->limit($args["per_page"], $args["offset"]);
       }
+      $location = $this->db->get('ci_taglocation')->result(); 
 
-      $query = $this->db->get_where('ci_taglocation', $data);   
+      $count = 0;
+      foreach ($location as $key => $value) {
 
-      return $query->result();
+        //Get tour data
+        unset($this->db);
+        $this->db->where('loc_id', $value->tal_location_id);
+        $query = $this->db->get('ci_location');
+        $locationBuffer = $query->result(); 
+        $result[$count]["location"] = $locationBuffer[0];
+
+
+        //Get tag data
+        unset($this->db);
+        $this->db->where('tal_location_id', $value->tal_location_id);
+        $this->db->where_in('tal_tag_id', $args["menu"]);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taglocation.tal_tag_id');
+        $query = $this->db->get('ci_taglocation');
+        $result[$count]["tag"] = $query->result();
+
+        $count++;
+      }
+
+      if(!empty($result)){
+        return $result;
+      }else{
+        return false;
+      }
 
     }else if(isset($args["tag_id"])){
       //Get category by name
@@ -137,6 +250,10 @@ class TagLocation_model extends MY_Model {
           $this->db->set($this->_column[$columnName], $columnValue); 
         }
       }
+      $this->db->set("tal_cr_date", date("Y-m-d H:i:s"));
+
+      $this->db->set("tal_lu_date", date("Y-m-d H:i:s"));
+
       $this->db->insert($this->_table);
 
       return $this->db->insert_id();

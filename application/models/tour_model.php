@@ -86,7 +86,8 @@ class Tour_model extends MY_Model {
       //Get list page
       //$this->db->order_by("tou_id", "asc");
 
-      if($args["limit"] && $args["offset"]){
+      ($args["field"])?$this->db->select($args["field"]):"";
+      if(!empty($args["limit"]) && !empty($args["offset"])){
         $this->db->limit($args["limit"], $args["offset"]);
       }
 
@@ -113,7 +114,13 @@ class Tour_model extends MY_Model {
           $this->db->set($this->_column[$columnName], $columnValue); 
         }
       }
+
       $this->db->set("tou_url", Util::url_title($data["name"]));
+
+      $this->db->set("tou_cr_date", date("Y-m-d H:i:s"));
+
+      $this->db->set("tou_lu_date", date("Y-m-d H:i:s"));
+
       $this->db->insert($this->_table);
       return $this->db->insert_id(); 
     }
@@ -132,7 +139,9 @@ class Tour_model extends MY_Model {
       if(!empty($data["name"])){
         $this->db->set("tou_url", Util::url_title($data["name"]));
       }
-      
+
+      $this->db->set("tou_lu_date", date("Y-m-d H:i:s"));
+            
       $query = $this->db->where("tou_id", $data["id"]);
       $query = $this->db->update("ci_tour");
     }

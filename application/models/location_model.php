@@ -38,18 +38,17 @@ class Location_model extends MY_Model {
       $options["status"] = 0;
     }
     if(! isset($options["cr_date"])){
-      $options["cr_date"] = date("Y-m-d");
+      $options["cr_date"] = date("Y-m-d H:i:s");
     }
     if(! isset($options["cr_uid"])){
       $options["cr_uid"] = 0;
     }
     if(! isset($options["lu_date"])){
-      $options["lu_date"] = date("Y-m-d");
+      $options["lu_date"] = date("Y-m-d H:i:s");
     }
     if(! isset($options["lu_uid"])){
       $options["lu_uid"] = 0;
     }
-    
     $string = $options["title"];
     $string = preg_replace("`\[.*\]`U","",$string);
     $string = preg_replace('`&(amp;)?#?[a-z0-9]+;`i','-',$string);
@@ -91,7 +90,7 @@ class Location_model extends MY_Model {
       }
     }
 
-    $options['lu_date'] = date("Y-m-d");
+    $options['lu_date'] = date("Y-m-d H:i:s");
     if(!empty($options["title"])){
       $string = $options["title"];
       $string = preg_replace("`\[.*\]`U","",$string);

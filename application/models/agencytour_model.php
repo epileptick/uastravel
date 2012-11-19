@@ -32,6 +32,20 @@ class AgencyTour_model extends MY_Model {
     return $newResult;
   }
   
+  function getMaxPriceRecord($args=false){
+    if(isset($args["tour_id"])){
+      //Get category by name
+      $data["agt_tour_id"] = $args["tour_id"];
+      $this->db->select_max('agt_sale_adult_price');
+      $query = $this->db->get_where('ci_agencytour', $args);
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }
+  }  
   function getRecord($args=false){
     //print_r($args); exit;
 
