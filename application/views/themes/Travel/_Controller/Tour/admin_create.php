@@ -323,7 +323,10 @@ $(document).ready(function() {
 	<!-- Filter -->
 	<section class="grid_8">
 		<h2 class="section_heading">
-			<span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">Add Tour Information [ <a href="<?php echo base_url("admin/tour");?>">list</a> ]</span>
+			<span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
+				Add Tour Information 
+				[ <a href="<?php echo base_url("admin/tour");?>">list</a> ]
+			</span>			
 			<?php
 				if(is_array($language)){
 					foreach ($language as $key => $value) {
@@ -363,6 +366,40 @@ $(document).ready(function() {
 			<textarea cols="30"  class="mceEditor"  rows="10" name="remark"><?php echo set_value('remark');?></textarea>
 			<div class="clearfix"></div>
 
+
+	<section class="similar_hotels grid_8">
+		<h2 class="section_heading" >
+			<span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
+				Agency Information 
+				<!-- input type="search" id="query_agencyname" style="width:30%;" disabled/  -->
+				<select id="query_agencyname">
+
+				<?php 
+					foreach ($agency as $key => $value) {
+				?>
+				  <option value="<?php echo $value->id;?>"><?php echo $value->name;?></option>
+				<?php
+					}
+				?>	
+				</select>				
+				<input type="hidden" id="hidden_agency_id" />
+				
+				<!-- span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_new_agency">[ Add New ]</span -->
+
+				<span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_agency">[ Add to tour ]</span>
+			</span>
+		</h2>
+		<br>
+
+		<ul id="add_agency_area">
+		</ul>
+
+		<ul>
+			<li>
+				<input type="submit" value="Submit" class="auto_width" id="save">	<br>			
+			</li>
+		</ul>		
+	</section>
 	</section>
 
 
@@ -422,7 +459,7 @@ $(document).ready(function() {
 				.bind('getSuggestions', function(e, data)
 				{
 					//Get tag data
-					if(data.query.length == 1){
+					if(data.query.length == 2){
 						var list = tagSearch(data.query);
 
 						var textext = $(e.target).textext()[0];
@@ -461,7 +498,7 @@ $(document).ready(function() {
 
 			function tagSearch(str) {
 
-				var url ="<?php echo base_url('/tag/jssearch/');?>"+str;
+				var url ="<?php echo base_url('/tag/jssearch');?>"+"/"+str;
 				var response = $.ajax({ type: "GET",   
 				                        url: url,   
 				                        async: false
@@ -648,56 +685,13 @@ $(document).ready(function() {
 	}
 	</style>
 
-	<section class="similar_hotels grid_8">
-		<h2 class="section_heading" >
-			<span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
-				Agency Information 
-				<!-- input type="search" id="query_agencyname" style="width:30%;" disabled/  -->
-				<select id="query_agencyname">
 
-				<?php 
-					foreach ($agency as $key => $value) {
-				?>
-				  <option value="<?php echo $value->name;?>"><?php echo $value->name;?></option>
-				<?php
-					}
-				?>	
-				</select>				
-				<input type="hidden" id="hidden_agency_id" />
-				
-				<!-- span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_new_agency">[ Add New ]</span -->
-
-				<span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_agency">[ Add to tour ]</span>
-			</span>
-		</h2>
-		<br>
-
-		<ul id="add_agency_area">
-		</ul>
-
-		<ul>
-			<li>
-				<input type="submit" value="Submit" class="auto_width" id="save">	<br>			
-			</li>
-		</ul>		
-	</section>
 </div>
 
 <?php echo form_close();?>	
 
 
 <script type="text/javascript">
-	function agencyValidateByName(str){
-
-		var url ="<?php echo base_url('/agency/hasdata/');?>"+str;
-		var response = $.ajax({ type: "GET",   
-		                        url: url,   
-		                        async: false
-		                      }).responseText;
-
-		return response;
-	}
-
 
 	function deleteRow(event, agency_id){
 
@@ -776,52 +770,31 @@ $(document).ready(function() {
 	var agencies = new Array();
 
 
-	$("#add_new_agency").click(function () {
-		$("#query_agencyname").prop('disabled', false);
-		$("#query_agencyname").focus();
-	});
-
 	$("#add_agency").click(function () {
 
-		var tour_name = $("#query_agencyname").val();
+		var agency_id = $("#query_agencyname :selected").val();
+		var agency_name = $("#query_agencyname :selected").html();
 
-		var found = agencies.indexOf(tour_name);
 
-		if(tour_name.length > 0){
+		//alert(agency_name);
+		var found = agencies.indexOf(agency_name);
 
+		if(agency_name.length > 0){
 			//Check duplicate data
 			if(found == -1){
-				//Call recheck data input
-				var response = agencyValidateByName(tour_name);
-				//alert(response);
-				if(response.length>0 && response != 0){
-
-					var responseData = response.split(",");
-					agencies[responseData[0]] = responseData[1];
-					count++;
-
-					var res = response.split(",");
-					var html = agencyPriceForm(num, res[0], res[1]);
-					num++;					
-
-					$("#add_agency_area").append(html);
-
-					$("#add_agency_area").append(function(){
-						deleteRow();
-					});	
-
-
-					$("#query_agencyname").val("");
-					$("#query_agencyname").focus();
-
-
-				}else if(response == 0){
-					alert("ไม่มีชื่อ Agency นี้อยู่");
-					$("#query_agencyname").val("");
-					$("#query_agencyname").focus();
-				}
-
+				agencies[agency_id] = agency_name;
+				count++;
+				var html = agencyPriceForm(num, agency_id, agency_name);
+				num++;
+				$("#add_agency_area").append(html);
 			
+				$("#add_agency_area").append(function(){
+					deleteRow();
+				});						
+				$("#query_agencyname").val("");
+				$("#query_agencyname").focus();
+				$("#add_loading").html("");
+
 			}else{
 				alert("Agency นี้ได้เพิ่มข้อมูลแล้ว");
 				$("#query_agencyname").val("");
@@ -836,32 +809,6 @@ $(document).ready(function() {
 	}); 
 
 </script>	
-
-
-<?php
-//Autosuggest && Autocomplete
-PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/autocomplete/jquery.autocomplete.js").'"></script>');
-PageUtil::addVar("stylesheet",'<link rel="stylesheet" media="all" type="text/css"  href="'.base_url("themes/Travel/js/autocomplete/jquery.autocomplete.css").'">');
-
-?>
-
-<script type="text/javascript">
-$(document).ready(function() {
-
-
-	var url ="<?php echo base_url('/agency/phpsearch/');?>";
-	//"http://localhost/jquery/jquery-autocomplete/demo/search.php"
-	//var url ="http://localhost/uastravel/tag/jssearch/";	
-	$("#query_agencyname").autocomplete(url, {
-		width: 260,
-		selectFirst: false,
-		urlType: "short",
-		shortUrl: url,
-		hiddenId : "hidden_agency_id"
-	});
-
-});
-</script>
 
 
 		

@@ -9,11 +9,11 @@
   ?>
     <div class="list_attractions" data-category="transition">
       <!-- div class="sticker new">New</div -->
-      <a href="<?php echo base_url('tour/'.$value->tou_url.'-'.$value->tou_id);?>">
+      <a href="<?php echo base_url('tour/'.$value['tour']->tou_url.'-'.$value['tour']->tou_id);?>">
         <?php
-          if($value->tou_first_image){
+          if($value['tour']->tou_first_image){
         ?>
-            <img src="<?php echo $value->tou_first_image;?>">
+            <img src="<?php echo $value['tour']->tou_first_image;?>">
         <?php
           }
         ?>
@@ -21,7 +21,11 @@
       </a>
       <div class="row-fluid">
         <div class="span8">
-          <h3><a href="<?php echo base_url('tour/'.$value->tou_url.'-'.$value->tou_id);?>"><?php echo $value->tou_name; ?></a></h3>
+          <h3>
+            <a href="<?php echo base_url('tour/'.$value['tour']->tou_url.'-'.$value['tour']->tou_id);?>">
+              <?php echo $value['tour']->tou_name; ?>
+            </a>
+          </h3>
         </div>
         <div class="span4">
           <div class="rating one_star" style="display:none"></div>
@@ -35,14 +39,34 @@
       <div class="border"></div>
       <div class="row-fluid">
         <div class="span7">
-          <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-          <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
+          <?php 
+              if(isset($value['tour']->tou_name)){
+            ?>
+              <img src="<?php echo base_url('themes/Travel/tour/images/icon/24tour.png');?>" style="margin-left:7px;">
+              <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
+              <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
+          <?php
+              }else if(isset($value['tour']->loc_title)){
+            ?>
+              <img src="<?php echo base_url('themes/Travel/tour/images/icon/24location.png');?>" style="margin-left:7px;">
+              <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
+              <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
+          <?php
+              }
+          ?>  
         </div>
         <div class="span5">
           <span class="tag">
-            <a href="<?php echo base_url('tour/'.$value->tag_url);?>" style="color: #0CACE1;">
-              <?php echo $value->tag_name; ?>
+            <?php
+              //print_r($value["tag"]); exit;
+              foreach ($value["tag"] as $keyTag => $valueTag) {
+            ?>
+            <a href="<?php echo base_url('tour/'.$valueTag->tag_url);?>" style="color: #0CACE1;">
+              <?php echo $valueTag->tag_name; ?>
             </a>
+            <?php
+              }
+            ?>
           </span>
           <span class="icon  tag_icon"></span>
         </div>

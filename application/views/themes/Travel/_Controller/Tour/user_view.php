@@ -18,7 +18,19 @@
   <![endif]-->
 
 </head>
-<body style="background: #ededed url(<?php echo base_url('themes/Travel/tour/images/bg1.jpg');?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
+
+<?php
+  if(!empty($tour[0]->background_image)){
+?>
+    <body style="background: #ededed url(<?php echo $tour[0]->background_image;?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
+<?php
+  }else{
+?>
+    <body style="background: #ededed url(<?php echo base_url('themes/Travel/tour/images/bg1.jpg');?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
+<?php
+  }
+?>
+
   <div class="overly-bg"></div>
   <div id="wrapper">
     <!-- Menu -->
@@ -111,7 +123,7 @@
           ?>
             <li>
               <a href="<?php echo $value['url'];?>">
-                <img src="<<?php echo $value['url'];?>" alt="<?php echo $tour[0]->name;?>" />
+                <img src="<?php echo $value['url'];?>" alt="<?php echo $tour[0]->name;?>" />
               </a>
             </li>              
           <?php

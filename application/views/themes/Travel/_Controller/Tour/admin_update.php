@@ -337,7 +337,13 @@ $(document).ready(function() {
 	<!-- Form -->
 	<?php echo form_open(base_url("admin/tour/update"),'enctype="multipart/form-data"');?>
 	<section class="grid_8">
-		<h2 class="section_heading">Add Tour Information [ <a href="<?php echo base_url("admin/tour");?>">list</a> ]  [ <a target="_blank" href="<?php echo base_url("tour/".$tour[0]->name."-".$tour[0]->id);?>">View</a> ]</h2>
+		<h2 class="section_heading">
+			<span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
+				Add Tour Information 
+				[ <a href="<?php echo base_url("admin/tour");?>">list</a> ]  
+				[ <a target="_blank" href="<?php echo base_url("tour/".$tour[0]->url."-".$tour[0]->id);?>">View</a> ]
+			</span>
+		</h2>
 		<br>		
 			<input type="hidden" name="id" id="id" value="<?php echo $tour[0]->id;?>">
 			<!--  Start Tour information -->		
@@ -451,7 +457,7 @@ $(document).ready(function() {
 				.bind('getSuggestions', function(e, data)
 				{
 					//Get tag data
-					if(data.query.length == 1){
+					if(data.query.length == 2){
 						var list = tagSearch(data.query);
 
 						var textext = $(e.target).textext()[0];
@@ -492,7 +498,7 @@ $(document).ready(function() {
 
 			function tagSearch(str) {
 
-				var url ="<?php echo base_url('/tag/jssearch/');?>"+str;
+				var url ="<?php echo base_url('/tag/jssearch');?>"+"/"+str;
 				var response = $.ajax({ type: "GET",   
 				                        url: url,   
 				                        async: false
@@ -691,7 +697,7 @@ $(document).ready(function() {
 					foreach ($agency as $key => $value) {
 						# code...
 				?>
-				  <option value="<?php echo $value->name;?>"><?php echo $value->name;?></option>
+				  <option value="<?php echo $value->id;?>"><?php echo $value->name;?></option>
 				<?php
 					}
 				?>	
@@ -781,16 +787,6 @@ $(document).ready(function() {
 
 
 	<script type="text/javascript">
-		function agencyValidateByName(str){
-
-			var url ="<?php echo base_url('/agency/hasdata/');?>"+str;
-			var response = $.ajax({ type: "GET",   
-			                        url: url,   
-			                        async: false
-			                      }).responseText;
-
-			return response;
-		}
 
 		function deleteRow(event, agency_id){
 
@@ -873,8 +869,12 @@ $(document).ready(function() {
 
 		$("#add_agency").click(function () {
 
-			var agency_name = $("#query_agencyname").val();
 
+
+			var agency_id = $("#query_agencyname :selected").val();
+			var agency_name = $("#query_agencyname :selected").html();
+
+			//alert(agency_id);
 			var found = agencies.indexOf(agency_name);
 
 			if(agency_name.length > 0){
@@ -888,33 +888,18 @@ $(document).ready(function() {
 					var loading = "<img src='"+path+"'>";
 					$("#add_loading").html(loading);
 
-					//Call recheck data input
-					var response = agencyValidateByName(agency_name);
-					//alert(response);
-					if(response.length>0 && response != 0){
-
-						var responseData = response.split(",");
-						agencies[responseData[0]] = responseData[1];
-						count++;
-
-						var res = response.split(",");
-						var html = agencyPriceForm(num, res[0], res[1]);
-						num++;
-						$("#add_agency_area").append(html);
-					
-						$("#add_agency_area").append(function(){
-							deleteRow();
-						});						
-						$("#query_agencyname").val("");
-						$("#query_agencyname").focus();
-						$("#add_loading").html("");
-
-					}else if(response == 0){
-						alert("ไม่มีชื่อ Agency นี้อยู่");
-						$("#query_agencyname").val("");
-						$("#query_agencyname").focus();
-					}
-
+					agencies[agency_id] = agency_name;
+					count++;
+					var html = agencyPriceForm(num, agency_id, agency_name);
+					num++;
+					$("#add_agency_area").append(html);
+				
+					$("#add_agency_area").append(function(){
+						deleteRow();
+					});						
+					$("#query_agencyname").val("");
+					$("#query_agencyname").focus();
+					$("#add_loading").html("");
 				
 				}else{
 					alert("Agency นี้ได้เพิ่มข้อมูลแล้ว");
@@ -932,36 +917,8 @@ $(document).ready(function() {
 	</script>	
 
 
-	<?php
-	//Autosuggest && Autocomplete
-	PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/autocomplete/jquery.autocomplete.js").'"></script>');
-	PageUtil::addVar("stylesheet",'<link rel="stylesheet" media="all" type="text/css"  href="'.base_url("themes/Travel/js/autocomplete/jquery.autocomplete.css").'">');
-
-	?>
-
-	<script type="text/javascript">
-	$(document).ready(function() {
-
-		//"http://localhost/jquery/jquery-autocomplete/demo/search.php"
-		
-		var url ="<?php echo base_url('/agency/phpsearch/');?>";	
-		$("#query_agencyname").autocomplete(url, {
-			width: 260,
-			selectFirst: false,
-			urlType: "short",
-			shortUrl: url,
-			hiddenId : "hidden_agency_id"
-		});
-
-	});
-	</script>
-
 
 
 	<?php echo form_close();?>	
 </div>
 
-
-<?php
-	//print_r($tour);
-?>
