@@ -91,6 +91,11 @@ class Agency_model extends MY_Model {
           $this->db->set($this->_column[$columnName], $columnValue); 
         }
       }
+
+      $this->db->set("agn_cr_date", date("Y-m-d H:i:s"));
+
+      $this->db->set("agn_lu_date", date("Y-m-d H:i:s"));
+
       $result = $this->db->insert($this->_table);
     }
     
@@ -106,6 +111,9 @@ class Agency_model extends MY_Model {
           $this->db->set($this->_column[$columnName], $columnValue); 
         }
       }
+
+      $this->db->set("agn_lu_date", date("Y-m-d H:i:s"));
+
       $query = $this->db->where("agn_id", $data["id"]);
       $query = $this->db->update("ci_agency");
     }
