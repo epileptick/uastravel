@@ -10,7 +10,7 @@ class Tag extends MY_Controller {
     $tagData["tag"] = $this->tagModel->get($where);
     return $tagData;
   }
-  
+/*  
   function admin_index(){
     $keyword = $this->input->post();
     if($keyword){
@@ -20,7 +20,7 @@ class Tag extends MY_Controller {
     }
 
   }
-  
+*/  
   function admin_index(){
     $result = array();
     
@@ -43,13 +43,25 @@ class Tag extends MY_Controller {
     //get all the URI segments for pagination and sorting
     $segment_array=$this->uri->segment_array();
     $segment_count=$this->uri->total_segments();
-    
-    $where = array(
-                  'limit'=>'',
-                  'returnObj'=>'',
-                  'order'=>'id desc',
-                  'where'=>''
-                );
+
+    $keyword = $this->input->post();
+
+    if($keyword){
+      $where = array(
+                      'limit'=>'',
+                      'returnObj'=>'',
+                      'order'=>'CONVERT( tag_name USING tis620 ) ASC',
+                      'where'=>array('tag_name LIKE'=>'%'.$keyword["search"].'%')
+                    );
+    }else{
+      $tag = $this->uri->segment(2);
+      $where = array(
+                    'limit'=>'',
+                    'returnObj'=>'',
+                    'order'=>'CONVERT( tag_name USING tis620 ) ASC',
+                    'where'=>''
+                  );
+    }
     
     $this->load->library('pagination');
     $config['base_url'] = site_url(join("/",$segment_array));

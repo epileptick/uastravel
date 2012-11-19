@@ -159,6 +159,18 @@ class Location extends MY_Controller {
   }
 
 
+  function _shuffle_assoc($list) { 
+    if (!is_array($list)) return $list; 
+
+    $keys = array_keys($list); 
+    shuffle($keys); 
+    $random = array(); 
+    foreach ($keys as $key) { 
+      $random[] = $list[$key]; 
+    }
+    return $random; 
+  }
+
   function _location_list($tags){
 
     $count = 0;
@@ -166,7 +178,7 @@ class Location extends MY_Controller {
     $location = $this->taglocationModel->getRecord($tags);
 
     if(!empty($location)){
-      return $location;
+      return $this->_shuffle_assoc($location);
     }else{
       return ;
     }
@@ -177,6 +189,10 @@ class Location extends MY_Controller {
 
     $per_page = 6;    
     $data["menu"]= $this->_location_menu($tag);
+
+    foreach ($data["menu"] as $key => $valueTag) {
+      $query["menu"][] = $valueTag->tag_id;
+    }
 
     if($tag){
       $argTag["url"] = $tag;      
@@ -195,9 +211,7 @@ class Location extends MY_Controller {
       }
     }else{
       //Filter all
-      foreach ($data["menu"] as $key => $valueTag) {
-        $query["tag_id"][] = $valueTag->tag_id;
-      }
+      $query["tag_id"] = $query["menu"];
       $query["join"] = true;
       $query["in"] = true;
       $query["per_page"] = $per_page;
@@ -206,8 +220,7 @@ class Location extends MY_Controller {
       
       $data["location"] = $this->_location_list($query); 
     }
-
-
+    //print_r($data); exit;
     if($query["offset"]>0){
       $this->_fetch('user_listnextpage', $data, false, true);
     }else{
@@ -235,9 +248,16 @@ class Location extends MY_Controller {
         ////////////////////////////////////////////
         //Update (TagLocation) relationship data table 
         ////////////////////////////////////////////        
-        if(!empty($_post["tags"])){ 
-          $this->load->model("taglocation_model", "taglocationModel");
-          $this->taglocationModel->updateRecord($_post);
+        if(!empty($_post["tags"])){
+          if($_post["tags"] == "[]"){ 
+            $location["location_id"] = $_post["id"];
+            $this->load->model("taglocation_model", "taglocationModel");
+            $this->taglocationModel->deleteRecord($location);
+
+          }else{ 
+            $this->load->model("taglocation_model", "taglocationModel");
+            $this->taglocationModel->updateRecord($_post);
+          }
         }
         
 

@@ -66,21 +66,28 @@ class Home extends MY_Controller {
     return $random; 
   }
 
-  function _home_list($tags){
+  function _home_list($query){
 
-    if(!empty($tags)){
-      foreach ($tags as $key => $valueTag) {
+    if(!empty($query)){
+      foreach ($query as $key => $valueTag) {
         //Tour
         $this->load->model("tagtour_model", "tagtourModel");
-        $tour = $this->tagtourModel->getRecord($tags);
+        $tour = $this->tagtourModel->getRecord($query);
         
         //Location
         $this->load->model("taglocation_model", "taglocationModel");
-        $location = $this->taglocationModel->getRecord($tags);
+        $location = $this->taglocationModel->getRecord($query);
       }
     }
     
-    $home = array_merge($tour, $location);
+    if($tour && $location){
+      $home = array_merge($tour, $location);
+    }else if($tour){
+      $home = $tour;
+    }else if($location){
+      $home = $location;
+    }
+
 
     //print_r($this->_shuffle_assoc($home)); exit;
     if(!empty($home)){
@@ -92,18 +99,30 @@ class Home extends MY_Controller {
 
   function user_list($tag=false){
 
+
+    
     $per_page = 4;    
     $data["menu"]= $this->_home_menu($tag);
+
+    foreach ($data["menu"] as $key => $valueTag) {
+      $query["menu"][] = $valueTag->tag_id;
+    }
 
     if($tag){
       $argTag["url"] = $tag;      
       $tagQuery = $this->tagModel->getRecord($argTag);
 
       if(!empty($tagQuery)){
+        //$query["tag_id"] = $tagQuery[0]->id;
         $query["tag_id"] = $tagQuery[0]->id;
+        $query["firstpage"] = true;
         $query["join"] = true;
+        $query["in"] = true;        
+
         $query["per_page"] = $per_page;
         $query["offset"] = ($this->uri->segment(2))?($this->uri->segment(2)-1)*$query["per_page"]:0;   
+
+        //print_r($query); exit;
 
         //Tour
         $data["home"] = $this->_home_list($query);    
@@ -112,16 +131,15 @@ class Home extends MY_Controller {
       }
     }else{
       //Filter all
-      foreach ($data["menu"] as $key => $valueTag) {
-        $query["tag_id"][] = $valueTag->tag_id;
-      }
-      $query["join"] = true;
-      $query["in"] = true;
-      $query["per_page"] = $per_page;
-      $query["offset"] = ($this->uri->segment(1))?($this->uri->segment(1)-1)*$query["per_page"]:0;  
+    //$query["tag_id"] = $tagQuery[0]->id;
+    $query["tag_id"] = 1;
 
-      
-      $data["home"] = $this->_home_list($query); 
+    $query["join"] = true;
+    $query["per_page"] = $per_page;
+    $query["offset"] = ($this->uri->segment(1))?($this->uri->segment(1)-1)*$query["per_page"]:0;   
+
+    //Tour
+    $data["home"] = $this->_home_list($query);  
     }
 
     //print_r($query); exit;
