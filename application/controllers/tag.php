@@ -118,15 +118,34 @@ class Tag extends MY_Controller {
         $this->_fetch('admin_create');
       }else{
         $this->tagModel->addRecord($args);
-        $data["tag"] = $this->tagModel->getRecord();  
-        $data["message"] = "Create successful !!!";
+        //$data["tag"] = $this->tagModel->getRecord();  
+        //$data["message"] = "Create successful !!!";
         //Redirect
         redirect(base_url("admin/tag"));  
       }
     }
 
   }
+  
 
+  function admin_ajaxcreate($id=false){
+    //implement code here  
+
+    $args = $this->input->post();
+    $validate = $this->validate($args);
+    
+    if($id){
+      $args["id"] = $id;
+      $data["tag"] = $this->tagModel->getRecord($args);
+
+      //print_r($data); exit;
+      if($data["tag"]>0){
+        $this->_fetch('admin_update', $data);
+      }else{
+        $this->_fetch('admin_create');
+      }
+    }
+  }
   
   function admin_list($tag=false){
 
