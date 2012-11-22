@@ -1,0 +1,24 @@
+INSERT INTO `ci_tag` (`tag_id`, `tag_language_id`, `tag_parent`, `tag_name`, `tag_url`)
+VALUES
+	(1, 1, 0, 'หน้าแรก', 'หน้าแรก');
+
+
+UPDATE `ci_tagtour` 
+SET `tat_cr_date` = '2012-11-16 10:07:29', `tat_lu_date` = '2012-11-16 10:07:29';
+
+UPDATE `ci_taglocation` 
+SET `tal_cr_date` = '2012-11-16 10:07:29', `tal_lu_date` = '2012-11-16 10:07:29';
+
+ALTER TABLE `ci_tagtour` ADD `tat_cr_date` TIMESTAMP  NULL  AFTER `tat_tour_id`;
+ALTER TABLE `ci_tagtour` ADD `tat_cr_uid` INT  NULL  DEFAULT NULL  AFTER `tat_cr_date`;
+ALTER TABLE `ci_tagtour` ADD `tat_lu_date` TIMESTAMP  NULL  AFTER `tat_cr_uid`;
+ALTER TABLE `ci_tagtour` ADD `tat_lu_uid` INT  NULL  DEFAULT NULL  AFTER `tat_lu_date`;
+
+ALTER TABLE `ci_taglocation` ADD `tal_cr_date` TIMESTAMP  NULL  AFTER `tal_tag_id`;
+ALTER TABLE `ci_taglocation` ADD `tal_cr_uid` INT  NULL  DEFAULT NULL  AFTER `tal_cr_date`;
+ALTER TABLE `ci_taglocation` ADD `tal_lu_date` TIMESTAMP  NULL  AFTER `tal_cr_uid`;
+ALTER TABLE `ci_taglocation` ADD `tal_lu_uid` INT  NULL  DEFAULT NULL  AFTER `tal_lu_date`;
+
+
+ALTER TABLE `ci_location` CHANGE `loc_lu_date` `loc_lu_date` TIMESTAMP  NULL;
+ALTER TABLE `ci_location` CHANGE `loc_cr_date` `loc_cr_date` TIMESTAMP  NULL;
