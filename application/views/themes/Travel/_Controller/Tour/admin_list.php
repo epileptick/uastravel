@@ -141,8 +141,28 @@ class="blogg-menu-popup">
             }
           </style>
           <div>
+
+
+            <script>
+            function addNewTag(){
+              var x;
+
+              var name=prompt("ป้อนป้ายกำกับใหม่","");
+
+              if (name!=null){
+
+                alert(name);
+              //x="Hello " + name + "! How are you today?";
+              //document.getElementById("demo").innerHTML=x;
+              }
+            }
+            </script>
+
             <div id="tags" value="__new__" class="GFUQPS5BODB selected" role="option" id="gwt-uid-935" 
-            style="border-bottom:1px solid #ccc;">ป้ายกำกับใหม่...
+            style="border-bottom:1px solid #ccc;"
+            onclick="addNewTag()"
+            >
+              ป้ายกำกับใหม่...
             </div>
             <div id="tags"
                  value="ของกินภูเก็ต" 
@@ -241,7 +261,7 @@ class="blogg-menu-popup">
             </h3>
             </span>            
             <span id="location-list-control">
-              <a href="<?php echo base_url('tour/'.$value['tour']->name.'-'.$value['tour']->id);?>" target="_blank">
+              <a href="<?php echo base_url('tour/'.$value['tour']->url.'-'.$value['tour']->id);?>" target="_blank">
                view
               </a> | 
               <a href="<?php echo base_url('admin/tour/create/'.$value['tour']->id);?>">
