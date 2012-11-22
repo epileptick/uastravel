@@ -5,7 +5,7 @@
   ?>
     <div class="list_attractions" data-category="transition">
       <!-- div class="sticker new">New</div -->
-      <a href="<?php echo base_url('location/'.$value['location']->loc_url.'-'.$value['location']->loc_id);?>">
+      <a href="<?php echo base_url('location/'.$value['location']->loc_url.'-'.$value['location']->loc_id);?>" target="_blank" >
         <?php
           if($value['location']->loc_first_image){
         ?>
@@ -18,7 +18,7 @@
       <div class="row-fluid">
         <div class="span8">
           <h3>
-            <a href="<?php echo base_url('location/'.$value['location']->loc_url.'-'.$value['location']->loc_id);?>">
+            <a href="<?php echo base_url('location/'.$value['location']->loc_url.'-'.$value['location']->loc_id);?>" target="_blank" >
             <?php echo $value['location']->loc_title; ?>
             </a>
           </h3>
