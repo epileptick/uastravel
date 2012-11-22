@@ -163,8 +163,20 @@
                           foreach ($tour as $key => $value) {
                         ?>
                           <div class="list_attractions" data-category="transition">
-                            <!-- div class="sticker new">New</div -->
-                            <a href="<?php echo base_url('tour/'.$value['tour']->tou_url.'-'.$value['tour']->tou_id);?>">
+                            <?php
+                                if(!empty($value["price"]->agt_sale_adult_price)){
+                            ?>
+                              <div class="sticker recommend">
+                                <?php  
+                                  $sale_price = $value["price"]->agt_sale_adult_price - $value["price"]->agt_discount_adult_price;
+                                  echo number_format($sale_price, 0);
+                                ?>
+                                บาท
+                              </div>                                    
+                            <?php                                    
+                                }
+                            ?>
+                            <a href="<?php echo base_url('tour/'.$value['tour']->tou_url.'-'.$value['tour']->tou_id);?>" target="_blank" >
                               <?php
                                 if($value['tour']->tou_first_image){
                               ?>
@@ -177,7 +189,7 @@
                             <div class="row-fluid">
                               <div class="span8">
                                 <h3>
-                                  <a href="<?php echo base_url('tour/'.$value['tour']->tou_url.'-'.$value['tour']->tou_id);?>">
+                                  <a href="<?php echo base_url('tour/'.$value['tour']->tou_url.'-'.$value['tour']->tou_id);?>" target="_blank" >
                                   <?php echo $value['tour']->tou_name; ?>
                                   </a>
                                 </h3>

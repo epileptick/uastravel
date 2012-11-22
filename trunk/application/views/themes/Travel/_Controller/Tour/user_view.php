@@ -4,7 +4,12 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
+  <title><?php echo $tour[0]->name;?></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="ROBOTS" content="NOODP" />
+  <meta name="description" content="<?php echo (!empty($tour[0]->short_description))?$tour[0]->short_description:"";?>" />
+  <meta name="keywords" content="" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
@@ -16,7 +21,6 @@
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-
 </head>
 
 <?php
@@ -98,7 +102,7 @@
               ?>
               <li>
                 <a class="thumb"  href="<?php echo $value['url'];?>" >
-                  <img src="<?php echo $value['url'];?>" alt="หมู่เกาะสิมิลัน" />
+                  <img src="<?php echo $value['url'];?>" alt="<?php echo $tour[0]->name;?>" />
                   <div><span></span></div>
                 </a>
                 <div class="captions">
@@ -258,53 +262,86 @@
           ?>
 
 
-
+          <!-- Start price -->
           <div class="row">
               <div class="price_booking"> 
-                <div class="three columns">
-                  <span class="title">ราคาทัวร์</span>
-                </div>
+             
+                <div class="twelve columns">
+                  <div class="two columns">
+                    <span class="title">ราคาทัวร์</span>
+                  </div>
 
-                <div class="three columns">
-                  <span>
-                    <strong>ผู้ใหญ่ : </strong> 
-                    <?php 
-                    
-                      if(!empty($price[0]->sale_adult_price)){
-                        echo number_format($price[0]->sale_adult_price, 0);
-                        echo " บาท";
-                      }else{
-                        echo "Call";
-                        echo " บาท";
-                      }
+                  <div class="four columns">
+                    <span>
+                      <strong>ผู้ใหญ่ : </strong> 
+                      <?php 
+                        //print_r($price); exit;
+                        if(!empty($price[0]->sale_adult_price)){
+                          
+                          if($price[0]->discount_adult_price>0){
+
+                            $priceAdultDiscount = number_format($price[0]->sale_adult_price - $price[0]->discount_adult_price, 0);
+                            $priceAdult = number_format($price[0]->sale_adult_price, 0);
+                          
+                            echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
+                            echo " บาท";
+
+                          }else{
+                            echo number_format($price[0]->sale_adult_price, 0);
+                            echo " บาท";
+                          }
+
+                          //text-decoration: line-through; color: #โค้ดสีเส้น;
+
+                        }else{
+                          echo "Call";
+                          echo " บาท";
+                        }
+                        
+                      ?> 
+                    </span> 
+                  </div>
+
+                  <div class="four columns">
+                    <span>
+                      <strong>เด็ก : </strong>
+                      <?php 
                       
-                    ?> 
-                  </span> 
-                </div>
+                        if(!empty($price[0]->sale_child_price)){
+                          
+                          if($price[0]->discount_child_price>0){
 
-                <div class="three columns">
-                  <span>
-                    <strong>เด็ก : </strong>
-                    <?php 
-                    
-                      if(!empty($price[0]->sale_child_price)){
-                        echo number_format($price[0]->sale_child_price, 0);
-                        echo " บาท";
-                      }else{
-                        echo "Call";
-                        echo " บาท";
-                      }
-                      
-                    ?>
-                  </span>
-                </div>
+                            $priceChildDiscount = number_format($price[0]->sale_child_price - $price[0]->discount_child_price, 0);
+                            $priceChild = number_format($price[0]->sale_child_price, 0);
+                            echo "<f style='text-decoration: line-through;'>".$priceChild."</f>&nbsp;".$priceChildDiscount;
+                            echo " บาท";
 
-                <div class="three columns">
-                  <a class="button small  booking" href="#">จองทันที</a>
+                          }else{
+                            echo number_format($price[0]->sale_child_price, 0);
+                            echo " บาท";
+                          }
+
+                          //text-decoration: line-through; color: #โค้ดสีเส้น;
+
+                        }else{
+                          echo "Call";
+                          echo " บาท";
+                        }
+                        
+                      ?> 
+                    </span>
+                  </div>
+
+                  <div class="two columns">
+                    <a class="button small  booking" href="https://docs.google.com/spreadsheet/viewform?formkey=dEM4aFNVSmNhUTgxaENNRjk4SkpYdGc6MQ">จองทันที</a>
+                  </div>
+
                 </div>
               <div class="clearfix"></div>
-              </div>
+            </div>
           </div>        
+
+
         <div class="border"></div>
         <div class="row">
           <div class="twelve columns">
@@ -374,261 +411,81 @@
           </div>          
       </div>
       <!-- End Map -->
-
-
-
+      <?php
+        //print_r($related); 
+      ?>
       <!-- Right bar -->
       <div class="four columns">
         <!-- Packet -->        
         <h3>แพ็กเก็จทัวร์แนะนำ</h3>
-        <div class="list_packet">
-          <div class="row">
-            <div class="twelve columns">
-              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/1.png');?>"></a>
-            </div>
-            <div class="twelve columns">
-              <div class="title_tour">
-                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
+
+        <?
+        if(!empty($related )){
+
+          foreach ($related as $key => $value) {
+        ?>
+          <div class="list_packet">
+            <div class="row">
+              <div class="twelve columns">
+                <a href="<?php echo $value["tour"]->tou_url."-".$value["tour"]->tou_id; ?>">
+                  <img src="<?php echo $value["tour"]->tou_banner_image; ?>">
+                </a>
               </div>
-              <div class="rating one_star" style="display:none"></div>
-              <div class="rating two_star" style="display:none"></div>
-              <div class="rating three_star"></div>
-              <div class="rating four_star" style="display:none"></div>
-              <div class="rating five_star"style="display:none"></div>
-              <div class="clearfix"></div>
-              <div class="border"></div>
-            </div>
-            <div class="twelve columns">
-              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
-              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
-              <div class="price"><span>8,780 B</span> / 3 วัน</div>
+              <div class="twelve columns">
+                <div class="title_tour">
+                  <h4><a href="<?php echo $value["tour"]->tou_url."-".$value["tour"]->tou_id; ?>"><?php echo $value["tour"]->tou_name; ?></a></h4>
+                </div>
+                <div class="rating one_star" style="display:none"></div>
+                <div class="rating two_star" style="display:none"></div>
+                <div class="rating three_star"></div>
+                <div class="rating four_star" style="display:none"></div>
+                <div class="rating five_star"style="display:none"></div>
+                <div class="clearfix"></div>
+                <div class="border"></div>
+              </div>
+              <div class="twelve columns">
+                <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
+                <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
+                <div class="price">
+                  <span>
+                  <?php 
+                      if(!empty($value["price"]->agt_sale_adult_price)){
+                        
+                        if($value["price"]->agt_discount_adult_price>0){
+
+                          $priceAdultDiscount = number_format($value["price"]->agt_sale_adult_price - $value["price"]->agt_discount_adult_price, 0);
+                          $priceAdult = number_format($value["price"]->agt_sale_adult_price, 0);
+                        
+                          echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
+                          echo " บาท";
+
+                        }else{
+                          echo number_format($value["price"]->agt_sale_adult_price, 0);
+                          echo " บาท";
+                        }
+
+                        //text-decoration: line-through; color: #โค้ดสีเส้น;
+
+                      }else{
+                        echo "Call";
+                        echo " บาท";
+                      }
+                    ?>             
+
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="list_packet">
-          <div class="row">
-            <div class="twelve columns">
-              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/2.png');?>"></a>
-            </div>
-            <div class="twelve columns">
-              <div class="title_tour">
-                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-              </div>
-              <div class="rating one_star" style="display:none"></div>
-              <div class="rating two_star" style="display:none"></div>
-              <div class="rating three_star"></div>
-              <div class="rating four_star" style="display:none"></div>
-              <div class="rating five_star"style="display:none"></div>
-              <div class="clearfix"></div>
-              <div class="border"></div>
-            </div>
-            <div class="twelve columns">
-              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
-              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
-              <div class="price"><span>8,780 B</span> / 3 วัน</div>
-            </div>
-          </div>
-        </div>
-        <div class="list_packet">
-          <div class="row">
-            <div class="twelve columns">
-              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/3.png');?>"></a>
-            </div>
-            <div class="twelve columns">
-              <div class="title_tour">
-                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-              </div>
-              <div class="rating one_star" style="display:none"></div>
-              <div class="rating two_star" style="display:none"></div>
-              <div class="rating three_star"></div>
-              <div class="rating four_star" style="display:none"></div>
-              <div class="rating five_star"style="display:none"></div>
-              <div class="clearfix"></div>
-              <div class="border"></div>
-            </div>
-            <div class="twelve columns">
-              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
-              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
-              <div class="price"><span>8,780 B</span> / 3 วัน</div>
-            </div>
-          </div>
-        </div>
-        <div class="list_packet">
-          <div class="row">
-            <div class="twelve columns">
-              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/4.png');?>"></a>
-            </div>
-            <div class="twelve columns">
-              <div class="title_tour">
-                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-              </div>
-              <div class="rating one_star" style="display:none"></div>
-              <div class="rating two_star" style="display:none"></div>
-              <div class="rating three_star"></div>
-              <div class="rating four_star" style="display:none"></div>
-              <div class="rating five_star"style="display:none"></div>
-              <div class="clearfix"></div>
-              <div class="border"></div>
-            </div>
-            <div class="twelve columns">
-              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
-              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
-              <div class="price"><span>8,780 B</span> / 3 วัน</div>
-            </div>
-          </div>
-        </div>
-        <div class="list_packet">
-          <div class="row">
-            <div class="twelve columns">
-              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/5.png');?>"></a>
-            </div>
-            <div class="twelve columns">
-              <div class="title_tour">
-                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-              </div>
-              <div class="rating one_star" style="display:none"></div>
-              <div class="rating two_star" style="display:none"></div>
-              <div class="rating three_star"></div>
-              <div class="rating four_star" style="display:none"></div>
-              <div class="rating five_star"style="display:none"></div>
-              <div class="clearfix"></div>
-              <div class="border"></div>
-            </div>
-            <div class="twelve columns">
-              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
-              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
-              <div class="price"><span>8,780 B</span> / 3 วัน</div>
-            </div>
-          </div>
-        </div>
-        <div class="list_packet">
-          <div class="row">
-            <div class="twelve columns">
-              <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/5.png');?>"></a>
-            </div>
-            <div class="twelve columns">
-              <div class="title_tour">
-                <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-              </div>
-              <div class="rating one_star" style="display:none"></div>
-              <div class="rating two_star" style="display:none"></div>
-              <div class="rating three_star"></div>
-              <div class="rating four_star" style="display:none"></div>
-              <div class="rating five_star"style="display:none"></div>
-              <div class="clearfix"></div>
-              <div class="border"></div>
-            </div>
-            <div class="twelve columns">
-              <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
-              <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
-              <div class="price"><span>8,780 B</span> / 3 วัน</div>
-            </div>
-          </div>
-        </div>
+
+        <?php
+          
+          }        
+        }
+        ?>
+
         <!-- End Packet -->
 
-
-          <br/>
-          <!-- Hotel Recommend-->
-          <h3>โรงแรมแนะนำ</h3>
-          <div class="list_packet">
-            <div class="row">
-              <div class="twelve columns">
-                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/4.png');?>"></a>
-              </div>
-              <div class="twelve columns">
-                <div class="title_tour">
-                  <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                </div>
-                <div class="rating one_star" style="display:none"></div>
-                <div class="rating two_star" style="display:none"></div>
-                <div class="rating three_star"></div>
-                <div class="rating four_star" style="display:none"></div>
-                <div class="rating five_star"style="display:none"></div>
-                <div class="clearfix"></div>
-                <div class="border"></div>
-              </div>
-              <div class="twelve columns">
-                <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
-                <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
-                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-              </div>
-            </div>
-          </div>
-          <div class="list_packet">
-            <div class="row">
-              <div class="twelve columns">
-                <a href=""><img src="images/packet/5.png"></a>
-              </div>
-              <div class="twelve columns">
-                <div class="title_tour">
-                  <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                </div>
-                <div class="rating one_star" style="display:none"></div>
-                <div class="rating two_star" style="display:none"></div>
-                <div class="rating three_star"></div>
-                <div class="rating four_star" style="display:none"></div>
-                <div class="rating five_star"style="display:none"></div>
-                <div class="clearfix"></div>
-                <div class="border"></div>
-              </div>
-              <div class="twelve columns">
-                <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
-                <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
-                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-              </div>
-            </div>
-          </div>
-          <div class="list_packet">
-            <div class="row">
-              <div class="twelve columns">
-                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/5.png');?>"></a>
-              </div>
-              <div class="twelve columns">
-                <div class="title_tour">
-                  <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                </div>
-                <div class="rating one_star" style="display:none"></div>
-                <div class="rating two_star" style="display:none"></div>
-                <div class="rating three_star"></div>
-                <div class="rating four_star" style="display:none"></div>
-                <div class="rating five_star"style="display:none"></div>
-                <div class="clearfix"></div>
-                <div class="border"></div>
-              </div>
-              <div class="twelve columns">
-                <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
-                <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
-                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-              </div>
-            </div>
-          </div>
-          <div class="list_packet">
-            <div class="row">
-              <div class="twelve columns">
-                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/5.png');?>"></a>
-              </div>
-              <div class="twelve columns">
-                <div class="title_tour">
-                  <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                </div>
-                <div class="rating one_star" style="display:none"></div>
-                <div class="rating two_star" style="display:none"></div>
-                <div class="rating three_star"></div>
-                <div class="rating four_star" style="display:none"></div>
-                <div class="rating five_star"style="display:none"></div>
-                <div class="clearfix"></div>
-                <div class="border"></div>
-              </div>
-              <div class="twelve columns">
-                <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
-                <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
-                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-              </div>
-            </div>
-          </div>
-          <!-- End Hotel Recommend-->
-      </div>
     </div>
     <!-- End Right bar -->
     
@@ -732,7 +589,7 @@
           <div class="address">
             <p>Uastravel</p>
             <p>uastravel@hotmail.com</p>
-            <p>31/1 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000</p>
+            <p>80/86 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000</p>
           </div>
         </div>
       </div>
