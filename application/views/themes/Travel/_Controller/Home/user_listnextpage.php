@@ -8,15 +8,27 @@
     foreach ($home as $key => $value) {
   ?>
     <div class="list_attractions" data-category="transition">
-      <!-- div class="sticker new">New</div -->
+      <?php
+          if(!empty($value["price"]->agt_sale_adult_price)){
+      ?>
+        <div class="sticker recommend">
+          <?php  
+            $sale_price = $value["price"]->agt_sale_adult_price - $value["price"]->agt_discount_adult_price;
+            echo number_format($sale_price, 0);
+          ?>
+          บาท
+        </div>                                    
+      <?php                                    
+          }
+      ?>
       <?php 
         if(isset($value["tour"]->tou_url)){
       ?>
-          <a href="<?php echo base_url('tour/'.$value["tour"]->tou_url.'-'.$value["tour"]->tou_id);?>">
+          <a href="<?php echo base_url('tour/'.$value["tour"]->tou_url.'-'.$value["tour"]->tou_id);?>" target="_blank" >
       <?php
         }else if(isset($value["location"]->loc_url)){
       ?>
-          <a href="<?php echo base_url('location/'.$value["location"]->loc_url.'-'.$value["location"]->loc_id);?>">
+          <a href="<?php echo base_url('location/'.$value["location"]->loc_url.'-'.$value["location"]->loc_id);?>" target="_blank" >
       <?php
         }
       ?>  
@@ -43,11 +55,11 @@
             <?php 
               if(isset($value["tour"]->tou_url)){
             ?>
-                <a href="<?php echo base_url('tour/'.$value["tour"]->tou_url.'-'.$value["tour"]->tou_id);?>">
+                <a href="<?php echo base_url('tour/'.$value["tour"]->tou_url.'-'.$value["tour"]->tou_id);?>" target="_blank" >
             <?php
               }else if(isset($value["location"]->loc_url)){
             ?>
-                <a href="<?php echo base_url('location/'.$value["location"]->loc_url.'-'.$value["location"]->loc_id);?>">
+                <a href="<?php echo base_url('location/'.$value["location"]->loc_url.'-'.$value["location"]->loc_id);?>" target="_blank" >
             <?php
               }
             ?>  
