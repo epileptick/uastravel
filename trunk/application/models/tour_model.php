@@ -115,6 +115,7 @@ class Tour_model extends MY_Model {
         }
       }
 
+
       $this->db->set("tou_url", Util::url_title($data["name"]));
 
       $this->db->set("tou_cr_date", date("Y-m-d H:i:s"));
@@ -122,7 +123,24 @@ class Tour_model extends MY_Model {
       $this->db->set("tou_lu_date", date("Y-m-d H:i:s"));
 
       $this->db->insert($this->_table);
-      return $this->db->insert_id(); 
+
+      //Generate code
+      $id = $this->db->insert_id();
+      $digit = 6-strlen($id); 
+      $code = "TU"; 
+      for ($i=0; $i < $digit; $i++) { 
+        $code .= "0";
+      }
+      $code .= $id;
+
+
+      //print_r($code); exit;
+      $this->db->set("tou_code", $code);
+      $query = $this->db->where("tou_id", $id);
+      $query = $this->db->update("ci_tour");
+
+
+      return $id; 
     }
     
     return ;
