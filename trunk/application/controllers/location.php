@@ -15,7 +15,7 @@ class Location extends MY_Controller {
 
     $result = array();
     
-    $config['per_page'] = 10; 
+    $config['per_page'] = 15; 
     
     $config['prev_link'] = '<img class="blogg-button-image" alt="โพสต์ใหม่" src="/themes/Travel/images/left_arrow.png">';
     $config['prev_tag_open'] = '<button class="blogg-button blogg-collapse-right" title="โพสต์ใหม่" disabled="" tabindex="0">';
@@ -186,8 +186,8 @@ class Location extends MY_Controller {
   }  
   
   function user_list($tag=false){
-
-    $per_page = 6;    
+    
+    $per_page = 10;     
     $data["menu"]= $this->_location_menu($tag);
 
     foreach ($data["menu"] as $key => $valueTag) {

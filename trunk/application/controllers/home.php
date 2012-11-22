@@ -101,7 +101,7 @@ class Home extends MY_Controller {
 
 
     
-    $per_page = 4;    
+    $per_page = 15;     
     $data["menu"]= $this->_home_menu($tag);
 
     foreach ($data["menu"] as $key => $valueTag) {
@@ -131,20 +131,26 @@ class Home extends MY_Controller {
       }
     }else{
       //Filter all
-    //$query["tag_id"] = $tagQuery[0]->id;
-    $query["tag_id"] = 1;
+      //$query["tag_id"] = $tagQuery[0]->id;
+      $query["tag_id"] = 1;
 
-    $query["join"] = true;
-    $query["per_page"] = $per_page;
-    $query["offset"] = ($this->uri->segment(1))?($this->uri->segment(1)-1)*$query["per_page"]:0;   
+      $query["join"] = true;
+      $query["per_page"] = $per_page;
+      $query["offset"] = ($this->uri->segment(1))?($this->uri->segment(1)-1)*$query["per_page"]:0;   
 
-    //Tour
-    $data["home"] = $this->_home_list($query);  
+      //Tour
+      $data["home"] = $this->_home_list($query);  
     }
 
     //print_r($query); exit;
-    if($query["offset"]>0){
-      $this->_fetch('user_listnextpage', $data, false, true);
+    if(!empty($query["offset"])){
+      if($query["offset"]>0 ){
+        $this->_fetch('user_listnextpage', $data, false, true);
+      }else{
+
+        //print_r($data);   
+        $this->_fetch('user_list', $data, false, true);        
+      }
     }else{
       //print_r($data);   
       $this->_fetch('user_list', $data, false, true);

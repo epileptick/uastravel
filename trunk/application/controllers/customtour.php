@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Tour extends MY_Controller {
+class CustomTour extends MY_Controller {
   function __construct(){
     parent::__construct();
   }
@@ -77,8 +77,7 @@ class Tour extends MY_Controller {
     $this->load->model("tagtour_model", "tagtourModel");
     $tour = $this->tagtourModel->getRecord($tags);
 
-    //print_r($this->_shuffle_assoc($tour)); exit;
-
+    //print_r($tour); exit;
     if(!empty($tour)){
       return $this->_shuffle_assoc($tour);
     }else{
@@ -88,13 +87,10 @@ class Tour extends MY_Controller {
 
   function user_list($tag=false){
 
-    
-    $per_page = 15;  
+
+    $per_page = 6;
     $data["menu"]= $this->_tour_menu($tag);
 
-    foreach ($data["menu"] as $key => $valueTag) {
-      $query["menu"][] = $valueTag->tag_id;
-    }
     if($tag){
       //////////////////////////////////////////////////////
       // List by tag
@@ -126,17 +122,30 @@ class Tour extends MY_Controller {
       //           localhost/uastravel/tour/2
       //           localhost/uastravel/tour/3
       //////////////////////////////////////////////////////
+
       //Filter all
-      $query["tag_id"] = $query["menu"];
+      foreach ($data["menu"] as $key => $valueTag) {
+        $query["tag_id"][] = $valueTag->tag_id;
+      }
       $query["join"] = true;
       $query["in"] = true;
       $query["per_page"] = $per_page;
       $query["offset"] = ($this->uri->segment(2))?($this->uri->segment(2)-1)*$query["per_page"]:0;   
 
+      ///print_r($tagtour); exit;
+      //Pagination
+      /*
+      $this->load->library('pagination');
+      $config['per_page'] = $tagtour["per_page"];
+      $config['base_url'] = base_url("tour");
+      $this->load->model("tagtour_model", "tagtourModel");
+      $config['total_rows'] = $this->tagtourModel->countRecord($tagtour);
+      $this->pagination->initialize($config); 
+      */
       //Send tag for get data
       $data["tour"] = $this->_tour_list($query);
     }
-    //print_r($data);   exit;
+      //print_r($data);   exit;
 
     if($query["offset"]>0){
       $this->_fetch('user_listnextpage', $data, false, true);
@@ -169,27 +178,10 @@ class Tour extends MY_Controller {
           $this->load->model("tag_model", "tagModel");
 
           $tag["id"] = $value->tag_id;
-          $query["menu"][] = $value->tag_id;
           $tagQuery = $this->tagModel->getRecord($tag);
           $data["tag"][] = $tagQuery[0];
           $count++;
         }
-
-        //Related Tour
-        //$query["releated"] = true;
-
-        //print_r($query["menu"]); exit;
-        $query["tour_id"] = $id;
-        $query["related"] = true;
-        $query["tag_id"] = $query["menu"];
-        $query["join"] = true;
-        $query["in"] = true;
-        $query["per_page"] = 8;
-        $query["offset"] = 0;
-        $data["related"] = $this->tagtourModel->getRecord($query);
-
-
-        //print_r($related); exit;
       }
 
 
@@ -197,14 +189,12 @@ class Tour extends MY_Controller {
       $this->load->model("agencytour_model", "agencytourModel");
       $agencytourQuery["price"] = $this->agencytourModel->getRecord($agencytour);
 
-      //print_r($agencytourQuery); exit;  
       if(!empty($agencytourQuery["price"])){
-        $maxAgencyPrice = 0;
+        $maxAgencyPrice->sale_adult_price = 0;
         foreach ($agencytourQuery["price"] as $key => $value) {
           # code...
-          if($value->sale_adult_price > $maxAgencyPrice){
+          if($value->sale_adult_price > $maxAgencyPrice->sale_adult_price){
             $data["price"][0] = $value;
-            $maxAgencyPrice = $value->sale_adult_price;
           }
         }
       }
@@ -214,6 +204,15 @@ class Tour extends MY_Controller {
       $data["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$id,'table_id'=>2)));
       //print_r($data["images"]);exit;
 
+      /*
+      //Prepare for three column
+      //var_dump($locationData["location"]['body']);
+      if(preg_match("#<blockquote>(.*)</blockquote>#smiU", $locationData["location"]['body'],$matches)){
+        $locationData["location"]['body'] = str_replace($matches[0], '', $locationData["location"]['body']);
+        $locationData["location"]['subtitle'] = strip_tags($matches[1]);
+      }
+      $locationData["location"]['body'] =  explode("<hr />",preg_replace("/<p[^>]*>[\s|&nbsp;]*<\/p>/", '', $locationData["location"]['body']));
+      */
 
       //Return
       $this->_fetch('user_view', $data, false, true);
@@ -242,26 +241,8 @@ class Tour extends MY_Controller {
 
   function admin_list(){
 
-      $tourField["field"] = "tou_id, tou_name, tou_url, tou_first_image";
-      $data["tour"] = $this->tourModel->getRecord($tourField);
-
-      //print_r($data["tour"]); exit;
-      $count = 0;
-      foreach ($data["tour"] as $key => $value) {
-
-        $query["join"] = true;        
-        $query["tour_id"] = $value->id;
-
-        $result["tour"][$count]["tour"] = $value;
-
-        $this->load->model("tagtour_model","tagtourModel");  
-        $result["tour"][$count]["tag"] = $this->tagtourModel->getRecord($query);  
-
-        $count++;       
-       } 
-
-      //print_r($result); exit;
-      $this->_fetch('admin_list', $result);
+      $data["tour"] = $this->tourModel->getRecord();   
+      $this->_fetch('admin_list', $data);
    }
 
   function admin_create($id=false){
@@ -313,7 +294,6 @@ class Tour extends MY_Controller {
             $agency["id"] = $value->agency_id;
             $queryAgency = $this->agencyModel->getRecord($agency);  
             //print_r($queryAgency);
-
             $data["agencyTour"][$key]->agency_name = $queryAgency[0]->name;
           }
         } 
@@ -485,20 +465,13 @@ class Tour extends MY_Controller {
 
         //Update & get current tour id
         $updateTourID = $this->tourModel->updateRecord($args);
+
         ////////////////////////////////////////////
         //Add (TagTour) relationship data table 
         ////////////////////////////////////////////  
         if(!empty($args["tags"])){ 
-
-          if($args["tags"] == "[]"){ 
-            $tour["tour_id"] = $args["id"];
-            $this->load->model("tagtour_model", "tagTourModel");
-            $this->tagTourModel->deleteRecord($tour);
-
-          }else{        
-            $this->load->model("tagtour_model", "tagTourModel");
-            $this->tagTourModel->updateRecord($args);
-          }
+          $this->load->model("tagtour_model", "tagTourModel");
+          $this->tagTourModel->updateRecord($args);
         }
 
         ///////////////////////////////////////////
@@ -526,55 +499,14 @@ class Tour extends MY_Controller {
   function admin_delete($id=false){
     //implement code here
     if($id) {
-
         $this->tourModel->deleteRecord($id);
 
-        $args["tour_id"] = $id;
-
-        //Delete tag
-        $this->load->model("tagtour_model", "tagtourModel");
-        $this->tagtourModel->deleteRecord($id);
-
-        //Delete agency
-        $this->load->model("agencytour_model", "agencytourModel");
-        $this->agencytourModel->deleteRecord($id);
-
+        $data["tour"] = $this->tourModel->getRecord();  
+        $data["message"] = "Delete successful !!!";
         //Redirect
         redirect(base_url("admin/tour"));      
     } 
   }  
-
-  function admin_createtag($tag=false, $tour=false){
-    //implement code here 
-
-    if($tag && $tour){
-      $argTag["name"] = $tag; 
-      $this->load->model("tag_model", "tagModel");     
-      $tagQuery = $this->tagModel->getRecord($argTag);
-
-      $tours = explode("-", $tour);
-
-      $this->load->model("tagtour_model", "tagtourModel");
-      foreach ($tours as $key => $value) {
-        $args['tag_id']  = $tagQuery[0]->id;
-        $args['tour_id'] = $value[0];
-
-        $tagtour = $this->tagtourModel->getRecord($args);
-
-        if(empty($tagtour)){
-          //Add
-          $this->tagtourModel->addRecord($args);
-          echo "insert finished.";
-        }else{
-          //Delete
-          $this->tagtourModel->deleteRecord($args);
-          echo "delete finished.";
-        }
-      }
-
-
-    }
-  }
 
   function validate(){
 
