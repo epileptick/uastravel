@@ -135,6 +135,13 @@
                             <?php                                                     
                               }
                             ?>
+
+                            <li >
+                              <a href="#">ค้นหา : </a>
+                            </li>
+                            <li >
+                              <input style="position:absolute; top:10px; height:12px; width:120px;" type="text">
+                            </li>
                           </ul>
                           <form class="navbar-form pull-right" id="searchForm">
                             <fieldset>
