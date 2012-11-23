@@ -25,7 +25,7 @@ class MY_Model extends CI_Model {
     return $this->_save($options);
   }
   
-  function delete($options = NULL){
+  function delete($options = NULL){ 
     if(is_null($options)){
       return FALSE;
     }

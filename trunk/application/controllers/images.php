@@ -14,6 +14,18 @@ class Images extends MY_Controller {
     return $this->_fetch('ajax_list',$result,FALSE,TRUE);
   }
   
+  function ajax_delete($id=""){
+    if(empty($id)){
+      echo json_encode(array("error"=>"1"));
+    }
+    if($this->imagesModel->delete($id)){
+      echo json_encode(array("success"=>"1")); 
+    }else{
+      echo json_encode(array("error"=>"1"));
+    }
+    
+  }
+  
   function ajax_upload(){ 
     $_post = $this->input->post();
     

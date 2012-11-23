@@ -111,7 +111,7 @@ $route['admin/'.LangUtil::line("url_lang_agency").'/(:any)-(:num)'] = 'agency/ad
 $route['admin/'.LangUtil::line("url_lang_agency").'/(:any)'] = 'agency/admin_list'; //for Tag
 
 $route['agency/hasdata/(:any)'] = 'agency/hasdata/$1'; //for Tag
-$route['agency/phpsearch/(:any)'] = 'agency/phpsearch/$1'; //for Tag
+$route['agency/phpsearch/(:any)'] = 'agency/phpsearch/$1'; //for Tag 
 
 //Tag
 $route['admin/tag'] = 'tag/admin_index';
@@ -130,6 +130,7 @@ $route['tag/jsonsearch/(:any)'] = 'tag/jsonsearch/$1';
 //Images
 $route['images/ajax_list'] = 'images/ajax_list';
 $route['images/ajax_upload'] = 'images/ajax_upload';
+$route['images/ajax_delete/(:any)'] = 'images/ajax_delete/$1';
 
 
 //Home
