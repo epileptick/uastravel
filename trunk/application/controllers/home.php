@@ -101,7 +101,7 @@ class Home extends MY_Controller {
 
 
     
-    $per_page = 15;     
+    $per_page = 20;     
     $data["menu"]= $this->_home_menu($tag);
 
     foreach ($data["menu"] as $key => $valueTag) {

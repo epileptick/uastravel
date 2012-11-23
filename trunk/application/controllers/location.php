@@ -187,7 +187,7 @@ class Location extends MY_Controller {
   
   function user_list($tag=false){
     
-    $per_page = 10;     
+    $per_page = 20;     
     $data["menu"]= $this->_location_menu($tag);
 
     foreach ($data["menu"] as $key => $valueTag) {
