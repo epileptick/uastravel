@@ -10,6 +10,7 @@ class Tour extends MY_Controller {
     //Default function for call read method
     $keyword = $this->input->post();
 
+    //print_r($keyword); exit;
     if($keyword){
       $this->_search("user_list");
     }else{
@@ -608,13 +609,41 @@ class Tour extends MY_Controller {
     //Get argument from post page
     $keyword = $this->input->post();
 
-    if($keyword){
+    if($keyword && $render == "user_list"){
       $args["tou_name"] = $keyword["search"];
+      $args["user_search"] = true;
       $data["tour"] = $this->tourModel->searchRecord($args);
+    
+      $per_page = 20;  
+      $data["menu"]= $this->_tour_menu();
+
+      $this->_fetch('user_list', $data, false, true);
+
+
+    }else if($keyword && $render == "admin_list"){
+      $args["tou_name"] = $keyword["search"];
+      $tour = $this->tourModel->searchRecord($args);
+
+      //print_r($data["tour"]); exit;
+      $count = 0;
+      foreach ($tour as $key => $value) {
+
+        $query["join"] = true;        
+        $query["tour_id"] = $value->id;
+
+        $data["tour"][$count]["tour"] = $value;
+
+        $this->load->model("tagtour_model","tagtourModel");  
+        $data["tour"][$count]["tag"] = $this->tagtourModel->getRecord($query);  
+
+        $count++;       
+       } 
+
       $this->_fetch($render, $data);
     }else{
       return;
     }
+ 
   }
   
   function _uploadImage($TourID=""){
