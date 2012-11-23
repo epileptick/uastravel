@@ -135,22 +135,20 @@
                             <?php                                                     
                               }
                             ?>
-
-                            <li >
-                              <a href="#">ค้นหา : </a>
-                            </li>
-                            <li >
-                              <input style="position:absolute; top:10px; height:12px; width:120px;" type="text">
-                            </li>
+                              <li >
+                            <form name="input" action="<?php echo base_url('tour');?>" method="post">
+                              <li >
+                                <input type="text" name="search" style="position:absolute; top:10px; height:12px; width:120px;" >
+                                </input>
+                              </li>
+                              <li >
+                                <input type="submit" value="ค้นหา" style="margin-left:140px; margin-top:10px; height:22px;">
+                                </input>
+                              </li>
+                            </form>
+                           </li>
                           </ul>
-                          <form class="navbar-form pull-right" id="searchForm">
-                            <fieldset>
-                                <div class="input">
-                                    <input type="text" name="search" id="search" value="ค้นหา" />
-                                </div>
-                                <input type="submit" id="searchSubmit" value="" />
-                            </fieldset>
-                          </form>
+
                         </div>
                     </div>
                   </div>
