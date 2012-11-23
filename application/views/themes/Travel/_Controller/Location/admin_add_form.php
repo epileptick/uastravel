@@ -40,11 +40,26 @@ $(document).ready(function() {
               $("#side_bar_block_image img").click(function() {
                 $(this).addImg();
               });
-              $("#side_bar_block_image img a").click(function() {
-                $(this).delImg();
+              $("#side_bar_block_image a").click(function() {
+                //$(this).delImg();
+                //console.log($(this).prop("href"));
+                $.post($(this).prop("href"), {},
+                  function(data) { 
+                    //console.log(data);
+                    var data = jQuery.parseJSON(data);
+                    //console.log(data);
+                    if(data.success == "1"){
+                      updateImages();
+                    }
+                  }
+                );
                 return false;
+                
               });
-            });
+              
+      }
+    );
+
   }
   
   (function($){
@@ -53,13 +68,8 @@ $(document).ready(function() {
       };
   })(jQuery);
   
-  (function($){
-      $.fn.delImg = function(){
-          console.log(this.attr("href"));
-          
-      };
-  })(jQuery);
   
+    
   //Uploader Control
   $("#btnShow").css("display", "block");
   $("#btnHide").css("display", "none");
@@ -108,14 +118,7 @@ $(document).ready(function() {
         autoresize_min_height: 500,
         autoresize_not_availible_height: 10,
         autoresize_on_init: true,
-        autoresize_hide_scrollbars: false,
-        setup : function (ed)
-        {
-            ed.onDeactivate.add (function (ed)
-            {
-                autoSave();
-            });
-        }
+        autoresize_hide_scrollbars: false
     });
     
     tinyMCE.init({
@@ -139,14 +142,7 @@ $(document).ready(function() {
         autoresize_min_height: 300,
         autoresize_not_availible_height: 10,
         autoresize_on_init: true,
-        autoresize_hide_scrollbars: false,
-        setup : function (ed)
-        {
-            ed.onDeactivate.add (function (ed)
-            {
-                autoSave();
-            });
-        }
+        autoresize_hide_scrollbars: false
     });
 
     
@@ -227,7 +223,7 @@ $(document).ready(function() {
     }
   });
     
-    
+  
 });
 
   

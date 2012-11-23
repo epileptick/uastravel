@@ -274,7 +274,7 @@
                   <div class="four columns">
                     <span>
                       <strong>ผู้ใหญ่ : </strong> 
-                      <?php 
+                      <?php
                         //print_r($price); exit;
                         if(!empty($price[0]->sale_adult_price)){
                           
@@ -339,7 +339,7 @@
                 </div>
               <div class="clearfix"></div>
             </div>
-          </div>        
+          </div>
 
 
         <div class="border"></div>
@@ -419,10 +419,9 @@
         <!-- Packet -->        
         <h3>แพ็กเก็จทัวร์แนะนำ</h3>
 
-        <?
-        if(!empty($related )){
-
-          foreach ($related as $key => $value) {
+        <?php
+        if(!empty($related )):
+          foreach ($related as $key => $value):
         ?>
           <div class="list_packet">
             <div class="row">
@@ -479,9 +478,8 @@
           </div>
 
         <?php
-          
-          }        
-        }
+          endforeach;
+        endif;
         ?>
 
         <!-- End Packet -->
