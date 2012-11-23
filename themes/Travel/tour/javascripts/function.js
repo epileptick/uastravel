@@ -3,26 +3,26 @@ $("[rel=tooltip]").tooltip();
 
 //Hover effect
 $(function() {
-	$('#attractions > .list_attractions a').hoverdir();
+  $('#attractions > .list_attractions a').hoverdir();
 });
 
 //To top scrollbar  
 $(document).ready(function() {
-	var defaults = {
-	  containerID: 'moccaUItoTop', // fading element id
-	  containerHoverClass: 'moccaUIhover', // fading element hover class
-	  scrollSpeed: 1200,
-	  easingType: 'linear' 
-	};
-	$().UItoTop({ easingType: 'easeOutQuart' });
+  var defaults = {
+    containerID: 'moccaUItoTop', // fading element id
+    containerHoverClass: 'moccaUIhover', // fading element hover class
+    scrollSpeed: 1200,
+    easingType: 'linear' 
+  };
+  $().UItoTop({ easingType: 'easeOutQuart' });
 });
 
 $(window).load(function() { 
-	  $('.sidebar').fadeIn(100);
+    $('.sidebar').fadeIn(100);
  });
 //Isotope 
 $(window).load(function() { 
-	  $('.sidebar').fadeIn(1000);
+    $('.sidebar').fadeIn(1000);
     $('body .container-fluid').append('<div class="loader"></div>');
     var $container = $('#attractions');
     updateSize();
@@ -70,7 +70,6 @@ $(window).load(function() {
         }
 
 
-
         $gutterTotal = $cols * 20;
         $browserWidth = $browserWidth - $gutterTotal;
         $itemWidth = $browserWidth / $cols;
@@ -87,13 +86,14 @@ $(window).load(function() {
       itemSelector : '.list_attractions',     // selector for all items you'll retrieve
       loading: {
           finishedMsg: '<p>ไม่มีข้อมูลแล้ว</p>',
-          img: 'images/loader2.gif'
+          img: 'http://www.uastravel.com/themes/Travel/tour/images/loader2.gif'
         }
       },
 
       // call Isotope as a callback
       function( newElements ) {
         updateSize();
+        $container.isotope( 'reLayout' );
         $('#attractions > .list_attractions a').hoverdir();
         $container.isotope( 'appended', $( newElements ) ); 
         $("[rel=tooltip]").tooltip();
@@ -107,6 +107,7 @@ $(window).load(function() {
       $('#filters a').removeClass('selected');
       $(this).addClass('selected');
       var selector = $(this).attr('data-option-value');
+      //alert("selector : "+ selector);      
       $container.isotope({ filter: selector });
       return false;
     });
