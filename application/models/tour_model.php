@@ -176,18 +176,69 @@ class Tour_model extends MY_Model {
 
 
   function searchRecord($args=false){
-    if($args){
-      $this->db->like($args);
+    if(!empty($args["tou_name"]) && !empty($args["user_search"])){
+
+      $search["tou_name"] = $args["tou_name"];
+      $this->db->like($search); 
+      $this->db->order_by('CONVERT( tou_name USING tis620 ) ASC');    
+      $tour = $this->db->get("ci_tour")->result();
+
+
+      $count = 0;
+      foreach ($tour as $key => $value) {
+
+        //Get tour data
+        unset($this->db);
+        $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+        $this->db->where('tou_id', $value->tou_id);
+        $query = $this->db->get('ci_tour');
+        $tourBuffer = $query->result(); 
+        $result[$count]["tour"] = $tourBuffer[0];
+
+
+        //Get tag data
+        unset($this->db);
+        $this->db->where('tat_tour_id', $value->tou_id);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+        $query = $this->db->get('ci_tagtour');
+        $result[$count]["tag"] = $query->result();
+
+
+        //Get price data
+        unset($this->db);
+        $this->db->where('agt_tour_id', $value->tou_id);
+        $priceTour = $this->db->get('ci_agencytour')->result();
+
+        if(!empty($priceTour)){
+          $maxAgencyPrice = 0;
+          foreach ($priceTour as $key => $value) {
+            # code...
+            if($value->agt_sale_adult_price > $maxAgencyPrice){
+              $result[$count]["price"] = $value;
+              $maxAgencyPrice = $value->agt_sale_adult_price;
+            }
+          }
+        }
+
+        $count++;
+      }
+      //print_r($result); exit;
+      if(!empty($result)){
+        return $result;
+      }else{
+        return false;
+      }
+    }else if(!empty($args["tou_name"])){
+      $this->db->like($args); 
       $this->db->order_by('CONVERT( tou_name USING tis620 ) ASC');    
       $query = $this->db->get("ci_tour");
 
-      //print_r($args); exit;
       $newResult = array();
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
         return $newResult;
       }else{
-        return $newResult;
+        return false;
       }      
     }
   }  
