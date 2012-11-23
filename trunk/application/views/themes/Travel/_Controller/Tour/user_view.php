@@ -179,7 +179,7 @@
             <?php echo $tour[0]->detail;?>
           </p>
 
-
+   
 
           <?php 
             if(!empty($tour[0]->included) && !empty($tour[0]->remark)){
