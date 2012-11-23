@@ -89,7 +89,7 @@ class Tour extends MY_Controller {
   function user_list($tag=false){
 
     
-    $per_page = 15;  
+    $per_page = 20;  
     $data["menu"]= $this->_tour_menu($tag);
 
     foreach ($data["menu"] as $key => $valueTag) {
