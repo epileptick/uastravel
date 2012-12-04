@@ -199,6 +199,7 @@ class Tour_model extends MY_Model {
         //Get tag data
         unset($this->db);
         $this->db->where('tat_tour_id', $value->tou_id);
+        $this->db->where_in('tat_tag_id', $args["menu"]);
         $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
         $query = $this->db->get('ci_tagtour');
         $result[$count]["tag"] = $query->result();

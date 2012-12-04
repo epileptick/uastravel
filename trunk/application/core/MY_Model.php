@@ -287,7 +287,7 @@ class MY_Model extends CI_Model {
     if(is_null($result)){
       return FALSE;
     }
-    if(is_array($result[0])){
+    if(!empty($result[0]) && is_array($result[0])){
       foreach ($result as $key => $value) {
         $data = array();
         foreach ($value as $keyField => $valueFiled) {

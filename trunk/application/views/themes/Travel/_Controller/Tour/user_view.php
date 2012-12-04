@@ -53,10 +53,9 @@
             <ul class="right">
               <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
               <li><a href="<?php echo base_url('location');?>">แหล่งท่องเที่ยว</a></li>
-              <li><a class="active" href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์</a></li>          
-              <li><a href="#">เกี่ยวกับเรา</a></li>
-              <li><a href="#">ติดต่อเรา</a></li>
-              <li><a href="#">โปรโมชั่น</a></li>            
+              <li><a class="active" href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์</a></li> 
+              <li><a href="#">โปรโมชั่น</a></li>
+                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>                
             </ul>
           </section>
         </nav>
@@ -425,14 +424,18 @@
         ?>
           <div class="list_packet">
             <div class="row">
-              <div class="twelve columns">
+              <div class="twelve columns">              
                 <a href="<?php echo $value["tour"]->tou_url."-".$value["tour"]->tou_id; ?>">
                   <img src="<?php echo $value["tour"]->tou_banner_image; ?>">
                 </a>
               </div>
               <div class="twelve columns">
                 <div class="title_tour">
-                  <h4><a href="<?php echo $value["tour"]->tou_url."-".$value["tour"]->tou_id; ?>"><?php echo $value["tour"]->tou_name; ?></a></h4>
+                  <h4>
+                    <a href="<?php echo $value["tour"]->tou_url."-".$value["tour"]->tou_id; ?>">
+                      <?php echo $value["tour"]->tou_name; ?>
+                    </a>
+                  </h4>
                 </div>
                 <div class="rating one_star" style="display:none"></div>
                 <div class="rating two_star" style="display:none"></div>
@@ -755,5 +758,6 @@
   } );*/
   </script>
 
+<?php include_once("themes/Travel/tour/analyticstracking.php") ?>
 </body>
 </html>

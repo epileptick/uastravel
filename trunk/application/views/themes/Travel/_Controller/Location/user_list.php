@@ -5,12 +5,14 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
+  
+  <title>สถานที่ท่องเที่ยว<?php echo $this->uri->segment(2);?> - U As Travel</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="ROBOTS" content="NOODP" />
+  <meta name="description" content="สถานที่ท่องเที่ยว<?php echo $this->uri->segment(2);?>และทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยว<?php echo $this->uri->segment(2);?> และแพคเกจทัวร์ใน<?php echo $this->uri->segment(2);?>ราคาพิเศษ" />
+  <meta name="keywords" content="" />
+  
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <!-- Le styles -->
     <link href="<?php echo base_url('themes/Travel/tour/bootstrap/css/bootstrap.css');?>" rel="stylesheet">
@@ -39,11 +41,12 @@
               <ul>
                 <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
                 <li class="active"><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
-                <li><a href="<?php echo base_url('tour');?>">แพ็คเกจทัวร์</a></li>
+                <li><a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
+                <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
+                <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
+                <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
                 <li><a href="#">โปรโมชั่น</a></li> 
-                <li><a href="#">เกี่ยวกับเรา</a></li>
-                <li><a href="#">ติดต่อเรา</a></li>             
-              </ul>
+                <li><a href="<?php echo base_url('location/ติดต่อเรา-119 ');?>">ติดต่อเรา</a></li>   
             </nav>
             <div class="social">
               <a href="" class="twitter icon">twitter</a>
@@ -288,5 +291,6 @@
     <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/Full-screen/jquery.fullscreen-min.js');?>"></script>
 
 
+    <?php include_once("themes/Travel/tour/analyticstracking.php") ?>
   </body>
 </html>

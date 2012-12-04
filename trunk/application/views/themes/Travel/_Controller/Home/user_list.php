@@ -5,7 +5,12 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
+  <title>ท่องเที่ยวไปในสถานที่ท่องเที่ยวด้วยแพคเกจทัวร์ราคาพิเศษ - U As Travel</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="ROBOTS" content="NOODP" />
+  <meta name="description" content="สถานที่ท่องเที่ยวและทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยว และแพคเกจทัวร์ราคาพิเศษ" />
+  <meta name="keywords" content="" />
+  
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,10 +44,12 @@
               <ul>
                 <li class="active"><a href="<?php echo base_url();?>">หน้าแรก</a></li>
                 <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
-                <li><a href="<?php echo base_url('tour');?>">แพ็คเกจทัวร์</a></li>
-                <li><a href="#">โปรโมชั่น</a></li> 
-                <li><a href="#">เกี่ยวกับเรา</a></li>
-                <li><a href="#">ติดต่อเรา</a></li>             
+                <li><a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
+                <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
+                <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
+                <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
+                <li><a href="#">โปรโมชั่น</a></li>
+                <li><a href="<?php echo base_url('location/ติดต่อเรา-119 ');?>">ติดต่อเรา</a></li>         
               </ul>
             </nav>
             <div class="social">
@@ -249,11 +256,27 @@
                                   <?php
                                     //print_r($value["tag"]); exit;
                                     foreach ($value["tag"] as $keyTag => $valueTag) {
+
+                                      if(!empty($value["tour"]->maintag_url)){
                                   ?>
-                                  <a href="<?php echo base_url('tour/'.$valueTag->tag_url);?>" style="color: #0CACE1;">
-                                    <?php echo $valueTag->tag_name; ?>
-                                  </a>
+                                        <a href="<?php echo base_url('tour/'.$value["tour"]->maintag_url."/".$valueTag->tag_url);?>" 
+                                          style="color: #0CACE1;"
+                                          title="<?php echo $valueTag->tag_name.' '.$value["tour"]->maintag_name;?>"
+                                          target="_blank"
+                                        >
+                                          <?php echo $valueTag->tag_name; ?>
+                                        </a>
                                   <?php
+                                      }else{
+                                 ?>
+                                        <a href="<?php echo base_url('tour/'.$valueTag->tag_url);?>" 
+                                          style="color: #0CACE1;"
+                                          target="_blank" 
+                                        >
+                                          <?php echo $valueTag->tag_name; ?>
+                                        </a>
+                                  <?php
+                                      }
                                     }
                                   ?>
                      
@@ -345,6 +368,8 @@
     <!-- Full Screen -->
     <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/Full-screen/jquery.fullscreen-min.js');?>"></script>
 
+
+    <?php include_once("themes/Travel/tour/analyticstracking.php") ?>
 
   </body>
 </html>

@@ -49,6 +49,11 @@ $route['404_override'] = '';
 // '/en', '/de', '/fr' and '/nl' URIs -> use default controller
 $route['^(en|th|de|fr|nl)$'] = $route['default_controller'];
 
+
+
+$route['(:any)'.'_tests'] = '$1'.'_tests';
+
+
 ////////// Urls start
 
 //location
@@ -86,18 +91,18 @@ $route['admin/tour/(:any)/(:any)-(:num)'] = 'tour/admin_view/$3';
 $route['admin/tour/(:any)-(:num)'] = 'tour/admin_view/$2';
 $route['admin/tour/(:any)'] = 'tour/admin_list'; //for Tag
 
-$route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:num)'] = 'tour/user_index';
-$route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/user_view/$3';
-$route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
-$route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/user_list/$1'; //for Tag
-$route[$lang_set.'/'.LangUtil::line("url_lang_tour")] = 'tour/user_list'; //list tour
 
-$route[LangUtil::line("url_lang_tour").'/(:num)'] = 'tour/user_index';
-$route[LangUtil::line("url_lang_tour").'/(:any)/(:any)-(:num)'] = 'tour/user_view/$3';
+
+//list all
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
-$route[LangUtil::line("url_lang_tour").'/(:any)'] = 'tour/user_list/$1'; //for Tag
-$route[LangUtil::line("url_lang_tour").'/test'] = 'tour/user_test'; //for Tag
-$route[LangUtil::line("url_lang_tour")] = 'tour/user_index'; //list tour
+$route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
+$route[LangUtil::line("url_lang_tour")."/(:any)"] = 'tour/user_index'; 
+$route[$lang_set.'/'.LangUtil::line("url_lang_tour")."/(:any)"] = 'tour/user_index'; 
+$route[LangUtil::line("url_lang_tour")] = 'tour/user_index'; 
+$route[$lang_set.'/'.LangUtil::line("url_lang_tour")] = 'tour/user_index'; 
+
+
+
 
 
 //Agency

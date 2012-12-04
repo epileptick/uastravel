@@ -1,14 +1,3 @@
-<?php
-  //print_r($tour); exit;
-/*
-  if(isset($this->pagination)){
-    echo $this->pagination->create_links();
-    echo "<br><br><br><br>";
-  }
-*/
-
-?>
-
 <!DOCTYPE html>
 <!--[if IE ]>    <html class="no-js ie-all" lang="en"> <![endif]-->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -16,11 +5,11 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+  <title><?php echo str_replace("-", " ",$this->uri->segment(3));?> <?php  echo str_replace("-", " ",$this->uri->segment(2));?> - U As Travel</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="ROBOTS" content="NOODP" />
+  <meta name="description" content="<?php echo str_replace("-", " ",$this->uri->segment(3));?> <?php echo str_replace("-", " ",$this->uri->segment(2));?>ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของ<?php echo $this->uri->segment(3); echo $this->uri->segment(2);?> และแพคเกจ<?php echo $this->uri->segment(3); echo $this->uri->segment(2);?>ราคาพิเศษ" />
+  <meta name="keywords" content="" />
     <meta name="author" content="">
 
     <!-- Le styles -->
@@ -50,10 +39,20 @@
               <ul>
                 <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
                 <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
-                <li class="active"><a href="<?php echo base_url('tour');?>">แพ็คเกจทัวร์</a></li>
+                <li <?php echo ($this->uri->segment(2)=="ทัวร์ครึ่งวัน")? 'class="active"':'';?>>
+                  <a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a>
+                </li>
+                <li <?php echo ($this->uri->segment(2)=="ทัวร์-1-วัน")? 'class="active"':'';?>>
+                  <a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a>
+                </li>
+                <li <?php echo ($this->uri->segment(2)=="ทัวร์-2-วัน-1-คืน")? 'class="active"':''; ?>>
+                  <a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a>
+                </li>
+                <li <?php echo ($this->uri->segment(2)=="ทัวร์-3-วัน-2-คืน")? 'class="active"':'';?>>
+                  <a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a>
+                </li>
                 <li><a href="#">โปรโมชั่น</a></li> 
-                <li><a href="#">เกี่ยวกับเรา</a></li>
-                <li><a href="#">ติดต่อเรา</a></li>             
+                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>               
               </ul>
             </nav>
             <div class="social">
@@ -93,34 +92,74 @@
           <div class="main">
             <div class="content">
               <div class="row-fluid">
-                <div class="navbar">
+                <div class="navbar">                          
+                    <!-- Start first menu -->
                     <div class="navbar-inner">
                         <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                           <span class="icon-bar"></span>
                           <span class="icon-bar"></span>
                           <span class="icon-bar"></span>
                         </button>
-                        <span class="brand">Filter :</span>
                         <div id="options" class="nav-collapse collapse">
                           <ul class="option-set nav" >
+                          <span class="brand">จังหวัด :</span>
                             <?php
-                            if($menu[0]->select_all == 1){
+                            if($menu_selectall == true){
                             ?>
-                              <li><a href="<?php echo base_url('tour');?>" class="selected">ทั้งหมด</a></li>
+                              <li>
+                                <a href="<?php echo base_url('tour/'.$this->uri->segment(2));?>" 
+                                  class="selected"
+                                  title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
+                                >
+                                  ทั้งหมด
+                                </a>
+                              </li>
                             <?php
                             }else{
                             ?>
-                              <li><a href="<?php echo base_url('tour');?>">ทั้งหมด</a></li>
+                              <li>
+                                <a href="<?php echo base_url('tour/'.$this->uri->segment(2));?>"
+                                  title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
+                                >
+                                  ทั้งหมด
+                                </a>
+                              </li>
                             <?php
                             }
                             ?>
 
 
                             <?php
-                               foreach ($menu as $key => $value) {
-                              ?>
+                               //Main menu
+                              $uri1 = "";
+                              if($this->uri->segment(2)){
+                                $uri1 = $this->uri->segment(2)."/";
+                              }
+
+
+                              $uri2 = "";
+                              if($this->uri->segment(3)){
+                                $uri2 = $this->uri->segment(3)."/";
+                              }                              
+
+
+                              //Check menu link
+                              $isMenu = false;
+                              foreach ($menu as $key => $value) {
+                                if($value->name == $this->uri->segment(3)){
+                                  $isMenu = true;
+                                }
+                              }  
+
+                              foreach ($menu as $key => $value) {
+                                if($isMenu){
+                                  $link = base_url('tour/'.$uri1.$value->url); 
+                                }else{
+                                  $link = base_url('tour/'.$uri1.$value->url."/".$uri2); 
+                                }
+                            ?>
                               <li>
-                                <a href="<?php echo base_url('tour/'.$value->url);?>" 
+                                <a href="<?php echo $link?>" 
                                   <?php  
                                     if($value->select == 1){
                                       echo "class='selected'";
@@ -128,6 +167,7 @@
                                       echo "";
                                     }
                                   ?>
+                                  title="<?php echo $value->name." ". str_replace("-", " ", $this->uri->segment(2));?>"
                                 >
                                   <?php echo $value->name; ?>
                                 </a>
@@ -135,24 +175,111 @@
                             <?php                                                     
                               }
                             ?>
-                              <li >
-                            <form name="input" action="<?php echo base_url('tour');?>" method="post">
-                              <li >
-                                <input type="text" name="search" style="position:absolute; top:10px; height:12px; width:120px;" >
-                                </input>
-                              </li>
-                              <li >
-                                <input type="submit" value="ค้นหา" style="margin-left:140px; margin-top:10px; height:22px;">
-                                </input>
-                              </li>
-                            </form>
-                           </li>
                           </ul>
-
                         </div>
+                        <div style="float:right;">
+                          <form name="input" action="<?php echo base_url('tour');?>" method="post">
+                            <input type="text" name="search" style="margin:10px 5px 0px 0px; height:12px; width:120px;" value="<?php echo (!empty($search))?$search:"";?>">
+                            <input type="submit" value="ค้นหา" style="margin:10px 10px 0px 0px; height:22px; width:60px;">
+                          </form>
+                        </div>                        
                     </div>
+                    <!-- End first menu -->
+
                   </div>
               </div>
+
+              <!-- Start sub menu -->
+              <?php
+              if(!empty($submenu)){
+
+                //Check submenu link
+                $isSubMenu = false;
+                foreach ($submenu as $key => $value) {
+                  if($value->name == $this->uri->segment(3)){
+                    $isSubMenu = true;
+                  }
+                }                  
+              ?>   
+              <div class="row-fluid">
+                <div class="navbar">                                       
+                    <div class="navbar-inner">
+                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </button>
+                        <div id="options" class="nav-collapse collapse">
+                          <ul class="option-set nav" >
+                          <span class="brand">หมวดหมู่ :</span>
+
+                            <?php
+
+                            if($isMenu){
+                              $link = base_url('tour/'.$uri1.$uri2); 
+                            }else{
+                              $link = base_url('tour/'.$uri1); 
+                            }
+
+                            if($submenu_selectall == true){
+                            ?>
+                              <li>
+                                <a href="<?php echo $link;?>" class="selected"
+                                  title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
+                                >
+                                ทั้งหมด
+                                </a>
+                              </li>
+                            <?php
+                            }else{
+                            ?>
+                              <li>
+                                <a href="<?php echo $link;?>"
+                                  title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
+                                >
+                                ทั้งหมด
+                                </a>
+                              </li>
+                            <?php
+                            }
+           
+              
+                            foreach ($submenu as $key => $value) {
+                              if($isSubMenu){
+                                  $link = base_url('tour/'.$uri1.$value->url); 
+                              }else{
+                                $link = base_url('tour/'.$uri1.$uri2.$value->url); 
+                              }
+                            ?>
+                              <li>
+                                <a href="<?php echo $link?>" 
+                                  <?php  
+                                    if($value->select == 1){
+                                      echo "class='selected'";
+                                    }else{
+                                      echo "";
+                                    }
+                                  ?>
+                                  title="<?php echo str_replace("-", " ", $this->uri->segment(2))." ".$value->name;?>"
+                                >
+                                  <?php echo $value->name; ?>
+                                </a>
+                              </li>
+                            <?php                                                     
+                              }                              
+                            ?>
+                          </ul>
+                        </div>  
+                    </div>
+                    <?php                                                     
+                      }                              
+                    ?>                    
+                    <!-- End sub menu -->
+
+                  </div>
+              </div>
+
+
               <div class="row-fluid">
                 <div class="span12">
                   <div id="attractions" style="display:none;" class="clickable variable-sizes">
@@ -181,7 +308,10 @@
                             <?php                                    
                                 }
                             ?>
-                            <a href="<?php echo base_url('tour/'.$value['tour']->tou_url.'-'.$value['tour']->tou_id);?>" target="_blank" >
+                            <a href="<?php echo base_url('tour/'.$value['tour']->tou_url.'-'.$value['tour']->tou_id);?>" 
+                              target="_blank" 
+                              title="<?php echo $value['tour']->tou_name;?>"                                
+                            >
                               <?php
                                 if($value['tour']->tou_first_image){
                               ?>
@@ -194,7 +324,10 @@
                             <div class="row-fluid">
                               <div class="span8">
                                 <h3>
-                                  <a href="<?php echo base_url('tour/'.$value['tour']->tou_url.'-'.$value['tour']->tou_id);?>" target="_blank" >
+                                  <a href="<?php echo base_url('tour/'.$value['tour']->tou_url.'-'.$value['tour']->tou_id);?>" 
+                                    target="_blank" 
+                                    title="<?php echo $value['tour']->tou_name;?>"                                    
+                                  >
                                   <?php echo $value['tour']->tou_name; ?>
                                   </a>
                                 </h3>
@@ -224,7 +357,10 @@
                                     //print_r($value["tag"]); exit;
                                     foreach ($value["tag"] as $keyTag => $valueTag) {
                                   ?>
-                                  <a href="<?php echo base_url('tour/'.$valueTag->tag_url);?>" style="color: #0CACE1;">
+                                  <a href="<?php echo base_url('tour/'.$uri1.$valueTag->tag_url);?>" 
+                                      style="color: #0CACE1;"
+                                      title="<?php echo $valueTag->tag_name." ".str_replace("-", " ", $this->uri->segment(2))." ".str_replace("-", " ", $this->uri->segment(3));?>"
+                                  >
                                     <?php echo $valueTag->tag_name; ?>
                                   </a>
                                   <?php
@@ -244,7 +380,14 @@
                   
 
                       <nav id="page_nav">
-                        <a href="<?php echo base_url(uri_string().'/2');?>"></a>
+                        <?php
+                          if(empty($search)){
+                        ?>
+                            <a href="<?php echo base_url(uri_string().'/2');?>"></a>
+
+                        <?php
+                          } 
+                        ?>
                       </nav>
 
                   </div> <!-- #attractions -->
@@ -320,5 +463,6 @@
     <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/Full-screen/jquery.fullscreen-min.js');?>"></script>
 
 
+    <?php include_once("themes/Travel/tour/analyticstracking.php") ?>
   </body>
 </html>

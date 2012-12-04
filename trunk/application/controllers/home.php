@@ -19,8 +19,6 @@ class Home extends MY_Controller {
 
       $this->load->model("tag_model", "tagModel");  
 
-
-
       $count = 0;
       if(!empty($tagtypeQuery)){
         foreach ($tagtypeQuery as $key => $value) {
@@ -77,7 +75,7 @@ class Home extends MY_Controller {
       foreach ($query as $key => $valueTag) {
         //Tour
         $this->load->model("tagtour_model", "tagtourModel");
-        $tour = $this->tagtourModel->getRecord($query);
+        $tour = $this->tagtourModel->getRecordHome($query);
         
         //Location
         $this->load->model("taglocation_model", "taglocationModel");
@@ -103,8 +101,6 @@ class Home extends MY_Controller {
   }
 
   function user_list($tag=false){
-
-
     
     $per_page = 20;     
     $data["menu"]= $this->_home_menu($tag);
@@ -112,6 +108,7 @@ class Home extends MY_Controller {
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
     }
+    $query["model"] = "home";
 
     if($tag){
       $argTag["url"] = $tag;      
