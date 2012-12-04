@@ -50,6 +50,374 @@ class TagTour_model extends MY_Model {
 
   }
 
+
+  function getRecordFirstpage($args=false){
+
+     //Get distinct tour_id from ci_tagtour
+      $this->db->select('tat_tour_id');
+      $this->db->distinct("tat_tour_id");
+      $this->db->where_in('tat_tag_id', $args["menu"]);
+      //$this->db->where('tat_tag_id', $args["tag_id"]);  
+      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
+      $this->db->order_by('tat_tour_id DESC');  
+      if($args["per_page"] > -1 && $args["offset"] > -1){
+        $this->db->limit($args["per_page"], $args["offset"]);
+      }
+      $tour = $this->db->get('ci_tagtour')->result(); 
+
+
+      //print_r($tour); exit;
+      $count = 0;
+      foreach ($tour as $key => $value) {
+
+        //Get tour data
+        unset($this->db);
+        $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+        $this->db->where('tou_id', $value->tat_tour_id);
+        $query = $this->db->get('ci_tour');
+        $tourBuffer = $query->result(); 
+        $result[$count]["tour"] = $tourBuffer[0];
+
+        //Get tag data
+        unset($this->db);
+        $this->db->where('tat_tour_id', $value->tat_tour_id);
+        $this->db->where_in('tat_tag_id', $args["menu"]);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+        $query = $this->db->get('ci_tagtour');
+        $result[$count]["tag"] = $query->result();
+
+        //Get price data
+        unset($this->db);
+        $this->db->where('agt_tour_id', $value->tat_tour_id);
+        $priceTour = $this->db->get('ci_agencytour')->result();
+
+        if(!empty($priceTour)){
+          $maxAgencyPrice = 0;
+          foreach ($priceTour as $key => $value) {
+            # code...
+            if($value->agt_sale_adult_price > $maxAgencyPrice){
+              $result[$count]["price"] = $value;
+              $maxAgencyPrice = $value->agt_sale_adult_price;
+            }
+          }
+        }
+
+        $count++;
+      }
+      //print_r($result); exit;
+
+      if(!empty($result)){
+        return $result;
+      }else{
+        return false;
+      }
+  }
+
+
+  function getRecordByTag($args=false){
+   //Get distinct tour_id from ci_tagtour
+    $this->db->select('tat_tour_id');
+    $this->db->distinct("tat_tour_id");
+    $this->db->where('tat_tag_id', $args["tag_id"]);  
+    $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
+    $this->db->order_by('tat_tour_id DESC');  
+    if($args["per_page"] > -1 && $args["offset"] > -1){
+      $this->db->limit($args["per_page"], $args["offset"]);
+    }
+    $tour = $this->db->get('ci_tagtour')->result(); 
+
+
+    $count = 0;
+    foreach ($tour as $key => $value) {
+
+      //Get tour data
+      unset($this->db);
+      $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+      $this->db->where('tou_id', $value->tat_tour_id);
+      $query = $this->db->get('ci_tour');
+      $tourBuffer = $query->result(); 
+      $result[$count]["tour"] = $tourBuffer[0];
+
+      //Get tag data
+      unset($this->db);
+      $this->db->where('tat_tour_id', $value->tat_tour_id);
+      $this->db->where_in('tat_tag_id', $args["menu"]);
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+      $query = $this->db->get('ci_tagtour');
+      $result[$count]["tag"] = $query->result();
+
+      //Get price data
+      unset($this->db);
+      $this->db->where('agt_tour_id', $value->tat_tour_id);
+      $priceTour = $this->db->get('ci_agencytour')->result();
+
+      if(!empty($priceTour)){
+        $maxAgencyPrice = 0;
+        foreach ($priceTour as $key => $value) {
+          # code...
+          if($value->agt_sale_adult_price > $maxAgencyPrice){
+            $result[$count]["price"] = $value;
+            $maxAgencyPrice = $value->agt_sale_adult_price;
+          }
+        }
+      }
+
+      $count++;
+    }
+    //print_r($result); exit;
+
+    if(!empty($result)){
+      return $result;
+    }else{
+      return false;
+    }
+  }
+
+
+  function getRecordByType($args=false){
+
+    //SELECT tat_tour_id 
+    //FROM ci_tagtour 
+    //WHERE tat_tag_id = 30 
+    //AND tat_tour_id 
+    //IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = 29))
+
+    $sql = "SELECT `tat_tour_id` 
+            FROM (`ci_tagtour`) 
+            WHERE `tat_tag_id` = $args[tag_id] 
+            AND tat_tour_id 
+            IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $args[type_id]))
+            ORDER BY tat_tour_id DESC 
+            LIMIT $args[offset], $args[per_page]
+            ";
+
+    $tour = $this->db->query($sql)->result();
+
+    //print_r($tour); exit;
+    $count = 0;
+    foreach ($tour as $key => $value) {
+
+      //Get tour data
+      unset($this->db);
+      $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+      $this->db->where('tou_id', $value->tat_tour_id);
+      $query = $this->db->get('ci_tour');
+      $tourBuffer = $query->result(); 
+      $result[$count]["tour"] = $tourBuffer[0];
+
+      //Get tag data
+      unset($this->db);
+      $this->db->where('tat_tour_id', $value->tat_tour_id);
+      $this->db->where_in('tat_tag_id', $args["menu"]);
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+      $query = $this->db->get('ci_tagtour');
+      $result[$count]["tag"] = $query->result();
+
+      //Get price data
+      unset($this->db);
+      $this->db->where('agt_tour_id', $value->tat_tour_id);
+      $priceTour = $this->db->get('ci_agencytour')->result();
+
+      if(!empty($priceTour)){
+        $maxAgencyPrice = 0;
+        foreach ($priceTour as $key => $value) {
+          # code...
+          if($value->agt_sale_adult_price > $maxAgencyPrice){
+            $result[$count]["price"] = $value;
+            $maxAgencyPrice = $value->agt_sale_adult_price;
+          }
+        }
+      }
+
+      $count++;
+    }
+    //print_r($result); exit;
+
+    if(!empty($result)){
+      return $result;
+    }else{
+      return false;
+    }
+  }
+  
+
+  function getRecordBySubType($args=false){
+
+    //SELECT tat_tour_id 
+    //FROM ci_tagtour 
+    //WHERE tat_tag_id = 30 
+    //AND tat_tour_id 
+    //IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = 29))
+
+    $sql = "SELECT `tat_tour_id` 
+            FROM (`ci_tagtour`) 
+            WHERE `tat_tag_id` = $args[tag_id] 
+            AND tat_tour_id 
+            IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $args[type_id])) 
+            AND tat_tour_id 
+            IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $args[subtype_id]))
+            ORDER BY tat_tour_id DESC 
+            LIMIT $args[offset], $args[per_page]
+            ";
+
+    $tour = $this->db->query($sql)->result();
+
+    //print_r($tour); exit;
+    $count = 0;
+    foreach ($tour as $key => $value) {
+
+      //Get tour data
+      unset($this->db);
+      $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+      $this->db->where('tou_id', $value->tat_tour_id);
+      $query = $this->db->get('ci_tour');
+      $tourBuffer = $query->result(); 
+      $result[$count]["tour"] = $tourBuffer[0];
+
+      //Get tag data
+      unset($this->db);
+      $this->db->where('tat_tour_id', $value->tat_tour_id);
+      $this->db->where_in('tat_tag_id', $args["menu"]);
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+      $query = $this->db->get('ci_tagtour');
+      $result[$count]["tag"] = $query->result();
+
+      //Get price data
+      unset($this->db);
+      $this->db->where('agt_tour_id', $value->tat_tour_id);
+      $priceTour = $this->db->get('ci_agencytour')->result();
+
+      if(!empty($priceTour)){
+        $maxAgencyPrice = 0;
+        foreach ($priceTour as $key => $value) {
+          # code...
+          if($value->agt_sale_adult_price > $maxAgencyPrice){
+            $result[$count]["price"] = $value;
+            $maxAgencyPrice = $value->agt_sale_adult_price;
+          }
+        }
+      }
+
+      $count++;
+    }
+    //print_r($result); exit;
+
+    if(!empty($result)){
+      return $result;
+    }else{
+      return false;
+    }
+  }
+  
+
+  function getRecordHome($args=false){
+
+    //First tour 
+    //$this->db->select('typ_id', 'typ_name');
+    $this->db->where('typ_parent_id', 0);  
+    $type = $this->db->get('ci_type')->result(); 
+
+    //print_r($type); 
+    foreach ($type as $key => $value) {
+      //$this->db->select('tag_id', 'tag_name');
+      $this->db->where('tag_name', $value->typ_name);  
+      $tagTemp = $this->db->get('ci_tag')->result(); 
+
+      if(!empty($tagTemp)  && $tagTemp[0]->tag_id != 1){
+        $tag[] = $tagTemp[0];
+      }
+    }
+
+
+    //print_r($tag);
+    $count = 0;
+    foreach ($tag as $key => $value) {
+
+      $sql = "SELECT `tat_tour_id` 
+              FROM (`ci_tagtour`) 
+              WHERE tat_tag_id = 1 
+              AND tat_tour_id IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $value->tag_id)) 
+              ORDER BY tat_tour_id DESC 
+              LIMIT $args[offset], $args[per_page]
+              ";
+
+      $tourByTagTemp = $this->db->query($sql)->result();
+
+      if(!empty($tourByTagTemp)){
+        $tourByTag[$count]["tour"] = $tourByTagTemp;
+        $tourByTag[$count]["maintag_name"] = $value->tag_name;
+        $tourByTag[$count]["maintag_url"] = $value->tag_url;
+        $count++;
+      }
+    }
+
+    //print_r($tourByTag); exit;
+    //Merge array
+    $firsttour = array();
+    $count = 0;
+    foreach ($tourByTag as $key => $valueFirst) {
+      foreach ($valueFirst["tour"] as $key => $valueLast) {
+        $firsttour[$count]->tat_tour_id = $valueLast->tat_tour_id;
+        $firsttour[$count]->maintag_name = $valueFirst["maintag_name"];
+        $firsttour[$count]->maintag_url = $valueFirst["maintag_url"];
+        $count++;
+      }
+    }
+    //print_r($firsttour); exit;
+
+    $count = 0;
+    foreach ($firsttour as $key => $value) {
+
+      //Get tour data
+      unset($this->db);
+      $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+      $this->db->where('tou_id', $value->tat_tour_id);
+      $query = $this->db->get('ci_tour');
+      $tourBuffer = $query->result(); 
+      $result[$count]["tour"] = $tourBuffer[0]; 
+      $result[$count]["tour"]->maintag_name = $value->maintag_name;
+      $result[$count]["tour"]->maintag_url = $value->maintag_url;
+
+
+      //Get tag data
+      unset($this->db);
+      $this->db->where('tat_tour_id', $value->tat_tour_id);
+      $this->db->where_in('tat_tag_id', $args["menu"]);
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+      $query = $this->db->get('ci_tagtour');
+      $result[$count]["tag"] = $query->result();
+
+
+      //Get price data
+      unset($this->db);
+      $this->db->where('agt_tour_id', $value->tat_tour_id);
+      $priceTour = $this->db->get('ci_agencytour')->result();
+
+      if(!empty($priceTour)){
+        $maxAgencyPrice = 0;
+        foreach ($priceTour as $key => $value) {
+          # code...
+          if($value->agt_sale_adult_price > $maxAgencyPrice){
+            $result[$count]["price"] = $value;
+            $maxAgencyPrice = $value->agt_sale_adult_price;
+          }
+        }
+      }
+
+      $count++;
+    }
+
+    //print_r($result); exit;
+    if(!empty($result)){
+      return $result;
+    }else{
+      return false;
+    }
+
+
+  }
+
+
   function getRecord($args=false){
     //print_r($args); exit;
 
@@ -147,7 +515,9 @@ class TagTour_model extends MY_Model {
     }else if(!empty($args["tag_id"]) && !empty($args["join"]) && !empty($args["in"]) && !empty($args["related"])){
 
       //Get distinct tour_id from ci_tagtour
-
+      
+      //Related by Active record
+      /*
       $this->db->select('tat_tour_id');
       $this->db->distinct("tat_tour_id");
       $this->db->where('tat_tour_id  != ', $args["tour_id"]);  
@@ -157,8 +527,36 @@ class TagTour_model extends MY_Model {
       if($args["per_page"] > -1 && $args["offset"] > -1){
         $this->db->limit($args["per_page"], $args["offset"]);
       }
-      $tour = $this->db->get('ci_tagtour')->result(); 
+      $tour = $this->db->get('ci_tagtour5')->result(); 
+      */
 
+      //Related by Normal Query      
+      $countTag = count($args["tag_id"]);
+      $count = 1;
+      $tag_in = "";
+      foreach ($args["tag_id"] as $key => $value) {
+        # code...
+        if($countTag == $count){
+          $tag_in .="'$value'";
+        }else{
+          $tag_in .="'$value',";
+        }
+
+        $count++;
+      }
+      //print_r($tag_in); exit;
+
+      $sql = "SELECT DISTINCT `tat_tour_id` 
+              FROM (`ci_tagtour`) JOIN `ci_tour` 
+              ON `ci_tour`.`tou_id` = `ci_tagtour`.`tat_tour_id` 
+              WHERE `tat_tour_id` != $args[tour_id] 
+              AND `tat_tag_id` 
+              IN ($tag_in) 
+              ORDER BY rand() 
+              DESC LIMIT $args[per_page] ";
+
+      $tour = $this->db->query($sql)->result();
+       
 
       $count = 0;
       foreach ($tour as $key => $value) {
@@ -240,7 +638,6 @@ class TagTour_model extends MY_Model {
         $query = $this->db->get('ci_tagtour');
         $result[$count]["tag"] = $query->result();
 
-
         //Get price data
         unset($this->db);
         $this->db->where('agt_tour_id', $value->tat_tour_id);
@@ -266,8 +663,95 @@ class TagTour_model extends MY_Model {
         return false;
       }
 
+    }else if(!empty($args["tag_id"]) && !empty($args["join"]) &&  $args["model"] == "home"){
+
+      //echo "home"; exit;
+
+      //Get distinct tour_id from ci_tagtour
+      $this->db->select('tat_tour_id');
+      $this->db->distinct("tat_tour_id");
+      $this->db->where('tat_tag_id', $args["tag_id"]);  
+      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
+      $this->db->order_by('tat_tour_id DESC');  
+      if($args["per_page"] > -1 && $args["offset"] > -1){
+        $this->db->limit($args["per_page"], $args["offset"]);
+      }
+      $tour = $this->db->get('ci_tagtour')->result(); 
+
+
+      $count = 0;
+      foreach ($tour as $key => $value) {
+
+        //Get tour data
+        unset($this->db);
+        $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+        $this->db->where('tou_id', $value->tat_tour_id);
+        $query = $this->db->get('ci_tour');
+        $tourBuffer = $query->result(); 
+        $result[$count]["tour"] = $tourBuffer[0];
+
+
+        //Get tag data
+        unset($this->db);
+        $this->db->where('tat_tour_id', $value->tat_tour_id);
+        $this->db->where_in('tat_tag_id', $args["menu"]);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+        $result[$count]["tag"]  = $this->db->get('ci_tagtour')->result();
+
+        //Get tag not in menu
+        unset($this->db);
+        $this->db->where('tat_tour_id', $value->tat_tour_id);
+        $this->db->where_not_in('tat_tag_id', $args["menu"]);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+        //$this->db->join('ci_tagtype', 'ci_tagtype.tty_tag_id = ci_tagtour.tat_tag_id');
+        $alltag_not_menu = $this->db->get('ci_tagtour')->result();
+
+        //print_r($alltag_not_menu);
+        foreach ($alltag_not_menu as $key => $value) {
+
+          $this->db->where('tty_tag_id', $value->tat_tag_id);
+          $this->db->join('ci_type', 'ci_type.typ_id = ci_tagtype.tty_type_id');
+          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
+          $typeTemp = $this->db->get('ci_tagtype')->result();
+
+          if(!empty($typeTemp)){
+            $type[] = $typeTemp;             
+          }
+        }
+
+        print_r($type); exit;
+
+        //Get price data
+        unset($this->db);
+        $this->db->where('agt_tour_id', $value->tat_tour_id);
+        $priceTour = $this->db->get('ci_agencytour')->result();
+
+        if(!empty($priceTour)){
+          $maxAgencyPrice = 0;
+          foreach ($priceTour as $key => $value) {
+            # code...
+            if($value->agt_sale_adult_price > $maxAgencyPrice){
+              $result[$count]["price"] = $value;
+              $maxAgencyPrice = $value->agt_sale_adult_price;
+            }
+          }
+        }
+
+        $count++;
+      }
+      //print_r($result); exit;
+
+      if(!empty($result)){
+        return $result;
+      }else{
+        return false;
+      }
+
     }else if(!empty($args["tag_id"]) && !empty($args["join"])){
-     //Get distinct tour_id from ci_tagtour
+
+      //echo "home"; exit;
+
+      //Get distinct tour_id from ci_tagtour
       $this->db->select('tat_tour_id');
       $this->db->distinct("tat_tour_id");
       $this->db->where('tat_tag_id', $args["tag_id"]);  
@@ -298,6 +782,7 @@ class TagTour_model extends MY_Model {
         $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
         $query = $this->db->get('ci_tagtour');
         $result[$count]["tag"] = $query->result();
+
 
         //Get price data
         unset($this->db);

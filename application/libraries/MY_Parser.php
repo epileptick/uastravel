@@ -61,6 +61,7 @@ class MY_Parser extends CI_Parser {
           $template = str_replace($originalDescriptions,$newDescriptions,$template);
           
         }
+        
         if(count(PageUtil::getVar("stylesheet"))>0||count(PageUtil::getVar("javascript"))>0){
           $newHead = "";
           if(count(PageUtil::getVar("stylesheet"))>0){

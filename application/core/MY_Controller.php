@@ -13,6 +13,5 @@ class MY_Controller extends CI_Controller {
     return $this->parser->parse($this->_CLASS."/".$template,$data,$return,$piece);
   }
   
-  
 }
 ?>

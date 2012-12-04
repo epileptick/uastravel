@@ -402,9 +402,16 @@ class Location extends MY_Controller {
     if($id){
       $this->load->model("images_model", "imagesModel");
       $locationData["location"] = $this->locationModel->get($id);
-      $locationData["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$id,'table_id'=>1)));
       //var_dump($locationData["images"]);exit;
-      $locationData["location"] = $locationData["location"][0];
+
+      if(empty($locationData["location"])){
+        show_404();
+      }else{
+        $locationData["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$id,'table_id'=>1)));
+        $locationData["location"] = $locationData["location"][0];
+      }
+
+
       //Prepare for three column
       //var_dump($locationData["location"]['body']);
       if(preg_match("#<blockquote>(.*)</blockquote>#smiU", $locationData["location"]['body'],$matches)){
@@ -428,9 +435,18 @@ class Location extends MY_Controller {
           $locationData["tag"][] = $tagQuery[0];
           $count++;
         }
+      }else{
+        show_404();        
       }
 
-      $this->_fetch("user_view",$locationData,FALSE,TRUE);
+
+      if(!empty($locationData)){
+        $this->_fetch("user_view",$locationData,FALSE,TRUE);
+      }else{
+        show_404(); 
+      }
+      
+
     }
   }
   

@@ -58,6 +58,23 @@ class TagType_model extends MY_Model {
       //Get category by name
       $data["tty_type_id"] = $args["type_id"];
 
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id'); 
+      $query = $this->db->get_where('ci_tagtype', $data);
+          //print_r($query->result()); exit;
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }else if(isset($args["parent_id"])){
+      $parent["parent_id"] = $args["parent_id"];
+      $this->load->model("type_model", "typeModel");   
+      $tagtypeQuery = $this->tagtypeModel->getRecord($parent);  
+
+      //Get category by name
+      $data["tty_parent_id"] = $args["parent_id"];
+
       $query = $this->db->get_where('ci_tagtype', $data);
           //print_r($query->result()); exit;
       if($query->num_rows > 0){

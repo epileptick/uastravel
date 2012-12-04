@@ -5,7 +5,23 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
   <title><?php echo $location['title'];?></title>
-  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="ROBOTS" content="NOODP" />
+  <?php
+
+    if(!empty($location['subtitle'])){
+?>
+
+  <meta name="description" content="<?php echo $location['subtitle'];?>" />
+<?php
+    }else{
+?>
+
+  <meta name="description" content="" />
+<?php
+    }
+  ?>
+  <meta name="keywords" content="" />
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
 
@@ -96,10 +112,9 @@ if(!empty($location['background_image'])){
             <ul class="right">
               <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
               <li><a class="active"  href="<?php echo base_url('location');?>">แหล่งท่องเที่ยว</a></li>
-              <li><a href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์</a></li>          
-              <li><a href="#">เกี่ยวกับเรา</a></li>
-              <li><a href="#">ติดต่อเรา</a></li>
+              <li><a href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์</a></li>
               <li><a href="#">โปรโมชั่น</a></li>
+              <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>   
             </ul>
           </section>
         </nav>
@@ -600,5 +615,6 @@ if(!empty($location['background_image'])){
     });
   </script>
 
+<?php include_once("themes/Travel/tour/analyticstracking.php") ?>
 </body>
 </html>

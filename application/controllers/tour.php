@@ -1,21 +1,148 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Tour extends MY_Controller {
+
+  var $per_page = 20;
+
   function __construct(){
     parent::__construct();
+    $this->load->library('unit_test');
   }
 
 
   function user_index(){
     //Default function for call read method
-    $keyword = $this->input->post();
-
-    //print_r($keyword); exit;
-    if($keyword){
-      $this->_search("user_list");
-    }else{
-      $this->user_list();
+    if($this->uri->segment(1) == $this->router->class){
+      $index = 1;
+      //echo $index; 
+    }else if($this->uri->segment(2) == $this->router->class){
+      $index = 2;
+      //echo $index; 
     }
+
+    ///////////////////////////
+    // Check segment
+    /////////////////////////// 
+    if(is_numeric($this->uri->segment($index+4))){
+      ////////////////////////////
+      // subtype/page
+      // algorithm : http://www/tour/2/3/4/5
+      // algorithm : http://www/tour/tag/type/subtype/page        
+      // sample : http://uastravel.com/tour/halfday/phuket/boat/10
+      ////////////////////////////
+      $page = $this->uri->segment($index+4);//5; 
+      $tag = $this->uri->segment($index+1);//2
+      $type = $this->uri->segment($index+2);//3; 
+      $subtype = $this->uri->segment($index+3);//4; 
+      //echo "subtype/".$subtype;
+
+      $this->user_listbysubtype($tag, $type, $subtype, $page);
+
+    }else if(is_numeric($this->uri->segment($index+3))){
+      ////////////////////////////
+      // type/page
+      // algorithm : http://www/tour/2/3/4
+      // algorithm : http://www/tour/tag/type/page        
+      // sample : http://uastravel.com/tour/halfday/phuket/10
+      ////////////////////////////
+      $page = $this->uri->segment($index+3);//4; 
+      $tag = $this->uri->segment($index+1);//2
+      $type = $this->uri->segment($index+2);//3; 
+      $subtype = 0; 
+
+      $this->user_listbytype($tag, $type, $page);
+
+    }else if($this->uri->segment($index+3)){
+      ////////////////////////////
+      // subtype
+      // algorithm : http://www/tour/2/3/4
+      // algorithm : http://www/tour/tag/type/subtype        
+      // sample : http://uastravel.com/tour/halfday/phuket/boat
+      ////////////////////////////
+      $page = 0;
+      $tag = $this->uri->segment($index+1);//2
+      $type = $this->uri->segment($index+2);//3; 
+      $subtype = $this->uri->segment($index+3);//4; 
+
+      $this->user_listbysubtype($tag, $type, $subtype, $page);
+
+      //echo "subtype"; 
+    }else if(is_numeric($this->uri->segment($index+2))){
+      ////////////////////////////
+      // tage/page
+      // algorithm : http://www/tour/2/3
+      // algorithm : http://www/tour/tag/page        
+      // sample : http://uastravel.com/tour/halfday/10
+      ////////////////////////////
+      $page = $this->uri->segment($index+2);//3;
+      $tag = $this->uri->segment($index+1);//2
+      $type =  0; 
+      $subtype = 0;  
+      //echo "tag/".$page;
+
+      $this->user_listbytag($tag, $page);  
+
+    }else if($this->uri->segment($index+2)){
+      ////////////////////////////
+      // type
+      // algorithm : http://www/tour/2/3
+      // algorithm : http://www/tour/tag/type        
+      // sample : http://uastravel.com/tour/halfday/phuket
+      ////////////////////////////
+      $page = 0;
+      $tag = $this->uri->segment($index+1);//2
+      $type = $this->uri->segment($index+2);//3
+      $subtype = 0; 
+      //echo "type"; 
+
+      $this->user_listbytype($tag, $type, $page);
+
+    }else if(is_numeric($this->uri->segment($index+1))){
+      ////////////////////////////
+      // tour/page
+      // algorithm : http://www/tour/2
+      // algorithm : http://www/tour/tag/page          
+      // sample : http://uastravel.com/tour/10
+      ////////////////////////////
+      $page = $this->uri->segment($index+1); //2
+      $tag = 0;
+      $type = 0;
+      $subtype = 0; 
+      //echo "tour/".$page;
+
+      $this->user_list($page); 
+
+    }else if($this->uri->segment($index+1)){
+      ////////////////////////////
+      // tag
+      // algorithm : http://www/tour/2 
+      // algorithm : http://www/tour/tag       
+      // sample : http://uastravel.com/tour/halfday
+      ////////////////////////////
+      $page = 0;
+      $tag = $this->uri->segment($index+1); //2
+      $type = 0;
+      $subtype = 0; 
+      //$call = "tag";
+
+      $this->user_listbytag($tag, $page);      
+
+    }else{
+      ////////////////////////////
+      // tour
+      // algorithm : http://www/tour
+      // algorithm : http://www/tour       
+      // sample : http://uastravel.com/tour
+      ////////////////////////////
+      $page = 0;
+      $tag = 0;
+      $cat = 0;
+      $subcat = 0;      
+      //echo "tour";
+
+      $this->user_list();      
+    }
+
   }
 
   function user_test(){
@@ -23,40 +150,108 @@ class Tour extends MY_Controller {
   }
   
 
-  function _tour_menu($select=false){
-      $type["type_id"] = 4;
+  function _tour_menu($argTag=false, $argType=false, $argSubType=false){
+
+    if($argTag){
+      //tour & tag
+      //Query tag_name by tag_url
+      $tag["url"] = $argTag;
+      $this->load->model("tag_model", "tagModel");        
+      $tagQuery = $this->tagModel->getRecord($tag);
+      unset($tag);
+      //print_r($tagQuery); exit;
+
+      //Query type_id by tag_name
+      $tag["name"] = $tagQuery[0]->name;
+      $this->load->model("type_model", "typeModel");        
+      $typeQuery = $this->typeModel->getRecord($tag);
+      //print_r($typeQuery); exit;
+
+      //Query tagtype by type_id
+      $type["type_id"] = $typeQuery[0]->id; 
       $this->load->model("tagtype_model", "tagtypeModel");   
-      $tagtypeQuery = $this->tagtypeModel->getRecord($type);
+      $menuQuery = $this->tagtypeModel->getRecord($type);
+      //print_r($type); exit;
+      
+      //Query type_id by parent_id 
+      $parent["parent_id"] = $type["type_id"];
+      $this->load->model("type_model", "typeModel");
+      $parenttypeQuery = $this->typeModel->getRecord($parent); 
 
-      $this->load->model("tag_model", "tagModel");  
+      //Query tagname by type_id (Submenu)
+      $type["type_id"] = $parenttypeQuery[0]->id;
+      $this->load->model("tagtype_model", "tagtypeModel");   
+      $subMenuQuery = $this->tagtypeModel->getRecord($type); 
+      //print_r($tagtypeQuery); exit;
+    }else{
+      //tour
+      //Query tagtype by type_id
+      $type["type_id"] = 4; 
+      $this->load->model("tagtype_model", "tagtypeModel");   
+      $menuQuery = $this->tagtypeModel->getRecord($type);
+      //print_r($tagtypeQuery); exit;
 
-      $count = 0;
-      foreach ($tagtypeQuery as $key => $value) {
-        //Menu Tag
-        $tag["id"] = $value->tag_id;      
-        $tagQuery = $this->tagModel->getRecord($tag);
-        $menu[$count]->tag_id = $tagQuery[0]->id;
-        $menu[$count]->name = $tagQuery[0]->name;
-        $menu[$count]->url = $tagQuery[0]->url;
+      //Query type_id by parent_id 
+      $parent["parent_id"] = $type["type_id"];
+      $this->load->model("type_model", "typeModel");
+      $parenttypeQuery = $this->typeModel->getRecord($parent); 
 
-        //Select all
-        if($select){
-          $menu[$count]->select_all = 0;
-        }else{
-          $menu[$count]->select_all = 1;
-        }
-        //Select element
-        if($select && $select == $tagQuery[0]->name){
-          $menu[$count]->select = 1;
-        }else{
-          $menu[$count]->select = 0;
-        }
+      //Query tagname by type_id (Submenu)
+      $type["type_id"] = $parenttypeQuery[0]->id;
+      $this->load->model("tagtype_model", "tagtypeModel");   
+      $subMenuQuery = $this->tagtypeModel->getRecord($type); 
+      //print_r($tagtypeQuery); exit;
+    }
 
-        $count++;
+
+    //Query tagname by type_id (Menu)
+    $count = 0;
+    $menu_select_all = true;
+    foreach ($menuQuery as $key => $value) {
+      //Menu Tag
+      $return["menu"][$count]->tag_id = $value->id;
+      $return["menu"][$count]->name = $value->name;
+      $return["menu"][$count]->url = $value->url;
+
+      //Select element
+      if($argType && $argType == $value->url){
+        $return["menu"][$count]->select = 1;
+        $menu_select_all = false;
+      }else{
+        $return["menu"][$count]->select = 0;  
       }
 
-      return $menu;
-      //print_r($menu);  exit;
+      $count++;
+    }
+    $return["menu_selectall"] = $menu_select_all;
+
+    if(!empty($subMenuQuery)){
+      $count = 0;
+      $submenu_select_all = true;
+      foreach ($subMenuQuery as $key => $value) {
+        $return["submenu"][$count]->tag_id = $value->id;
+        $return["submenu"][$count]->name = $value->name;
+        $return["submenu"][$count]->url = $value->url;
+
+        //Select element
+        if($argType && $argType == $value->url){
+          $return["submenu"][$count]->select = 1;
+          $submenu_select_all = false;
+        }else if($argSubType && $argSubType == $value->url){
+          $return["submenu"][$count]->select = 1;
+          $submenu_select_all = false;
+        }else{
+          $return["submenu"][$count]->select = 0;   
+        }
+        $count++;
+      }
+      $return["submenu_selectall"] = $submenu_select_all;
+    }
+
+
+    //print_r($return); exit;
+    return $return;
+
   }
 
 
@@ -87,71 +282,205 @@ class Tour extends MY_Controller {
     }
   }  
 
-  function user_list($tag=false){
+  function user_list($page=0){
 
-    
-    $per_page = 20;  
-    $data["menu"]= $this->_tour_menu($tag);
+    //echo "Call user_list()"; exit;
 
+    $data = $this->_tour_menu();
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
-    }
-    if($tag){
-      //////////////////////////////////////////////////////
-      // List by tag
-      // algorithm : localhost/uastravel/tour/tag/page
-      // example : localhost/uastravel/tour/เชียงใหม่
-      //           localhost/uastravel/tour/เชียงใหม่/2
-      //           localhost/uastravel/tour/เชียงใหม่/3
-      //////////////////////////////////////////////////////
+    }  
 
-      //Filter by tag
-      //Tag
-      $argTag["url"] = $tag;      
-      $tagQuery = $this->tagModel->getRecord($argTag);
-      if(!empty($tagQuery)){
-        $query["tag_id"] = $tagQuery[0]->id;
-        $query["join"] = true;
-        $query["per_page"] = $per_page;
-        $query["offset"] = ($this->uri->segment(3))?($this->uri->segment(3)-1)*$query["per_page"]:0;   
-        //Tour
-       $data["tour"] = $this->_tour_list($query);
+    //////////////////////////////////////////////////////
+    // List all 
+    // algorithm : localhost/uastravel/tour/page
+    // example : localhost/uastravel/tour/
+    //           localhost/uastravel/tour/2
+    //           localhost/uastravel/tour/3
+    //////////////////////////////////////////////////////
+    //Filter all
+    $query["tag_id"] = $query["menu"];
+    $query["join"] = true;
+    $query["in"] = true;
+    $query["per_page"] = $this->per_page;
+    $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;   
+
+    //Send tag for get data
+    //$data["tour"] = $this->_tour_list($query);
+
+    //Get tour
+    $this->load->model("tagtour_model", "tagtourModel");
+    $tour = $this->tagtourModel->getRecordFirstpage($query);
+
+    //print_r($this->_shuffle_assoc($tour)); exit;
+
+    if(!empty($tour)){
+      $data["tour"] =  $this->_shuffle_assoc($tour);
+    }   
+
+    //print_r($data); exit;
+
+    if(!empty($query["offset"])){
+      if($query["offset"]>0){
+        $this->_fetch('user_listnextpage', $data, false, true);
       }else{
-        $data["tour"] = false;
+        //print_r($data);   
+        $this->_fetch('user_list', $data, false, true);
       }
-    }else{
-      //////////////////////////////////////////////////////
-      // List all 
-      // algorithm : localhost/uastravel/tour/page
-      // example : localhost/uastravel/tour/
-      //           localhost/uastravel/tour/2
-      //           localhost/uastravel/tour/3
-      //////////////////////////////////////////////////////
-      //Filter all
-      $query["tag_id"] = $query["menu"];
-      $query["join"] = true;
-      $query["in"] = true;
-      $query["per_page"] = $per_page;
-      $query["offset"] = ($this->uri->segment(2))?($this->uri->segment(2)-1)*$query["per_page"]:0;   
-
-      //Send tag for get data
-      $data["tour"] = $this->_tour_list($query);
-    }
-    //print_r($data);   exit;
-
-    if($query["offset"]>0){
-      $this->_fetch('user_listnextpage', $data, false, true);
-    }else{
-      //print_r($data);   
+    }else{   
       $this->_fetch('user_list', $data, false, true);
     }
 
   }
 
+  function user_listbytag($tag=false, $page=0){
+
+    //echo "Call user_listbytag()"; exit;
+
+    //Check menu is active
+    if(empty($tag)){
+      $data= $this->_tour_menu();
+    }else{
+      $data= $this->_tour_menu($tag);
+    }
+    foreach ($data["menu"] as $key => $valueTag) {
+      $query["menu"][] = $valueTag->tag_id;
+    }  
+    print_r($data); exit;
+    $argTag["url"] = $tag;
+    $this->load->model("tag_model", "tagModel");      
+    $tagQuery = $this->tagModel->getRecord($argTag);
+
+      //print_r($tagQuery); exit;
+    if(!empty($tagQuery)){
+      $query["tag_id"] = $tagQuery[0]->id;
+      $query["join"] = true;
+      $query["per_page"] = $this->per_page;
+      $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;    
+
+      //Get tour by tag
+      $this->load->model("tagtour_model", "tagtourModel");
+      $data["tour"] = $this->tagtourModel->getRecordByTag($query);      
+      //$data["tour"] = $this->_tour_list($query);
+    }else{
+      $data["tour"] = false;
+    }
+
+    if(!empty($query["offset"])){
+      if($query["offset"]>0){
+        $this->_fetch('user_listnextpage', $data, false, true);
+      }else{
+        //print_r($data);   
+        $this->_fetch('user_list', $data, false, true);
+      }
+    }else{   
+      $this->_fetch('user_list', $data, false, true);
+    }      
+  }
+
+  function user_listbytype($tag=false, $type=false, $page=0){
+
+
+    //echo "Call user_listbytype()"; exit;
+
+    $data = $this->_tour_menu($tag, $type);
+
+    //print_r($data); exit;
+    foreach ($data["menu"] as $key => $valueTag) {
+      $query["menu"][] = $valueTag->tag_id;
+    }
+
+    $this->load->model("tag_model", "tagModel");   
+
+    $argTag["url"] = $tag;      
+    $tagQuery = $this->tagModel->getRecord($argTag); 
+    $argType["url"] = $type;      
+    $typeQuery = $this->tagModel->getRecord($argType);
+
+    $query["tag_id"] = $tagQuery[0]->id;
+    $query["type_id"] = $typeQuery[0]->id;
+    //print_r($query); exit;
+
+    if(!empty($tagQuery)){
+      $query["join"] = true;
+      $query["per_page"] = $this->per_page;
+      $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;    
+      //Tour
+      $this->load->model("tagtour_model", "tagtourModel");  
+      $data["tour"] = $this->tagtourModel->getRecordByType($query);
+    }else{
+      $data["tour"] = false;
+    }
+
+    //print_r($data); exit;
+
+    if(!empty($query["offset"])){
+      if($query["offset"]>0){
+        $this->_fetch('user_listnextpage', $data, false, true);
+      }else{
+        //print_r($data);   
+        $this->_fetch('user_list', $data, false, true);
+      }
+    }else{   
+      $this->_fetch('user_list', $data, false, true);
+    }      
+  }
+
+
+  function user_listbysubtype($tag=false, $type=false, $subtype=false, $page=0){
+
+
+    //echo "Call user_listbytype()"; exit;
+
+    $data = $this->_tour_menu($tag, $type, $subtype);
+
+    //print_r($data); exit;
+    foreach ($data["menu"] as $key => $valueTag) {
+      $query["menu"][] = $valueTag->tag_id;
+    }
+
+    $this->load->model("tag_model", "tagModel");   
+
+    $argTag["url"] = $tag;      
+    $tagQuery = $this->tagModel->getRecord($argTag); 
+
+    $argType["url"] = $type;      
+    $typeQuery = $this->tagModel->getRecord($argType);
+
+    $argSubType["url"] = $subtype;      
+    $subTypeQuery = $this->tagModel->getRecord($argSubType);
+
+    $query["tag_id"] = $tagQuery[0]->id;
+    $query["type_id"] = $typeQuery[0]->id;
+    $query["subtype_id"] = $subTypeQuery[0]->id;
+    //print_r($query); exit;
+
+    if(!empty($tagQuery)){
+      $query["join"] = true;
+      $query["per_page"] = $this->per_page;
+      $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;    
+      //Tour
+      $this->load->model("tagtour_model", "tagtourModel");  
+      $data["tour"] = $this->tagtourModel->getRecordBySubType($query);
+    }else{
+      $data["tour"] = false;
+    }
+
+    //print_r($data); exit;
+
+    if(!empty($query["offset"])){
+      if($query["offset"]>0){
+        $this->_fetch('user_listnextpage', $data, false, true);
+      }else{
+        //print_r($data);   
+        $this->_fetch('user_list', $data, false, true);
+      }
+    }else{   
+      $this->_fetch('user_list', $data, false, true);
+    }      
+  }
 
   function user_view($id=false){
-    //print_r($id); exit;
-
 
     if($id){    
       //Tour
@@ -159,6 +488,10 @@ class Tour extends MY_Controller {
       $tagtour["tour_id"] = $id;
       $agencytour["tour_id"] = $id;      
       $data["tour"] = $this->tourModel->getRecord($tour); 
+
+      if(empty($data["tour"])){
+        show_404(); 
+      }
 
       //Tag
       $this->load->model("tagtour_model", "tagtourModel");
@@ -216,9 +549,18 @@ class Tour extends MY_Controller {
       //print_r($data["images"]);exit;
 
 
-      //Return
-      $this->_fetch('user_view', $data, false, true);
+      if(!empty($data)){
+        //Return
+        $this->_fetch('user_view', $data, false, true);
+      }else{
+        show_404(); 
+      }
+
+    }else{
+      show_404();        
     }
+
+
 
 
   }
@@ -428,7 +770,6 @@ class Tour extends MY_Controller {
 
 
     if($tag["name"] && $tour["name"]){
-
       echo "tag && tour";
     }else if($tag["name"]){
       ////////////////////////////////////////////
@@ -609,13 +950,20 @@ class Tour extends MY_Controller {
     //Get argument from post page
     $keyword = $this->input->post();
 
+
     if($keyword && $render == "user_list"){
-      $args["tou_name"] = $keyword["search"];
-      $args["user_search"] = true;
-      $data["tour"] = $this->tourModel->searchRecord($args);
-    
-      $per_page = 20;  
+
       $data["menu"]= $this->_tour_menu();
+
+      foreach ($data["menu"] as $key => $valueTag) {
+        $query["menu"][] = $valueTag->tag_id;
+      }
+
+      $query["tou_name"] = $keyword["search"];
+      $query["user_search"] = true; 
+
+      $data["tour"] = $this->tourModel->searchRecord($query);
+      $data["search"] = $keyword["search"];
 
       $this->_fetch('user_list', $data, false, true);
 

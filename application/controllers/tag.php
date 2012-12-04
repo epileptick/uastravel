@@ -24,7 +24,7 @@ class Tag extends MY_Controller {
   function admin_index(){
     $result = array();
     
-    $config['per_page'] = 10; 
+    $config['per_page'] = 1000; 
     
     $config['prev_link'] = '<img class="blogg-button-image" alt="โพสต์ใหม่" src="/themes/Travel/images/left_arrow.png">';
     $config['prev_tag_open'] = '<button class="blogg-button blogg-collapse-right" title="โพสต์ใหม่" disabled="" tabindex="0">';
