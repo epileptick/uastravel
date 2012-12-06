@@ -486,8 +486,9 @@ PageUtil::addVar("javascript",'
 
             ,tagsItems : [  <?php  
                       foreach ($tag_query as $key => $value) {
-                        # code...
-                        echo "'".$value->name."',";
+                        if(!empty($value->name)){
+                          echo "'".$value->name."',";
+                        }
                       }
                     ?>
                   ]
