@@ -134,6 +134,7 @@ class Location extends MY_Controller {
         //Menu Tag
         $tag["id"] = $value->tag_id;      
         $tagQuery = $this->tagModel->getRecord($tag);
+		$menu[$count] = new stdClass();
         $menu[$count]->tag_id = $tagQuery[0]->id;
         $menu[$count]->name = $tagQuery[0]->name;
         $menu[$count]->url = $tagQuery[0]->url;
