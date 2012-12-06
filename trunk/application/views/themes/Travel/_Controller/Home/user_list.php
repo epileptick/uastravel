@@ -52,6 +52,7 @@
                 <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
                 <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
                 <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
+                <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
                 <li><a href="#">จองรถเช่า</a></li>
                 <li><a href="#">จองตั๋วเครื่องบิน</a></li>
                 <li><a href="#">จองโรงแรม</a></li>

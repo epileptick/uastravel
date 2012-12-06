@@ -67,11 +67,14 @@
                 <li <?php echo ($this->uri->segment(2)=="เช่าเรือเหมาลำ")? 'class="active"':'';?>>
                   <a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a>
                 </li>
+                <li <?php echo ($this->uri->segment(2)=="จองตั๋วเรือโดยสาร")? 'class="active"':'';?>>
+                  <a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a>
+                </li>
                 <li <?php echo ($this->uri->segment(2)=="จองรถเช่า")? 'class="active"':'';?>>
                   <a href="#">จองรถเช่า</a>
                 </li>
                 <li <?php echo ($this->uri->segment(2)=="จองตั๋วเครื่องบิน")? 'class="active"':'';?>>
-                  <a href="#">จองเครื่องบิน</a>
+                  <a href="#">จองตั๋วเครื่องบิน</a>
                 </li>
                 <li <?php echo ($this->uri->segment(2)=="จองโรงแรม")? 'class="active"':'';?>>
                   <a href="#">จองโรงแรม</a>
