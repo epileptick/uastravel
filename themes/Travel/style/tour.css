@@ -27,6 +27,27 @@ side bar
   margin-left:2px;
   cursor:pointer;
 }
+.image_list {
+  position:relative;
+  display:inline-block;
+  width: 66px;
+  margin: 1px;
+}
+.image_list a {
+  position:absolute;
+  left:57px;
+  top:4px;
+  display:none;
+  background-color:rgba(255, 255, 255, 0.50);
+  padding-left:3px;
+  padding-right:3px;
+  padding-top:1px;
+  padding-bottom:1px;
+  font-size:8px;
+  font-weight:bolder;
+  line-height:10px;
+  color:#000;
+}
 
 .side_bar_block h3 {
   font-size: 14px;

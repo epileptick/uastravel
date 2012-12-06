@@ -364,6 +364,7 @@ class TagTour_model extends MY_Model {
     $count = 0;
     foreach ($tourByTag as $key => $valueFirst) {
       foreach ($valueFirst["tour"] as $key => $valueLast) {
+        $firsttour[$count] = new stdClass();
         $firsttour[$count]->tat_tour_id = $valueLast->tat_tour_id;
         $firsttour[$count]->maintag_name = $valueFirst["maintag_name"];
         $firsttour[$count]->maintag_url = $valueFirst["maintag_url"];

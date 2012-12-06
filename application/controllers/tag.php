@@ -10,18 +10,15 @@ class Tag extends MY_Controller {
     $tagData["tag"] = $this->tagModel->get($where);
     return $tagData;
   }
-/*  
-  function admin_index(){
-    $keyword = $this->input->post();
-    if($keyword){
-      $this->_search("admin_list");
-    }else{
-      $this->admin_list();
-    }
 
-  }
-*/  
   function admin_index(){
+    
+    
+    
+    $this->_fetch("admin_index");
+  }
+
+  function admin_list(){
     $result = array();
     
     $config['per_page'] = 1000; 
@@ -147,25 +144,6 @@ class Tag extends MY_Controller {
     }
   }
   
-  function admin_list($tag=false){
-
-    //implement code here
-    if($tag){
-      if(is_numeric($tag)){
-        $args["id"] = $tag;  
-        $data["tag"] = $this->tagModel->getRecord($args);  
-        $this->_fetch('admin_list', $data);
-      }else{
-        $args["name"] = $tag;        
-        $data["tag"] = $this->tagModel->getRecord($args);  
-        $this->_fetch('admin_list', $data);
-      }
-    }else{
-      $data["tag"] = $this->tagModel->getRecord();
-      $this->_fetch('admin_list', $data);
-    }
-  }
-  
   function admin_update(){
 
     $args = $this->input->post();
@@ -206,7 +184,6 @@ class Tag extends MY_Controller {
   function _search($render = "user_list"){
     //Get argument from post page
     $keyword = $this->input->post();
-
 
     if($keyword){
       $args["tag_name"] = $keyword["search"];
