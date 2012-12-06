@@ -113,7 +113,7 @@ class Home extends MY_Controller {
     if($tag){
       $argTag["url"] = $tag;      
       $tagQuery = $this->tagModel->getRecord($argTag);
-
+      //print_r($tagQuery); exit;
       if(!empty($tagQuery)){
         //$query["tag_id"] = $tagQuery[0]->id;
         $query["tag_id"] = $tagQuery[0]->id;
@@ -127,7 +127,10 @@ class Home extends MY_Controller {
         //print_r($query); exit;
 
         //Tour
-        $data["home"] = $this->_home_list($query);    
+        $data["home"] = $this->_home_list($query); 
+
+        //print_r($data); exit;
+
       }else{
         $data["home"] = false;
       }

@@ -37,8 +37,12 @@
             <div class="line"></div>
             <nav>
               <ul>
-                <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
-                <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
+                <li>
+                  <a href="<?php echo base_url();?>">หน้าแรก</a>
+                </li>
+                <li>
+                  <a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a>
+                </li>
                 <li <?php echo ($this->uri->segment(2)=="ทัวร์ครึ่งวัน")? 'class="active"':'';?>>
                   <a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a>
                 </li>
@@ -51,8 +55,33 @@
                 <li <?php echo ($this->uri->segment(2)=="ทัวร์-3-วัน-2-คืน")? 'class="active"':'';?>>
                   <a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a>
                 </li>
-                <li><a href="#">โปรโมชั่น</a></li> 
-                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>               
+                <li <?php echo ($this->uri->segment(2)=="โชว์กลางคืน")? 'class="active"':'';?>>
+                  <a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a>
+                </li>
+                <li <?php echo ($this->uri->segment(2)=="สปาแพ็คเกจ")? 'class="active"':'';?>>
+                  <a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a>
+                </li>
+                <li <?php echo ($this->uri->segment(2)=="กอล์ฟแพ็คเกจ")? 'class="active"':'';?>>
+                  <a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a>
+                </li>
+                <li <?php echo ($this->uri->segment(2)=="เช่าเรือเหมาลำ")? 'class="active"':'';?>>
+                  <a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a>
+                </li>
+                <li <?php echo ($this->uri->segment(2)=="จองรถเช่า")? 'class="active"':'';?>>
+                  <a href="#">จองรถเช่า</a>
+                </li>
+                <li <?php echo ($this->uri->segment(2)=="จองตั๋วเครื่องบิน")? 'class="active"':'';?>>
+                  <a href="#">จองเครื่องบิน</a>
+                </li>
+                <li <?php echo ($this->uri->segment(2)=="จองโรงแรม")? 'class="active"':'';?>>
+                  <a href="#">จองโรงแรม</a>
+                </li>
+                <li <?php echo ($this->uri->segment(2)=="โปรโมชั่น")? 'class="active"':'';?>>
+                  <a href="#">โปรโมชั่น</a>
+                </li>
+                <li>
+                  <a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a>
+                </li>               
               </ul>
             </nav>
             <div class="social">
@@ -271,14 +300,13 @@
                           </ul>
                         </div>  
                     </div>
-                    <?php                                                     
-                      }                              
-                    ?>                    
-                    <!-- End sub menu -->
 
                   </div>
               </div>
-
+              <?php                                                     
+                }                              
+              ?>                    
+              <!-- End sub menu -->
 
               <div class="row-fluid">
                 <div class="span12">
@@ -374,7 +402,13 @@
 
                       <?php
                           }//End loop tour
-                        }//End check tour
+                        }else{
+                      ?>
+
+                          ไม่พบข้อมูลที่ต้องการ
+                      <?php
+                        }
+                        //End check tour
                       ?>
                     
                   

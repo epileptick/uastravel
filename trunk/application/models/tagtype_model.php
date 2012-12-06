@@ -7,7 +7,8 @@ class TagType_model extends MY_Model {
                      'id'                => 'tty_id',
                      'tag_id'            => 'tty_tag_id',
                      'type_id'           => 'tty_type_id',
-                     'parent_id'         => 'tty_parent_id'
+                     'parent_id'         => 'tty_parent_id',
+                     'index'             => 'tty_index'
     );
   }
  
@@ -58,7 +59,8 @@ class TagType_model extends MY_Model {
       //Get category by name
       $data["tty_type_id"] = $args["type_id"];
 
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id'); 
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');         
+      $this->db->order_by('tty_index ASC'); 
       $query = $this->db->get_where('ci_tagtype', $data);
           //print_r($query->result()); exit;
       if($query->num_rows > 0){
