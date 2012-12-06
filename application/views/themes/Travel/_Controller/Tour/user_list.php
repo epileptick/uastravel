@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--[if IE ]>    <html class="no-js ie-all" lang="en"> <![endif]-->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -308,6 +308,9 @@
               ?>                    
               <!-- End sub menu -->
 
+			  <?php
+				if(!empty($tour)){			  
+			  ?>
               <div class="row-fluid">
                 <div class="span12">
                   <div id="attractions" style="display:none;" class="clickable variable-sizes">
@@ -317,9 +320,6 @@
                         //print_r($tour); exit;
                         //echo $this->pagination->create_links();
                         //echo "<br><br><br><br>";
-
-                        if(!empty($tour)){
-
                           foreach ($tour as $key => $value) {
                         ?>
                           <div class="list_attractions" data-category="transition">
@@ -402,13 +402,6 @@
 
                       <?php
                           }//End loop tour
-                        }else{
-                      ?>
-
-                          ไม่พบข้อมูลที่ต้องการ
-                      <?php
-                        }
-                        //End check tour
                       ?>
                     
                   
@@ -428,6 +421,24 @@
 
                 </div><!--/span12-->
               </div>
+			  
+			  
+
+			  <?php
+				}else{
+			  ?>
+					<br><br><br><br><br>
+					<center>
+					<font size="28">
+						ไม่พบข้อมูลที่ท่านต้องการ
+					</font>
+					<center>
+			  
+			  <?php
+				}
+				//End check tour
+			  ?>
+					  
             </div>
           </div><!--/content-->
         </div>
