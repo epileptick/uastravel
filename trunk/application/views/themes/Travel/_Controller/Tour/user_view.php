@@ -261,6 +261,7 @@
           ?>
 
 
+
           <!-- Start price -->
           <div class="row">
               <div class="price_booking"> 
@@ -286,8 +287,7 @@
                             echo " บาท";
 
                           }else{
-                            echo number_format($price[0]->sale_adult_price, 0);
-                            echo " บาท";
+                            echo "<f style='font-size:30px; color:#0089E0;'>".number_format($price[0]->sale_adult_price, 0)."&nbsp; บาท</f>";
                           }
 
                           //text-decoration: line-through; color: #โค้ดสีเส้น;
@@ -316,8 +316,7 @@
                             echo " บาท";
 
                           }else{
-                            echo number_format($price[0]->sale_child_price, 0);
-                            echo " บาท";
+                            echo "<f style='font-size:30px; color:#0089E0;'>".number_format($price[0]->sale_child_price, 0)."&nbsp; บาท</f>";
                           }
 
                           //text-decoration: line-through; color: #โค้ดสีเส้น;
@@ -339,10 +338,23 @@
               <div class="clearfix"></div>
             </div>
           </div>
+        <!-- End price -->
 
 
-        <div class="border"></div>
+        <!-- Start contact -->
         <div class="row">
+         <div class="twelve columns">
+            <ul class="tags">
+              <li style="font-size:30px; color:#FE5214;">ติดต่อเรา :</li>
+              <li><b>โทร.</b> 082-8121146, 076-331280&nbsp;&nbsp;<b>แฟกซ์.</b> 076-331273&nbsp;&nbsp;<b>อีเมล์</b> info@uastravel.com</li>
+            </ul>
+          </div> 
+        </div> 
+        <!-- End contact -->
+
+        <!-- Start tag -->
+        <div class="border"></div> 
+        <div class="row">         
           <div class="twelve columns">
             <ul class="tags">
               <li><a class="tags_name" href="#">Tags</a></li>
@@ -360,10 +372,12 @@
                 }
               ?>
             </ul>
-          </div> <!-- End Row tags  -->
-        </div>   
-        </div><!-- End box_white_in_columns-->
-        <!-- End Tour Information -->
+          </div>
+        </div> 
+        <!-- End tag -->  
+      </div>
+      <!-- End box_white_in_columns-->
+      <!-- End Tour Information -->
 
         <!-- Map -->
           <div class="row">

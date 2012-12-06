@@ -5,11 +5,25 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <title>ท่องเที่ยวไปในสถานที่ท่องเที่ยวด้วยแพคเกจทัวร์ราคาพิเศษ - U As Travel</title>
+<?php
+  if($this->uri->segment(1)){
+?>
+  <title>ท่องเที่ยวไปในสถานที่ท่องเที่ยวจังหวัด<?php echo $this->uri->segment(1);?> ด้วยแพคเกจทัวร์<?php echo $this->uri->segment(1);?>ราคาพิเศษ - U As Travel</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="สถานที่ท่องเที่ยวและทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยว และแพคเกจทัวร์ราคาพิเศษ" />
+  <meta name="description" content="สถานที่ท่องเที่ยวในจังหวัด<?php echo $this->uri->segment(1);?> และทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยวในจังหวัด<?php echo $this->uri->segment(1);?>  และแพคเกจทัวร์ราคาพิเศษ" />
   <meta name="keywords" content="" />
+<?php   
+  }else{
+?>
+  <title>ท่องเที่ยวไปในสถานที่ท่องเที่ยว ด้วยแพคเกจทัวร์ราคาพิเศษ - U As Travel</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="ROBOTS" content="NOODP" />
+  <meta name="description" content="สถานที่ท่องเที่ยว และทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยว  และแพคเกจทัวร์ราคาพิเศษ" />
+  <meta name="keywords" content="" />
+<?php
+  }
+  ?>
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title></title>
@@ -53,10 +67,10 @@
                 <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
                 <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
                 <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
-                <li><a href="#">จองรถเช่า</a></li>
-                <li><a href="#">จองตั๋วเครื่องบิน</a></li>
-                <li><a href="#">จองโรงแรม</a></li>
-                <li><a href="#">โปรโมชั่น</a></li>
+                <li><a href="<?php echo base_url('tour/จองรถเช่า');?>">จองรถเช่า</a></li>
+                <li><a href="<?php echo base_url('tour/จองตั๋วเครื่องบิน');?>">จองตั๋วเครื่องบิน</a></li>
+                <li><a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a></li>
+                <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
                 <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>       
               </ul>
             </nav>

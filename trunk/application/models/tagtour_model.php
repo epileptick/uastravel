@@ -333,20 +333,25 @@ class TagTour_model extends MY_Model {
     $count = 0;
     foreach ($tag as $key => $value) {
 
-/*
-      if(){
-
+      if($args["tag_id"]){
+        $sql = "SELECT `tat_tour_id` 
+                FROM (`ci_tagtour`) 
+                WHERE tat_tag_id = 1 
+                AND tat_tour_id IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $value->tag_id)) 
+                AND tat_tour_id IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $args[tag_id]))  
+                ORDER BY tat_tour_id DESC 
+                LIMIT $args[offset], $args[per_page]
+                ";
       }else{
 
+        $sql = "SELECT `tat_tour_id` 
+                FROM (`ci_tagtour`) 
+                WHERE tat_tag_id = 1 
+                AND tat_tour_id IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $value->tag_id)) 
+                ORDER BY tat_tour_id DESC 
+                LIMIT $args[offset], $args[per_page]
+                ";
       }
-      */
-      $sql = "SELECT `tat_tour_id` 
-              FROM (`ci_tagtour`) 
-              WHERE tat_tag_id = 1 
-              AND tat_tour_id IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $value->tag_id)) 
-              ORDER BY tat_tour_id DESC 
-              LIMIT $args[offset], $args[per_page]
-              ";
 
       $tourByTagTemp = $this->db->query($sql)->result();
 
