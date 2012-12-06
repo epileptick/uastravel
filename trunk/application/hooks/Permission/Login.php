@@ -9,9 +9,9 @@ class Login {
   }
   
   public function checkLogin(){
-    if($this->CI->session->userdata("logged_in")===NULL||$this->CI->session->userdata("logged_in")===FALSE||$this->CI->session->userdata("logged_in")===0){
-      if($this->CI->router->method != "login"){
-        redirect(base_url("/user/login/"),"refresh");
+    if(($this->CI->session->userdata("logged_in") === NULL OR $this->CI->session->userdata("logged_in") === FALSE OR $this->CI->session->userdata("logged_in") === 0) AND  $this->CI->uri->segment(1) == "admin"){
+      if($this->CI->router->class != "user"){
+        redirect(base_url("user/login"),"refresh");
       }
     }else{
       
@@ -20,4 +20,4 @@ class Login {
   }
 }
 
-?>
+?> 

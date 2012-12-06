@@ -10,13 +10,20 @@
 |
 */
 
-$hook['post_controller_constructor'] = array(
+$hook['post_controller_constructor'][] = array(
                                 'class'    => 'Init',
                                 'function' => 'pageInit',
                                 'filename' => 'Init.php',
                                 'filepath' => 'hooks/Initialize'
                                 );
-
+                                
+$hook['post_controller_constructor'][] = array(
+                                'class'    => 'Login',
+                                'function' => 'checkLogin',
+                                'filename' => 'Login.php',
+                                'filepath' => 'hooks/Permission'
+                                );
+ 
 
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

@@ -41,9 +41,32 @@ $(document).ready(function() {
             $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:2 },
             function(data) {
               $("#side_bar_block_image").html(data).hide("slow").delay(200).show("slow");
+              $(".image_list").mouseover(function() {
+                $(this).find("a").css("display","block");
+              }).mouseout(function(){
+                $(this).find("a").css("display","none");
+              });
               $("#side_bar_block_image img").click(function() {
                 $(this).addImg();
               });
+              
+              $("#side_bar_block_image a").click(function() {
+                //$(this).delImg();
+                //console.log($(this).prop("href"));
+                $.post($(this).prop("href"), {},
+                  function(data) { 
+                    //console.log(data);
+                    var data = jQuery.parseJSON(data);
+                    //console.log(data);
+                    if(data.success == "1"){
+                      updateImages();
+                    }
+                  }
+                );
+                return false;
+                
+              });
+              
             });
   }
   

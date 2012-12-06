@@ -18,12 +18,24 @@ class Images extends MY_Controller {
     if(empty($id)){
       echo json_encode(array("error"=>"1"));
     }
-    if($this->imagesModel->delete($id)){
-      echo json_encode(array("success"=>"1")); 
-    }else{
-      echo json_encode(array("error"=>"1"));
+    $backup = $this->imagesModel->get($id);
+    if(!empty($backup)){
+      $imgPath = explode("resource",$backup[0]['url']);
+      $unlinkPath = "resource".$imgPath[1];
+      if(file_exists($unlinkPath)){
+        if(unlink($unlinkPath)){
+          $this->imagesModel->delete($id);
+          echo json_encode(array("success"=>"1")); 
+        }else{
+          echo json_encode(array("error"=>"1"));
+        }
+      }else{
+        $this->imagesModel->delete($id);
+        echo json_encode(array("success"=>"1")); 
+      }
     }
     
+    die;
   }
   
   function ajax_upload(){ 

@@ -56,6 +56,10 @@ $route['(:any)'.'_tests'] = '$1'.'_tests';
 
 ////////// Urls start
 
+//Login
+$route['login'] = 'login';
+
+
 //location
 $route['admin/location'] = 'location/admin_index';
 $route['admin/location/create/(:any)'] = 'location/admin_create/$1';
@@ -120,6 +124,7 @@ $route['agency/phpsearch/(:any)'] = 'agency/phpsearch/$1'; //for Tag
 
 //Tag
 $route['admin/tag'] = 'tag/admin_index';
+$route['admin/tag/list'] = 'tag/admin_list';
 $route['admin/tag/update'] = 'tag/admin_update';
 $route['admin/tag/delete/(:num)'] = 'tag/admin_delete/$1';
 $route['admin/tag/create'] = 'tag/admin_create';
@@ -137,6 +142,9 @@ $route['images/ajax_list'] = 'images/ajax_list';
 $route['images/ajax_upload'] = 'images/ajax_upload';
 $route['images/ajax_delete/(:any)'] = 'images/ajax_delete/$1';
 
+//User
+$route['user/login'] = 'user/login';
+$route['user/logout'] = 'user/logout'; 
 
 //Home
 $route['admin'] = 'home/admin_list';
