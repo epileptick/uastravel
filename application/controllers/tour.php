@@ -196,56 +196,38 @@ class Tour extends MY_Controller {
         $empty = true;
       }
 
-
-      //Not type & tag
-      if($empty){
-        //Not type && tag
-        //Query tagtype by type_id
-        $type["type_id"] = 4; 
-        $this->load->model("tagtype_model", "tagtypeModel");   
-        $menuQuery = $this->tagtypeModel->getRecord($type);
-        //print_r($menuQuery); exit;
-
-        //Query type_id by parent_id 
-        $parent["parent_id"] = $type["type_id"];
-        $this->load->model("type_model", "typeModel");
-        $parenttypeQuery = $this->typeModel->getRecord($parent);
-        //print_r($parenttypeQuery); exit;  
-
-        //Query tagname by type_id (Submenu)
-        $type["type_id"] = $parenttypeQuery[0]->id;
-        $this->load->model("tagtype_model", "tagtypeModel");   
-        $subMenuQuery = $this->tagtypeModel->getRecord($type); 
-        //print_r($subMenuQuery); exit;
-      }
-
     }else{
-      //tour
-      //Query tagtype by type_id
-      $type["type_id"] = 4; 
-      $this->load->model("tagtype_model", "tagtypeModel");   
-      $menuQuery = $this->tagtypeModel->getRecord($type);
-      //print_r($menuQuery); exit;
-
-      //Query type_id by parent_id 
-      $parent["parent_id"] = $type["type_id"];
-      $this->load->model("type_model", "typeModel");
-      $parenttypeQuery = $this->typeModel->getRecord($parent);
-      //print_r($parenttypeQuery); exit;  
-
-      //Query tagname by type_id (Submenu)
-      $type["type_id"] = $parenttypeQuery[0]->id;
-      $this->load->model("tagtype_model", "tagtypeModel");   
-      $subMenuQuery = $this->tagtypeModel->getRecord($type); 
-      //print_r($subMenuQuery); exit;
+       $empty = true;
     }
 
+ 
+	//Not type & tag & argTag
+	if($empty){
+		//Query tagtype by type_id
+		$type["type_id"] = 4; 
+		$this->load->model("tagtype_model", "tagtypeModel");   
+		$menuQuery = $this->tagtypeModel->getRecord($type);
+		//print_r($menuQuery); exit;
 
+		//Query type_id by parent_id 
+		$parent["parent_id"] = $type["type_id"];
+		$this->load->model("type_model", "typeModel");
+		$parenttypeQuery = $this->typeModel->getRecord($parent);
+		//print_r($parenttypeQuery); exit;  
+
+		//Query tagname by type_id (Submenu)
+		$type["type_id"] = $parenttypeQuery[0]->id;
+		$this->load->model("tagtype_model", "tagtypeModel");   
+		$subMenuQuery = $this->tagtypeModel->getRecord($type); 
+		//print_r($subMenuQuery); exit;
+	}
+	  
     //Query tagname by type_id (Menu)
     $count = 0;
     $menu_select_all = true;
     foreach ($menuQuery as $key => $value) {
       //Menu Tag
+	  $return["menu"][$count] = new stdClass();
       $return["menu"][$count]->tag_id = $value->id;
       $return["menu"][$count]->name = $value->name;
       $return["menu"][$count]->url = $value->url;
@@ -266,6 +248,7 @@ class Tour extends MY_Controller {
       $count = 0;
       $submenu_select_all = true;
       foreach ($subMenuQuery as $key => $value) {
+		$return["submenu"][$count] = new stdClass();
         $return["submenu"][$count]->tag_id = $value->id;
         $return["submenu"][$count]->name = $value->name;
         $return["submenu"][$count]->url = $value->url;
