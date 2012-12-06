@@ -329,10 +329,17 @@ class TagTour_model extends MY_Model {
     }
 
 
-    //print_r($tag);
+    //print_r($tag); exit;
     $count = 0;
     foreach ($tag as $key => $value) {
 
+/*
+      if(){
+
+      }else{
+
+      }
+      */
       $sql = "SELECT `tat_tour_id` 
               FROM (`ci_tagtour`) 
               WHERE tat_tag_id = 1 

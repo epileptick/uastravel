@@ -404,13 +404,15 @@ class Location extends MY_Controller {
       $locationData["location"] = $this->locationModel->get($id);
       //var_dump($locationData["images"]);exit;
 
-      if(empty($locationData["location"])){
+
+      if(count($locationData["location"]) < 1){
         show_404();
       }else{
         $locationData["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$id,'table_id'=>1)));
         $locationData["location"] = $locationData["location"][0];
       }
 
+    
 
       //Prepare for three column
       //var_dump($locationData["location"]['body']);
@@ -435,8 +437,6 @@ class Location extends MY_Controller {
           $locationData["tag"][] = $tagQuery[0];
           $count++;
         }
-      }else{
-        show_404();        
       }
 
 

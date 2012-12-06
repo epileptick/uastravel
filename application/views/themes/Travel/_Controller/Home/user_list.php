@@ -48,8 +48,15 @@
                 <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
                 <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
                 <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
+                <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
+                <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
+                <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
+                <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
+                <li><a href="#">จองรถเช่า</a></li>
+                <li><a href="#">จองตั๋วเครื่องบิน</a></li>
+                <li><a href="#">จองโรงแรม</a></li>
                 <li><a href="#">โปรโมชั่น</a></li>
-                <li><a href="<?php echo base_url('location/ติดต่อเรา-119 ');?>">ติดต่อเรา</a></li>         
+                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>       
               </ul>
             </nav>
             <div class="social">

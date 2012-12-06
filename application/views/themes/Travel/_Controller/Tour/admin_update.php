@@ -431,7 +431,9 @@ $(document).ready(function() {
 
 
 
-		
+		<?php
+			//print_r($tag_query); exit;
+		?>
 		<script type="text/javascript">
 			var validate = "";
 			//Start update tag 
@@ -440,13 +442,15 @@ $(document).ready(function() {
 					plugins : 'tags autocomplete'
 					<?php
 						//Check has tag data
-						if(isset($tag_query)){
+						if(!empty($tag_query)){
 					?>
 
 						,tagsItems : [ 	<?php  
 											foreach ($tag_query as $key => $value) {
 												# code...
-												echo "'".$value->name."',";
+												if(!empty($value->name)){
+													echo "'".$value->name."',";
+												}
 											}
 										?>
 									]
