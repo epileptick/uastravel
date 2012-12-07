@@ -167,16 +167,17 @@
                     </div>
                   </div>
               </div>
+
+        <?php
+        if(!empty($home)){        
+        ?>
+
               <div class="row-fluid">
                 <div class="span12">
                   <div id="attractions" style="display:none;" class="clickable variable-sizes">
 
 
                       <?php
-                        //print_r($tour); exit;
-
-                        if(!empty($home)){
-
                           foreach ($home as $key => $value) {
                         ?>
                           <div class="list_attractions" data-category="transition">
@@ -309,8 +310,7 @@
                           </div>
 
                       <?php
-                          }
-                        }//End loop tour 
+                          }//End loop tour 
                       ?>
                     
 
@@ -322,6 +322,24 @@
 
                 </div><!--/span12-->
               </div>
+
+
+        <?php
+        }else{
+        ?>
+          <br><br><br><br><br>
+          <center>
+          <font size="28">
+            ไม่พบข้อมูลที่ท่านต้องการ
+          </font>
+          <center>
+        
+        <?php
+        }
+        //End check tour
+        ?>
+
+
             </div>
           </div><!--/content-->
         </div>
