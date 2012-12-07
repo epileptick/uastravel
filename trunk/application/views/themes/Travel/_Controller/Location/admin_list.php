@@ -106,7 +106,15 @@ function selectAll(){
             </span>
             <span class="description"><?php echo trim(substr(strip_tags($value["body"]),0,100));?></span>
             
-            <span id="location-list-control"><a href="<?php echo base_url("admin/location/delete/$value[id]");?>"><?php echo $this->lang->line("global_lang_delete");?></a> | <a href="<?php echo base_url("admin/location/create/$value[id]");?>"><?php echo $this->lang->line("global_lang_edit");?></a></span>
+            <span id="location-list-control">               
+              <a href="<?php echo base_url("admin/location/create/$value[id]");?>">
+                <?php echo $this->lang->line("global_lang_edit");?>
+              </a> | 
+
+              <a href="<?php echo base_url("admin/location/delete/$value[id]");?>" onclick="return confirm('Are you sure you want to delete?')">
+                <?php echo $this->lang->line("global_lang_delete");?>
+              </a>               
+            </span>
           </div>
           
         </li>
