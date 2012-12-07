@@ -416,12 +416,15 @@ class Tour extends MY_Controller {
     $tagQuery = $this->tagModel->getRecord($argTag); 
     $argType["url"] = $type;      
     $typeQuery = $this->tagModel->getRecord($argType);
-
-    $query["tag_id"] = $tagQuery[0]->id;
-    $query["type_id"] = $typeQuery[0]->id;
     //print_r($query); exit;
 
+
+
     if(!empty($tagQuery)){
+
+      $query["tag_id"] = $tagQuery[0]->id;
+      $query["type_id"] = $typeQuery[0]->id;
+
       $query["join"] = true;
       $query["per_page"] = $this->per_page;
       $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;    
@@ -470,12 +473,14 @@ class Tour extends MY_Controller {
     $argSubType["url"] = $subtype;      
     $subTypeQuery = $this->tagModel->getRecord($argSubType);
 
-    $query["tag_id"] = $tagQuery[0]->id;
-    $query["type_id"] = $typeQuery[0]->id;
-    $query["subtype_id"] = $subTypeQuery[0]->id;
     //print_r($query); exit;
 
     if(!empty($tagQuery)){
+      
+      $query["tag_id"] = $tagQuery[0]->id;
+      $query["type_id"] = $typeQuery[0]->id;
+      $query["subtype_id"] = $subTypeQuery[0]->id;
+
       $query["join"] = true;
       $query["per_page"] = $this->per_page;
       $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;    
