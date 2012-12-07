@@ -241,7 +241,7 @@ if(!empty($location['background_image'])){
                 if(!empty($tag)){
 
                   foreach ($tag as $key => $value) {
-                    if(!empty($value->url)){
+                    if(!empty($value->url) &&  $value->id != 1){
               ?>
                       <li><a href="<?php echo base_url('/location/'.$value->url);?>"><?php echo $value->name; ?></a></li>
               <?php
