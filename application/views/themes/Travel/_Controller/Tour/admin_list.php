@@ -267,7 +267,7 @@ class="blogg-menu-popup">
               <a href="<?php echo base_url('admin/tour/create/'.$value['tour']->id);?>">
                 <?php echo $this->lang->line("global_lang_edit");?>
               </a> |
-              <a href="<?php echo base_url('admin/tour/delete/'.$value['tour']->id);?>">
+              <a href="<?php echo base_url('admin/tour/delete/'.$value['tour']->id);?>"  onclick="return confirm('Are you sure you want to delete?')">
               <?php echo $this->lang->line("global_lang_delete");?>
               </a> 
             </span>
