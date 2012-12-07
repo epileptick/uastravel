@@ -581,7 +581,7 @@
             js.src = "//connect.facebook.net/th_TH/all.js#xfbml=1&appId=357467797616103";
             fjs.parentNode.insertBefore(js, fjs);
           }(document, 'script', 'facebook-jssdk'));</script>
-          <div class="fb-comments" data-href="<?php echo base_url('tour/'.$value['tour']->tou_url.'-'.$value['tour']->tou_id);?>" data-num-posts="20" data-width=""></div>
+          <div class="fb-comments" data-href="<?php echo base_url('tour/'.$tour[0]->url.'-'.$tour[0]->id);?>" data-num-posts="20" data-width=""></div>
         </div>
       </div>
     </div>
