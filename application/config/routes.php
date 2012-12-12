@@ -95,8 +95,6 @@ $route['admin/tour/(:any)/(:any)-(:num)'] = 'tour/admin_view/$3';
 $route['admin/tour/(:any)-(:num)'] = 'tour/admin_view/$2';
 $route['admin/tour/(:any)'] = 'tour/admin_list'; //for Tag
 
-
-
 //list all
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
@@ -104,7 +102,6 @@ $route[LangUtil::line("url_lang_tour")."/(:any)"] = 'tour/user_index';
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour")."/(:any)"] = 'tour/user_index'; 
 $route[LangUtil::line("url_lang_tour")] = 'tour/user_index'; 
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour")] = 'tour/user_index'; 
-
 
 //Agency
 $route['admin/'.LangUtil::line("url_lang_agency")] = 'agency/admin_index';
