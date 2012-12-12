@@ -146,15 +146,13 @@
       <div class="eight columns">
         <div class="box_white_in_columns article_tour">
           <div class="row">
-            <div class="six columns">
-              <h3><?php echo $tour[0]->name;?></h3>
+            <div class="eight columns">
+              <h3 style="color:#FE5214;"><?php echo $tour[0]->name;?></h3>
             </div>
-            <div class="six columns">
+            <div class="four columns">
               <div class="social_network">
                 <!-- AddThis Button BEGIN -->
                 <div class="addthis_toolbox addthis_default_style ">
-                <a class="addthis_button_pinterest_pinit"></a>
-                <a class="addthis_button_tweet"></a>
                 <a class="addthis_button_google_plusone" g:plusone:size="medium"></a> 
                 <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
 
@@ -167,7 +165,9 @@
           </div><!-- Title -->
           <div class="border"></div>
           <p><?php echo $tour[0]->description;?></p>
-          <h3><?php echo lang('tour_lang_p_and_i');?></h3>
+          <h3 style="padding:4px; border:2px solid; border-color:#FFC000; background-color:#FFC000; color:#FFF; text-shadow: none !important;">
+            <?php echo $this->lang->line("tour_lang_program_and_itinerary");?> Program And Itinerary
+          </h3>
           <!--
           <p><span class="color_blue">ช่วงเช้า: </span> รถรับท่านจากโรงแรมที่พักในจังหวัดภูเก็ต หรือ เขาหลัก มุ่งหน้าสู่ท่าเรือคุระบุรี จังหวัดพังงา ออกเดินทางจากท่าเรือ สู่อุทยานฯ หมู่เกาะสุรินทร์ ด้วยเรือสปีดโบ๊ทขนาดใหญ่ เดินทามาถึงอุทยานแห่งชาติ หมู่เกาะสุรินทร์  ดำน้ำดูปะการังบริเวณ อ่าวแม่ยาย และ อ่าวเต่า สนุกสนานกับการเล่นน้ำ ดำน้ำชมปะการัง หรือพักผ่อนตามอัธยาศัย</p>
           <p><span class="color_blue">เที่ยง:</span> รับประทานอาหารกลางวัน ณ ที่ทำการอุทยานแห่งชาติหมู่เกาะสุรินทร์</p>
@@ -185,7 +185,7 @@
           ?>
             <div class="row">
               <div class="five columns">
-                <h3>Tour Includes</h3>
+                <h3 style="color:#0000;"><?php echo $this->lang->line("tour_lang_tour_includes");?>Tour Include</h3>
                 <!--
                 <ul class="disc">
                   <li>รถรับส่งโรงแรม-ท่าเรือ-โรงแรม</li>
@@ -197,14 +197,18 @@
                 </ul>
                 -->
                 <p>
-                  <?php echo (!empty($tour[0]->included)?$tour[0]->included:"");?>
+                  <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
+                    <?php echo (!empty($tour[0]->included)?$tour[0]->included:"");?>
+                  </div>
                 </p>
               </div>
 
               <div class="seven columns">
-                <h3>Tour Remark</h3>
+                <h3 style="color:#0000;"><?php echo $this->lang->line("tour_lang_tour_mark");?>Tour Remark</h3>
                 <p>
-                  <?php echo $tour[0]->remark;?>
+                  <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
+                    <?php echo $tour[0]->remark;?>
+                  </div>
                 </p>  
                 <!--
                 <ul class="disc">
@@ -220,18 +224,10 @@
             <div class="row">
               <div class="five columns">
                 <h3>Tour Includes</h3>
-                  <!--
-                <ul class="disc">
-                  <li>รถรับส่งโรงแรม-ท่าเรือ-โรงแรม</li>
-                  <li>ค่าเรือเดินทาง</li>
-                  <li>อุปกรณ์ดำผิวน้ำและเสื้อชูชีพ</li>
-                  <li>อาหารกลางวัน </li>
-                  <li>มัคคุเทศก์ </li>
-                  <li>ประกันภัย </li>
-                </ul>
-                -->
                 <p>
-                  <?php echo (!empty($tour[0]->included)?$tour[0]->included:"");?>
+                  <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
+                    <?php echo (!empty($tour[0]->included)?$tour[0]->included:"");?>
+                  </div>
                 </p>
               </div>
             </div>              
@@ -252,7 +248,9 @@
                 </ul>
                 -->
                 <p>
-                  <?php echo (!empty($tour[0]->included)?$tour[0]->remark:"");?>
+                  <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
+                    <?php echo (!empty($tour[0]->included)?$tour[0]->remark:"");?>
+                  </div>
                 </p>
               </div>
             </div>
@@ -331,7 +329,20 @@
                   </div>
 
                   <div class="two columns">
-                    <a class="button small  booking" href="https://docs.google.com/spreadsheet/viewform?formkey=dEM4aFNVSmNhUTgxaENNRjk4SkpYdGc6MQ">จองทันที</a>
+
+                    <form name="input" 
+                          action="<?php echo base_url('tour/booking');?>" 
+                          method="post"
+                    >
+                    <input type="hidden" name="id" value="<?php echo $tour[0]->id;?>"></input>
+                    <input class="button small  booking"  type="submit" value="จองทันที">
+                    </form>
+
+                    <!-- a class="button small  booking" 
+                       href="<?php echo base_url('tour/booking');?>"
+                    >
+                      จองทันที
+                    </a -->
                   </div>
 
                 </div>
@@ -505,68 +516,6 @@
 
     </div>
     <!-- End Right bar -->
-    
-    <!--
-    <div class="row">
-        <div class="eight columns">
-          <div class="row">
-            <div class="box_white_in_row">
-              <div class="twelve columns">
-                <h3>ค้นหาโรงแรม</h3>
-              </div>
-              <form class="custom search_hotel">
-                <div class="eight columns">
-                  <label>Where ?</label>
-                  <input type="text" name="user">
-                </div>
-                <div class="four columns">
-                  <div class="row">
-                    <div class="six columns">
-                      <label>Guest </label>
-                      <select name="guest">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                      </select>
-                    </div>
-                    <div class="six columns">
-                      <label>Rooms </label>
-                      <select name="guest">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="four columns">
-                  <label>Check-in </label>
-                  <input type="text" name="user">
-                </div>
-                <div class="four columns">
-                  <label>Check-out </label>
-                  <input type="text" name="user">
-                </div>
-                <div class="two columns">
-                  <label>Nights </label>
-                  <p>1</p>
-                </div>
-                <div class="two columns">
-                  <button type="submit" class="small button">ค้นหา</button> 
-                </div>
-                     
-              </form>
-              <div class="clearfix"></div>
-            </div>
-          </div>
-
-        </div>
-        <div class="four columns">
-
-        </div>
-        -->
     </div>
 
     <div class="row">
