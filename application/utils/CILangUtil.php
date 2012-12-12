@@ -13,10 +13,9 @@ class LangUtil{
     foreach($fds as $fd){
       if($fd != '.' AND $fd != '..' AND $fd != "index.html"){
         include(APPPATH."language/".$config['language']."/".$fd);
-        //var_dump(APPPATH."language/".$config['language']."/".$fd);
+        
       }
     }
-    
     return $lang[$line];
   }
   
@@ -24,8 +23,8 @@ class LangUtil{
   {
     // languages
     $languages = array(
-        'en' => 'english',
         'th' => 'thai',
+        'en' => 'english',
         'de' => 'german',
         'fr' => 'french',
         'nl' => 'dutch'

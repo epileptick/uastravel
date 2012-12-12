@@ -22,8 +22,8 @@ class MY_Lang extends CI_Lang {
    
     // languages
     private $languages = array(
-        'en' => 'english',
         'th' => 'thai',
+        'en' => 'english',
         'de' => 'german',
         'fr' => 'french',
         'nl' => 'dutch'
@@ -69,6 +69,7 @@ class MY_Lang extends CI_Lang {
      {
       // set default language
       $CFG->set_item('language', $this->languages[$this->default_lang()]);
+      
       if(array_key_exists($this->default_lang(), $this->languages) AND empty($this->uri)){
         $uri = (!empty($this->uri)) ? $this->uri: $this->default_uri;
             //$uri = ($uri[0] != '/') ? $uri : $uri;
@@ -157,11 +158,14 @@ class MY_Lang extends CI_Lang {
       $browser_lang = !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? strtok(strip_tags($_SERVER['HTTP_ACCEPT_LANGUAGE']), ',') : '';
       $browser_lang = substr($browser_lang, 0,2);
       $default_lang = array_splice(array_keys($this->languages), 0,1); 
+      
       if(!empty($_COOKIE['int_lang'])) {
         $preferred_lang = filter_var($_COOKIE['int_lang'], FILTER_SANITIZE_STRING);
         return (array_key_exists($preferred_lang, $this->languages)) ? $preferred_lang : $default_lang[0];
       }else{
-        return (array_key_exists($browser_lang, $this->languages)) ? $browser_lang : $default_lang[0]; 
+        
+        //return (array_key_exists($browser_lang, $this->languages)) ? $browser_lang : $default_lang[0]; 
+        return $default_lang[0];
       }
     }
     
