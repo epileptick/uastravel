@@ -387,37 +387,42 @@ class TagTour_model extends MY_Model {
       $this->db->where('tou_id', $value->tat_tour_id);
       $query = $this->db->get('ci_tour');
       $tourBuffer = $query->result(); 
-      $result[$count]["tour"] = $tourBuffer[0]; 
-      $result[$count]["tour"]->maintag_name = $value->maintag_name;
-      $result[$count]["tour"]->maintag_url = $value->maintag_url;
 
 
-      //Get tag data
-      unset($this->db);
-      $this->db->where('tat_tour_id', $value->tat_tour_id);
-      $this->db->where_in('tat_tag_id', $args["menu"]);
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-      $query = $this->db->get('ci_tagtour');
-      $result[$count]["tag"] = $query->result();
+        if(!empty($tourBuffer[0])){
+
+        $result[$count]["tour"] = $tourBuffer[0]; 
+        $result[$count]["tour"]->maintag_name = $value->maintag_name;
+        $result[$count]["tour"]->maintag_url = $value->maintag_url;
 
 
-      //Get price data
-      unset($this->db);
-      $this->db->where('agt_tour_id', $value->tat_tour_id);
-      $priceTour = $this->db->get('ci_agencytour')->result();
+        //Get tag data
+        unset($this->db);
+        $this->db->where('tat_tour_id', $value->tat_tour_id);
+        $this->db->where_in('tat_tag_id', $args["menu"]);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+        $query = $this->db->get('ci_tagtour');
+        $result[$count]["tag"] = $query->result();
 
-      if(!empty($priceTour)){
-        $maxAgencyPrice = 0;
-        foreach ($priceTour as $key => $value) {
-          # code...
-          if($value->agt_sale_adult_price > $maxAgencyPrice){
-            $result[$count]["price"] = $value;
-            $maxAgencyPrice = $value->agt_sale_adult_price;
+
+        //Get price data
+        unset($this->db);
+        $this->db->where('agt_tour_id', $value->tat_tour_id);
+        $priceTour = $this->db->get('ci_agencytour')->result();
+
+        if(!empty($priceTour)){
+          $maxAgencyPrice = 0;
+          foreach ($priceTour as $key => $value) {
+            # code...
+            if($value->agt_sale_adult_price > $maxAgencyPrice){
+              $result[$count]["price"] = $value;
+              $maxAgencyPrice = $value->agt_sale_adult_price;
+            }
           }
         }
-      }
 
-      $count++;
+        $count++;
+      }
     }
 
     //print_r($result); exit;
