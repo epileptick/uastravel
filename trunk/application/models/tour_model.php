@@ -63,7 +63,10 @@ class Tour_model extends MY_Model {
     if(isset($args["tag"]) && isset($args["tour_name"]) ){
       echo $args;
     }else if(isset($args["id"])){
-      //Get page by id for create      
+      //Get page by id for create 
+      if(!empty($args["field"])){
+        $this->db->select($args["field"]);
+      }     
       $query = $this->db->get_where('ci_tour', array('tou_id' => $args["id"]), 1, 0);
 
       if($query->num_rows > 0){

@@ -106,9 +106,6 @@ $route[LangUtil::line("url_lang_tour")] = 'tour/user_index';
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour")] = 'tour/user_index'; 
 
 
-
-
-
 //Agency
 $route['admin/'.LangUtil::line("url_lang_agency")] = 'agency/admin_index';
 $route['admin/'.LangUtil::line("url_lang_agency").'/update'] = 'agency/admin_update';
@@ -136,6 +133,9 @@ $route['admin/tag/(:any)'] = 'tag/admin_list'; //for Tag
 $route['tag/jssearch/(:any)'] = 'tag/jssearch/$1';
 $route['tag/jssearch'] = 'tag/jssearch';
 $route['tag/jsonsearch/(:any)'] = 'tag/jsonsearch/$1';
+
+
+
 
 //Images
 $route['images/ajax_list'] = 'images/ajax_list';

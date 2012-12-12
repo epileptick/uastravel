@@ -15,4 +15,5 @@ $lang['location_lang_unpublish'] = "UnPublish";
 $lang['location_lang_edit'] = "Edit";
 $lang['location_lang_suggestion'] = "Suggestion";
 $lang['location_lang_route'] = "Route";
+$lang['location_lang_banner_image'] = "Banner Image";
 ?>

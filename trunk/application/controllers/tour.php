@@ -6,7 +6,7 @@ class Tour extends MY_Controller {
 
   function __construct(){
     parent::__construct();
-    $this->load->library('unit_test');
+    $this->lang->load('tour', 'thai');
   }
 
 
@@ -96,6 +96,20 @@ class Tour extends MY_Controller {
       //echo "type"; 
 
       $this->user_listbytype($tag, $type, $page);
+
+    }else if($this->uri->segment($index+1) == "booking"){
+      ////////////////////////////
+      // tag
+      // algorithm : http://www/tour/booking       
+      // post: id
+      ////////////////////////////
+
+      //Get argument from post page
+      $args = $this->input->post();
+
+      //print_r($args); exit;
+
+      $this->user_booking($args['id']);      
 
     }else if(is_numeric($this->uri->segment($index+1))){
       ////////////////////////////
@@ -420,7 +434,7 @@ class Tour extends MY_Controller {
 
 
 
-    if(!empty($tagQuery)){
+    if(!empty($tagQuery)  && !empty($typeQuery)){
 
       $query["tag_id"] = $tagQuery[0]->id;
       $query["type_id"] = $typeQuery[0]->id;
@@ -473,9 +487,9 @@ class Tour extends MY_Controller {
     $argSubType["url"] = $subtype;      
     $subTypeQuery = $this->tagModel->getRecord($argSubType);
 
-    //print_r($query); exit;
+    //var_dump($typeQuery); exit;
 
-    if(!empty($tagQuery)){
+    if(!empty($tagQuery) && !empty($typeQuery) && !empty($subTypeQuery) ){
       
       $query["tag_id"] = $tagQuery[0]->id;
       $query["type_id"] = $typeQuery[0]->id;
@@ -535,9 +549,6 @@ class Tour extends MY_Controller {
         }
 
         //Related Tour
-        //$query["releated"] = true;
-
-        //print_r($query["menu"]); exit;
         $query["tour_id"] = $id;
         $query["related"] = true;
         $query["tag_id"] = $query["menu"];
@@ -585,10 +596,49 @@ class Tour extends MY_Controller {
       show_404();        
     }
 
+  }//End user_view function
+
+  function user_booking($id){
+    
+    if($id){   
+
+      //Tour
+      $tour["id"] = $id;
+      $tour["field"] = "tou_id, tou_code, tou_name, tou_url, tou_first_image, tou_short_description";     
+      $data["tour"] = $this->tourModel->getRecord($tour); 
+
+      if(count($data["tour"]) < 1){
+        show_404(); 
+      }
+
+      //Price
+      $agencytour["tour_id"] = $id; 
+      $this->load->model("agencytour_model", "agencytourModel");
+      $agencytourQuery["price"] = $this->agencytourModel->getRecord($agencytour);
+      if(!empty($agencytourQuery["price"])){
+        $maxAgencyPrice = 0;
+        foreach ($agencytourQuery["price"] as $key => $value) {
+          # code...
+          if($value->sale_adult_price > $maxAgencyPrice){
+            $data["price"][0] = $value;
+            $maxAgencyPrice = $value->sale_adult_price;
+          }
+        }
+      }
+
+      //Return
+      if(!empty($data)){
+        $this->_fetch('user_booking', $data, false, true);
+      }else{
+        show_404(); 
+      }
 
 
+    }else{ //id not send
+      show_404();  
+    }
 
-  }
+  }//End user_booking
 
 
   /////////////////////////////////////////
