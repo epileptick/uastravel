@@ -6,13 +6,14 @@ class User extends MY_Controller {
   }
   
   function index(){
-    $this->_fetch("index");
+    redirect(base_url(),"refresh");
   }
   
   function login(){
     if($this->session->userdata("logged_in",TRUE)){
-        redirect(base_url("/user"),"refresh");
+        redirect(base_url(),"refresh");
     }
+    
     
     $data = array();
     if($this->input->post("submit") != NULL){
