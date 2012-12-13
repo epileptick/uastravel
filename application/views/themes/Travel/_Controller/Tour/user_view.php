@@ -165,8 +165,8 @@
           </div><!-- Title -->
           <div class="border"></div>
           <p><?php echo $tour[0]->description;?></p>
-          <h3 style="padding:4px; border:2px solid; border-color:#FFC000; background-color:#FFC000; color:#FFF; text-shadow: none !important;">
-            <?php echo $this->lang->line("tour_lang_program_and_itinerary");?> Program And Itinerary
+          <h3 style="padding:4px; border:2px solid; border-color:#FAA20A; background-color:#FAA20A; color:#FFF; text-shadow: none !important;">
+            <?php echo $this->lang->line("tour_lang_program_and_itinerary");?> 
           </h3>
           <!--
           <p><span class="color_blue">ช่วงเช้า: </span> รถรับท่านจากโรงแรมที่พักในจังหวัดภูเก็ต หรือ เขาหลัก มุ่งหน้าสู่ท่าเรือคุระบุรี จังหวัดพังงา ออกเดินทางจากท่าเรือ สู่อุทยานฯ หมู่เกาะสุรินทร์ ด้วยเรือสปีดโบ๊ทขนาดใหญ่ เดินทามาถึงอุทยานแห่งชาติ หมู่เกาะสุรินทร์  ดำน้ำดูปะการังบริเวณ อ่าวแม่ยาย และ อ่าวเต่า สนุกสนานกับการเล่นน้ำ ดำน้ำชมปะการัง หรือพักผ่อนตามอัธยาศัย</p>
@@ -185,7 +185,7 @@
           ?>
             <div class="row">
               <div class="five columns">
-                <h3 style="color:#0000;"><?php echo $this->lang->line("tour_lang_tour_includes");?>Tour Include</h3>
+                <h3 style="color:#0000;"><?php echo $this->lang->line("tour_lang_tour_includes");?></h3>
                 <!--
                 <ul class="disc">
                   <li>รถรับส่งโรงแรม-ท่าเรือ-โรงแรม</li>
@@ -204,7 +204,7 @@
               </div>
 
               <div class="seven columns">
-                <h3 style="color:#0000;"><?php echo $this->lang->line("tour_lang_tour_mark");?>Tour Remark</h3>
+                <h3 style="color:#0000;"><?php echo $this->lang->line("tour_lang_tour_remark");?></h3>
                 <p>
                   <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
                     <?php echo $tour[0]->remark;?>
@@ -223,7 +223,7 @@
           ?>
             <div class="row">
               <div class="five columns">
-                <h3>Tour Includes</h3>
+                <h3><?php echo $this->lang->line("tour_lang_tour_includes");?></h3>
                 <p>
                   <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
                     <?php echo (!empty($tour[0]->included)?$tour[0]->included:"");?>
@@ -236,7 +236,7 @@
           ?>
             <div class="row">
               <div class="five columns">
-                <h3>Tour Remark</h3>
+                <h3><?php echo $this->lang->line("tour_lang_tour_remark");?></h3>
                   <!--
                 <ul class="disc">
                   <li>รถรับส่งโรงแรม-ท่าเรือ-โรงแรม</li>
