@@ -528,7 +528,8 @@ class Tour extends MY_Controller {
       $agencytour["tour_id"] = $id;      
       $data["tour"] = $this->tourModel->getRecord($tour); 
 
-      if(count($data["tour"]) < 1){
+
+      if(count($data["tour"]) < 1  || empty($data["tour"])){
         show_404(); 
       }
 
