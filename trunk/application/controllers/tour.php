@@ -67,6 +67,44 @@ class Tour extends MY_Controller {
       $this->user_listbysubtype($tag, $type, $subtype, $page);
 
       //echo "subtype"; 
+    }else if($this->uri->segment($index+1) == "inquiry"){
+      ////////////////////////////
+      // tag
+      // algorithm : http://www/tour/inquiry       
+      // post: id
+      ////////////////////////////
+
+      //Get argument from post page
+      $args = $this->input->post();
+
+      //print_r($args); exit;
+      if(!empty($args['id'])){
+        $this->user_inquiry($args['id']); 
+      }else{
+        $id = $this->uri->segment($index+2);
+        $this->user_inquiry($id); 
+      }     
+
+    }else if($this->uri->segment($index+1) == "booking"){
+      ////////////////////////////
+      // tag
+      // algorithm : http://www/tour/booking       
+      // post: id
+      ////////////////////////////
+
+      //Get argument from post page
+
+        $segment_id = $this->uri->segment($index+2);
+
+        if($segment_id){
+          $this->user_bookingview($segment_id); 
+        }else{
+          $args = $this->input->post(); 
+          $this->user_booking($args);
+        }
+
+    
+
     }else if(is_numeric($this->uri->segment($index+2))){
       ////////////////////////////
       // tage/page
@@ -97,19 +135,6 @@ class Tour extends MY_Controller {
 
       $this->user_listbytype($tag, $type, $page);
 
-    }else if($this->uri->segment($index+1) == "booking"){
-      ////////////////////////////
-      // tag
-      // algorithm : http://www/tour/booking       
-      // post: id
-      ////////////////////////////
-
-      //Get argument from post page
-      $args = $this->input->post();
-
-      //print_r($args); exit;
-
-      $this->user_booking($args['id']);      
 
     }else if(is_numeric($this->uri->segment($index+1))){
       ////////////////////////////
@@ -599,7 +624,7 @@ class Tour extends MY_Controller {
 
   }//End user_view function
 
-  function user_booking($id){
+  function user_inquiry($id){
     
     if($id){   
 
@@ -627,9 +652,10 @@ class Tour extends MY_Controller {
         }
       }
 
+      //print_r($data); exit;
       //Return
       if(!empty($data)){
-        $this->_fetch('user_booking', $data, false, true);
+        $this->_fetch('user_inquiry', $data, false, true);
       }else{
         show_404(); 
       }
@@ -641,6 +667,166 @@ class Tour extends MY_Controller {
 
   }//End user_booking
 
+
+  function user_booking($args){
+
+
+
+    if(!empty($args)){
+
+      $this->load->model("tourbooking_model", "tourbookingModel");
+      $booking = $this->tourbookingModel->addRecord($args);
+
+
+      //print_r($booking); exit;
+      //Send Mail
+      $this->sendmail_booking_user($booking);
+      $this->sendmail_booking_admin($booking);
+
+      //Forward
+      redirect(base_url("tour/booking/".$booking["tob_hashcode"]));  
+
+      //print_r($insert_id); exit;
+    }else{ //id not send
+      //Redirect
+      redirect(base_url("tour/inquiry/".$args["id"]));    
+    }
+
+    
+  }
+
+  function sendmail_booking_user($booking){
+
+
+    // To send HTML mail, the Content-type header must be set
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+    // Additional headers
+    $headers .= 'To: คุณ '.$booking["tob_firstname"].' <'.$booking["tob_email"].'>' . "\r\n";
+    $headers .= 'From: uastravel.com <booking@uastravel.com>' . "\r\n";
+
+    $to = $booking["tob_email"];
+
+
+    $subject = "คุณได้ทำการจอง ".$booking["tob_tour_name"]." ผ่านทาง uastravel.com";
+
+
+    $message = '<p>สวัสดีค่ะ คุณ'.$booking["tob_firstname"].',</p>';
+    $message .='<p>ขอขอบคุณที่ไว้วางใจในบริการของ <a href="http://www.uastravel.com">uastravel.com</a></p>';
+    $message .='<p>รายละเอียดการจองทัวร์ของคุณมีดังนี้</p>';
+    $message .='<blockquote>';
+    $message .='  ##########  รายละเอียดการจอง ##########';
+    $message .='  <br />หมายเลขการจอง : '.$booking["tob_code"];
+    $message .='  <br />ชื่อทัวร์ : '.$booking["tob_tour_name"].'('.$booking["tob_tour_code"].')';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/'.$booking["tob_tour_url"].'-'.$booking["tob_tour_id"].'">'.$booking["tob_tour_name"].'</a>';
+    $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["tob_adult_amount"];
+    $message .='  <br />จำนวนเด็ก : '.$booking["tob_child_amount"];
+    $message .='  <br />จำนวนเด็กทารก : '.$booking["tob_infant_amount"];
+    $message .='  <br />';
+    $message .='  <br />##########  รายละเอียดราคา ##########';
+    $message .='  <br />ราคารวมของผู้ใหญ่ : '.$booking["tob_total_adult_price"];
+    $message .='  <br />ราคารวมของเด็ก : '.$booking["tob_total_child_price"];
+    $message .='  <br />ราคารวมของทารก : ฟรี';
+    $message .='  <br />ราคารวมทั้งหมด : '.$booking["tob_total_price"];
+    $message .='  <br />';
+    $message .='  <br />##########  รายละเอียดผู้จอง ##########';
+    $message .='  <br />ชื่อผู้จอง : '.$booking["tob_firstname"].' '.$booking["tob_lastname"];
+    $message .='  <br />สัญชาติ : '.$booking["tob_nationality"];
+    $message .='  <br />ที่อยู่ : '.$booking["tob_address"].', '.$booking["tob_city"].', '.$booking["tob_province"].', '.$booking["tob_zipcode"];
+    $message .='  <br />เบอร์ติดต่อ : '.$booking["tob_telephone"];
+    $message .='  <br />อีเมล : '.$booking["tob_email"];
+    $message .='  <br />';
+    $message .='  <br />ชื่อโรงแรมที่พัก : '.$booking["tob_hotel_name"];
+    $message .='  <br />หมายเลขห้อง : '.$booking["tob_room_number"];
+    $message .='  <br />วันที่เดินทาง : '.$booking["tob_tranfer_date"];
+    $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["tob_request"];
+    $message .='  <br />';
+    $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/booking/'.$booking["tob_hashcode"].'">'.$booking["tob_code"].'</a>';
+    $message .='  <br />';
+    $message .='</blockquote>';   
+
+    $message .= '<p>หากมีข้อสงสัยกรุณาสอบถามเพิ่มเติม 082-8121146 หรือ 076-331280</p>
+        <p>หจก.ยูแอสทราเวล (ใบอนุญาตเลขที่ 34/000837)</p>
+        <p>เรายินดีให้บริการค่ะ</p>        
+          <a href="http://uastravel.com">uastravel.com</a>
+          <br />โทร.  082-8121146 หรือ 076-331280
+          <br />แฟกซ์. 076-331273
+          <br />80/86 หมู่บ้านศุภาลัยซิตี้ฮิลล์ ม.3
+          <br />ต.รัษฎา อ.เมือง ภูเก็ต 83000
+      ';        
+
+    //echo $message; exit;
+    mail($to,$subject,$message,$headers);
+  }
+
+  function sendmail_booking_admin($booking){
+
+    // To send HTML mail, the Content-type header must be set
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+    // Additional headers
+    $headers .= 'To: booking@uastravel.com <booking@uastravel.com >' . "\r\n";
+    $headers .= 'From: uastravel.com <info@uastravel.com>' . "\r\n";
+
+    $to = "booking.uastravel@gmail.com";
+
+
+
+    // subject
+    $subject = 'ข้อมูลการจองทัวร์ของคุณ '.$booking["tob_firstname"];
+
+    $message ='<p>รายละเอียดการจองทัวร์มีดังนี้</p>';
+    $message .='<blockquote>';
+    $message .='  ##########  รายละเอียดการจอง ##########';
+    $message .='  <br />หมายเลขการจอง : '.$booking["tob_code"];
+    $message .='  <br />ชื่อทัวร์ : '.$booking["tob_tour_name"].'('.$booking["tob_tour_code"].')';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/'.$booking["tob_tour_url"].'-'.$booking["tob_tour_id"].'">'.$booking["tob_tour_name"].'</a>';
+    $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["tob_adult_amount"];
+    $message .='  <br />จำนวนเด็ก : '.$booking["tob_child_amount"];
+    $message .='  <br />จำนวนเด็กทารก : '.$booking["tob_infant_amount"];
+    $message .='  <br />';
+    $message .='  <br />##########  รายละเอียดราคา ##########';
+    $message .='  <br />ราคารวมของผู้ใหญ่ : '.$booking["tob_total_adult_price"];
+    $message .='  <br />ราคารวมของเด็ก : '.$booking["tob_total_child_price"];
+    $message .='  <br />ราคารวมของทารก : ฟรี';
+    $message .='  <br />ราคารวมทั้งหมด : '.$booking["tob_total_price"];
+    $message .='  <br />';
+    $message .='  <br />##########  รายละเอียดผู้จอง ##########';
+    $message .='  <br />ชื่อผู้จอง : '.$booking["tob_firstname"].' '.$booking["tob_lastname"];
+    $message .='  <br />สัญชาติ : '.$booking["tob_nationality"];
+    $message .='  <br />ที่อยู่ : '.$booking["tob_address"].', '.$booking["tob_city"].', '.$booking["tob_province"].', '.$booking["tob_zipcode"];
+    $message .='  <br />เบอร์ติดต่อ : '.$booking["tob_telephone"];
+    $message .='  <br />อีเมล : '.$booking["tob_email"];
+    $message .='  <br />';
+    $message .='  <br />ชื่อโรงแรมที่พัก : '.$booking["tob_hotel_name"];
+    $message .='  <br />หมายเลขห้อง : '.$booking["tob_room_number"];
+    $message .='  <br />วันที่เดินทาง : '.$booking["tob_tranfer_date"];
+    $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["tob_request"];
+    $message .='  <br />';
+    $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/booking/'.$booking["tob_hashcode"].'">'.$booking["tob_code"].'</a>';
+    $message .='  <br />';
+    $message .='</blockquote>';  
+
+    //echo $message; exit;
+    mail($to,$subject,$message,$headers);
+  }
+
+  function user_bookingview($hashcode){
+
+    $args["tob_hashcode"] = $hashcode;
+
+    $this->load->model("tourbooking_model", "tourbookingModel");
+    $data["booking"] = $this->tourbookingModel->getRecord($args);    
+
+    //print_r($data); exit;
+
+    $this->_fetch('user_booking', $data, false, true);
+
+  }
 
   /////////////////////////////////////////
   //
@@ -1029,6 +1215,37 @@ class Tour extends MY_Controller {
     return $this->form_validation->run();
 
   }
+
+
+
+  function validate_booking(){
+
+    $this->load->helper(array('form', 'url'));
+    $this->load->library('form_validation');
+
+    //Validate information
+    $this->form_validation->set_rules('tob_firstname', 'firstname name', 'required');
+    $this->form_validation->set_rules('tob_lastname', 'description', 'required');
+    $this->form_validation->set_rules('tob_address', 'address', 'required');
+
+    //$this->form_validation->set_rules('detail', 'detail', 'required');
+    //$this->form_validation->set_rules('included', 'included', 'required');
+
+    //Validate price
+    
+    //$this->form_validation->set_rules('net_adult_price', 'net price for adult', 'required|integer');
+    //$this->form_validation->set_rules('net_child_price', 'net price for child', 'required|integer');
+    //$this->form_validation->set_rules('sale_adult_price', 'sale price for adult', 'required|integer');
+    //$this->form_validation->set_rules('sale_child_price', 'sale price for child', 'required|integer');
+
+    //Validate time
+    //$this->form_validation->set_rules('start_time', 'start time', 'required');
+    //$this->form_validation->set_rules('end_time', 'end time', 'required');
+
+    return $this->form_validation->run();
+
+  }
+
 
   function _search($render = "user_list"){
     //Get argument from post page
