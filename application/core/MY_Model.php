@@ -79,7 +79,7 @@ class MY_Model extends CI_Model {
         
       }
     }
-    return $this->db->delete($this->_table);
+    //return $this->db->delete($this->_table);
   }
   
   function get($options = NULL){

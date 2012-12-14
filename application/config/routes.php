@@ -56,10 +56,6 @@ $route['(:any)'.'_tests'] = '$1'.'_tests';
 
 ////////// Urls start
 
-//Login
-$route['login'] = 'login';
-
-
 //location
 $route['admin/location'] = 'location/admin_index';
 $route['admin/location/create/(:any)'] = 'location/admin_create/$1';
@@ -95,6 +91,8 @@ $route['admin/tour/(:any)/(:any)-(:num)'] = 'tour/admin_view/$3';
 $route['admin/tour/(:any)-(:num)'] = 'tour/admin_view/$2';
 $route['admin/tour/(:any)'] = 'tour/admin_list'; //for Tag
 
+
+
 //list all
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
@@ -114,11 +112,10 @@ $route['admin/'.LangUtil::line("url_lang_agency").'/(:any)-(:num)'] = 'agency/ad
 $route['admin/'.LangUtil::line("url_lang_agency").'/(:any)'] = 'agency/admin_list'; //for Tag
 
 $route['agency/hasdata/(:any)'] = 'agency/hasdata/$1'; //for Tag
-$route['agency/phpsearch/(:any)'] = 'agency/phpsearch/$1'; //for Tag 
+$route['agency/phpsearch/(:any)'] = 'agency/phpsearch/$1'; //for Tag
 
 //Tag
 $route['admin/tag'] = 'tag/admin_index';
-$route['admin/tag/list'] = 'tag/admin_list';
 $route['admin/tag/update'] = 'tag/admin_update';
 $route['admin/tag/delete/(:num)'] = 'tag/admin_delete/$1';
 $route['admin/tag/create'] = 'tag/admin_create';
@@ -131,17 +128,15 @@ $route['tag/jssearch/(:any)'] = 'tag/jssearch/$1';
 $route['tag/jssearch'] = 'tag/jssearch';
 $route['tag/jsonsearch/(:any)'] = 'tag/jsonsearch/$1';
 
-
-
-
 //Images
 $route['images/ajax_list'] = 'images/ajax_list';
 $route['images/ajax_upload'] = 'images/ajax_upload';
 $route['images/ajax_delete/(:any)'] = 'images/ajax_delete/$1';
 
 //User
+$route['user'] = 'user';
 $route['user/login'] = 'user/login';
-$route['user/logout'] = 'user/logout'; 
+
 
 //Home
 $route['admin'] = 'home/admin_list';
