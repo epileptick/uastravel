@@ -3,6 +3,9 @@ class Hash {
   function make($sub_dir=""){
     return new HashingClass($sub_dir);
   }
+  function gen(){
+    return new HashingClass("",FALSE,TRUE);
+  }
 }
 
 
@@ -23,12 +26,18 @@ class HashingClass {
         // file tailer
         var $show_file = TRUE;
         var $extension = 'hash';
-        function __construct($sub_dir=""){
+        var $_returnHash = FALSE;
+        function __construct($sub_dir="",$make=TRUE,$returnHash=FALSE){
           $this->sub_dir = $sub_dir;
+          $this->make_dir = $make;
+          $this->_returnHash = $returnHash;
         }
         function hash($string)
         {
                 $hashing = $this->hash_algorithm($string);
+                if($this->_returnHash){
+                  return $hashing;
+                }
                 $path = $this->parent_dir.'/'.$this->sub_dir;
                 if ($hash_dirs = $this->_path($hashing))
                 {
