@@ -140,7 +140,11 @@
       endif;
     ?>    
     <!-- End Gallery -->
-
+    <div class="row">
+      <div class="eight columns">
+        <h4  style="margin-bottom:0px !important;">ID : <?php echo $tour[0]->code;?></h4>
+      </div>
+    </div>  
     <!-- Tour Information -->
     <div class="row">
       <div class="eight columns">
@@ -331,7 +335,7 @@
                   <div class="two columns">
 
                     <form name="input" 
-                          action="<?php echo base_url('tour/booking');?>" 
+                          action="<?php echo base_url('tour/inquiry');?>" 
                           method="post"
                     >
                     <input type="hidden" name="id" value="<?php echo $tour[0]->id;?>"></input>

@@ -355,6 +355,10 @@ class TagTour_model extends MY_Model {
 
       $tourByTagTemp = $this->db->query($sql)->result();
 
+
+      //print_r($tourByTagTemp); exit;
+
+
       if(!empty($tourByTagTemp)){
         $tourByTag[$count]["tour"] = $tourByTagTemp;
         $tourByTag[$count]["maintag_name"] = $value->tag_name;
@@ -365,6 +369,10 @@ class TagTour_model extends MY_Model {
 
     //print_r($tourByTag); exit;
     //Merge array
+
+    if(empty($tourByTag)){
+      return false;    
+    }
     $firsttour = array();
     $count = 0;
     foreach ($tourByTag as $key => $valueFirst) {
