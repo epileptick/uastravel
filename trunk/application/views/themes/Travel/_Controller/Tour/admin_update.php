@@ -52,12 +52,12 @@ $(document).ready(function() {
               
               $("#side_bar_block_image a").click(function() {
                 //$(this).delImg();
-                //console.log($(this).prop("href"));
+                console.log($(this).prop("href"));
                 $.post($(this).prop("href"), {},
                   function(data) { 
-                    //console.log(data);
+                    console.log(data);
                     var data = jQuery.parseJSON(data);
-                    //console.log(data);
+                    console.log(data);
                     if(data.success == "1"){
                       updateImages();
                     }

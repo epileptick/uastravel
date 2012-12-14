@@ -241,7 +241,7 @@ class Tour extends MY_Controller {
     $menu_select_all = true;
     foreach ($menuQuery as $key => $value) {
       //Menu Tag
-	  $return["menu"][$count] = new stdClass();
+	    $return["menu"][$count] = new stdClass();
       $return["menu"][$count]->tag_id = $value->id;
       $return["menu"][$count]->name = $value->name;
       $return["menu"][$count]->url = $value->url;
@@ -957,6 +957,14 @@ class Tour extends MY_Controller {
         $this->load->model("agencytour_model", "agencytourModel");
         $this->agencytourModel->deleteRecord($id);
 
+        //Delete Images
+        $this->load->model("images_model", "imagesModel");
+        $this->imagesModel->delete(array(
+                                        'parent_id' => $id ,
+                                        'table_id' => 2
+                                        )
+                                   );
+        
         //Redirect
         redirect(base_url("admin/tour"));      
     } 
