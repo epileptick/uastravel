@@ -29,7 +29,25 @@ class Type_model extends MY_Model {
   
   function getRecord($args=false){
     //print_r($args); exit;
-    if(isset($args["name"])){
+    if(isset($args["parent_id"]) && isset($args["name"])){
+
+      if(!empty($args["not_id"])){
+        $this->db->where('typ_id !=', $args["not_id"]);
+      }
+
+      $this->db->where('typ_parent_id', $args["parent_id"]);      
+      $this->db->where('typ_name', $args["name"]);      
+      $query = $this->db->get('ci_type');
+
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        //print_r($newResult); exit;
+        return $newResult;
+      }else{
+        return false;
+      }
+
+    }else if(isset($args["name"])){
 
       //Get category by name
       $query = $this->db->get_where('ci_type', array('typ_name' => $args["name"]), 1, 0);
@@ -40,6 +58,20 @@ class Type_model extends MY_Model {
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
         //print_r($newResult); exit;
+        return $newResult;
+      }else{
+        return false;
+      }
+      
+    }else if(isset($args["parent_id"]) && isset($args["id"])){
+      //Get category by id      
+
+      $this->db->where('typ_parent_id', $args["parent_id"]);      
+      $this->db->where('typ_id', $args["id"]);      
+      $query = $this->db->get('ci_type');
+
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
         return $newResult;
       }else{
         return false;
