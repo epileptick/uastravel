@@ -120,6 +120,80 @@ class Location_model extends MY_Model {
     }
   }
   
+
+  function getRecordRelated($args=false){
+    //Related by tour
+    $this->load->model("tag_model", "tagModel");
+    $args["url"] = $args["tag_url"];
+    $tag = $this->tagModel->getRecord($args);
+
+    if(!empty($tag)){
+      //print_r($tag); exit; 
+      $tag_id = $tag[0]->id;
+      $sql = "SELECT DISTINCT `tat_tour_id` 
+              FROM (`ci_tagtour`) JOIN `ci_tour` 
+              ON `ci_tour`.`tou_id` = `ci_tagtour`.`tat_tour_id` 
+              WHERE `tat_tag_id` 
+              IN ($tag_id) 
+              ORDER BY rand() 
+              DESC LIMIT 5 ";
+
+      $tour = $this->db->query($sql)->result();
+
+      $count = 0;
+      foreach ($tour as $key => $value) {
+
+        //Get tour data
+        unset($this->db);
+        $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+        $this->db->where('tou_id', $value->tat_tour_id);
+        $query = $this->db->get('ci_tour');
+        $tourBuffer = $query->result(); 
+
+        if(!empty($tourBuffer)){
+          $result[$count]["tour"] = $tourBuffer[0];
+
+          //Get tag data
+          unset($this->db);
+          $this->db->where('tat_tour_id', $value->tat_tour_id);
+          //$this->db->where_in('tat_tag_id', $args["menu"]);
+          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+          $query = $this->db->get('ci_tagtour');
+          $result[$count]["tag"] = $query->result();
+
+
+          //Get price data
+          unset($this->db);
+          $this->db->where('agt_tour_id', $value->tat_tour_id);
+          $priceTour = $this->db->get('ci_agencytour')->result();
+
+          if(!empty($priceTour)){
+            $maxAgencyPrice = 0;
+            foreach ($priceTour as $key => $value) {
+              # code...
+              if($value->agt_sale_adult_price > $maxAgencyPrice){
+                $result[$count]["price"] = $value;
+                $maxAgencyPrice = $value->agt_sale_adult_price;
+              }
+            }
+          }
+          $count++;
+        }
+      }//End related by tour   
+    }//End check tag
+
+
+    //print_r($result); exit;
+    if(!empty($result)){
+      return $result;
+    }else{
+      return false;
+    }
+
+  }
+
+
+
   function readRecord($options=""){
     if($options==""){
       return FALSE;
@@ -144,7 +218,6 @@ class Location_model extends MY_Model {
     }else{
       return FALSE;
     }
-    
   }
 
 }

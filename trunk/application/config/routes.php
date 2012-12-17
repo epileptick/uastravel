@@ -63,7 +63,7 @@ $route['admin/location/create'] = 'location/admin_create';
 $route['admin/location/ajax_delete'] = 'location/ajax_delete';
 $route['admin/location/delete/(:any)'] = 'location/admin_delete/$1';
 $route['admin/location/(:any)/(:any)-(:num)'] = 'location/admin_view/$3';
-$route['admin/location/(:any)-(:num)'] = 'location/admin_view/$2';
+$route['admin/location/(:any)-(:num)'] = 'location/admin_view/$1/$2';
 $route['admin/location/(:any)'] = 'location/admin_index'; //for Tag
 $route['admin/location'] = 'location/admin_index';
 
@@ -74,7 +74,7 @@ $route[$lang_set.'/'.LangUtil::line("url_lang_location")] = 'location/user_list'
 
 $route[LangUtil::line("url_lang_location").'/(:num)'] = 'location/user_index';
 $route[LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/user_view/$3';
-$route[LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/user_view/$2';
+$route[LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/user_view/$1/$2';
 $route[LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_list/$1'; //for Tag
 $route[LangUtil::line("url_lang_location")] = 'location/user_list';
 
