@@ -398,7 +398,7 @@ class Location extends MY_Controller {
     }
   }
   
-  function user_view($id=FALSE){  
+  function user_view($tag= FALSE, $id=FALSE){  
     
     if($id){
       $this->load->model("images_model", "imagesModel");
@@ -413,6 +413,14 @@ class Location extends MY_Controller {
         $locationData["location"] = $locationData["location"][0];
       }
 
+
+      //Related Tour in Location
+      $query["tag_url"] = $tag;
+      $query["per_page"] = 5;
+      $query["offset"] = 0;
+      $locationData["related"] = $this->locationModel->getRecordRelated($query);
+
+      //print_r($locationData["related"]) ; exit;
     
 
       //Prepare for three column
@@ -427,14 +435,16 @@ class Location extends MY_Controller {
       $location["location_id"] = $id;
       $this->load->model("taglocation_model", "taglocationModel");
       $tagLocationQuery["tag"] = $this->taglocationModel->getRecord($location);
+
+      //print_r($tagLocationQuery); exit;
       if(!empty($tagLocationQuery["tag"])){
         //TagTour
         $count = 0;
         foreach ($tagLocationQuery["tag"] as $key => $value) {
           $this->load->model("tag_model", "tagModel");
 
-          $tag["id"] = $value->tag_id;
-          $tagQuery = $this->tagModel->getRecord($tag);
+          $argsTag["id"] = $value->tag_id;
+          $tagQuery = $this->tagModel->getRecord($argsTag);
           $locationData["tag"][] = $tagQuery[0];
           $count++;
         }
@@ -442,7 +452,7 @@ class Location extends MY_Controller {
 
 
       if(!empty($locationData)){
-        $this->_fetch("user_view",$locationData,FALSE,TRUE);
+        $this->_fetch("user_view", $locationData, FALSE, TRUE);
       }else{
         show_404(); 
       }
