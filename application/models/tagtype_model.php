@@ -47,7 +47,7 @@ class TagType_model extends MY_Model {
     }else if(isset($args["tag_id"])){
       //Get category by name
 
-      $data["tal_tag_id"] = $args["tag_id"];      
+      $data["tty_tag_id"] = $args["tag_id"];      
       $query = $this->db->get_where('ci_tagtype', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());

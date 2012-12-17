@@ -576,13 +576,11 @@ class Tour extends MY_Controller {
 
         //Related Tour
         $query["tour_id"] = $id;
-        $query["related"] = true;
         $query["tag_id"] = $query["menu"];
-        $query["join"] = true;
-        $query["in"] = true;
+        $query["tour_tag"] = $data["tag"];
         $query["per_page"] = 8;
         $query["offset"] = 0;
-        $data["related"] = $this->tagtourModel->getRecord($query);
+        $data["related"] = $this->tagtourModel->getRecordRelated($query);
 
 
         //print_r($related); exit;
@@ -692,7 +690,7 @@ class Tour extends MY_Controller {
       redirect(base_url("tour/inquiry/".$args["id"]));    
     }
 
-    
+
   }
 
   function sendmail_booking_user($booking){

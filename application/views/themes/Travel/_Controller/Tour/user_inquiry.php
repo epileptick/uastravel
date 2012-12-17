@@ -23,16 +23,13 @@
   <![endif]-->
 
 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-  <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-  <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
 
-
-
-  <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
-
-  <script type="text/javascript">
+<script type="text/javascript">
   $(document).ready(function() {
     // validate signup form on keyup and submit
     var validator = $("#booking_validate").validate({
@@ -67,7 +64,7 @@
     });
 
   });
-  </script>
+</script>
 
 <script>
 
@@ -101,13 +98,46 @@
             </li>
             <li class="toggle-topbar"><a href="#"></a></li>
           </ul>
+
+
           <section>
             <ul class="right">
-              <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
-              <li><a href="<?php echo base_url('location');?>">แหล่งท่องเที่ยว</a></li>
-              <li><a class="active" href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์</a></li> 
-              <li><a href="#">โปรโมชั่น</a></li>
-                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>                
+              <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
+              <li class="has-dropdown">
+                <a class="active" href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์</a>
+                <ul class="dropdown">
+                  <li><a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
+                  <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
+                  <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
+                  <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
+                </ul>                
+              </li>
+              <li class="has-dropdown">
+                <a href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์อื่นๆ</a>
+                <ul class="dropdown">
+                  <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
+                  <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
+                  <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
+                </ul>                
+              </li> 
+              <li class="has-dropdown">
+                <a href="<?php echo base_url('tour/การเดินทาง');?>">การเดินทาง</a>
+                <ul class="dropdown">
+                  <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
+                  <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
+                  <li><a href="<?php echo base_url('tour/จองรถเช่า');?>">จองรถเช่า</a></li>
+                  <li><a href="<?php echo base_url('tour/จองตั๋วเครื่องบิน');?>">จองตั๋วเครื่องบิน</a></li>
+                </ul>                
+              </li> 
+              <li class="has-dropdown">
+                <a href="<?php echo base_url('tour/ที่พัก');?>">ที่พัก</a>
+                <ul class="dropdown">
+                  <li><a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a></li>
+                  <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
+                </ul>                
+              </li>
+              <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
+              <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>                
             </ul>
           </section>
         </nav>
