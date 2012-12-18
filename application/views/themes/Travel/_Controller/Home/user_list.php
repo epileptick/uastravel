@@ -139,7 +139,7 @@
                               foreach ($menu as $key => $value) {
                             ?>
                               <li>
-                                <a href="<?php echo base_url("tour/".$value->url);?>" 
+                                <a href="<?php echo base_url("location/".$value->url);?>" 
                                   <?php  
                                     if($value->select == 1){
                                       echo "class='selected'";
