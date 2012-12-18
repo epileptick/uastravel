@@ -140,8 +140,9 @@ $route['user/login'] = 'user/login';
 
 //Home
 $route['admin'] = 'home/admin_list';
-$route['(:num)'] = 'home/user_list';
-$route['(:any)'] = 'home/user_list/$1';
+$route[$lang_set] = 'home/user_index';
+$route['(:any)'] = 'home/user_index';
+$route[$lang_set.'/(:any)'] = 'home/user_index';
 
 ///////// Urls end
 

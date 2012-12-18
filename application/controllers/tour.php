@@ -179,7 +179,7 @@ class Tour extends MY_Controller {
       $subcat = 0;      
       //echo "tour";
 
-      $this->user_list();      
+      $this->user_list($page);      
     }
 
   }

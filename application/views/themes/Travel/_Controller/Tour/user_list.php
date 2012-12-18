@@ -5,10 +5,37 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <title><?php echo str_replace("-", " ",$this->uri->segment(3));?> <?php  echo str_replace("-", " ",$this->uri->segment(2));?> - U As Travel</title>
+
+<?php 
+
+
+  //Default function for call read method
+  if($this->uri->segment(1) == $this->router->class){
+    $index = 1;
+    //echo $index; 
+  }else if($this->uri->segment(2) == $this->router->class){
+    $index = 2;
+    //echo $index; 
+  }
+
+
+
+  $title1 = str_replace("-", " ",$this->uri->segment(1+$index));
+  $find1 = strpos($title1, "ทัวร์");
+
+
+  if($find1 >= 0 && !empty($find2)){
+    $title = trim($title1." ".str_replace("-", " ",$this->uri->segment(2+$index))); 
+  }else{
+    $title = trim("ทัวร์".$title1." ".str_replace("-", " ",$this->uri->segment(2+$index))); 
+  }
+  
+?> 
+
+  <title><?php echo $title; ?> - U As Travel</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="<?php echo str_replace("-", " ",$this->uri->segment(3));?> <?php echo str_replace("-", " ",$this->uri->segment(2));?>ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของ<?php echo $this->uri->segment(3); echo $this->uri->segment(2);?> และแพคเกจ<?php echo $this->uri->segment(3); echo $this->uri->segment(2);?>ราคาพิเศษ" />
+  <meta name="description" content="<?php echo $title; ?>ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของ<?php echo $title; ?> และแพคเกจ<?php echo $title; ?>ราคาพิเศษ" />
   <meta name="keywords" content="" />
     <meta name="author" content="">
 
@@ -122,10 +149,11 @@
           <div class="shadow"></div>
           </div><!--/sidebar-->
           <div class="main">
-            <div class="content">
+            <div class="content">   
+
+              <!-- Start first menu -->
               <div class="row-fluid">
-                <div class="navbar">                          
-                    <!-- Start first menu -->
+                <div class="navbar">     
                     <div class="navbar-inner">
                         <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                           <span class="icon-bar"></span>
@@ -216,11 +244,10 @@
                           </form>
                         </div>                        
                     </div>
-                    <!-- End first menu -->
-
                   </div>
               </div>
-
+              <!-- End first menu -->
+              
               <!-- Start sub menu -->
               <?php
               if(!empty($submenu)){
