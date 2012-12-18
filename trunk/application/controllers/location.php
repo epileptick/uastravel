@@ -416,6 +416,7 @@ class Location extends MY_Controller {
 
       //Related Tour in Location
       $query["tag_url"] = $tag;
+      $query["mainper_page"] = 3;
       $query["per_page"] = 5;
       $query["offset"] = 0;
       $locationData["related"] = $this->locationModel->getRecordRelated($query);

@@ -578,7 +578,8 @@ class Tour extends MY_Controller {
         $query["tour_id"] = $id;
         $query["tag_id"] = $query["menu"];
         $query["tour_tag"] = $data["tag"];
-        $query["per_page"] = 8;
+        $query["mainper_page"] = 3;
+        $query["per_page"] = 5;
         $query["offset"] = 0;
         $data["related"] = $this->tagtourModel->getRecordRelated($query);
 
@@ -627,14 +628,46 @@ class Tour extends MY_Controller {
     if($id){   
 
       //Tour
+
       $tour["id"] = $id;
+      $tagtour["tour_id"] = $id;
+      $agencytour["tour_id"] = $id;    
       $tour["field"] = "tou_id, tou_code, tou_name, tou_url, tou_first_image, tou_short_description";     
       $data["tour"] = $this->tourModel->getRecord($tour); 
 
-      if(count($data["tour"]) < 1){
+      if(count($data["tour"]) < 1  || empty($data["tour"])){
         show_404(); 
       }
 
+
+      //Tag
+      $this->load->model("tagtour_model", "tagtourModel");
+      $tagtourQuery["tag"] = $this->tagtourModel->getRecord($tagtour);
+      if(!empty($tagtourQuery["tag"])){
+        //TagTour
+        $count = 0;
+        foreach ($tagtourQuery["tag"] as $key => $value) {
+          $this->load->model("tag_model", "tagModel");
+
+          $tag["id"] = $value->tag_id;
+          $query["menu"][] = $value->tag_id;
+          $tagQuery = $this->tagModel->getRecord($tag);
+          $data["tag"][] = $tagQuery[0];
+          $count++;
+        }
+
+        //Related Tour
+        $query["tour_id"] = $id;
+        $query["tag_id"] = $query["menu"];
+        $query["tour_tag"] = $data["tag"];
+        $query["mainper_page"] = 3;
+        $query["per_page"] = 4;
+        $query["offset"] = 0;
+        $data["related"] = $this->tagtourModel->getRecordRelated($query);
+
+
+        //print_r($related); exit;
+      }
       //Price
       $agencytour["tour_id"] = $id; 
       $this->load->model("agencytour_model", "agencytourModel");

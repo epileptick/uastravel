@@ -487,6 +487,7 @@ class TagTour_model extends MY_Model {
     if(!empty($query["type"])){
 
       $type_id = $query["type"][0]->tag_id;
+
       $sql = "SELECT DISTINCT `tat_tour_id` 
               FROM (`ci_tagtour`) JOIN `ci_tour` 
               ON `ci_tour`.`tou_id` = `ci_tagtour`.`tat_tour_id` 
@@ -494,7 +495,7 @@ class TagTour_model extends MY_Model {
               AND `tat_tag_id` 
               IN ($type_id) 
               ORDER BY rand() 
-              DESC LIMIT 3 ";
+              DESC LIMIT $args[mainper_page] ";
 
       $tour = $this->db->query($sql)->result();
 
@@ -564,7 +565,7 @@ class TagTour_model extends MY_Model {
             AND `tat_tag_id` 
             IN ($tag_in) 
             ORDER BY rand() 
-            DESC LIMIT 5 ";
+            DESC LIMIT $args[per_page] ";
 
     $tour = $this->db->query($sql)->result();
 
