@@ -544,6 +544,31 @@ class Tour extends MY_Controller {
     }      
   }
 
+  function user_search(){
+
+    $keyword = $this->input->post();    
+
+    if(!empty($keyword["search"])){
+      $data = $this->_tour_menu();
+
+      foreach ($data["menu"] as $key => $valueTag) {
+        $query["menu"][] = $valueTag->tag_id;
+      }
+
+      $query["tou_name"] = $keyword["search"];
+      $query["user_search"] = true; 
+
+      $data["tour"] = $this->tourModel->searchRecord($query);
+      $data["search"] = $keyword["search"];
+
+      $this->_fetch('user_list', $data, false, true); 
+
+    }else{
+      return;
+    }
+  }
+
+
   function user_view($id=false){
 
     if($id){    

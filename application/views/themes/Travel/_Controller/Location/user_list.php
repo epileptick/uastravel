@@ -136,15 +136,13 @@
                               }
                             ?>
                           </ul>
-                          <form class="navbar-form pull-right" id="searchForm">
-                            <fieldset>
-                                <div class="input">
-                                    <input type="text" name="search" id="search" value="ค้นหา" />
-                                </div>
-                                <input type="submit" id="searchSubmit" value="" />
-                            </fieldset>
-                          </form>
                         </div>
+                        <div style="float:right;">
+                          <form name="input" action="<?php echo base_url('location/search');?>" method="post">
+                            <input type="text" name="search" style="margin:10px 5px 0px 0px; height:12px; width:120px;" value="<?php echo (!empty($search))?$search:"";?>">
+                            <input type="submit" value="ค้นหา" style="margin:10px 10px 0px 0px; height:22px; width:60px;">
+                          </form>
+                        </div>  
                     </div>
                   </div>
               </div>
@@ -152,6 +150,8 @@
 
         <?php
         if(!empty($location)){        
+
+          //print_r($location); exit;
         ?>
 
 

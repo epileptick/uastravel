@@ -67,6 +67,13 @@ $route['admin/location/(:any)-(:num)'] = 'location/admin_view/$1/$2';
 $route['admin/location/(:any)'] = 'location/admin_index'; //for Tag
 $route['admin/location'] = 'location/admin_index';
 
+
+
+
+$route[LangUtil::line("url_lang_location").'/search'] = 'location/user_search';
+$route[$lang_set.'/'.LangUtil::line("url_lang_location").'/search'] = 'location/user_search';
+
+
 $route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/user_view/$4';
 $route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/user_view/$3';
 $route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_list/$2'; //for Tag
@@ -79,7 +86,7 @@ $route[LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_list/$1';
 $route[LangUtil::line("url_lang_location")] = 'location/user_list';
 
 
-//tour
+//tour admin
 $route['admin/tour/(:num)'] = 'tour/admin_index/$1';
 $route['admin/tour'] = 'tour/admin_index';
 $route['admin/tour/update'] = 'tour/admin_update';
@@ -93,7 +100,12 @@ $route['admin/tour/(:any)'] = 'tour/admin_list'; //for Tag
 
 
 
-//list all
+//tour user
+$route[LangUtil::line("url_lang_tour").'/search'] = 'tour/user_search';
+$route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/search'] = 'tour/user_search';
+
+//$route[LangUtil::line("url_lang_tour").'/(:any)/search'] = 'tour/user_search/$1';
+//$route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)/search'] = 'tour/user_search/$1';
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
 $route[LangUtil::line("url_lang_tour")."/(:any)"] = 'tour/user_index'; 
