@@ -220,5 +220,45 @@ class Location_model extends MY_Model {
     }
   }
 
+
+
+  function searchRecord($args=false){
+    if(!empty($args["loc_title"]) && !empty($args["user_search"])){
+
+      $search["loc_title"] = $args["loc_title"];
+      $this->db->like($search); 
+      $this->db->order_by('CONVERT( loc_title USING tis620 ) ASC');    
+      $location = $this->db->get("ci_location")->result();
+
+
+      $count = 0;
+      foreach ($location as $key => $value) {
+
+        //Get tour data
+        unset($this->db);
+        $this->db->select('loc_id, loc_title, loc_url, loc_first_image, loc_banner_image');
+        $this->db->where('loc_id', $value->loc_id);
+        $tourBuffer = $this->db->get('ci_location')->result();
+        $result[$count]["location"] = $tourBuffer[0];
+
+
+        //Get tag data
+        unset($this->db);
+        $this->db->where('tal_location_id', $value->loc_id);
+        $this->db->where_in('tal_tag_id', $args["menu"]);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taglocation.tal_tag_id');
+        $result[$count]["tag"] = $this->db->get('ci_taglocation')->result();
+        $count++;
+      }
+
+      //print_r($result); exit;
+      if(!empty($result)){
+        return $result;
+      }else{
+        return false;
+      }            
+    }
+  }
+
 }
 ?>

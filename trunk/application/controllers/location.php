@@ -232,6 +232,31 @@ class Location extends MY_Controller {
   }
 
 
+  function user_search(){
+
+    $keyword = $this->input->post();
+
+    if($keyword){
+    
+      $data["menu"]= $this->_location_menu();
+
+
+      foreach ($data["menu"] as $key => $valueTag) {
+        $query["menu"][] = $valueTag->tag_id;
+      }
+
+      $query["loc_title"] = $keyword["search"];
+      $query["user_search"] = true; 
+
+      $data["location"] = $this->locationModel->searchRecord($query);
+      $data["search"] = $keyword["search"];
+
+
+      $this->_fetch('user_list', $data, false, true);
+    }else{
+      return;
+    }
+  }
   
   function admin_create($id=NULL){
     $_post = $this->input->post();
