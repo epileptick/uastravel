@@ -548,8 +548,9 @@ class Tour extends MY_Controller {
 
     $keyword = $this->input->post();    
 
+
+    $data = $this->_tour_menu();
     if(!empty($keyword["search"])){
-      $data = $this->_tour_menu();
 
       foreach ($data["menu"] as $key => $valueTag) {
         $query["menu"][] = $valueTag->tag_id;
@@ -564,7 +565,7 @@ class Tour extends MY_Controller {
       $this->_fetch('user_list', $data, false, true); 
 
     }else{
-      return;
+      $this->_fetch('user_list', $data, false, true); 
     }
   }
 
@@ -903,7 +904,7 @@ class Tour extends MY_Controller {
 
   function admin_list(){
 
-      $tourField["field"] = "tou_id, tou_name, tou_url, tou_first_image";
+      $tourField["field"] = "tou_id, tou_name, tou_url, tou_first_image, tou_display";
       $data["tour"] = $this->tourModel->getRecord($tourField);
 
       //print_r($data["tour"]); exit;
@@ -1242,6 +1243,13 @@ class Tour extends MY_Controller {
 
 
     }
+  }
+
+  function admin_setdisplay(){
+    //Get argument from post page
+    $args = $this->input->post();
+    $this->tourModel->updateDisplayRecord($args);
+    print_r($args); exit();
   }
 
   function validate(){

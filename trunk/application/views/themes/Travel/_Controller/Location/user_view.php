@@ -21,7 +21,21 @@
 <?php
     }
   ?>
-  <meta name="keywords" content="" />
+  <?php
+    $tag_keyword = "สถานที่ท่องเที่ยว, เที่ยวไทย, ";
+    if(!empty($tag)){
+      foreach ($tag as $key => $value) {
+        if(!empty($value->url) &&  $value->id != 1){
+          $tag_keyword .= $value->name.", ";
+        }
+      }
+
+      //Remove last string
+      $tag_keyword = substr(trim($tag_keyword), 0, -1);
+    }
+  ?>
+  <meta name="keywords" content="<?php echo $tag_keyword;?>" />
+
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
 

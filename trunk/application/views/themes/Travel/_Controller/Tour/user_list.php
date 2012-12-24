@@ -7,9 +7,7 @@
 <head>
 
 <?php 
-
-
-  //Default function for call read method
+  //Check class
   if($this->uri->segment(1) == $this->router->class){
     $index = 1;
     //echo $index; 
@@ -18,26 +16,48 @@
     //echo $index; 
   }
 
+  $maintag = str_replace("-", " ",$this->uri->segment(1+$index));
+
+  //Title
+  $title1 = str_replace("-", " ",$this->uri->segment(1+$index)).str_replace("-", " ",$this->uri->segment(2+$index));  
+  $title2 = "";
+  if($this->uri->segment(3+$index)){
+    $title2 = str_replace("-", " ",$this->uri->segment(3+$index)).str_replace("-", " ",$this->uri->segment(2+$index));     
+  }  
+  $title = trim($title1." ".$title2);
 
 
-  $title1 = str_replace("-", " ",$this->uri->segment(1+$index));
-  $find1 = strpos($title1, "ทัวร์");
+  $tour_keyword = "แพคเกจทัวร์".$this->uri->segment(2+$index).", ทัวร์".$this->uri->segment(2+$index).", เที่ยวไทย".$this->uri->segment(2+$index).", ท่องเที่ยว".$this->uri->segment(2+$index).", ที่ท่องเที่ยว".$this->uri->segment(2+$index).", ท่องเที่ยวไทย".$this->uri->segment(2+$index).", เที่ยวทั่วไทย".$this->uri->segment(2+$index);  
 
-
-  if($find1 >= 0 && !empty($find2)){
-    $title = trim($title1." ".str_replace("-", " ",$this->uri->segment(2+$index))); 
+  if($maintag == "โชว์กลางคืน"){
+    $keyword = "โชว์".$this->uri->segment(2+$index).", โชว์การแสดง".$this->uri->segment(2+$index).", โชว์กลางคืน".$this->uri->segment(2+$index).", ".$tour_keyword;
+  }else if($maintag == "สปาแพคเกจ"){
+    $keyword = "สปา, สปาแพคเกจ".$this->uri->segment(2+$index).", แพคเกจสปา".$this->uri->segment(2+$index).", นวดสปาไทย".$this->uri->segment(2+$index).", สปาไทย".$this->uri->segment(2+$index).", นวดสปา".$this->uri->segment(2+$index).", ".$tour_keyword;
+  }else if($maintag == "กอล์ฟแพคเกจ"){
+    $keyword = "กอล์ฟแพคเกจ".$this->uri->segment(2+$index).", สนามกอล์ฟ".$this->uri->segment(2+$index).", ".$tour_keyword;
+  }else if($maintag == "เช่าเรือเหมาลำ"){
+    $keyword = "เช่าเรือเหมาลำ".$this->uri->segment(2+$index).", เรือทัวร์".$this->uri->segment(2+$index).", เหมาเรือ".$this->uri->segment(2+$index).", ท่องเที่ยว".$this->uri->segment(2+$index).", เรือสำราญ".$this->uri->segment(2+$index).", เรือสปีดโบ๊ท".$this->uri->segment(2+$index).", เรือเช้า".$this->uri->segment(2+$index).", บริการเช่าเรือ".$this->uri->segment(2+$index).", เช่าเหมาลำ".$this->uri->segment(2+$index);
+  }else if($maintag == "จองตั๋วเรือโดยสาร"){
+    $keyword = "จองตั๋วเรือโดยสาร".$this->uri->segment(2+$index).", ตั๋วเรือ".$this->uri->segment(2+$index).", จองตั๋วเรือ".$this->uri->segment(2+$index).", ตั๋ว".$this->uri->segment(2+$index).", ตั๋วโดยสาร".$this->uri->segment(2+$index);
+  }else if($maintag == "จองรถเช่า"){
+    $keyword = "จองรถเช่า".$this->uri->segment(2+$index).", เช่ารถ".$this->uri->segment(2+$index).", รถเช่า".$this->uri->segment(2+$index).", บริการเช่ารถ".$this->uri->segment(2+$index).", ให้เช่ารถ".$this->uri->segment(2+$index);
+  }else if($maintag == "จองตั๋วเครื่องบิน"){
+    $keyword = "จองตั๋วเครื่องบิน".$this->uri->segment(2+$index).", ตั๋วเครื่องบิน".$this->uri->segment(2+$index).", ตั๋ว".$this->uri->segment(2+$index).", ตั๋วเครื่องบินราคาถูก".$this->uri->segment(2+$index).", ตั๋วโดยสาร".$this->uri->segment(2+$index).", เช่าเครื่องเหมาลำ".$this->uri->segment(2+$index);
+  }else if($maintag == "จองโรงแรม"){
+    $keyword = "จองโรงแรม".$this->uri->segment(2+$index).", จองที่พัก".$this->uri->segment(2+$index).", โรงแรมที่พัก".$this->uri->segment(2+$index).", จองห้องพัก".$this->uri->segment(2+$index).", ห้องพัก".$this->uri->segment(2+$index).", เช่าห้อง".$this->uri->segment(2+$index).", เช่าห้องพัก".$this->uri->segment(2+$index).", รีสอร์ท".$this->uri->segment(2+$index).", จองรีสอร์ท".$this->uri->segment(2+$index);
+  }else if(!empty($title2)){
+    $keyword = $title1.", ".$title2.", ".$tour_keyword;
   }else{
-    $title = trim("ทัวร์".$title1." ".str_replace("-", " ",$this->uri->segment(2+$index))); 
-  }
-  
+    $keyword = $title1.", ".$tour_keyword;
+  } 
 ?> 
 
-  <title><?php echo $title; ?> - U As Travel</title>
+  <title><?php echo trim($title); ?> - U As Travel</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
   <meta name="description" content="<?php echo $title; ?>ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของ<?php echo $title; ?> และแพคเกจ<?php echo $title; ?>ราคาพิเศษ" />
-  <meta name="keywords" content="" />
-    <meta name="author" content="">
+  <meta name="keywords" content="<?php echo $keyword; ?>" />
+  <meta name="author" content="">
 
     <!-- Le styles -->
     <link href="<?php echo base_url('themes/Travel/tour/bootstrap/css/bootstrap.css');?>" rel="stylesheet">
@@ -47,6 +67,31 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+
+
+  <!-- Search selection -->
+  <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $("#selectsearch").change(function() {
+        var action = $(this).val() == "tour" ? "tour" : "location";
+        var uri = action+"/search/";
+        var url = "";
+
+        //Check host
+        if(document.domain == "localhost"){
+          url = "http://localhost/uastravel/"+uri;
+        }else{
+          url = "http://"+document.domain+"/"+uri;
+        }
+
+        $("#search-form").attr("action", url);
+      });
+    });
+  </script>
+
   </head>
   <body>
     <div class="container-fluid">
@@ -238,11 +283,19 @@
                           </ul>
                         </div>
                         <div style="float:right;">
-                          <form name="input" action="<?php echo base_url('tour/search');?>" method="post">
-                            <input type="text" name="search" style="margin:10px 5px 0px 0px; height:12px; width:120px;" value="<?php echo (!empty($search))?$search:"";?>">
+
+                          <form name="input" action="<?php echo base_url('tour/search');?>" method="post" id="search-form"> 
+                            <select name="select" id="selectsearch" style="margin:10px 5px 0px 0px; height:22px; width:120px;" >
+                              <option value="tour">แพคเกจทัวร์</option>
+                              <option value="location">สถานที่ท่องเที่ยว</option>
+                            </select>
+
+                            <input type="text" name="search" style="margin:10px 5px 0px 0px; height:12px; width:120px;" 
+                                    value="<?php echo (!empty($search))?$search:"";?>"
+                            >
                             <input type="submit" value="ค้นหา" style="margin:10px 10px 0px 0px; height:22px; width:60px;">
                           </form>
-                        </div>                        
+                        </div>                         
                     </div>
                   </div>
               </div>

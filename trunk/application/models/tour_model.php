@@ -33,6 +33,7 @@ class Tour_model extends MY_Model {
                      'longitude'         => 'tou_longitude',
                      'latitude'          => 'tou_latitude',
                      'first_image'       => 'tou_first_image',
+                     'tou_diplay'        => 'tou_tou_diplay',
                      'background_image'  => 'tou_background_image',
                      'banner_image'      => 'tou_banner_image',
                      'cr_date'           => 'tou_cr_date',
@@ -169,6 +170,23 @@ class Tour_model extends MY_Model {
     
     return ;
   }
+
+  
+  function updateDisplayRecord($data=false){
+    if($data){
+      //Set data
+      if(!empty($data["id"]) && $data["display"] == "hide"){
+        $this->db->set("tou_display", 0);
+      }else if(!empty($data["id"]) && $data["display"] == "show"){
+        $this->db->set("tou_display", 1);
+      }
+            
+      $query = $this->db->where("tou_id", $data["id"]);
+      $query = $this->db->update("ci_tour");
+    }
+    
+    return ;
+  }  
   
   function deleteRecord($id=false){
     if($id){

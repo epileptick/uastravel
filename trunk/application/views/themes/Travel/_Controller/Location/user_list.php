@@ -5,13 +5,27 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  
-  <title>สถานที่ท่องเที่ยว<?php echo $this->uri->segment(2);?> - U As Travel</title>
+
+<?php 
+  //Check class
+  if($this->uri->segment(1) == $this->router->class){
+    $index = 1;
+    //echo $index; 
+  }else if($this->uri->segment(2) == $this->router->class){
+    $index = 2;
+    //echo $index; 
+  }
+
+  //Title
+  $title = "สถานที่ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index));  
+  $keyword = $title.", แพคเกจทัวร์".str_replace("-", " ",$this->uri->segment(1+$index)).", ทัวร์".str_replace("-", " ",$this->uri->segment(1+$index)).", เที่ยวไทย".str_replace("-", " ",$this->uri->segment(1+$index)).", ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index)).", ที่ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index)).", ท่องเที่ยวไทย".str_replace("-", " ",$this->uri->segment(1+$index)).", เที่ยวทั่วไทย".str_replace("-", " ",$this->uri->segment(1+$index));   
+?> 
+
+  <title><?php echo $title;?> - U As Travel</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
   <meta name="description" content="สถานที่ท่องเที่ยว<?php echo $this->uri->segment(2);?>และทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยว<?php echo $this->uri->segment(2);?> และแพคเกจทัวร์ใน<?php echo $this->uri->segment(2);?>ราคาพิเศษ" />
-  <meta name="keywords" content="" />
-  
+  <meta name="keywords" content="<?php echo $keyword; ?>" /> 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <!-- Le styles -->
@@ -22,6 +36,28 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $("#selectsearch").change(function() {
+      var action = $(this).val() == "tour" ? "tour" : "location";
+      var uri = action+"/search/";
+      var url = "";
+
+      //Check host
+      if(document.domain == "localhost"){
+        url = "http://localhost/uastravel/"+uri;
+      }else{
+        url = "http://"+document.domain+"/"+uri;
+      }
+
+      $("#search-form").attr("action", url);
+    });
+  });
+</script>    
   </head>
   <body>
     <div class="container-fluid">
@@ -138,8 +174,16 @@
                           </ul>
                         </div>
                         <div style="float:right;">
-                          <form name="input" action="<?php echo base_url('location/search');?>" method="post">
-                            <input type="text" name="search" style="margin:10px 5px 0px 0px; height:12px; width:120px;" value="<?php echo (!empty($search))?$search:"";?>">
+
+                          <form name="input" action="location/search" method="post" id="search-form"> 
+                            <select name="select" id="selectsearch" style="margin:10px 5px 0px 0px; height:22px; width:120px;" >
+                              <option value="tour">แพคเกจทัวร์</option>
+                              <option value="location" selected>สถานที่ท่องเที่ยว</option>
+                            </select>
+
+                            <input type="text" name="search" style="margin:10px 5px 0px 0px; height:12px; width:120px;" 
+                                    value="<?php echo (!empty($search))?$search:"";?>"
+                            >
                             <input type="submit" value="ค้นหา" style="margin:10px 10px 0px 0px; height:22px; width:60px;">
                           </form>
                         </div>  

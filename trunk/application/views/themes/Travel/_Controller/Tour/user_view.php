@@ -8,7 +8,20 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
   <meta name="description" content="<?php echo (!empty($tour[0]->short_description))?$tour[0]->short_description:"";?>" />
-  <meta name="keywords" content="" />
+  <?php
+    $tag_keyword = "แพ็คเกจทัวร์, ทัวร์, ";
+    if(!empty($tag)){
+      foreach ($tag as $key => $value) {
+        if(!empty($value->url) &&  $value->id != 1){
+          $tag_keyword .= $value->name.", ";
+        }
+      }
+
+      //Remove last string
+      $tag_keyword = substr(trim($tag_keyword), 0, -1);
+    }
+  ?>
+  <meta name="keywords" content="<?php echo $tag_keyword;?>" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <!-- Set the viewport width to device width for mobile -->
