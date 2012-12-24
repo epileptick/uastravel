@@ -63,16 +63,18 @@ class Images_model extends MY_Model {
   
   function delete($options){
     $getResult = parent::get($options);
-    foreach($getResult AS $key=>$value){
-      if(!empty($value)){
-        $imgPath = explode("resource",$value['url']);
-        $unlinkPath = "resource".$imgPath[1];
-        if(file_exists($unlinkPath)){
-          if(unlink($unlinkPath)){
+    if(!empty($getResult)){
+      foreach($getResult AS $key=>$value){
+        if(!empty($value)){
+          $imgPath = explode("resource",$value['url']);
+          $unlinkPath = "resource".$imgPath[1];
+          if(file_exists($unlinkPath)){
+            if(unlink($unlinkPath)){
+              parent::delete($value['id']);
+            }
+          }else{
             parent::delete($value['id']);
           }
-        }else{
-          parent::delete($value['id']);
         }
       }
     }
