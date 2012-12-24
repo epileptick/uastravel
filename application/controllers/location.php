@@ -221,13 +221,19 @@ class Location extends MY_Controller {
       
       $data["location"] = $this->_location_list($query); 
     }
-    //print_r($data); exit;
-    if($query["offset"]>0){
-      $this->_fetch('user_listnextpage', $data, false, true);
+    //print_r($query); exit;
+    if(!empty($query["offset"])){
+      if($query["offset"]>0){
+        $this->_fetch('user_listnextpage', $data, false, true);
+      }else{
+        //print_r($data);   
+        $this->_fetch('user_list', $data, false, true);
+      }  
+
     }else{
-      //print_r($data);   
-      $this->_fetch('user_list', $data, false, true);
-    }    
+        //print_r($data);   
+        $this->_fetch('user_list', $data, false, true);      
+    }  
 
   }
 

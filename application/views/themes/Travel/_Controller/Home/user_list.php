@@ -5,6 +5,21 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
+
+  
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $("#selectsearch").change(function() {
+      var action = $(this).val() == "location" ? "location" : "tour";
+      var url = action+"/search/";
+      $("#search-form").attr("action", url);
+    });
+  });
+</script>
+
 <?php
   if($this->uri->segment(1)){
 ?>
@@ -155,15 +170,21 @@
                               }
                             ?>
                           </ul>
-                          <form class="navbar-form pull-right" id="searchForm">
-                            <fieldset>
-                                <div class="input">
-                                    <input type="text" name="search" id="search" value="ค้นหา" />
-                                </div>
-                                <input type="submit" id="searchSubmit" value="" />
-                            </fieldset>
-                          </form>
                         </div>
+                        <div style="float:right;">
+
+                          <form name="input" action="tour/search" method="post" id="search-form"> 
+                            <select name="select" id="selectsearch" style="margin:10px 5px 0px 0px; height:22px; width:120px;" >
+                              <option value="tour">แพคเกจทัวร์</option>
+                              <option value="location">สถานที่ท่องเที่ยว</option>
+                            </select>
+
+                            <input type="text" name="search" style="margin:10px 5px 0px 0px; height:12px; width:120px;" 
+                                    value="<?php echo (!empty($search))?$search:"";?>"
+                            >
+                            <input type="submit" value="ค้นหา" style="margin:10px 10px 0px 0px; height:22px; width:60px;">
+                          </form>
+                        </div>  
                     </div>
                   </div>
               </div>
