@@ -361,6 +361,24 @@ PageUtil::addVar("javascript",'
   <div id="status"></div>
   
   <?php echo form_open(base_url('admin/location/create'),'enctype="multipart/form-data"'); ?>
+      <div class="half">
+        <label>&nbsp;&nbsp;language :</label> 
+        <select id="lang"  name="lang">
+          <?php 
+            if($post['loc_lang'] == "en"){
+          ?>
+            <option value="th">thai</option>
+            <option value="en" selected>english</option>
+          <?php
+            }else{
+          ?>
+            <option value="th" selected>thai</option>
+            <option value="en">english</option>
+          <?php
+            }
+          ?>
+        </select>
+      </div> <br>  
   <input type="hidden" value="<?=$post['loc_id']?>" id="id" name="id" />
   <span id="fedfe"></span>
   <div class="topHolder">
@@ -499,7 +517,7 @@ PageUtil::addVar("javascript",'
         .bind('getSuggestions', function(e, data)
         {
           //Get tag data
-          if(data.query.length == 1){
+          if(data.query.length == 2){
             var list = tagSearch(data.query);
 
             var textext = $(e.target).textext()[0];

@@ -57,6 +57,7 @@ $route['(:any)'.'_tests'] = '$1'.'_tests';
 ////////// Urls start
 
 //location
+$route['admin/location/setdisplay'] = 'location/admin_setdisplay';
 $route['admin/location'] = 'location/admin_index';
 $route['admin/location/create/(:any)'] = 'location/admin_create/$1';
 $route['admin/location/create'] = 'location/admin_create';
@@ -76,14 +77,14 @@ $route[$lang_set.'/'.LangUtil::line("url_lang_location").'/search'] = 'location/
 
 $route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/user_view/$4';
 $route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/user_view/$3';
-$route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_list/$2'; //for Tag
-$route[$lang_set.'/'.LangUtil::line("url_lang_location")] = 'location/user_list';
+$route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_index/$2'; //for Tag
+$route[$lang_set.'/'.LangUtil::line("url_lang_location")] = 'location/user_index';
 
 $route[LangUtil::line("url_lang_location").'/(:num)'] = 'location/user_index';
 $route[LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/user_view/$3';
 $route[LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/user_view/$1/$2';
-$route[LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_list/$1'; //for Tag
-$route[LangUtil::line("url_lang_location")] = 'location/user_list';
+$route[LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_index/$1'; //for Tag
+$route[LangUtil::line("url_lang_location")] = 'location/user_index';
 
 
 //tour admin
@@ -154,9 +155,10 @@ $route['user/login'] = 'user/login';
 
 //Home
 $route['admin'] = 'home/admin_list';
-$route[$lang_set] = 'home/user_index';
-$route['(:any)'] = 'home/user_index';
-$route[$lang_set.'/(:any)'] = 'home/user_index';
+$route[$lang_set] = 'home/index';
+$route['(:any)'] = 'home/index';
+$route[$lang_set.'/(:num)'] = 'home/index';
+$route[$lang_set.'/(:any)'] = 'home/index';
 
 ///////// Urls end
 

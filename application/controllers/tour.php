@@ -11,6 +11,8 @@ class Tour extends MY_Controller {
 
 
   function user_index(){
+
+    //print_r($this->lang->lang()); exit;
     //Default function for call read method
     if($this->uri->segment(1) == $this->router->class){
       $index = 1;
@@ -94,16 +96,14 @@ class Tour extends MY_Controller {
 
       //Get argument from post page
 
-        $segment_id = $this->uri->segment($index+2);
+      $segment_id = $this->uri->segment($index+2);
 
-        if($segment_id){
-          $this->user_bookingview($segment_id); 
-        }else{
-          $args = $this->input->post(); 
-          $this->user_booking($args);
-        }
-
-    
+      if($segment_id){
+        $this->user_bookingview($segment_id); 
+      }else{
+        $args = $this->input->post(); 
+        $this->user_booking($args);
+      }
 
     }else if(is_numeric($this->uri->segment($index+2))){
       ////////////////////////////
@@ -188,7 +188,6 @@ class Tour extends MY_Controller {
       $this->_fetch('user_test', "", false, true);
   }
   
-
   function _tour_menu($argTag=false, $argType=false, $argSubType=false){
 
     if($argTag){

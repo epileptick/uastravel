@@ -62,6 +62,48 @@ function selectAll(){
 
 ?>
 
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $("#display").live("click", function(){
+
+
+
+        var url = "location/setdisplay";
+        var status = $(this).attr("status");
+        var id = $(this).attr("idval");
+        var name = $(this).attr("idname");
+
+        //alert(name);
+        //Check status
+        if(status == "show"){
+          //$("[attr_name=value]")
+          //$("[data-fundId="+$(this).data('fundId')+"]").hide();
+          
+          $("[idname="+name+"]").hide();
+          $("[idname=display_hide_"+id+"]").show();
+          status = "hide";
+          //$(".diplay_show").hide();
+          //$(".diplay_hide").show();
+        }else{
+          $("[idname="+name+"]").hide();
+          $("[idname=display_show_"+id+"]").show();
+          status = "show";
+        }
+
+
+        //Send data
+        var data =  { id: id, display: status };
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data
+          });
+        });
+
+
+    });
+  </script>
 
 <div class="container_12">
 <section class="similar_hotels grid_12">
@@ -99,7 +141,53 @@ function selectAll(){
         foreach ($location as $key => $value) :
       ?>
         <li>
-          <span><input type="checkbox" name="<?php echo $value["id"];?>" id="location_<?php echo $value["id"];?>"></span>
+          <span>
+
+            <?php 
+            if($value['display'] == 0){
+            ?>
+              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>" 
+                  valign="top" 
+                  id="display" 
+                  class="display_show"
+                  status="show" 
+                  idval="<?php echo $value['id'];?>"
+                  idname="display_show_<?php echo $value['id'];?>"
+                  style="display:none;"
+              >
+              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>" 
+                  valign="top" 
+                  id="display"
+                  class="display_hide" 
+                  status="hide" 
+                  idval="<?php echo $value['id'];?>"
+                  idname="display_hide_<?php echo $value['id'];?>"
+              >
+            <?php 
+            }else if($value['display'] == 1){
+            ?>
+              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>" 
+                  valign="top" 
+                  id="display" 
+                  class="display_show"
+                  status="show" 
+                  idval="<?php echo $value['id'];?>"
+                  idname="display_show_<?php echo $value['id'];?>"
+              >
+              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>" 
+                  valign="top" 
+                  id="display"
+                  class="display_hide" 
+                  status="hide" 
+                  idval="<?php echo $value['id'];?>"
+                  idname="display_hide_<?php echo $value['id'];?>"
+                  style="display:none;"
+              >
+            <?php 
+            }
+            ?>
+            <input type="checkbox" name="<?php echo $value["id"];?>" id="location_<?php echo $value["id"];?>">
+          </span>
           <div>
             <span>  
             <h3><a href="<?php echo base_url($this->lang->line("url_lang_location")."/$value[url]-$value[id]");?>" target="_blank"><?php echo $value["title"];?></a></h3>

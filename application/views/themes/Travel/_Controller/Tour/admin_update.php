@@ -369,7 +369,25 @@ $(document).ready(function() {
 		</h2>
 		<br>		
 			<input type="hidden" name="id" id="id" value="<?php echo $tour[0]->id;?>">
-			<!--  Start Tour information -->		
+			<!--  Start Tour information -->	
+      <div class="half">
+        <label>language :</label> 
+        <select id="lang"  name="lang">
+          <?php 
+            if($tour[0]->lang == "en"){
+          ?>
+            <option value="th">thai</option>
+            <option value="en" selected>english</option>
+          <?php
+            }else{
+          ?>
+            <option value="th" selected>thai</option>
+            <option value="en">english</option>
+          <?php
+            }
+          ?>
+        </select>
+      </div>
 			<div class="half">
 				<label>Tour Name :</label> <?php echo form_error('name', '<font color="red">', '</font>'); ?>
 				<input type="text" name="name" value="<?php echo $tour[0]->name;?>">

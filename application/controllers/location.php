@@ -93,30 +93,134 @@ class Location extends MY_Controller {
   }
   
   function user_index(){
-    $keyword = $this->input->post();
 
+    if($this->uri->segment(1) == $this->router->class){
+      $index = 1;
+      //echo $index; 
+    }else if($this->uri->segment(2) == $this->router->class){
+      $index = 2;
+      //echo $index; 
+    }
+
+
+    if(is_numeric($this->uri->segment($index+2))){
+      ////////////////////////////
+      // tage/page
+      // algorithm : http://www/tour/2/3
+      // algorithm : http://www/tour/tag/page        
+      // sample : http://uastravel.com/tour/halfday/10
+      ////////////////////////////
+      $page = $this->uri->segment($index+2);//3;
+      $tag = $this->uri->segment($index+1);//2
+      //echo "tag/".$page;
+
+      $this->user_listbytag($tag, $page);  
+
+    }else if(is_numeric($this->uri->segment($index+1))){
+      ////////////////////////////
+      // location/page
+      // algorithm : http://www/location/2
+      // algorithm : http://www/location/page          
+      // sample : http://uastravel.com/location/10
+      ////////////////////////////
+      $page = $this->uri->segment($index+1); //2
+      $tag = 0;
+
+      //echo "tour/".$page;
+      $this->user_list($page); 
+
+    }else if($this->uri->segment($index+1)){
+      ////////////////////////////
+      // tag
+      // algorithm : http://www/tour/2 
+      // algorithm : http://www/tour/tag       
+      // sample : http://uastravel.com/tour/halfday
+      ////////////////////////////
+      $page = 0;
+      $tag = $this->uri->segment($index+1); //2
+      //$call = "tag";
+
+      $this->user_listbytag($tag, $page);      
+
+    }else{
+      ////////////////////////////
+      // tour
+      // algorithm : http://www/tour
+      // algorithm : http://www/tour       
+      // sample : http://uastravel.com/tour
+      ////////////////////////////
+      $page = 0;
+      $tag = 0;     
+      //echo "tour";
+      $this->user_list($page);      
+    }
+/*
+    print_r($index);
+    exit;    
+
+    if(is_numeric($this->uri->segment($index+2))){
+      ////////////////////////////
+      // tage/page
+      // algorithm : http://www/tour/2/3
+      // algorithm : http://www/tour/tag/page        
+      // sample : http://uastravel.com/tour/halfday/10
+      ////////////////////////////
+      $page = $this->uri->segment($index+2);//3;
+      $tag = $this->uri->segment($index+1);//2
+      //echo "tag/".$page;
+
+      $this->user_listbytag($tag, $page);  
+
+    }else if(is_numeric($this->uri->segment($index+1))){
+      ////////////////////////////
+      // tour/page
+      // algorithm : http://www/tour/2
+      // algorithm : http://www/tour/tag/page          
+      // sample : http://uastravel.com/tour/10
+      ////////////////////////////
+      $page = $this->uri->segment($index+1); //2
+      $tag = 0;
+
+      //echo "tour/".$page;
+
+      $this->user_list($page); 
+
+    }else if($this->uri->segment($index+1)){
+      ////////////////////////////
+      // tag
+      // algorithm : http://www/tour/2 
+      // algorithm : http://www/tour/tag       
+      // sample : http://uastravel.com/tour/halfday
+      ////////////////////////////
+      $page = 0;
+      $tag = $this->uri->segment($index+1); //2
+      //$call = "tag";
+
+      $this->user_listbytag($tag, $page);      
+
+    }else{
+      ////////////////////////////
+      // tour
+      // algorithm : http://www/tour
+      // algorithm : http://www/tour       
+      // sample : http://uastravel.com/tour
+      ////////////////////////////
+      $page = 0;
+      $tag = 0;     
+      //echo "tour";
+
+      $this->user_list($page);      
+    }
+
+
+    $keyword = $this->input->post();
     if($keyword){
       $this->_search("user_list");
     }else{
-
-      /*
-      $tag = $this->uri->segment(2);
-      $where = array(
-                    'limit'=>'',
-                    'returnObj'=>'',
-                    'order'=>'CONVERT( loc_title USING tis620 ) ASC',
-                    'where'=>''
-                  );
-      if(empty($tag)){
-        //$where['where'] = array('');
-      }
-      $result = $this->_index($where);
-                                        
-      $this->_fetch("user_list",$result);
-
-      */
       $this->user_list();
     }
+
+    */
   }
 
 
@@ -134,7 +238,7 @@ class Location extends MY_Controller {
         //Menu Tag
         $tag["id"] = $value->tag_id;      
         $tagQuery = $this->tagModel->getRecord($tag);
-		$menu[$count] = new stdClass();
+		    $menu[$count] = new stdClass();
         $menu[$count]->tag_id = $tagQuery[0]->id;
         $menu[$count]->name = $tagQuery[0]->name;
         $menu[$count]->url = $tagQuery[0]->url;
@@ -185,7 +289,104 @@ class Location extends MY_Controller {
     }
 
   }  
-  
+
+
+
+  function user_list($page=0){
+    
+    $per_page = 20;     
+    $data["menu"]= $this->_location_menu();
+
+    foreach ($data["menu"] as $key => $valueTag) {
+      $query["menu"][] = $valueTag->tag_id;
+    }
+
+    //Filter all
+    $query["tag_id"] = $query["menu"];
+    $query["join"] = true;
+    $query["in"] = true;
+    $query["per_page"] = $per_page;
+    $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;  
+
+    
+
+    $this->load->model("taglocation_model", "taglocationModel");
+    $location = $this->taglocationModel->getRecordFirstpage($query);
+
+
+    if(!empty($location)){
+      $data["location"] =  $this->_shuffle_assoc($location);
+    }else{
+      $data["location"] = false;
+    }
+
+    if(!empty($query["offset"])){
+      if($query["offset"]>0){
+        $this->_fetch('user_listnextpage', $data, false, true);
+      }else{
+        //print_r($data);   
+        $this->_fetch('user_list', $data, false, true);
+      }  
+
+    }else{
+        //print_r($data);   
+        $this->_fetch('user_list', $data, false, true);      
+    }  
+
+  }  
+
+
+
+  function user_listbytag($tag=false, $page=0){
+    $per_page = 20;  
+    $data["menu"] = $this->_location_menu($tag);
+
+    foreach ($data["menu"] as $key => $valueTag) {
+      $query["menu"][] = $valueTag->tag_id;
+    }  
+
+    $argTag["url"] = $tag;      
+    $tagQuery = $this->tagModel->getRecord($argTag);
+
+
+    //print_r($tagQuery); exit;
+    if(!empty($tagQuery)){
+      $query["tag_id"] = $tagQuery[0]->id;
+      $query["join"] = true;
+      $query["per_page"] = $per_page;
+      $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;   
+
+      //Tour
+      $this->load->model("taglocation_model", "taglocationModel");
+      $location = $this->taglocationModel->getRecordByTag($query);
+
+
+      if(!empty($location)){
+        $data["location"] =  $this->_shuffle_assoc($location);
+      }else{
+        $data["location"] = false;
+      }  
+    }else{
+      $data["location"] = false;
+    }    
+
+
+    if(!empty($query["offset"])){
+      if($query["offset"]>0){
+        $this->_fetch('user_listnextpage', $data, false, true);
+      }else{
+        //print_r($data);   
+        $this->_fetch('user_list', $data, false, true);
+      }  
+
+    }else{
+        //print_r($data);   
+        $this->_fetch('user_list', $data, false, true);      
+    } 
+
+  }
+
+/*  
   function user_list($tag=false){
     
     $per_page = 20;     
@@ -236,7 +437,7 @@ class Location extends MY_Controller {
     }  
 
   }
-
+*/
 
   function user_search(){
 
@@ -263,6 +464,14 @@ class Location extends MY_Controller {
       return;
     }
   }
+
+
+  function admin_setdisplay(){
+    //Get argument from post page
+    $args = $this->input->post();
+    $this->locationModel->updateDisplayRecord($args);
+    print_r($args); exit();
+  }  
   
   function admin_create($id=NULL){
     $_post = $this->input->post();

@@ -361,7 +361,15 @@ $(document).ready(function() {
 			?>
 		</h2>
 		<br>	
-			<!--  Start Tour information -->		
+			<!--  Start Tour information --> 
+      <div class="half">
+        <label>language :</label> 
+        <select id="lang"  name="lang">
+          <option value="th">thai</option>
+          <option value="en">english</option>
+        </select>
+      </div>
+      <div class="clearfix"></div>		
 			<div class="half">
 				<label>Tour Name :</label> <?php echo form_error('name', '<font color="red">', '</font>'); ?>
 				<input type="text" name="name" id="name" value="<?php echo set_value('name');?>">
