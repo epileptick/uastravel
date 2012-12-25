@@ -8,10 +8,20 @@ class Home extends MY_Controller {
 
   function index(){
     //Default function for call read method
-    $this->user_list();
+
+    //print_r($this->lang->lang()); exit;
+    if($this->uri->segment(1) == $this->lang->lang()){
+      $index = 1;
+      //echo $index; 
+    }else{
+      $index = 0;
+    } 
+
+
+    $page = $this->uri->segment($index+1);//5; 
+    $this->user_list(false, $page);
   }  
   
-
   function _home_menu($select=false){
       $type["type_id"] = 1;
       $this->load->model("tagtype_model", "tagtypeModel");   
@@ -100,7 +110,7 @@ class Home extends MY_Controller {
     }
   }
 
-  function user_list($tag=false){
+  function user_list($tag=false, $page=0){
     
     $per_page = 20;     
     $data["menu"]= $this->_home_menu($tag);
@@ -122,7 +132,7 @@ class Home extends MY_Controller {
         $query["in"] = true;        
 
         $query["per_page"] = $per_page;
-        $query["offset"] = ($this->uri->segment(2))?($this->uri->segment(2)-1)*$query["per_page"]:0;   
+        $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;  
 
         //print_r($query); exit;
 
@@ -141,7 +151,7 @@ class Home extends MY_Controller {
 
       $query["join"] = true;
       $query["per_page"] = $per_page;
-      $query["offset"] = ($this->uri->segment(1))?($this->uri->segment(1)-1)*$query["per_page"]:0;   
+      $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;   
 
       //Tour
       $data["home"] = $this->_home_list($query);  

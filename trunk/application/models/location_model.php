@@ -5,6 +5,8 @@ class Location_model extends MY_Model {
     $this->_prefix = "loc";
     $this->_column = array(
                      'id'               => 'loc_id',
+                     'lang'             => 'loc_lang',
+                     'display'          => 'loc_display',
                      'title'            => 'loc_title',
                      'body'             => 'loc_body',
                      'suggestion'       => 'loc_suggestion',
@@ -75,6 +77,25 @@ class Location_model extends MY_Model {
     
   }
   
+
+  
+  function updateDisplayRecord($data=false){
+    if($data){
+      //Set data
+      if(!empty($data["id"]) && $data["display"] == "hide"){
+        $this->db->set("loc_display", 0);
+      }else if(!empty($data["id"]) && $data["display"] == "show"){
+        $this->db->set("loc_display", 1);
+      }
+            
+      $query = $this->db->where("loc_id", $data["id"]);
+      $query = $this->db->update("ci_location");
+    }
+    
+    return ;
+  }  
+
+
   function updateRecord($options=""){
     if($options==""){
       return FALSE;
@@ -146,6 +167,7 @@ class Location_model extends MY_Model {
         //Get tour data
         unset($this->db);
         $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+        $this->db->where('tou_lang', $this->lang->lang());
         $this->db->where('tou_id', $value->tat_tour_id);
         $query = $this->db->get('ci_tour');
         $tourBuffer = $query->result(); 

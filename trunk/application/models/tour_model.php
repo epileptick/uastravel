@@ -5,7 +5,7 @@ class Tour_model extends MY_Model {
     $this->_prefix = "tou";
     $this->_column = array(
                      'id'                => 'tou_id',
-                     'language_id'       => 'tou_language_id',
+                     'lang'              => 'tou_lang',
                      'code'              => 'tou_code',
                      'url'               => 'tou_url',
                      'name'              => 'tou_name',

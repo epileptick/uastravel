@@ -59,16 +59,14 @@
   <meta name="keywords" content="<?php echo $keyword; ?>" />
   <meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="<?php echo base_url('themes/Travel/tour/bootstrap/css/bootstrap.css');?>" rel="stylesheet">
-    <link href="<?php echo base_url('themes/Travel/tour/bootstrap/css/bootstrap-responsive.css');?>" rel="stylesheet">
-    <link href="<?php echo base_url('themes/Travel/tour/stylesheets/main.css');?>" rel="stylesheet">
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-
+  <!-- Le styles -->
+  <link href="<?php echo base_url('themes/Travel/tour/bootstrap/css/bootstrap.css');?>" rel="stylesheet">
+  <link href="<?php echo base_url('themes/Travel/tour/bootstrap/css/bootstrap-responsive.css');?>" rel="stylesheet">
+  <link href="<?php echo base_url('themes/Travel/tour/stylesheets/main.css');?>" rel="stylesheet">
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 
   <!-- Search selection -->
   <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
@@ -391,14 +389,12 @@
               ?>                    
               <!-- End sub menu -->
 
-			  <?php
-				if(!empty($tour)){			  
-			  ?>
+    			  <?php
+    				if(!empty($tour)){			  
+    			  ?>
               <div class="row-fluid">
                 <div class="span12">
                   <div id="attractions" style="display:none;" class="clickable variable-sizes">
-
-
                       <?php
                         //print_r($tour); exit;
                         //echo $this->pagination->create_links();
@@ -501,26 +497,22 @@
                       </nav>
 
                   </div> <!-- #attractions -->
-
                 </div><!--/span12-->
               </div>
-			  
-			  
-
-			  <?php
-				}else{
-			  ?>
-					<br><br><br><br><br>
-					<center>
-					<font size="28">
-						ไม่พบข้อมูลที่ท่านต้องการ
-					</font>
-					<center>
-			  
-			  <?php
-				}
-				//End check tour
-			  ?>
+    			  <?php
+    				}else{
+    			  ?>
+    					<br><br><br><br><br>
+    					<center>
+    					<font size="28">
+    						ไม่พบข้อมูลที่ท่านต้องการ
+    					</font>
+    					<center>
+    			  
+    			  <?php
+    				}
+    				//End check tour
+    			  ?>
 					  
             </div>
           </div><!--/content-->

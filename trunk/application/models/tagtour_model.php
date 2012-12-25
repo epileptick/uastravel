@@ -73,6 +73,7 @@ class TagTour_model extends MY_Model {
         //Get tour data
         unset($this->db);
         $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+        $this->db->where('tou_lang', $this->lang->lang());
         $this->db->where('tou_display', 1);
         $this->db->where('tou_id', $value->tat_tour_id);
         $query = $this->db->get('ci_tour');
@@ -139,6 +140,7 @@ class TagTour_model extends MY_Model {
       //Get tour data
       unset($this->db);
       $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+      $this->db->where('tou_lang', $this->lang->lang());
       $this->db->where('tou_display', 1);
       $this->db->where('tou_id', $value->tat_tour_id);
       $query = $this->db->get('ci_tour');
@@ -213,6 +215,7 @@ class TagTour_model extends MY_Model {
       //Get tour data
       unset($this->db);
       $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+      $this->db->where('tou_lang', $this->lang->lang());
       $this->db->where('tou_display', 1);
       $this->db->where('tou_id', $value->tat_tour_id);
       $query = $this->db->get('ci_tour');
@@ -286,6 +289,7 @@ class TagTour_model extends MY_Model {
       //Get tour data
       unset($this->db);
       $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+      $this->db->where('tou_lang', $this->lang->lang());
       $this->db->where('tou_display', 1);
       $this->db->where('tou_id', $value->tat_tour_id);
       $query = $this->db->get('ci_tour');
@@ -415,6 +419,7 @@ class TagTour_model extends MY_Model {
       //Get tour data
       unset($this->db);
       $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+      $this->db->where('tou_lang', $this->lang->lang());
       $this->db->where('tou_display', 1);
       $this->db->where('tou_id', $value->tat_tour_id);
       $query = $this->db->get('ci_tour');
@@ -510,6 +515,7 @@ class TagTour_model extends MY_Model {
         //Get tour data
         unset($this->db);
         $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+        $this->db->where('tou_lang', $this->lang->lang());
         $this->db->where('tou_display', 1);
         $this->db->where('tou_id', $value->tat_tour_id);
         $query = $this->db->get('ci_tour');
@@ -580,6 +586,7 @@ class TagTour_model extends MY_Model {
       //Get tour data
       unset($this->db);
       $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+      $this->db->where('tou_lang', $this->lang->lang());
       $this->db->where('tou_display', 1);
       $this->db->where('tou_id', $value->tat_tour_id);
       $query = $this->db->get('ci_tour');
@@ -675,6 +682,7 @@ class TagTour_model extends MY_Model {
             //Get tour data
             unset($this->db);
             $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+            $this->db->where('tou_lang', $this->lang->lang());
             $this->db->where('tou_display', 1);
             $this->db->where('tou_id', $value->tat_tour_id);
             $query = $this->db->get('ci_tour');
@@ -758,6 +766,7 @@ class TagTour_model extends MY_Model {
         //Get tour data
         unset($this->db);
         $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+        $this->db->where('tou_lang', $this->lang->lang());
         $this->db->where('tou_display', 1);
         $this->db->where('tou_id', $value->tat_tour_id);
         $query = $this->db->get('ci_tour');
@@ -819,6 +828,7 @@ class TagTour_model extends MY_Model {
         //Get tour data
         unset($this->db);
         $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+        $this->db->where('tou_lang', $this->lang->lang());
         $this->db->where('tou_display', 1);
         $this->db->where('tou_id', $value->tat_tour_id);
         $query = $this->db->get('ci_tour');
@@ -881,6 +891,7 @@ class TagTour_model extends MY_Model {
         //Get tour data
         unset($this->db);
         $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+        $this->db->where('tou_lang', $this->lang->lang());
         $this->db->where('tou_display', 1);
         $this->db->where('tou_id', $value->tat_tour_id);
         $query = $this->db->get('ci_tour');
@@ -966,6 +977,7 @@ class TagTour_model extends MY_Model {
         //Get tour data
         unset($this->db);
         $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+        $this->db->where('tou_lang', $this->lang->lang());
         $this->db->where('tou_display', 1);
         $this->db->where('tou_id', $value->tat_tour_id);
         $query = $this->db->get('ci_tour');
