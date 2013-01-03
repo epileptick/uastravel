@@ -362,14 +362,14 @@ if(!empty($location['background_image'])){
               <div class="list_packet">
                 <div class="row">
                   <div class="twelve columns">             
-                    <a href="<?php echo $value["tour"]->tou_url."-".$value["tour"]->tou_id; ?>">
+                    <a href="<?php echo base_url('/tour/'.$value["tour"]->tou_url."-".$value["tour"]->tou_id);?>">
                       <img src="<?php echo $value["tour"]->tou_banner_image; ?>">
                     </a>
                   </div>
                   <div class="twelve columns">
                     <div class="title_tour">
                       <h4>
-                        <a href="<?php echo $value["tour"]->tou_url."-".$value["tour"]->tou_id; ?>">
+                        <a href="<?php echo base_url('/tour/'.$value["tour"]->tou_url."-".$value["tour"]->tou_id);?>">
                           <?php echo $value["tour"]->tou_name; ?>
                         </a>
                       </h4>
