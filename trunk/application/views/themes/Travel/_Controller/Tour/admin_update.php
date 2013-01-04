@@ -347,7 +347,7 @@ $(document).ready(function() {
             markersArray[i].setMap(null);
           }
         }
-      }        
+      }         
 
       // Onload handler to fire off the app.
       google.maps.event.addDomListener(window, 'load', initialize);
@@ -378,7 +378,7 @@ $(document).ready(function() {
         ?>
           <option value="th">thai</option>
           <option value="en" selected>english</option>
-        <?php
+        <?php 
           }else{
         ?>
           <option value="th" selected>thai</option>
@@ -414,7 +414,6 @@ $(document).ready(function() {
       <textarea cols="30"  class="mceEditor" rows="10" name="remark"><?php echo $tour[0]->remark;?></textarea>
     <div class="clearfix"></div>
     <br>
-
 
 
     <!-- Agency -->
