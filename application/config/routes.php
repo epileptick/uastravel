@@ -56,6 +56,20 @@ $route['(:any)'.'_tests'] = '$1'.'_tests';
 
 ////////// Urls start
 
+
+//Carrent
+$route['carrent/(:any)'] = 'carrent/user_index/$1';
+$route[$lang_set.'/'.'carrent/(:any)'] = 'carrent/user_index/$1';
+$route["carrent"] = 'carrent/user_index';
+$route[$lang_set.'/'."carrent"] = 'carrent/user_index';
+
+
+//Airline
+$route['airline/(:any)'] = 'airline/user_index/$1';
+$route[$lang_set.'/'.'airline/(:any)'] = 'airline/user_index/$1';
+$route["airline"] = 'airline/user_index';
+$route[$lang_set.'/'."airline"] = 'airline/user_index';
+
 //location
 $route['admin/location/setdisplay'] = 'location/admin_setdisplay';
 $route['admin/location'] = 'location/admin_index';
@@ -67,8 +81,6 @@ $route['admin/location/(:any)/(:any)-(:num)'] = 'location/admin_view/$3';
 $route['admin/location/(:any)-(:num)'] = 'location/admin_view/$1/$2';
 $route['admin/location/(:any)'] = 'location/admin_index'; //for Tag
 $route['admin/location'] = 'location/admin_index';
-
-
 
 
 $route[LangUtil::line("url_lang_location").'/search'] = 'location/user_search';
