@@ -31,12 +31,9 @@ class Airline extends MY_Controller {
 
   function user_booking($args){
 
-
-    //print_r($args); 
     $data = array();
     if(!empty($args)){
 
-      //$error = array();
       if(trim($args['flt_firstname']) == ""){
         $data['error'][] = "Please enter firstname.";
       }
