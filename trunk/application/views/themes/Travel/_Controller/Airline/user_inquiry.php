@@ -1,16 +1,11 @@
 <?php
-
   if(!empty($error)){
     print_r($error);
-
   }
-
-  if(!empty($hello)){
+    if(!empty($hello)){
     echo($hello);
 
   }
-
-
 
 ?>
 
@@ -66,7 +61,7 @@
         flt_child_amount: "required",
         flt_infant_amount: "required",
         flt_type: "required",
-        flt_class: "required",
+        flt_class: "required", 
       },
       messages: {
       },
@@ -89,9 +84,9 @@
   });
 </script>
 
-  <script>
-    $(function() {
-      $( "#flt_depart_date" ).datepicker({
+<script>
+  $(function() {
+    $( "#flt_depart_date" ).datepicker({
         numberOfMonths: 1,  
         minDate: 1,
         dateFormat: 'dd/mm/yy',
@@ -100,13 +95,12 @@
         dayNames: ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'],       
         dayNamesMin: ['อา','จ','อ','พ','พฤ','ศ','ส'],     
         monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม']       
-      });
     });
-  </script> 
-
-  <script>
-    $(function() {
-      $( "#flt_return_date" ).datepicker({
+  });
+</script>  
+<script>
+  $(function() {
+    $( "#flt_return_date" ).datepicker({
         numberOfMonths: 1,  
         minDate: 1,
         dateFormat: 'dd/mm/yy',
@@ -114,9 +108,9 @@
         changeYear: true,     
         dayNames: ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'],       
         dayNamesMin: ['อา','จ','อ','พ','พฤ','ศ','ส'],     
-        monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม']      
-      });
+        monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม']       
     });
+  });
   </script>
 
 </head>
@@ -136,6 +130,8 @@
             </li>
             <li class="toggle-topbar"><a href="#"></a></li>
           </ul>
+
+
           <section>
             <ul class="right">
               <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
@@ -179,30 +175,29 @@
         </nav>
       </div>
     </div>
-    <br>
     <!-- End Menu -->
+   <br>
 
-
-  <!-- Form -->
-    <form class="custom" 
-          id="booking_validate" 
-          name="input" 
-          action="<?php echo base_url('airline/booking');?>" 
-          method="post"
-    >
-
-      <!-- Header -->
+<!-- Form -->
+  <form class="custom" 
+        id="booking_validate" 
+        name="input" 
+        action="<?php echo base_url('airline/booking');?>" 
+        method="post"
+  >
+      <!-- Header-->
       <div class="row">
         <div class="twelve columns">
-          <h3 style="color:#FE5214;">
-            Airlines Ticket 
-          </h3>
+            <h3 style="color:#FE5214;">
+              AIRLINE BOOKING
+            </h3>
         </div>
       </div>
-      <div class="border"></div>
-      <!-- Header End -->
+      <div class="border">
+      </div>
+      <!--End Header-->
 
-        <!--Type-->
+         <!--Type-->
         <div class="row">
           <div class="three columns">   
             <input type="radio" id="flt_type" name="flt_type" value="Round Trip" checked="" onclick="OnTypeClick(this);">Round Trip
@@ -276,7 +271,6 @@
         <!--End From-->
 
         <!--go-->
-        
           <div class="six columns">
             <label>ไป</label>
             <select name="flt_go_to_location">
@@ -446,19 +440,20 @@
           </div>
         </div>
         <!-- Amount of person End -->
-    
-      <!-- Name -->
+
+      <!--Name-->
       <div class="row">
         <div class="six columns">
           <label>ชื่อ</label>
-          <input type="text" placeholder="Firstname" id="flt_firstname" name="flt_firstname">
+            <input type="text" placeholder="Firstname" id="flt_firstname" name="flt_firstname" value="<?php echo set_value('flt_firstname');?>">
         </div>
+
         <div class="six columns">
           <label>นามสกุล</label>
-          <input type="text" placeholder="Lastname" id="flt_lastname" name="flt_lastname">
-      </div>
-    </div>
-      <!-- Name End -->
+            <input type="text" placeholder="Lastname" id="flt_lastname" name="flt_lastname">
+         </div>
+       </div>
+      <!--End Name-->
 
       <!--Address-->
       <div class="row">
@@ -469,7 +464,7 @@
       </div>
       <div class="row">
         <div class="six columns">
-          <input type="text" placeholder="City" id="flt_city" name="flt_city" class="error">
+          <input type="text" placeholder="City" id="flt_city" name="flt_city">
         </div>
         <div class="three columns">
           <input type="text" placeholder="Province/State" id="flt_province" name="flt_province">
@@ -478,63 +473,66 @@
           <input type="text" placeholder="ZIP" id="flt_zipcode" name="flt_zipcode">
         </div>
       </div>
-        <!--End Address-->
+      <!--End Address-->
 
-        <!--Nationality-->
-        <div class="row">
-          <div class="six columns">
-            <label>สัญชาติ</label>
-            <input type="text" placeholder="Nationality" id="flt_nationality" name="flt_nationality">
-          </div>
-        </div> 
-        <!--End Nationality-->
-
-        <!--Telephone and email-->
-        <div class="row">
-          <div class="six columns">
-            <label>เบอร์โทร</label>
-            <input type="text" placeholder="Telephone" id="flt_telephone" name="flt_telephone">
-          </div>
-          <div class="six columns">
-            <label>อีเมล์</label>
-            <input type="text" placeholder="Email" id="flt_email" name="flt_email">
-          </div>
+      <!--Nationality-->
+      <div class="row">
+        <div class="six columns">
+          <label>สัญชาติ</label>
+          <input type="text" placeholder="Nationality" id="flt_nationality" name="flt_nationality">
         </div>
-        <!--End Telephone and email-->
+      </div> 
+      <!--End Nationality-->
 
-        <div class="row">
+      <!--Telephone and email-->
+      <div class="row">
+        <div class="six columns">
+          <label>เบอร์โทร</label>
+          <input type="text" placeholder="Telephone" id="flt_telephone" name="flt_telephone">
+        </div>
+        <div class="six columns">
+          <label>อีเมล์</label>
+          <input type="text" placeholder="Email" id="flt_email" name="flt_email">
+        </div>
+      </div>
+      <!--End Telephone and email-->
+
+ <div class="row">
            <div class="twelve columns">
             <h2>สิ่งที่ต้องการเพิ่มเติม</h2>
             <textarea placeholder="Message" rows="5" id="flt_message" name="flt_message"></textarea>
           </div>
         </div>
 
-      <!-- Contact Us -->
-      <div class="row">
-        <div class="twelve columns">
-          <ul class="tags">
-            <li style="font-size:30px; color:#FE5214;">ติดต่อเรา :</li>
-            <li><b>โทร.</b> 082-8121146, 076-331280&nbsp;&nbsp;<b>แฟกซ์.</b> 076-331273&nbsp;&nbsp;<b>อีเมล์</b> info@uastravel.com</li>
-          </ul>
-        </div> 
-      </div>
-      <!-- Contact Us End-->
 
+      <!--contact-->
+        <div class="row">
+          <div class="twelve columns">
+            <ul class="tags">
+              <li style="font-size:30px; color:#FE5214;">ติดต่อเรา :</li>
+              <li><b>โทร.</b> 082-8121146, 076-331280&nbsp;&nbsp;<b>แฟกซ์.</b> 076-331273&nbsp;&nbsp;<b>อีเมล์</b> info@uastravel.com</li>
+            </ul>
+          </div> 
+        </div>
+      <!--End Contact-->
+
+      <!--button booking-->
       <div class="row">
-        <div class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;"> 
+          <div class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;"> 
             <div class="eight columns">
             </div>
             <div class="four columns">
-              <input class="button small  booking" style="width:150px;" type="submit" value="จองตั๋วเครื่องบิน  ">
+              <input class="button small  booking" style="width:150px;" type="submit" value="จองรถเช่า">
             </div>
-
+          </div>
+          <div class="clearfix">
         </div>
-        <div class="clearfix"></div>
       </div>
-
+      <!--End button booking-->
     </form>
   </div>
-  <!-- Form End -->
+
+  <!-- End Form -->
 
   <footer>
     <div class="row">
@@ -562,7 +560,6 @@
     </div>
   </footer>
 
-
-<?php include_once("themes/Travel/tour/analyticstracking.php") ?>
+<?php include_once("themes/Travel/tour/analyticstracking.php");?>
 </body>
 </html>
