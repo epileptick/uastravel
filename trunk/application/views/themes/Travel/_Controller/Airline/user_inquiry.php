@@ -161,8 +161,8 @@
                 <ul class="dropdown">
                   <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
                   <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
-                  <li><a href="<?php echo base_url('tour/จองรถเช่า');?>">จองรถเช่า</a></li>
-                  <li><a href="<?php echo base_url('tour/จองตั๋วเครื่องบิน');?>">จองตั๋วเครื่องบิน</a></li>
+                  <li><a href="<?php echo base_url('carrent/inquiry');?>">จองรถเช่า</a></li>
+                  <li><a href="<?php echo base_url('airline/inquiry');?>">จองตั๋วเครื่องบิน</a></li>
                 </ul>                
               </li> 
               <li class="has-dropdown">
