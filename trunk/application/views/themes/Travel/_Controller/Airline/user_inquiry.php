@@ -50,16 +50,23 @@
     // validate signup form on keyup and submit
     var validator = $("#booking_validate").validate({
       rules: {
-        tob_firstname: "required",
-        tob_lastname: "required",
-        tob_address: "required",
-        tob_city: "required",
-        tob_province: "required",
-        tob_zipcode: "required",
-        tob_nationality: "required",
-        tob_telephone: "required",
-        tob_email: "required",
-        tob_tranfer_date: "required",
+        flt_firstname: "required",
+        flt_lastname: "required",
+        flt_address: "required",
+        flt_city: "required",
+        flt_province: "required",
+        flt_zipcode: "required",
+        flt_nationality: "required",
+        flt_telephone: "required",
+        flt_email: "required",
+        flt_from_location: "required",
+        flt_go_to_location: "required",
+        flt_depart_date: "required",
+        flt_adult_amount: "required",
+        flt_child_amount: "required",
+        flt_infant_amount: "required",
+        flt_type: "required",
+        flt_class: "required",
       },
       messages: {
       },
@@ -82,21 +89,36 @@
   });
 </script>
 
-<script>
-
-  $(function() {
-    $( "#tob_tranfer_date" ).datepicker({
+  <script>
+    $(function() {
+      $( "#flt_depart_date" ).datepicker({
         numberOfMonths: 1,  
         minDate: 1,
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
         changeYear: true,     
-        dayNames: ['จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์','อาทิตย์'],       
-        dayNamesMin: ['จ','อ','พ','พฤ','ศ','ส','อา'],     
+        dayNames: ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'],       
+        dayNamesMin: ['อา','จ','อ','พ','พฤ','ศ','ส'],     
         monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม']       
+      });
     });
-  });
-  </script>  
+  </script> 
+
+  <script>
+    $(function() {
+      $( "#flt_return_date" ).datepicker({
+        numberOfMonths: 1,  
+        minDate: 1,
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,     
+        dayNames: ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'],       
+        dayNamesMin: ['อา','จ','อ','พ','พฤ','ศ','ส'],     
+        monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม']      
+      });
+    });
+  </script>
+
 </head>
 
 
@@ -163,6 +185,7 @@
 
   <!-- Form -->
     <form class="custom" 
+          id="booking_validate" 
           name="input" 
           action="<?php echo base_url('airline/booking');?>" 
           method="post"
@@ -179,59 +202,312 @@
       <div class="border"></div>
       <!-- Header End -->
 
+        <!--Type-->
+        <div class="row">
+          <div class="three columns">   
+            <input type="radio" id="flt_type" name="flt_type" value="Round Trip" checked="" onclick="OnTypeClick(this);">Round Trip
+          </div>
+          <div class="nine columns">
+            <input type="radio" id="flt_type" name="flt_type" value="One Way" onclick="OnTypeClick(this);">One Way
+         </div>
+       </div>
+       <br/>
+        <!--End Type-->
 
+        <!--Class-->
+        <div class="row">
+          <div class="four columns">
+            <label>ชั้นที่นั่ง</label>
+            <select name="flt_class">  
+              <optgroup label="**** Select Class****">
+                <option value="First Class">First Class</option>  
+                <option value="Business Class">Business Class</option>        
+                <option value="Economy Class">Economy Class</option>              
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <br/>
+        <!--End Class-->
+
+        <!--From-->
+        <div class="row">
+          <div class="six columns">
+            <label>เดินทางจาก</label>
+            <select name="flt_from_location">  
+                <option value="กรุงเทพมหานคร(สุวรรณภูมิ)" selected>กรุงเทพมหานคร(สุวรรณภูมิ)</option>  
+                <option value="กรุงเทพมหานคร(ดอนเมือง)">กรุงเทพมหานคร(ดอนเมือง)</option>        
+                <option value="เชียงราย">เชียงราย</option>
+                <option value="เชียงใหม่">เชียงใหม่</option>
+                <option value="ชุมพร">ชุมพร</option>
+                <option value="ตรัง">ตรัง</option>
+                <option value="นครพนม">นครพนม</option>
+                <option value="นครศรีธรรมราช">นครศรีธรรมราช</option>
+                <option value="น่าน">น่าน</option>
+                <option value="บุรีรัมย์">บุรีรัมย์</option>
+                <option value="พิษณุโลก">พิษณุโลก</option>
+                <option value="ภูเก็ต">ภูเก็ต</option>
+                <option value="แพร่">แพร่</option>
+                <option value="มุกดาหาร">มุกดาหาร</option>
+                <option value="แม่สอด">แม่สอด</option>
+                <option value="แม่ฮ่องสอน">แม่ฮ่องสอน</option>
+                <option value="ระนอง">ระนอง</option>
+                <option value="ร้อยเอ็ด">ร้อยเอ็ด</option>
+                <option value="เลย">เลย</option>
+                <option value="สกลนคร">สกลนคร</option>
+                <option value="สุราษฎร์ธานี">สุราษฎร์ธานี</option>
+                <option value="หาดใหญ่">หาดใหญ่</option>
+                <option value="อุบลราชธานี">อุบลราชธานี</option>
+                <option value="อุดรธานี">อุดรธานี</option>
+              <optgroup label="***** เกาะ *****">
+                <option value="เกาะเต่า">เกาะเต่า</option>
+                <option value="เกาะไหง">เกาะไหง</option>
+                <option value="เกาะกระดาน">เกาะกระดาน</option>
+                <option value="เกาะนางยวน">เกาะนางยวน</option>
+                <option value="เกาะพะงัน">เกาะพะงัน (ท้องศาลา)</option>
+                <option value="เกาะพีพี">เกาะพีพี</option>
+                <option value="เกาะมุก">เกาะมุก</option>
+                <option value="เกาะลันตา">เกาะลันตา (ศาลาด่าน)</option>
+                <option value="เกาะสมุย">เกาะสมุย (หน้าทอน)</option>
+                <option value="เกาะหลีเป๊ะ">เกาะหลีเป๊ะ</option>
+              </optgroup>
+            </select>
+          </div>       
+        <!--End From-->
+
+        <!--go-->
+        
+          <div class="six columns">
+            <label>ไป</label>
+            <select name="flt_go_to_location">
+             <option value="กรุงเทพมหานคร(สุวรรณภูมิ)" selected>กรุงเทพมหานคร(สุวรรณภูมิ)</option>  
+                <option value="กรุงเทพมหานคร(ดอนเมือง)">กรุงเทพมหานคร(ดอนเมือง)</option>        
+                <option value="เชียงราย">เชียงราย</option>
+                <option value="เชียงใหม่">เชียงใหม่</option>
+                <option value="ชุมพร">ชุมพร</option>
+                <option value="ตรัง">ตรัง</option>
+                <option value="นครพนม">นครพนม</option>
+                <option value="นครศรีธรรมราช">นครศรีธรรมราช</option>
+                <option value="น่าน">น่าน</option>
+                <option value="บุรีรัมย์">บุรีรัมย์</option>
+                <option value="พิษณุโลก">พิษณุโลก</option>
+                <option value="ภูเก็ต" selected>ภูเก็ต</option>
+                <option value="แพร่">แพร่</option>
+                <option value="มุกดาหาร">มุกดาหาร</option>
+                <option value="แม่สอด">แม่สอด</option>
+                <option value="แม่ฮ่องสอน">แม่ฮ่องสอน</option>
+                <option value="ระนอง">ระนอง</option>
+                <option value="ร้อยเอ็ด">ร้อยเอ็ด</option>
+                <option value="เลย">เลย</option>
+                <option value="สกลนคร">สกลนคร</option>
+                <option value="สุราษฎร์ธานี">สุราษฎร์ธานี</option>
+                <option value="หาดใหญ่">หาดใหญ่</option>
+                <option value="อุบลราชธานี">อุบลราชธานี</option>
+                <option value="อุดรธานี">อุดรธานี</option>
+                <optgroup label="***** เกาะ *****">
+                <option value="เกาะเต่า">เกาะเต่า</option>
+                <option value="เกาะไหง">เกาะไหง</option>
+                <option value="เกาะกระดาน">เกาะกระดาน</option>
+                <option value="เกาะนางยวน">เกาะนางยวน</option>
+                <option value="เกาะพะงัน">เกาะพะงัน (ท้องศาลา)</option>
+                <option value="เกาะพีพี">เกาะพีพี</option>
+                <option value="เกาะมุก">เกาะมุก</option>
+                <option value="เกาะลันตา">เกาะลันตา (ศาลาด่าน)</option>
+                <option value="เกาะสมุย">เกาะสมุย (หน้าทอน)</option>
+                <option value="เกาะหลีเป๊ะ">เกาะหลีเป๊ะ</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>      
+        <!--End Go-->
+        <br/>
+
+        <!--Depart Date&Time-->
+        <div class="row">
+          <div class="six columns">
+            <label>ออกเดินทาง</label>
+            <input type="text" placeholder="Depart Date" id="flt_depart_date" name="flt_depart_date">
+          </div>      
+          <div class="six columns">
+            <label>เวลาออกเดินทาง</label>         
+            <select name="flt_depart_time">
+              <option value="ANY" selected>Any Time</option>          
+              <option value="01:00">01:00</option>
+              <option value="02:00">02:00</option>
+              <option value="03:00">03:00</option>
+              <option value="04:00">04:00</option>
+              <option value="05:00">05:00</option>
+              <option value="06:00">06:00</option>
+              <option value="07:00">07:00</option>
+              <option value="08:00">08:00</option>
+              <option value="09:00">09:00</option>
+              <option value="10:00">10:00</option>
+              <option value="11:00">11:00</option>
+              <option value="12:00">12:00</option>
+              <option value="13:00">13:00</option>
+              <option value="14:00">14:00</option>
+              <option value="15:00">15:00</option>
+              <option value="16:00">16:00</option>
+              <option value="17:00">17:00</option>
+              <option value="18:00">18:00</option>
+              <option value="19:00">19:00</option>
+              <option value="20:00">20:00</option>
+              <option value="21:00">21:00</option>
+              <option value="22:00">22:00</option>
+              <option value="23:oo">23:00</option>
+              <option value="24:00">24:00</option>
+            </select>
+          </div>
+        </div>
+        <!--End Depart Date And Time-->
+
+        <!--Return Date And Time-->
+        <div class="row">
+          <div class="six columns">
+            <label>เดินทางกลับ</label>
+            <input type="text" placeholder="Return Date" id="flt_return_date" name="flt_return_date">
+        </div>    
+          <div class="six columns">
+            <label>เวลาเดินทางกลับ</label>
+            <select name="flt_return_time">
+              <option value="ANY" selected>Any Time</option>          
+              <option value="01:00">01:00</option>
+              <option value="02:00">02:00</option>
+              <option value="03:00">03:00</option>
+              <option value="04:00">04:00</option>
+              <option value="05:00">05:00</option>
+              <option value="06:00">06:00</option>
+              <option value="07:00">07:00</option>
+              <option value="08:00">08:00</option>
+              <option value="09:00">09:00</option>
+              <option value="10:00">10:00</option>
+              <option value="11:00">11:00</option>
+              <option value="12:00">12:00</option>
+              <option value="13:00">13:00</option>
+              <option value="14:00">14:00</option>
+              <option value="15:00">15:00</option>
+              <option value="16:00">16:00</option>
+              <option value="17:00">17:00</option>
+              <option value="18:00">18:00</option>
+              <option value="19:00">19:00</option>
+              <option value="20:00">20:00</option>
+              <option value="21:00">21:00</option>
+              <option value="22:00">22:00</option>
+              <option value="23:oo">23:00</option>
+              <option value="24:00">24:00</option>
+            </select>
+          </div>         
+        </div>
+        <!--End Return Date&Time-->
+
+        <br/>
+
+        <!-- Amount of person -->
+        <div class="row">
+          <div class="twelve columns">
+            <h3>ข้อมูลผู้เดินทาง</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="four columns">
+            <label>จำนวนผู้ใหญ่</label>
+            <select name="flt_adult_amount">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+          <div class="four columns">
+            <label>จำนวนเด็ก (4 - 12 years)</label>
+            <select name="flt_child_amount">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="4">5</option>
+            </select>
+          </div>
+          <div class="four columns">
+            <label>จำนวนทารก (under 4 years)</label>
+            <select name="flt_infant_amount">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+        </div>
+        <!-- Amount of person End -->
+    
       <!-- Name -->
       <div class="row">
         <div class="six columns">
           <label>ชื่อ</label>
-          <input type="text" placeholder="Firstname" id="flt_firstname" name="flt_firstname" value="" class="error">
+          <input type="text" placeholder="Firstname" id="flt_firstname" name="flt_firstname">
         </div>
         <div class="six columns">
           <label>นามสกุล</label>
-          <input type="text" placeholder="Lastname" id="flt_lastname" name="flt_lastname" class="error">
-        <label for="tob_firstname" generated="true" class="error">This field is required.</label></div>
+          <input type="text" placeholder="Lastname" id="flt_lastname" name="flt_lastname">
       </div>
+    </div>
       <!-- Name End -->
 
-      <!-- Amount of person -->
+      <!--Address-->
       <div class="row">
-        <div class="four columns">
-          <label>จำนวนผู้ใหญ่</label>
-          <select name="flt_adult_amount">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-        </div>
-        <div class="four columns">
-          <label>จำนวนเด็ก (4 - 12 years)</label>
-          <select name="flt_child_amount">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="4">5</option>
-          </select>
-        </div>
-        <div class="four columns">
-          <label>จำนวนทารก (under 4 years)</label>
-          <select name="flt_infant_amount">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
+       <div class="twelve columns">
+          <label>ที่อยู่</label>
+          <input type="text" placeholder="Address" id="flt_address" name="flt_address">
         </div>
       </div>
-      <!-- Amount of person End -->
+      <div class="row">
+        <div class="six columns">
+          <input type="text" placeholder="City" id="flt_city" name="flt_city" class="error">
+        </div>
+        <div class="three columns">
+          <input type="text" placeholder="Province/State" id="flt_province" name="flt_province">
+        </div>
+        <div class="three columns">
+          <input type="text" placeholder="ZIP" id="flt_zipcode" name="flt_zipcode">
+        </div>
+      </div>
+        <!--End Address-->
+
+        <!--Nationality-->
+        <div class="row">
+          <div class="six columns">
+            <label>สัญชาติ</label>
+            <input type="text" placeholder="Nationality" id="flt_nationality" name="flt_nationality">
+          </div>
+        </div> 
+        <!--End Nationality-->
+
+        <!--Telephone and email-->
+        <div class="row">
+          <div class="six columns">
+            <label>เบอร์โทร</label>
+            <input type="text" placeholder="Telephone" id="flt_telephone" name="flt_telephone">
+          </div>
+          <div class="six columns">
+            <label>อีเมล์</label>
+            <input type="text" placeholder="Email" id="flt_email" name="flt_email">
+          </div>
+        </div>
+        <!--End Telephone and email-->
+
+        <div class="row">
+           <div class="twelve columns">
+            <h2>สิ่งที่ต้องการเพิ่มเติม</h2>
+            <textarea placeholder="Message" rows="5" id="flt_message" name="flt_message"></textarea>
+          </div>
+        </div>
 
       <!-- Contact Us -->
       <div class="row">
