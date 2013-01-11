@@ -20,6 +20,7 @@ CREATE TABLE `ci_carbooking` (
   `cab_dropoff_date` date DEFAULT NULL,
   `cab_dropoff_time` varchar(50) DEFAULT NULL,
   `cab_message` varchar(250) DEFAULT NULL,
+  `cab_credit` varchar(50) DEFAULT NULL,
   `cab_hashcode` varchar(250) DEFAULT NULL,
   `cab_cr_uid` int(11) DEFAULT NULL,
   `cab_cr_date` timestamp NULL DEFAULT NULL,

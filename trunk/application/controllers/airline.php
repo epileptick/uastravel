@@ -77,15 +77,13 @@ class Airline extends MY_Controller {
 
     $subject = "คุณได้ทำการจองตั๋วเครื่องบิน ผ่านทาง uastravel.com";
 
-
+    $message .='  ##########  ระบบการจองตั๋วเครื่องบิน  ##########';
     $message = '<p>สวัสดีค่ะ คุณ'.$booking["flt_firstname"].',</p>';
     $message .='<p>ขอขอบคุณที่ไว้วางใจในบริการของ <a href="http://www.uastravel.com">uastravel.com</a></p>';
     $message .='<p>รายละเอียดการจองตั๋วเครื่องบินของคุณมีดังนี้</p>';
     $message .='<blockquote>';
     $message .='  ##########  รายละเอียดการจอง ##########';
     $message .='  <br />หมายเลขการจอง : '.$booking["flt_code"];
-    //$message .='  <br />ชื่อทัวร์ : '.$booking["tob_tour_name"].'('.$booking["tob_tour_code"].')';
-    //$message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/'.$booking["tob_tour_url"].'-'.$booking["tob_tour_id"].'">'.$booking["tob_tour_name"].'</a>';
     $message .='  <br />##########  รายละเอียด ##########';
     $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["flt_adult_amount"];
     $message .='  <br />จำนวนเด็ก : '.$booking["flt_child_amount"];
@@ -120,6 +118,57 @@ class Airline extends MY_Controller {
           <br />80/86 หมู่บ้านศุภาลัยซิตี้ฮิลล์ ม.3
           <br />ต.รัษฎา อ.เมือง ภูเก็ต 83000
       ';        
+
+    //echo $message; exit;
+    mail($to,$subject,$message,$headers);
+  }
+
+  function sendmail_booking_admin($booking){
+
+    // To send HTML mail, the Content-type header must be set
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+    // Additional headers
+    $headers .= 'To: booking@uastravel.com <booking@uastravel.com >' . "\r\n";
+    $headers .= 'From: uastravel.com <info@uastravel.com>' . "\r\n";
+
+    $to = "booking.uastravel@gmail.com";
+
+    // subject
+    $subject = 'ข้อมูลการจองรถเช่า '.$booking["tob_firstname"];
+
+          $message .='  ##########  รายละเอียดการจอง ( จองตั๋วเครื่องบิน ) ##########';
+          $message = '<p>สวัสดีค่ะ คุณ'.$booking["flt_firstname"].',</p>';
+          $message .='<p>ขอขอบคุณที่ไว้วางใจในบริการของ <a href="http://www.uastravel.com">uastravel.com</a></p>';
+          $message .='<p>รายละเอียดการจองตั๋วเครื่องบินของคุณมีดังนี้</p>';
+          $message .='<blockquote>';
+          $message .='  ##########  รายละเอียดการจอง  ##########';
+          $message .='  <br />หมายเลขการจอง : '.$booking["flt_code"];
+          $message .='  <br />##########  รายละเอียด ##########';
+          $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["flt_adult_amount"];
+          $message .='  <br />จำนวนเด็ก : '.$booking["flt_child_amount"];
+          $message .='  <br />จำนวนเด็กทารก : '.$booking["flt_infant_amount"];
+          $message .='  <br />';
+          $message .='  <br />##########  รายละเอียดผู้จอง  ##########';
+          $message .='  <br />ชื่อผู้จอง : '.$booking["flt_firstname"].' '.$booking["flt_lastname"];
+          $message .='  <br />สัญชาติ : '.$booking["flt_nationality"];
+          $message .='  <br />ที่อยู่ : '.$booking["flt_address"].', '.$booking["flt_city"].', '.$booking["flt_province"].', '.$booking["flt_zipcode"];
+          $message .='  <br />เบอร์ติดต่อ : '.$booking["flt_telephone"];
+          $message .='  <br />อีเมล : '.$booking["flt_email"];
+          $message .='  <br />';
+          $message .='  <br />เดินทางจาก : '.$booking["flt_from_location"];
+          $message .='  <br />เดินทางไป : '.$booking["flt_go_to_date"];
+          $message .='  <br />วันที่ออกเดินทาง : '.$booking["flt_depart_date"];
+          $message .='  <br />เวลาที่ออกเดินทาง : '.$booking["flt_depart_time"];
+          $message .='  <br />วันที่เดินทางกลับ : '.$booking["flt_return_date"];
+          $message .='  <br />เวลาที่เดินทางกลับ : '.$booking["flt_return_time"];
+          $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["flt_message"];
+          $message .='  <br />';
+          $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
+          $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/airline/booking/'.$booking["flt_hashcode"].'">'.$booking["flt_code"].'</a>';
+          $message .='  <br />';
+          $message .='</blockquote>';   
 
     //echo $message; exit;
     mail($to,$subject,$message,$headers);

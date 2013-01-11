@@ -88,15 +88,13 @@ function user_booking($args){
 
     $subject = "คุณได้ทำการจองรถ ผ่านทาง uastravel.com";
 
-
+    $message .=' ########## ระบบการจองรถเช่า ##########';
     $message = '<p>สวัสดีค่ะ คุณ'.$booking["cab_firstname"].',</p>';
     $message .='<p>ขอขอบคุณที่ไว้วางใจในบริการของ <a href="http://www.uastravel.com">uastravel.com</a></p>';
     $message .='<p>รายละเอียดการจองรถของคุณมีดังนี้</p>';
     $message .='<blockquote>';
     $message .='  ##########  รายละเอียดการจอง ##########';
     $message .='  <br />หมายเลขการจอง : '.$booking["cab_code"];
-    //$message .='  <br />ชื่อทัวร์ : '.$booking["tob_tour_name"].'('.$booking["tob_tour_code"].')';
-    //$message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/'.$booking["tob_tour_url"].'-'.$booking["tob_tour_id"].'">'.$booking["tob_tour_name"].'</a>';
     $message .='  <br />##########  รายละเอียด ##########';
     $message .='  <br />จำนวนผู้โดยสาร : '.$booking["cab_passenger_amount"];
     $message .='  <br />';
@@ -129,6 +127,51 @@ function user_booking($args){
           <br />80/86 หมู่บ้านศุภาลัยซิตี้ฮิลล์ ม.3
           <br />ต.รัษฎา อ.เมือง ภูเก็ต 83000
       ';        
+
+    //echo $message; exit;
+    mail($to,$subject,$message,$headers);
+  }
+
+  function sendmail_booking_admin($booking){
+
+    // To send HTML mail, the Content-type header must be set
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+    // Additional headers
+    $headers .= 'To: booking@uastravel.com <booking@uastravel.com >' . "\r\n";
+    $headers .= 'From: uastravel.com <info@uastravel.com>' . "\r\n";
+
+    $to = "booking.uastravel@gmail.com";
+
+    // subject
+    $subject = 'ข้อมูลการจองรถเช่า '.$booking["tob_firstname"];
+
+          $message .='  ##########  รายละเอียดการจอง ( จองรถเช่า ) ##########';
+          $message .='  <br />หมายเลขการจอง : '.$booking["cab_code"];
+          $message .='  <br />##########  รายละเอียด  ##########';
+          $message .='  <br />จำนวนผู้โดยสาร : '.$booking["cab_passenger_amount"];
+          $message .='  <br />';
+          $message .='  <br />##########  รายละเอียดผู้จอง  ##########';
+          $message .='  <br />ชื่อผู้จอง : '.$booking["cab_firstname"].' '.$booking["cab_lastname"];
+          $message .='  <br />สัญชาติ : '.$booking["cab_nationality"];
+          $message .='  <br />ที่อยู่ : '.$booking["cab_address"].', '.$booking["cab_city"].', '.$booking["cab_province"].', '.$booking["cab_zipcode"];
+          $message .='  <br />เบอร์ติดต่อ : '.$booking["cab_telephone"];
+          $message .='  <br />อีเมล : '.$booking["cab_email"];
+          $message .='  <br />';
+          $message .='  <br />สถานที่รับรถ : '.$booking["cab_pickup_location"];
+          $message .='  <br />วันที่รับรถ : '.$booking["cab_pickup_date"];
+          $message .='  <br />เวลาที่รับรถ : '.$booking["cab_pickup_time"];
+          $message .='  <br />สถานที่คืนรถ : '.$booking["cab_dropoff_location"];
+          $message .='  <br />วันที่คืนรถ : '.$booking["cab_dropoff_date"];
+          $message .='  <br />เวลาที่คืนรถ : '.$booking["cab_dropoff_time"];
+          $message .='  <br />บัตรเครดิต : '.$booking["cab_credit"];
+          $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["cab_message"];
+          $message .='  <br />';
+          $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
+          $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/carrent/booking/'.$booking["cab_hashcode"].'">'.$booking["cab_code"].'</a>';
+          $message .='  <br />';
+          $message .='</blockquote>';  
 
     //echo $message; exit;
     mail($to,$subject,$message,$headers);
