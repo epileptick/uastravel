@@ -48,7 +48,7 @@ class Carrent extends MY_Controller {
       //print_r($booking); exit;
       //Send Mail
       $this->sendmail_booking_user($booking);
-     // $this->sendmail_booking_admin($booking);
+      $this->sendmail_booking_admin($booking);
 
       //Forward
       redirect(base_url("carrent/booking/".$booking["cab_hashcode"]));  
