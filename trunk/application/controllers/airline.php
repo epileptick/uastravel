@@ -187,21 +187,7 @@ class Airline extends MY_Controller {
     $this->_fetch('user_booking', $data, false, true);
 
   }
-
-/*
-      $this->load->model("airlinebooking_model", "airlinebookingModel");
-      $booking = $this->airlinebookingModel->addRecord($args);
-
-      $this->sendmail_booking_user($booking);
-      $this->sendmail_booking_admin($booking);
-
-      //Forward
-      redirect(base_url("tour/booking/".$booking["tob_hashcode"]));  
-*/
-      //print_r($insert_id); exit;
-    
-
-  
+ 
 }
 
 ?>

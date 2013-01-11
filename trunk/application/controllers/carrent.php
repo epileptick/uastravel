@@ -7,9 +7,7 @@ class Carrent extends MY_Controller {
   }
   
   function user_index(){
-  
-  //check class
-     if($this->uri->segment(1) == $this->router->class){
+    if($this->uri->segment(1) == $this->router->class){
       $index = 1;
     }else if($this->uri->segment(2) == $this->router->class){
       $index = 2;     
@@ -31,11 +29,6 @@ class Carrent extends MY_Controller {
 
     }
 
-   /* else if($this->uri->segment($index+1)=="booking"){
-        $args = $this->input->post();
-        $this->user_booking($args);
-      
-    }*/
   }
 
   function user_inquiry(){
@@ -44,9 +37,7 @@ class Carrent extends MY_Controller {
   }
 
 
-function user_booking($args){
-
-
+  function user_booking($args){
 
     if(!empty($args)){
 
@@ -67,7 +58,6 @@ function user_booking($args){
       //Redirect
       redirect(base_url("carrent/inquiry/".$args["id"]));    
     }
-
 
   }
 
@@ -177,7 +167,7 @@ function user_booking($args){
     mail($to,$subject,$message,$headers);
   }
 
-    function user_bookingview($hashcode){
+  function user_bookingview($hashcode){
 
     $args["cab_hashcode"] = $hashcode;
 
@@ -189,28 +179,5 @@ function user_booking($args){
     $this->_fetch('user_booking', $data, false, true);
 
   }
-
-
-  /*function user_booking($args){
-
-    $data = array();
-    if(!empty($args)){
-
-      if(trim($args['cab_firstname'])==""){
-        $data['error'] [] = "Please enter firstname";
-      }
-      if(trim($args['cab_lastname'])==""){
-        $data['error'] [] = "Please enter lastname";
-      }
-        $this->_fetch('user_inquiry', $data,false,true);
-
-      }else{
-        $data['error'] [] = "Please enter require field";
-        $this->_fetch('user_inquiry', $data, false, true);
-      }
-
-    } */
-  }
-
+}
 ?>
-   
