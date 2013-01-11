@@ -54,6 +54,7 @@
         cab_pickup_date: "required",        
         cab_dropoff_location: "required",
         cab_dropoff_date: "required",   
+        cab_credit: "required",
       },
       messages: {
       },
@@ -253,26 +254,6 @@
             <input type="text" placeholder="Pick Up Location" id="cab_pickup_location" name="cab_pickup_location">
         </div>
       </div>
-        
-        <!--Passenger Amount-->
-        <div class="row">
-          <div class="four columns">
-            <label>จำนวนผู้เดินทาง</label>
-            <select name="cab_passenger_amount">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-          </div> 
-        </div>
-        <!--End Passenger Amount-->
 
       <div class="row">
         <div class="six columns">
@@ -357,6 +338,34 @@
             </select>
           </div>        
       </div>
+
+       <!--Passenger Amount-->
+        <div class="row">
+          <div class="six columns">
+            <label>จำนวนผู้เดินทาง</label>
+            <select name="cab_passenger_amount">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div> 
+          <div class="six columns">
+            <label>บัตรเครดิต</label>
+            <select name="cab_credit">
+                <option value="มี">มี</option>
+                <option value="ไม่มี">ไม่มี</option>    
+            </select>
+          </div> 
+        </div>
+        <!--End Passenger Amount-->
+
       <div class="row">
         <div class="twelve columns">
         <h2>สิ่งที่ต้องการเพิ่มเติม</h2>
@@ -392,8 +401,6 @@
   </div>
 
   <!-- End Form -->
- <div class="row">
-  <div class="twelve columns">
   <footer>
     <div class="row">
       <div class="shadow"></div>
@@ -419,9 +426,8 @@
       </div>
     </div>
   </footer>
-</div></div>
 
 
-<?php include_once("themes/Travel/tour/analyticstracking.php") ?>
+<?php include_once("themes/Travel/tour/analyticstracking.php") ;?>
 </body>
 </html>
