@@ -575,7 +575,8 @@ class Tour extends MY_Controller {
       //Tour
       $tour["id"] = $id;
       $tagtour["tour_id"] = $id;
-      $agencytour["tour_id"] = $id;      
+      $agencytour["tour_id"] = $id;  
+      $extendprice["extp_tour_id"] = $id;  
       $data["tour"] = $this->tourModel->getRecord($tour); 
 
 
@@ -627,6 +628,14 @@ class Tour extends MY_Controller {
             $maxAgencyPrice = $value->sale_adult_price;
           }
         }
+      }
+
+      //Extend Price
+      $this->load->model("extendprice_model", "extendpriceModel");
+      $extendpriceQuery["extendprice"] = $this->extendpriceModel->getRecord($extendprice);
+
+      if(!empty($extendpriceQuery["extendprice"])){
+        $data["extendprice"] = $extendpriceQuery["extendprice"];
       }
 
       //Images
@@ -693,6 +702,7 @@ class Tour extends MY_Controller {
 
         //print_r($related); exit;
       }
+
       //Price
       $agencytour["tour_id"] = $id; 
       $this->load->model("agencytour_model", "agencytourModel");
@@ -706,6 +716,15 @@ class Tour extends MY_Controller {
             $maxAgencyPrice = $value->sale_adult_price;
           }
         }
+      }
+
+      //Extend Price
+      $extendprice["extp_tour_id"] = $id; 
+      $this->load->model("extendprice_model", "extendpriceModel");
+      $extendpriceQuery["extendprice"] = $this->extendpriceModel->getRecord($extendprice);
+
+      if(!empty($extendpriceQuery["extendprice"])){
+        $data["extendprice"] = $extendpriceQuery["extendprice"];
       }
 
       //print_r($data); exit;
@@ -725,8 +744,6 @@ class Tour extends MY_Controller {
 
 
   function user_booking($args){
-
-
 
     if(!empty($args)){
 
@@ -878,9 +895,14 @@ class Tour extends MY_Controller {
     $this->load->model("tourbooking_model", "tourbookingModel");
     $data["booking"] = $this->tourbookingModel->getRecord($args);    
 
+
+    if(!empty($data["booking"] )){
+      $this->_fetch('user_bookingview', $data, false, true);
+    }else{
+      show_404();  
+    }
     //print_r($data); exit;
 
-    $this->_fetch('user_booking', $data, false, true);
 
   }
 
@@ -962,7 +984,7 @@ class Tour extends MY_Controller {
       //Check update     
       if($data["tour"]>0){
 
-        //Query (AgencyTour) relationship data table by tour_id
+        //Agency tour
         $this->load->model("agencytour_model", "agencytourModel");  
         $agencyTour["tour_id"] = $id;
         $data["agencyTour"] = $this->agencytourModel->getRecord($agencyTour);  
@@ -978,8 +1000,17 @@ class Tour extends MY_Controller {
             $data["agencyTour"][$key]->agency_name = $queryAgency[0]->name;
           }
         } 
-           
-        //Query (TagTour) relationship data table by tour_id
+
+        //Extend price
+        $this->load->model("extendprice_model", "extendpriceModel");  
+        $extendprice["extp_tour_id"] = $id;
+        $data["extendprice"] = $this->extendpriceModel->getRecord($extendprice);  
+        
+        //print_r($data["extendprice"]); exit;
+
+
+
+        //Tag
         $this->load->model("tagtour_model", "tagtourModel");  
         $tagTour["tour_id"] = $id;
         $data["tagTour"] = $this->tagtourModel->getRecord($tagTour, $field);  
@@ -1016,6 +1047,8 @@ class Tour extends MY_Controller {
         $this->_fetch('admin_create', $data);
       }else{
 
+
+        //print_r($args); exit;
         ////////////////////////////////////////////
         //Add (Tour) main table 
         //////////////////////////////////////////// 
@@ -1052,8 +1085,20 @@ class Tour extends MY_Controller {
             $args["agency_tour"][$key]["tour_id"] = $insertTourID;
           }
           $this->agencytourModel->addMultipleRecord($args["agency_tour"]);
-
         }
+
+        ////////////////////////////////////////////
+        //Add (ExtendPrice) relationship data table 
+        //////////////////////////////////////////// 
+
+        if(!empty($args["extendprice"])){
+          $this->load->model("extendprice_model", "extendpriceModel"); 
+          foreach ($args["extendprice"] as $key => $value) {
+            $args["extendprice"][$key]["`extp_tour_id"] = $insertTourID;
+          }
+          $this->extendpriceModel->addMultipleRecord($args["extendprice"]);
+        }
+
 
         ////////////////////////////////////////////
         //Add (TagTour) relationship data table 
@@ -1129,7 +1174,9 @@ class Tour extends MY_Controller {
   function admin_update(){
 
 
+    //echo "Call admin_update"; exit;
     //Get argument from post page
+    header ('Content-type: text/html; charset=utf-8');
     $args = $this->input->post();
     //$args["url"] = Util::url_title($args["name"])."-".$args["id"];
 
@@ -1172,6 +1219,17 @@ class Tour extends MY_Controller {
           $tour["tour_id"] = $args["id"];
           $this->agencytourModel->deleteRecord($tour);
         }
+
+        //Extendprice
+        if(!empty($args["extendprice"])){
+          $this->load->model("extendprice_model", "extendpriceModel");
+          $this->extendpriceModel->updateRecord($args);
+        }else{
+          $this->load->model("extendprice_model", "extendpriceModel");
+          $tour["tour_id"] = $args["id"];
+          $this->extendpriceModel->deleteRecord($tour);
+        }
+
         $this->_uploadImage($args["id"]);
         //Redirect
         redirect(base_url("admin/tour")); 

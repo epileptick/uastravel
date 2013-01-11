@@ -324,7 +324,7 @@
     <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-collapse.js');?>"></script>
     <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-carousel.js');?>"></script>
     <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-typeahead.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/javascripts/function.js');?>"></script>
+    <script src="<?php echo base_url('themes/Travel/tour/javascripts/function_location.js');?>"></script>
 
     <!-- Hover Effect -->
     <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/DirectionAwareHoverEffect/js/jquery.hoverdir.js');?>"></script>
