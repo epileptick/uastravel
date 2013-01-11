@@ -75,7 +75,7 @@
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
         changeYear: true,     
-        dayNames: ['อาทิตย์',,'จันทร์''อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'],       
+        dayNames: ['อาทิตย์', 'จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'],       
         dayNamesMin: ['อา','จ','อ','พ','พฤ','ศ','ส'],     
         monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม']       
     });
@@ -174,6 +174,66 @@
           </div><!-- Title -->
           <div class="border"></div>
 
+        <!-- extendprice -->
+        <?php 
+          if(!empty($extendprice)){
+        ?>
+        <div class="row">
+          <div class="twelve columns">
+            <div class="row">
+              <div class="twelve columns">
+                <label><b>[ราคาเพิ่มเติม]</b></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="six columns">
+                <label><b>รายการ</b></label>
+              </div>
+              <div class="three columns">
+                <label><b>ราคาผู้ใหญ่(บาท)</b></label>
+              </div>
+              <div class="three columns">
+                <label><b>ราคาเด็ก(บาท)</b></label>
+              </div>
+            </div>
+            <?php
+
+            //print_r($extendprice);
+            $count = 0;
+            foreach ($extendprice as $key => $value) {
+            ?>
+              <div class="row">
+                <div class="six columns">
+                  <label>
+                    <input type="checkbox" name="tob_extend_price[<?php echo $value->extp_id;?>][extp_id]" value="<?php echo $value->extp_id;?>">
+                    <input type="hidden" name="tob_extend_price[<?php echo $value->extp_id;?>][extp_name]" value="<?php echo $value->extp_name;?>">
+                    <input type="hidden" name="tob_extend_price[<?php echo $value->extp_id;?>][extp_sale_adult_price]" value="<?php echo $value->extp_sale_adult_price;?>">
+                    <input type="hidden" name="tob_extend_price[<?php echo $value->extp_id;?>][extp_sale_child_price]" value="<?php echo $value->extp_sale_child_price;?>">
+                    <?php echo $value->extp_name;?>
+                    <?php $count++;?>
+                  </label>
+                </div>
+                <div class="three columns">
+                  <center><label><?php echo $value->extp_sale_adult_price;?></label></center>
+                </div>
+                <div class="three columns">
+                  <center><label><?php echo $value->extp_sale_child_price;?></label></center>
+                </div>
+              </div>
+            <?
+            }
+            ?>
+            <div class="row">
+              <div class="twelve columns">
+                <label><font color="red"><u>หมายเหตุ</u></font> ราคานี้ไม่รวมกับราคาทัวร์หลัก</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <?php
+          }
+        ?>
+        <!-- End extendprice -->
           <!-- Start price -->
           <div class="row">
               <div class="price_booking"> 

@@ -309,6 +309,54 @@
           ?>
 
 
+        <!-- extendprice -->
+        <?php 
+          if(!empty($extendprice)){
+        ?>
+        <div class="row">
+          <div class="twelve columns">
+            <h3>ราคาเพิ่มเติม</h3>
+            <div class="row">
+              <div class="six columns">
+                <label><b>รายการ</b></label>
+              </div>
+              <div class="three columns">
+                <label><b>ราคาผู้ใหญ่(บาท)</b></label>
+              </div>
+              <div class="three columns">
+                <label><b>ราคาเด็ก(บาท)</b></label>
+              </div>
+            </div>
+            <?php
+
+            //print_r($extendprice);
+            foreach ($extendprice as $key => $value) {
+            ?>
+              <div class="row">
+                <div class="six columns">
+                  <label><?php echo $value->extp_name;?></label>
+                </div>
+                <div class="three columns">
+                  <center><label><?php echo $value->extp_sale_adult_price;?></label></center>
+                </div>
+                <div class="three columns">
+                  <center><label><?php echo $value->extp_sale_child_price;?></label></center>
+                </div>
+              </div>
+            <?
+            }
+            ?>
+            <div class="row">
+              <div class="twelve columns">
+                <label><font color="red"><u>หมายเหตุ</u></font> ราคานี้ไม่รวมกับราคาทัวร์หลัก</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <?php
+          }
+        ?>
+        <!-- End extendprice -->
 
           <!-- Start price -->
           <div class="row">
@@ -400,6 +448,7 @@
             </div>
           </div>
         <!-- End price -->
+
 
 
         <!-- Start contact -->

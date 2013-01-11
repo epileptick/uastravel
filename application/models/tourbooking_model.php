@@ -62,19 +62,78 @@ class TourBooking_model extends MY_Model {
         $this->db->set($columnName, $columnValue); 
       }
 
+      //Extend price
+      //print_r($args);exit;
+      foreach ($data["tob_extend_price"] as $key => $value) {
+        if(!empty($value['extp_id'])){
+          $insertExtendPrice[] = $data["tob_extend_price"][$key];
+        }
+      }
+
+
+      //print_r($insertExtendPrice); exit;
+      //Compute Price
       $tob_total_adult_price = $data["tob_adult_price"] * $data["tob_adult_amount"];
       $tob_total_child_price = $data["tob_child_price"] * $data["tob_child_amount"]; 
       $tob_total_infant_price = 0;
-      $tob_total_price = $tob_total_adult_price + $tob_total_child_price;
-      
+
+      //Compute extend price
+      $tob_total_adult_extend_price = 0;
+      $tob_total_child_extend_price = 0;
+      $total_adult_extend_price = 0;
+      $total_child_extend_price = 0;
+      $tob_total_infant_extend_price = 0; 
+
+      if(!empty($insertExtendPrice)){
+
+        foreach ($insertExtendPrice as $key => $value) {
+
+          $total_adult_extend_price = $value['extp_sale_adult_price'] * $data["tob_adult_amount"];
+          $total_child_extend_price = $value['extp_sale_child_price'] * $data["tob_child_amount"];
+
+          $insertExtendPrice[$key]["tob_total_adult_extend_price"] = $total_adult_extend_price;
+          $insertExtendPrice[$key]["tob_total_child_extend_price"] = $total_child_extend_price;
+          $insertExtendPrice[$key]["tob_total_infant_extend_price"] = 0;
+
+
+          $tob_total_adult_extend_price += $total_adult_extend_price;
+          $tob_total_child_extend_price += $total_child_extend_price;
+        }
+
+      }
+
+
+
+      //Compute total price
+      $tob_total_price = $tob_total_adult_price + $tob_total_child_price + $tob_total_adult_extend_price + $tob_total_child_extend_price;
+
+      $this->db->set("tob_total_adult_extend_price", $tob_total_adult_extend_price);
+      $this->db->set("tob_total_child_extend_price", $tob_total_child_extend_price);
+      $this->db->set("tob_total_infant_extend_price", $tob_total_infant_extend_price);
+
       $this->db->set("tob_total_adult_price", $tob_total_adult_price);
       $this->db->set("tob_total_child_price", $tob_total_child_price);
       $this->db->set("tob_total_infant_price", $tob_total_infant_price);
+
       $this->db->set("tob_total_price", $tob_total_price);
 
+
+      //Tranfer date
       $dateExplode = explode("/", $data["tob_tranfer_date"]);
       $tob_tranfer_date = $dateExplode[2]."-".$dateExplode[1]."-".$dateExplode[0];
       $this->db->set("tob_tranfer_date", $tob_tranfer_date);
+
+      //Extend price
+      unset($data["tob_extend_price"]);
+
+
+      //print_r($insertExtendPrice); exit;
+      if(!empty($insertExtendPrice)){
+        $data["tob_extend_price"] = serialize($insertExtendPrice);
+        $this->db->set("tob_extend_price", $data["tob_extend_price"] );
+      }else{
+        $this->db->set("tob_extend_price", "" );        
+      }
 
       $this->db->set("tob_cr_date", date("Y-m-d H:i:s"));
       $this->db->set("tob_lu_date", date("Y-m-d H:i:s"));
