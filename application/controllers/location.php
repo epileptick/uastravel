@@ -319,7 +319,7 @@ class Location extends MY_Controller {
     }else{
       $data["location"] = false;
     }
-
+    
     if(!empty($query["offset"])){
       if($query["offset"]>0){
         $this->_fetch('user_listnextpage', $data, false, true);
