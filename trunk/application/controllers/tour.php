@@ -953,6 +953,7 @@ class Tour extends MY_Controller {
     //Get argument from post page
     $args = $this->input->post();
 
+
     //Send argument to validate function
     $validate = $this->validate($args);
 
@@ -1048,6 +1049,7 @@ class Tour extends MY_Controller {
       }else{
 
 
+        print_r($args); exit;
         //print_r($args); exit;
         ////////////////////////////////////////////
         //Add (Tour) main table 

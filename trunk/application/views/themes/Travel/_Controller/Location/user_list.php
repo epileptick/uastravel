@@ -21,43 +21,44 @@
   $keyword = $title.", แพคเกจทัวร์".str_replace("-", " ",$this->uri->segment(1+$index)).", ทัวร์".str_replace("-", " ",$this->uri->segment(1+$index)).", เที่ยวไทย".str_replace("-", " ",$this->uri->segment(1+$index)).", ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index)).", ที่ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index)).", ท่องเที่ยวไทย".str_replace("-", " ",$this->uri->segment(1+$index)).", เที่ยวทั่วไทย".str_replace("-", " ",$this->uri->segment(1+$index));   
 ?> 
 
-  <title><?php echo $title;?> - U As Travel</title>
+  <title><?php echo trim($title); ?> - U As Travel</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="สถานที่ท่องเที่ยว<?php echo $this->uri->segment(2);?>และทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยว<?php echo $this->uri->segment(2);?> และแพคเกจทัวร์ใน<?php echo $this->uri->segment(2);?>ราคาพิเศษ" />
-  <meta name="keywords" content="<?php echo $keyword; ?>" /> 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="<?php echo $title; ?>ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของ<?php echo $title; ?> และแพคเกจ<?php echo $title; ?>ราคาพิเศษ" />
+  <meta name="keywords" content="<?php echo $keyword; ?>" />
+  <meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="<?php echo base_url('themes/Travel/tour/bootstrap/css/bootstrap.css');?>" rel="stylesheet">
-    <link href="<?php echo base_url('themes/Travel/tour/bootstrap/css/bootstrap-responsive.css');?>" rel="stylesheet">
-    <link href="<?php echo base_url('themes/Travel/tour/stylesheets/main.css');?>" rel="stylesheet">
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+  <!-- Le styles -->
+  <link href="<?php echo base_url('themes/Travel/tour/bootstrap/css/bootstrap.css');?>" rel="stylesheet">
+  <link href="<?php echo base_url('themes/Travel/tour/bootstrap/css/bootstrap-responsive.css');?>" rel="stylesheet">
+  <link href="<?php echo base_url('themes/Travel/tour/stylesheets/main.css');?>" rel="stylesheet">
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 
+  <!-- Search selection -->
+  <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
 
-<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-<script type="text/javascript">
-  $(document).ready(function() {
+      $("#selectsearch").change(function() {
+        var action = $(this).val() == "tour" ? "tour" : "location";
+        var uri = action+"/search/";
+        var url = "";
 
-    $("#selectsearch").change(function() {
-      var action = $(this).val() == "tour" ? "tour" : "location";
-      var uri = action+"/search/";
-      var url = "";
+        //Check host
+        if(document.domain == "localhost"){
+          url = "http://localhost/uastravel/"+uri;
+        }else{
+          url = "http://"+document.domain+"/"+uri;
+        }
 
-      //Check host
-      if(document.domain == "localhost"){
-        url = "http://localhost/uastravel/"+uri;
-      }else{
-        url = "http://"+document.domain+"/"+uri;
-      }
-
-      $("#search-form").attr("action", url);
+        $("#search-form").attr("action", url);
+      });
     });
-  });
-</script>    
+  </script>
+
   </head>
   <body>
     <div class="container-fluid">
@@ -86,8 +87,8 @@
                 <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
                 <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
                 <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
-                <li><a href="<?php echo base_url('carrent/inquiry');?>">จองรถเช่า</a></li>
-                <li><a href="<?php echo base_url('airline/inquiry');?>">จองตั๋วเครื่องบิน</a></li>
+                <li><a href="<?php echo base_url('tour/จองรถเช่า');?>">จองรถเช่า</a></li>
+                <li><a href="<?php echo base_url('tour/จองตั๋วเครื่องบิน');?>">จองตั๋วเครื่องบิน</a></li>
                 <li><a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a></li>
                 <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
                 <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
@@ -192,6 +193,7 @@
               </div>
 
 
+
         <?php
         if(!empty($location)){        
 
@@ -292,8 +294,7 @@
         }
         //End check tour
         ?>
-
-                      
+            
             </div>
           </div><!--/content-->
         </div>
@@ -324,7 +325,7 @@
     <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-collapse.js');?>"></script>
     <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-carousel.js');?>"></script>
     <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-typeahead.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/javascripts/function_location.js');?>"></script>
+    <script src="<?php echo base_url('themes/Travel/tour/javascripts/function.js');?>"></script>
 
     <!-- Hover Effect -->
     <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/DirectionAwareHoverEffect/js/jquery.hoverdir.js');?>"></script>
