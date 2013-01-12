@@ -82,8 +82,9 @@ class Airline extends MY_Controller {
     $message .='<p>ขอขอบคุณที่ไว้วางใจในบริการของ <a href="http://www.uastravel.com">uastravel.com</a></p>';
     $message .='<p>รายละเอียดการจองตั๋วเครื่องบินของคุณมีดังนี้</p>';
     $message .='<blockquote>';
-    $message .='  ##########  รายละเอียดการจอง ##########';
+    $message .='  ##########  รายละเอียดการจองตั๋วเครื่องบิน ##########';
     $message .='  <br />หมายเลขการจอง : '.$booking["flt_code"];
+    $message .='  <br />';
     $message .='  <br />##########  รายละเอียด ##########';
     $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["flt_adult_amount"];
     $message .='  <br />จำนวนเด็ก : '.$booking["flt_child_amount"];
@@ -97,7 +98,7 @@ class Airline extends MY_Controller {
     $message .='  <br />อีเมล : '.$booking["flt_email"];
     $message .='  <br />';
     $message .='  <br />เดินทางจาก : '.$booking["flt_from_location"];
-    $message .='  <br />เดินทางไป : '.$booking["flt_go_to_date"];
+    $message .='  <br />เดินทางไป : '.$booking["flt_go_to_location"];
     $message .='  <br />วันที่ออกเดินทาง : '.$booking["flt_depart_date"];
     $message .='  <br />เวลาที่ออกเดินทาง : '.$booking["flt_depart_time"];
     $message .='  <br />วันที่เดินทางกลับ : '.$booking["flt_return_date"];
@@ -136,7 +137,7 @@ class Airline extends MY_Controller {
     $to = "booking.uastravel@gmail.com";
 
     // subject
-    $subject = 'ข้อมูลการจองรถเช่า '.$booking["tob_firstname"];
+    $subject = 'ข้อมูลการจองตั๋วเครื่องบิน '.$booking["flt_firstname"];
 
           $message .='  ##########  รายละเอียดการจอง ( จองตั๋วเครื่องบิน ) ##########';
           $message = '<p>สวัสดีค่ะ คุณ'.$booking["flt_firstname"].',</p>';

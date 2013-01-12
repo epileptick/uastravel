@@ -141,10 +141,10 @@
                   <a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a>
                 </li>
                 <li <?php echo ($this->uri->segment(2)=="จองรถเช่า")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('tour/จองรถเช่า');?>">จองรถเช่า</a>
+                  <a href="<?php echo base_url('carrent/inquiry');?>">จองรถเช่า</a>
                 </li>
                 <li <?php echo ($this->uri->segment(2)=="จองตั๋วเครื่องบิน")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('tour/จองตั๋วเครื่องบิน');?>">จองตั๋วเครื่องบิน</a>
+                  <a href="<?php echo base_url('airline/inquiry');?>">จองตั๋วเครื่องบิน</a>
                 </li>
                 <li <?php echo ($this->uri->segment(2)=="จองโรงแรม")? 'class="active"':'';?>>
                   <a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a>
