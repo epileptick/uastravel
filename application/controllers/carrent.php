@@ -101,6 +101,7 @@ class Carrent extends MY_Controller {
     $message .='  <br />สถานที่คืนรถ : '.$booking["cab_dropoff_location"];
     $message .='  <br />วันที่คืนรถ : '.$booking["cab_dropoff_date"];
     $message .='  <br />เวลาที่คืนรถ : '.$booking["cab_dropoff_time"];
+    $message .='  <br />บัตรเครดิต : '.$booking["cab_credit"];
     $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["cab_message"];
     $message .='  <br />';
     $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
@@ -139,6 +140,7 @@ class Carrent extends MY_Controller {
 
           $message .='  ##########  รายละเอียดการจอง ( จองรถเช่า ) ##########';
           $message .='  <br />หมายเลขการจอง : '.$booking["cab_code"];
+          $message .='  <br />';
           $message .='  <br />##########  รายละเอียด  ##########';
           $message .='  <br />จำนวนผู้โดยสาร : '.$booking["cab_passenger_amount"];
           $message .='  <br />';
