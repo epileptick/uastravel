@@ -100,6 +100,8 @@ $route[LangUtil::line("url_lang_location")] = 'location/user_index';
 
 
 //tour admin
+$route['admin/tour/userbookingview/(:any)'] = 'tour/admin_userbookingview/$1';
+$route['admin/tour/agencybookingview/(:any)'] = 'tour/admin_agencybookingview/$1';
 $route['admin/tour/setdisplay'] = 'tour/admin_setdisplay';
 $route['admin/tour/(:num)'] = 'tour/admin_index/$1';
 $route['admin/tour'] = 'tour/admin_index';
