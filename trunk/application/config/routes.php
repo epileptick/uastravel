@@ -58,6 +58,7 @@ $route['(:any)'.'_tests'] = '$1'.'_tests';
 
 
 //Carrent
+
 $route['carrent/(:any)'] = 'carrent/user_index/$1';
 $route[$lang_set.'/'.'carrent/(:any)'] = 'carrent/user_index/$1';
 $route["carrent"] = 'carrent/user_index';

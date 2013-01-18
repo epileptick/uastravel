@@ -150,8 +150,8 @@
                 <ul class="dropdown">
                   <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
                   <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
-                  <li><a href="<?php echo base_url('carrent/inquiry');?>">จองรถเช่า</a></li>
-                  <li><a href="<?php echo base_url('airline/inquiry');?>">จองตั๋วเครื่องบิน</a></li>
+                  <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
+                  <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
                 </ul>                
               </li> 
               <li class="has-dropdown">
@@ -182,7 +182,11 @@
       <div class="row">
         <div class="twelve columns">
             <h3 style="color:#FE5214;">
-              CARRENT BOOKING
+              CARRENT BOOKING :
+                           <?php echo $this->uri->segment(3);?> 
+            <input type="hidden" name="cab_typecar" value="<?php echo $this->uri->segment(3);?>">
+            ราคา : <?php echo number_format ($this->uri->segment(4));?> 
+            <input type="hidden" name="cab_price" value="<?php echo $this->uri->segment(4);?>">
             </h3>
         </div>
       </div>
@@ -264,7 +268,7 @@
         <div class="six columns">
             <label>เวลาที่รับรถ</label>         
             <select name="cab_pickup_time">
-              <option value="ANY">Any Time</option>          
+              <option value="ANY TIME">Any Time</option>          
               <option value="01:00">01:00</option>
               <option value="02:00">02:00</option>
               <option value="03:00">03:00</option>
@@ -310,7 +314,7 @@
       <div class="six columns">
             <label>เวลาที่คืนรถ</label>         
             <select name="cab_dropoff_time">
-              <option value="ANY">Any Time</option>          
+              <option value="ANY TIME">Any Time</option>          
               <option value="01:00">01:00</option>
               <option value="02:00">02:00</option>
               <option value="03:00">03:00</option>
@@ -420,7 +424,7 @@
       <div class="five columns">
         <div class="address">
           <p>Uastravel</p>
-          <p>uastravel@hotmail.com</p>
+          <p>info@uastravel.com</p>
           <p>80/86 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000</p>
         </div>
       </div>

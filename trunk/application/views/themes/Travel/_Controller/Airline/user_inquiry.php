@@ -7,7 +7,7 @@
 
   if(!empty($hello)){
     echo($hello);
-
+print_r($id);
   }
 
 ?>
@@ -159,8 +159,8 @@
                 <ul class="dropdown">
                   <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
                   <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
-                  <li><a href="<?php echo base_url('carrent/inquiry');?>">จองรถเช่า</a></li>
-                  <li><a href="<?php echo base_url('airline/inquiry');?>">จองตั๋วเครื่องบิน</a></li>
+                  <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
+                  <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
                 </ul>                
               </li> 
               <li class="has-dropdown">
@@ -192,15 +192,17 @@
       <!-- Header -->
       <div class="row">
         <div class="twelve columns">
-          <h2 style="color:#FE5214;">
-            Airlines Ticket 
-          </h2>
+          <font style="color:#FE5214; font-size:300%;">
+            Airlines Ticket   
+
+            : <?php echo $this->uri->segment(3);?> 
+            <input type="hidden" name="flt_ticket" value="<?php echo $this->uri->segment(3);?>">
+          </font> 
         </div>
       </div>
       <div class="border"></div>
       <!-- Header End -->
-
-    
+      <br/>
 
         <!--Class-->
         <div class="row">
@@ -328,7 +330,7 @@
           <div class="six columns">
             <label>เวลาออกเดินทาง</label>         
             <select name="flt_depart_time">
-              <option value="ANY" selected>Any Time</option>          
+              <option value="ANY TIME" selected>Any Time</option>          
               <option value="01:00">01:00</option>
               <option value="02:00">02:00</option>
               <option value="03:00">03:00</option>
@@ -367,7 +369,7 @@
           <div class="six columns">
             <label>เวลาเดินทางกลับ</label>
             <select name="flt_return_time">
-              <option value="ANY" selected>Any Time</option>          
+              <option value="ANY TIME" selected>Any Time</option>          
               <option value="01:00">01:00</option>
               <option value="02:00">02:00</option>
               <option value="03:00">03:00</option>
@@ -443,7 +445,7 @@
           </div>
         </div>
         <!-- Amount of person End -->
-    
+
       <!-- Name -->
       <div class="row">
         <div class="six columns">
@@ -466,7 +468,7 @@
       </div>
       <div class="row">
         <div class="six columns">
-          <input type="text" placeholder="City" id="flt_city" name="flt_city" class="error">
+          <input type="text" placeholder="City" id="flt_city" name="flt_city" >
         </div>
         <div class="three columns">
           <input type="text" placeholder="Province/State" id="flt_province" name="flt_province">
@@ -552,7 +554,7 @@
       <div class="five columns">
         <div class="address">
           <p>Uastravel</p>
-          <p>uastravel@hotmail.com</p>
+          <p>info@uastravel.com</p>
           <p>80/86 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000</p>
         </div>
       </div>

@@ -89,8 +89,8 @@
                 <ul class="dropdown">
                   <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
                   <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
-                  <li><a href="<?php echo base_url('carrent/inquiry');?>">จองรถเช่า</a></li>
-                  <li><a href="<?php echo base_url('airline/inquiry');?>">จองตั๋วเครื่องบิน</a></li>
+                  <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
+                  <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
                 </ul>                
               </li> 
               <li class="has-dropdown">
@@ -114,7 +114,7 @@
       <div class="twelve columns">
         <a href="" class="arrow previous tooltip_nw" title="แหล่งท่องเที่ยวก่อนหน้า">แหล่งท่องเที่ยวก่อนหน้า</a>
         <h1 class="title"><a href=""><?php echo $tour[0]->name;?></a>
-            <a href="#detail">
+            <a href="#<?php echo $tour[0]->name;?>">
             <img src="<?php echo base_url('themes/Travel/images/anchor.png');?>" width="23px" height="23px" align="absmiddle"/></a>
           <span class="subtitle"><?php echo (!empty($tour[0]->short_description))?$tour[0]->short_description:"";?></span>
         </h1>
@@ -193,7 +193,7 @@
     <!-- End Gallery -->
     <div class="row">
       <div class="eight columns">
-        <h4  style="margin-bottom:0px !important;"  id="detail">ID : <?php echo $tour[0]->code;?></h4>
+        <h4  style="margin-bottom:0px !important;"  id="<?php echo $tour[0]->name;?>">ID : <?php echo $tour[0]->code;?></h4>
       </div>
     </div>  
     <!-- Tour Information -->
