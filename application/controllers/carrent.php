@@ -6,17 +6,21 @@ class Carrent extends MY_Controller {
     //var_dump($this->lang->lang());
   }
   
-  function user_index(){
+ function user_index(){
+
+    //Check class
     if($this->uri->segment(1) == $this->router->class){
       $index = 1;
     }else if($this->uri->segment(2) == $this->router->class){
-      $index = 2;     
+      $index = 2;
     }
 
-    //check path
-    if($this->uri->segment($index+1)=="inquiry"){
+    //Check path
+     if($this->uri->segment($index+1)=="list"){
+        $this->user_list();
+    } else if($this->uri->segment($index+1)=="inquiry"){
         $this->user_inquiry();
-    } else if($this->uri->segment($index+1) == "booking"){
+    }else if($this->uri->segment($index+1) == "booking"){
 
       $segment_id = $this->uri->segment($index+2);
 
@@ -26,14 +30,18 @@ class Carrent extends MY_Controller {
         $args = $this->input->post(); 
         $this->user_booking($args);
       }
-
     }
-
   }
 
   function user_inquiry(){
 
     $this->_fetch('user_inquiry',false, false, true);
+ 
+  }
+
+   function user_list(){
+
+    $this->_fetch('user_list',false, false, true);
   }
 
 
@@ -85,6 +93,7 @@ class Carrent extends MY_Controller {
     $message .='<blockquote>';
     $message .='  ##########  รายละเอียดการจอง ##########';
     $message .='  <br />หมายเลขการจอง : '.$booking["cab_code"];
+    $message .='  <br />';
     $message .='  <br />##########  รายละเอียด ##########';
     $message .='  <br />จำนวนผู้โดยสาร : '.$booking["cab_passenger_amount"];
     $message .='  <br />';
@@ -102,6 +111,8 @@ class Carrent extends MY_Controller {
     $message .='  <br />วันที่คืนรถ : '.$booking["cab_dropoff_date"];
     $message .='  <br />เวลาที่คืนรถ : '.$booking["cab_dropoff_time"];
     $message .='  <br />บัตรเครดิต : '.$booking["cab_credit"];
+    $message .='  <br />ประเภทรถยนต์ : '.$booking["flt_typecar"];
+    $message .='  <br />ราคาต่อวัน : '.$booking["flt_price"];
     $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["cab_message"];
     $message .='  <br />';
     $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
@@ -158,6 +169,8 @@ class Carrent extends MY_Controller {
           $message .='  <br />วันที่คืนรถ : '.$booking["cab_dropoff_date"];
           $message .='  <br />เวลาที่คืนรถ : '.$booking["cab_dropoff_time"];
           $message .='  <br />บัตรเครดิต : '.$booking["cab_credit"];
+          $message .='  <br />ประเภทรถยนต์ : '.$booking["flt_typecar"];
+          $message .='  <br />ราคาต่อวัน : '.$booking["flt_price"];
           $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["cab_message"];
           $message .='  <br />';
           $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';

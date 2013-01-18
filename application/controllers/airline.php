@@ -16,8 +16,10 @@ class Airline extends MY_Controller {
     }
 
     //Check path
-    if($this->uri->segment($index+1) == "inquiry"){
-      $this->user_inquiry();
+     if($this->uri->segment($index+1)=="list"){
+        $this->user_list();
+    } else if($this->uri->segment($index+1)=="inquiry"){
+        $this->user_inquiry();
     }else if($this->uri->segment($index+1) == "booking"){
 
       $segment_id = $this->uri->segment($index+2);
@@ -34,6 +36,13 @@ class Airline extends MY_Controller {
  function user_inquiry(){
 
     $this->_fetch('user_inquiry',false, false, true);
+
+  }
+
+   function user_list(){
+
+    $this->_fetch('user_list',false, false, true);
+
   }
 
   function user_booking($args){
@@ -97,6 +106,9 @@ class Airline extends MY_Controller {
     $message .='  <br />เบอร์ติดต่อ : '.$booking["flt_telephone"];
     $message .='  <br />อีเมล : '.$booking["flt_email"];
     $message .='  <br />';
+    $message .='  <br />สายการบิน : '.$booking["flt_ticket"];
+    $message .='  <br />ประเภท : '.$booking["flt_type"];
+    $message .='  <br />ชั้นที่นั่ง : '.$booking["flt_class"];
     $message .='  <br />เดินทางจาก : '.$booking["flt_from_location"];
     $message .='  <br />เดินทางไป : '.$booking["flt_go_to_location"];
     $message .='  <br />วันที่ออกเดินทาง : '.$booking["flt_depart_date"];
@@ -106,7 +118,7 @@ class Airline extends MY_Controller {
     $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["flt_message"];
     $message .='  <br />';
     $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/carrent/booking/'.$booking["flt_hashcode"].'">'.$booking["flt_code"].'</a>';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/airline/booking/'.$booking["flt_hashcode"].'">'.$booking["flt_code"].'</a>';
     $message .='  <br />';
     $message .='</blockquote>';   
 
@@ -137,15 +149,13 @@ class Airline extends MY_Controller {
     $to = "booking.uastravel@gmail.com";
 
     // subject
-    $subject = 'ข้อมูลการจองตั๋วเครื่องบิน '.$booking["flt_firstname"];
+    $subject = 'ข้อมูลการจองตั๋วเครื่องบินของคุณ '.$booking["flt_firstname"];
 
-          $message .='  ##########  รายละเอียดการจอง ( จองตั๋วเครื่องบิน ) ##########';
-          $message = '<p>สวัสดีค่ะ คุณ'.$booking["flt_firstname"].',</p>';
-          $message .='<p>ขอขอบคุณที่ไว้วางใจในบริการของ <a href="http://www.uastravel.com">uastravel.com</a></p>';
-          $message .='<p>รายละเอียดการจองตั๋วเครื่องบินของคุณมีดังนี้</p>';
+          $message .='<p>รายละเอียดการจองตั๋วเครื่องบินมีดังนี้</p>';
           $message .='<blockquote>';
           $message .='  ##########  รายละเอียดการจอง  ##########';
           $message .='  <br />หมายเลขการจอง : '.$booking["flt_code"];
+          $message .='  <br />';
           $message .='  <br />##########  รายละเอียด ##########';
           $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["flt_adult_amount"];
           $message .='  <br />จำนวนเด็ก : '.$booking["flt_child_amount"];
@@ -158,8 +168,11 @@ class Airline extends MY_Controller {
           $message .='  <br />เบอร์ติดต่อ : '.$booking["flt_telephone"];
           $message .='  <br />อีเมล : '.$booking["flt_email"];
           $message .='  <br />';
+          $message .='  <br />สายการบิน : '.$booking["flt_ticket"];
+          $message .='  <br />ประเภท : '.$booking["flt_type"];
+          $message .='  <br />ชั้นที่นั่ง : '.$booking["flt_class"];
           $message .='  <br />เดินทางจาก : '.$booking["flt_from_location"];
-          $message .='  <br />เดินทางไป : '.$booking["flt_go_to_date"];
+          $message .='  <br />เดินทางไป : '.$booking["flt_go_to_location"];
           $message .='  <br />วันที่ออกเดินทาง : '.$booking["flt_depart_date"];
           $message .='  <br />เวลาที่ออกเดินทาง : '.$booking["flt_depart_time"];
           $message .='  <br />วันที่เดินทางกลับ : '.$booking["flt_return_date"];

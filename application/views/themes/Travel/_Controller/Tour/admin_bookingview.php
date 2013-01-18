@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -11,12 +9,13 @@
   h5 {
     margin-top: 0px !important;
   }
+
 </style>
 <head>
-  <title><?php echo "จองตั๋วเครื่องบิน U As Travel";?></title>
+  <title><?php echo $booking[0]->tob_code."(".$booking[0]->tob_tour_name.")";?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="จอง<?php echo $booking[0]->flt_firstname.'('.$booking[0]->flt_code.')';?>" />
+  <meta name="description" content="จอง<?php echo $booking[0]->tob_tour_name.'('.$booking[0]->tob_tour_code.')';?>" />
   <meta name="keywords" content="" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <!-- Set the viewport width to device width for mobile -->
@@ -83,12 +82,13 @@
                       <img src="<?php echo base_url('themes/Travel/tour/images/logo.png');?>">
                     </a>
                   </div>
-                  <div class="two columns">
+                  <div class="four columns">
                     
                   </div>
-                  <div class="six columns" style="text-align:right;">
+                  <div class="four columns" style="text-align:right;">
                     <h1>
-                      <strong>Airline</strong> <strong style="color:#FE5214;">Booking</strong>
+
+                      <strong>Tour</strong> <strong style="color:#FE5214;">Booking</strong>
                     </h1>                
                   </div>
                 </div>
@@ -158,29 +158,28 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->flt_code;?>
+                 <?php echo $booking[0]->tob_code;?>
                 </h5> 
                 </div>
               </div>
             </div>
 
-
             <div class="row">
-              <div class="twelve columns">
+              <div class="twelve columns" >
                 <div class="five columns">
 
                 <h5>
-                    Airline : <br>
-                    สายการบิน : 
+                    Tour Name : <br>
+                    ชื่อทัวร์ : 
                 </h5>                
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->flt_ticket;?>
+                 <?php echo $booking[0]->tob_tour_name;?>
                 </h5> 
                 </div>
               </div>
-            </div> 
+            </div>  
 
             <div class="row">
               <div class="twelve columns">
@@ -193,7 +192,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->flt_firstname;?> <?php echo $booking[0]->flt_lastname;?>
+                 <?php echo $booking[0]->tob_firstname;?> <?php echo $booking[0]->tob_lastname;?>
                 </h5> 
                 </div>
               </div>
@@ -211,7 +210,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->flt_nationality;?>
+                 <?php echo $booking[0]->tob_nationality;?>
                 </h5> 
                 </div>
               </div>
@@ -228,7 +227,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->flt_address;?>, <?php echo $booking[0]->flt_city;?>, <?php echo $booking[0]->flt_province;?>, <?php echo $booking[0]->flt_zipcode;?>
+                 <?php echo $booking[0]->tob_address;?>, <?php echo $booking[0]->tob_city;?>, <?php echo $booking[0]->tob_province;?>, <?php echo $booking[0]->tob_zipcode;?>
                 </h5> 
                 </div>
               </div>
@@ -246,11 +245,12 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->flt_telephone;?>
+                 <?php echo $booking[0]->tob_telephone;?>
                 </h5> 
                 </div>
               </div>
             </div> 
+
 
             <div class="row">
               <div class="twelve columns">
@@ -263,15 +263,105 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->flt_email;?>
+                 <?php echo $booking[0]->tob_email;?>
                 </h5> 
                 </div>
               </div>
             </div> 
 
-    <!-- End Customer -->
 
-    <!-- Amount -->
+            <div class="row">
+              <div class="twelve columns">
+                <div class="five columns">
+
+                  <h5>
+                      Tranfer: <br>
+                      วันเดินทาง : 
+                  </h5>               
+                </div>
+                <div class="seven columns">
+
+                  <h5>
+                   <?php 
+                      $dateExplode = explode("-", $booking[0]->tob_tranfer_date);
+                      $tranfer_date = $dateExplode[2]."/".$dateExplode[1]."/".$dateExplode[0];
+                      echo $tranfer_date;
+                   ?>
+                  </h5> 
+                </div>
+              </div>
+            </div> 
+
+            <div class="row">
+              <div class="twelve columns">
+                <div class="five columns">
+
+                  <h5>
+                      Hotel: <br>
+                      ชื่อที่พัก : 
+                  </h5>               
+                </div>
+                <div class="seven columns">
+
+                  <h5>
+                   <?php 
+                    if(!empty($booking[0]->tob_hotel_name)){
+                      echo $booking[0]->tob_hotel_name;
+                    }else{
+                      echo "-";
+                    }
+                   ?>
+                  </h5> 
+                </div>
+              </div>
+            </div> 
+
+            <div class="row">
+              <div class="twelve columns">
+                <div class="five columns">
+                  <h5>
+                      Room  : <br>
+                      เลขห้อง : 
+                  </h5>                  
+                </div>
+                <div class="seven columns">
+                <h5>
+                 <?php 
+                  if($booking[0]->tob_room_number != 0){
+                    echo $booking[0]->tob_room_number;
+                  }else{
+                    echo "-";
+                  }
+                 ?>
+                </h5> 
+                </div>
+              </div> 
+            </div> 
+
+            <div class="row">
+              <div class="twelve columns">
+                <div class="five columns">
+
+                  <h5>
+                      Request  : <br>
+                      ความต้องการเพิ่มเติม : 
+                  </h5>                  
+                </div>
+                <div class="seven columns">
+                <h5>
+                 <?php echo $booking[0]->tob_request;?>
+                </h5> 
+                </div>
+              </div> 
+            </div> 
+
+          </div>
+          <!-- End Customer -->
+
+
+
+          <!-- Amount -->
+          <div class="six columns">
 
             <div class="row">
               <div class="twelve columns">
@@ -281,7 +371,7 @@
               </div>
             </div>
 
-          <div class="row">
+            <div class="row">
               <div class="twelve columns">
                 <div class="five columns">
 
@@ -292,7 +382,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->flt_adult_amount;?>
+                 <?php echo $booking[0]->tob_adult_amount;?>
                 </h5> 
                 </div>
               </div>
@@ -309,7 +399,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->flt_child_amount;?>
+                 <?php echo $booking[0]->tob_child_amount;?>
                 </h5> 
                 </div>
               </div>
@@ -325,24 +415,37 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->flt_infant_amount;?>
+                 <?php echo $booking[0]->tob_infant_amount;?>
                 </h5> 
                 </div>
               </div>
-            </div>  
-
-          </div>
-    <!-- End Amount -->
+            </div>   
 
 
+        <div class="clearfix"></div>
+        <div class="border"></div>
 
-    <!-- Airline Booking-->
-          <div class="six columns">
             <div class="row">
               <div class="twelve columns">
                 <h5>
-                    <b>รายละเอียดการจองตั๋วเครื่องบิน (Airline Booking Information) </b>
+                     <b>ราคาแพคเกจทัวร์ (Main Price)  </b>
                 </h5> 
+              </div>
+            </div>
+            <div class="row">
+              <div class="twelve columns">
+                <div class="five columns">
+
+                <h5>
+                    Price of Adults : <br>
+                    ราคาผู้ใหญ่ : 
+                </h5>                
+                </div>
+                <div class="seven columns">
+                <h5>
+                 <?php echo number_format($booking[0]->tob_total_adult_price, 0);?> บาท
+                </h5> 
+                </div>
               </div>
             </div>
 
@@ -351,183 +454,126 @@
                 <div class="five columns">
 
                 <h5>
-                    From : <br>
-                    เดินทางจาก : 
+                    Price of Children : <br>
+                    ราคาเด็ก : 
                 </h5>                
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->flt_from_location;?>
+                 <?php echo number_format($booking[0]->tob_total_child_price, 0);?> บาท
                 </h5> 
                 </div>
               </div>
-            </div> 
-
+            </div>    
+        <?php
+          if(!empty($booking[0]->tob_extend_price)){
+        ?>
+        <div class="clearfix"></div>
+        <div class="border"></div>
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
-
                 <h5>
-                    To : <br>
-                    ไป : 
-                </h5>                
-                </div>
-                <div class="seven columns">
-                <h5>
-                 <?php echo $booking[0]->flt_go_to_location;?>
+                    <b>ราคาแพคเกจทัวร์เพิ่มเติม (Extend Price)  </b>
                 </h5> 
-                </div>
               </div>
-            </div> 
+            </div>
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
-
+                <div class="four columns">
                   <h5>
-                      Depart date : <br>
-                      วันที่ออกเดินทาง : 
-                  </h5>               
+                      Extend Name : <br>
+                      ชื่อแพคเกจเพิ่มเติม : 
+                  </h5>                
                 </div>
-                <div class="seven columns">
-
+                <div class="eight columns">
                   <h5>
-                   <?php 
-                      $dateExplode = explode("-", $booking[0]->flt_depart_date);
-                      $flt_depart_date = $dateExplode[2]."/".$dateExplode[1]."/".$dateExplode[0];
-                      echo $flt_depart_date;
-                   ?>
+
+                      <?php
+                       $extend_price =  unserialize($booking[0]->tob_extend_price); 
+                       //print_r($extend_price); exit;
+
+                       $extend_name = "";
+                       $countExtendPrice = count($extend_price);
+                       $count  = 1;
+                       foreach ($extend_price as $key => $value) {
+                          if($count == $countExtendPrice){
+                            $extend_name .= $value['extp_name'];
+                          }else{
+                            $extend_name .= $value['extp_name']." + ";
+                          }
+                          $count++;
+
+                       }
+
+                       echo $extend_name;
+                      ?>
                   </h5> 
                 </div>
               </div>
-            </div> 
+            </div>
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="four columns">
 
                 <h5>
-                    Depart time : <br>
-                    เวลาออกเดินทาง : 
+                    Price of Adults : <br>
+                    ราคาผู้ใหญ่ : 
                 </h5>                
                 </div>
-                <div class="seven columns">
+                <div class="eight columns">
                 <h5>
-                 <?php echo $booking[0]->flt_depart_time;?>
+                 <?php echo number_format($booking[0]->tob_total_adult_extend_price, 0);?> บาท
                 </h5> 
                 </div>
               </div>
-            </div> 
+            </div>
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
-
-                  <h5>
-                      Return date : <br>
-                      วันที่เดินทางกลับ : 
-                  </h5>               
-                </div>
-                <div class="seven columns">
-
-                  <h5>
-                   <?php 
-                      $dateExplode = explode("-", $booking[0]->flt_return_date);
-                      $flt_return_date = $dateExplode[2]."/".$dateExplode[1]."/".$dateExplode[0];
-                      echo $flt_return_date;
-                   ?>
-                  </h5> 
-                </div>
-              </div>
-            </div> 
-
-            <div class="row">
-              <div class="twelve columns">
-                <div class="five columns">
+                <div class="four columns">
 
                 <h5>
-                    Return time : <br>
-                    เวลาเดินทางกลับ : 
+                    Price of Children : <br>
+                    ราคาเด็ก : 
                 </h5>                
                 </div>
-                <div class="seven columns">
+                <div class="eight columns">
                 <h5>
-                 <?php echo $booking[0]->flt_return_time;?>
+                 <?php echo number_format($booking[0]->tob_total_child_extend_price, 0);?> บาท
                 </h5> 
                 </div>
               </div>
-            </div> 
+            </div>    
 
-            <div class="row">
-              <div class="twelve columns">
-                <div class="five columns">
+        <?php 
+          }
 
-                  <h5>
-                      Request  : <br>
-                      ความต้องการเพิ่มเติม : 
-                  </h5>                  
-                </div>
-                <div class="seven columns">
-                <h5>
-                 <?php echo $booking[0]->flt_message;?>
-                </h5> 
-                </div>
-              </div> 
-            </div> 
-
-            <div class="row">
-              <div class="twelve columns">
-                <div class="five columns">
-
-                  <h5>
-                      Type  : <br>
-                      ประเภท : 
-                  </h5>                  
-                </div>
-                <div class="seven columns">
-                <h5>
-                 <?php echo $booking[0]->flt_type;?>
-                </h5> 
-                </div>
-              </div> 
-            </div> 
-
-
-            <div class="row">
-              <div class="twelve columns">
-                <div class="five columns">
-
-                  <h5>
-                      class : <br>
-                      ชั้นที่นั่ง : 
-                  </h5>                  
-                </div>
-                <div class="seven columns">
-                <h5>
-                 <?php echo $booking[0]->flt_class;?>
-                </h5> 
-                </div>
-              </div> 
-            </div> 
-
-
+        ?>
 
           <div class="clearfix"></div>
           <div class="border"></div>
           <div class="row">
             <div class="twelve columns" >
               <div class="twelve columns"   style="border-style:solid; border-width:1px;">
-                <center>
-                  <h4 style="color:red; margin-top:10px !important;">
-                      ขอขอบคุณที่ไว้วางใจในบริการของเรา <br />ทางทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง
-                  </h4>                
-                </center>
+                <div class="five columns" >
+                  <h5 style="color:red; margin-top:10px !important;">
+                      Total Price : <br>
+                      ราคารวมทั้งหมด : 
+                  </h5>                
+                </div>
+                <div class="seven columns">
+                  <h5 style="color:red; font-size:200%; margin-top:10px !important;" >
+                    <?php echo number_format($booking[0]->tob_total_price, 0);?> บาท
+                  </h5> 
+                </div>
               </div>
             </div>
           </div> 
 
           </div>
-          <!-- End Airline Booking -->
+          <!-- End Amount -->
         </div>
         <!-- End Row 1 -->
 
@@ -577,13 +623,14 @@
     </div>
   </div>
   <!-- End Content -->
+
   <!--Remark-->
   <div class="twelve columns">
             <div class="twelve columns" style="border-style:solid; border-width:1px; border-color:#C0C0C0;">
               <b style="color:red; font-size:200%; margin-top:2px !important;" > หมายเหตุ : </b>
               <ul>
                 <li><b>การชำระเงิน :</b> โดยการโอนเงินผ่านธนาคารกสิกรไทย / ชื่อบัญชี : หจก.ยู แอสทราเวล / เลขที่บัญชี  482-2-39689-0</li>
-                <li>โทรแจ้งการโอนเงิน / สอบถามข้อมูลเพิ่มเติม ที่หมายเลข โทรศัพท์ (082)812-1146, (088)766-1657, หรือ Email แจ้งที่ info@uastravel.com </li>
+                <li>โทรแจ้งการโอนเงิน / สอบถามข้อมูลเพิ่มเติม ที่หมายเลข โทรศัพท์ (082)812-1146, (088)766-1657, หรือ Email แจ้งที่ info@okalitours.com </li>
                 <li>เมื่อได้รับการยืนยัน การชำระเงินแล้ว ทางทีมงานจะจัดส่งใบยืนยัน และใบเสร็จรับเงิน ให้ทางอีเมล ( ภายในเวลาไม่เกิน 1 วัน นับจากวันโอนเงิน )</li>
                 <li><b> สอบถามข้อมูลเพิ่มเติม ติดต่อ :</b> info@uastravel.com  หรือโทร 082-812-1146 ขอบคุณค่ะ</li>
              </ul>
@@ -611,7 +658,6 @@
     </div>
   </footer>
 </div>
-<!-- End Wraper -->
 
 <?php include_once("themes/Travel/tour/analyticstracking.php") ?>
 </body>

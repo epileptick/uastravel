@@ -125,8 +125,8 @@
                 <ul class="dropdown">
                   <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
                   <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
-                  <li><a href="<?php echo base_url('carrent/inquiry');?>">จองรถเช่า</a></li>
-                  <li><a href="<?php echo base_url('airline/inquiry');?>">จองตั๋วเครื่องบิน</a></li>
+                  <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
+                  <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
                 </ul>                
               </li> 
               <li class="has-dropdown">
@@ -563,7 +563,7 @@
       <div class="five columns">
         <div class="address">
           <p>Uastravel</p>
-          <p>uastravel@hotmail.com</p>
+          <p>info@uastravel.com</p>
           <p>80/86 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000</p>
         </div>
       </div>
