@@ -74,7 +74,7 @@
   <!-- End Menu -->
 
   <!-- Content -->
-  <div class="row" style="border-style:solid; border-width:2px;">
+  <div class="row" style="border-style:solid; border-width:1px;">
     <div class="twelve columns">
       <div class="box_white_in_columns article_tour">
 
