@@ -402,7 +402,7 @@ $(document).ready(function() {
     <!-- Agency -->
     <script>
       var agencies = new Array();
-      var extendprice = new Array();
+      var price = new Array();
     </script>
       <h2 class="section_heading" >
         <span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
@@ -425,13 +425,10 @@ $(document).ready(function() {
       <br>
 		<div id="add_agency_area">
 		</div>
+    <div id="add_price_area">
+    </div>
+
   <!-- Agency End -->
-
-<!--
-    <span id="add_extendprice_loading"></span>
-    <span  id="add_extendprice_area"></span>
-
--->
   </section>  
 
 	<!-- Start tag -->
@@ -717,7 +714,7 @@ $(document).ready(function() {
 
 <script type="text/javascript">
 
-  var countExtendPriceJS = <?php echo isset($countExtendprice)?$countExtendprice:1;?>;
+  var countExtendPriceJS = 0;
 
 	function deleteRow(event, agency_id){
 
@@ -733,24 +730,24 @@ $(document).ready(function() {
 		return false;
 	}
 
-  function deleteExtendPriceRow(event, extendprice_element){
+  function deletePriceRow(event, price_element){
 
     if(event == "delete"){
-      alert("delete : "+extendprice_element);
+      alert("delete : "+price_element);
 
-      $("#extendprice_"+extendprice_element).remove();
-      delete extendprice[extendprice_element]; 
+      $("#price_"+price_element).remove();
+      delete price[price_element]; 
     }else{
       //alert("add");
     }
     return false;
   }
 
-  function addExtendPrice(event, agency_id){
+  function addPrice(event, agency_id){
     if(event == "add"){
       alert("add :"+agency_id+"-"+countExtendPriceJS);
-      var html = extendPriceForm(agency_id, countExtendPriceJS);
-      $("#add_extendprice_area_"+agency_id).append(html);
+      var html = priceForm(agency_id, countExtendPriceJS);
+      $("#add_price_area_"+agency_id).append(html);
 
       countExtendPriceJS++;
     }
@@ -768,7 +765,6 @@ $(document).ready(function() {
 
     var agency_id = $("#query_agencyname :selected").val();
     var agency_name = $("#query_agencyname :selected").html();
-
 
     //alert(agency_name);
     var found = agencies.indexOf(agency_name);
@@ -821,121 +817,124 @@ $(document).ready(function() {
     agency_form += "      <span style='margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;'>";
     agency_form += "        [เพิ่มราคา <img src='<?php echo base_url('themes/Travel/images/add.png'); ?>'";
     agency_form += "            valign='middle'  "; 
-    agency_form += "            id='add_extendprice'  ";
-    agency_form += "            onClick='addExtendPrice(\"add\", "+agency_id+");'  ";
+    agency_form += "            id='add_price'  ";
+    agency_form += "            onClick='addPrice(\"add\", "+agency_id+");'  ";
     agency_form += "      />]"; 
     agency_form += "      </span>";    
     agency_form += "    </div>";
     agency_form += "    <div class='clearfix'></div>"; 
 
-    agency_form += "<br><div id='extendprice_"+agency_id+"_0'>";
+    agency_form += "<br>";
+    agency_form += "  <div id='price_"+agency_id+"_0'>";
     agency_form += "    <div class='half'>";
-    agency_form += "      <label>Extend name :</label>";
+    agency_form += "      <label>Price name :</label>";
     agency_form += "      <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
     agency_form += "      valign='top'  "; 
-    agency_form += "      id='delete_extendprice'  ";
-    agency_form += "      onClick='deleteExtendPriceRow(\"delete\", \""+agency_id+"_0\");'  ";
+    agency_form += "      id='delete_price'  ";
+    agency_form += "      onClick='deletePriceRow(\"delete\", \""+agency_id+"_0\");'  ";
     agency_form += "      />  "; 
     agency_form += "      <br>";
-    agency_form += "      <input type='text' name='extendprice["+agency_id+"][0][extp_name]' value=''>";
+    agency_form += "      <input type='text' name='price["+agency_id+"][0][pri_name]' value=''>";
     agency_form += "    </div>";
     agency_form += "    <div class='clearfix'></div>";    
+
     agency_form += "    <div>";
     agency_form += "      <div class='third'>";   
     agency_form += "        <label>Adult Sale :</label><br>";
-    agency_form += "        <input type='text' name='extendprice["+agency_id+"][0][extp_sale_adult_price]' value=''>";
+    agency_form += "        <input type='text' name='price["+agency_id+"][0][pri_sale_adult_price]' value=''>";
     agency_form += "      </div>";
     agency_form += "      <div class='third'>";   
     agency_form += "        <label>Adult Net :</label><br>";
-    agency_form += "        <input type='text' name='extendprice["+agency_id+"][0][extp_net_adult_price]' value=''>";
+    agency_form += "        <input type='text' name='price["+agency_id+"][0][pri_net_adult_price]' value=''>";
     agency_form += "      </div>";
     agency_form += "      <div class='third last'>";   
     agency_form += "        <label>Adult discount :</label><br>";
-    agency_form += "        <input type='text' name='extendprice["+agency_id+"][0][extp_discount_adult_price]' value=''>";
+    agency_form += "        <input type='text' name='price["+agency_id+"][0][pri_discount_adult_price]' value=''>";
     agency_form += "      </div>";
     agency_form += "    <div class='clearfix'></div>";
-    agency_form += "    ";    
+ 
     agency_form += "    <div>";
     agency_form += "      <span class='third'>";   
     agency_form += "        <label>Child Sale :</label><br>";
-    agency_form += "        <input type='text' name='extendprice["+agency_id+"][0][extp_sale_child_price]' value=''>";
+    agency_form += "        <input type='text' name='price["+agency_id+"][0][pri_sale_child_price]' value=''>";
     agency_form += "      </span>";
     agency_form += "      <span class='third'>";   
     agency_form += "        <label>Child Net :</label><br>";
-    agency_form += "        <input type='text' name='extendprice["+agency_id+"][0][extp_net_child_price]' value=''>";
+    agency_form += "        <input type='text' name='price["+agency_id+"][0][pri_net_child_price]' value=''>";
     agency_form += "      </span>";
     agency_form += "      <span class='third last'>";   
     agency_form += "        <label>Child discount :</label><br>";
-    agency_form += "        <input type='text' name='extendprice["+agency_id+"][0][extp_discount_child_price]' value=''>";
+    agency_form += "        <input type='text' name='price["+agency_id+"][0][pri_discount_child_price]' value=''>";
     agency_form += "      </span>";
     agency_form += "    </div>";
     agency_form += "    <div class='clear'></div>";
-    agency_form += "  <br>";
-    agency_form += " </div>";
-    agency_form += " <span id='add_extendprice_loading_"+agency_id+"'></span>";
-    agency_form += " <span  id='add_extendprice_area_"+agency_id+"'></span>";  
-    agency_form += " <div style='border-bottom: 1px dotted #ccc;'></div>"; 
-    agency_form += " <span  id='add_extendprice_area_"+agency_id+"'></span>";    
 
-		element++;
+    agency_form += "  </div>";
+
+    agency_form += "  <br>"; 
+    agency_form += "</div>";
+    agency_form += " <span id='add_price_loading_"+agency_id+"'></span>";
+    agency_form += " <span  id='add_price_area_"+agency_id+"'></span>"; 
+    agency_form += " <div style='border-bottom: 1px dotted #ccc;'></div>";   
+
+		countExtendPriceJS = 1;
 
 		return agency_form;
 	}
 
 
 
-  function extendPriceForm(agency_id, countExtendPriceJS){
+  function priceForm(agency_id, countExtendPriceJS){
+    alert(countExtendPriceJS);
+    var priceForm = "<br>";
+    priceForm += "<div id='price_"+agency_id+"_"+countExtendPriceJS+"'>";
+    priceForm += "    <div class='half'>";
+    priceForm += "      <label>Price name :</label>";
+    priceForm += "      <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
+    priceForm += "      valign='top'  "; 
+    priceForm += "      id='delete_price'  ";
+    priceForm += "      onClick='deletePriceRow(\"delete\", \""+agency_id+"_"+countExtendPriceJS+"\");'  ";
+    priceForm += "      />  "; 
+    priceForm += "      <br>";
+    priceForm += "      <input type='text' name='price["+agency_id+"]["+countExtendPriceJS+"][pri_name]' value=''>";
+    priceForm += "    </div>";
+    priceForm += "    <div class='clearfix'></div>";  
 
-    var agency_form = "<br>";
-    agency_form += "<div id='extendprice_"+agency_id+"_"+countExtendPriceJS+"'>";
-    agency_form += "    <div class='half'>";
-    agency_form += "      <label>Extend name :</label>";
-    agency_form += "      <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
-    agency_form += "      valign='top'  "; 
-    agency_form += "      id='delete_extendprice'  ";
-    agency_form += "      onClick='deleteExtendPriceRow(\"delete\", \""+agency_id+"_"+countExtendPriceJS+"\");'  ";
-    agency_form += "      />  "; 
-    agency_form += "      <br>";
-    agency_form += "      <input type='text' name='extendprice["+agency_id+"]["+countExtendPriceJS+"][extp_name]' value=''>";
-    agency_form += "    </div>";
-    agency_form += "    <div class='clearfix'></div>";    
-    agency_form += "    <div>";
-    agency_form += "      <div class='third'>";   
-    agency_form += "        <label>Adult Sale :</label><br>";
-    agency_form += "        <input type='text' name='extendprice["+agency_id+"]["+countExtendPriceJS+"][extp_sale_adult_price]' value=''>";
-    agency_form += "      </div>";
-    agency_form += "      <div class='third'>";   
-    agency_form += "        <label>Adult Net :</label><br>";
-    agency_form += "        <input type='text' name='extendprice["+agency_id+"]["+countExtendPriceJS+"][extp_net_adult_price]' value=''>";
-    agency_form += "      </div>";
-    agency_form += "      <div class='third last'>";   
-    agency_form += "        <label>Adult discount :</label><br>";
-    agency_form += "        <input type='text' name='extendprice["+agency_id+"]["+countExtendPriceJS+"][extp_discount_adult_price]' value=''>";
-    agency_form += "      </div>";
-    agency_form += "    <div class='clearfix'></div>";
-    agency_form += "    ";    
-    agency_form += "    <div>";
-    agency_form += "      <span class='third'>";   
-    agency_form += "        <label>Child Sale :</label><br>";
-    agency_form += "        <input type='text' name='extendprice["+agency_id+"]["+countExtendPriceJS+"][extp_sale_child_price]' value=''>";
-    agency_form += "      </span>";
-    agency_form += "      <span class='third'>";   
-    agency_form += "        <label>Child Net :</label><br>";
-    agency_form += "        <input type='text' name='extendprice["+agency_id+"]["+countExtendPriceJS+"][extp_net_child_price]' value=''>";
-    agency_form += "      </span>";
-    agency_form += "      <span class='third last'>";   
-    agency_form += "        <label>Child discount :</label><br>";
-    agency_form += "        <input type='text' name='extendprice["+agency_id+"]["+countExtendPriceJS+"][extp_discount_child_price]' value=''>";
-    agency_form += "      </span>";
-    agency_form += "    </div>";
-    agency_form += "    <div class='clear'></div>";
-    agency_form += "  <br>";
-    agency_form += " </div>";
+    priceForm += "    <div>";
+    priceForm += "      <div class='third'>";   
+    priceForm += "        <label>Adult Sale :</label><br>";
+    priceForm += "        <input type='text' name='price["+agency_id+"]["+countExtendPriceJS+"][pri_sale_adult_price]' value=''>";
+    priceForm += "      </div>";
+    priceForm += "      <div class='third'>";   
+    priceForm += "        <label>Adult Net :</label><br>";
+    priceForm += "        <input type='text' name='price["+agency_id+"]["+countExtendPriceJS+"][pri_net_adult_price]' value=''>";
+    priceForm += "      </div>";
+    priceForm += "      <div class='third last'>";   
+    priceForm += "        <label>Adult discount :</label><br>";
+    priceForm += "        <input type='text' name='price["+agency_id+"]["+countExtendPriceJS+"][pri_discount_adult_price]' value=''>";
+    priceForm += "      </div>";
+    priceForm += "    <div class='clearfix'></div>";
 
+    priceForm += "    <div>";
+    priceForm += "      <span class='third'>";   
+    priceForm += "        <label>Child Sale :</label><br>";
+    priceForm += "        <input type='text' name='price["+agency_id+"]["+countExtendPriceJS+"][pri_sale_child_price]' value=''>";
+    priceForm += "      </span>";
+    priceForm += "      <span class='third'>";   
+    priceForm += "        <label>Child Net :</label><br>";
+    priceForm += "        <input type='text' name='price["+agency_id+"]["+countExtendPriceJS+"][pri_net_child_price]' value=''>";
+    priceForm += "      </span>";
+    priceForm += "      <span class='third last'>";   
+    priceForm += "        <label>Child discount :</label><br>";
+    priceForm += "        <input type='text' name='price["+agency_id+"]["+countExtendPriceJS+"][pri_discount_child_price]' value=''>";
+    priceForm += "      </span>";
+    priceForm += "    </div>";
+    priceForm += "    <div class='clear'></div>";
 
-    element++;
+    priceForm += " </div>";
+    priceForm += "  <br>";
 
-    return agency_form;
+    return priceForm;
   }
 
 

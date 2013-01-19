@@ -228,16 +228,16 @@ class Tour_model extends MY_Model {
 
         //Get price data
         unset($this->db);
-        $this->db->where('agt_tour_id', $value->tou_id);
-        $priceTour = $this->db->get('ci_agencytour')->result();
+        $this->db->where('pri_tour_id', $value->tou_id);
+        $priceTour = $this->db->get('ci_price')->result();
 
         if(!empty($priceTour)){
           $maxAgencyPrice = 0;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->agt_sale_adult_price > $maxAgencyPrice){
+            if($value->pri_sale_adult_price > $maxAgencyPrice){
               $result[$count]["price"] = $value;
-              $maxAgencyPrice = $value->agt_sale_adult_price;
+              $maxAgencyPrice = $value->pri_sale_adult_price;
             }
           }
         }

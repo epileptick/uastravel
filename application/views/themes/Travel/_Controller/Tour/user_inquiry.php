@@ -34,16 +34,16 @@
     // validate signup form on keyup and submit
     var validator = $("#booking_validate").validate({
       rules: {
-        tob_firstname: "required",
-        tob_lastname: "required",
-        tob_address: "required",
-        tob_city: "required",
-        tob_province: "required",
-        tob_zipcode: "required",
-        tob_nationality: "required",
-        tob_telephone: "required",
-        tob_email: "required",
-        tob_tranfer_date: "required",
+        toc_firstname: "required",
+        toc_lastname: "required",
+        toc_address: "required",
+        toc_city: "required",
+        toc_province: "required",
+        toc_zipcode: "required",
+        toc_nationality: "required",
+        toc_telephone: "required",
+        toc_email: "required",
+        toc_tranfer_date: "required",
       },
       messages: {
       },
@@ -69,7 +69,7 @@
 <script>
 
   $(function() {
-    $( "#tob_tranfer_date" ).datepicker({
+    $( "#toc_tranfer_date" ).datepicker({
         numberOfMonths: 1,  
         minDate: 1,
         dateFormat: 'dd/mm/yy',
@@ -154,10 +154,10 @@
         method="post"
   >
 
-    <input type="hidden" name="tob_tour_id" value="<?php echo $tour[0]->id;?>">
-    <input type="hidden" name="tob_tour_code" value="<?php echo $tour[0]->code;?>">
-    <input type="hidden" name="tob_tour_name" value="<?php echo $tour[0]->name;?>">
-    <input type="hidden" name="tob_tour_url" value="<?php echo $tour[0]->url;?>">
+    <input type="hidden" name="toc_tour_id" value="<?php echo $tour[0]->id;?>">
+    <input type="hidden" name="toc_tour_code" value="<?php echo $tour[0]->code;?>">
+    <input type="hidden" name="toc_tour_name" value="<?php echo $tour[0]->name;?>">
+    <input type="hidden" name="toc_tour_url" value="<?php echo $tour[0]->url;?>">
 
     <!-- Start Content -->
     <div class="row">
@@ -174,195 +174,165 @@
           </div><!-- Title -->
           <div class="border"></div>
 
-        <!-- extendprice -->
+        <!-- price -->
         <?php 
-          if(!empty($extendprice)){
+          if(!empty($price)){
         ?>
         <div class="row">
           <div class="twelve columns">
             <div class="row">
               <div class="twelve columns">
-                <label><b>[ราคาเพิ่มเติม]</b></label>
+                <label><b>[สรุปราคาทัวร์]</b></label>
               </div>
             </div>
             <div class="row">
               <div class="six columns">
-                <label><b>รายการ</b></label>
+                <label style="float:center;"><b>รายการ</b></label>
               </div>
-              <div class="three columns">
-                <label><b>ราคาผู้ใหญ่(บาท)</b></label>
+              <div class="two columns">
+                <label style="float:right;"><b>ผู้ใหญ่(บาท)</b></label>
               </div>
-              <div class="three columns">
-                <label><b>ราคาเด็ก(บาท)</b></label>
+              <div class="two columns">
+                <label style="float:right;"><b>เด็ก(บาท)</b></label>
+              </div>
+              <div class="two columns">
+                <label style="float:right;"><b>รวม(บาท)</b></label>
               </div>
             </div>
             <?php
 
             //print_r($extendprice);
             $count = 0;
-            foreach ($extendprice as $key => $value) {
+            $grand_total_price = 0;
+            foreach ($price as $key => $value) {
             ?>
               <div class="row">
                 <div class="six columns">
                   <label>
-                    <input type="checkbox" name="tob_extend_price[<?php echo $value->extp_id;?>][extp_id]" value="<?php echo $value->extp_id;?>">
-                    <input type="hidden" name="tob_extend_price[<?php echo $value->extp_id;?>][extp_name]" value="<?php echo $value->extp_name;?>">
-                    <input type="hidden" name="tob_extend_price[<?php echo $value->extp_id;?>][extp_sale_adult_price]" value="<?php echo $value->extp_sale_adult_price;?>">
-                    <input type="hidden" name="tob_extend_price[<?php echo $value->extp_id;?>][extp_sale_child_price]" value="<?php echo $value->extp_sale_child_price;?>">
-                    <?php echo $value->extp_name;?>
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_price_id]" 
+                    value="<?php echo $value["pri_id"];?>"
+                    >
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_agency_id]" 
+                    value="<?php echo $value["pri_agency_id"];?>"
+                    >
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_tour_id]" 
+                    value="<?php echo $value["pri_tour_id"];?>"
+                    >
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_adult_amount_booking]" 
+                    value='<?php echo ($value["pri_adult_amount_booking"]>0)?$value["pri_adult_amount_booking"]:"0";?>'
+                    >
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_child_amount_booking]" 
+                    value='<?php echo ($value["pri_child_amount_booking"]>0)?$value["pri_child_amount_booking"]:"0";?>'
+                    >
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_price_name]" 
+                    value="<?php echo $value["pri_name"];?>"
+                    >
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_sale_adult_price]" 
+                    value="<?php echo $value["pri_sale_adult_price"];?>"
+                    >
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_sale_child_price]" 
+                    value="<?php echo $value["pri_sale_child_price"];?>"
+                    >
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_adult_price]" 
+                    value="<?php echo $value["pri_total_adult_price"];?>"
+                    >
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_child_price]" 
+                    value="<?php echo $value["pri_total_child_price"];?>"
+                    >
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_price]" 
+                    value="<?php echo $value["pri_total_price"];?>"
+                    >
+                    <?php echo $value["pri_name"];?>
                     <?php $count++;?>
                   </label>
                 </div>
-                <div class="three columns">
-                  <center><label><?php echo $value->extp_sale_adult_price;?></label></center>
+                <div class="two columns">
+                  <center>
+                      <label style="float:right;">
+                        <?php echo number_format($value["pri_sale_adult_price"], 0);?>
+                        (<?php echo ($value["pri_adult_amount_booking"]>0)?$value["pri_adult_amount_booking"]:"0";?>)
+                      </label>
+                  </center>
                 </div>
-                <div class="three columns">
-                  <center><label><?php echo $value->extp_sale_child_price;?></label></center>
+                <div class="two columns">
+                  <center><label style="float:right;">
+                    <?php echo number_format($value["pri_sale_child_price"], 0);?>
+                    (<?php echo ($value["pri_child_amount_booking"]>0)?$value["pri_child_amount_booking"]:"0";?>)
+                  </label>
+                </center>
+                </div>
+                <div class="two columns">
+                  <?php
+                    $grand_total_price += $value["pri_total_price"];
+                  ?>
+                  <label style="float:right;"><b><?php echo number_format($value["pri_total_price"], 0);?></b></label>
                 </div>
               </div>
             <?
             }
             ?>
-            <div class="row">
-              <div class="twelve columns">
-                <label><font color="red"><u>หมายเหตุ</u></font> ราคานี้ไม่รวมกับราคาทัวร์หลัก</label>
-              </div>
-            </div>
           </div>
         </div>
         <?php
           }
         ?>
-        <!-- End extendprice -->
-          <!-- Start price -->
-          <div class="row">
-              <div class="price_booking"> 
-             
-                <div class="twelve columns">
-                  <div class="two columns">
-                    <span class="title">ราคาทัวร์</span>
-                  </div>
-
-                  <div class="four columns">
-                    <span>
-                      <strong>ผู้ใหญ่ : </strong> 
-                      <?php
-                        //print_r($price); exit;
-                        $tob_adult_price = 0;
-                        $tob_discount_adult_price = 0;
-                        if(!empty($price[0]->sale_adult_price)){
-                          
-                          if($price[0]->discount_adult_price>0){
-
-                            $priceAdultDiscount = number_format($price[0]->sale_adult_price - $price[0]->discount_adult_price, 0);
-                            $tob_adult_price = $price[0]->sale_adult_price - $price[0]->discount_adult_price;
-                            $tob_discount_adult_price = $price[0]->discount_adult_price;
-                            $priceAdult = number_format($price[0]->sale_adult_price, 0);
-                          
-                            echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
-                            echo " บาท";
-
-                          }else{
-                            $tob_adult_price = $price[0]->sale_adult_price;
-                            echo "<f style='font-size:30px; color:#0089E0;'>".number_format($price[0]->sale_adult_price, 0)."&nbsp; บาท</f>";
-                          }
-
-                        }else{
-                          echo "Call";
-                          echo " บาท";
-                        }
-                        
-                      ?> 
-                    </span>
-                    <input type="hidden" name="tob_adult_price" value="<?php echo $tob_adult_price;?>">
-                    <input type="hidden" name="tob_discount_adult_price" value="<?php echo $tob_discount_adult_price;?>"> 
-                  </div>
-
-                  <div class="four columns">
-                    <span>
-                      <strong>เด็ก : </strong>
-                      <?php 
-
-                        $tob_child_price = 0;
-                        $tob_discount_child_price = 0;                      
-                        if(!empty($price[0]->sale_child_price)){
-                          
-                          if($price[0]->discount_child_price>0){
-
-                            $priceChildDiscount = number_format($price[0]->sale_child_price - $price[0]->discount_child_price, 0);
-                            $tob_child_price = $price[0]->sale_child_price - $price[0]->discount_child_price;
-                            $tob_discount_child_price = $price[0]->discount_child_price; 
-                            $priceChild = number_format($price[0]->sale_child_price, 0);
-                            echo "<f style='text-decoration: line-through;'>".$priceChild."</f>&nbsp;".$priceChildDiscount;
-                            echo " บาท";
-
-                          }else{
-                            $tob_child_price = $price[0]->sale_child_price;
-                            echo "<f style='font-size:30px; color:#0089E0;'>".number_format($price[0]->sale_child_price, 0)."&nbsp; บาท</f>";
-                          }
-                          //text-decoration: line-through; color: #โค้ดสีเส้น;
-
-                        }else{
-                          echo "Call";
-                          echo " บาท";
-                        }
-                        
-                      ?> 
-                    </span>
-                    <input type="hidden" name="tob_child_price" value="<?php echo $tob_child_price;?>">
-                    <input type="hidden" name="tob_discount_child_price" value="<?php echo $tob_discount_child_price;?>">                     
-                  </div>
-
-                </div>
-              <div class="clearfix"></div>
-            </div>
-          </div>
-        <!-- End price -->
 
         <!-- Start Booking Form -->
         <div class="border"></div> 
+        <div class="row"> 
+          <div class="nine columns">
+            <label style="float:right;"><b>รวมราคาทั้งหมด</b></label>
+          </div>
+          <div class="three columns">
+                    <input type="hidden" name="toc_grand_total_price" value="<?php echo $grand_total_price ;?>">
+            <label style="float:right;"><b><u><?php echo number_format($grand_total_price, 0);?></u></b></label>
+          </div>
+        </div>
+
+
+
         <div class="row">         
         <div class="twelve columns">
             <h2>รายละเอียดลูกค้า</h2>
             <div class="row">
               <div class="six columns">
                 <label>ชื่อ</label>
-                <input type="text" placeholder="Firstname" id="tob_firstname" name="tob_firstname" value="<?php echo set_value('tob_firstname');?>"/>
+                <input type="text" placeholder="Firstname" id="toc_firstname" name="toc_firstname" value="<?php echo set_value('tob_firstname');?>"/>
               </div>
               <div class="six columns">
                 <label>นามสกุล</label>
-                <input type="text" placeholder="Lastname" id="tob_lastname" name="tob_lastname"/>
+                <input type="text" placeholder="Lastname" id="toc_lastname" name="toc_lastname"/>
               </div>
             </div>
             <label>ที่อยู่</label>
-            <input type="text" class="twelve" placeholder="Address" id="tob_address" name="tob_address"/>
+            <input type="text" class="twelve" placeholder="Address" id="toc_address" name="toc_address"/>
             <div class="row">
               <div class="six columns">
-                <input type="text" placeholder="City"  id="tob_city" name="tob_city"/>
+                <input type="text" placeholder="City"  id="tob_city" name="toc_city"/>
               </div>
               <div class="three columns">
-                <input type="text" placeholder="Province/State"  id="tob_province" name="tob_province"/>
+                <input type="text" placeholder="Province/State"  id="toc_province" name="toc_province"/>
               </div>
               <div class="three columns">
-                <input type="text" placeholder="ZIP" id="tob_zipcode" name="tob_zipcode"/>
+                <input type="text" placeholder="ZIP" id="toc_zipcode" name="toc_zipcode"/>
               </div>
             </div>
 
             <div class="row">
               <div class="six columns">
                 <label>สัญชาติ</label>
-                <input type="text" placeholder="Nationality" id="tob_nationality" name="tob_nationality"/>
+                <input type="text" placeholder="Nationality" id="toc_nationality" name="toc_nationality"/>
               </div>
             </div>
 
             <div class="row">
               <div class="six columns">
                 <label>เบอร์โทร</label>
-                <input type="text" placeholder="Telephone" id="tob_telephone" name="tob_telephone"/>
+                <input type="text" placeholder="Telephone" id="toc_telephone" name="toc_telephone"/>
               </div>
               <div class="six columns">
                 <label>อีเมล์</label>
-                <input type="text" placeholder="Email" id="tob_email" name="tob_email"/>
+                <input type="text" placeholder="Email" id="toc_email" name="toc_email"/>
               </div>
             </div>
 
@@ -372,11 +342,11 @@
             <div class="row">
               <div class="nine columns">
               <label>ชื่อโรงแรม</label>
-                <input type="text"placeholder="Hotel Name" id="tob_hotel_name" name="tob_hotel_name"/>
+                <input type="text"placeholder="Hotel Name" id="toc_hotel_name" name="toc_hotel_name"/>
               </div>
               <div class="three columns">
                 <label>หมายเลขห้องพัก</label>
-                <input type="text" placeholder="Room Number" id="tob_room_number" name="tob_room_number"/>
+                <input type="text" placeholder="Room Number" id="toc_room_number" name="toc_room_number"/>
               </div>
             </div>
 
@@ -384,7 +354,7 @@
             <div class="row">
               <div class="four columns">
                 <label>จำนวนผู้ใหญ่</label>
-                <select name="tob_adult_amount">
+                <select name="toc_adult_amount_passenger">
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -399,7 +369,7 @@
               </div>
               <div class="four columns">
                 <label>จำนวนเด็ก (4 - 12 years)</label>
-                <select name="tob_child_amount">
+                <select name="toc_child_amount_passenger">
                   <option value="0">0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -410,7 +380,7 @@
               </div>
               <div class="four columns">
                 <label>จำนวนทารก (under 4 years)</label>
-                <select name="tob_infant_amount">
+                <select name="toc_infant_amount_passenger">
                   <option value="0">0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -422,12 +392,12 @@
             <div class="row">
               <div class="six columns">
                 <label>วันเดินทาง</label>
-                <input type="text" placeholder="Travel Date" id="tob_tranfer_date" name="tob_tranfer_date"/>
+                <input type="text" placeholder="Travel Date" id="toc_tranfer_date" name="toc_tranfer_date"/>
               </div>           
             </div>
 
             <label>สิ่งที่ต้องการเพิ่มเติม</label>
-            <textarea placeholder="Message" rows="5" id="message" name="tob_request"></textarea>              
+            <textarea placeholder="Message" rows="5" id="message" name="toc_request"></textarea>              
 
 
             <!-- Start contact -->
@@ -503,18 +473,18 @@
             <div class="price">
               <span>
               <?php 
-                  if(!empty($value["price"]->agt_sale_adult_price)){
+                  if(!empty($value["price"]->pri_sale_adult_price)){
                     
-                    if($value["price"]->agt_discount_adult_price>0){
+                    if($value["price"]->pri_discount_adult_price>0){
 
-                      $priceAdultDiscount = number_format($value["price"]->agt_sale_adult_price - $value["price"]->agt_discount_adult_price, 0);
-                      $priceAdult = number_format($value["price"]->agt_sale_adult_price, 0);
+                      $priceAdultDiscount = number_format($value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price, 0);
+                      $priceAdult = number_format($value["price"]->pri_sale_adult_price, 0);
                     
                       echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
                       echo " บาท";
 
                     }else{
-                      echo number_format($value["price"]->agt_sale_adult_price, 0);
+                      echo number_format($value["price"]->pri_sale_adult_price, 0);
                       echo " บาท";
                     }
 

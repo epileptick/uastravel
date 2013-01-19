@@ -34,6 +34,8 @@
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+
+  
 </head>
 
 <?php
@@ -314,148 +316,111 @@
           ?>
 
 
-        <!-- extendprice -->
+      <form name="input" 
+            action="<?php echo base_url('tour/inquiry');?>" 
+            method="post"
+      >
+        <!-- price -->
         <?php 
-          if(!empty($extendprice)){
+          if(!empty($price)){
         ?>
         <div class="row">
-          <div class="twelve columns">
-            <h3>ราคาเพิ่มเติม</h3>
-            <div class="row">
-              <div class="six columns">
-                <label><b>รายการ</b></label>
-              </div>
-              <div class="three columns">
-                <label><b>ราคาผู้ใหญ่(บาท)</b></label>
-              </div>
-              <div class="three columns">
-                <label><b>ราคาเด็ก(บาท)</b></label>
-              </div>
-            </div>
+
+          <h3>ราคาทัวร์</h3>
+          <table class="twelve">
+            <thead>
+              <tr>
+                <th style="font-size:18px !important;">รายการ</th>
+                <th style="font-size:18px !important;">ราคาผู้ใหญ่(บาท)</th>
+                <th style="font-size:18px !important;">จำนวน</th>
+                <th style="font-size:18px !important;">ราคาเด็ก(บาท)</th>
+                <th style="font-size:18px !important;">จำนวน</th>
+              </tr>
+            </thead> 
+            <tbody>
             <?php
 
             //print_r($extendprice);
-            foreach ($extendprice as $key => $value) {
+            $countPrice =0;
+            foreach ($price as $key => $value) {
             ?>
-              <div class="row">
-                <div class="six columns">
-                  <label><?php echo $value->extp_name;?></label>
-                </div>
-                <div class="three columns">
-                  <center><label><?php echo $value->extp_sale_adult_price;?></label></center>
-                </div>
-                <div class="three columns">
-                  <center><label><?php echo $value->extp_sale_child_price;?></label></center>
-                </div>
-              </div>
+
+              <tr>
+                <td style="font-size:18px !important;">
+                  <?php
+                    if($countPrice == 0){
+                  ?>
+                    <label for="checkbox_<?php echo $value->id;?>">
+                      <input name="price_id[]" 
+                              type="checkbox" 
+                              id="radio_<?php echo $value->id;?>" 
+                              value="<?php echo $value->id;?>" 
+                              CHECKED
+                      >
+                      <?php echo $value->name;?>
+                    </label>
+                  <?php
+                    }else{
+                  ?>
+                    <label for="checkbox_<?php echo $value->id;?>">
+                      <input name="price_id[]" 
+                              type="checkbox" 
+                              id="radio_<?php echo $value->id;?>" 
+                              value="<?php echo $value->id;?>"
+                      >
+                      <?php echo $value->name;?>
+                    </label>
+                  <?php
+                    }
+                  ?>
+                </td>
+
+                <td style="font-size:18px !important;">
+                  <center><label><?php echo number_format($value->sale_adult_price, 0);?></label></center>
+                </td>
+
+                <td style="font-size:18px !important;">
+                  <input name="adult_amount_booking[<?php echo $value->id;?>]" 
+                          type="text" 
+                          id="amount_adult_<?php echo $value->id;?>"
+                          style="height: 20px !important; width: 30px !important;"
+                  >
+                </td>
+
+                <td style="font-size:18px !important;">
+                  <center><label><?php echo number_format($value->sale_child_price, 0);?></label></center>
+                </td>
+
+
+                <td style="font-size:18px !important;">
+                  <input name="child_amount_booking[<?php echo $value->id;?>]" 
+                          type="text" 
+                          id="amount_child_<?php echo $value->id;?>"
+                          style="height: 20px !important; width: 30px !important;"
+                  >
+
+                </td>
+              </tr>    
             <?
+              $countPrice++;
             }
             ?>
-            <div class="row">
-              <div class="twelve columns">
-                <label><font color="red"><u>หมายเหตุ</u></font> ราคานี้ไม่รวมกับราคาทัวร์หลัก</label>
-              </div>
-            </div>
-          </div>
+
+
+              <tr>
+                <td class="price_booking" colspan="5">
+                    <input type="hidden" name="id" value="<?php echo $tour[0]->id;?>"></input>
+                    <input class="button small  booking"  type="submit" value="จองทัวร์นี้">
+                </td>
+              </tr>            
+            </tbody>
+          </table>
         </div>
         <?php
           }
         ?>
-        <!-- End extendprice -->
-
-          <!-- Start price -->
-          <div class="row">
-              <div class="price_booking"> 
-             
-                <div class="twelve columns">
-                  <div class="two columns">
-                    <span class="title">ราคาทัวร์</span>
-                  </div>
-
-                  <div class="four columns">
-                    <span>
-                      <strong>ผู้ใหญ่ : </strong> 
-                      <?php
-                        //print_r($price); exit;
-                        if(!empty($price[0]->sale_adult_price)){
-                          
-                          if($price[0]->discount_adult_price>0){
-
-                            $priceAdultDiscount = number_format($price[0]->sale_adult_price - $price[0]->discount_adult_price, 0);
-                            $priceAdult = number_format($price[0]->sale_adult_price, 0);
-                          
-                            echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
-                            echo " บาท";
-
-                          }else{
-                            echo "<f style='font-size:30px; color:#0089E0;'>".number_format($price[0]->sale_adult_price, 0)."&nbsp; บาท</f>";
-                          }
-
-                          //text-decoration: line-through; color: #โค้ดสีเส้น;
-
-                        }else{
-                          echo "Call";
-                          echo " บาท";
-                        }
-                        
-                      ?> 
-                    </span> 
-                  </div>
-
-                  <div class="four columns">
-                    <span>
-                      <strong>เด็ก : </strong>
-                      <?php 
-                      
-                        if(!empty($price[0]->sale_child_price)){
-                          
-                          if($price[0]->discount_child_price>0){
-
-                            $priceChildDiscount = number_format($price[0]->sale_child_price - $price[0]->discount_child_price, 0);
-                            $priceChild = number_format($price[0]->sale_child_price, 0);
-                            echo "<f style='text-decoration: line-through;'>".$priceChild."</f>&nbsp;".$priceChildDiscount;
-                            echo " บาท";
-
-                          }else{
-                            echo "<f style='font-size:30px; color:#0089E0;'>".number_format($price[0]->sale_child_price, 0)."&nbsp; บาท</f>";
-                          }
-
-                          //text-decoration: line-through; color: #โค้ดสีเส้น;
-
-                        }else{
-                          echo "Call";
-                          echo " บาท";
-                        }
-                        
-                      ?> 
-                    </span>
-                  </div>
-
-                  <div class="two columns">
-
-                    <form name="input" 
-                          action="<?php echo base_url('tour/inquiry');?>" 
-                          method="post"
-                    >
-                    <input type="hidden" name="id" value="<?php echo $tour[0]->id;?>"></input>
-                    <input class="button small  booking"  type="submit" value="จองทัวร์นี้">
-                    </form>
-
-                    <!-- a class="button small  booking" 
-                       href="<?php echo base_url('tour/booking');?>"
-                    >
-                      จองทันที
-                    </a -->
-                  </div>
-
-                </div>
-              <div class="clearfix"></div>
-            </div>
-          </div>
         <!-- End price -->
-
-
-
+      </form> 
         <!-- Start contact -->
         <div class="row">
          <div class="twelve columns">
@@ -582,18 +547,18 @@
                 <div class="price">
                   <span>
                   <?php 
-                      if(!empty($value["price"]->agt_sale_adult_price)){
+                      if(!empty($value["price"]->pri_sale_adult_price)){
                         
-                        if($value["price"]->agt_discount_adult_price>0){
+                        if($value["price"]->pri_discount_adult_price>0){
 
-                          $priceAdultDiscount = number_format($value["price"]->agt_sale_adult_price - $value["price"]->agt_discount_adult_price, 0);
-                          $priceAdult = number_format($value["price"]->agt_sale_adult_price, 0);
+                          $priceAdultDiscount = number_format($value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price, 0);
+                          $priceAdult = number_format($value["price"]->pri_sale_adult_price, 0);
                         
                           echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
                           echo " บาท";
 
                         }else{
-                          echo number_format($value["price"]->agt_sale_adult_price, 0);
+                          echo number_format($value["price"]->pri_sale_adult_price, 0);
                           echo " บาท";
                         }
 
