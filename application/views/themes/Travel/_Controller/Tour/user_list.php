@@ -249,7 +249,7 @@
                               //Check menu link
                               $isMenu = false;
                               foreach ($menu as $key => $value) {
-                                if($value->name == $this->uri->segment(3)){
+                                if($value->url == $this->uri->segment(3)){
                                   $isMenu = true;
                                 }
                               }  
@@ -306,7 +306,7 @@
                 //Check submenu link
                 $isSubMenu = false;
                 foreach ($submenu as $key => $value) {
-                  if($value->name == $this->uri->segment(3)){
+                  if($value->url == $this->uri->segment(3)){
                     $isSubMenu = true;
                   }
                 }                  
@@ -352,8 +352,7 @@
                               </li>
                             <?php
                             }
-           
-              
+
                             foreach ($submenu as $key => $value) {
                               if($isSubMenu){
                                   $link = base_url('tour/'.$uri1.$value->url); 
