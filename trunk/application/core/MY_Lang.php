@@ -42,47 +42,25 @@ class MY_Lang extends CI_Lang {
     /**************************************************/
     
     
-    function MY_Lang()
-    {
-      parent::__construct();
-      
-      global $CFG;
-      global $URI;
-      global $RTR;
-      
-      $this->uri = $URI->uri_string();
-      
-      $this->default_uri = $RTR->default_controller;
-      
-      $uri_segment = $this->get_uri_lang($this->uri);
-      $this->lang_code = $uri_segment['lang'] ;
-      
-      $url_ok = false;
-      if ((!empty($this->lang_code)) && (array_key_exists($this->lang_code, $this->languages)))
-      {
-          $language = $this->languages[$this->lang_code];
-          $CFG->set_item('language', $language);
-          $url_ok = true;
+  function MY_Lang()
+  {
+    parent::__construct();
+    
+    global $CFG;
+    global $URI;
+    global $RTR;
+    
+    if(count(explode(".",$_SERVER['SERVER_NAME']))>2){
+      $current_lang = explode(".",$_SERVER['SERVER_NAME'],2);
+      if(array_key_exists($current_lang[0], $this->languages)){
+        $CFG->set_item("base_url","http://".$_SERVER['SERVER_NAME']."/");
+        $CFG->set_item('language', $this->languages[$current_lang[0]]);
+      }else{
+        header("Location: ".$CFG->item("base_url"));
       }
-     
-     if ((!$url_ok) && (!$this->is_special($uri_segment['parts'][0]))) // special URI -> no redirect
-     {
-      // set default language
-      $CFG->set_item('language', $this->languages[$this->default_lang()]);
-      
-      if(array_key_exists($this->default_lang(), $this->languages) AND empty($this->uri)){
-        $uri = (!empty($this->uri)) ? $this->uri: $this->default_uri;
-            //$uri = ($uri[0] != '/') ? $uri : $uri;
-        $new_url = $CFG->config['base_url'].$uri;
-        
-        if($RTR->default_controller != $uri){
-          header("Location: " . $new_url, TRUE, 302);
-          exit;
-        }
-      }
-      
-     }
     }
+    
+  }
     
     // get current language
     // ex: return 'en' if language in CI config is 'english' 

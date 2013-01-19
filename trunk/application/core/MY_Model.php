@@ -186,6 +186,7 @@ class MY_Model extends CI_Model {
     
       if(!empty($options['id'])){
         $this->db->where($this->_column['id'], $options['id']);
+        
       }else{
         foreach($options['where'] AS $whereKey=>$whereValue){
           $this->db->where($this->_getColumn($whereKey), $whereValue);
@@ -204,7 +205,12 @@ class MY_Model extends CI_Model {
           $objData = $result;
         }
       }else{
-        return false;
+        $result = $this->db->update($this->_table);
+        if($result){
+          $objData = $options['id'];
+        }else{
+          $objData = FALSE;
+        }
       }
     }else{
       $result = $this->db->insert($this->_table);
@@ -214,8 +220,6 @@ class MY_Model extends CI_Model {
     if($result){
       return $objData;
     }
-    return $result;
-
   }
   
   public function getError(){
