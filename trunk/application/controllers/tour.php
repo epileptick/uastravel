@@ -81,7 +81,7 @@ class Tour extends MY_Controller {
 
       //print_r($args); exit;
       if(!empty($args['id'])){
-        $this->user_inquiry($args['id']); 
+        $this->user_inquiry($args); 
       }else{
         $id = $this->uri->segment($index+2);
         $this->user_inquiry($id); 
@@ -576,7 +576,7 @@ class Tour extends MY_Controller {
       $tour["id"] = $id;
       $tagtour["tour_id"] = $id;
       $agencytour["tour_id"] = $id;  
-      $extendprice["extp_tour_id"] = $id;  
+      $extendprice["pri_tour_id"] = $id;  
       $data["tour"] = $this->tourModel->getRecord($tour); 
 
 
@@ -615,28 +615,55 @@ class Tour extends MY_Controller {
 
 
       //Price
-      $this->load->model("agencytour_model", "agencytourModel");
-      $agencytourQuery["price"] = $this->agencytourModel->getRecord($agencytour);
+      $this->load->model("price_model", "priceModel");
+      $priceQuery = $this->priceModel->getRecord($agencytour);
 
-      //print_r($agencytourQuery); exit;  
-      if(!empty($agencytourQuery["price"])){
-        $maxAgencyPrice = 0;
-        foreach ($agencytourQuery["price"] as $key => $value) {
-          # code...
-          if($value->sale_adult_price > $maxAgencyPrice){
-            $data["price"][0] = $value;
-            $maxAgencyPrice = $value->sale_adult_price;
+      if(!empty($priceQuery)){
+
+        //Duplicate agency
+        $duplicateArray = array();
+        foreach ($priceQuery as $value){
+          if (isset($duplicateArray[$value->agency_id]))
+              $duplicateArray[$value->agency_id]++;
+          else
+              $duplicateArray[$value->agency_id] = 1;
+        }
+
+        //Main price
+        foreach ($duplicateArray as $keyAgencyID => $valueAgncyID) {
+          $name_length = 99999;
+          foreach ($priceQuery as $key => $value) {
+            if($value->agency_id == $keyAgencyID){
+
+              if(strlen($value->name) < $name_length){
+                $mainPrice[$keyAgencyID] =  $value;
+                $name_length = strlen($value->name);
+              }
+            }
           }
         }
-      }
 
-      //Extend Price
-      $this->load->model("extendprice_model", "extendpriceModel");
-      $extendpriceQuery["extendprice"] = $this->extendpriceModel->getRecord($extendprice);
 
-      if(!empty($extendpriceQuery["extendprice"])){
-        $data["extendprice"] = $extendpriceQuery["extendprice"];
-      }
+        //Max price
+        $maxSalePrice = 0;
+        $maxSalePriceID = 0;
+        foreach ($mainPrice as $key => $value) {         
+          if($value->sale_adult_price > $maxSalePrice){
+            $maxSalePriceID  = $value->agency_id;
+            $maxSalePrice = $value->sale_adult_price;
+          }
+        }
+
+        //Price selection
+        foreach ($priceQuery as $key => $value) {
+          if($value->agency_id == $maxSalePriceID){
+            $data["price"][] = $value;
+          }
+        }        
+
+
+      }//End price
+
 
       //Images
       $this->load->model("images_model", "imagesModel");
@@ -657,15 +684,18 @@ class Tour extends MY_Controller {
 
   }//End user_view function
 
-  function user_inquiry($id){
+
+
+  function user_inquiry($args){
+
     
-    if($id){   
+    if($args["id"]){   
 
       //Tour
 
-      $tour["id"] = $id;
-      $tagtour["tour_id"] = $id;
-      $agencytour["tour_id"] = $id;    
+      $tour["id"] = $args["id"];
+      $tagtour["tour_id"] = $args["id"];
+      $agencytour["tour_id"] = $args["id"];    
       $tour["field"] = "tou_id, tou_code, tou_name, tou_url, tou_first_image, tou_short_description";     
       $data["tour"] = $this->tourModel->getRecord($tour); 
 
@@ -691,7 +721,7 @@ class Tour extends MY_Controller {
         }
 
         //Related Tour
-        $query["tour_id"] = $id;
+        $query["tour_id"] = $args["id"];
         $query["tag_id"] = $query["menu"];
         $query["tour_tag"] = $data["tag"];
         $query["mainper_page"] = 3;
@@ -703,29 +733,49 @@ class Tour extends MY_Controller {
         //print_r($related); exit;
       }
 
-      //Price
-      $agencytour["tour_id"] = $id; 
-      $this->load->model("agencytour_model", "agencytourModel");
-      $agencytourQuery["price"] = $this->agencytourModel->getRecord($agencytour);
-      if(!empty($agencytourQuery["price"])){
-        $maxAgencyPrice = 0;
-        foreach ($agencytourQuery["price"] as $key => $value) {
-          # code...
-          if($value->sale_adult_price > $maxAgencyPrice){
-            $data["price"][0] = $value;
-            $maxAgencyPrice = $value->sale_adult_price;
-          }
+
+      //print_r($args); 
+  
+
+      //Price compute
+      if(!empty($args["price_id"])){
+        $this->load->model("price_model", "priceModel");
+        foreach ($args["price_id"] as $key => $value) {
+          $price["id"] = $value; 
+          $queryPrice = $this->priceModel->getRecord($price);
+          $queryPriceID = $queryPrice[0]->id;
+          $dataPrice[$queryPriceID] = $queryPrice[0];
+          //$dataPrice["price"][$queryPriceID] = $queryPrice[0];
+          //print_r($dataPrice); exit;
+          //$data["price"][$queryPriceID] = $queryPrice[0];
+          $adult_amount_booking = $args["adult_amount_booking"][$queryPriceID];
+          $child_amount_booking = $args["child_amount_booking"][$queryPriceID];
+
+          $data["price"][$queryPriceID]["pri_id"] = $queryPriceID;
+          $data["price"][$queryPriceID]["pri_agency_id"] = $dataPrice[$queryPriceID]->agency_id;
+          $data["price"][$queryPriceID]["pri_tour_id"] = $dataPrice[$queryPriceID]->tour_id;
+          $data["price"][$queryPriceID]["pri_name"] = $dataPrice[$queryPriceID]->name;
+          $data["price"][$queryPriceID]["pri_sale_adult_price"] = $dataPrice[$queryPriceID]->sale_adult_price;
+          $data["price"][$queryPriceID]["pri_net_adult_price"] = $dataPrice[$queryPriceID]->net_adult_price;
+          $data["price"][$queryPriceID]["pri_discount_adult_price"] = $dataPrice[$queryPriceID]->discount_adult_price;
+          $data["price"][$queryPriceID]["pri_sale_child_price"] = $dataPrice[$queryPriceID]->sale_child_price;
+          $data["price"][$queryPriceID]["pri_net_child_price"] = $dataPrice[$queryPriceID]->net_child_price;
+          $data["price"][$queryPriceID]["pri_discount_child_price"] = $dataPrice[$queryPriceID]->discount_child_price;
+          $data["price"][$queryPriceID]["pri_adult_amount_booking"] = $adult_amount_booking;
+          $data["price"][$queryPriceID]["pri_child_amount_booking"] = $child_amount_booking;
+
+          $total_adult_price = $adult_amount_booking * $dataPrice[$queryPriceID]->sale_adult_price;
+          $total_child_price = $child_amount_booking * $dataPrice[$queryPriceID]->sale_child_price;
+          $data["price"][$queryPriceID]["pri_total_adult_price"] = $total_adult_price;
+          $data["price"][$queryPriceID]["pri_total_child_price"] = $total_child_price;
+          $data["price"][$queryPriceID]["pri_total_price"] = $total_adult_price + $total_child_price;
+          
         }
       }
 
-      //Extend Price
-      $extendprice["extp_tour_id"] = $id; 
-      $this->load->model("extendprice_model", "extendpriceModel");
-      $extendpriceQuery["extendprice"] = $this->extendpriceModel->getRecord($extendprice);
 
-      if(!empty($extendpriceQuery["extendprice"])){
-        $data["extendprice"] = $extendpriceQuery["extendprice"];
-      }
+
+      //print_r($data); exit;
 
       //print_r($data); exit;
       //Return
@@ -745,10 +795,12 @@ class Tour extends MY_Controller {
 
   function user_booking($args){
 
+    //print_r($args); exit;
+
     if(!empty($args)){
 
-      $this->load->model("tourbooking_model", "tourbookingModel");
-      $booking = $this->tourbookingModel->addRecord($args);
+      $this->load->model("tourcustomer_model", "tourcustomerModel");
+      $booking = $this->tourcustomerModel->addRecord($args);
 
 
       //print_r($booking); exit;
@@ -757,7 +809,7 @@ class Tour extends MY_Controller {
       $this->sendmail_booking_admin($booking);
 
       //Forward
-      redirect(base_url("tour/booking/".$booking["tob_hashcode"]));  
+      redirect(base_url("tour/booking/".$booking["toc_hashcode"]));  
 
       //print_r($insert_id); exit;
     }else{ //id not send
@@ -776,47 +828,58 @@ class Tour extends MY_Controller {
     $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
 
     // Additional headers
-    $headers .= 'To: คุณ '.$booking["tob_firstname"].' <'.$booking["tob_email"].'>' . "\r\n";
+    $headers .= 'To: คุณ '.$booking["toc_firstname"].' <'.$booking["toc_email"].'>' . "\r\n";
     $headers .= 'From: uastravel.com <booking@uastravel.com>' . "\r\n";
 
-    $to = $booking["tob_email"];
+    $to = $booking["toc_email"];
 
 
-    $subject = "คุณได้ทำการจอง ".$booking["tob_tour_name"]." ผ่านทาง uastravel.com";
+    $subject = "คุณได้ทำการจอง ".$booking["toc_tour_name"]." ผ่านทาง uastravel.com";
 
 
-    $message = '<p>สวัสดีค่ะ คุณ'.$booking["tob_firstname"].',</p>';
+    $message = '<p>สวัสดีค่ะ คุณ'.$booking["toc_firstname"].',</p>';
     $message .='<p>ขอขอบคุณที่ไว้วางใจในบริการของ <a href="http://www.uastravel.com">uastravel.com</a></p>';
     $message .='<p>รายละเอียดการจองทัวร์ของคุณมีดังนี้</p>';
     $message .='<blockquote>';
     $message .='  ##########  รายละเอียดการจอง ##########';
-    $message .='  <br />หมายเลขการจอง : '.$booking["tob_code"];
-    $message .='  <br />ชื่อทัวร์ : '.$booking["tob_tour_name"].'('.$booking["tob_tour_code"].')';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/'.$booking["tob_tour_url"].'-'.$booking["tob_tour_id"].'">'.$booking["tob_tour_name"].'</a>';
-    $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["tob_adult_amount"];
-    $message .='  <br />จำนวนเด็ก : '.$booking["tob_child_amount"];
-    $message .='  <br />จำนวนเด็กทารก : '.$booking["tob_infant_amount"];
+    $message .='  <br />หมายเลขการจอง : '.$booking["toc_code"];
+    $message .='  <br />ชื่อทัวร์ : '.$booking["toc_tour_name"].'('.$booking["toc_tour_code"].')';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/'.$booking["toc_tour_url"].'-'.$booking["toc_tour_id"].'">'.$booking["toc_tour_name"].'</a>';
+
+
+    $message .='  <br />##########  จำนวนผู้เดินทาง ##########';
+    $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["toc_adult_amount_passenger"];
+    $message .='  <br />จำนวนเด็ก : '.$booking["toc_child_amount_passenger"];
+    $message .='  <br />จำนวนเด็กทารก : '.$booking["toc_infant_amount_passenger"];
     $message .='  <br />';
+
     $message .='  <br />##########  รายละเอียดราคา ##########';
-    $message .='  <br />ราคารวมของผู้ใหญ่ : '.$booking["tob_total_adult_price"];
-    $message .='  <br />ราคารวมของเด็ก : '.$booking["tob_total_child_price"];
-    $message .='  <br />ราคารวมของทารก : ฟรี';
-    $message .='  <br />ราคารวมทั้งหมด : '.$booking["tob_total_price"];
+    foreach ($booking["price"] as $key => $value) {
+      $message .='  <br />';
+      $message .='  <br />ชื่อราคา : '.$value["tob_price_name"];
+      $message .='  <br />ราคารวมของผู้ใหญ่ ('.$value["tob_adult_amount_booking"].') : '.$value["tob_total_adult_price"];
+      $message .='  <br />ราคารวมของเด็ก ('.$value["tob_child_amount_booking"].') : '.$value["tob_total_child_price"];
+      $message .='  <br />ราคารวมของทารก : ฟรี';
+      $message .='  <br />';
+    }
+
+    $message .='  <br />ราคารวมทั้งหมด : '.$booking["toc_grand_total_price"];
     $message .='  <br />';
+
     $message .='  <br />##########  รายละเอียดผู้จอง ##########';
-    $message .='  <br />ชื่อผู้จอง : '.$booking["tob_firstname"].' '.$booking["tob_lastname"];
-    $message .='  <br />สัญชาติ : '.$booking["tob_nationality"];
-    $message .='  <br />ที่อยู่ : '.$booking["tob_address"].', '.$booking["tob_city"].', '.$booking["tob_province"].', '.$booking["tob_zipcode"];
-    $message .='  <br />เบอร์ติดต่อ : '.$booking["tob_telephone"];
-    $message .='  <br />อีเมล : '.$booking["tob_email"];
+    $message .='  <br />ชื่อผู้จอง : '.$booking["toc_firstname"].' '.$booking["toc_lastname"];
+    $message .='  <br />สัญชาติ : '.$booking["toc_nationality"];
+    $message .='  <br />ที่อยู่ : '.$booking["toc_address"].', '.$booking["toc_city"].', '.$booking["toc_province"].', '.$booking["toc_zipcode"];
+    $message .='  <br />เบอร์ติดต่อ : '.$booking["toc_telephone"];
+    $message .='  <br />อีเมล : '.$booking["toc_email"];
     $message .='  <br />';
-    $message .='  <br />ชื่อโรงแรมที่พัก : '.$booking["tob_hotel_name"];
-    $message .='  <br />หมายเลขห้อง : '.$booking["tob_room_number"];
-    $message .='  <br />วันที่เดินทาง : '.$booking["tob_tranfer_date"];
-    $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["tob_request"];
+    $message .='  <br />ชื่อโรงแรมที่พัก : '.$booking["toc_hotel_name"];
+    $message .='  <br />หมายเลขห้อง : '.$booking["toc_room_number"];
+    $message .='  <br />วันที่เดินทาง : '.$booking["toc_tranfer_date"];
+    $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["toc_request"];
     $message .='  <br />';
     $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/booking/'.$booking["tob_hashcode"].'">'.$booking["tob_code"].'</a>';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
     $message .='  <br />';
     $message .='</blockquote>';   
 
@@ -829,6 +892,7 @@ class Tour extends MY_Controller {
           <br />80/86 หมู่บ้านศุภาลัยซิตี้ฮิลล์ ม.3
           <br />ต.รัษฎา อ.เมือง ภูเก็ต 83000
       ';        
+
 
     //echo $message; exit;
     mail($to,$subject,$message,$headers);
@@ -849,52 +913,73 @@ class Tour extends MY_Controller {
 
 
     // subject
-    $subject = 'ข้อมูลการจองทัวร์ของคุณ '.$booking["tob_firstname"];
+    $subject = 'ข้อมูลการจองทัวร์ของคุณ '.$booking["toc_firstname"];
 
     $message ='<p>รายละเอียดการจองทัวร์มีดังนี้</p>';
     $message .='<blockquote>';
+    $message .='<blockquote>';
     $message .='  ##########  รายละเอียดการจอง ##########';
-    $message .='  <br />หมายเลขการจอง : '.$booking["tob_code"];
-    $message .='  <br />ชื่อทัวร์ : '.$booking["tob_tour_name"].'('.$booking["tob_tour_code"].')';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/'.$booking["tob_tour_url"].'-'.$booking["tob_tour_id"].'">'.$booking["tob_tour_name"].'</a>';
-    $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["tob_adult_amount"];
-    $message .='  <br />จำนวนเด็ก : '.$booking["tob_child_amount"];
-    $message .='  <br />จำนวนเด็กทารก : '.$booking["tob_infant_amount"];
+    $message .='  <br />หมายเลขการจอง : '.$booking["toc_code"];
+    $message .='  <br />ชื่อทัวร์ : '.$booking["toc_tour_name"].'('.$booking["toc_tour_code"].')';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/'.$booking["toc_tour_url"].'-'.$booking["toc_tour_id"].'">'.$booking["toc_tour_name"].'</a>';
+
+
+    $message .='  <br />##########  จำนวนผู้เดินทาง ##########';
+    $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["toc_adult_amount_passenger"];
+    $message .='  <br />จำนวนเด็ก : '.$booking["toc_child_amount_passenger"];
+    $message .='  <br />จำนวนเด็กทารก : '.$booking["toc_infant_amount_passenger"];
     $message .='  <br />';
+
     $message .='  <br />##########  รายละเอียดราคา ##########';
-    $message .='  <br />ราคารวมของผู้ใหญ่ : '.$booking["tob_total_adult_price"];
-    $message .='  <br />ราคารวมของเด็ก : '.$booking["tob_total_child_price"];
-    $message .='  <br />ราคารวมของทารก : ฟรี';
-    $message .='  <br />ราคารวมทั้งหมด : '.$booking["tob_total_price"];
+    foreach ($booking["price"] as $key => $value) {
+      $message .='  <br />';
+      $message .='  <br />ชื่อราคา : '.$value["tob_price_name"];
+      $message .='  <br />ราคารวมของผู้ใหญ่ ('.$value["tob_adult_amount_booking"].') : '.$value["tob_total_adult_price"];
+      $message .='  <br />ราคารวมของเด็ก ('.$value["tob_child_amount_booking"].') : '.$value["tob_total_child_price"];
+      $message .='  <br />ราคารวมของทารก : ฟรี';
+      $message .='  <br />';
+    }
+
+    $message .='  <br />ราคารวมทั้งหมด : '.$booking["toc_grand_total_price"];
     $message .='  <br />';
+
     $message .='  <br />##########  รายละเอียดผู้จอง ##########';
-    $message .='  <br />ชื่อผู้จอง : '.$booking["tob_firstname"].' '.$booking["tob_lastname"];
-    $message .='  <br />สัญชาติ : '.$booking["tob_nationality"];
-    $message .='  <br />ที่อยู่ : '.$booking["tob_address"].', '.$booking["tob_city"].', '.$booking["tob_province"].', '.$booking["tob_zipcode"];
-    $message .='  <br />เบอร์ติดต่อ : '.$booking["tob_telephone"];
-    $message .='  <br />อีเมล : '.$booking["tob_email"];
+    $message .='  <br />ชื่อผู้จอง : '.$booking["toc_firstname"].' '.$booking["toc_lastname"];
+    $message .='  <br />สัญชาติ : '.$booking["toc_nationality"];
+    $message .='  <br />ที่อยู่ : '.$booking["toc_address"].', '.$booking["toc_city"].', '.$booking["toc_province"].', '.$booking["toc_zipcode"];
+    $message .='  <br />เบอร์ติดต่อ : '.$booking["toc_telephone"];
+    $message .='  <br />อีเมล : '.$booking["toc_email"];
     $message .='  <br />';
-    $message .='  <br />ชื่อโรงแรมที่พัก : '.$booking["tob_hotel_name"];
-    $message .='  <br />หมายเลขห้อง : '.$booking["tob_room_number"];
-    $message .='  <br />วันที่เดินทาง : '.$booking["tob_tranfer_date"];
-    $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["tob_request"];
+    $message .='  <br />ชื่อโรงแรมที่พัก : '.$booking["toc_hotel_name"];
+    $message .='  <br />หมายเลขห้อง : '.$booking["toc_room_number"];
+    $message .='  <br />วันที่เดินทาง : '.$booking["toc_tranfer_date"];
+    $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["toc_request"];
     $message .='  <br />';
     $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/booking/'.$booking["tob_hashcode"].'">'.$booking["tob_code"].'</a>';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
     $message .='  <br />';
-    $message .='</blockquote>';  
+    $message .='</blockquote>';   
+
 
     //echo $message; exit;
     mail($to,$subject,$message,$headers);
   }
 
+
   function user_bookingview($hashcode){
 
-    $args["tob_hashcode"] = $hashcode;
+    $args["toc_hashcode"] = $hashcode;
+
+    $this->load->model("tourcustomer_model", "tourcustomerModel");
+    $data["booking"] = $this->tourcustomerModel->getRecord($args);  
+
 
     $this->load->model("tourbooking_model", "tourbookingModel");
-    $data["booking"] = $this->tourbookingModel->getRecord($args);    
+    $args["tob_tourcustomer_id"] = $data["booking"][0]->toc_id;
+    $data["booking"][0]->price = $this->tourbookingModel->getRecord($args); 
 
+
+    //print_r($data["booking"]); exit;
 
     if(!empty($data["booking"] )){
       $this->_fetch('user_bookingview', $data, false, true);
@@ -985,31 +1070,72 @@ class Tour extends MY_Controller {
       //Check update     
       if($data["tour"]>0){
 
+        $this->load->model("price_model", "priceModel");  
+        $agency["tour_id"] = $id; 
+        $agency["distinct"] = 1;
+        $agency["distinct_field"] = "pri_agency_id";
+        $queryPrice = $this->priceModel->getRecord($agency);  
+
+
+        $this->load->model("agency_model", "agencyModel");  
+        $count = 0;
+        foreach ($queryPrice as $key => $valueAgency) {
+
+          $agency["id"] = $valueAgency->agency_id;
+          $queryAgencyInfo = $this->agencyModel->getRecord($agency);  
+
+          $data["price"][$count]["agency_id"] = $valueAgency->agency_id;
+          $data["price"][$count]["agency_name"] = $queryAgencyInfo[0]->name;
+
+          if(!empty($queryAgencyInfo)){
+            $countPrice = 0;
+            foreach ($queryAgencyInfo as $key => $value) {
+              $price["tour_id"] = $id;
+              $price["agency_id"] = $valueAgency->agency_id;
+              $queryPrice = $this->priceModel->getRecord($price); 
+
+              $data["price"][$count]["price_data"] = $queryPrice;
+              $countPrice++;
+            } 
+
+          }
+
+          $count++;
+          
+        }
+
+        //print_r($priceData); exit;
+        /*
+        foreach ($queryPrice as $key => $valuePrice) {
+          $agency["id"] = $valuePrice->agency_id;
+          $queryAgency = $this->agencyModel->getRecord($agency);  
+        }*/
+
+/*
         //Agency tour
-        $this->load->model("agencytour_model", "agencytourModel");  
-        $agencyTour["tour_id"] = $id;
-        $data["agencyTour"] = $this->agencytourModel->getRecord($agencyTour);  
-        
-        if(!empty($data["agencyTour"])){
+        $this->load->model("price_model", "priceModel");  
+        $price["tour_id"] = $id;
+        $queryPrice = $this->priceModel->getRecord($price);  
+
+       // print_r($queryPrice); exit;
+        if(!empty($queryPrice)){
           $this->load->model("agency_model", "agencyModel");  
           $field = "agn_id, agn_name"; 
-          foreach ($data["agencyTour"] as $key => $value) {
-            $agency["id"] = $value->agency_id;
+          foreach ($queryPrice as $key => $valuePrice) {
+            $agency["id"] = $valuePrice->agency_id;
             $queryAgency = $this->agencyModel->getRecord($agency);  
             //print_r($queryAgency);
 
-            $data["agencyTour"][$key]->agency_name = $queryAgency[0]->name;
+            foreach ($queryAgency as $key => $valueAgency) {
+              $data["price"][$key]['price'][$valueAgency->agency_id] = $valuePrice;
+              $data["price"][$key]['agency_id']  = $queryAgency[0]->id;
+              $data["price"][$key]['agency_name'] = $queryAgency[0]->name;
+            }
+            
           }
         } 
-
-        //Extend price
-        $this->load->model("extendprice_model", "extendpriceModel");  
-        $extendprice["extp_tour_id"] = $id;
-        $data["extendprice"] = $this->extendpriceModel->getRecord($extendprice);  
-        
-        //print_r($data["extendprice"]); exit;
-
-
+*/
+        //print_r($data["price"]); exit;
 
         //Tag
         $this->load->model("tagtour_model", "tagtourModel");  
@@ -1020,7 +1146,7 @@ class Tour extends MY_Controller {
           //$this->load->model("tag_model", "tagModel");  
           foreach ($data["tagTour"] as $key => $value) {
             //echo $value->tag_id; echo "<br>";
-            $this->load->model("tag_model","tagModel"); 
+            $this->load->model("tag_model"," agModel"); 
             $tagTour["id"] = $value->tag_id;
             $tag_result = $this->tagModel->getRecord($tagTour);
             $data["tag_query"][] = $tag_result[0];
@@ -1049,7 +1175,7 @@ class Tour extends MY_Controller {
       }else{
 
 
-        print_r($args); exit;
+        //print_r($args); exit;
         //print_r($args); exit;
         ////////////////////////////////////////////
         //Add (Tour) main table 
@@ -1081,25 +1207,39 @@ class Tour extends MY_Controller {
         ////////////////////////////////////////////
         //Add (AgencyTour) relationship data table 
         ////////////////////////////////////////////  
-        if(!empty($args["agency_tour"])){
-          $this->load->model("agencytour_model", "agencytourModel"); 
-          foreach ($args["agency_tour"] as $key => $value) {
-            $args["agency_tour"][$key]["tour_id"] = $insertTourID;
+
+
+        //print_r($args["price"]); exit;
+        if(!empty($args["price"])){
+          $this->load->model("price_model","priceModel"); 
+          $count = 0;
+          foreach ($args["price"] as $keyAgency => $valueAgency) {
+
+            foreach ($valueAgency as $keyPrice => $valuePrice) {
+              $price[$count]["pri_tour_id"]   = $insertTourID;
+              $price[$count]["pri_agency_id"] = $keyAgency;
+              $price[$count]["pri_name"] = $valuePrice["pri_name"];
+              $price[$count]["pri_sale_adult_price"] = $valuePrice["pri_sale_adult_price"];
+              $price[$count]["pri_net_adult_price"] = $valuePrice["pri_net_adult_price"];
+              $price[$count]["pri_discount_adult_price"] = $valuePrice["pri_discount_adult_price"];
+              $price[$count]["pri_sale_child_price"] = $valuePrice["pri_sale_child_price"];
+              $price[$count]["pri_net_child_price"] = $valuePrice["pri_net_child_price"];
+              $price[$count]["pri_discount_child_price"] = $valuePrice["pri_discount_child_price"];
+              //$price_id = $this->priceModel->addRecord($price["price"][$count]);
+
+              $count++;  
+            }
+
           }
-          $this->agencytourModel->addMultipleRecord($args["agency_tour"]);
+
+          //print_r($price); exit;
+          $this->priceModel->addMultipleRecord($price);
+
+
+          //print_r($args); exit;
+
         }
 
-        ////////////////////////////////////////////
-        //Add (ExtendPrice) relationship data table 
-        //////////////////////////////////////////// 
-
-        if(!empty($args["extendprice"])){
-          $this->load->model("extendprice_model", "extendpriceModel"); 
-          foreach ($args["extendprice"] as $key => $value) {
-            $args["extendprice"][$key]["`extp_tour_id"] = $insertTourID;
-          }
-          $this->extendpriceModel->addMultipleRecord($args["extendprice"]);
-        }
 
 
         ////////////////////////////////////////////
@@ -1211,25 +1351,52 @@ class Tour extends MY_Controller {
         }
 
         ///////////////////////////////////////////
-        // Update relationship table (AgencyTour)
-        ///////////////////////////////////////////   
-        if(!empty($args["agency_tour"])){
-          $this->load->model("agencytour_model", "agencytourModel");
-          $this->agencytourModel->updateRecord($args);
+        // Update relationship table (Price)
+        ///////////////////////////////////////////  
+        /*print_r($args) ; exit;
+        if(!empty($args["price"])){
+          $this->load->model("price_model", "priceModel");
+          $this->priceModel->updateRecord($args);
         }else{
-          $this->load->model("agencytour_model", "agencytourModel");
+          $this->load->model("price_model", "priceModel");
           $tour["tour_id"] = $args["id"];
-          $this->agencytourModel->deleteRecord($tour);
-        }
+          $this->priceModel->deleteRecord($tour);
+        }*/
 
-        //Extendprice
-        if(!empty($args["extendprice"])){
-          $this->load->model("extendprice_model", "extendpriceModel");
-          $this->extendpriceModel->updateRecord($args);
+
+        //print_r($args["price"]); exit;
+        if(!empty($args["price"])){
+          $this->load->model("price_model","priceModel"); 
+          $count = 0;
+          $update["tour_id"] = $args["id"];
+          foreach ($args["price"] as $keyPriceId => $valueAgency) {
+
+            foreach ($valueAgency as $keyAgencyId => $valuePriceId) {
+
+              foreach ($valuePriceId as $keyPrice => $valuePrice) {
+
+                $update["price"][$count]["pri_id"]   = $keyPriceId;
+                $update["price"][$count]["pri_tour_id"]   = $args["id"];
+                $update["price"][$count]["pri_agency_id"] = $keyAgencyId;
+                $update["price"][$count]["pri_name"] = $valuePrice["pri_name"];
+                $update["price"][$count]["pri_sale_adult_price"] = $valuePrice["pri_sale_adult_price"];
+                $update["price"][$count]["pri_net_adult_price"] = $valuePrice["pri_net_adult_price"];
+                $update["price"][$count]["pri_discount_adult_price"] = $valuePrice["pri_discount_adult_price"];
+                $update["price"][$count]["pri_sale_child_price"] = $valuePrice["pri_sale_child_price"];
+                $update["price"][$count]["pri_net_child_price"] = $valuePrice["pri_net_child_price"];
+                $update["price"][$count]["pri_discount_child_price"] = $valuePrice["pri_discount_child_price"];
+                //$price_id = $this->priceModel->addRecord($price["price"][$count]);
+
+                $count++;  
+              }
+            }
+          }     
+          //print_r($update); exit;
+          $this->priceModel->updateRecord($update);          
         }else{
-          $this->load->model("extendprice_model", "extendpriceModel");
+          $this->load->model("price_model", "priceModel");
           $tour["tour_id"] = $args["id"];
-          $this->extendpriceModel->deleteRecord($tour);
+          $this->priceModel->deleteRecord($tour);
         }
 
         $this->_uploadImage($args["id"]);
@@ -1256,8 +1423,8 @@ class Tour extends MY_Controller {
         $this->tagtourModel->deleteRecord($id);
 
         //Delete agency
-        $this->load->model("agencytour_model", "agencytourModel");
-        $this->agencytourModel->deleteRecord($id);
+        $this->load->model("price_model", "priceModel");
+        $this->priceModel->deleteRecord($id);
 
         //Delete Images
         $this->load->model("images_model", "imagesModel");

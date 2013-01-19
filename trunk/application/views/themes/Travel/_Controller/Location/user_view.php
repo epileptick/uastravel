@@ -390,18 +390,18 @@ if(!empty($location['background_image'])){
                     <div class="price">
                   <span>
                   <?php 
-                      if(!empty($value["price"]->agt_sale_adult_price)){
+                      if(!empty($value["price"]->pri_sale_adult_price)){
                         
-                        if($value["price"]->agt_discount_adult_price>0){
+                        if($value["price"]->pri_discount_adult_price>0){
 
-                          $priceAdultDiscount = number_format($value["price"]->agt_sale_adult_price - $value["price"]->agt_discount_adult_price, 0);
-                          $priceAdult = number_format($value["price"]->agt_sale_adult_price, 0);
+                          $priceAdultDiscount = number_format($value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price, 0);
+                          $priceAdult = number_format($value["price"]->pri_sale_adult_price, 0);
                         
                           echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
                           echo " บาท";
 
                         }else{
-                          echo number_format($value["price"]->agt_sale_adult_price, 0);
+                          echo number_format($value["price"]->pri_sale_adult_price, 0);
                           echo " บาท";
                         }
 

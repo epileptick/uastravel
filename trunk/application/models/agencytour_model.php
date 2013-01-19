@@ -110,15 +110,13 @@ class AgencyTour_model extends MY_Model {
 
 
   function addRecord($data=false){
-
+    //print_r($data); exit;
     if($data){
       //Set data
       foreach($data AS $columnName=>$columnValue){
-        if(array_key_exists($columnName, $this->_column)){
-          $this->db->set($this->_column[$columnName], $columnValue); 
-        }
+        $this->db->set($columnName, $columnValue); 
       }
-      $this->db->insert($this->_table);
+      $this->db->insert("ci_agencytour");
 
       return $this->db->insert_id();
     }
