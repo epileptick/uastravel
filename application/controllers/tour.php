@@ -1060,12 +1060,13 @@ class Tour extends MY_Controller {
     //print_r($data["agency"]); exit;
 
     ///////////////////////
-    //Check update (id)
+    //Query tour for update data 
     ///////////////////////
     if($id){
       //Query data by tour_id
       $args["id"] = $id;      
       $data["tour"] = $this->tourModel->getRecord($args);
+
 
       //Check update     
       if($data["tour"]>0){
@@ -1077,66 +1078,37 @@ class Tour extends MY_Controller {
         $queryPrice = $this->priceModel->getRecord($agency);  
 
 
-        $this->load->model("agency_model", "agencyModel");  
-        $count = 0;
-        foreach ($queryPrice as $key => $valueAgency) {
-
-          $agency["id"] = $valueAgency->agency_id;
-          $queryAgencyInfo = $this->agencyModel->getRecord($agency);  
-
-          $data["price"][$count]["agency_id"] = $valueAgency->agency_id;
-          $data["price"][$count]["agency_name"] = $queryAgencyInfo[0]->name;
-
-          if(!empty($queryAgencyInfo)){
-            $countPrice = 0;
-            foreach ($queryAgencyInfo as $key => $value) {
-              $price["tour_id"] = $id;
-              $price["agency_id"] = $valueAgency->agency_id;
-              $queryPrice = $this->priceModel->getRecord($price); 
-
-              $data["price"][$count]["price_data"] = $queryPrice;
-              $countPrice++;
-            } 
-
-          }
-
-          $count++;
-          
-        }
-
-        //print_r($priceData); exit;
-        /*
-        foreach ($queryPrice as $key => $valuePrice) {
-          $agency["id"] = $valuePrice->agency_id;
-          $queryAgency = $this->agencyModel->getRecord($agency);  
-        }*/
-
-/*
-        //Agency tour
-        $this->load->model("price_model", "priceModel");  
-        $price["tour_id"] = $id;
-        $queryPrice = $this->priceModel->getRecord($price);  
-
-       // print_r($queryPrice); exit;
+            //print_r($queryPrice); exit;
         if(!empty($queryPrice)){
           $this->load->model("agency_model", "agencyModel");  
-          $field = "agn_id, agn_name"; 
-          foreach ($queryPrice as $key => $valuePrice) {
-            $agency["id"] = $valuePrice->agency_id;
-            $queryAgency = $this->agencyModel->getRecord($agency);  
-            //print_r($queryAgency);
+          $count = 0;
+          foreach ($queryPrice as $key => $valueAgency) {
 
-            foreach ($queryAgency as $key => $valueAgency) {
-              $data["price"][$key]['price'][$valueAgency->agency_id] = $valuePrice;
-              $data["price"][$key]['agency_id']  = $queryAgency[0]->id;
-              $data["price"][$key]['agency_name'] = $queryAgency[0]->name;
+            $agency["id"] = $valueAgency->agency_id;
+            $queryAgencyInfo = $this->agencyModel->getRecord($agency);  
+
+
+            //print_r($queryAgencyInfo); exit;
+            $data["price"][$count]["agency_id"] = $valueAgency->agency_id;
+            $data["price"][$count]["agency_name"] = $queryAgencyInfo[0]->name;
+
+            if(!empty($queryAgencyInfo)){
+              $countPrice = 0;
+              foreach ($queryAgencyInfo as $key => $value) {
+                $price["tour_id"] = $id;
+                $price["agency_id"] = $valueAgency->agency_id;
+                $queryPrice = $this->priceModel->getRecord($price); 
+
+                $data["price"][$count]["price_data"] = $queryPrice;
+                $countPrice++;
+              } 
+
             }
+
+            $count++;
             
           }
-        } 
-*/
-        //print_r($data["price"]); exit;
-
+        }
         //Tag
         $this->load->model("tagtour_model", "tagtourModel");  
         $tagTour["tour_id"] = $id;
@@ -1159,11 +1131,10 @@ class Tour extends MY_Controller {
         //Send to create form
         $this->_fetch('admin_create', $data);
       }
-    
-    ///////////////////////
-    //End update (id)
-    ///////////////////////
+
     }else{
+
+      //Insert
       if($validate == FALSE){
         //Send to create form
 
@@ -1179,8 +1150,12 @@ class Tour extends MY_Controller {
         //print_r($args); exit;
         ////////////////////////////////////////////
         //Add (Tour) main table 
-        //////////////////////////////////////////// 
+        ////////////////////////////////////////////
         $insertTourID =  $this->tourModel->addRecord($args);
+
+        //$this->load->model("tourtranslate_model","tourtranslateModel");  
+        //$insertTourTranslate =  $this->tourtranslateModel->addRecord($args);
+
 
         //$args["url"] = Util::url_title($args["name"])."-".$insertTourID;
         //$tour["id"] = $insertTourID;
@@ -1207,27 +1182,25 @@ class Tour extends MY_Controller {
         ////////////////////////////////////////////
         //Add (AgencyTour) relationship data table 
         ////////////////////////////////////////////  
-
-
         //print_r($args["price"]); exit;
         if(!empty($args["price"])){
           $this->load->model("price_model","priceModel"); 
           $count = 0;
-          foreach ($args["price"] as $keyAgency => $valueAgency) {
 
-            foreach ($valueAgency as $keyPrice => $valuePrice) {
-              $price[$count]["pri_tour_id"]   = $insertTourID;
-              $price[$count]["pri_agency_id"] = $keyAgency;
-              $price[$count]["pri_name"] = $valuePrice["pri_name"];
-              $price[$count]["pri_sale_adult_price"] = $valuePrice["pri_sale_adult_price"];
-              $price[$count]["pri_net_adult_price"] = $valuePrice["pri_net_adult_price"];
-              $price[$count]["pri_discount_adult_price"] = $valuePrice["pri_discount_adult_price"];
-              $price[$count]["pri_sale_child_price"] = $valuePrice["pri_sale_child_price"];
-              $price[$count]["pri_net_child_price"] = $valuePrice["pri_net_child_price"];
-              $price[$count]["pri_discount_child_price"] = $valuePrice["pri_discount_child_price"];
-              //$price_id = $this->priceModel->addRecord($price["price"][$count]);
-
-              $count++;  
+          foreach ($args["price"] as $keyAgencyId => $valueAgency) {
+            foreach ($valueAgency as $keyPriceId => $valuePriceId) {
+              foreach ($valuePriceId as $keyPrice => $valuePrice) {
+                $price[$count]["pri_tour_id"]   = $insertTourID;
+                $price[$count]["pri_agency_id"] = $keyAgencyId;
+                $price[$count]["pri_name"] = $valuePrice["pri_name"];
+                $price[$count]["pri_sale_adult_price"] = $valuePrice["pri_sale_adult_price"];
+                $price[$count]["pri_net_adult_price"] = $valuePrice["pri_net_adult_price"];
+                $price[$count]["pri_discount_adult_price"] = $valuePrice["pri_discount_adult_price"];
+                $price[$count]["pri_sale_child_price"] = $valuePrice["pri_sale_child_price"];
+                $price[$count]["pri_net_child_price"] = $valuePrice["pri_net_child_price"];
+                $price[$count]["pri_discount_child_price"] = $valuePrice["pri_discount_child_price"];
+                $count++;  
+              }
             }
 
           }
@@ -1350,18 +1323,8 @@ class Tour extends MY_Controller {
           }
         }
 
-        ///////////////////////////////////////////
-        // Update relationship table (Price)
-        ///////////////////////////////////////////  
-        /*print_r($args) ; exit;
-        if(!empty($args["price"])){
-          $this->load->model("price_model", "priceModel");
-          $this->priceModel->updateRecord($args);
-        }else{
-          $this->load->model("price_model", "priceModel");
-          $tour["tour_id"] = $args["id"];
-          $this->priceModel->deleteRecord($tour);
-        }*/
+
+
 
 
         //print_r($args["price"]); exit;
@@ -1369,10 +1332,8 @@ class Tour extends MY_Controller {
           $this->load->model("price_model","priceModel"); 
           $count = 0;
           $update["tour_id"] = $args["id"];
-          foreach ($args["price"] as $keyPriceId => $valueAgency) {
-
-            foreach ($valueAgency as $keyAgencyId => $valuePriceId) {
-
+          foreach ($args["price"] as $keyAgencyId => $valueAgency) {
+            foreach ($valueAgency as $keyPriceId => $valuePriceId) {
               foreach ($valuePriceId as $keyPrice => $valuePrice) {
 
                 $update["price"][$count]["pri_id"]   = $keyPriceId;
