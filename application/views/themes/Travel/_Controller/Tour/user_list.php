@@ -545,25 +545,6 @@
     <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-typeahead.js');?>"></script>
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/function.js');?>"></script>
 
-    <!-- Hover Effect -->
-    <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/DirectionAwareHoverEffect/js/jquery.hoverdir.js');?>"></script>
-    <noscript>
-      <style>
-        .clickable .list_attractions  a div {
-          top: 0px;
-          left: -100%;
-          -webkit-transition: all 0.3s ease;
-          -moz-transition: all 0.3s ease-in-out;
-          -o-transition: all 0.3s ease-in-out;
-          -ms-transition: all 0.3s ease-in-out;
-          transition: all 0.3s ease-in-out;
-        }
-        .clickable .list_attractions  a:hover div{
-          left: 0px;
-        }
-      </style>
-    </noscript>
-
     <!-- To top scrollbar  -->  
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/easing.js');?>" type="text/javascript"></script>
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/jquery.ui.totop.js');?>" type="text/javascript"></script>

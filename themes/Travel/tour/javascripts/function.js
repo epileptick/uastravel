@@ -1,11 +1,6 @@
 //tooltip plugin
 $("[rel=tooltip]").tooltip();
 
-//Hover effect
-$(function() {
-  $('#attractions > .list_attractions a').hoverdir();
-});
-
 //To top scrollbar  
 $(document).ready(function() {
   var defaults = {
@@ -20,26 +15,27 @@ $(document).ready(function() {
 $(window).load(function() { 
     $('.sidebar').fadeIn(100);
  });
+
 //Isotope 
-$(window).load(function() { 
+$(function() {
     $('.sidebar').fadeIn(1000);
     $('body .container-fluid').append('<div class="loader"></div>');
     var $container = $('#attractions');
     updateSize();
     $container.imagesLoaded( function(){
-        $('#attractions').fadeIn(1000);
-        $container.animate({'opacity': '1'});
-        $('.loader').fadeOut("fast");
-        $container.isotope({
-            // options
-            itemSelector : '.list_attractions',
-            layoutMode : 'masonry',
-            transformsEnabled: true,
-            columnWidth: function( containerWidth ) {
-                containerWidth = $browserWidth;
-                return Math.floor(containerWidth / $cols);
-              }
-        });
+      $('#attractions').fadeIn(1000);
+      $container.animate({'opacity': '1'});
+      $('.loader').fadeOut("fast");
+      $container.isotope({
+          // options
+          itemSelector : '.list_attractions',
+          layoutMode : 'masonry',
+          transformsEnabled: true,
+          columnWidth: function( containerWidth ) {
+              containerWidth = $browserWidth;
+              return Math.floor(containerWidth / $cols);
+            }
+      });
     });
 
     // update columnWidth on window resize
@@ -47,6 +43,12 @@ $(window).load(function() {
         updateSize();
         $container.isotope( 'reLayout' );
     });
+
+    $(window).scroll(function(){
+      updateSize(); 
+      $container.isotope( 'reLayout' );
+    });
+
 
     function updateSize() {
         $browserWidth = $container.width();
@@ -94,12 +96,12 @@ $(window).load(function() {
       function( newElements ) {
         updateSize();
         $container.isotope( 'reLayout' );
-        $('#attractions > .list_attractions a').hoverdir();
         $container.isotope( 'appended', $( newElements ) ); 
         $("[rel=tooltip]").tooltip();
 
       }
     );
+
 
 
     // filter items when filter link is clicked
@@ -113,17 +115,3 @@ $(window).load(function() {
     });
   
 });
-
-//Full Screen 
-
-$(function() {
-  $(".fullscreen-supported").toggle($(document).fullScreen() != null);
-  $(".fullscreen-not-supported").toggle($(document).fullScreen() == null);
-});
-
-$('.full_screen_icon div').click(function(){
-  $('.full_screen_icon div').removeClass('hidden');
-  $(this).addClass('hidden');
-});
-
-
