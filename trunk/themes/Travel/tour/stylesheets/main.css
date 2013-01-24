@@ -207,8 +207,8 @@ header.header p a:hover{
 }
 */
 .sidebar{
-	min-width: 214px;
-	position: fixed;
+	width: 214px;
+	position: absolute;
 	height: auto;
 	background: url(../images/wood_pattern_dark.png);
 	margin: 0 auto;
@@ -226,7 +226,7 @@ header.header p a:hover{
 .shadow{
 	position: absolute;
 	width: 5px;
-	height: 576px;
+	height: 100%;
 	background: url(../images/shadow.png) repeat-y;
 	right: -5px;
 	top: 0px;
@@ -343,6 +343,7 @@ header.header p a:hover{
 	}
 	.sidebar{
 		position: relative;
+		width: 100%;
 	}
 	.content{
 		margin: 0px;
