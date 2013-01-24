@@ -3,6 +3,7 @@ class MY_Model extends CI_Model {
   
   protected $_prefix;
   protected $_column;
+  protected $_join_column;
   protected $_table;
   protected $_error_msg;
   protected $_pk;
@@ -14,11 +15,32 @@ class MY_Model extends CI_Model {
     $this->_pk = "id";
     $this->_table = "ci_".str_replace("_model","",strtolower(get_class($this)));
     $this->_column = array();
+    $this->_join_column = array();
   }
   
   function add($options = NULL){
-    return $this->_save($options);
+    if(!$this->pre_add($options)){
+      return FALSE;
+    }
+    
+    $result = $this->_save($options);
+    
+    if(!$this->post_add($options)){
+      return FALSE;
+    }
+    var_dump($this->db->last_query());
+    return $result;
   }
+  
+  function pre_add($options = NULL){
+    return TRUE;
+  }
+  
+  function post_add($options = NULL){
+    return TRUE;
+  }
+  
+  
   
   function update($options = NULL){
 
@@ -111,12 +133,15 @@ class MY_Model extends CI_Model {
     }
     
     if(!is_null($options)){
+            
+      
       //check where clause, Is it declare?
       //Where clause can be like this array('name !=' => $name, 'id <' => $id, 'date >' => $date);
       //like this array('name !=', $name);
       if(!isset($options['where'])){
         $options['where'] = NULL;
       }
+
       if(! is_null($options['where'])){
         if(is_array($options['where'])){
           foreach( $options['where'] AS $whereField=>$whereValue){
@@ -168,7 +193,12 @@ class MY_Model extends CI_Model {
   }
   
   public function count_rows($options = NULL){
-    return count($this->get($options));
+    $result = $this->get($options);
+    if($result){
+      return count($result);
+    }
+    return FALSE;
+    
   }
   
   protected function _save($options = NULL){
@@ -182,20 +212,19 @@ class MY_Model extends CI_Model {
       }
     }
     
-    if(!empty($options['id']) OR !empty($options['where'])){
+    if(!empty($options['id']) OR !empty($options['where']) OR $options['isUpdate'] == TRUE){
     
       if(!empty($options['id'])){
         $this->db->where($this->_column['id'], $options['id']);
         
-      }else{
+      }else if(!empty($options['where'])){
         foreach($options['where'] AS $whereKey=>$whereValue){
           $this->db->where($this->_getColumn($whereKey), $whereValue);
         }
       }
       
-      if(!empty($options['set'])){
+      if(!empty($options['set']) OR !empty($options['where'])){
         foreach($options['set'] AS $setKey=>$setVal){
-          
           $set[$this->_getColumn($setKey)] = $setVal;
         }
         $result = $this->db->update($this->_table,$set);
@@ -207,7 +236,13 @@ class MY_Model extends CI_Model {
       }else{
         $result = $this->db->update($this->_table);
         if($result){
-          $objData = $options['id'];
+          $last_query = $this->db->last_query();
+          if(!empty($options['id'])){
+            $objData = $options['id'];
+          }else{
+            $objData = TRUE;
+          }
+          
         }else{
           $objData = FALSE;
         }
@@ -294,9 +329,22 @@ class MY_Model extends CI_Model {
     if(!empty($result[0]) && is_array($result[0])){
       foreach ($result as $key => $value) {
         $data = array();
+        /*
         foreach ($value as $keyField => $valueFiled) {
           $newkey = str_replace($this->_prefix."_","",$keyField);
           $data[$newkey] = $valueFiled; 
+        }
+        */
+        foreach($this->_column AS $kColumn=>$vColumn){
+          $data[$kColumn] = $value[$vColumn]; 
+        }
+        foreach($this->_join_column AS $kjColumn=>$vjColumn){
+          if(isset($value[$vjColumn])){
+            $data[$kjColumn] = $value[$vjColumn]; 
+          }else{
+            $data[$kjColumn] = ""; 
+          }
+          
         }
         $result[$key] = $data;
       }

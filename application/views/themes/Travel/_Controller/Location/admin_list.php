@@ -189,7 +189,7 @@ function selectAll(){
             <input type="checkbox" name="<?php echo $value["id"];?>" id="location_<?php echo $value["id"];?>">
           </span>
           <div>
-            <span>  
+            <span>
             <h3><a href="<?php echo base_url($this->lang->line("url_lang_location")."/$value[url]-$value[id]");?>" target="_blank"><?php echo $value["title"];?></a></h3>
             </span>
             <span class="description"><?php echo trim(substr(strip_tags($value["body"]),0,100));?></span>
@@ -198,7 +198,6 @@ function selectAll(){
               <a href="<?php echo base_url("admin/location/create/$value[id]");?>">
                 <?php echo $this->lang->line("global_lang_edit");?>
               </a> | 
-
               <a href="<?php echo base_url("admin/location/delete/$value[id]");?>" onclick="return confirm('Are you sure you want to delete?')">
                 <?php echo $this->lang->line("global_lang_delete");?>
               </a>               

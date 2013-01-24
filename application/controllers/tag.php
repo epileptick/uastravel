@@ -7,15 +7,21 @@ class Tag extends MY_Controller {
   
 
   function _index($where=""){
-    $tagData["tag"] = $this->tagModel->get($where);
+
+    $tagData["tag"] = $this->tagModel->get();
+    
     return $tagData;
   }
 
   function admin_index(){
     
+    $this->load->model("type_model", "typeModel");
+    $this->load->model("tagtype_model", "tagTypeModel");
+    $result["typeData"] = array_reverse($this->typeModel->get());
     
-    
-    $this->_fetch("admin_index");
+    $result["tagTypeData"] = $this->tagTypeModel->get();
+    $result['tagData'] = $this->_index();
+    $this->_fetch("admin_index",$result);
   }
 
   function admin_list(){

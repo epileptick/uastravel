@@ -153,6 +153,11 @@ $route['admin/tag/(:any)/(:any)-(:num)'] = 'tag/admin_view/$3';
 $route['admin/tag/(:any)-(:num)'] = 'tag/admin_view/$2';
 $route['admin/tag/(:any)'] = 'tag/admin_list'; //for Tag
 
+//Type
+$route['admin/type/create'] = 'type/admin_create';
+$route['admin/type/create/(:num)'] = 'type/admin_create/$1';
+$route['admin/type/delete/(:num)'] = 'type/admin_delete/$1';
+
 $route['tag/jssearch/(:any)'] = 'tag/jssearch/$1';
 $route['tag/jssearch'] = 'tag/jssearch';
 $route['tag/jsonsearch/(:any)'] = 'tag/jsonsearch/$1';

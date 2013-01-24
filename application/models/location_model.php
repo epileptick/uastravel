@@ -5,16 +5,7 @@ class Location_model extends MY_Model {
     $this->_prefix = "loc";
     $this->_column = array(
                      'id'               => 'loc_id',
-                     'lang'             => 'loc_lang',
                      'display'          => 'loc_display',
-                     'title'            => 'loc_title',
-                     'body'             => 'loc_body',
-                     'suggestion'       => 'loc_suggestion',
-                     'route'            => 'loc_route',
-                     'status'           => 'loc_status',
-                     'level'            => 'loc_level',
-                     'group'            => 'loc_group',
-                     'url'              => 'loc_url',
                      'longitude'        => 'loc_longitude',
                      'latitude'         => 'loc_latitude',
                      'first_image'      => 'loc_first_image',
@@ -26,58 +17,45 @@ class Location_model extends MY_Model {
                      'lu_uid'           => 'loc_lu_uid'
                      
     );
+    
+    $this->_join_column = array(
+                     'loct_id'         => 'loct_id',
+                     'lang'             => 'loct_lang',
+                     'title'            => 'loct_title',
+                     'body'             => 'loct_body',
+                     'suggestion'       => 'loct_suggestion',
+                     'route'            => 'loct_route',
+                     'url'              => 'loct_url'
+    );
   }
   
-  function addRecord($options=""){
-    if($options==""){
+  function get($options=""){
+    if(empty($options)){
       return FALSE;
     }
-
-    if((! isset($options["title"]) OR empty($options["title"])) AND $options["id"] == 0){
-      $options["title"] = $this->lang->line("location_lang_unnamed_location");
-    }
-    if(! isset($options["status"]) OR empty($options["status"])){
-      $options["status"] = 0;
-    }
-    if(! isset($options["cr_date"])){
-      $options["cr_date"] = date("Y-m-d H:i:s");
-    }
-    if(! isset($options["cr_uid"])){
-      $options["cr_uid"] = 0;
-    }
-    if(! isset($options["lu_date"])){
-      $options["lu_date"] = date("Y-m-d H:i:s");
-    }
-    if(! isset($options["lu_uid"])){
-      $options["lu_uid"] = 0;
-    }
-    $string = $options["title"];
-    $string = preg_replace("`\[.*\]`U","",$string);
-    $string = preg_replace('`&(amp;)?#?[a-z0-9]+;`i','-',$string);
-    $string = str_replace('%', '-percent', $string);
-    $string = htmlentities($string, ENT_COMPAT, 'utf-8');
-    $string = preg_replace( "`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);`i","\\1", $string );
-    $string = preg_replace( array("`[^a-z0-9ก-๙เ-า]`i","`[-]+`") , "-", $string);
-    $options["url"] = strtolower(trim($string, '-'));
-    $options["url"] = trim($options["url"]);
-    
-    
-    //Set data
-    foreach($options AS $columnName=>$columnValue){
-      if(array_key_exists($columnName, $this->_column)){
-        $this->db->set($this->_column[$columnName], $columnValue); 
+    if(is_numeric($options)){
+      $this->load->model("location_translate_model","locationTranslateModel");
+      $where = array("where"=>array("loc_id"=>$options,"lang"=>$this->lang->lang()));
+      if($this->locationTranslateModel->count_rows($where)){
+        $this->db->join("ci_location_translate","ci_location_translate.loct_loc_id = ci_location.loc_id");
+        $this->db->where($this->_join_column["lang"],$this->lang->lang());
       }
-    }
-    $result = $this->db->insert($this->_table);
-    if($result){
-      return $this->db->insert_id();
     }else{
-      return $result;
+      $this->db->join("ci_location_translate","ci_location_translate.loct_loc_id = ci_location.loc_id");
+      $this->db->where($this->_join_column["lang"],$this->lang->lang());
     }
-    
+    $mainTable = parent::get($options);
+    return $mainTable;
   }
   
-
+  function post_add($options = NULL){
+    $this->load->model("location_translate_model","locationTranslateModel");
+    $options["loc_id"] = $options["id"];
+    unset($options["id"]);
+    $result = $this->locationTranslateModel->add($options);
+    return $result;
+  }
+  
   
   function updateDisplayRecord($data=false){
     if($data){
@@ -249,7 +227,7 @@ class Location_model extends MY_Model {
 
       $search["loc_title"] = $args["loc_title"];
       $this->db->like($search); 
-      $this->db->order_by('CONVERT( loc_title USING tis620 ) ASC');    
+      //$this->db->order_by('CONVERT( ci_location_translate.loct_title USING tis620 ) ASC');    
       $location = $this->db->get("ci_location")->result();
 
 

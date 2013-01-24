@@ -82,9 +82,10 @@ class Home extends MY_Controller {
   function _home_list($query){
 
     if(!empty($query)){
+      $this->load->model("tagtour_model", "tagtourModel");
       foreach ($query as $key => $valueTag) {
         //Tour
-        $this->load->model("tagtour_model", "tagtourModel");
+        
         $tour = $this->tagtourModel->getRecordHome($query);
         
         //Location
@@ -135,7 +136,7 @@ class Home extends MY_Controller {
         $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;  
 
         //print_r($query); exit;
-
+        
         //Tour
         $data["home"] = $this->_home_list($query); 
 
@@ -151,8 +152,9 @@ class Home extends MY_Controller {
 
       $query["join"] = true;
       $query["per_page"] = $per_page;
-      $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;   
+      $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;
 
+      //var_dump($query);
       //Tour
       $data["home"] = $this->_home_list($query);  
     }
@@ -162,12 +164,12 @@ class Home extends MY_Controller {
       if($query["offset"]>0 ){
         $this->_fetch('user_listnextpage', $data, false, true);
       }else{
-
+        
         //print_r($data);   
         $this->_fetch('user_list', $data, false, true);        
       }
     }else{
-      //print_r($data);   
+      //var_dump($data);   
       $this->_fetch('user_list', $data, false, true);
     }
 

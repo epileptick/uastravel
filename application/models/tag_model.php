@@ -17,18 +17,15 @@ class Tag_model extends MY_Model {
   }
   
   function mapField($result){
-    
     foreach ($result as $key => $value) {
       $data = new stdClass();
       foreach ($value as $keyField => $valueFiled) {
         $keyExplode = explode("_", $keyField, 2);
         $newkey = $keyExplode[1];
-
         $data->$newkey = $valueFiled; 
       }
       $newResult[] = $data;      
     }
-
     return $newResult;
   }
 

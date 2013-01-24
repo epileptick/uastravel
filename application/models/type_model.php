@@ -5,9 +5,12 @@ class Type_model extends MY_Model {
     $this->_prefix = "typ";
     $this->_column = array(
                      'id'             => 'typ_id',
-                     'language_id'    => 'typ_language_id',
+                     'lang'           => 'typ_lang',
                      'name'           => 'typ_name',
-                     'description'    => 'typ_description'
+                     'parent_id'      => 'typ_parent_id',
+                     'description'    => 'typ_description',
+                     'url'            => 'typ_url',
+                     'status'         => 'typ_status'
     );
   }
   

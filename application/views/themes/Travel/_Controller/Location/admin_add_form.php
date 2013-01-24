@@ -22,9 +22,9 @@ $(document).ready(function() {
     //console.log(tinyMCE.get("txtSuggestion").getContent());
     //console.log(tinyMCE.get("txtRoute").getContent());
     if($("#id").val()!=0){
-      $.post(\''.base_url('admin/location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+      $.post(\''.base_url('admin/location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1, lang: $("#lang").val() },successHandler);
     }else if($("#id").val()==0){
-      $.post(\''.base_url('admin/location/create/').'\',{title: $("#title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1 },successHandler);
+      $.post(\''.base_url('admin/location/create/').'\',{title: $("#title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1, lang: $("#lang").val() },successHandler);
     }
   }
   updateImages();
@@ -266,7 +266,7 @@ PageUtil::addVar("javascript",'
 
       function initialize() {
         
-        var latLng = new google.maps.LatLng('.$post['loc_latitude'].','.$post['loc_longitude'].');
+        var latLng = new google.maps.LatLng('.$post[0]['latitude'].','.$post[0]['longitude'].');
 
         var map = new google.maps.Map(document.getElementById(\'mapCanvas\'), {
           scrollwheel: false,
@@ -365,7 +365,8 @@ PageUtil::addVar("javascript",'
         <label>&nbsp;&nbsp;language :</label> 
         <select id="lang"  name="lang">
           <?php 
-            if($post['loc_lang'] == "en"){
+            
+            if($this->lang->lang() == "en"){
           ?>
             <option value="th">thai</option>
             <option value="en" selected>english</option>
@@ -379,13 +380,13 @@ PageUtil::addVar("javascript",'
           ?>
         </select>
       </div> <br>  
-  <input type="hidden" value="<?=$post['loc_id']?>" id="id" name="id" />
+  <input type="hidden" value="<?=$post[0]['id']?>" id="id" name="id" />
   <span id="fedfe"></span>
   <div class="topHolder">
     <span class="GM1BAGKBGJB blogg-title">โพสต์</span>
     <span class="GM1BAGKBJJB blogg-title">·</span>
     <?php
-      echo form_input('title', $post['loc_title'], 'id="title" class="GM1BAGKBHEC titleField textField GM1BAGKBGEC" dir="ltr" title="ชื่อ" size="60"');
+      echo form_input('title', $post[0]['title'], 'id="title" class="GM1BAGKBHEC titleField textField GM1BAGKBGEC" dir="ltr" title="ชื่อ" size="60"');
     ?>
     <span class="GM1BAGKBNIB">
       <?php echo form_submit('submit', $this->lang->line("location_lang_submit"), 'class="blogg-button blogg-primary" id="save"'); ?>
@@ -396,7 +397,7 @@ PageUtil::addVar("javascript",'
     <div id="wrapper-editor">
       <div id="editor">
         <textarea name="body" class="mceEditor" style="width:100%" id="txtBody" >
-        <?=$post['loc_body']?>
+        <?=$post[0]['body']?>
         </textarea>
       </div>
       <div class="clear"></div>
@@ -405,14 +406,14 @@ PageUtil::addVar("javascript",'
     <div class="grid_4">
     <h3 class="text_big"><?=$this->lang->line("location_lang_suggestion")?></h3>
       <textarea name="suggestion" class="mceEditor2" style="width:100%" id="txtSuggestion" >
-          <?=$post['loc_suggestion']?>
+          <?=$post[0]['suggestion']?>
       </textarea>
       <hr class="dashed" />
     </div>
     <div class="grid_4">
     <h3 class="text_big"><?=$this->lang->line("location_lang_route")?></h3>
       <textarea name="route" class="mceEditor2" style="width:100%" id="txtRoute" >
-        <?=$post['loc_route']?>
+        <?=$post[0]['route']?>
       </textarea>
       <hr class="dashed" />
     </div>
@@ -599,9 +600,9 @@ PageUtil::addVar("javascript",'
       <div class="side_bar_block">
         <h3 class="location">{_ location_lang_location}</h3>
         <div id="mapCanvas"></div>
-        Longitude : <input value="<?php echo $post['loc_longitude'];?>" id="longitude" name="longitude">
+        Longitude : <input value="<?php echo $post[0]['longitude'];?>" id="longitude" name="longitude">
         <br />
-        Latitude : <input value="<?php echo $post['loc_latitude'];?>" id="latitude" name="latitude">
+        Latitude : <input value="<?php echo $post[0]['latitude'];?>" id="latitude" name="latitude">
         <br />
         Address : <input value="" id="address" name="address">
       </div>
