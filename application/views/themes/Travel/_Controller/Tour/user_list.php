@@ -167,7 +167,7 @@
             <div class="fan_page">
               <div class="inner">
                 <script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script>
-                <script type="text/javascript">FB.init("1690883eb733618b294e98cb1dfba95a");</script>
+                <!--script type="text/javascript">FB.init("1690883eb733618b294e98cb1dfba95a");</script-->
                 <fb:fan 
                 profile_id="478557815500701" 
                 stream="0" 
@@ -517,11 +517,6 @@
           </div><!--/content-->
         </div>
       </div><!--/row-->
-      <div class="full_screen_icon">
-        <div class="icon full_screen" rel="tooltip" data-placement="right" title="ดูเต็มจอ" onclick="$(document).fullScreen(true)">Fullscreen </div>
-        <div class="icon exit hidden" rel="tooltip" data-placement="right" title="ย่อ" onclick="$(document).fullScreen(false)">Exit</div>
-      </div>
-
     </div><!--/.fluid-container-->
 
 

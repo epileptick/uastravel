@@ -687,11 +687,6 @@
           </div><!-- Endcontent-->
         </div>
       </div><!--/row-->
-      <div class="full_screen_icon">
-        <div class="icon full_screen" rel="tooltip" data-placement="right" title="ดูเต็มจอ" onclick="$(document).fullScreen(true)">Fullscreen </div>
-        <div class="icon exit hidden" rel="tooltip" data-placement="right" title="ย่อ" onclick="$(document).fullScreen(false)">Exit</div>
-      </div>
-
     </div><!--/.fluid-container-->
 
 
