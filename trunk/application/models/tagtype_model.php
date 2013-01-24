@@ -7,7 +7,7 @@ class TagType_model extends MY_Model {
                      'id'                => 'tty_id',
                      'tag_id'            => 'tty_tag_id',
                      'type_id'           => 'tty_type_id',
-                     'parent_id'         => 'tty_parent_id',
+                     //'parent_id'         => 'tty_parent_id',
                      'index'             => 'tty_index'
     );
   }

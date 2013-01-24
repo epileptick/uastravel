@@ -254,7 +254,10 @@ class Tour extends MY_Controller {
 		//print_r($parenttypeQuery); exit;  
 
 		//Query tagname by type_id (Submenu)
-		$type["type_id"] = $parenttypeQuery[0]->id;
+    if(!empty($parenttypeQuery[0]->id)){
+      $type["type_id"] = $parenttypeQuery[0]->id;
+    }
+		
 		$this->load->model("tagtype_model", "tagtypeModel");   
 		$subMenuQuery = $this->tagtypeModel->getRecord($type); 
 		//print_r($subMenuQuery); exit;

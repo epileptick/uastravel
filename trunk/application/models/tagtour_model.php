@@ -358,6 +358,7 @@ class TagTour_model extends MY_Model {
 
     //print_r($tag); exit;
     $count = 0;
+    if(!empty($tag))
     foreach ($tag as $key => $value) {
 
       if($args["tag_id"]){

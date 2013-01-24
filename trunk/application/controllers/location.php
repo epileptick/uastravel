@@ -8,11 +8,12 @@ class Location extends MY_Controller {
   
   function _index($where=""){
     $locationData["location"] = $this->locationModel->get($where);
+    
     return $locationData;
   }
   
   function admin_index(){
-
+    
     $result = array();
     
     $config['per_page'] = 15; 
@@ -41,7 +42,7 @@ class Location extends MY_Controller {
       $where = array(
                       'limit'=>'',
                       'returnObj'=>'',
-                      'order'=>'CONVERT( loc_title USING tis620 ) ASC',
+                      'order'=>'CONVERT( loct_title USING tis620 ) ASC',
                       'where'=>array('loc_title LIKE'=>'%'.$keyword["search"].'%')
                     );
     }else{
@@ -49,7 +50,7 @@ class Location extends MY_Controller {
       $where = array(
                     'limit'=>'',
                     'returnObj'=>'',
-                    'order'=>'CONVERT( loc_title USING tis620 ) ASC',
+                    'order'=>'CONVERT( loct_title USING tis620 ) ASC',
                     'where'=>''
                   );
     }
@@ -88,12 +89,15 @@ class Location extends MY_Controller {
     //initialize pagination
     $this->pagination->initialize($config);
     //load the view
+    
+    
+    
     $this->_fetch("admin_list",$result);
 
   }
   
   function user_index(){
-
+    
     if($this->uri->segment(1) == $this->router->class){
       $index = 1;
       //echo $index; 
@@ -474,6 +478,7 @@ class Location extends MY_Controller {
   }  
   
   function admin_create($id=NULL){
+    $lang = $this->lang->lang();
     $_post = $this->input->post();
     
     
@@ -481,11 +486,9 @@ class Location extends MY_Controller {
 
     if($this->input->post("submit") != NULL OR $this->input->post("ajax")==TRUE){
       
-      
-      
       if( isset($_post["id"]) ){ 
-        $postData = $this->locationModel->updateRecord($_post);
-        //var_dump($postData);
+        $postData = $this->locationModel->add($_post);
+        
         ////////////////////////////////////////////
         //Update (TagLocation) relationship data table 
         ////////////////////////////////////////////        
@@ -494,17 +497,15 @@ class Location extends MY_Controller {
             $location["location_id"] = $_post["id"];
             $this->load->model("taglocation_model", "taglocationModel");
             $this->taglocationModel->deleteRecord($location);
-
           }else{ 
             $this->load->model("taglocation_model", "taglocationModel");
             $this->taglocationModel->updateRecord($_post);
           }
         }
         
-
-
-      }else{        
-        $postData = $this->locationModel->addRecord($_post);
+      }else{
+        
+        $postData = $this->locationModel->add($_post);
         
         if(!empty($_post["tags"])){
           ////////////////////////////////////////////
@@ -577,7 +578,9 @@ class Location extends MY_Controller {
         }
         
         $imgData["id"] = $postData;
+        
         $this->locationModel->updateRecord($imgData);
+        
       }
       
       
@@ -596,17 +599,18 @@ class Location extends MY_Controller {
       }
     }else{
       if($id==NULL){
-        $data['post'] = array(
-                            'loc_id' => 0,
-                            'loc_latitude' => "7.951172174578056",
-                            'loc_longitude' => "98.34449018537998",
-                            'loc_title' => "",
-                            'loc_body' => "",
-                            'loc_suggestion' => "",
-                            'loc_route' => ""
+        $data['post'][0] = array(
+                            'id' => 0,
+                            'latitude' => "7.951172174578056",
+                            'longitude' => "98.34449018537998",
+                            'title' => "",
+                            'body' => "",
+                            'suggestion' => "",
+                            'route' => ""
                             );
       }else{
-        $postData = $this->locationModel->readRecord(array('id'=>$id));
+        $postData = $this->locationModel->get($id);
+        
         if(!$postData){
           redirect(base_url("admin/location/create"));
           die;
@@ -633,7 +637,9 @@ class Location extends MY_Controller {
       $this->load->model("tag_model","tagModel"); 
       $field = "tag_id, tag_name";
       $data["tag"] = $this->tagModel->getRecord(false, $field);
-
+      
+      //var_dump($data);exit;
+      
       $this->_fetch('admin_add_form',$data);
     }
   }
@@ -736,7 +742,7 @@ class Location extends MY_Controller {
       $where = array(
                       'limit'=>'',
                       'returnObj'=>'',
-                      'order'=>'CONVERT( loc_title USING tis620 ) ASC',
+                      'order'=>'CONVERT( loct_title USING tis620 ) ASC',
                       'where'=>array('loc_title LIKE'=>'%'.$keyword["search"].'%')
                     );
         if(empty($tag)){
