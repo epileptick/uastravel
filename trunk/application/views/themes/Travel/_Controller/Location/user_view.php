@@ -174,9 +174,10 @@ if(!empty($location['background_image'])){
       <div class="twelve columns">
         <a href="" class="arrow previous tooltip_nw" title="แหล่งท่องเที่ยวก่อนหน้า">แหล่งท่องเที่ยวก่อนหน้า</a>
         <h1 class="title"><a href=""><?php echo $location['title'];?></a>
-          <?php if(!empty($location['subtitle'])): ?>
           <a href="#detail">
-          <img src="<?php echo base_url('themes/Travel/images/anchor.png');?>" width="23px" height="23px" align="absmiddle"/></a>
+            <img src="<?php echo base_url('themes/Travel/images/anchor.png');?>" width="23px" height="23px" align="absmiddle"/>
+          </a>          
+          <?php if(!empty($location['subtitle'])): ?>
           <span class="subtitle"><?php echo $location['subtitle'];?></span>
           <?php endif; ?>
         </h1>
