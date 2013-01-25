@@ -151,7 +151,7 @@
               <li class="has-dropdown">
                 <a href="<?php echo base_url('tour/ที่พัก');?>">ที่พัก</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a></li>
+                  <li><a href="<?php echo base_url('hotel/list');?>">จองโรงแรม</a></li>
                   <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                 </ul>                
               </li>
@@ -178,7 +178,7 @@
       <div class="row">
         <div class="twelve columns">
           <h1 style="color:#FE5214;">
-           Choose Airlines 
+           จองตั๋วเครื่องบิน 
           </h1>
         </div>
       </div>
