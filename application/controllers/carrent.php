@@ -112,7 +112,7 @@ class Carrent extends MY_Controller {
     $message .='  <br />เวลาที่คืนรถ : '.$booking["cab_dropoff_time"];
     $message .='  <br />บัตรเครดิต : '.$booking["cab_credit"];
     $message .='  <br />ประเภทรถยนต์ : '.$booking["cab_typecar"];
-    $message .='  <br />ราคา : '.$booking["cab_price"].'บาท / วัน';
+    $message .='  <br />ราคา : '.$booking["cab_price"].' บาท / วัน';
     $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["cab_message"];
     $message .='  <br />';
     $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
@@ -170,7 +170,7 @@ class Carrent extends MY_Controller {
           $message .='  <br />เวลาที่คืนรถ : '.$booking["cab_dropoff_time"];
           $message .='  <br />บัตรเครดิต : '.$booking["cab_credit"];
           $message .='  <br />ประเภทรถยนต์ : '.$booking["cab_typecar"];
-          $message .='  <br />ราคาต่อวัน : '.$booking["cab_price"];
+          $message .='  <br />ราคา : '.$booking["cab_price"].' บาท / วัน';
           $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["cab_message"];
           $message .='  <br />';
           $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
