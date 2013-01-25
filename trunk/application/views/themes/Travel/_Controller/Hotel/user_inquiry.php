@@ -1,0 +1,442 @@
+<?php
+
+  if(!empty($error)){
+    print_r($error);
+
+  }
+
+  if(!empty($hello)){
+    echo($hello);
+print_r($id);
+  }
+
+?>
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <title><?php echo "จองโรงแรม U As Travel" ;?></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="ROBOTS" content="NOODP" />
+  <meta name="description" content="<?php echo (!empty($tour[0]->short_description))?$tour[0]->short_description:"";?>" />
+  <meta name="keywords" content="" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+  <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/foundation.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/style.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/app.css');?>">
+  <script src="<?php echo base_url('themes/Travel/tour/javascripts/modernizr.foundation.js');?>"></script>
+  <!--[if lt IE 9]>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+<script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    // validate signup form on keyup and submit
+    var validator = $("#booking_validate").validate({
+      rules: {
+        hob_firstname: "required",
+        hob_lastname: "required",
+        hob_address: "required",
+        hob_city: "required",
+        hob_province: "required",
+        hob_zipcode: "required",
+        hob_nationality: "required",
+        hob_telephone: "required",
+        hob_email: "required",
+        hob_checkin_date: "required",
+        hob_checkout_date: "required",
+        hob_room_amount: "required",
+        hob_adult_amount: "required",
+        hob_child_amount: "required",
+        hob_infant_amount: "required",
+
+      },
+      messages: {
+      },
+      // the errorPlacement has to take the table layout into account
+      errorPlacement: function(error, element) {
+        if ( element.is(":radio") )
+          error.appendTo( element.parent().next().next() );
+        else if ( element.is(":checkbox") )
+          error.appendTo ( element.next() );
+        else
+          error.appendTo( element.parent().next() );
+      },
+      // set this class to error-labels to indicate valid fields
+      success: function(label) {
+        // set &nbsp; as text for IE
+        label.html("&nbsp;").addClass("checked");
+      }
+    });
+
+  });
+</script>
+
+  <script>
+    $(function() {
+      $( "#hob_checkin_date" ).datepicker({
+        numberOfMonths: 1,  
+        minDate: 1,
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,     
+        dayNames: ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'],       
+        dayNamesMin: ['อา','จ','อ','พ','พฤ','ศ','ส'],     
+        monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม']       
+      });
+    });
+  </script> 
+
+  <script>
+    $(function() {
+      $( "#hob_checkout_date" ).datepicker({
+        numberOfMonths: 1,  
+        minDate: 1,
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,     
+        dayNames: ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'],       
+        dayNamesMin: ['อา','จ','อ','พ','พฤ','ศ','ส'],     
+        monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม']      
+      });
+    });
+  </script>
+
+</head>
+
+
+  <div class="overly-bg"></div>
+  <div id="wrapper">
+    <!-- Menu -->
+    <div class="row">
+      <div class="twelve columns">
+        <nav class="top-bar">
+          <ul>
+            <li class="name">
+              <a href="<?php echo base_url();?>"> 
+                <img src="<?php echo base_url('themes/Travel/tour/images/logo.png');?>">
+              </a>
+            </li>
+            <li class="toggle-topbar"><a href="#"></a></li>
+          </ul>
+          <section>
+            <ul class="right">
+              <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
+              <li class="has-dropdown">
+                <a class="active" href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์</a>
+                <ul class="dropdown">
+                  <li><a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
+                  <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
+                  <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
+                  <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
+                </ul>                
+              </li>
+              <li class="has-dropdown">
+                <a href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์อื่นๆ</a>
+                <ul class="dropdown">
+                  <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
+                  <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
+                  <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
+                </ul>                
+              </li> 
+              <li class="has-dropdown">
+                <a href="<?php echo base_url('tour/การเดินทาง');?>">การเดินทาง</a>
+                <ul class="dropdown">
+                  <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
+                  <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
+                  <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
+                  <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
+                </ul>                
+              </li> 
+              <li class="has-dropdown">
+                <a href="<?php echo base_url('tour/ที่พัก');?>">ที่พัก</a>
+                <ul class="dropdown">
+                  <li><a href="<?php echo base_url('hotel/list');?>">จองโรงแรม</a></li>
+                  <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
+                </ul>                
+              </li>
+              <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
+              <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>                
+            </ul>
+          </section>
+        </nav>
+      </div>
+    </div>
+    <br>
+    <!-- End Menu -->
+
+
+  <!-- Form -->
+    <form class="custom" 
+          id="booking_validate" 
+          name="input" 
+          action="<?php echo base_url('hotel/booking');?>" 
+          method="post"
+    >
+
+      <!-- Header -->
+      <div class="row">
+        <div class="twelve columns">
+          <font style="color:#FE5214; font-size:300%;">
+            Hotel Booking   
+
+            : <?php echo $this->uri->segment(3);?> 
+            <input type="hidden" name="hob_hotelname" value="<?php echo $this->uri->segment(3);?>">
+          </font> 
+        </div>
+      </div>
+      <div class="border"></div>
+      <!-- Header End -->
+
+      <br/>
+
+      <!--Room Amount-->
+          <div class="row">
+          <div class="four columns">
+            <label>จำนวนห้องพัก</label>
+            <select name="hob_room_amount">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+          </div>
+        <!--End Room Amount-->
+
+        <br/>
+<!--Person Amount-->
+        <div class="row">
+          <div class="four columns">
+            <label>จำนวนผู้ใหญ่</label>
+            <select name="hob_adult_amount">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+          <div class="four columns">
+            <label>จำนวนเด็ก (4 - 12 years)</label>
+            <select name="hob_child_amount">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+          <div class="four columns">
+            <label>จำนวนทารก (under 4 years)</label>
+            <select name="hob_infant_amount">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+        </div>
+
+<!--End Person Amount-->
+
+        <br/>
+
+        <!--Check in&out Date-->
+        <div class="row">
+          <div class="six columns">
+            <label>วันที่เช็คอิน</label>
+            <input type="text" placeholder="Check In Date" id="hob_checkin_date" name="hob_checkin_date">
+          </div>      
+     
+          <div class="six columns">
+            <label>วันที่เช็คเอาท์</label>
+            <input type="text" placeholder="Check Out Date" id="hob_checkout_date" name="hob_checkout_date">
+        </div>    
+       
+        </div>
+        <!--End Check in&out Date-->
+
+        <br/>
+
+        <!-- Amount of person -->
+        <div class="row">
+          <div class="twelve columns">
+            <h3>ข้อมูลผู้จองห้องพัก</h3>
+          </div>
+        </div>
+
+        <!-- Amount of person End -->
+
+      <!-- Name -->
+      <div class="row">
+        <div class="six columns">
+          <label>ชื่อ</label>
+          <input type="text" placeholder="Firstname" id="hob_firstname" name="hob_firstname" alue="<?php echo set_value('hob_firstname');?>">
+        </div>
+        <div class="six columns">
+          <label>นามสกุล</label>
+          <input type="text" placeholder="Lastname" id="hob_lastname" name="hob_lastname">
+      </div>
+    </div>
+      <!-- Name End -->
+
+      <!--Address-->
+      <div class="row">
+       <div class="twelve columns">
+          <label>ที่อยู่</label>
+          <input type="text" placeholder="Address" id="hob_address" name="hob_address">
+        </div>
+      </div>
+      <div class="row">
+        <div class="six columns">
+          <input type="text" placeholder="City" id="hob_city" name="hob_city" >
+        </div>
+        <div class="three columns">
+          <input type="text" placeholder="Province/State" id="hob_province" name="hob_province">
+        </div>
+        <div class="three columns">
+          <input type="text" placeholder="ZIP" id="hob_zipcode" name="hob_zipcode">
+        </div>
+      </div>
+        <!--End Address-->
+
+        <!--Nationality-->
+        <div class="row">
+          <div class="six columns">
+            <label>สัญชาติ</label>
+            <input type="text" placeholder="Nationality" id="hob_nationality" name="hob_nationality">
+          </div>
+        </div> 
+        <!--End Nationality-->
+
+        <!--Telephone and email-->
+        <div class="row">
+          <div class="six columns">
+            <label>เบอร์โทร</label>
+            <input type="text" placeholder="Telephone" id="hob_telephone" name="hob_telephone">
+          </div>
+          <div class="six columns">
+            <label>อีเมล์</label>
+            <input type="text" placeholder="Email" id="hob_email" name="hob_email">
+          </div>
+        </div>
+        <!--End Telephone and email-->
+
+        <div class="row">
+           <div class="twelve columns">
+            <h2>สิ่งที่ต้องการเพิ่มเติม</h2>
+            <textarea placeholder="Message" rows="5" id="hob_message" name="hob_message"></textarea>
+          </div>
+        </div>
+
+      <!-- Contact Us -->
+      <div class="row">
+        <div class="twelve columns">
+          <ul class="tags">
+            <li style="font-size:30px; color:#FE5214;">ติดต่อเรา :</li>
+            <li><b>โทร.</b> 082-8121146, 076-331280&nbsp;&nbsp;<b>แฟกซ์.</b> 076-331273&nbsp;&nbsp;<b>อีเมล์</b> info@uastravel.com</li>
+          </ul>
+        </div> 
+      </div>
+      <!-- Contact Us End-->
+
+      <div class="row">
+        <div class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;"> 
+            <div class="eight columns">
+            </div>
+            <div class="four columns">
+              <input class="button small  booking" style="width:150px;" type="submit" value="จองโรงแรม  ">
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+    </form>
+  </div>
+  <!-- Form End -->
+
+  <footer>
+    <div class="row">
+      <div class="shadow"></div>
+      <div class="seven columns">
+        <nav>
+          <ul class="menu_footer">
+            <li><a href="">หน้าแรก</a></li>
+            <li><a href="">แพ็คเกจทัวร์</a></li>
+            <li><a href="">เกี่ยวกับเรา</a></li>
+            <li><a href="">ติดต่อเรา</a></li>
+            <li><a href="">โปรโมชั่น</a></li>                           
+          </ul>
+        </nav>
+        <div class="clearfix"></div>
+        <p>Copyright © Uastravel.com</p>          
+      </div>
+      <div class="five columns">
+        <div class="address">
+          <p>Uastravel</p>
+          <p>info@uastravel.com</p>
+          <p>80/86 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+<?php include_once("themes/Travel/tour/analyticstracking.php"); ?>
+</body>
+</html>
