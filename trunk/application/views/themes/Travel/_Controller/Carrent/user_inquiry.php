@@ -157,7 +157,7 @@
               <li class="has-dropdown">
                 <a href="<?php echo base_url('tour/ที่พัก');?>">ที่พัก</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a></li>
+                  <li><a href="<?php echo base_url('hotel/list');?>">จองโรงแรม</a></li>
                   <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                 </ul>                
               </li>
@@ -185,7 +185,7 @@
               CARRENT BOOKING :
                            <?php echo $this->uri->segment(3);?> 
             <input type="hidden" name="cab_typecar" value="<?php echo $this->uri->segment(3);?>">
-            ราคา : <?php echo number_format ($this->uri->segment(4));?> 
+            ราคา : <?php echo number_format ($this->uri->segment(4));?> บาท/วัน
             <input type="hidden" name="cab_price" value="<?php echo $this->uri->segment(4);?>">
             </h3>
         </div>
