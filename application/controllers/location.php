@@ -317,7 +317,6 @@ class Location extends MY_Controller {
     $this->load->model("taglocation_model", "taglocationModel");
     $location = $this->taglocationModel->getRecordFirstpage($query);
 
-
     if(!empty($location)){
       $data["location"] =  $this->_shuffle_assoc($location);
     }else{
@@ -648,10 +647,10 @@ class Location extends MY_Controller {
     
     if($id){
       $this->load->model("images_model", "imagesModel");
-      $locationData["location"] = $this->locationModel->get($id);
-      //var_dump($locationData["images"]);exit;
-
-
+      $locationData["location"] = $this->locationModel->getShow($id);
+      if(!$locationData["location"]){
+        redirect(base_url(),"refresh");
+      }
       if(count($locationData["location"]) < 1){
         show_404();
       }else{

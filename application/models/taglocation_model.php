@@ -49,19 +49,22 @@ class TagLocation_model extends MY_Model {
 
     //print_r($location); exit;
     $count = 0;
+    $this->load->model("location_model","locationModel");
     foreach ($location as $key => $value) {
 
       //Get tour data
+      /*
       unset($this->db);
       $this->db->where('loc_id', $value->tal_location_id);
-      $this->db->where('loc_lang', $this->lang->lang());
+      //$this->db->where('loc_lang', $this->lang->lang());
       $this->db->where('loc_display', 1);
       $query = $this->db->get('ci_location');
       $locationBuffer = $query->result(); 
-
-
-
-
+      */
+      $locationBuffer = $this->locationModel->getShow($value->tal_location_id);
+      
+      //var_dump($locationBuffer);exit;
+      
       if(!empty($locationBuffer)){
         $result[$count]["location"] = $locationBuffer[0];
 

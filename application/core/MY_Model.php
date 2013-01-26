@@ -7,6 +7,7 @@ class MY_Model extends CI_Model {
   protected $_table;
   protected $_error_msg;
   protected $_pk;
+  protected $_objData;
   
   
   function __construct(){
@@ -16,20 +17,20 @@ class MY_Model extends CI_Model {
     $this->_table = "ci_".str_replace("_model","",strtolower(get_class($this)));
     $this->_column = array();
     $this->_join_column = array();
+    $this->_objData = NULL;
+    
   }
   
   function add($options = NULL){
     if(!$this->pre_add($options)){
       return FALSE;
     }
-    
-    $result = $this->_save($options);
-    
+    $this->_objData = $this->_save($options);
+    $options[$this->_prefix."_".$this->_pk] = $this->_objData;
     if(!$this->post_add($options)){
       return FALSE;
     }
-    var_dump($this->db->last_query());
-    return $result;
+    return $this->_objData;
   }
   
   function pre_add($options = NULL){
@@ -212,7 +213,7 @@ class MY_Model extends CI_Model {
       }
     }
     
-    if(!empty($options['id']) OR !empty($options['where']) OR $options['isUpdate'] == TRUE){
+    if(!empty($options['id']) OR !empty($options['where']) OR (!empty($options['isUpdate']) && $options['isUpdate'] == TRUE)){
     
       if(!empty($options['id'])){
         $this->db->where($this->_column['id'], $options['id']);
