@@ -544,10 +544,13 @@ input#searchSubmit {
 	background-position: 0px -32px;
 }
 .recommend{
-	background-position: 0px 0px;
+	background-position: 0px -64px;
 }
 .popular{
-	background-position: 0px -64px;
+	background-position: 0px -96px;
+}
+.price{
+	background-position: 0px 0px;
 }
 .clickable > .list_attractions > a{
 	display: block;
@@ -645,11 +648,11 @@ input#searchSubmit {
 .list_attractions img:hover{
 	cursor:pointer;
 	filter: none;
-  -webkit-transform: scale(3);
-  -moz-transform: scale(3);
-  -o-transform: scale(3);
-  -ms-transform: scale(3);
-  transform: scale(3);
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5);
 }
 
 

@@ -102,27 +102,7 @@
             <div class="clearfix"></div>
             <div class="fan_page">
               <div class="inner">
-                <script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script>
-                <script type="text/javascript">FB.init("1690883eb733618b294e98cb1dfba95a");</script>
-                <fb:fan 
-                profile_id="478557815500701" 
-                stream="0" 
-                connections="12" 
-                logobar="0" 
-                width="200" 
-                height="200" 
-                css="https://upload-my-file.googlecode.com/svn/trunk/custom_fanpage.css?1" 
-                class=" FB_fan FB_ElementReady">
-                </fb:fan>
               </div>
-                <script>(function(d, s, id) {
-                  var js, fjs = d.getElementsByTagName(s)[0];
-                  if (d.getElementById(id)) return;
-                  js = d.createElement(s); js.id = id;
-                  js.src = "//connect.facebook.net/th_TH/all.js#xfbml=1&appId=357467797616103";
-                  fjs.parentNode.insertBefore(js, fjs);
-                }(document, 'script', 'facebook-jssdk'));
-                </script>
             </div>
           <div class="footer_menu"></div>
           <div class="shadow"></div>

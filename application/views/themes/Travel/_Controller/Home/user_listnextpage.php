@@ -11,7 +11,7 @@
       <?php
           if(!empty($value["price"]->agt_sale_adult_price)){
       ?>
-        <div class="sticker recommend">
+        <div class="sticker price">
           <?php  
             $sale_price = $value["price"]->agt_sale_adult_price - $value["price"]->agt_discount_adult_price;
             echo number_format($sale_price, 0);
