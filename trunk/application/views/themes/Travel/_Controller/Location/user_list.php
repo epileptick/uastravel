@@ -211,11 +211,11 @@
                         ?>
                           <div class="list_attractions" data-category="transition">
                             <!-- div class="sticker new">New</div -->
-                            <a href="<?php echo base_url('location/'.$value['location']->loc_url.'-'.$value['location']->loc_id);?>" target="_blank" >
+                            <a href="<?php echo base_url('location/'.$value['location']['url'].'-'.$value['location']['id']);?>" target="_blank" >
                               <?php
-                                if($value['location']->loc_first_image){
+                                if($value['location']['first_image']){
                               ?>
-                                  <img src="<?php echo $value['location']->loc_first_image;?>">
+                                  <img src="<?php echo $value['location']['first_image'];?>">
                               <?php
                                 }
                               ?>
@@ -224,8 +224,8 @@
                             <div class="row-fluid">
                               <div class="span8">
                                 <h3>
-                                  <a href="<?php echo base_url('location/'.$value['location']->loc_url.'-'.$value['location']->loc_id);?>" target="_blank" >
-                                  <?php echo $value['location']->loc_title; ?>
+                                  <a href="<?php echo base_url('location/'.$value['location']['url'].'-'.$value['location']['id']);?>" target="_blank" >
+                                  <?php echo $value['location']['title']; ?>
                                   </a>
                                 </h3>
                               </div>

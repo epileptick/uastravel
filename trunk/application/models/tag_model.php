@@ -9,7 +9,7 @@ class Tag_model extends MY_Model {
     $this->_prefix = "tag";
     $this->_column = array(
                      'id'                => 'tag_id',
-                     'language_id'       => 'tag_language_id',
+                     'lang'              => 'tag_lang',
                      'parent'            => 'tag_parent',
                      'name'              => 'tag_name',
                      'url'               => 'tag_url'
@@ -99,6 +99,9 @@ class Tag_model extends MY_Model {
   function addRecord($data=false){
     if($data){
       //Set data
+      if(empty($data["lang"])){
+        $data["lang"] = $this->lang->line();
+      }
       foreach($data AS $columnName=>$columnValue){
         if(array_key_exists($columnName, $this->_column)){
           $this->db->set($this->_column[$columnName], $columnValue); 
@@ -145,6 +148,9 @@ class Tag_model extends MY_Model {
 
   function updateRecord($data=false){
     if($data){
+      if(empty($data["lang"])){
+        $data["lang"] = $this->lang->line();
+      }
       //Set data
       foreach($data AS $columnName=>$columnValue){
         if(array_key_exists($columnName, $this->_column)){

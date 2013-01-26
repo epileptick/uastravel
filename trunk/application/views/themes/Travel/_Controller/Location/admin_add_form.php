@@ -147,7 +147,7 @@ $(document).ready(function() {
 
     
   function successHandler(data){
-    //console.log(data);
+    console.log(data);
     var json = jQuery.parseJSON(data);
     $("#id").val(json.id);
     $("#status").html(json.status).show("slow");
@@ -525,7 +525,7 @@ PageUtil::addVar("javascript",'
             var query = (data ? data.query : '') || '';
 
             validate = textext.itemManager().filter(list, query)
-          
+            
             //Show suggestion list 
             $(this).trigger(
               'setSuggestions',
@@ -557,7 +557,7 @@ PageUtil::addVar("javascript",'
 
       function tagSearch(str) {
 
-        var url ="<?php echo base_url('/tag/jssearch/');?>"+str;
+        var url ="<?php echo base_url('/tag/jssearch');?>/"+str;
         var response = $.ajax({ type: "GET",   
                                 url: url,   
                                 async: false

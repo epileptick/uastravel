@@ -48,10 +48,39 @@ class Location_model extends MY_Model {
     return $mainTable;
   }
   
+  function getShow($options=""){
+    if(empty($options)){
+      return FALSE;
+    }
+    
+    if(is_numeric($options)){
+    
+      $this->load->model("location_translate_model","locationTranslateModel");
+      $where = array("where"=>array("loc_id"=>$options,"lang"=>$this->lang->lang()));
+      if($this->locationTranslateModel->count_rows($where)){
+        
+        $this->db->join("ci_location_translate","ci_location_translate.loct_loc_id = ci_location.loc_id");
+        $this->db->where($this->_join_column["lang"],$this->lang->lang());
+        
+      }else{
+        
+        return FALSE;
+      }
+    }else{
+      $this->db->join("ci_location_translate","ci_location_translate.loct_loc_id = ci_location.loc_id");
+      $this->db->where($this->_join_column["lang"],$this->lang->lang());
+    }
+    $mainTable = parent::get($options);
+
+    return $mainTable;
+  }
+  
   function post_add($options = NULL){
     $this->load->model("location_translate_model","locationTranslateModel");
-    $options["loc_id"] = $options["id"];
-    unset($options["id"]);
+    if(!empty($options["id"])){
+      $options["loc_id"] = $options["id"];
+      unset($options["id"]);
+    }
     $result = $this->locationTranslateModel->add($options);
     return $result;
   }
@@ -110,7 +139,7 @@ class Location_model extends MY_Model {
     }
     $this->db->where($this->_column['id'], $options['id']);
     $result = $this->db->update($this->_table);
-
+    
     //print_r($options);
     if($result){
       return $options['id'];
