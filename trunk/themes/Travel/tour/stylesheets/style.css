@@ -1060,3 +1060,66 @@ ul.menu_footer li a:hover{
 .addthis_toolbox .addthis_button_pinterest_pinit{
 	margin-right: 0px !important;
 }
+
+/* ---------------------------------------------------------------------- */
+/*	Sortable 
+/* ---------------------------------------------------------------------- */
+.connected, .sortable, .exclude, .handles {
+	margin: auto;
+	padding: 0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.sortable.grid {
+	overflow: hidden;
+}
+.connected li, .sortable li, .exclude li, .handles li {
+	list-style: none;
+}
+.handles span {
+	cursor: move;
+}
+li.disabled {
+	opacity: 0.5;
+}
+.sortable.grid li {
+	width: 100%;
+}
+.connected .list_packet, .connected .list_packet  a{
+	cursor: move !important;
+}
+.connected.no1 {
+	min-height: 200px;
+	overflow: hidden;
+	padding: 20px;
+	-moz-box-shadow: inset 0px 0px 20px #000000;
+	-webkit-box-shadow: inset 0px 0px 20px #000000;
+	box-shadow: inset 0px 0px 20px #000000;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#6f6f6f', endColorstr = '#222222');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr = '#6f6f6f', endColorstr = '#222222')";
+	background-image: -moz-linear-gradient(top, #6f6f6f, #222222);
+	background-image: -ms-linear-gradient(top, #6f6f6f, #222222);
+	background-image: -o-linear-gradient(top, #6f6f6f, #222222);
+	background-image: -webkit-gradient(linear, center top, center bottom, from(#6f6f6f), to(#222222));
+	background-image: -webkit-linear-gradient(top, #6f6f6f, #222222);
+	background-image: linear-gradient(top, #6f6f6f, #222222);
+}
+.connected.no1 li {
+	width: 48%;
+	float: left;
+	margin: 0 10px 0 0;
+}
+.connected.no2 {
+	min-height: 500px;
+}
+
+
+li.sortable-placeholder {
+	border: 1px dashed #CCC;
+	background: none;
+	height: 100px;
+}
