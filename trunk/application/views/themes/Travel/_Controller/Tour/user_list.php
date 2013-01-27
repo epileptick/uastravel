@@ -432,8 +432,7 @@
                               <div class="span7">
 
                                 <!-- img src="http://icons.iconarchive.com/icons/dapino/summer-holiday/24/palm-tree-icon.png" -->
-                                <img src="<?php echo base_url('themes/Travel/tour/images/icon/24tour.png');?>" style="margin-left:7px;">
-                                
+                                <div class="icon tour" rel="tooltip" title="แพ็กเก็จทัวร์"></div>
                                 <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
                                 <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
                               </div>                              
