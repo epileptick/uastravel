@@ -60,10 +60,25 @@
       <section class="article darg_packet">
         <div class="row">
           <div class="eight mobile-three columns">
-            <h2>จัดแพ็กเก็จทัวร์</h2>
-            <ul class="connected list no1">
+            <div class="packet">
+              <h2>จัดแพ็กเก็จทัวร์</h2>
+              <div class="packet_item">
+                <a class="close tooltip_ne" title="ลบ"></a>
+                <div class="sticker_date">วันที่ 1</div>
+                <ul class="connected list no1"></ul>
+              </div>
 
-            </ul>
+              <div class="packet_item">
+                <a class="close tooltip_ne" title="ลบ"></a>
+                <div class="sticker_date">วันที่ 2</div>
+                <ul class="connected list no1"></ul>
+              </div>
+            </div>
+            <p class="action_button">
+              <a class="add_date">เพิ่มวัน</a>
+              <a href="">เสร็จสิ้น</a>
+              <a href="" class="share">Share<i class="share-facebook"></i></a>
+            </p>
           </div>
           <div class="four mobile-one columns">
             <h2>แพ็กเก็จทัวร์</h2>
@@ -409,8 +424,9 @@
             <div class="clearfix"></div>
           </div>
         </div>
-
-  
+        <div class="row">
+          <div class=""></div>
+        </div>
       </section>
     </div>
 
@@ -454,7 +470,7 @@
   <script type="text/javascript">
     $(document).ready(function() {
       var defaults = {
-          containerID: 'moccaUItoTop', // fading element id
+        containerID: 'moccaUItoTop', // fading element id
         containerHoverClass: 'moccaUIhover', // fading element hover class
         scrollSpeed: 1200,
         easingType: 'linear' 
@@ -525,6 +541,35 @@
   })
 
 </script>
+
+
+
+
+
+<script>
+  $(".add_date").click(function() {
+    $('.packet').append('<div class="packet_item" style="display:none"><a class="close tooltip_ne" title="ลบ"></a><div class="sticker_date">วันที่ 2</div><ul class="connected list no1"></ul></div>');
+      $('.tooltip_ne').powerTip({placement: 'ne'});
+    $(".packet_item").fadeIn("slow");
+
+    $('.connected').sortable({
+      connectWith: '.connected'
+    });
+
+    $('.tooltip_ne').powerTip({placement: 'ne'});
+
+  });
+
+  $(document).on("click", ".packet_item a.close", function (e) {
+    e.preventDefault();
+    $(this).closest(".packet_item").fadeOut(function () {
+      $(this).remove();
+    });
+  });
+
+</script>
+
+
 
 </body>
 </html>

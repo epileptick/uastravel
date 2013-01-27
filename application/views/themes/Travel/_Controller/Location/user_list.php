@@ -221,7 +221,7 @@
                             <div class="border"></div>
                             <div class="row-fluid">
                               <div class="span7">
-                                <img src="<?php echo base_url('themes/Travel/tour/images/icon/24location.png');?>" style="margin-left:7px;">
+                                <div class="icon location" rel="tooltip" title="แหล่งท่องเทียว"></div>
                                 <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
                                 <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
                               </div>
