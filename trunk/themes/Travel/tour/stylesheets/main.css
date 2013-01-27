@@ -263,6 +263,11 @@ header.header p a:hover{
 		display: none !important;
 	}
 
+	.navbar .brand{
+		font-size: 24px;
+		padding: 11px 0px 0px 15px !important;
+	}
+
 
 }
 @media (max-width: 1400px){
@@ -291,11 +296,15 @@ header.header p a:hover{
 }
 .navbar .brand{
 	font-size: 24px;
-	padding: 0px 15px 0px 35px;
-	line-height: 45px;
+	padding: 11px 0px 0px 35px;
+}
+
+.navbar .nav{
+	padding: 10px 0 10px 0;
+
 }
 .navbar .nav > li > a{
-	margin: 10px 5px 10px 5px;
+	margin: 0px 5px 0px 5px;
 	padding: 0px 10px;
 	line-height: 25px;
 	font-size: 24px;
@@ -375,74 +384,59 @@ fieldset {
 /* ---------------------------------------------------------------------- */
 /*	 Search
 /* ---------------------------------------------------------------------- */
-#searchForm fieldset {
-    width:240px;
-    position:relative;
-    display:block;
+
+form.form_search{
+	position: relative;
+	margin: 3px 9px 7px 0;
 }
-
-div.input {
-    width: 30px;
-    padding: 2px 15px 1px 5px;
-    margin: 9px 11px 5px 0;
-    border-radius: 5px;
-    float: right;
-    background:#color;
-    border: 1px solid #e3e3e3;
-		background-color: white;
-	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-
-	-webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
-	-moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-	-o-transition: border linear 0.2s, box-shadow linear 0.2s;
-	transition: border linear 0.2s, box-shadow linear 0.2s;
-
+.input_search{
+	display: inline-block;
+	position: relative;
+}
+input.text_search{
+	width: 150px;
 
 }
-
-    div.input.focus {
-			border-color: rgba(82, 168, 236, 0.8);
-			outline: 0;
-			outline: thin dotted \9;
-		  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-			-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-			box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-    }
-
-input#search {
-    width:100%;
-    margin: 0px ;
-    border:none;
-    border-radius:5px;
-    background:transparent;
-    height:16px;
-    color:#b4bdc4;
-    font-size: 12px;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+input.button_search {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+  width:30px;
+  height:30px;
+  text-indent:-9999px;
+  background:url(../images/icon.png) no-repeat 0px -483px;
+  border:0;
+  cursor:pointer;
+}
+#selectsearch{
+	width: 120px;
 }
 
-    input#search:focus {
-        outline:none
-    }
+@media (max-width: 979px){
+	form.form_search{
+		width: 97%;
+	}
+	input.text_search {
+		display: block;
+		width: 100%;
+		padding: 4px 0px;
+		text-indent: 10px;
+	}	
+	.input_search{
+		display: block;
+		margin: 5px 0 10px 0;
 
-input#searchSubmit {
-    width:30px;
-    height:30px;
-    text-indent:-9999px;
-    overflow:hidden;
-    background:url(../images/icon.png) no-repeat 0px -483px;
-    border:0;
-    position:absolute;
-    top:7px; right:13px;
-    z-index:5;
-    display:none;
-    cursor:pointer;
+	}
+	#selectsearch{
+		display: block;
+		width: 100%;
+	}
+	input.button_search {
+		top: -2px;
+	}
+
+
 }
-
 
 /* ---------------------------------------------------------------------- */
 /*	Attractions
@@ -824,7 +818,4 @@ span.tag{
 .ie-all .full_screen_icon{
 	display: none;
 
-}
-.pull-right{
-	display: none !important;
 }
