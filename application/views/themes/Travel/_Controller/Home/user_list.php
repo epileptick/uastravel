@@ -108,14 +108,9 @@
               <div class="row-fluid">
                 <div class="navbar">
                     <div class="navbar-inner">
-                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                        </button>
-                        <span class="brand">Filter :</span>
-                        <div id="options" class="nav-collapse collapse">
+                        <div id="options">
                           <ul class="option-set nav" >
+                            <span class="brand">Filter :</span>
                             <?php
                             if(!empty($menu))
                             if($menu[0]->select_all == 1){
@@ -151,20 +146,18 @@
                             ?>
                           </ul>
                         </div>
-                        <div style="float:right;">
-
-                          <form name="input" action="tour/search" method="post" id="search-form"> 
-                            <select name="select" id="selectsearch" style="margin:10px 5px 0px 0px; height:22px; width:120px;" >
-                              <option value="tour">แพคเกจทัวร์</option>
-                              <option value="location">สถานที่ท่องเที่ยว</option>
-                            </select>
-
-                            <input type="text" name="search" style="margin:10px 5px 0px 0px; height:12px; width:120px;" 
-                                    value="<?php echo (!empty($search))?$search:"";?>"
+                        <form name="input" action="tour/search" method="post" class="navbar-form pull-right form_search" id="search-form"> 
+                          <select name="select" id="selectsearch">
+                            <option value="tour">แพคเกจทัวร์</option>
+                            <option value="location">สถานที่ท่องเที่ยว</option>
+                          </select>
+                          <div class="input_search"> 
+                            <input type="text" name="search" class="text_search"
+                                   value="<?php echo (!empty($search))?$search:"";?>"
                             >
-                            <input type="submit" value="ค้นหา" style="margin:10px 10px 0px 0px; height:22px; width:60px;">
-                          </form>
-                        </div>  
+                            <input type="submit" value="ค้นหา" class="button_search">
+                          </div>
+                        </form>
                     </div>
                   </div>
               </div>
@@ -395,11 +388,6 @@
     <!-- Isotope -->
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/isotope/jquery.isotope.min.js');?>"></script>
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/isotope/js/jquery.infinitescroll.min.js');?>"></script>
-
-
-    <!-- Jquery Search -->
-    <script src="<?php echo base_url('themes/Travel/tour/javascripts/jquerysearch/js/jquery.color.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/javascripts/jquerysearch/js/script.js');?>"></script>
 
     <!-- Full Screen -->
     <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/Full-screen/jquery.fullscreen-min.js');?>"></script>
