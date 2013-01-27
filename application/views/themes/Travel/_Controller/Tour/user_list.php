@@ -179,8 +179,8 @@
                 <div class="navbar">     
                     <div class="navbar-inner">
                         <div id="options">
-                          <span class="brand">จังหวัด :</span>
                           <ul class="option-set nav" >
+                          <span class="brand">จังหวัด :</span>
                             <?php
                             if($menu_selectall == true){
                             ?>
