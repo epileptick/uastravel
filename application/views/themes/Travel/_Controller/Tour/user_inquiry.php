@@ -441,21 +441,23 @@
     <h3>แพ็กเก็จทัวร์แนะนำ</h3>
 
     <?php
+
+    //print_r($related); 
     if(!empty($related )):
       foreach ($related as $key => $value):
     ?>
       <div class="list_packet">
         <div class="row">
           <div class="twelve columns">              
-            <a href="<?php echo $value["tour"]->tou_url."-".$value["tour"]->tou_id; ?>">
+            <a href="<?php echo $value["tour"]->tout_url."-".$value["tour"]->tou_id; ?>">
               <img src="<?php echo $value["tour"]->tou_banner_image; ?>">
             </a>
           </div>
           <div class="twelve columns">
             <div class="title_tour">
               <h4>
-                <a href="<?php echo $value["tour"]->tou_url."-".$value["tour"]->tou_id; ?>">
-                  <?php echo $value["tour"]->tou_name; ?>
+                <a href="<?php echo $value["tour"]->tout_url."-".$value["tour"]->tou_id; ?>">
+                  <?php echo $value["tour"]->tout_name; ?>
                 </a>
               </h4>
             </div>
