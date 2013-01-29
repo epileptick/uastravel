@@ -98,26 +98,76 @@ header.header p a:hover{
 	height: 10px;
 	margin: -5px auto;
 }
-.sidebar ul{
-	padding: 0px;
+.accordion, .accordion ul, .accordion li, .accordion a {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+}
+
+.accordion{
 	margin: 10px 0 10px 0;
 }
-.sidebar ul li{
+
+.accordion li {
 	list-style: none;
 }
-.sidebar ul li a{
+
+/* Layout & Style */
+
+.accordion li > a {
 	display: block;
 	text-align: center;
 	font-size: 22px;
 	font-weight: normal;
-	padding: 12px 0px 12px 0px;
+	line-height: 40px;
 }
-.sidebar ul li a:hover{
+
+.accordion  li a:hover, .accordion li:target a, .accordion li a.active {
+	color: #F3BD00;
 	text-decoration: none;
 }
-.sidebar ul li.active a{
-	color: #F3BD00;
+
+.accordion li > .sub-menu a {
+	font-size: 18px;
+	line-height: 34px;
 }
+.accordion li > .sub-menu {
+	display: none;
+	background: url(../images/hover_pattern.png);
+}
+
+.accordion li:target > .sub-menu {
+	display: block;
+}
+.arrow_menu{
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	background: url(../images/arrow_menu.png) 0px 0px no-repeat;
+	margin: 0px 0 -2px 0;
+	-webkit-transition: all 200ms linear;
+	-moz-transition: all 200ms linear;
+	-o-transition: all 200ms linear;
+	-ms-transition: all 200ms linear;
+	transition: all 200ms linear;
+}
+
+a.active .arrow_menu{
+	background-position: 0px -10px;
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
+.lt-ie9 a.active .arrow_menu{
+	background-position: 0px -20px;
+}
+
+
+
+
 .icon{
 	display: block;
 	float: left;
@@ -180,7 +230,7 @@ header.header p a:hover{
 .fan_page{
 	overflow: hidden;
 	width: 180px;
-	height: 180px;
+	height: 155px;
 	margin: 10px 0 0 17px;
 }
 .fan_page .inner{
@@ -189,7 +239,15 @@ header.header p a:hover{
 	height: 250px;
 	margin: 0 auto;
 }
+.fb-like-box{
+	margin: -125px 0px 0px -1px;
 
+}
+.button_like{
+	overflow: hidden;
+	width: 180px;
+	margin: 10px 0 0 25px;
+}
 /*
 .facebookOuter{
 	overflow: hidden;
@@ -265,7 +323,7 @@ header.header p a:hover{
 
 	.navbar .brand{
 		font-size: 24px;
-		padding: 11px 0px 0px 15px !important;
+		padding: 2px 0px 0px 15px !important;
 	}
 
 
@@ -296,7 +354,7 @@ header.header p a:hover{
 }
 .navbar .brand{
 	font-size: 24px;
-	padding: 11px 0px 0px 35px;
+	padding: 2px 0px 0px 35px;
 }
 
 .navbar .nav{
@@ -524,12 +582,55 @@ input.button_search {
 	position: relative;
 	padding: 0;
 }
-.sticker {
-	background: url(../images/sticker.png) no-repeat;
+.sticker_status{
 	position: absolute;
-	top: 10px;
+	top: 7px;
 	left: -4px;
 	z-index: 1;
+	height: auto;
+}
+.promotion{
+	position: absolute;
+	bottom: 10px;
+	left: 0px;
+	width: 100%;
+	height: 30px;
+}
+.promotion img{
+	position: absolute;
+	top: -46px;
+}
+.promotion{
+	display: none;
+}
+.list_attractions:nth-child(1) .promotion{
+	display: block;
+}
+
+.promotion p{
+	font-size: 18px;
+	padding: 0 0 0 87px;
+	width: 100%;
+	height: 25px;
+	line-height: 25px;
+	background: url(../images/hover_pattern.png);
+	color: #fff;
+}
+.promotion span{
+	color: #ff0000;
+	text-decoration: line-through;
+}
+.promotion span.reduce_price{
+	color: #00eaff;
+	text-decoration: none;
+
+}
+
+
+
+
+.sticker {
+	background: url(../images/sticker.png) no-repeat;
 	line-height: 30px;
 	height: 32px;
 	width: 117px;
@@ -548,36 +649,14 @@ input.button_search {
 .price{
 	background-position: 0px 0px;
 }
+
+
 .clickable > .list_attractions > a{
 	display: block;
 	position: relative;
 	overflow: hidden;
 }
-.clickable > .list_attractions > a div {
-	position: absolute;
-	background: url(../images/hover_pattern.png);
-	width: 100%;
-	height: 100%;
-}
-.clickable > .list_attractions > a div span{
-	display: block;
-	position: relative;
-	background: url(../images/icon.png) 0px -450px;
-	width: 30px;
-	height: 30px;
-	left: 50%;
-	top: 50%;
-	margin: -15px 0 0 -15px;
-	-webkit-transition: all .2s ease;
-	   -moz-transition: all .2s ease;
-	    -ms-transition: all .2s ease;
-	     -o-transition: all .2s ease;
-	        transition: all .2s ease;
-}
-}
-.clickable > .list_attractions > a:hover div span{
-	background: url(../images/icon.png) 0px -450px;
-}
+
 .clickable .list_attractions a div.da-animate {
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease-in-out;
@@ -628,7 +707,7 @@ input.button_search {
 	overflow: hidden;
 }
 
-.list_attractions a img{
+.list_attractions a > img{
   width: 100%;
 	-webkit-transform: scaleY(1);
 	-moz-transform: scaleY(1);
@@ -641,7 +720,7 @@ input.button_search {
 	-ms-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
 }
-.list_attractions img:hover{
+.list_attractions a > img:hover{
 	cursor:pointer;
 	filter: none;
   -webkit-transform: scale(1.5);
