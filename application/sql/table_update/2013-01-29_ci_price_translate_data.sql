@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.25)
 # Database: uastravel
-# Generation Time: 2556-01-29 04:45:27 +0000
+# Generation Time: 2556-01-29 04:50:13 +0000
 # ************************************************************
 
 
@@ -37,6 +37,20 @@ CREATE TABLE `ci_price_translate` (
   PRIMARY KEY (`prit_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+LOCK TABLES `ci_price_translate` WRITE;
+/*!40000 ALTER TABLE `ci_price_translate` DISABLE KEYS */;
+
+INSERT INTO `ci_price_translate` (`prit_id`, `prit_lang`, `prit_price_id`, `prit_name`, `prit_cr_uid`, `prit_cr_date`, `prit_lu_uid`, `prit_lu_date`)
+VALUES
+	(3,'en',406,'ninehunred',NULL,'2013-01-28 19:07:22',NULL,'2013-01-29 08:59:09'),
+	(2,'en',403,'onethousandone',NULL,'2013-01-28 18:16:22',NULL,'2013-01-29 08:59:09'),
+	(5,'th',406,'เก้าร้อย',NULL,'2013-01-28 20:34:16',NULL,'2013-01-29 08:59:44'),
+	(6,'th',403,'พันเอ็ด',NULL,'2013-01-28 20:34:16',NULL,'2013-01-29 08:59:44'),
+	(10,'th',409,'ห้าร้อย',NULL,'2013-01-29 08:59:44',NULL,'2013-01-29 08:59:44'),
+	(9,'en',409,'fivehunred',NULL,'2013-01-29 08:59:09',NULL,'2013-01-29 08:59:09');
+
+/*!40000 ALTER TABLE `ci_price_translate` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
