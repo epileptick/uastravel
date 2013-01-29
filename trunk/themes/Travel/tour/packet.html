@@ -63,15 +63,19 @@
             <div class="packet">
               <h2>จัดแพ็กเก็จทัวร์</h2>
               <div class="packet_item">
-                <a class="close tooltip_ne" title="ลบ"></a>
                 <div class="sticker_date">วันที่ 1</div>
-                <ul class="connected list no1"></ul>
+                <ul class="connected list no1">
+                  <div class="fack-element"></div>
+                </ul>
+                <a class="close tooltip_ne" title="ลบ"></a>
               </div>
 
               <div class="packet_item">
-                <a class="close tooltip_ne" title="ลบ"></a>
                 <div class="sticker_date">วันที่ 2</div>
-                <ul class="connected list no1"></ul>
+                <ul class="connected list no1">
+                  <div class="fack-element"></div>
+                </ul>
+                <a class="close tooltip_ne" title="ลบ"></a>
               </div>
             </div>
             <p class="action_button">
@@ -548,7 +552,7 @@
 
 <script>
   $(".add_date").click(function() {
-    $('.packet').append('<div class="packet_item" style="display:none"><a class="close tooltip_ne" title="ลบ"></a><div class="sticker_date">วันที่ 2</div><ul class="connected list no1"></ul></div>');
+    $('.packet').append('<div class="packet_item" style="display:none"></a><div class="sticker_date">วันที่ 2</div><ul class="connected list no1"><div class="fack-element"></div></ul><a class="close tooltip_ne" title="ลบ"></div>');
       $('.tooltip_ne').powerTip({placement: 'ne'});
     $(".packet_item").fadeIn("slow");
 
