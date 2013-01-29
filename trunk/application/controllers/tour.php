@@ -641,13 +641,21 @@ class Tour extends MY_Controller {
         //Main price
         foreach ($duplicateArray as $keyAgencyID => $valueAgncyID) {
           $name_length = 99999;
+          $name_size = 0;
           foreach ($priceQuery as $key => $value) {
             if($value->agency_id == $keyAgencyID){
 
-              if(strlen($value->name) < $name_length){
-                $mainPrice[$keyAgencyID] =  $value;
-                $name_length = strlen($value->name);
+              if(!empty($value->name)){
+                $name_size = strlen($value->name);
+              }else{
+                $name_size = 0;
               }
+
+
+              if($name_size < $name_length){
+                $mainPrice[$keyAgencyID] =  $value;
+                $name_length = $name_size;
+              }              
             }
           }
         }
