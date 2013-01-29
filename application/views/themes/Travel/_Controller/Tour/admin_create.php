@@ -1,7 +1,9 @@
 <?php
+
+/*
 echo $this->lang->lang();
 echo "<br>";
-echo base_url();
+echo base_url();*/
 $fakeId = rand(100000,999999);
 
 /////////////////////
