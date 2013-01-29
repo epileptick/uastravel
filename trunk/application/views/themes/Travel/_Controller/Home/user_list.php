@@ -172,6 +172,7 @@
 
 
                       <?php
+                          //print_r($home); exit;
                           foreach ($home as $key => $value) {
                         ?>
                           <div class="list_attractions" data-category="transition">
@@ -189,9 +190,9 @@
                                 }
                             ?>
                             <?php 
-                              if(isset($value["tour"]->tou_url)){
+                              if(isset($value["tour"]->tout_url)){
                             ?>
-                                <a href="<?php echo base_url('tour/'.$value["tour"]->tou_url.'-'.$value["tour"]->tou_id);?>" target="_blank" >
+                                <a href="<?php echo base_url('tour/'.$value["tour"]->tout_url.'-'.$value["tour"]->tou_id);?>" target="_blank" >
                             <?php
                               }else if(isset($value["location"]->loc_url)){
                             ?>
@@ -220,9 +221,9 @@
                               <div class="span8">
                                 <h3>
                                   <?php 
-                                    if(isset($value["tour"]->tou_url)){
+                                    if(isset($value["tour"]->tout_url)){
                                   ?>
-                                      <a href="<?php echo base_url('tour/'.$value["tour"]->tou_url.'-'.$value["tour"]->tou_id);?>" target="_blank" >
+                                      <a href="<?php echo base_url('tour/'.$value["tour"]->tout_url.'-'.$value["tour"]->tou_id);?>" target="_blank" >
                                   <?php
                                     }else if(isset($value["location"]->loc_url)){
                                   ?>
@@ -231,8 +232,8 @@
                                     }
                                   ?>  
                                   <?php 
-                                    if(isset($value["tour"]->tou_name)){
-                                      echo $value["tour"]->tou_name;
+                                    if(isset($value["tour"]->tout_name)){
+                                      echo $value["tour"]->tout_name;
                                     }else if(isset($value["location"]->loc_title)){
                                       echo $value["location"]->loc_title;
                                     }
@@ -253,7 +254,7 @@
                             <div class="row-fluid">
                               <div class="span7">
                               <?php 
-                                  if(isset($value["tour"]->tou_name)){
+                                  if(isset($value["tour"]->tout_name)){
                                 ?>
                                   <div class="icon tour" rel="tooltip" title="แพ็กเก็จทัวร์"></div>
                                   <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>

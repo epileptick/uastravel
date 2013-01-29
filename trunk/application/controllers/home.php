@@ -158,7 +158,7 @@ class Home extends MY_Controller {
       //Tour
       $data["home"] = $this->_home_list($query);  
     }
-
+        //print_r($data); exit;
     //print_r($query); exit;
     if(!empty($query["offset"])){
       if($query["offset"]>0 ){

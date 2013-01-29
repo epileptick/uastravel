@@ -205,42 +205,6 @@ class Price_model extends MY_Model {
         return false;
       }
     }else if(isset($args["id"])){
-
-      $this->db->where('ci_price.pri_id', $args["id"]);   
-      $query = $this->db->get("ci_price");
-      //echo $this->db->last_query(); exit;
-
-
-      if($query->num_rows > 0){
-
-        foreach ($query->result() as $key => $value) {
-
-          //Get price by id
-          $this->db->where('ci_price.pri_id', $args["id"]);          
-          $this->db->where('ci_price_translate.prit_lang', $this->lang->lang());
-          $this->db->join('ci_price_translate', 'ci_price_translate.prit_price_id = ci_price.pri_id');
-          $this->db->order_by('CONVERT( ci_price_translate.prit_name USING tis620 ) ASC');    
-          $query = $this->db->get("ci_price"); 
-
-          if($query->num_rows > 0){
-            $newResult = $this->mapField($query->result());
-          }else{
-
-            //Not found & display
-            $this->db->where('ci_price.pri_id', $args["id"]);  
-            $query = $this->db->get("ci_price");
-
-            $newResult = $this->mapField($query->result());
-          }
-
-        }
-        return $newResult;
-      }else{
-
-        return false;
-      }
-
-      /*
       //Get category by id      
       $query = $this->db->get_where('ci_price', array('pri_id' => $args["id"]), 1, 0);
 
@@ -250,8 +214,6 @@ class Price_model extends MY_Model {
       }else{
         return false;
       }
-
-      */
     }else {
       //Get list page
       $query = $this->db->get("ci_price");
@@ -279,28 +241,28 @@ class Price_model extends MY_Model {
     $this->db->set("pri_cr_date", date("Y-m-d H:i:s"));
     $this->db->set("pri_lu_date", date("Y-m-d H:i:s"));
     $this->db->insert("ci_price");
-    $id = $this->db->insert_id();  
-    
-    //echo $this->db->last_query(); exit;
-    return $id;
-  }
-  
-
-  function _addTranslateRecord($data=false){
+    $id = $this->db->insert_id();
 
     //Insert price_translate
     foreach($data AS $columnJoinName=>$columnJoinValue){
-      if(array_key_exists($columnJoinName, $this->_joincolumn)){        
-        $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue); 
-      } 
+
+        if($columnJoinName != "id"){
+          if(array_key_exists($columnJoinName, $this->_joincolumn)){        
+            $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue); 
+          }   
+        }else{
+            $this->db->set("prit_price_id", $id); 
+        }
     }
-    $this->db->set("prit_price_id", $data["price_id"]); 
 
     $this->db->set("prit_cr_date", date("Y-m-d H:i:s"));
     $this->db->set("prit_lu_date", date("Y-m-d H:i:s"));
-    $this->db->insert("ci_price_translate");      
+    $this->db->insert("ci_price_translate");    
+    
+    //echo $this->db->last_query(); exit;
+    return ;
   }
-
+  
   function addMultipleRecord($args=false){
     if($args){
       $count = 0;
@@ -335,98 +297,116 @@ class Price_model extends MY_Model {
 
         $count++;
       }
+      /*
+      print_r($priceArray); 
+      print_r($priceTranslateArray); 
+      exit;
+      */
 
-      
-      //print_r($inputPriceArray);
-      //print_r($inputPriceTranslateArray);
-      
-
-      //Get price by tour_id
       $price["tour_id"] = $args["tour_id"];
       $price["event"] = "insert";
       $queryPrice = $this->getRecord($price);      
 
-      if(empty($queryPrice) && !empty($inputPriceArray)){
-        foreach ($inputPriceArray as $key => $value) {
-          
-          $insertPriceID = $this->addRecord($value); 
+      print_r($queryPrice); exit;
+      //$input = $args["price"];
 
-          //Insert tour_translate
-          $inputPriceTranslateArray[$key]["price_id"] = $insertPriceID;
-          $insertPriceTranslateID = $this->_addTranslateRecord($inputPriceTranslateArray[$key]); 
-
-
-        }
+      //print_r($input); exit;
+      if(empty($query) && !empty($args["price"])){
+        //Insert new data
+        $this->priceModel->addMultipleRecord($args["price"]);
       }else{
 
-        //Price
-        foreach ($inputPriceArray as $key => $value) {
+        //print_r($input);
+        //print_r($query); exit;
 
-          if($value["id"] == 0){
+        $update = false;
+        $updateCount = 0;
+        $updateArray = array();
+        $updateData =  array();
 
-            //insert price
-            $insertPriceID = $this->addRecord($value); 
+        $deleteCount = 0;
+        $deleteArray = array();
 
-            //insert price translate
-            $inputPriceTranslateArray[$key]["price_id"] = $insertPriceID;
-            $insertPriceTranslateID = $this->_addTranslateRecord($inputPriceTranslateArray[$key]); 
+        $insert = false;
+        $insertCount = 0;
+        $insertArray = array();
 
+
+        //Insert & Update
+        foreach ($input as $keyInput => $valueInput) {         
+          if($valueInput["id"] == 0){
+            unset($valueInput["id"]);
+            $insertArray[$insertCount] = $valueInput;
+            $insertCount++;
           }else{
-            //update
 
-            //update && delete
-            $update = false;
-            foreach ($queryPrice as $keyQuery => $valueQuery) {
-              foreach ($inputPriceArray as $keyInput => $valueInput) {       
-                  if($valueQuery->id == $valueInput["id"]){
-                    $update = true;
-                    $updateData = $valueInput;
-                  }
-              }
 
-              if($update){
-                //Update
-                $this->_updateRecord($updateData); 
-                $update = false;  
-              }else{
-                //Delete
-                $price["id"] = $valueQuery->id;
-                $this->deleteRecord($price);
-              }     
-            }
-
-          }
-          
-        }
-
-        //Price translate
-        foreach ($inputPriceTranslateArray as $key => $value) {
-
-          if($value["price_id"] != 0){
-            //update
-            //Get price by id
-            $this->db->where("prit_price_id", $value["price_id"]);
+            $this->db->where("prit_price_id", $valueInput["id"]);
             $this->db->where("prit_lang", $this->lang->lang());
-            $queryTranslatePrice = $this->db->get("ci_price_translate");
+            $queryPriceExist = $this->db->get("ci_price_translate");
 
-            //print_r($queryTranslatePrice->result()); exit;
-            if($queryTranslatePrice->num_rows > 0){
-                $this->_updateTranslateRecord($value);
+            if($queryPriceExist->num_rows > 0){
+              $updateArray[$updateCount] = $valueInput;
+              $updateCount++;     
             }else{
-                $this->_addTranslateRecord($value);
-            }
+              $insertArray[$insertCount] = $valueInput;
+              $insertArray[$insertCount]["price_id"] = $valueInput["id"];
+              unset($insertArray[$insertCount]["id"]);
+
+              $insertCount++;
+            }         
           }
         }
-      }
 
-      //exit;
+        //Delete
+        foreach ($query as $keyQuery => $valueQuery) {
+          $queryPriceID[] = $valueQuery->id;
+
+        }
+
+        foreach ($input as $keyInput => $valueInput) {
+          $inputPriceID[] = $valueInput["id"];
+        }
 
 
+        $deleteArray = array_diff($queryPriceID , $inputPriceID);
+
+        echo "insert";
+        print_r($insertArray); 
+
+        echo "update";
+        print_r($updateArray); 
+
+        echo "delete";
+        print_r($deleteArray); exit;
+
+        if(!empty($insertArray)){ 
+          $this->addMultipleRecord($insertArray);
+        } //End check update new data
+
+        if(!empty($deleteArray)){
+          foreach ($deleteArray as $key => $value) {
+            # code...
+            $deletePrice["id"] = $value;
+            $this->deleteRecord($deletePrice);
+          }
+        } //End check delete data*/
+
+
+        if(!empty($updateArray)){ 
+          //print_r($updateArray); exit;
+          foreach ($updateArray as $key => $value) {
+            # code...
+            $this->_updateRecord($value);
+          }
+        } //End check update new data
+
+      } //End main check new data
 
     }else{
 
       return;
-    }//End check price data
+    }//End check agency data
 
     return ;
   }  
@@ -441,46 +421,105 @@ class Price_model extends MY_Model {
     }
     $this->db->set("pri_lu_date", date("Y-m-d H:i:s"));
     $this->db->where("pri_id", $data["id"]);
-    $this->db->update("ci_price");   
+    $this->db->update("ci_price");
 
-  }
-
-  function _updateTranslateRecord($data= flase){
 
 
     //Update tour_translate
-    foreach($data AS $columnJoinName=>$columnJoinValue){
-      if(array_key_exists($columnJoinName, $this->_joincolumn)){        
-        $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue);  
+    $this->db->where("prit_price_id", $data["id"]);
+    $this->db->where("prit_lang", $this->lang->lang());
+    $query = $this->db->get("ci_price_translate");
+
+
+    if($query->num_rows > 0){
+      foreach($data AS $columnJoinName=>$columnJoinValue){
+
+        if($columnJoinName != "id"){
+          if(array_key_exists($columnJoinName, $this->_joincolumn)){        
+            $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue); 
+          }   
+        }else{
+            $this->db->set("prit_price_id", $columnJoinValue); 
+        }
       }
+      //Found & update
+      $this->db->set("prit_lu_date", date("Y-m-d H:i:s"));
+      $this->db->where("prit_lang", $this->lang->lang());
+      $this->db->update("ci_price_translate");
+    }else{
+      //print_r($data );      
+      foreach($data AS $columnJoinName=>$columnJoinValue){
+
+        if($columnJoinName != "id"){
+          if(array_key_exists($columnJoinName, $this->_joincolumn)){        
+            $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue); 
+          }   
+        }else{
+            $this->db->set("prit_price_id", $columnJoinValue); 
+        }
+      }      
+      //Not found & insert
+      $this->db->set("prit_cr_date", date("Y-m-d H:i:s"));
+      $this->db->set("prit_lu_date", date("Y-m-d H:i:s"));
+      $this->db->insert("ci_price_translate");
+    }    
+
+
+    //echo $this->db->last_query(); exit;
+/*
+
+    if(!empty($data["pri_id"])){
+      //Insert price
+      foreach($data AS $columnName=>$columnValue){
+        if(array_key_exists($columnName, $this->_column)){
+          $this->db->set($this->_column[$columnName], $columnValue); 
+        }
+      }
+      $this->db->set("pri_cr_date", date("Y-m-d H:i:s"));
+      $this->db->set("pri_lu_date", date("Y-m-d H:i:s"));
+      $this->db->insert("ci_price");
+      $id = $this->db->insert_id();
+
+      //Insert price_translate
+      foreach($data AS $columnJoinName=>$columnJoinValue){
+        if(array_key_exists($columnJoinName, $this->_joincolumn)){        
+          $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue); 
+        }
+      }
+
+      $this->db->set("prit_price_id", $id);
+      $this->db->set("prit_cr_date", date("Y-m-d H:i:s"));
+      $this->db->set("prit_lu_date", date("Y-m-d H:i:s"));
+      $this->db->insert("ci_price_translate");   
+
+    }else if($data["pri_tour_id"]  && $data["pri_agency_id"]){
+      //Set data
+      foreach($data AS $columnName=>$columnValue){
+        $this->db->set($columnName, $columnValue); 
+      }
+      $query = $this->db->where("pri_tour_id", $data["pri_tour_id"]);
+      $query = $this->db->where("pri_agency_id", $data["pri_agency_id"]);
+      $query = $this->db->update("ci_price");
+
     }
 
-
-    $this->db->set("prit_lu_date", date("Y-m-d H:i:s"));
-    $this->db->where("prit_price_id", $data["price_id"]);
-    $this->db->where("prit_lang", $this->lang->lang());
-    $this->db->update("ci_price_translate");
-
-
-    
-
-    //print_r($this->db->last_query()); exit;
+    */
   }
 
-
   function deleteRecord($args=false){
-    if(isset($args["id"])){
-      $this->db->where("pri_id", $args["id"]);
+    if(isset($args["pri_id"])){
+      $this->db->where("pri_id", $args["pri_id"]);
       $this->db->delete("ci_price");
 
-      $this->db->where("prit_price_id", $args["id"]);
+      $this->db->where("prit_price_id", $args["pri_id"]);
       $this->db->delete("ci_price_translate");
       
     }else if(isset($args["tour_id"])){
 
+
       $this->db->where("pri_id", $args["tour_id"]);
       $priceArray = $this->db->get("ci_price")->result();
-      //print_r($priceArray); exit;
+      print_r($priceArray); exit;
       foreach ($priceArray as $key => $value) {
         $this->db->where("prit_price_id", $value["pri_id"]);
         $this->db->delete("ci_price_translate");
