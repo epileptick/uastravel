@@ -357,7 +357,7 @@
                               value="<?php echo $value->id;?>" 
                               CHECKED
                       >
-                      <?php echo $value->name;?>
+                      <?php echo (!empty($value->name)?$value->name:"");?>
                     </label>
                   <?php
                     }else{
