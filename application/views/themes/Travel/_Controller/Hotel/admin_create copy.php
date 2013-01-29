@@ -1,7 +1,5 @@
 <?php
-echo $this->lang->lang();
-echo "<br>";
-echo base_url();
+
 $fakeId = rand(100000,999999);
 
 /////////////////////
@@ -39,32 +37,9 @@ $(document).ready(function() {
             $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:2 },
             function(data) {
               $("#side_bar_block_image").html(data).hide("slow").delay(200).show("slow");
-              $(".image_list").mouseover(function() {
-                $(this).find("a").css("display","block");
-              }).mouseout(function(){
-                $(this).find("a").css("display","none");
-              });
               $("#side_bar_block_image img").click(function() {
                 $(this).addImg();
               });
-              
-              $("#side_bar_block_image a").click(function() {
-                //$(this).delImg();
-                //console.log($(this).prop("href"));
-                $.post($(this).prop("href"), {},
-                  function(data) { 
-                    //console.log(data);
-                    var data = jQuery.parseJSON(data);
-                    //console.log(data);
-                    if(data.success == "1"){
-                      updateImages();
-                    }
-                  }
-                );
-                return false;
-                
-              });
-              
             });
   }
   
@@ -191,17 +166,6 @@ $(document).ready(function() {
 			minuteGrid: 10
 		});		
 
-		$('#start_time3').timepicker({
-			hourGrid: 4,
-			minuteGrid: 10
-		});
-
-		$('#end_time3').timepicker({
-			hourGrid: 4,
-			minuteGrid: 10
-		});	
-
-		/*
 		$('#start_date').datepicker({
 			dateFormat: "yy-mm-dd"
 		});
@@ -209,7 +173,6 @@ $(document).ready(function() {
 		$('#end_date').datepicker({
 			dateFormat: "yy-mm-dd"
 		});	
-		*/
 
 	    tinyMCE.init({
 	        mode : "specific_textareas",
@@ -341,49 +304,26 @@ $(document).ready(function() {
 </script>
 
 	
-<?php echo form_open(base_url("admin/tour/create"),'enctype="multipart/form-data"');?>	
+<?php echo form_open(base_url("admin/tour/create"));?>	
 <input type="hidden"  id="id"  name="fakeid"  value="<?php echo $fakeId;?>" />
 <div class="container_12">
 
 	<!-- Filter -->
 	<section class="grid_8">
 		<h2 class="section_heading">
-			<span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
-				Add Tour Information 
-				[ <a href="<?php echo base_url("admin/tour");?>">list</a> ]
-			</span>			
+			<span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">Add Tour Information [ <a href="<?php echo base_url("admin/tour");?>">list</a> ]</span>
+			<?php
+				if(is_array($language)){
+					foreach ($language as $key => $value) {
+						# code...
+						echo $value->acronym;
+						echo "|";
+					}	
+				}
+			?>
 		</h2>
 		<br>	
-			<!--  Start Tour information --> 
-
-      <script type="text/javascript">
-      $(function(){
-        $("#lang").change(function(){
-
-          window.location='http://'+this.value+'.localhostuastravel.com/admin/tour/create';
-        });
-      });
-      </script>      
-      <div class="half" id="lang_select">
-        <label>language :</label> 
-        <select id="lang"  name="lang">
-
-        <?php
-          if($this->lang->lang() == "en"){
-        ?>
-          <option value="th">thai</option>
-          <option value="en" selected>english</option>
-        <?php
-          }else{
-        ?>
-          <option value="th" selected>thai</option>
-          <option value="en">english</option>
-        <?php
-          }
-        ?>
-        </select>
-      </div>
-      <div class="clearfix"></div>		
+			<!--  Start Tour information -->		
 			<div class="half">
 				<label>Tour Name :</label> <?php echo form_error('name', '<font color="red">', '</font>'); ?>
 				<input type="text" name="name" id="name" value="<?php echo set_value('name');?>">
@@ -410,54 +350,23 @@ $(document).ready(function() {
 			<label>Tour Remark : </label>	
 			<textarea cols="30"  class="mceEditor"  rows="10" name="remark"><?php echo set_value('remark');?></textarea>
 			<div class="clearfix"></div>
-<br>
 
+	</section>
 
-    <!-- Agency -->
-    <script>
-      var agencies = new Array();
-      var price = new Array();
-    </script>
-      <h2 class="section_heading" >
-        <span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
-          Agency Information 
-          <!-- input type="search" id="query_agencyname" style="width:30%;" disabled/ -->
-          <select id="query_agencyname">
-          <?php 
-            foreach ($agency as $key => $value) {
-              # code...
-          ?>
-            <option value="<?php echo $value->id;?>"><?php echo $value->name;?></option>
-          <?php
-            }
-          ?>  
-          </select>
-          <img src="<?php echo base_url("themes/Travel/images/add.png"); ?>" valign="middle"  id="add_agency"/>       
-          <input type="hidden" id="hidden_agency_id" />
-        </span>
-      </h2>
-      <br>
-		<div id="add_agency_area">
-		</div>
-    <div id="add_price_area">
-    </div>
-
-  <!-- Agency End -->
-  </section>  
 
 	<!-- Start tag -->
 	<section class="simple_sidebar grid_4">
 		<label>Tag</label><label style="position:absolute;right:240px;"><span style="cursor:pointer;"  id="show_all">show all</span></label>
 		<textarea id="textarea" class="example" rows="1" style="width: 250px;"></textarea>
-    <script>
-      //Rewrite tag value
-      $(document).ready(function(){
-        $("#save").live('click', function() {
-          $("#tags").val($("#jquerytag").val());          
-        });
-      });
-    </script>          
-    <input type="hidden"id="tags" name="tags" value="">
+          <script>
+            //Rewrite tag value
+            $(document).ready(function(){
+              $("#save").live('click', function() {
+                $("#tags").val($("#jquerytag").val());          
+              });
+            });
+          </script>          
+          <input type="hidden"id="tags" name="tags" value="">
 		<br>
 		<span id="show_all_result">
 			<?php
@@ -501,7 +410,7 @@ $(document).ready(function() {
 				.bind('getSuggestions', function(e, data)
 				{
 					//Get tag data
-					if(data.query.length == 2){
+					if(data.query.length == 1){
 						var list = tagSearch(data.query);
 
 						var textext = $(e.target).textext()[0];
@@ -540,7 +449,7 @@ $(document).ready(function() {
 
 			function tagSearch(str) {
 
-				var url ="<?php echo base_url('/tag/jssearch');?>"+"/"+str;
+				var url ="<?php echo base_url('/tag/jssearch/');?>"+str;
 				var response = $.ajax({ type: "GET",   
 				                        url: url,   
 				                        async: false
@@ -582,8 +491,8 @@ $(document).ready(function() {
 	<!-- End Sidebar Tag -->
   
   
-  <!-- Start Images -->
-  <section class="simple_sidebar grid_4">
+  	<!-- Start Images -->
+  	<section class="simple_sidebar grid_4">
 		<label>{_ location_lang_image_manager}</label>
         <div id="side_bar_block_image">
         </div>
@@ -594,72 +503,61 @@ $(document).ready(function() {
         <span id="btnShow"  class="upload-button" onClick="return(false);">Show</span>
 			<div class="clearfix"></div>
 	</section>
-  
-  <section class="simple_sidebar grid_4">
-		<label>{_ location_lang_image_manager}</label>
-			
-      <p>First Image (Minimum width: 300px)</p>
-      <?php
-        echo form_upload('first_image', '', 'class="form_input"');
-      ?>
-      <p>Background Image (1920px * 800px)</p>
-      <?php
-        echo form_upload('background_image', '', 'class="form_input"');
-      ?>
-      <p>Banner Image (770px * 180px)</p>
-      <?php
-        echo form_upload('banner_image', '', 'class="form_input"');
-      ?>
-      <div class="clearfix"></div>
-	</section>
 	<!-- End Images -->
-
+  
+  	<!-- First Images -->
+	<script type="text/javascript" src="<?php echo base_url('themes/Travel/js/ajaxuploadimage/scripts/jquery.form.js');?>"></script>
+	<script type="text/javascript">
+		function getImage(){
+			var url = "<?php echo base_url('admin/tour/uploadfirstimage');?>"
+			$.get(url,{mod: 'getImage'},function(d){ 
+				if(d==0)
+					$("#showImage").fadeOut(); 
+				else{
+					$("#showImage").fadeOut(function(){
+						$("#showImage").attr("src",d);
+						$("#showImage").fadeIn();
+					});
+				}
+				
+			});
+		}
+	</script> 	
+  	<section class="simple_sidebar grid_4">
+		<label>First image</label>
+		<form action="" method="post" enctype="multipart/form-data" name="form" id="form">
+		  <table width="100%" border="0" cellspacing="7" cellpadding="2">
+		    <tr>
+		      <td align="center"><h1>Upload Image Auto!</h1></td>
+		    </tr>
+		    <tr>
+		      <td align="center"><div ><img id="showImage" style="display:none;" src="" /></div></td>
+		    </tr>
+		    <tr>
+		      <td align="center"><label for="file"><iframe style="width:100%" height="75" frameborder="0" src="<?php echo base_url('admin/tour/uploadfirstimage');?>"></iframe></label>
+		      </td>
+		    </tr>
+		  </table>
+		</form>
+		<div class="clearfix"></div>
+	</section>
+	<!-- End First Images -->
+  
   
 	<!-- Sidebar start period-->
 	<section class="simple_sidebar grid_4">
-		<label>Tour Period</label><br>
-		<div class="half" style="width:120px;">
-			<label>Start Month :</label><br>
-			<?php
-				$options = array(
-				                  '1'  => 'มกราคม',
-				                  '2'  => 'กุมภาพันธ์',
-				                  '3'  => 'มีนาคม',
-				                  '4'  => 'เมษายน',
-				                  '5'  => 'พฤษภาคม',
-				                  '6'  => 'มิถุยายน',
-				                  '7'  => 'กรกฎาคม',
-				                  '8'  => 'สิงหาคม',
-				                  '9'  => 'กันยายน',
-				                  '10' => 'ตุลาคม',
-				                  '11' => 'พฤศจิกายน',
-				                  '12' => 'ธันวาคม',
-				                );
-				echo form_dropdown('start_month', $options);
-			?>
-		</div>	
-
-		<div class="half last" style="width:120px;">
-			<label>End Month :</label><br>
-			<?php
-				$options = array(
-				                  '1'  => 'มกราคม',
-				                  '2'  => 'กุมภาพันธ์',
-				                  '3'  => 'มีนาคม',
-				                  '4'  => 'เมษายน',
-				                  '5'  => 'พฤษภาคม',
-				                  '6'  => 'มิถุยายน',
-				                  '7'  => 'กรกฎาคม',
-				                  '8'  => 'สิงหาคม',
-				                  '9'  => 'กันยายน',
-				                  '10' => 'ตุลาคม',
-				                  '11' => 'พฤศจิกายน',
-				                  '12' => 'ธันวาคม',
-				                );
-				echo form_dropdown('end_month', $options);
-			?>
-		</div>					
-		<div class="clearfix"></div>
+		<label>Period</label><br>
+			<div class="half" style="width:120px;">
+				<label>Start Date :</label><br>
+				<?php echo form_error('start_date', '<font color="red">', '</font>'); ?>
+				<input style="width:120px;" type="text" name="start_date" id="start_date" value="<?php echo set_value('start_date');?>">
+			</div>	
+			<div class="half last" style="width:120px;">
+				<label>End Date :</label><br>
+				<?php echo form_error('end_date', '<font color="red">', '</font>'); ?>
+				<input type="text" name="end_date" id="end_date" value="<?php echo set_value('end_date');?>">
+			</div>					
+			<div class="clearfix"></div>
 	</section>
 	<!-- Sidebar end period-->
 
@@ -688,19 +586,7 @@ $(document).ready(function() {
 			<?php echo form_error('end_time2', '<font color="red">', '</font>'); ?>
 			<input type="text" name="end_time2" id="end_time2" value="<?php echo set_value('end_time2');?>">
 		</div>					
-		<div class="clearfix"></div>	
-
-		<div class="half" style="width:120px;">
-			<label>Start time[3] :</label><br>
-			<?php echo form_error('start_time3', '<font color="red">', '</font>'); ?>
-			<input type="text" name="start_time3" id="start_time3" value="<?php echo set_value('start_time3');?>">
-		</div>	
-		<div class="half last" style="width:120px;">
-			<label>End time[3] :</label><br>
-			<?php echo form_error('end_time3', '<font color="red">', '</font>'); ?>
-			<input type="text" name="end_time3" id="end_time3" value="<?php echo set_value('end_time3');?>">
-		</div>					
-		<div class="clearfix"></div>		
+		<div class="clearfix"></div>			
 	</section>
 	<!-- Sidebar end time period-->
 
@@ -716,24 +602,57 @@ $(document).ready(function() {
 	</section>	
 	<!-- End map -->
 
+
+
+  
+
+	<!-- Agency Information -->
+	<style type="text/css">
+	.similar_hotels div{
+		height: auto;
+	}
+	</style>
+
+	<section class="similar_hotels grid_8">
+		<h2 class="section_heading" >
+			<span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
+				Agency Information 
+				<input type="search" id="query_agencyname" style="width:30%;" disabled/>
+				<input type="hidden" id="hidden_agency_id" />
+				
+				<span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_new_agency">[ Add New ]</span>
+
+				<span style="cursor:pointer; font: 15px Arial, sans-serif;" id="add_agency">[ Add to tour ]</span>
+			</span>
+		</h2>
+		<br>
+
+		<ul id="add_agency_area">
+		</ul>
+
+		<ul>
+			<li>
+				<input type="submit" value="Submit" class="auto_width" id="save">	<br>			
+			</li>
+		</ul>		
+	</section>
 </div>
-  <section class="grid_12">
-    <input type="submit" value="Submit" class="auto_width" id="save">
-  </section>  
-
-
 
 <?php echo form_close();?>	
 
 
 <script type="text/javascript">
+	function agencyValidateByName(str){
 
-  var countExtendPriceJS = 0;
+		var url ="<?php echo base_url('/agency/hasdata/');?>"+str;
+		var response = $.ajax({ type: "GET",   
+		                        url: url,   
+		                        async: false
+		                      }).responseText;
 
-  var element = 0;
-  var count = 0;
-  var num = 1;
-  var agencies = new Array();
+		return response;
+	}
+
 
 	function deleteRow(event, agency_id){
 
@@ -749,211 +668,155 @@ $(document).ready(function() {
 		return false;
 	}
 
-  function deletePriceRow(event, price_element){
-
-    if(event == "delete"){
-      alert("delete : "+price_element);
-
-      $("#price_"+price_element).remove();
-      delete price[price_element]; 
-    }else{
-      //alert("add");
-    }
-    return false;
-  }
-
-  function addPrice(event, agency_id){
-    if(event == "add"){
-      alert("add :"+agency_id+"-"+countExtendPriceJS);
-      var html = priceForm(agency_id, countExtendPriceJS);
-      $("#add_price_area_"+agency_id).append(html);
-
-      countExtendPriceJS++;
-    }
-    return false;
-  }
-
-
-
-  $("#add_agency").click(function () {
-
-    var agency_id = $("#query_agencyname :selected").val();
-    var agency_name = $("#query_agencyname :selected").html();
-
-    //alert(agency_name);
-    var found = agencies.indexOf(agency_name);
-
-    if(agency_name.length > 0){
-      //Check duplicate data
-      if(found == -1){
-        agencies[agency_id] = agency_name;
-        count++;
-        var html = agencyPriceForm(num, agency_id, agency_name);
-        num++;
-        $("#add_agency_area").append(html);
-      
-        $("#add_agency_area").append(function(){
-          deleteRow();
-        });           
-        $("#query_agencyname").val("");
-        $("#query_agencyname").focus();
-        $("#add_loading").html("");
-
-        countExtendPriceJS++;
-      }else{
-        alert("Agency นี้ได้เพิ่มข้อมูลแล้ว");
-        $("#query_agencyname").val("");
-        $("#query_agencyname").focus();
-      }
-    }else{
-      alert("กรุณากรอกชื่อ Agency และเลือก");
-      $("#query_agencyname").focus();
-    }
-
-
-  }); 
 		
 	function agencyPriceForm(num, agency_id, agency_name){
 
-    var agency_form = "<br>";
-    agency_form += "<div id='agency_price_"+agency_id+"'>";
-    agency_form += "    <div>";
-    agency_form += "      <span style='float:left; margin-left:10px; font: 20px Arial, sans-serif; width:auto'>";
-    agency_form += "        [New] "+agency_name;
-    agency_form += "        <input type='hidden' name='agency_tour["+element+"][agency_id]' value='"+agency_id+"'>";
-    agency_form += "      </span>";
-    agency_form += "      <span style='float:left; margin-left:10px; font: 20px Arial, sans-serif; width:10%'>";
-    agency_form += "         <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
-    agency_form += "            valign='middle'  "; 
-    agency_form += "            id='delete_agency'  ";
-    agency_form += "            onClick='deleteRow(\"delete\", "+agency_id+");'  ";
-    agency_form += "      />"; 
-    agency_form += "      </span>";
-    agency_form += "      <span style='margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;'>";
-    agency_form += "        [เพิ่มราคา <img src='<?php echo base_url('themes/Travel/images/add.png'); ?>'";
-    agency_form += "            valign='middle'  "; 
-    agency_form += "            id='add_price'  ";
-    agency_form += "            onClick='addPrice(\"add\", "+agency_id+");'  ";
-    agency_form += "      />]"; 
-    agency_form += "      </span>";    
-    agency_form += "    </div>";
-    agency_form += "    <div class='clearfix'></div>"; 
+		var agency_form = "<li id='agency_price_"+agency_id+"'>";
+		agency_form += "   	<span style='font: 32px Arial, sans-serif; float:left;'>";
+		agency_form += "      [New]"
+		agency_form += "    </span>";
+		agency_form += "    <div>";
+		agency_form += "    	<span style='float:left; margin-left:10px; font: 20px Arial, sans-serif; width:auto'>";
+		agency_form += "    	"+agency_name;
+		agency_form += "    	<input type='hidden' name='agency_tour["+element+"][agency_id]' value='"+agency_id+"'>";
+		agency_form += "        </span>";
+		agency_form += "    	<span style='float:left; margin-left:10px; font: 20px Arial, sans-serif; width:10%'>";
+		agency_form += "    	<span style='cursor:pointer; id='delete_agency' onClick='deleteRow(\"delete\", "+agency_id+");'>[ - ]<span>";
+		agency_form += "        </span>";
+		agency_form += "    </div>";
+		agency_form += "    <div class='clearfix'></div>";
+		agency_form += "    ";		
+		agency_form += "    <div>";
+		agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
+		agency_form += "    		<label>Adult Sale :</label><br>";
+		agency_form += "    		<input type='text' name='agency_tour["+element+"][sale_adult_price]'>";
+		agency_form += "    	</span>";
+		agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
+		agency_form += "    		<label>Adult Net :</label><br>";
+		agency_form += "    		<input type='text' name='agency_tour["+element+"][net_adult_price]'>";
+		agency_form += "    	</span>";
+		agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
+		agency_form += "    		<label>Adult discount :</label><br>";
+		agency_form += "    		<input type='text' name='agency_tour["+element+"][discount_adult_price]'>";
+		agency_form += "    	</span>";
+		agency_form += "    </div>";
+		agency_form += "    ";		
+		agency_form += "    <div>";
+		agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
+		agency_form += "    		<label>Child Sale :</label><br>";
+		agency_form += "    		<input type='text' name='agency_tour["+element+"][sale_child_price]'>";
+		agency_form += "    	</span>";
+		agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
+		agency_form += "    		<label>Child Net :</label><br>";
+		agency_form += "    		<input type='text' name='agency_tour["+element+"][net_child_price]'>";
+		agency_form += "    	</span>";
+		agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
+		agency_form += "    		<label>Child discount :</label><br>";
+		agency_form += "    		<input type='text' name='agency_tour["+element+"][discount_child_price]'>";
+		agency_form += "    	</span>";
+		agency_form += "    </div>";
+		agency_form += "    <div class='clear'></div>";
+		agency_form += "  <br>";
+		agency_form += "  </li>";
 
-    agency_form += "<br>";
-    agency_form += "  <div id='price_"+agency_id+"_0'>";
-    agency_form += "    <div class='half'>";
-    agency_form += "      <label>Price name :</label>";
-    agency_form += "      <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
-    agency_form += "      valign='top'  "; 
-    agency_form += "      id='delete_price'  ";
-    agency_form += "      onClick='deletePriceRow(\"delete\", \""+agency_id+"_0\");'  ";
-    agency_form += "      />  "; 
-    agency_form += "      <br>";
-    agency_form += "      <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][name]' value=''>";
-    agency_form += "    </div>";
-    agency_form += "    <div class='clearfix'></div>";    
 
-    agency_form += "    <div>";
-    agency_form += "      <div class='third'>";   
-    agency_form += "        <label>Adult Sale :</label><br>";
-    agency_form += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][sale_adult_price]' value=''>";
-    agency_form += "      </div>";
-    agency_form += "      <div class='third'>";   
-    agency_form += "        <label>Adult Net :</label><br>";
-    agency_form += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][net_adult_price]' value=''>";
-    agency_form += "      </div>";
-    agency_form += "      <div class='third last'>";   
-    agency_form += "        <label>Adult discount :</label><br>";
-    agency_form += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][discount_adult_price]' value=''>";
-    agency_form += "      </div>";
-    agency_form += "    <div class='clearfix'></div>";
- 
-    agency_form += "    <div>";
-    agency_form += "      <span class='third'>";   
-    agency_form += "        <label>Child Sale :</label><br>";
-    agency_form += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][sale_child_price]' value=''>";
-    agency_form += "      </span>";
-    agency_form += "      <span class='third'>";   
-    agency_form += "        <label>Child Net :</label><br>";
-    agency_form += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][net_child_price]' value=''>";
-    agency_form += "      </span>";
-    agency_form += "      <span class='third last'>";   
-    agency_form += "        <label>Child discount :</label><br>";
-    agency_form += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][discount_child_price]' value=''>";
-    agency_form += "      </span>";
-    agency_form += "    </div>";
-    agency_form += "    <div class='clear'></div>";
-
-    agency_form += "  </div>";
-
-    agency_form += "  <br>"; 
-    agency_form += "</div>";
-    agency_form += " <span id='add_price_loading_"+agency_id+"'></span>";
-    agency_form += " <span  id='add_price_area_"+agency_id+"'></span>"; 
-    agency_form += " <div style='border-bottom: 1px dotted #ccc;'></div>";   
-
-		countExtendPriceJS = 1;
+		element++;
 
 		return agency_form;
 	}
 
+	var element = 0;
+	var count = 0;
+	var num = 1;
+	var agencies = new Array();
 
 
-  function priceForm(agency_id, countExtendPriceJS){
-    //alert(countExtendPriceJS);
-    var priceForm = "<br>";
-    priceForm += "<div id='price_"+agency_id+"_"+countExtendPriceJS+"'>";
-    priceForm += "    <div class='half'>";
-    priceForm += "      <label>Price name :</label>";
-    priceForm += "      <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
-    priceForm += "      valign='top'  "; 
-    priceForm += "      id='delete_price'  ";
-    priceForm += "      onClick='deletePriceRow(\"delete\", \""+agency_id+"_"+countExtendPriceJS+"\");'  ";
-    priceForm += "      />  "; 
-    priceForm += "      <br>";
-    priceForm += "      <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][name]' value=''>";
-    priceForm += "    </div>";
-    priceForm += "    <div class='clearfix'></div>";  
+	$("#add_new_agency").click(function () {
+		$("#query_agencyname").prop('disabled', false);
+		$("#query_agencyname").focus();
+	});
 
-    priceForm += "    <div>";
-    priceForm += "      <div class='third'>";   
-    priceForm += "        <label>Adult Sale :</label><br>";
-    priceForm += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][sale_adult_price]' value=''>";
-    priceForm += "      </div>";
-    priceForm += "      <div class='third'>";   
-    priceForm += "        <label>Adult Net :</label><br>";
-    priceForm += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][net_adult_price]' value=''>";
-    priceForm += "      </div>";
-    priceForm += "      <div class='third last'>";   
-    priceForm += "        <label>Adult discount :</label><br>";
-    priceForm += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][discount_adult_price]' value=''>";
-    priceForm += "      </div>";
-    priceForm += "    <div class='clearfix'></div>";
+	$("#add_agency").click(function () {
 
-    priceForm += "    <div>";
-    priceForm += "      <span class='third'>";   
-    priceForm += "        <label>Child Sale :</label><br>";
-    priceForm += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][sale_child_price]' value=''>";
-    priceForm += "      </span>";
-    priceForm += "      <span class='third'>";   
-    priceForm += "        <label>Child Net :</label><br>";
-    priceForm += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][net_child_price]' value=''>";
-    priceForm += "      </span>";
-    priceForm += "      <span class='third last'>";   
-    priceForm += "        <label>Child discount :</label><br>";
-    priceForm += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][discount_child_price]' value=''>";
-    priceForm += "      </span>";
-    priceForm += "    </div>";
-    priceForm += "    <div class='clear'></div>";
+		var tour_name = $("#query_agencyname").val();
 
-    priceForm += " </div>";
-    priceForm += "  <br>";
+		var found = agencies.indexOf(tour_name);
 
-    return priceForm;
-  }
+		if(tour_name.length > 0){
 
+			//Check duplicate data
+			if(found == -1){
+				//Call recheck data input
+				var response = agencyValidateByName(tour_name);
+				//alert(response);
+				if(response.length>0 && response != 0){
+
+					var responseData = response.split(",");
+					agencies[responseData[0]] = responseData[1];
+					count++;
+
+					var res = response.split(",");
+					var html = agencyPriceForm(num, res[0], res[1]);
+					num++;					
+
+					$("#add_agency_area").append(html);
+
+					$("#add_agency_area").append(function(){
+						deleteRow();
+					});	
+
+
+					$("#query_agencyname").val("");
+					$("#query_agencyname").focus();
+
+
+				}else if(response == 0){
+					alert("ไม่มีชื่อ Agency นี้อยู่");
+					$("#query_agencyname").val("");
+					$("#query_agencyname").focus();
+				}
+
+			
+			}else{
+				alert("Agency นี้ได้เพิ่มข้อมูลแล้ว");
+				$("#query_agencyname").val("");
+				$("#query_agencyname").focus();
+			}
+		}else{
+			alert("กรุณากรอกชื่อ Agency และเลือก");
+			$("#query_agencyname").focus();
+		}
+
+
+	}); 
 
 </script>	
+
+
+<?php
+//Autosuggest && Autocomplete
+PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/autocomplete/jquery.autocomplete.js").'"></script>');
+PageUtil::addVar("stylesheet",'<link rel="stylesheet" media="all" type="text/css"  href="'.base_url("themes/Travel/js/autocomplete/jquery.autocomplete.css").'">');
+
+?>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+
+	var url ="<?php echo base_url('/agency/phpsearch/');?>";
+	//"http://localhost/jquery/jquery-autocomplete/demo/search.php"
+	//var url ="http://localhost/uastravel/tag/jssearch/";	
+	$("#query_agencyname").autocomplete(url, {
+		width: 260,
+		selectFirst: false,
+		urlType: "short",
+		shortUrl: url,
+		hiddenId : "hidden_agency_id"
+	});
+
+});
+</script>
 
 
 		
