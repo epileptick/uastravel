@@ -771,7 +771,7 @@ class Tour extends MY_Controller {
           $data["price"][$queryPriceID]["pri_id"] = $queryPriceID;
           $data["price"][$queryPriceID]["pri_agency_id"] = $dataPrice[$queryPriceID]->agency_id;
           $data["price"][$queryPriceID]["pri_tour_id"] = $dataPrice[$queryPriceID]->tour_id;
-          $data["price"][$queryPriceID]["pri_name"] = $dataPrice[$queryPriceID]->name;
+          $data["price"][$queryPriceID]["pri_name"] = (!empty($dataPrice[$queryPriceID]->name)?$dataPrice[$queryPriceID]->name:"-");
           $data["price"][$queryPriceID]["pri_sale_adult_price"] = $dataPrice[$queryPriceID]->sale_adult_price;
           $data["price"][$queryPriceID]["pri_net_adult_price"] = $dataPrice[$queryPriceID]->net_adult_price;
           $data["price"][$queryPriceID]["pri_discount_adult_price"] = $dataPrice[$queryPriceID]->discount_adult_price;
