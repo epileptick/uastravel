@@ -99,63 +99,52 @@
             <header class="header">
               <a class="logo"> <img src="<?php echo base_url('themes/Travel/tour/images/logo_home.png');?>"></a>
               <div class="address">
-                <p><a>uastravel@gmail.com</a></p>
+                <p class="copyright">ใบอนุญาตเลขที่ 34/000837</p>
                 <!--<p>085-7148830</p>
                 <p class="copyright">Copyright © Uastravel.com</p>-->
               </div>
             </header>
             <div class="line"></div>
             <nav>
-              <ul>
+              <ul class="accordion">
+                <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
+                <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
                 <li>
-                  <a href="<?php echo base_url();?>">หน้าแรก</a>
-                </li>
-                <li>
-                  <a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a>
-                </li>
-                <li <?php echo ($this->uri->segment(2)=="ทัวร์ครึ่งวัน")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a>
-                </li>
-                <li <?php echo ($this->uri->segment(2)=="ทัวร์-1-วัน")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a>
-                </li>
-                <li <?php echo ($this->uri->segment(2)=="ทัวร์-2-วัน-1-คืน")? 'class="active"':''; ?>>
-                  <a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a>
-                </li>
-                <li <?php echo ($this->uri->segment(2)=="ทัวร์-3-วัน-2-คืน")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a>
-                </li>
-                <li <?php echo ($this->uri->segment(2)=="โชว์กลางคืน")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a>
-                </li>
-                <li <?php echo ($this->uri->segment(2)=="สปาแพ็คเกจ")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a>
-                </li>
-                <li <?php echo ($this->uri->segment(2)=="กอล์ฟแพ็คเกจ")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a>
-                </li>
-                <li <?php echo ($this->uri->segment(2)=="เช่าเรือเหมาลำ")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a>
-                </li>
-                <li <?php echo ($this->uri->segment(2)=="จองตั๋วเรือโดยสาร")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a>
-                </li>
-                <li <?php echo ($this->uri->segment(2)=="จองรถเช่า")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a>
-                </li>
-                <li <?php echo ($this->uri->segment(2)=="จองตั๋วเครื่องบิน")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a>
-                </li>
-                <li <?php echo ($this->uri->segment(2)=="จองโรงแรม")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a>
-                </li>
-                <li <?php echo ($this->uri->segment(2)=="โปรโมชั่น")? 'class="active"':'';?>>
-                  <a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a>
+                  <a class="active">แพ๊คเกจทัวร์ <span class="arrow_menu "></span></a>
+                  <ul class="sub-menu" style="display:block;">
+                    <li><a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
+                    <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
+                    <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
+                    <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
+                  </ul>                
                 </li>
                 <li>
-                  <a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a>
-                </li>               
-              </ul>
+                  <a>แพ๊คเกจทัวร์อื่นๆ <span class="arrow_menu"></span></a>
+                  <ul class="sub-menu">
+                    <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
+                    <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
+                    <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
+                  </ul>                
+                </li> 
+                <li>
+                  <a>การเดินทาง <span class="arrow_menu"></span></a>
+                  <ul class="sub-menu">
+                    <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
+                    <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
+                    <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
+                    <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
+                  </ul>                
+                </li> 
+                <li>
+                  <a>ที่พัก <span class="arrow_menu"></span></a>
+                  <ul class="sub-menu">
+                    <li><a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a></li>
+                    <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
+                  </ul>                
+                </li>
+                <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
+                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>    
+              </ul><!-- End accordion -->
             </nav>
             <div class="social">
               <a href="" class="twitter icon">twitter</a>
@@ -166,7 +155,20 @@
             <div class="clearfix"></div>
             <div class="fan_page">
               <div class="inner">
+                <div id="fb-root"></div>
+                <script>(function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return;
+                  js = d.createElement(s); js.id = id;
+                  js.src = "//connect.facebook.net/th_TH/all.js#xfbml=1&appId=357467797616103";
+                  fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+                </script>
+                <div class="fb-like-box" data-href="https://www.facebook.com/UasTravelThailand" data-width="200" data-height="280" data-show-faces="true" data-colorscheme="dark" data-stream="false" data-border-color="transparent" data-header="false"></div>
               </div>
+            </div>
+            <div class="button_like">
+              <div class="fb-like" data-href="https://www.facebook.com/UasTravelThailand" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="verdana"></div>
             </div>
           <div class="footer_menu"></div>
           <div class="shadow"></div>
@@ -371,13 +373,15 @@
                             <?php
                                 if(!empty($value["price"]->pri_sale_adult_price)){
                             ?>
-                              <div class="sticker price">
-                                <?php  
-                                  $sale_price = $value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price;
-                                  echo number_format($sale_price, 0);
-                                ?>
-                                บาท
-                              </div>                                    
+                              <div class="sticker_status">
+                                <div class="sticker price">
+                                  <?php  
+                                    $sale_price = $value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price;
+                                    echo number_format($sale_price, 0);
+                                  ?>
+                                  บาท
+                                </div> 
+                              </div>                                     
                             <?php                                    
                                 }
                             ?>
@@ -417,7 +421,6 @@
                             <div class="border"></div>
                             <div class="row-fluid">
                               <div class="span7">
-
                                 <!-- img src="http://icons.iconarchive.com/icons/dapino/summer-holiday/24/palm-tree-icon.png" -->
                                 <div class="icon tour" rel="tooltip" title="แพ็กเก็จทัวร์"></div>
                                 <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>

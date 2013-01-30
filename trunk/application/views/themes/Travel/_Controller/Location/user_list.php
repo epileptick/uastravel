@@ -68,30 +68,52 @@
             <header class="header">
               <a class="logo"> <img src="<?php echo base_url('themes/Travel/tour/images/logo_home.png');?>"></a>
               <div class="address">
-                <p><a>uastravel@gmail.com</a></p>
+                <p class="copyright">ใบอนุญาตเลขที่ 34/000837</p>
                 <!--<p>085-7148830</p>
                 <p class="copyright">Copyright © Uastravel.com</p>-->
               </div>
             </header>
             <div class="line"></div>
             <nav>
-              <ul>
+              <ul class="accordion">
                 <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
-                <li class="active"><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
-                <li><a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
-                <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
-                <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
-                <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
-                <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
-                <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
-                <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
-                <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
-                <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
-                <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
-                <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
-                <li><a href="<?php echo base_url('tour/inquiry');?>">จองโรงแรม</a></li>
+                <li><a class="active" href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
+                <li>
+                  <a>แพ๊คเกจทัวร์ <span class="arrow_menu"></span></a>
+                  <ul class="sub-menu">
+                    <li><a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
+                    <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
+                    <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
+                    <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
+                  </ul>                
+                </li>
+                <li>
+                  <a>แพ๊คเกจทัวร์อื่นๆ <span class="arrow_menu"></span></a>
+                  <ul class="sub-menu">
+                    <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
+                    <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
+                    <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
+                  </ul>                
+                </li> 
+                <li>
+                  <a>การเดินทาง <span class="arrow_menu"></span></a>
+                  <ul class="sub-menu">
+                    <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
+                    <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
+                    <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
+                    <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
+                  </ul>                
+                </li> 
+                <li>
+                  <a>ที่พัก <span class="arrow_menu"></span></a>
+                  <ul class="sub-menu">
+                    <li><a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a></li>
+                    <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
+                  </ul>                
+                </li>
                 <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
-                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
+                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>    
+              </ul><!-- End accordion -->
             </nav>
             <div class="social">
               <a href="" class="twitter icon">twitter</a>
@@ -102,19 +124,7 @@
             <div class="clearfix"></div>
             <div class="fan_page">
               <div class="inner">
-                <script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script>
-                <script type="text/javascript">FB.init("1690883eb733618b294e98cb1dfba95a");</script>
-                <fb:fan 
-                profile_id="478557815500701" 
-                stream="0" 
-                connections="12" 
-                logobar="0" 
-                width="200" 
-                height="200" 
-                css="https://upload-my-file.googlecode.com/svn/trunk/custom_fanpage.css?1" 
-                class=" FB_fan FB_ElementReady">
-                </fb:fan>
-              </div>
+                <div id="fb-root"></div>
                 <script>(function(d, s, id) {
                   var js, fjs = d.getElementsByTagName(s)[0];
                   if (d.getElementById(id)) return;
@@ -123,6 +133,11 @@
                   fjs.parentNode.insertBefore(js, fjs);
                 }(document, 'script', 'facebook-jssdk'));
                 </script>
+                <div class="fb-like-box" data-href="https://www.facebook.com/UasTravelThailand" data-width="200" data-height="280" data-show-faces="true" data-colorscheme="dark" data-stream="false" data-border-color="transparent" data-header="false"></div>
+              </div>
+            </div>
+            <div class="button_like">
+              <div class="fb-like" data-href="https://www.facebook.com/UasTravelThailand" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="verdana"></div>
             </div>
           <div class="footer_menu"></div>
           <div class="shadow"></div>
@@ -132,32 +147,28 @@
               <div class="row-fluid">
                 <div class="navbar">
                     <div class="navbar-inner">
-                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                        </button>
-                        <span class="brand">Filter :</span>
-                        <div id="options" class="nav-collapse collapse">
+                        <div id="options">
                           <ul class="option-set nav" >
+                            <span class="brand">Filter :</span>
                             <?php
+                            if(!empty($menu))
                             if($menu[0]->select_all == 1){
                             ?>
-                              <li><a href="<?php echo base_url('location');?>" class="selected">ทั้งหมด</a></li>
+                              <li><a href="<?php echo base_url();?>" class="selected">ทั้งหมด</a></li>
                             <?php
                             }else{
                             ?>
-                              <li><a href="<?php echo base_url('location');?>">ทั้งหมด</a></li>
+                              <li><a href="<?php echo base_url();?>">ทั้งหมด</a></li>
                             <?php
                             }
                             ?>
-
-
+                            
                             <?php
-                               foreach ($menu as $key => $value) {
-                              ?>
+                              if(!empty($menu))
+                              foreach ($menu as $key => $value) {
+                            ?>
                               <li>
-                                <a href="<?php echo base_url('location/'.$value->url);?>" 
+                                <a href="<?php echo base_url("location/".$value->url);?>" 
                                   <?php  
                                     if($value->select == 1){
                                       echo "class='selected'";
@@ -174,20 +185,18 @@
                             ?>
                           </ul>
                         </div>
-                        <div style="float:right;">
-
-                          <form name="input" action="location/search" method="post" id="search-form"> 
-                            <select name="select" id="selectsearch" style="margin:10px 5px 0px 0px; height:22px; width:120px;" >
-                              <option value="tour">แพคเกจทัวร์</option>
-                              <option value="location" selected>สถานที่ท่องเที่ยว</option>
-                            </select>
-
-                            <input type="text" name="search" style="margin:10px 5px 0px 0px; height:12px; width:120px;" 
-                                    value="<?php echo (!empty($search))?$search:"";?>"
+                        <form name="input" action="tour/search" method="post" class="navbar-form pull-right form_search" id="search-form"> 
+                          <select name="select" id="selectsearch">
+                            <option value="tour">แพคเกจทัวร์</option>
+                            <option value="location">สถานที่ท่องเที่ยว</option>
+                          </select>
+                          <div class="input_search"> 
+                            <input type="text" name="search" class="text_search"
+                                   value="<?php echo (!empty($search))?$search:"";?>"
                             >
-                            <input type="submit" value="ค้นหา" style="margin:10px 10px 0px 0px; height:22px; width:60px;">
-                          </form>
-                        </div>  
+                            <input type="submit" value="ค้นหา" class="button_search">
+                          </div>
+                        </form>
                     </div>
                   </div>
               </div>
@@ -241,7 +250,7 @@
                             <div class="border"></div>
                             <div class="row-fluid">
                               <div class="span7">
-                                <img src="<?php echo base_url('themes/Travel/tour/images/icon/24location.png');?>" style="margin-left:7px;">
+                                <div class="icon location" rel="tooltip" title="แหล่งท่องเทียว"></div>
                                 <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
                                 <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
                               </div>
@@ -299,10 +308,6 @@
           </div><!--/content-->
         </div>
       </div><!--/row-->
-      <div class="full_screen_icon">
-        <div class="icon full_screen" rel="tooltip" data-placement="right" title="ดูเต็มจอ" onclick="$(document).fullScreen(true)">Fullscreen </div>
-        <div class="icon exit hidden" rel="tooltip" data-placement="right" title="ย่อ" onclick="$(document).fullScreen(false)">Exit</div>
-      </div>
 
     </div><!--/.fluid-container-->
 
@@ -327,24 +332,6 @@
     <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-typeahead.js');?>"></script>
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/function.js');?>"></script>
 
-    <!-- Hover Effect -->
-    <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/DirectionAwareHoverEffect/js/jquery.hoverdir.js');?>"></script>
-    <noscript>
-      <style>
-        .clickable .list_attractions  a div {
-          top: 0px;
-          left: -100%;
-          -webkit-transition: all 0.3s ease;
-          -moz-transition: all 0.3s ease-in-out;
-          -o-transition: all 0.3s ease-in-out;
-          -ms-transition: all 0.3s ease-in-out;
-          transition: all 0.3s ease-in-out;
-        }
-        .clickable .list_attractions  a:hover div{
-          left: 0px;
-        }
-      </style>
-    </noscript>
 
     <!-- To top scrollbar  -->  
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/easing.js');?>" type="text/javascript"></script>
@@ -354,15 +341,6 @@
     <!-- Isotope -->
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/isotope/jquery.isotope.min.js');?>"></script>
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/isotope/js/jquery.infinitescroll.min.js');?>"></script>
-
-
-    <!-- Jquery Search -->
-    <script src="<?php echo base_url('themes/Travel/tour/javascripts/jquerysearch/js/jquery.color.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/javascripts/jquerysearch/js/script.js');?>"></script>
-
-    <!-- Full Screen -->
-    <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/Full-screen/jquery.fullscreen-min.js');?>"></script>
-
 
     <?php include_once("themes/Travel/tour/analyticstracking.php") ?>
   </body>

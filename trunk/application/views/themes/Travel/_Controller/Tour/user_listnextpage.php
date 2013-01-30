@@ -11,13 +11,15 @@
       <?php
           if(!empty($value["price"]->pri_sale_adult_price)){
       ?>
-        <div class="sticker price">
-          <?php  
-            $sale_price = $value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price;
-            echo number_format($sale_price, 0);
-          ?>
-          บาท
-        </div>                                    
+        <div class="sticker_status">
+          <div class="sticker price">
+            <?php  
+              $sale_price = $value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price;
+              echo number_format($sale_price, 0);
+            ?>
+            บาท
+          </div> 
+        </div>                                   
       <?php                                    
           }
       ?>
@@ -54,7 +56,7 @@
           <?php 
               if(isset($value['tour']->tout_name)){
             ?>
-              <img src="<?php echo base_url('themes/Travel/tour/images/icon/24tour.png');?>" style="margin-left:7px;">
+              <div class="icon tour" rel="tooltip" title="แพ็กเก็จทัวร์"></div>
               <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
               <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
           <?php
