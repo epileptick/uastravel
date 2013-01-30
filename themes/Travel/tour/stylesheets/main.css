@@ -6,7 +6,7 @@ html{
 body{
 	background: url(../images/wood_pattern.png) fixed;
 	font-size: 20px;
-	font-family: 'db_helvethaica_Regula';
+	font-family: 'thaisanslite';
 	color: #4E4E4E;
 	min-height: 100%; 
 }
@@ -32,7 +32,7 @@ img{
 /*	Typography
 /* ---------------------------------------------------------------------- */
 h1, h2, h3, h4, h5, h6{
-	font-family: 'db_helvethaica_Regula';
+	font-family: 'thaisanslite';
 	color: #4e4e4e;
 	font-weight: normal;
 }
@@ -42,7 +42,7 @@ h3{
 	text-shadow: 1px 1px 0px #fff;
 }
 p{
-	font-family: 'db_helvethaica_Regula';
+	font-family: 'thaisanslite';
 	font-size: 22px;
 	line-height: 26px;
 	color: #4e4e4e;
@@ -121,6 +121,7 @@ header.header p a:hover{
 	font-size: 22px;
 	font-weight: normal;
 	line-height: 40px;
+	cursor: pointer;
 }
 
 .accordion  li a:hover, .accordion li:target a, .accordion li a.active {
@@ -324,6 +325,7 @@ a.active .arrow_menu{
 	.navbar .brand{
 		font-size: 24px;
 		padding: 2px 0px 0px 15px !important;
+		line-height: 14px;
 	}
 
 
@@ -355,6 +357,7 @@ a.active .arrow_menu{
 .navbar .brand{
 	font-size: 24px;
 	padding: 2px 0px 0px 35px;
+	line-height: 14px;
 }
 
 .navbar .nav{
@@ -364,7 +367,6 @@ a.active .arrow_menu{
 .navbar .nav > li > a{
 	margin: 0px 5px 0px 5px;
 	padding: 0px 10px;
-	line-height: 25px;
 	font-size: 24px;
 	color: #8b8b8a;
 	-webkit-border-radius: 2px;
@@ -404,7 +406,7 @@ a.active .arrow_menu{
 	}
 }
 @media (max-width: 800px) {
-	.footer_menu, .fan_page, .like_button, .shadow{
+	.footer_menu, .fan_page, .like_button, .shadow, .button_like{
 		display: none;
 	}
 	.navbar .nav > li > a{
@@ -594,7 +596,7 @@ input.button_search {
 	bottom: 10px;
 	left: 0px;
 	width: 100%;
-	height: 30px;
+	min-height: 30px;
 }
 .promotion img{
 	position: absolute;
@@ -611,8 +613,8 @@ input.button_search {
 	font-size: 18px;
 	padding: 0 0 0 87px;
 	width: 100%;
-	height: 25px;
-	line-height: 25px;
+	min-height: 25px;
+	line-height: 20px;
 	background: url(../images/hover_pattern.png);
 	color: #fff;
 }
@@ -625,13 +627,9 @@ input.button_search {
 	text-decoration: none;
 
 }
-
-
-
-
 .sticker {
 	background: url(../images/sticker.png) no-repeat;
-	line-height: 30px;
+	line-height: 26px;
 	height: 32px;
 	width: 117px;
 	text-indent: 10px;
@@ -768,6 +766,8 @@ input.button_search {
 .list_attractions h3 a{
 	display: block;
 	font-size: 20px;
+	line-height: 20px;
+	margin: 5px 0 0 0;
 	color: #393939;
 }
 .list_attractions h3 a:hover{

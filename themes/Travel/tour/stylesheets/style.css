@@ -2,7 +2,7 @@
 @import url('fonts/fonts.css');
 body{
 	font-size: 20px;
-	font-family: 'db_helvethaica_Regula';
+	font-family: 'thaisanslite';
 	color: #4E4E4E;
 }
 ::selection, ::-moz-selection { 
@@ -30,7 +30,7 @@ label{
 /*	Typography
 /* ---------------------------------------------------------------------- */
 h1, h2, h3, h4, h5, h6{
-	font-family: 'db_helvethaica_Regula';
+	font-family: 'thaisanslite';
 	color: #4e4e4e;
 	font-weight: normal;
 }
@@ -40,7 +40,7 @@ h3{
 	text-shadow: 1px 1px 0px #fff;
 }
 p{
-	font-family: 'db_helvethaica_Regula';
+	font-family: 'thaisanslite';
 	font-size: 22px;
 	line-height: 26px;
 	color: #4e4e4e;
@@ -48,7 +48,7 @@ p{
 	text-justify: newspaper;
 }
 a{
-	color: #e4e4e4;
+	color: #0cace1;
   text-decoration: none;
   -webkit-transition: color 0.1s linear;
   -moz-transition: color 0.1s linear;
@@ -58,6 +58,7 @@ a{
 
 a:hover{ 
 	color: #F3BD00; 
+	text-decoration: none !important;
 }
 ul.square li{
 	font-size: 20px;
@@ -79,7 +80,7 @@ ul.square {
 }
 
 h1.title{
-	font-family: 'db_helvethaica_Regula';
+	font-family: 'thaisanslite';
 	text-align: center;
 	font-size: 48px;
 	color: #fff;
@@ -110,7 +111,7 @@ span.subtitle{
 	}
 	.top-bar ul > li a:not(.button) {
 		height: 75px;
-		line-height: 75px;
+		line-height: 70px;
 	}
 	.top-bar > ul .name img{
 		margin: -13px 0 0 0;
@@ -180,7 +181,7 @@ span.subtitle{
 
 .top-bar ul > li a:not(.button){
 	font-size: 22px;
-	font-family: 'db_helvethaica_Regula';
+	font-family: 'thaisanslite';
 	font-weight: normal;
 	text-shadow: 1px 1px 0px #000;
 }
@@ -266,14 +267,14 @@ a.next:hover{
 
 }
 
-div.content {
+.gallery_pc div.content {
 	/* The display of content is enabled using jQuery so that the slideshow content won't display unless javascript is enabled. */
 	display: none;
 	float: right;
 	width: 627px; 
 	position: relative;
 }
-div.content a, div.navigation a {
+.gallery_pc div.content a, div.navigation a {
 	text-decoration: none;
 	color: #777;
 }
@@ -795,7 +796,7 @@ ul.disc li{
 	background: #FE5214;
 	border: 1px solid #df420a;
 	font-size: 22px;
-	font-family: 'db_helvethaica_Regula';
+	font-family: 'thaisanslite';
 	font-weight: normal;
 	padding: 3px 15px 3px 13px;
 	-webkit-border-radius: 3px;
@@ -840,7 +841,7 @@ form.search_hotel .button{
 	margin: 25px 0px 0px 0px;
 	background: #0089E0;
 	font-size: 22px;
-	font-family: 'db_helvethaica_Regula';
+	font-family: 'thaisanslite';
 	font-weight: normal;
 	padding: 3px 15px 3px 13px;
 	-webkit-border-radius: 3px;
@@ -938,6 +939,7 @@ ul.menu_footer li a:hover{
 	padding: 0 0 0 5px;
 }
 .list_packet h4 a{
+	line-height: 24px;
 	color: #4e4e4e;
 }
 .list_packet h4 a:hover{
@@ -1009,6 +1011,20 @@ ul.menu_footer li a:hover{
 	background-position: 0px -30px;
 	margin: -5px 0 0 5px;
 }
+.time{
+	background-position: -8px -630px;
+	margin: -5px 0 0 5px;
+	text-indent: 20px;
+	letter-spacing: -1px;
+}
+.readmore{
+	background-position: -8px -660px;
+	margin: -5px 0 0 5px;
+	text-indent: 20px;
+	letter-spacing: -1px;
+}
+
+
 /* ---------------------------------------------------------------------- */
 /*	Article
 /* ---------------------------------------------------------------------- */
@@ -1064,6 +1080,9 @@ ul.menu_footer li a:hover{
 /* ---------------------------------------------------------------------- */
 /*	Sortable 
 /* ---------------------------------------------------------------------- */
+.packet{
+	min-height: 500px;
+}
 .connected, .sortable, .exclude, .handles {
 	margin: auto;
 	padding: 0;
@@ -1092,7 +1111,11 @@ li.disabled {
 .connected .list_packet, .connected .list_packet  a{
 	cursor: move !important;
 }
+.connected .list_packet .readmore a{
+	cursor: pointer !important; 
+}
 .connected.no1 {
+	text-align: center;
 	min-height: 200px;
 	overflow: hidden;
 	padding: 60px 20px 20px 20px;
@@ -1111,7 +1134,7 @@ li.disabled {
 }
 .connected.no1 li {
 	width: 48%;
-	float: left;
+	display: inline-block !important;
 	margin: 0 10px 0 0;
 }
 .connected.no2 {
@@ -1122,7 +1145,7 @@ li.disabled {
 li.sortable-placeholder {
 	border: 1px dashed #CCC;
 	background: none;
-	height: 100px;
+	height: 120px;
 }
 
 .packet_item{
@@ -1135,7 +1158,7 @@ li.sortable-placeholder {
 	left: -4px;
 	z-index: 1;
 	font-size: 30px;
-	line-height: 42px;
+	line-height: 37px;
 	height: 42px;
 	width: 96px;
 	text-indent: 10px;
@@ -1148,7 +1171,7 @@ p.action_button a{
 	cursor: pointer;
 	display: inline-block;
 	height: 40px;
-	line-height: 40px;
+	line-height: 35px;
 	width: auto;
 	padding: 0px 20px 0px 20px;
 	margin: 0 10px 0 0;
@@ -1214,3 +1237,87 @@ a.close{
 	width: 100%;
 	height: 100%;
 }
+
+
+/** initial setup **/
+.nano {
+  position : relative;
+  width    : 100%;
+  height   : 100%;
+  overflow : hidden;
+}
+.nano .content {
+  position      : absolute;
+  overflow      : scroll;
+  overflow-x    : hidden;
+  top           : 0;
+  right         : 0;
+  bottom        : 0;
+  left          : 0;
+}
+.nano .content:focus {
+  outline: thin dotted;
+}
+.nano .content::-webkit-scrollbar {
+  visibility: hidden;
+}
+.has-scrollbar .content::-webkit-scrollbar {
+  visibility: visible;
+}
+.nano > .pane {
+  background : rgba(0,0,0,.1);
+  position   : absolute;
+  width      : 8px;
+  right      : 0;
+  top        : 0;
+  bottom     : 0;
+  visibility : hidden\9; /* Target only IE7 and IE8 with this hack */
+  opacity    : .01; 
+  -webkit-transition    : .2s;
+  -moz-transition       : .2s;
+  -o-transition         : .2s;
+  transition            : .2s;
+  -moz-border-radius    : 5px;
+  -webkit-border-radius : 5px;  
+  border-radius         : 5px;
+}
+.nano > .pane > .slider {
+  background: #13c9df;
+  position              : relative;
+  -moz-border-radius    : 3px;
+  -webkit-border-radius : 3px;  
+  border-radius         : 3px;
+}
+.nano:hover > .pane, .pane.active, .pane.flashed {
+  visibility : visible\9; /* Target only IE7 and IE8 with this hack */
+  opacity    : 0.99;
+}
+
+
+.nano .content { 
+	padding: 0 20px 0 0;
+}
+
+
+
+.sticky_content{
+	position: relative;
+	height: 520px;
+}
+.darg_packet{
+	min-height: 600px;
+}
+.reveal-modal{
+	max-height: 500px;
+	overflow-y: auto; 
+}
+
+/*.reveal-modal .close-reveal-modal{
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	right: 3px;
+	top: 0px;
+	background: url(../images/icon.png) no-repeat 0px -542px;
+	text-indent: -9999px;
+}*/
