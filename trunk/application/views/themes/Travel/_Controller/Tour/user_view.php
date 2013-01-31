@@ -526,19 +526,25 @@
                 </a>
               </div>
               <div class="twelve columns">
-                <div class="title_tour">
-                  <h4>
-                    <a href="<?php echo $value["tour"]->tout_url."-".$value["tour"]->tou_id; ?>">
-                      <?php echo $value["tour"]->tout_name; ?>
-                    </a>
-                  </h4>
+                <div class="row">
+                  <div class="nine columns">
+                    <div class="title_tour">
+                      <h4>
+                        <a href="<?php echo $value["tour"]->tout_url."-".$value["tour"]->tou_id; ?>">
+                          <?php echo $value["tour"]->tout_name; ?>
+                        </a>
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="three columns">
+                    <div class="rating one_star" style="display:none"></div>
+                    <div class="rating two_star" style="display:none"></div>
+                    <div class="rating three_star"></div>
+                    <div class="rating four_star" style="display:none"></div>
+                    <div class="rating five_star"style="display:none"></div>
+                    <div class="clearfix"></div>
+                  </div>
                 </div>
-                <div class="rating one_star" style="display:none"></div>
-                <div class="rating two_star" style="display:none"></div>
-                <div class="rating three_star"></div>
-                <div class="rating four_star" style="display:none"></div>
-                <div class="rating five_star"style="display:none"></div>
-                <div class="clearfix"></div>
                 <div class="border"></div>
               </div>
               <div class="twelve columns">
