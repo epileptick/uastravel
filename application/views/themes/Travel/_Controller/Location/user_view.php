@@ -251,34 +251,37 @@ if(!empty($location['background_image'])){
 
     <div class="row">
       <section class="article">
-        <div class="row border">
+        <div class="row">
           <div class="seven columns">
             <h3 id="detail"><?php echo $location['title'];?></h3>
           </div>
           <div class="five columns">
           </div>
         </div>
-        <div class="four columns">
-          <?php 
-          if(! empty($location['body'][0])){
-            echo $location['body'][0];
-          }
-          ?>
-        </div>
-        <div class="four columns">
-          <?php 
-          if(! empty($location['body'][1])){
-            echo $location['body'][1];
-          }
-          ?>
-        </div>
-        <div class="four columns">
-          <?php 
-          if(! empty($location['body'][2])){
-            echo $location['body'][2];
-          }
-          ?>
-        </div>   
+        <div class="border"></div>
+        <div class="row">
+          <div class="four columns">
+            <?php 
+            if(! empty($location['body'][0])){
+              echo $location['body'][0];
+            }
+            ?>
+          </div>
+          <div class="four columns">
+            <?php 
+            if(! empty($location['body'][1])){
+              echo $location['body'][1];
+            }
+            ?>
+          </div>
+          <div class="four columns">
+            <?php 
+            if(! empty($location['body'][2])){
+              echo $location['body'][2];
+            }
+            ?>
+          </div> 
+        </div>  
 
         <!-- Tag -->
         <div class="row">
@@ -450,6 +453,7 @@ if(!empty($location['background_image'])){
 
     <footer>
       <div class="row">
+        <div class="shadow"></div>
         <div class="seven columns">
           <nav>
             <ul class="menu_footer">
@@ -466,7 +470,7 @@ if(!empty($location['background_image'])){
         <div class="five columns">
           <div class="address">
             <p>Uastravel</p>
-            <p>info@uastravel.com</p>
+            <p>uastravel@hotmail.com</p>
             <p>31/1 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000</p>
           </div>
         </div>
