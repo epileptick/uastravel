@@ -986,12 +986,14 @@ ul.menu_footer li a:hover{
 
 .price{
 	float: right;
-	font-size: 18px;
+	font-size: 16px;
 	margin: -5px 5px 0 0;
 	line-height: 30px;
+	letter-spacing: -1px;
 }
 .price span{
 	color: #0cace1;
+	letter-spacing: 0px;
 }
 .icon{
 	float: left;
