@@ -605,9 +605,36 @@ input.button_search {
 .promotion{
 	display: none;
 }
-.list_attractions:nth-child(1) .promotion{
-	display: block;
+/*.have_promotion3{
+	top: 86px;
 }
+.have_promotion4{
+	top: 60px;
+}*/
+.list_attractions:nth-child(1) .style1{
+  display: block;
+}
+
+.list_attractions:nth-child(3) .style2{
+  display: block;
+}
+
+.list_attractions:nth-child(2) .style3{
+  display: block;
+}
+
+.list_attractions:nth-child(5) .style4{
+  display: block;
+}
+
+.list_attractions:nth-child(2) .have_promotion3{
+  top: 86px;
+}
+
+.list_attractions:nth-child(5) .have_promotion4{
+  top: 60px;
+}
+
 
 .promotion p{
 	font-size: 18px;
@@ -617,6 +644,7 @@ input.button_search {
 	line-height: 20px;
 	background: url(../images/hover_pattern.png);
 	color: #fff;
+	letter-spacing: -1px;
 }
 .promotion span{
 	color: #ff0000;
@@ -626,6 +654,33 @@ input.button_search {
 	color: #00eaff;
 	text-decoration: none;
 
+}
+.have_promotion{
+	
+}
+.style2 img{
+	right: -3px;
+}
+.style2 p{
+	padding: 0 0 0 10px;
+}
+
+.style3{
+	top: 30px;
+}
+.style3 img{
+	top: -32px;
+}
+
+.style4{
+	top: 30px;
+}
+.style4 img{
+	top: -32px;
+	right: -3px;
+}
+.style4 p{
+	padding: 0 0 0 10px;
 }
 .sticker {
 	background: url(../images/sticker.png) no-repeat;
