@@ -193,18 +193,16 @@
       endif;
     ?>    
     <!-- End Gallery -->
-    <div class="row">
-      <div class="eight columns">
-        <h4  style="margin-bottom:0px !important;"  id="<?php echo $tour[0]->name;?>">ID : <?php echo $tour[0]->code;?></h4>
-      </div>
-    </div>  
     <!-- Tour Information -->
     <div class="row">
       <div class="eight columns">
         <div class="box_white_in_columns article_tour">
           <div class="row">
             <div class="eight columns">
-              <h3 style="color:#FE5214;"><?php echo $tour[0]->name;?></h3>
+              <div class="eight columns">
+                <h4 class="id_tour" id="<?php echo $tour[0]->name;?>">ID : <?php echo $tour[0]->code;?></h4>
+                <h3 class="title_tour"><?php echo $tour[0]->name;?></h3>
+              </div>
             </div>
             <div class="four columns">
               <div class="social_network">
@@ -222,7 +220,7 @@
           </div><!-- Title -->
           <div class="border"></div>
           <p><?php echo $tour[0]->description;?></p>
-          <h3 style="padding:4px; border:2px solid; border-color:#FAA20A; background-color:#FAA20A; color:#FFF; text-shadow: none !important;">
+          <h3 style="padding:4px 4px 8px 4px; border:2px solid; border-color:#FAA20A; background-color:#FAA20A; color:#FFF; text-shadow: none !important;">
             <?php echo $this->lang->line("tour_lang_program_and_itinerary");?> 
           </h3>
           <!--
