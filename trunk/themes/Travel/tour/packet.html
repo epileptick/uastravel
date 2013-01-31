@@ -93,7 +93,7 @@
                     <div class="list_packet">
                       <div class="row">
                         <div class="twelve columns">
-                          <a href=""><img src="images/packet/1.png"></a>
+                          <a href=""><img src="images/packet/2.png"></a>
                         </div>
                         <div class="twelve columns">
                           <div class="title_tour">
@@ -110,6 +110,7 @@
                         </div>
                       </div>
                     </div>
+                    <a class="delete tooltip_ne" title="ลบ"></a>
                   </li>
                 <!--END List 1-->
 
@@ -135,6 +136,7 @@
                         </div>
                       </div>
                     </div>
+                    <a class="delete tooltip_ne" title="ลบ"></a>
                   </li>
                 <!--END List 1-->
 
@@ -160,6 +162,7 @@
                         </div>
                       </div>
                     </div>
+                    <a class="delete tooltip_ne" title="ลบ"></a>
                   </li>
                 <!--END List 1-->
 
@@ -185,6 +188,7 @@
                         </div>
                       </div>
                     </div>
+                    <a class="delete tooltip_ne" title="ลบ"></a>
                   </li>
                 <!--END List 1-->
 
@@ -210,6 +214,7 @@
                         </div>
                       </div>
                     </div>
+                    <a class="delete tooltip_ne" title="ลบ"></a>
                   </li>
                 <!--END List 1-->
 
@@ -235,6 +240,7 @@
                         </div>
                       </div>
                     </div>
+                    <a class="delete tooltip_ne" title="ลบ"></a>
                   </li>
                 <!--END List 1-->
 
@@ -260,6 +266,7 @@
                         </div>
                       </div>
                     </div>
+                    <a class="delete tooltip_ne" title="ลบ"></a>
                   </li>
                 <!--END List 1-->
 
@@ -285,6 +292,7 @@
                         </div>
                       </div>
                     </div>
+                    <a class="delete tooltip_ne" title="ลบ"></a>
                   </li>
                 <!--END List 1-->
 
@@ -310,6 +318,7 @@
                         </div>
                       </div>
                     </div>
+                    <a class="delete tooltip_ne" title="ลบ"></a>
                   </li>
                 <!--END List 1-->
 
@@ -335,6 +344,7 @@
                         </div>
                       </div>
                     </div>
+                    <a class="delete tooltip_ne" title="ลบ"></a>
                   </li>
                 <!--END List 1-->
 
@@ -360,6 +370,7 @@
                         </div>
                       </div>
                     </div>
+                    <a class="delete tooltip_ne" title="ลบ"></a>
                   </li>
                 <!--END List 1-->
 
@@ -509,6 +520,16 @@
       $(this).remove();
     });
   });
+
+
+  $(document).on("click", ".connected li a.delete", function (e) {
+    e.preventDefault();
+    $(this).closest(".connected li").fadeOut(function () {
+      $(this).prependTo(".connected.no2");
+      $(this).fadeIn("slow");
+    });
+  });
+
 </script>
 
 
