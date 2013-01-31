@@ -1013,13 +1013,13 @@ ul.menu_footer li a:hover{
 }
 .time{
 	background-position: -8px -630px;
-	margin: -5px 0 0 0px;
+	margin: -5px 0 0 5px;
 	text-indent: 20px;
 	letter-spacing: -1px;
 }
 .readmore{
 	background-position: -8px -660px;
-	margin: -5px 0 0 3px;
+	margin: -5px 0 0 5px;
 	text-indent: 20px;
 	letter-spacing: -1px;
 }
@@ -1230,6 +1230,27 @@ a.close{
 	background: url(../images/icon.png) no-repeat 0px -542px;
 
 }
+.connected .list_packet{
+	position: relative;
+}
+.connected.no1 li{
+	position: relative;
+}
+.connected li a.delete{
+	cursor: pointer !important;
+	display: none;
+	cursor: pointer;
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	right: 3px;
+	top: 5px;
+	background: url(../images/icon.png) no-repeat 0px -542px;
+}
+.connected.no1 li:hover a.delete{
+	display: block;
+}
+
 .fack-element{
 	top: 0px;
 	left: 0px;
