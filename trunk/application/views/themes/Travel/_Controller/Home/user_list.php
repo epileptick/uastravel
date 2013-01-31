@@ -213,7 +213,7 @@
                             <?php
                                 if(!empty($value["price"]->pri_sale_adult_price)){
                             ?>
-                              <div class="sticker_status">
+                              <div class="sticker_status have_promotion3">
                                 <div class="sticker price">
                                   <?php  
                                     $sale_price = $value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price;
@@ -248,12 +248,34 @@
 
                                 }
                               ?>
-                              <div class="promotion">
+                              <div class="promotion style1">
                                 <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">"-->
                                 <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th.png');?>">
                                 <p>จาก <span>15,500</span>  ลดเหลือ <span class="reduce_price"> 5,500</span> บาท</p>
 
                               </div>
+
+                              <div class="promotion style2">
+                                <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">"-->
+                                <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th2.png');?>">
+                                <p>จาก <span>15,500</span>  ลดเหลือ <span class="reduce_price"> 5,500</span> บาท</p>
+
+                              </div>
+
+                              <div class="promotion style3">
+                                <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">"-->
+                                <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th2.png');?>">
+                                <p>จาก <span>15,500</span>  ลดเหลือ <span class="reduce_price"> 5,500</span> บาท</p>
+
+                              </div>
+
+                              <div class="promotion style4">
+                                <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">"-->
+                                <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th2.png');?>">
+                                <p>จาก <span>15,500</span>  ลดเหลือ <span class="reduce_price"> 5,500</span> บาท</p>
+
+                              </div>
+
                             </a>
 
 
