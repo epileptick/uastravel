@@ -643,7 +643,6 @@ div.pagination span.ellipsis {
 }
 .box_white_in_columns{
 	background: #fff;
-	overflow: hidden;
 	padding: 0 10px 0 10px;
 	margin: 0 0 10px 0;
 	-webkit-border-radius: 2px;	
@@ -939,7 +938,7 @@ ul.menu_footer li a:hover{
 	padding: 0 0 0 5px;
 }
 .list_packet h4 a{
-	line-height: 24px;
+	line-height: 20px;
 	color: #4e4e4e;
 }
 .list_packet h4 a:hover{
@@ -952,7 +951,7 @@ ul.menu_footer li a:hover{
 	height: 12px;
 	background: url(../images/star.png) no-repeat 0px 0px;
 	float: right;
-	margin: 3px 5px 0 0;
+	margin: 5px 5px 0 0;
 }
 
 .one_star{
