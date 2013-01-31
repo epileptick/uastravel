@@ -578,6 +578,7 @@
   $(document).on("click", ".packet_item a.close", function (e) {
     e.preventDefault();
     $(this).closest(".packet_item").fadeOut(function () {
+      $(".packet_item .connected.no1 li").prependTo(".connected.no2");
       $(this).remove();
     });
   });

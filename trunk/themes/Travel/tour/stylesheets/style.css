@@ -41,7 +41,7 @@ h3{
 }
 p{
 	font-family: 'thaisanslite';
-	font-size: 22px;
+	font-size: 20px;
 	line-height: 26px;
 	color: #4e4e4e;
 	text-align: justify;
@@ -625,6 +625,15 @@ div.pagination span.ellipsis {
 .row .border{
 	border-bottom: dashed 1px #c2c2c2; 
 	margin-bottom: 10px;  
+}
+h4.id_tour{
+	display: inline-block;
+	font-size: 24px;
+}
+h3.title_tour{
+	display: inline-block;
+	color: #FE5214;
+	font-size: 24px;
 }
 .map{
 	border: 3px #fff solid;
@@ -1331,7 +1340,7 @@ a.close{
 	height: 505px;
 }
 .darg_packet{
-	min-height: 600px;
+	min-height: 680px;
 }
 .reveal-modal{
 	max-height: 500px;
