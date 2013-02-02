@@ -209,7 +209,6 @@ window.location.href = url;
       <div class="border"></div>
       <!-- Header End -->
 
-
   <!--Row 1-->
       <div class="row">
         <div class="twelve columns" >

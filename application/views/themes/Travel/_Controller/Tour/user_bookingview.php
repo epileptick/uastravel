@@ -9,7 +9,7 @@
 
 <style>
   h5 {
-    margin-top: 0px !important;
+    margin-top:-7px !important;
   }
 
 </style>
@@ -78,23 +78,25 @@
 
               <div class="row">
                 <div class="twelve columns">
-                  <div class="four columns">
-                    <br>
-                    <a href="<?php echo base_url();?>">
-                      <img src="<?php echo base_url('themes/Travel/tour/images/logo.png');?>">
-                    </a>
-                  </div>
-                  <div class="four columns">
-                    
-                  </div>
-                  <div class="four columns" style="text-align:right;">
-                    <h1>
-                      <strong>Tour</strong> <strong style="color:#FE5214;">Booking</strong>
-                    </h1>                
-                  </div>
+                    <div class="five columns" style="margin-top:-10px">
+                      <br/>                     
+                        <img src="<?php echo base_url('themes/Travel/tour/images/logo_booking600.jpg');?>">   
+                         <h4 style="margin-top:0px; margin-bottom:0px">   www.uastravel.com </h4>
+                    </div>
+                    <div class="six columns" style="margin-top:-7px">
+                      <center style="font-size:150%; !important;" >  
+                      <br/>                 
+                      หจก.ยู แอส ทราเวล / U As Travel.Ltd.,Part.<br/>
+                      80/86 ม.3 ต.รัษฎา อ.เมือง ภูเก็ต 83000<br/>
+                      โทร : 076-331280 แฟกซ์ : 076-331273<br/>
+                      Email : info@uastravel.com  
+                      </center>
+                    </div>
+
+                  
                 </div>
               </div>
-          </div>
+            </div>
         </div>
         <!-- End Header -->
 
@@ -106,24 +108,14 @@
           <div class="twelve columns">
 
               <div class="row">
-                <div class="twelve columns">
-                  <div class="two columns">
-                    uastravel
+                <div class="twelve columns" >
+                  <div class="four columns" >
                   </div>
-                  <div class="two columns">
-                    uastravel
+                  <div class="five columns" style="margin-bottom:-2px; font-size:350%; margin-top:-12px;">
+                      <strong>Tour</strong> <strong style="color:#FE5214;">Booking</strong>
+                    
                   </div>
-                  <div class="two columns">
-                    uastravel
-                  </div>
-                  <div class="two columns">
-                    uastravel
-                  </div>
-                  <div class="two columns">
-                    uastravel
-                  </div>
-                  <div class="two columns">
-                    uastravel
+                  <div class="three columns" >
                   </div>
                 </div>
               </div>
@@ -153,14 +145,14 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="six columns">
 
                 <h5>
                     Booking ID : <br>
                     หมายเลขการจอง : 
                 </h5>                
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
                 <h5>
                  <?php echo $booking[0]->toc_code;?>
                 </h5> 
@@ -170,14 +162,14 @@
 
             <div class="row">
               <div class="twelve columns" >
-                <div class="five columns">
+                <div class="six columns">
 
                 <h5>
                     Tour Name : <br>
                     ชื่อทัวร์ : 
                 </h5>                
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
                 <h5>
                  <?php echo $booking[0]->toc_tour_name;?>
                 </h5> 
@@ -187,14 +179,14 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="six columns">
 
                 <h5>
                     Client : <br>
                     ลูกค้า : 
                 </h5>                
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
                 <h5>
                  <?php echo $booking[0]->toc_firstname;?> <?php echo $booking[0]->toc_lastname;?>
                 </h5> 
@@ -205,14 +197,14 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="six columns">
 
                 <h5>
                     Nationality : <br>
                     สัญชาติ : 
                 </h5>                
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
                 <h5>
                  <?php echo $booking[0]->toc_nationality;?>
                 </h5> 
@@ -222,14 +214,14 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="six columns">
 
                 <h5>
                     Address : <br>
                     ที่อยู่ : 
                 </h5>                
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
                 <h5>
                  <?php echo $booking[0]->toc_address;?>, 
                  <?php echo $booking[0]->toc_city;?>, 
@@ -243,14 +235,14 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="six columns">
 
                 <h5>
                     Telephone : <br>
                     เบอร์โทร : 
                 </h5>                
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
                 <h5>
                  <?php echo $booking[0]->toc_telephone;?>
                 </h5> 
@@ -261,14 +253,14 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="six columns">
 
                 <h5>
                     Email : <br>
                     อีเมล์ : 
                 </h5>                
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
                 <h5>
                  <?php echo $booking[0]->toc_email;?>
                 </h5> 
@@ -279,14 +271,14 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="six columns">
 
                   <h5>
                       Tranfer: <br>
                       วันเดินทาง : 
                   </h5>               
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
 
                   <h5>
                    <?php 
@@ -301,14 +293,14 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="six columns">
 
                   <h5>
                       Hotel: <br>
                       ชื่อที่พัก : 
                   </h5>               
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
 
                   <h5>
                    <?php 
@@ -325,13 +317,13 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="six columns">
                   <h5>
                       Room  : <br>
                       เลขห้อง : 
                   </h5>                  
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
                 <h5>
                  <?php 
                   if($booking[0]->toc_room_number != 0){
@@ -347,14 +339,14 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="six columns">
 
                   <h5>
                       Request  : <br>
-                      ความต้องการเพิ่มเติม : 
+                      ความต้องการเพิ่มเติม: 
                   </h5>                  
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
                 <h5>
                  <?php echo $booking[0]->toc_request;?>
                 </h5> 
@@ -377,14 +369,14 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="six columns">
 
                 <h5>
                     Number of Adults : <br>
                     จำนวนผู้ใหญ่ : 
                 </h5>                
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
                 <h5>
                  <?php echo $booking[0]->toc_adult_amount_passenger;?>
                 </h5> 
@@ -394,14 +386,14 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="six columns">
 
                 <h5>
                     Number of Children : <br>
                     จำนวนเด็ก : 
                 </h5>                
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
                 <h5>
                  <?php echo $booking[0]->toc_child_amount_passenger;?>
                 </h5> 
@@ -411,13 +403,13 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="five columns">
+                <div class="six columns">
                 <h5>
                     Number of Infants : <br>
                     จำนวนเด็กทารก : 
                 </h5>                
                 </div>
-                <div class="seven columns">
+                <div class="six columns">
                 <h5>
                  <?php echo $booking[0]->toc_infant_amount_passenger;?>
                 </h5> 
@@ -519,10 +511,13 @@
                         ราคารวมทั้งหมด : 
                     </h5>                
                   </div>
-                  <div class="seven columns">
+                  <div class="five columns">
                     <h5 style="color:red; font-size:200%; margin-top:10px !important;" >
                       <?php echo number_format($booking[0]->toc_grand_total_price, 0);?> บาท
                     </h5> 
+                  </div>
+                  <div class="two columns" style="border-style:solid; margin-top:10px; border-width:0px;">
+                   <input type="image" src="<?php echo base_url('themes/Travel/images/button_print.jpg');?>" onClick="window.print()" >
                   </div>
                 </div>
               </div>
@@ -578,44 +573,31 @@
 
         -->
       </div>
+
     </div>
   </div>
   <!-- End Content -->
 
   <!--Remark-->
-  <div class="twelve columns">
-            <div class="twelve columns" style="border-style:solid; border-width:1px; border-color:#C0C0C0;">
-              <b style="color:red; font-size:200%; margin-top:2px !important;" > หมายเหตุ : </b>
-              <ul>
-                <li><b>การชำระเงิน :</b> โดยการโอนเงินผ่านธนาคารกสิกรไทย / ชื่อบัญชี : หจก.ยู แอสทราเวล / เลขที่บัญชี  482-2-39689-0</li>
-                <li>โทรแจ้งการโอนเงิน / สอบถามข้อมูลเพิ่มเติม ที่หมายเลข โทรศัพท์ (082)812-1146, (088)766-1657, หรือ Email แจ้งที่ info@uastravel.com </li>
-                <li>เมื่อได้รับการยืนยัน การชำระเงินแล้ว ทางทีมงานจะจัดส่งใบยืนยัน และใบเสร็จรับเงิน ให้ทางอีเมล ( ภายในเวลาไม่เกิน 1 วัน นับจากวันโอนเงิน )</li>
-                <li><b> สอบถามข้อมูลเพิ่มเติม ติดต่อ :</b> info@uastravel.com  หรือโทร 082-812-1146 ขอบคุณค่ะ</li>
-             </ul>
+          <div class="twelve columns">
+            <div class="twelve columns" style="border-style:solid; border-width:1px; margin-top:-5px; margin-bottom:10px; border-color:#C0C0C0; !important;">
+              <b style="color:red; font-size:200%; margin-top:-6px; margin-bottom:-22px; !important;" > หมายเหตุ : </b>
+              <ul style="margin-bottom:5px;"> 
+                <li style="font-size:115%;"><b>การชำระเงิน :</b> โดยการโอนเงินผ่านธนาคารกสิกรไทย / ชื่อบัญชี : หจก.ยู แอสทราเวล / เลขที่บัญชี  482-2-39689-0</li>
+                <li style="font-size:115%;">แฟกซ์เอกสารการโอนเงิน มาที่ 076-331273 หรือ Email แจ้งที่ info@uastravel.com </li>
+                <li style="font-size:115%;">เมื่อได้รับการยืนยัน การชำระเงินแล้ว ทางทีมงานจะจัดส่งใบยืนยัน และใบเสร็จรับเงิน ให้ทางอีเมล ( ภายในเวลาไม่เกิน 1 วัน นับจากวันโอนเงิน )</li>
+                <li style="font-size:115%;"><b> สอบถามข้อมูลเพิ่มเติม ติดต่อ :</b> info@uastravel.com  หรือโทร 082-812-1146 ขอบคุณค่ะ</li>
+            </ul> 
             </div>  
           </div>
           
   <!--End Remark-->
 
-  <footer>
-    <div class="row">
-      <div class="shadow"></div>
-      <div class="seven columns">    
-        <h4>
-            &nbsp;&nbsp;&nbsp;&nbsp;Uastravel<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;info@uastravel.com<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;80/86 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000                                              
-         </h4>  
-      </div>
-      <div class="five columns">
-        <div class="address">
-          <br/><br/><br/>
-          <p>Copyright © Uastravel.com&nbsp;&nbsp;</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+
+  
 </div>
+
+
 <br>
 <?php include_once("themes/Travel/tour/analyticstracking.php") ?>
 </body>
