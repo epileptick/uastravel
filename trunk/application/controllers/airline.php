@@ -15,11 +15,22 @@ class Airline extends MY_Controller {
       $index = 2;
     }
 
+
     //Check path
-     if($this->uri->segment($index+1)=="list"){
-        $this->user_list();
-    } else if($this->uri->segment($index+1)=="inquiry"){
-        $this->user_inquiry();
+    if($this->uri->segment($index+1)=="list"){
+      $segment = $this->uri->segment($index+2);
+
+      if(empty($segment)){
+        //Return
+        $this->_fetch('user_list',$segment, false, true);
+      }else{
+        $this->user_list($segment);
+      }    
+     
+    }
+
+    else if($this->uri->segment($index+1)=="inquiry"){
+      $this->user_inquiry();
     }else if($this->uri->segment($index+1) == "booking"){
 
       $segment_id = $this->uri->segment($index+2);
@@ -34,14 +45,32 @@ class Airline extends MY_Controller {
   }
 
  function user_inquiry(){
-
+header('Content-Type: text/html; charset=utf-8');
     $this->_fetch('user_inquiry',false, false, true);
 
   }
 
-   function user_list(){
+  function user_view($id = 0){
 
-    $this->_fetch('user_list',false, false, true);
+    if($id > 0){
+      $this->_fetch('user_view_'.$id, false, false, true);
+    }else{
+      show_404(); 
+    }
+
+  }
+
+   function user_list($segment=false){
+    header('Content-Type: text/html; charset=utf-8');
+    //print_r($segment);exit;
+
+    if(!empty($segment)){
+      $this->_fetch('user_'.$segment,false, false, true);
+    }else{
+      $this->_fetch('user_thaiairways',false, false, true);
+    }
+
+   // $this->_fetch('user_list',false, false, true);
 
   }
 
@@ -106,7 +135,7 @@ class Airline extends MY_Controller {
     $message .='  <br />เบอร์ติดต่อ : '.$booking["flt_telephone"];
     $message .='  <br />อีเมล : '.$booking["flt_email"];
     $message .='  <br />';
-    $message .='  <br />สายการบิน : '.$booking["flt_ticket"];
+    $message .='  <br />สายการบิน : '.$booking["flt_nameairline"];
     $message .='  <br />ประเภท : '.$booking["flt_type"];
     $message .='  <br />ชั้นที่นั่ง : '.$booking["flt_class"];
     $message .='  <br />เดินทางจาก : '.$booking["flt_from_location"];
@@ -168,7 +197,7 @@ class Airline extends MY_Controller {
           $message .='  <br />เบอร์ติดต่อ : '.$booking["flt_telephone"];
           $message .='  <br />อีเมล : '.$booking["flt_email"];
           $message .='  <br />';
-          $message .='  <br />สายการบิน : '.$booking["flt_ticket"];
+          $message .='  <br />สายการบิน : '.$booking["flt_nameairline"];
           $message .='  <br />ประเภท : '.$booking["flt_type"];
           $message .='  <br />ชั้นที่นั่ง : '.$booking["flt_class"];
           $message .='  <br />เดินทางจาก : '.$booking["flt_from_location"];

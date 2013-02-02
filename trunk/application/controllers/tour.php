@@ -896,7 +896,7 @@ class Tour extends MY_Controller {
     $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["toc_request"];
     $message .='  <br />';
     $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
+    $message .='  <br />ลิงค์ข้อมูลการจอง : <a href="http://www.uastravel.com/tour/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
     $message .='  <br />';
     $message .='</blockquote>';   
 
@@ -973,7 +973,7 @@ class Tour extends MY_Controller {
     $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["toc_request"];
     $message .='  <br />';
     $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
+    $message .='  <br />ลิงค์ข้อมูลการจอง : <a href="http://www.uastravel.com/tour/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
     $message .='  <br />';
     $message .='</blockquote>';   
 

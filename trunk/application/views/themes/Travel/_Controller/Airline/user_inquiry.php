@@ -196,13 +196,30 @@ print_r($id);
             Airlines Ticket   
 
             : <?php echo $this->uri->segment(3);?> 
-            <input type="hidden" name="flt_ticket" value="<?php echo $this->uri->segment(3);?>">
+            <input type="hidden" name="flt_nameairline" value="<?php echo $this->uri->segment(3);?>">
           </font> 
         </div>
       </div>
       <div class="border"></div>
       <!-- Header End -->
       <br/>
+
+              <!--From-->
+        <div class="row">
+          <div class="six columns">
+            <label><h4><b>เดินทางจาก :</b> <?php echo $this->uri->segment(4);?></h4></label>
+            <input type="hidden" name="flt_from_location" value="<?php echo $this->uri->segment(4);?>">
+          </div>       
+        <!--End From-->
+
+        <!--go-->    
+          <div class="six columns">
+            <label><h4><b>ไป :</b> <?php echo $this->uri->segment(5);?></h4></label>
+            <input type="hidden" name="flt_go_to_location" value="<?php echo $this->uri->segment(5);?>">
+          </div>
+        </div>      
+        <!--End Go-->
+
 
         <!--Class-->
         <div class="row">
@@ -219,108 +236,16 @@ print_r($id);
             <label>ชั้นที่นั่ง</label>
             <select name="flt_class">  
               <optgroup label="**** Select Class****">
-                <option value="First Class">First Class</option>  
+                <option value="First Class">Economy Class</option>  
                 <option value="Business Class">Business Class</option>        
-                <option value="Economy Class">Economy Class</option>              
+                <option value="Economy Class">First Class</option>              
               </optgroup>
             </select>
           </div>
         </div>
-        <br/>
-        <!--End Class-->
+        <!--End Class-->        
 
-        <!--From-->
-        <div class="row">
-          <div class="six columns">
-            <label>เดินทางจาก</label>
-            <select name="flt_from_location">  
-                <option value="กรุงเทพมหานคร(สุวรรณภูมิ)" selected>กรุงเทพมหานคร(สุวรรณภูมิ)</option>  
-                <option value="กรุงเทพมหานคร(ดอนเมือง)">กรุงเทพมหานคร(ดอนเมือง)</option>        
-                <option value="เชียงราย">เชียงราย</option>
-                <option value="เชียงใหม่">เชียงใหม่</option>
-                <option value="ชุมพร">ชุมพร</option>
-                <option value="ตรัง">ตรัง</option>
-                <option value="นครพนม">นครพนม</option>
-                <option value="นครศรีธรรมราช">นครศรีธรรมราช</option>
-                <option value="น่าน">น่าน</option>
-                <option value="บุรีรัมย์">บุรีรัมย์</option>
-                <option value="พิษณุโลก">พิษณุโลก</option>
-                <option value="ภูเก็ต">ภูเก็ต</option>
-                <option value="แพร่">แพร่</option>
-                <option value="มุกดาหาร">มุกดาหาร</option>
-                <option value="แม่สอด">แม่สอด</option>
-                <option value="แม่ฮ่องสอน">แม่ฮ่องสอน</option>
-                <option value="ระนอง">ระนอง</option>
-                <option value="ร้อยเอ็ด">ร้อยเอ็ด</option>
-                <option value="เลย">เลย</option>
-                <option value="สกลนคร">สกลนคร</option>
-                <option value="สุราษฎร์ธานี">สุราษฎร์ธานี</option>
-                <option value="หาดใหญ่">หาดใหญ่</option>
-                <option value="อุบลราชธานี">อุบลราชธานี</option>
-                <option value="อุดรธานี">อุดรธานี</option>
-              <optgroup label="***** เกาะ *****">
-                <option value="เกาะเต่า">เกาะเต่า</option>
-                <option value="เกาะไหง">เกาะไหง</option>
-                <option value="เกาะกระดาน">เกาะกระดาน</option>
-                <option value="เกาะนางยวน">เกาะนางยวน</option>
-                <option value="เกาะพะงัน">เกาะพะงัน (ท้องศาลา)</option>
-                <option value="เกาะพีพี">เกาะพีพี</option>
-                <option value="เกาะมุก">เกาะมุก</option>
-                <option value="เกาะลันตา">เกาะลันตา (ศาลาด่าน)</option>
-                <option value="เกาะสมุย">เกาะสมุย (หน้าทอน)</option>
-                <option value="เกาะหลีเป๊ะ">เกาะหลีเป๊ะ</option>
-              </optgroup>
-            </select>
-          </div>       
-        <!--End From-->
-
-        <!--go-->
-        
-          <div class="six columns">
-            <label>ไป</label>
-            <select name="flt_go_to_location">
-             <option value="กรุงเทพมหานคร(สุวรรณภูมิ)" selected>กรุงเทพมหานคร(สุวรรณภูมิ)</option>  
-                <option value="กรุงเทพมหานคร(ดอนเมือง)">กรุงเทพมหานคร(ดอนเมือง)</option>        
-                <option value="เชียงราย">เชียงราย</option>
-                <option value="เชียงใหม่">เชียงใหม่</option>
-                <option value="ชุมพร">ชุมพร</option>
-                <option value="ตรัง">ตรัง</option>
-                <option value="นครพนม">นครพนม</option>
-                <option value="นครศรีธรรมราช">นครศรีธรรมราช</option>
-                <option value="น่าน">น่าน</option>
-                <option value="บุรีรัมย์">บุรีรัมย์</option>
-                <option value="พิษณุโลก">พิษณุโลก</option>
-                <option value="ภูเก็ต" selected>ภูเก็ต</option>
-                <option value="แพร่">แพร่</option>
-                <option value="มุกดาหาร">มุกดาหาร</option>
-                <option value="แม่สอด">แม่สอด</option>
-                <option value="แม่ฮ่องสอน">แม่ฮ่องสอน</option>
-                <option value="ระนอง">ระนอง</option>
-                <option value="ร้อยเอ็ด">ร้อยเอ็ด</option>
-                <option value="เลย">เลย</option>
-                <option value="สกลนคร">สกลนคร</option>
-                <option value="สุราษฎร์ธานี">สุราษฎร์ธานี</option>
-                <option value="หาดใหญ่">หาดใหญ่</option>
-                <option value="อุบลราชธานี">อุบลราชธานี</option>
-                <option value="อุดรธานี">อุดรธานี</option>
-                <optgroup label="***** เกาะ *****">
-                <option value="เกาะเต่า">เกาะเต่า</option>
-                <option value="เกาะไหง">เกาะไหง</option>
-                <option value="เกาะกระดาน">เกาะกระดาน</option>
-                <option value="เกาะนางยวน">เกาะนางยวน</option>
-                <option value="เกาะพะงัน">เกาะพะงัน (ท้องศาลา)</option>
-                <option value="เกาะพีพี">เกาะพีพี</option>
-                <option value="เกาะมุก">เกาะมุก</option>
-                <option value="เกาะลันตา">เกาะลันตา (ศาลาด่าน)</option>
-                <option value="เกาะสมุย">เกาะสมุย (หน้าทอน)</option>
-                <option value="เกาะหลีเป๊ะ">เกาะหลีเป๊ะ</option>
-              </optgroup>
-            </select>
-          </div>
-        </div>      
-        <!--End Go-->
-        <br/>
-
+<br/>
         <!--Depart Date&Time-->
         <div class="row">
           <div class="six columns">
@@ -524,7 +449,7 @@ print_r($id);
             <div class="eight columns">
             </div>
             <div class="four columns">
-              <input class="button small  booking" style="width:150px;" type="submit" value="จองตั๋วเครื่องบิน  ">
+              <input class="button small booking" style="width:150px;" type="submit" value="จองตั๋วเครื่องบิน">
             </div>
 
         </div>
