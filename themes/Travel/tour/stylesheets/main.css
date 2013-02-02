@@ -858,19 +858,19 @@ input.button_search {
 }
 
 .one_star{
-	background-position: 0px -75px;
+	background-position: 0px -60px;
 } 
 .two_star{
-	background-position: 0px -90px;
+	background-position: 0px -75px;
 } 
 .three_star{
-	background-position: 0px -105px;
+	background-position: 0px -90px;
 } 
 .four_star{
-	background-position: 0px -120px;
+	background-position: 0px -105px;
 } 
 .five_star{
-	background-position: 0px -135px;
+	background-position: 0px -120px;
 }
 .border {
 	border-bottom: dashed 1px #C2C2C2;
