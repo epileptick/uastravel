@@ -94,6 +94,9 @@ h1.title{
 	padding: 75px 40px 0 40px;
 	text-shadow:1px 1px 0px #000;
 }
+h1.title a{
+	color: #fff;
+}
 span.subtitle{
 	display: block;
 	font-size: 26px;
@@ -1131,11 +1134,11 @@ li.disabled {
 }
 .connected.no1 {
 	text-align: center;
-	min-height: 200px;
+	min-height: 214px;
 	overflow: hidden;
 	padding: 60px 20px 20px 20px;
 	margin: 0 0 20px 0;
-	background: url(../images/watermark.png) center 80px no-repeat;
+	background: url(../images/watermark.png) 162px 80px no-repeat;
 }
 .connected.no1 li {
 	width: 48%;
@@ -1442,15 +1445,19 @@ a.close{
 	position: relative;
 }
 ul.etabs{
-	margin: -32px 0 0 0;
+	position: absolute;
+	top: -31px;
+	right: -18px;
   list-style: none;
   overflow: hidden;
   padding: 0;
-  width: 100%;
+  min-width: 400px;
+  float: right;
+  text-align: right;
 }
 ul.etabs li{
 	position: relative;
-  float: left;
+  float: right;
   line-height: 32px;
   margin: 0 3px 0 0;
   overflow: hidden;
@@ -1464,7 +1471,7 @@ ul.etabs li a{
   display: block;
   letter-spacing: 0;
   outline: none;
-  padding: 0 16px;
+  padding: 0 10px;
   text-decoration: none;
   -moz-border-radius: 2px 2px 0px 0px;
 	-webkit-border-radius: 2px 2px 0px 0px;
