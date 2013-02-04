@@ -374,12 +374,12 @@
                         ?>
                           <div class="list_attractions" data-category="transition">
                             <?php
-                                if(!empty($value["price"]->pri_sale_adult_price)){
+                                if(!empty($value["price"]->prh_sale_adult_price)){
                             ?>
                               <div class="sticker_status">
                                 <div class="sticker price">
                                   <?php  
-                                    $sale_price = $value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price;
+                                    $sale_price = $value["price"]->prh_sale_adult_price - $value["price"]->prh_discount_adult_price;
                                     echo number_format($sale_price, 0);
                                   ?>
                                   บาท
