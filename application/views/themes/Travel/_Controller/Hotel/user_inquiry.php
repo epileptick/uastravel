@@ -4,10 +4,10 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <title><?php echo $tour[0]->name;?></title>
+  <title><?php echo $hotel[0]->name;?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="<?php echo (!empty($tour[0]->short_description))?$tour[0]->short_description:"";?>" />
+  <meta name="description" content="<?php echo (!empty($hotel[0]->short_description))?$hotel[0]->short_description:"";?>" />
   <meta name="keywords" content="" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -150,14 +150,14 @@
   <form class="custom" 
         id="booking_validate" 
         name="input" 
-        action="<?php echo base_url('tour/booking');?>" 
+        action="<?php echo base_url('hotel/booking');?>" 
         method="post"
   >
 
-    <input type="hidden" name="toc_tour_id" value="<?php echo $tour[0]->id;?>">
-    <input type="hidden" name="toc_tour_code" value="<?php echo $tour[0]->code;?>">
-    <input type="hidden" name="toc_tour_name" value="<?php echo $tour[0]->name;?>">
-    <input type="hidden" name="toc_tour_url" value="<?php echo $tour[0]->url;?>">
+    <input type="hidden" name="toc_tour_id" value="<?php echo $hotel[0]->id;?>">
+    <input type="hidden" name="toc_tour_code" value="<?php echo $hotel[0]->code;?>">
+    <input type="hidden" name="toc_tour_name" value="<?php echo $hotel[0]->name;?>">
+    <input type="hidden" name="toc_tour_url" value="<?php echo $hotel[0]->url;?>">
 
     <!-- Start Content -->
     <div class="row">
@@ -168,7 +168,7 @@
           <div class="row">
             <div class="twelve columns">
               <h3 style="color:#FE5214;">
-                <?php echo $tour[0]->name;?> <span  style="color:#4E4E4E;">(<?php echo $tour[0]->code;?>)</span>
+                <?php echo $hotel[0]->name;?> <span  style="color:#4E4E4E;">(<?php echo $hotel[0]->code;?>)</span>
               </h3>
             </div>
           </div><!-- Title -->

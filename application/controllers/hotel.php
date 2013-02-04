@@ -628,6 +628,7 @@ class Hotel extends MY_Controller {
       //print_r($agencyhotel); exit;
       $this->load->model("pricehotel_model", "pricehotelModel");
       $priceQuery = $this->pricehotelModel->getRecord($agencyhotel);
+
       //exit;
       if(!empty($priceQuery)){
 
@@ -749,7 +750,7 @@ class Hotel extends MY_Controller {
       }
 
 
-      //print_r($args); 
+      //print_r($data);  exit;
   
 
       //Price compute
