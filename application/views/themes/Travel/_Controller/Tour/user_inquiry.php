@@ -268,7 +268,7 @@
                   <label style="float:right;"><b><?php echo number_format($value["pri_total_price"], 0);?></b></label>
                 </div>
               </div>
-            <?
+            <?php
             }
             ?>
           </div>
