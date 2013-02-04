@@ -722,6 +722,7 @@ class Hotel extends MY_Controller {
 
       //Tag
       $this->load->model("taghotel_model", "taghotelModel");
+      $this->load->model("tagtour_model", "tagtourModel");
       $taghotelQuery["tag"] = $this->taghotelModel->getRecord($taghotel);
       if(!empty($taghotelQuery["tag"])){
         //TagHotel
@@ -737,25 +738,27 @@ class Hotel extends MY_Controller {
         }
 
         //Related Hotel
-        $query["hotel_id"] = $args["id"];
+        $query["tour_id"] = $args["id"];
         $query["tag_id"] = $query["menu"];
-        $query["hotel_tag"] = $data["tag"];
+        $query["tour_tag"] = $data["tag"];
         $query["mainper_page"] = 3;
         $query["per_page"] = 4;
         $query["offset"] = 0;
-        $data["related"] = $this->taghotelModel->getRecordRelated($query);
+        //$data["related"] = $this->taghotelModel->getRecordRelated($query);
+
+        $data["related"] = $this->tagtourModel->getRecordRelated($query);
 
 
-        //print_r($related); exit;
+        //print_r($data["related"]); exit;
       }
 
 
       //print_r($data);  exit;
-
+  
       //Price compute
-      if(!empty($args["pricehotel_id"])){
+      if(!empty($args["price_id"])){
         $this->load->model("pricehotel_model", "pricehotelModel");
-        foreach ($args["pricehotel_id"] as $key => $value) {
+        foreach ($args["price_id"] as $key => $value) {
           $price["id"] = $value; 
           $queryPrice = $this->pricehotelModel->getRecord($price);
           $queryPriceID = $queryPrice[0]->id;
@@ -790,7 +793,7 @@ class Hotel extends MY_Controller {
 
 
 
-      print_r($data["price"]); exit;
+      //print_r($data["price"]); exit;
 
       //print_r($data); exit;
       //Return
@@ -871,9 +874,9 @@ class Hotel extends MY_Controller {
     $message .='  <br />##########  รายละเอียดราคา ##########';
     foreach ($booking["price"] as $key => $value) {
       $message .='  <br />';
-      $message .='  <br />ชื่อราคา : '.$value["tob_pricehotel_name"];
-      $message .='  <br />ราคารวมของผู้ใหญ่ ('.$value["tob_adult_amount_booking"].') : '.$value["tob_total_adult_price"];
-      $message .='  <br />ราคารวมของเด็ก ('.$value["tob_child_amount_booking"].') : '.$value["tob_total_child_price"];
+      $message .='  <br />ชื่อราคา : '.$value["toh_pricehotel_name"];
+      $message .='  <br />ราคารวมของผู้ใหญ่ ('.$value["toh_adult_amount_booking"].') : '.$value["toh_total_adult_price"];
+      $message .='  <br />ราคารวมของเด็ก ('.$value["toh_child_amount_booking"].') : '.$value["toh_total_child_price"];
       $message .='  <br />ราคารวมของทารก : ฟรี';
       $message .='  <br />';
     }
@@ -948,9 +951,9 @@ class Hotel extends MY_Controller {
     $message .='  <br />##########  รายละเอียดราคา ##########';
     foreach ($booking["price"] as $key => $value) {
       $message .='  <br />';
-      $message .='  <br />ชื่อราคา : '.$value["tob_pricehotel_name"];
-      $message .='  <br />ราคารวมของผู้ใหญ่ ('.$value["tob_adult_amount_booking"].') : '.$value["tob_total_adult_price"];
-      $message .='  <br />ราคารวมของเด็ก ('.$value["tob_child_amount_booking"].') : '.$value["tob_total_child_price"];
+      $message .='  <br />ชื่อราคา : '.$value["toh_pricehotel_name"];
+      $message .='  <br />ราคารวมของผู้ใหญ่ ('.$value["toh_adult_amount_booking"].') : '.$value["toh_total_adult_price"];
+      $message .='  <br />ราคารวมของเด็ก ('.$value["toh_child_amount_booking"].') : '.$value["toh_total_child_price"];
       $message .='  <br />ราคารวมของทารก : ฟรี';
       $message .='  <br />';
     }
@@ -990,7 +993,7 @@ class Hotel extends MY_Controller {
 
 
     $this->load->model("hotelbooking_model", "hotelbookingModel");
-    $args["tob_hotelcustomer_id"] = $data["booking"][0]->toc_id;
+    $args["toh_hotelcustomer_id"] = $data["booking"][0]->toc_id;
     $data["booking"][0]->price = $this->hotelbookingModel->getRecord($args); 
 
 
@@ -1497,9 +1500,9 @@ class Hotel extends MY_Controller {
     $this->load->library('form_validation');
 
     //Validate information
-    $this->form_validation->set_rules('tob_firstname', 'firstname name', 'required');
-    $this->form_validation->set_rules('tob_lastname', 'description', 'required');
-    $this->form_validation->set_rules('tob_address', 'address', 'required');
+    $this->form_validation->set_rules('toh_firstname', 'firstname name', 'required');
+    $this->form_validation->set_rules('toh_lastname', 'description', 'required');
+    $this->form_validation->set_rules('toh_address', 'address', 'required');
 
     //$this->form_validation->set_rules('detail', 'detail', 'required');
     //$this->form_validation->set_rules('included', 'included', 'required');

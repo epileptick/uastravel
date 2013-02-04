@@ -621,6 +621,7 @@ class TagTour_model extends MY_Model {
     }
     //print_r($tag_in); exit;
 
+
     $sql = "SELECT DISTINCT `tat_tour_id` 
             FROM (`ci_tagtour`) JOIN `ci_tour` 
             ON `ci_tour`.`tou_id` = `ci_tagtour`.`tat_tour_id` 
