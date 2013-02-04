@@ -1,5 +1,5 @@
 <?php
-      //print_r($tour); exit;
+      //print_r($hotel); exit;
 ?>
 <?php PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().'/style/form.css">');
 
@@ -75,7 +75,7 @@ function selectAll(){
 
 
 
-        var url = "tour/setdisplay";
+        var url = "hotel/setdisplay";
         var status = $(this).attr("status");
         var id = $(this).attr("idval");
         var name = $(this).attr("idname");
@@ -115,7 +115,7 @@ function selectAll(){
 <div class="container_12">
 <section class="similar_hotels grid_12">
 
-    <h2 class="section_heading"><?php echo $this->lang->line("location_lang_location_list");?></h2>  
+    <h2 class="section_heading">Hotel List</h2>  
     <div class="topHolder bottom-shadow">
       <span class="GM1BAGKBGJB">
       <button class="blogg-button" tabindex="0" id="btnSelect"><?php echo $this->lang->line("global_lang_select_all");?></button>
@@ -239,11 +239,11 @@ class="blogg-menu-popup">
 
 
 
-      <button class="blogg-button blogg-collapse-right" tabindex="0" href='<?php echo base_url("admin/tour/create");?>'>
+      <button class="blogg-button blogg-collapse-right" tabindex="0" href='<?php echo base_url("admin/hotel/create");?>'>
         <?php echo $this->lang->line("location_lang_publish");?>
       </button>
     
-      <button class="blogg-button blogg-collapse-left blogg-collapse-right" tabindex="0" href='<?php echo base_url("admin/tour/create");?>'>
+      <button class="blogg-button blogg-collapse-left blogg-collapse-right" tabindex="0" href='<?php echo base_url("admin/hotel/create");?>'>
         <?php echo $this->lang->line("location_lang_unpublish");?>
       </button>
       <button class="blogg-button blogg-collapse-left" tabindex="0" href='#' id="btnDelete">
@@ -251,7 +251,7 @@ class="blogg-menu-popup">
       </button>
       </span>
       <span class="GM1BAGKBNIB">
-        <a class="blogg-button blogg-primary" tabindex="0" href='<?php echo base_url("admin/tour/create");?>'>
+        <a class="blogg-button blogg-primary" tabindex="0" href='<?php echo base_url("admin/hotel/create");?>'>
           <?php echo $this->lang->line("location_lang_add_post");?>
         </a>
       </span>
@@ -269,23 +269,23 @@ class="blogg-menu-popup">
     <?php //echo form_open('','name="locationList" id="locationList"'); ?>
     <ul id="location-list">
     <?php
-      if(!empty($tour)):
+      if(!empty($hotel)):
         $count = 0;
-        foreach ($tour as $key => $value) :
+        foreach ($hotel as $key => $value) :
       ?>
         <li>
           <span>
 
             <?php 
-            if($value['tour']->display == 0){
+            if($value['hotel']->display == 0){
             ?>
               <img src="<?php echo base_url('themes/Travel/images/enable.png');?>" 
                   valign="top" 
                   id="display" 
                   class="display_show"
                   status="show" 
-                  idval="<?php echo $value['tour']->id;?>"
-                  idname="display_show_<?php echo $value['tour']->id;?>"
+                  idval="<?php echo $value['hotel']->id;?>"
+                  idname="display_show_<?php echo $value['hotel']->id;?>"
                   style="display:none;"
               >
               <img src="<?php echo base_url('themes/Travel/images/disable.png');?>" 
@@ -293,39 +293,39 @@ class="blogg-menu-popup">
                   id="display"
                   class="display_hide" 
                   status="hide" 
-                  idval="<?php echo $value['tour']->id;?>"
-                  idname="display_hide_<?php echo $value['tour']->id;?>"
+                  idval="<?php echo $value['hotel']->id;?>"
+                  idname="display_hide_<?php echo $value['hotel']->id;?>"
               >
             <?php 
-            }else if($value['tour']->display == 1){
+            }else if($value['hotel']->display == 1){
             ?>
               <img src="<?php echo base_url('themes/Travel/images/enable.png');?>" 
                   valign="top" 
                   id="display" 
                   class="display_show"
                   status="show" 
-                  idval="<?php echo $value['tour']->id;?>"
-                  idname="display_show_<?php echo $value['tour']->id;?>"
+                  idval="<?php echo $value['hotel']->id;?>"
+                  idname="display_show_<?php echo $value['hotel']->id;?>"
               >
               <img src="<?php echo base_url('themes/Travel/images/disable.png');?>" 
                   valign="top" 
                   id="display"
                   class="display_hide" 
                   status="hide" 
-                  idval="<?php echo $value['tour']->id;?>"
-                  idname="display_hide_<?php echo $value['tour']->id;?>"
+                  idval="<?php echo $value['hotel']->id;?>"
+                  idname="display_hide_<?php echo $value['hotel']->id;?>"
                   style="display:none;"
               >
             <?php 
             }
             ?>
-            <input type="checkbox" name="<?php echo $value['tour']->id;?>" id="tour_<?php echo $value['tour']->id;?>">
+            <input type="checkbox" name="<?php echo $value['hotel']->id;?>" id="hotel_<?php echo $value['hotel']->id;?>">
           </span>
           <div>
             <span>  
             <h3>
-              <a href="<?php echo base_url('tour/'.$value['tour']->url.'-'.$value['tour']->id);?>" target="_blank">
-                <?php echo $value['tour']->name;?>
+              <a href="<?php echo base_url('hotel/'.$value['hotel']->url.'-'.$value['hotel']->id);?>" target="_blank">
+                <?php echo $value['hotel']->name;?>
               </a>                
                 &nbsp;&nbsp;
                 <?php
@@ -336,7 +336,7 @@ class="blogg-menu-popup">
                     foreach ($value['tag'] as $keyTag => $valueTag) {
                 ?>
                     <font color="#FFA951">
-                      <a href="<?php echo base_url('admin/tour/'.$valueTag->tag_name);?>" style="color:#FFA951;">
+                      <a href="<?php echo base_url('admin/hotel/'.$valueTag->tag_name);?>" style="color:#FFA951;">
                         <i><u>
                           <?php echo $valueTag->tag_name; ?>
                         </u></i>
@@ -353,13 +353,13 @@ class="blogg-menu-popup">
             </h3>
             </span>            
             <span id="location-list-control">
-              <a href="<?php echo base_url('tour/'.$value['tour']->url.'-'.$value['tour']->id);?>" target="_blank">
+              <a href="<?php echo base_url('hotel/'.$value['hotel']->url.'-'.$value['hotel']->id);?>" target="_blank">
                view
               </a> | 
-              <a href="<?php echo base_url('admin/tour/create/'.$value['tour']->id);?>">
+              <a href="<?php echo base_url('admin/hotel/create/'.$value['hotel']->id);?>">
                 <?php echo $this->lang->line("global_lang_edit");?>
               </a> |
-              <a href="<?php echo base_url('admin/tour/delete/'.$value['tour']->id);?>"  onclick="return confirm('Are you sure you want to delete?')">
+              <a href="<?php echo base_url('admin/hotel/delete/'.$value['hotel']->id);?>"  onclick="return confirm('Are you sure you want to delete?')">
               <?php echo $this->lang->line("global_lang_delete");?>
               </a> 
             </span>

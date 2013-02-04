@@ -31,6 +31,7 @@ class Tour_model extends MY_Model {
 
     $this->_joincolumn = array(
                      'id'                => 'tout_id',
+                     'tour_id'           => 'tout_tour_id',
                      'lang'              => 'tout_lang',
                      'url'               => 'tout_url',
                      'name'              => 'tout_name',
@@ -276,7 +277,7 @@ class Tour_model extends MY_Model {
       $this->db->where("tou_id", $id);
       $this->db->delete("ci_tour");
 
-      $this->db->where("tou_id", $id);
+      $this->db->where("tout_tour_id", $id);
       $this->db->delete("ci_tour_translate");
     }
   }
@@ -285,20 +286,28 @@ class Tour_model extends MY_Model {
   function searchRecord($args=false){
     if(!empty($args["tou_name"]) && !empty($args["user_search"])){
 
-      $search["tou_name"] = $args["tou_name"];
-      $this->db->like($search); 
-      $this->db->order_by('CONVERT( tou_name USING tis620 ) ASC');    
+      $search["tout_name"] = $args["tou_name"];
+      $this->db->like($search, 'both');
+      $this->db->where('ci_tour.tou_display', 1);     
+      $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
+      $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
+      $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');    
       $tour = $this->db->get("ci_tour")->result();
 
+      //print_r($tour); exit;
+      //echo $this->db->last_query(); exit;
 
       $count = 0;
       foreach ($tour as $key => $value) {
 
         //Get tour data
         unset($this->db);
-        $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+        //$this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
         $this->db->where('tou_id', $value->tou_id);
-        $query = $this->db->get('ci_tour');
+        $this->db->where('ci_tour.tou_display', 1);     
+        $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
+        $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');    
+        $query = $this->db->get("ci_tour");
         $tourBuffer = $query->result(); 
         $result[$count]["tour"] = $tourBuffer[0];
 

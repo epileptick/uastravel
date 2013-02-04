@@ -1,26 +1,26 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Price_model extends MY_Model {
+class Pricehotel_model extends MY_Model {
   function __construct(){
     parent::__construct();
     $this->_prefix = "pri";
     $this->_column = array(  
-                     'id'                    => 'pri_id',
-                     'agency_id'             => 'pri_agency_id',
-                     'tour_id'               => 'pri_tour_id',
-                     'sale_adult_price'      => 'pri_sale_adult_price',
-                     'net_adult_price'       => 'pri_net_adult_price',
-                     'discount_adult_price'  => 'pri_discount_adult_price',
-                     'sale_child_price'      => 'pri_sale_child_price',
-                     'net_child_price'       => 'pri_net_child_price',
-                     'discount_child_price'  => 'pri_discount_child_price'
+                     'id'                    => 'prh_id',
+                     'agency_id'             => 'prh_agency_id',
+                     'hotel_id'              => 'prh_hotel_id',
+                     'sale_adult_price'      => 'prh_sale_adult_price',
+                     'net_adult_price'       => 'prh_net_adult_price',
+                     'discount_adult_price'  => 'prh_discount_adult_price',
+                     'sale_child_price'      => 'prh_sale_child_price',
+                     'net_child_price'       => 'prh_net_child_price',
+                     'discount_child_price'  => 'prh_discount_child_price'
     );
 
 
     $this->_joincolumn = array(
-                     'id'                    => 'prit_id',
-                     'lang'                  => 'prit_lang',
-                     'price_id'              => 'prit_price_id',
-                     'name'                  => 'prit_name'
+                     'id'                    => 'prht_id',
+                     'lang'                  => 'prht_lang',
+                     'price_id'              => 'prht_price_id',
+                     'name'                  => 'prht_name'
     ); 
   }
  
@@ -32,7 +32,7 @@ class Price_model extends MY_Model {
       $data = new stdClass();
 
       foreach ($value as $keyField => $valueFiled) {      
-        if( $keyField != "prit_id"){
+        if( $keyField != "prht_id"){
           $keyExplode = explode("_", $keyField, 2);
           $newkey = $keyExplode[1];
           $data->$newkey = $valueFiled; 
@@ -43,29 +43,17 @@ class Price_model extends MY_Model {
 //print_r($newResult); exit;
     return $newResult;
   }
-  
-  function getMaxPriceRecord($args=false){
-    if(isset($args["tour_id"])){
-      //Get category by name
-      $data["pri_tour_id"] = $args["tour_id"];
-      $this->db->select_max('pri_sale_adult_price');
-      $query = $this->db->get_where('ci_price', $args);
-      if($query->num_rows > 0){
-        $newResult = $this->mapField($query->result());
-        return $newResult;
-      }else{
-        return false;
-      }
-    }
-  }  
+
 
   function getRecord($args=false){
 
-    if(isset($args["agency_id"]) && isset($args["tour_id"]) ){
 
-      $this->db->where('ci_price.pri_tour_id', $args["tour_id"]);   
-      $this->db->where('ci_price.pri_agency_id', $args["agency_id"]); 
-      $query = $this->db->get("ci_price");
+    //print_r($args); exit;
+    if(isset($args["agency_id"]) && isset($args["hotel_id"]) ){
+
+      $this->db->where('ci_pricehotel.prh_hotel_id', $args["hotel_id"]);   
+      $this->db->where('ci_pricehotel.prh_agency_id', $args["agency_id"]); 
+      $query = $this->db->get("ci_pricehotel");
       //echo $this->db->last_query(); exit;
 
       //print_r($query->result() ); exit;
@@ -73,24 +61,24 @@ class Price_model extends MY_Model {
 
         foreach ($query->result() as $key => $value) {
 
-          //Get price by tour_id
-          $this->db->where('ci_price.pri_tour_id', $args["tour_id"]);   
-          $this->db->where('ci_price.pri_agency_id', $args["agency_id"]);   
-          $this->db->where('ci_price_translate.prit_price_id', $value->pri_id);        
-          $this->db->where('ci_price_translate.prit_lang', $this->lang->lang());
-          $this->db->join('ci_price_translate', 'ci_price_translate.prit_price_id = ci_price.pri_id');
-          $this->db->order_by('CONVERT( ci_price_translate.prit_name USING tis620 ) ASC');    
-          $query = $this->db->get("ci_price"); 
+          //Get price by hotel_id
+          $this->db->where('ci_pricehotel.prh_hotel_id', $args["hotel_id"]);   
+          $this->db->where('ci_pricehotel.prh_agency_id', $args["agency_id"]);   
+          $this->db->where('ci_pricehotel_translate.prht_price_id', $value->prh_id);        
+          $this->db->where('ci_pricehotel_translate.prht_lang', $this->lang->lang());
+          $this->db->join('ci_pricehotel_translate', 'ci_pricehotel_translate.prht_price_id = ci_pricehotel.prh_id');
+          $this->db->order_by('CONVERT( ci_pricehotel_translate.prht_name USING tis620 ) ASC');    
+          $query = $this->db->get("ci_pricehotel"); 
 
           if($query->num_rows > 0){
             $priceTemp = $this->mapField($query->result());
             $newResult[] = $priceTemp[0];
           }else{
 
-              $this->db->where('ci_price.pri_tour_id', $args["tour_id"]); 
-              $this->db->where('ci_price.pri_agency_id', $args["agency_id"]); 
-              $this->db->where('ci_price.pri_id', $value->pri_id);
-              $query = $this->db->get("ci_price");
+              $this->db->where('ci_pricehotel.prh_hotel_id', $args["hotel_id"]); 
+              $this->db->where('ci_pricehotel.prh_agency_id', $args["agency_id"]); 
+              $this->db->where('ci_pricehotel.prh_id', $value->prh_id);
+              $query = $this->db->get("ci_pricehotel");
 
               $priceTemp = $this->mapField($query->result());
               $newResult[] = $priceTemp[0];
@@ -110,19 +98,19 @@ class Price_model extends MY_Model {
     }else if(isset($args["agency_id"])){
       //Get category by name
 
-      $data["pri_agency_id"] = $args["agency_id"]; 
-      $query = $this->db->get_where('ci_price', $data);
+      $data["prh_agency_id"] = $args["agency_id"];
+      $query = $this->db->get_where('ci_pricehotel', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
         return $newResult;
       }else{
         return false;
       }
-    }else if(isset($args["tour_id"]) && !empty($args["distinct"]) && $args["distinct"] == 1){
-      $data["pri_tour_id"] = $args["tour_id"];
+    }else if(isset($args["hotel_id"]) && !empty($args["distinct"]) && $args["distinct"] == 1){
+      $data["prh_hotel_id"] = $args["hotel_id"];
       $this->db->select($args['distinct_field']);
       $this->db->distinct();
-      $query = $this->db->get_where('ci_price', $data);
+      $query = $this->db->get_where('ci_pricehotel', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
         return $newResult;
@@ -130,10 +118,10 @@ class Price_model extends MY_Model {
         return false;
       }
       
-    }else if(isset($args["tour_id"]) && $args["event"] == "insert"){
+    }else if(isset($args["hotel_id"]) && $args["event"] == "insert"){
 
-      $this->db->where('ci_price.pri_tour_id', $args["tour_id"]);   
-      $query = $this->db->get("ci_price");
+      $this->db->where('ci_pricehotel.prh_hotel_id', $args["hotel_id"]);   
+      $query = $this->db->get("ci_pricehotel");
       //echo $this->db->last_query(); exit;
 
 
@@ -141,17 +129,17 @@ class Price_model extends MY_Model {
 
         foreach ($query->result() as $key => $value) {
 
-          //Get price by tour_id
-          $this->db->where('ci_price.pri_tour_id', $args["tour_id"]);  
-          $query = $this->db->get("ci_price"); 
+          //Get price by hotel_id
+          $this->db->where('ci_pricehotel.prh_hotel_id', $args["hotel_id"]);  
+          $query = $this->db->get("ci_pricehotel"); 
 
           if($query->num_rows > 0){
             $newResult = $this->mapField($query->result());
           }else{
 
             //Not found & insert
-            $this->db->where('ci_price.pri_tour_id', $args["tour_id"]);  
-            $query = $this->db->get("ci_price");
+            $this->db->where('ci_pricehotel.prh_hotel_id', $args["hotel_id"]);  
+            $query = $this->db->get("ci_pricehotel");
 
             $newResult = $this->mapField($query->result());
           }
@@ -165,10 +153,10 @@ class Price_model extends MY_Model {
 
         return false;
       }
-    }else if(isset($args["tour_id"]) && $args["event"] == "display"){
+    }else if(isset($args["hotel_id"]) && $args["event"] == "display"){
 
-      $this->db->where('ci_price.pri_tour_id', $args["tour_id"]);   
-      $query = $this->db->get("ci_price");
+      $this->db->where('ci_pricehotel.prh_hotel_id', $args["hotel_id"]);   
+      $query = $this->db->get("ci_pricehotel");
       //echo $this->db->last_query(); exit;
 
 
@@ -176,20 +164,20 @@ class Price_model extends MY_Model {
 
         foreach ($query->result() as $key => $value) {
 
-          //Get price by tour_id
-          $this->db->where('ci_price.pri_tour_id', $args["tour_id"]);          
-          $this->db->where('ci_price_translate.prit_lang', $this->lang->lang());
-          $this->db->join('ci_price_translate', 'ci_price_translate.prit_price_id = ci_price.pri_id');
-          $this->db->order_by('CONVERT( ci_price_translate.prit_name USING tis620 ) ASC');    
-          $query = $this->db->get("ci_price"); 
+          //Get price by hotel_id
+          $this->db->where('ci_pricehotel.prh_hotel_id', $args["hotel_id"]);          
+          $this->db->where('ci_pricehotel_translate.prht_lang', $this->lang->lang());
+          $this->db->join('ci_pricehotel_translate', 'ci_pricehotel_translate.prht_price_id = ci_pricehotel.prh_id');
+          $this->db->order_by('CONVERT( ci_pricehotel_translate.prht_name USING tis620 ) ASC');    
+          $query = $this->db->get("ci_pricehotel"); 
 
           if($query->num_rows > 0){
             $newResult = $this->mapField($query->result());
           }else{
 
             //Not found & insert
-            $this->db->where('ci_price.pri_tour_id', $args["tour_id"]);  
-            $query = $this->db->get("ci_price");
+            $this->db->where('ci_pricehotel.prh_hotel_id', $args["hotel_id"]);  
+            $query = $this->db->get("ci_pricehotel");
 
             $newResult = $this->mapField($query->result());
           }
@@ -205,8 +193,8 @@ class Price_model extends MY_Model {
       }
     }else if(isset($args["id"])){
 
-      $this->db->where('ci_price.pri_id', $args["id"]);   
-      $query = $this->db->get("ci_price");
+      $this->db->where('ci_pricehotel.prh_id', $args["id"]);   
+      $query = $this->db->get("ci_pricehotel");
       //echo $this->db->last_query(); exit;
 
 
@@ -215,19 +203,19 @@ class Price_model extends MY_Model {
         foreach ($query->result() as $key => $value) {
 
           //Get price by id
-          $this->db->where('ci_price.pri_id', $args["id"]);          
-          $this->db->where('ci_price_translate.prit_lang', $this->lang->lang());
-          $this->db->join('ci_price_translate', 'ci_price_translate.prit_price_id = ci_price.pri_id');
-          $this->db->order_by('CONVERT( ci_price_translate.prit_name USING tis620 ) ASC');    
-          $query = $this->db->get("ci_price"); 
+          $this->db->where('ci_pricehotel.prh_id', $args["id"]);          
+          $this->db->where('ci_pricehotel_translate.prht_lang', $this->lang->lang());
+          $this->db->join('ci_pricehotel_translate', 'ci_pricehotel_translate.prht_price_id = ci_pricehotel.prh_id');
+          $this->db->order_by('CONVERT( ci_pricehotel_translate.prht_name USING tis620 ) ASC');    
+          $query = $this->db->get("ci_pricehotel"); 
 
           if($query->num_rows > 0){
             $newResult = $this->mapField($query->result());
           }else{
 
             //Not found & display
-            $this->db->where('ci_price.pri_id', $args["id"]);  
-            $query = $this->db->get("ci_price");
+            $this->db->where('ci_pricehotel.prh_id', $args["id"]);  
+            $query = $this->db->get("ci_pricehotel");
 
             $newResult = $this->mapField($query->result());
           }
@@ -241,7 +229,7 @@ class Price_model extends MY_Model {
 
       /*
       //Get category by id      
-      $query = $this->db->get_where('ci_price', array('pri_id' => $args["id"]), 1, 0);
+      $query = $this->db->get_where('ci_pricehotel', array('prh_id' => $args["id"]), 1, 0);
 
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -253,7 +241,7 @@ class Price_model extends MY_Model {
       */
     }else {
       //Get list page
-      $query = $this->db->get("ci_price");
+      $query = $this->db->get("ci_pricehotel");
 
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -275,16 +263,15 @@ class Price_model extends MY_Model {
       }
     }
 
-    $this->db->set("pri_cr_date", date("Y-m-d H:i:s"));
-    $this->db->set("pri_lu_date", date("Y-m-d H:i:s"));
-    $this->db->insert("ci_price");
+    $this->db->set("prh_cr_date", date("Y-m-d H:i:s"));
+    $this->db->set("prh_lu_date", date("Y-m-d H:i:s"));
+    $this->db->insert("ci_pricehotel");
     $id = $this->db->insert_id();  
-
     
-    //Insert price translate
+    
+    //Insert hotel price translate
     $data["price_id"] = $id;
     $this->_addTranslateRecord($data);
-
     //echo $this->db->last_query(); exit;
     return $id;
   }
@@ -298,11 +285,11 @@ class Price_model extends MY_Model {
         $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue); 
       } 
     }
-    $this->db->set("prit_price_id", $data["price_id"]); 
+    $this->db->set("prht_price_id", $data["price_id"]); 
 
-    $this->db->set("prit_cr_date", date("Y-m-d H:i:s"));
-    $this->db->set("prit_lu_date", date("Y-m-d H:i:s"));
-    $this->db->insert("ci_price_translate");      
+    $this->db->set("prht_cr_date", date("Y-m-d H:i:s"));
+    $this->db->set("prht_lu_date", date("Y-m-d H:i:s"));
+    $this->db->insert("ci_pricehotel_translate");      
   }
 
   function addMultipleRecord($args=false){
@@ -345,8 +332,8 @@ class Price_model extends MY_Model {
       //print_r($inputPriceTranslateArray);
       
 
-      //Get price by tour_id
-      $price["tour_id"] = $args["tour_id"];
+      //Get price by hotel_id
+      $price["hotel_id"] = $args["hotel_id"];
       $price["event"] = "insert";
       $queryPrice = $this->getRecord($price);      
 
@@ -409,9 +396,9 @@ class Price_model extends MY_Model {
           if($value["price_id"] != 0){
             //update
             //Get price by id
-            $this->db->where("prit_price_id", $value["price_id"]);
-            $this->db->where("prit_lang", $this->lang->lang());
-            $queryTranslatePrice = $this->db->get("ci_price_translate");
+            $this->db->where("prht_price_id", $value["price_id"]);
+            $this->db->where("prht_lang", $this->lang->lang());
+            $queryTranslatePrice = $this->db->get("ci_pricehotel_translate");
 
             //print_r($queryTranslatePrice->result()); exit;
             if($queryTranslatePrice->num_rows > 0){
@@ -443,9 +430,9 @@ class Price_model extends MY_Model {
         $this->db->set($this->_column[$columnName], $columnValue); 
       }
     }
-    $this->db->set("pri_lu_date", date("Y-m-d H:i:s"));
-    $this->db->where("pri_id", $data["id"]);
-    $this->db->update("ci_price");   
+    $this->db->set("prh_lu_date", date("Y-m-d H:i:s"));
+    $this->db->where("prh_id", $data["id"]);
+    $this->db->update("ci_pricehotel");   
 
   }
 
@@ -460,10 +447,10 @@ class Price_model extends MY_Model {
     }
 
 
-    $this->db->set("prit_lu_date", date("Y-m-d H:i:s"));
-    $this->db->where("prit_price_id", $data["price_id"]);
-    $this->db->where("prit_lang", $this->lang->lang());
-    $this->db->update("ci_price_translate");
+    $this->db->set("prht_lu_date", date("Y-m-d H:i:s"));
+    $this->db->where("prht_price_id", $data["price_id"]);
+    $this->db->where("prht_lang", $this->lang->lang());
+    $this->db->update("ci_pricehotel_translate");
 
 
     
@@ -474,24 +461,24 @@ class Price_model extends MY_Model {
 
   function deleteRecord($args=false){
     if(isset($args["id"])){
-      $this->db->where("pri_id", $args["id"]);
-      $this->db->delete("ci_price");
+      $this->db->where("prh_id", $args["id"]);
+      $this->db->delete("ci_pricehotel");
 
-      $this->db->where("prit_price_id", $args["id"]);
-      $this->db->delete("ci_price_translate");
+      $this->db->where("prht_price_id", $args["id"]);
+      $this->db->delete("ci_pricehotel_translate");
       
-    }else if(isset($args["tour_id"])){
+    }else if(isset($args["hotel_id"])){
 
-      $this->db->where("pri_id", $args["tour_id"]);
-      $priceArray = $this->db->get("ci_price")->result();
+      $this->db->where("prh_id", $args["hotel_id"]);
+      $priceArray = $this->db->get("ci_pricehotel")->result();
       //print_r($priceArray); exit;
       foreach ($priceArray as $key => $value) {
-        $this->db->where("prit_price_id", $value["pri_id"]);
-        $this->db->delete("ci_price_translate");
+        $this->db->where("prht_price_id", $value["prh_id"]);
+        $this->db->delete("ci_pricehotel_translate");
       }
 
-      $this->db->where("pri_tour_id", $args["tour_id"]);
-      $this->db->delete("ci_price");
+      $this->db->where("prh_hotel_id", $args["hotel_id"]);
+      $this->db->delete("ci_pricehotel");
     }    
   }
 }

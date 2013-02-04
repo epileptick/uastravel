@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <title><?php echo $tour[0]->name;?></title>
+  <title><?php echo $hotel[0]->name;?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="<?php echo (!empty($tour[0]->short_description))?$tour[0]->short_description:"";?>" />
+  <meta name="description" content="<?php echo (!empty($hotel[0]->short_description))?$hotel[0]->short_description:"";?>" />
   <?php
     $tag_keyword = "แพ็คเกจทัวร์, ทัวร์, ";
     if(!empty($tag)){
@@ -39,9 +39,9 @@
 </head>
 
 <?php
-  if(!empty($tour[0]->background_image)){
+  if(!empty($hotel[0]->background_image)){
 ?>
-    <body style="background: #ededed url(<?php echo $tour[0]->background_image;?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
+    <body style="background: #ededed url(<?php echo $hotel[0]->background_image;?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
 <?php
   }else{
 ?>
@@ -70,7 +70,7 @@
             <ul class="right">
               <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
               <li class="has-dropdown">
-                <a class="active" href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์</a>
+                <a class="active" href="<?php echo base_url('hotel');?>">แพ๊คเกจทัวร์</a>
                 <ul class="dropdown">
                   <li><a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
                   <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
@@ -96,10 +96,10 @@
                 </ul>                
               </li> 
               <li class="has-dropdown">
-                <a href="<?php echo base_url('tour/ที่พัก');?>">ที่พัก</a>
+                <a href="<?php echo base_url('hotel');?>">ที่พัก</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a></li>
-                  <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
+                  <li><a href="<?php echo base_url('hotel/จองโรงแรม');?>">จองโรงแรม</a></li>
+                  <li><a href="<?php echo base_url('hotel/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                 </ul>                
               </li>
               <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
@@ -115,10 +115,10 @@
     <div class="row">
       <div class="twelve columns">
         <a href="" class="arrow previous tooltip_nw" title="แหล่งท่องเที่ยวก่อนหน้า">แหล่งท่องเที่ยวก่อนหน้า</a>
-        <h1 class="title"><a href=""><?php echo $tour[0]->name;?></a>
-            <a href="#<?php echo $tour[0]->name;?>">
+        <h1 class="title"><a href=""><?php echo $hotel[0]->name;?></a>
+            <a href="#<?php echo $hotel[0]->name;?>">
             <img src="<?php echo base_url('themes/Travel/images/anchor.png');?>" width="23px" height="23px" align="absmiddle"/></a>
-          <span class="subtitle"><?php echo (!empty($tour[0]->short_description))?$tour[0]->short_description:"";?></span>
+          <span class="subtitle"><?php echo (!empty($hotel[0]->short_description))?$hotel[0]->short_description:"";?></span>
         </h1>
         <a href="" class="arrow next south" title="แหล่งท่องเที่ยวถัดไป">แหล่งท่องเที่ยวถัดไป</a>
       </div>
@@ -154,12 +154,12 @@
               ?>
               <li>
                 <a class="thumb"  href="<?php echo $value['url'];?>" >
-                  <img src="<?php echo $value['url'];?>" alt="<?php echo $tour[0]->name;?>" />
+                  <img src="<?php echo $value['url'];?>" alt="<?php echo $hotel[0]->name;?>" />
                   <div><span></span></div>
                 </a>
                 <div class="captions">
-                  <div class="image-title"><?php echo $tour[0]->name;?></div>
-                  <div class="image-desc"><?php echo $tour[0]->short_description;?></div>
+                  <div class="image-title"><?php echo $hotel[0]->name;?></div>
+                  <div class="image-desc"><?php echo $hotel[0]->short_description;?></div>
                 </div>
               </li>
               <?php
@@ -173,13 +173,13 @@
       <section class="gallery_mobile">
         <ul id="gallery_mobile">
           <?php
-            //print_r($images); exit;
+          //print_r($images); exit;
           if(!empty($images)){
             foreach ($images as $key => $value) {
           ?>
             <li>
               <a href="<?php echo $value['url'];?>">
-                <img src="<?php echo $value['url'];?>" alt="<?php echo $tour[0]->name;?>" />
+                <img src="<?php echo $value['url'];?>" alt="<?php echo $hotel[0]->name;?>" />
               </a>
             </li>              
           <?php
@@ -195,16 +195,67 @@
     <!-- End Gallery -->
     <div class="row">
       <div class="eight columns">
-        <h4  style="margin-bottom:0px !important;"  id="<?php echo $tour[0]->name;?>">ID : <?php echo $tour[0]->code;?></h4>
+        <h4  style="margin-bottom:0px !important;"  id="<?php echo $hotel[0]->name;?>">ID : <?php echo $hotel[0]->code;?></h4>
       </div>
     </div>  
     <!-- Tour Information -->
     <div class="row">
       <div class="eight columns">
-        <div class="box_white_in_columns article_tour">
+        <div class="box_white_in_columns article_hotel">
           <div class="row">
             <div class="eight columns">
-              <h3 style="color:#FE5214;"><?php echo $tour[0]->name;?></h3>
+              <h3 style="color:#FE5214;">
+                <?php echo $hotel[0]->name;?>
+
+                        <?php
+                          if($hotel[0]->star == 2){
+                        ?>
+                          <div class="rating two_star"></div>
+                        <?php    
+                          }else{
+                        ?>
+                          <div class="rating two_star" style="display:none"></div>                              
+                        <?php
+                          }
+                        ?>
+
+                        <?php
+                          if($hotel[0]->star  == 3){
+                        ?>
+                          <div class="rating three_star"></div>
+                        <?php    
+                          }else{
+                        ?>
+                          <div class="rating three_star" style="display:none"></div>                              
+                        <?php
+                          }
+                        ?>
+
+
+                        <?php
+                          if($hotel[0]->star  == 4){
+                        ?>
+                          <div class="rating four_star"></div>
+                        <?php    
+                          }else{
+                        ?>
+                          <div class="rating four_star" style="display:none"></div>                              
+                        <?php
+                          }
+                        ?>
+
+                        <?php
+                          if($hotel[0]->star  == 5){
+                        ?>
+                          <div class="rating five_star"></div>
+                        <?php    
+                          }else{
+                        ?>
+                          <div class="rating five_star" style="display:none"></div>                              
+                        <?php
+                          }
+                        ?> 
+              </h3>              
             </div>
             <div class="four columns">
               <div class="social_network">
@@ -221,9 +272,9 @@
             </div>
           </div><!-- Title -->
           <div class="border"></div>
-          <p><?php echo $tour[0]->description;?></p>
+          <p><?php echo $hotel[0]->description;?></p>
           <h3 style="padding:4px; border:2px solid; border-color:#FAA20A; background-color:#FAA20A; color:#FFF; text-shadow: none !important;">
-            <?php echo $this->lang->line("tour_lang_program_and_itinerary");?> 
+            <?php echo $this->lang->line("hotel_lang_program_and_itinerary");?> 
           </h3>
           <!--
           <p><span class="color_blue">ช่วงเช้า: </span> รถรับท่านจากโรงแรมที่พักในจังหวัดภูเก็ต หรือ เขาหลัก มุ่งหน้าสู่ท่าเรือคุระบุรี จังหวัดพังงา ออกเดินทางจากท่าเรือ สู่อุทยานฯ หมู่เกาะสุรินทร์ ด้วยเรือสปีดโบ๊ทขนาดใหญ่ เดินทามาถึงอุทยานแห่งชาติ หมู่เกาะสุรินทร์  ดำน้ำดูปะการังบริเวณ อ่าวแม่ยาย และ อ่าวเต่า สนุกสนานกับการเล่นน้ำ ดำน้ำชมปะการัง หรือพักผ่อนตามอัธยาศัย</p>
@@ -232,17 +283,17 @@
           <p>ได้เวลาพอสมควร ออกเดินทางกลับจากอุทยานแห่งชาติหมู่เกาะสุรินทร์ สู่ท่าเรือ คุระบุรี จังหวัดพังงา เดินทางกลับสู่ที่พัก ประมาณ 1 ทุ่ม  ส่งท่านถึงที่โรงแรมที่พักในจังหวัดภูเก็ต</p>
           -->
           <p>
-            <?php echo $tour[0]->detail;?>
+            <?php echo $hotel[0]->detail;?>
           </p>
 
    
 
           <?php 
-            if(!empty($tour[0]->included) && !empty($tour[0]->remark)){
+            if(!empty($hotel[0]->included) && !empty($hotel[0]->remark)){
           ?>
             <div class="row">
               <div class="five columns">
-                <h3 style="color:#0000;"><?php echo $this->lang->line("tour_lang_tour_includes");?></h3>
+                <h3 style="color:#0000;"><?php echo $this->lang->line("hotel_lang_hotel_includes");?></h3>
                 <!--
                 <ul class="disc">
                   <li>รถรับส่งโรงแรม-ท่าเรือ-โรงแรม</li>
@@ -255,16 +306,16 @@
                 -->
                 <p>
                   <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
-                    <?php echo (!empty($tour[0]->included)?$tour[0]->included:"");?>
+                    <?php echo (!empty($hotel[0]->included)?$hotel[0]->included:"");?>
                   </div>
                 </p>
               </div>
 
               <div class="seven columns">
-                <h3 style="color:#0000;"><?php echo $this->lang->line("tour_lang_tour_remark");?></h3>
+                <h3 style="color:#0000;"><?php echo $this->lang->line("hotel_lang_hotel_remark");?></h3>
                 <p>
                   <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
-                    <?php echo $tour[0]->remark;?>
+                    <?php echo $hotel[0]->remark;?>
                   </div>
                 </p>  
                 <!--
@@ -276,24 +327,24 @@
               </div>
             </div>
           <?php
-          }else if(!empty($tour[0]->included)){
+          }else if(!empty($hotel[0]->included)){
           ?>
             <div class="row">
               <div class="five columns">
-                <h3><?php echo $this->lang->line("tour_lang_tour_includes");?></h3>
+                <h3><?php echo $this->lang->line("hotel_lang_hotel_includes");?></h3>
                 <p>
                   <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
-                    <?php echo (!empty($tour[0]->included)?$tour[0]->included:"");?>
+                    <?php echo (!empty($hotel[0]->included)?$hotel[0]->included:"");?>
                   </div>
                 </p>
               </div>
             </div>              
           <?php
-          }else if(!empty($tour[0]->remark)){
+          }else if(!empty($hotel[0]->remark)){
           ?>
             <div class="row">
               <div class="five columns">
-                <h3><?php echo $this->lang->line("tour_lang_tour_remark");?></h3>
+                <h3><?php echo $this->lang->line("hotel_lang_hotel_remark");?></h3>
                   <!--
                 <ul class="disc">
                   <li>รถรับส่งโรงแรม-ท่าเรือ-โรงแรม</li>
@@ -306,7 +357,7 @@
                 -->
                 <p>
                   <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
-                    <?php echo (!empty($tour[0]->included)?$tour[0]->remark:"");?>
+                    <?php echo (!empty($hotel[0]->included)?$hotel[0]->remark:"");?>
                   </div>
                 </p>
               </div>
@@ -317,7 +368,7 @@
 
 
       <form name="input" 
-            action="<?php echo base_url('tour/inquiry');?>" 
+            action="<?php echo base_url('hotel/inquiry');?>" 
             method="post"
       >
         <!-- price -->
@@ -357,7 +408,7 @@
                               value="<?php echo $value->id;?>" 
                               CHECKED
                       >
-                      <?php echo $value->name;?>
+                      <?php echo (!empty($value->name)?$value->name:"");?>
                     </label>
                   <?php
                     }else{
@@ -409,7 +460,7 @@
 
               <tr>
                 <td class="price_booking" colspan="5">
-                    <input type="hidden" name="id" value="<?php echo $tour[0]->id;?>"></input>
+                    <input type="hidden" name="id" value="<?php echo $hotel[0]->id;?>"></input>
                     <input class="button small  booking"  type="submit" value="จองทัวร์นี้">
                 </td>
               </tr>            
@@ -445,7 +496,7 @@
                   foreach ($tag as $key => $value) {
                     if(!empty($value->url) &&  $value->id != 1){
               ?>
-                    <li><a href="<?php echo base_url('/tour/'.$value->url);?>"><?php echo $value->name; ?></a></li>
+                    <li><a href="<?php echo base_url('/hotel/'.$value->url);?>"><?php echo $value->name; ?></a></li>
               <?php
                     }
                   }
@@ -467,10 +518,10 @@
                 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
                 <script type="text/javascript">
                       <?php
-                        if($tour[0]->latitude && $tour[0]->longitude){
+                        if($hotel[0]->latitude && $hotel[0]->longitude){
                       ?>
-                          var lat = <?php echo $tour[0]->latitude;?>;
-                          var lon = <?php echo $tour[0]->longitude;?>;
+                          var lat = <?php echo $hotel[0]->latitude;?>;
+                          var lon = <?php echo $hotel[0]->longitude;?>;
                       <?php
                         }else{
                       ?>
@@ -492,7 +543,7 @@
 
                         marker = new google.maps.Marker({
                           position: latLng, 
-                          title: '<?php echo $tour[0]->name;?>',
+                          title: '<?php echo $hotel[0]->name;?>',
                           map: map,
                           draggable: false
                         });                        
@@ -521,56 +572,81 @@
           <div class="list_packet">
             <div class="row">
               <div class="twelve columns">              
-                <a href="<?php echo $value["tour"]->tout_url."-".$value["tour"]->tou_id; ?>">
-                  <img src="<?php echo $value["tour"]->tou_banner_image; ?>">
+                <a href="<?php echo $value["hotel"]->hott_url."-".$value["hotel"]->hot_id; ?>">
+                  <img src="<?php echo $value["hotel"]->hot_banner_image; ?>">
                 </a>
               </div>
               <div class="twelve columns">
-                <div class="title_tour">
-                  <h4>
-                    <a href="<?php echo $value["tour"]->tout_url."-".$value["tour"]->tou_id; ?>">
-                      <?php echo $value["tour"]->tout_name; ?>
-                    </a>
-                  </h4>
+                <div class="row">
+                  <div class="nine columns">
+                    <div class="title_hotel">
+                      <h4>
+                        <a href="<?php echo $value["hotel"]->hott_url."-".$value["hotel"]->hot_id; ?>">
+                          <?php echo $value["hotel"]->hott_name; ?>
+                        </a>
+                      </h4>
+
+                    </div>
+                  </div>
+                  <div class="three columns">
+                    <?php
+                      if($value['hotel']->hot_star == 2){
+                    ?>
+                      <div class="rating two_star"></div>
+                    <?php    
+                      }else{
+                    ?>
+                      <div class="rating two_star" style="display:none"></div>                              
+                    <?php
+                      }
+                    ?>
+
+                    <?php
+                      if($value['hotel']->hot_star == 3){
+                    ?>
+                      <div class="rating three_star"></div>
+                    <?php    
+                      }else{
+                    ?>
+                      <div class="rating three_star" style="display:none"></div>                              
+                    <?php
+                      }
+                    ?>
+
+
+                    <?php
+                      if($value['hotel']->hot_star == 4){
+                    ?>
+                      <div class="rating four_star"></div>
+                    <?php    
+                      }else{
+                    ?>
+                      <div class="rating four_star" style="display:none"></div>                              
+                    <?php
+                      }
+                    ?>
+
+                    <?php
+                      if($value['hotel']->hot_star == 5){
+                    ?>
+                      <div class="rating five_star"></div>
+                    <?php    
+                      }else{
+                    ?>
+                      <div class="rating five_star" style="display:none"></div>                              
+                    <?php
+                      }
+                    ?>
+                    <div class="clearfix"></div>
+                  </div>
                 </div>
-                <div class="rating one_star" style="display:none"></div>
-                <div class="rating two_star" style="display:none"></div>
-                <div class="rating three_star"></div>
-                <div class="rating four_star" style="display:none"></div>
-                <div class="rating five_star"style="display:none"></div>
-                <div class="clearfix"></div>
                 <div class="border"></div>
               </div>
               <div class="twelve columns">
                 <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
                 <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
                 <div class="price">
-                  <span>
-                  <?php 
-                      if(!empty($value["price"]->pri_sale_adult_price)){
-                        
-                        if($value["price"]->pri_discount_adult_price>0){
-
-                          $priceAdultDiscount = number_format($value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price, 0);
-                          $priceAdult = number_format($value["price"]->pri_sale_adult_price, 0);
-                        
-                          echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
-                          echo " บาท";
-
-                        }else{
-                          echo number_format($value["price"]->pri_sale_adult_price, 0);
-                          echo " บาท";
-                        }
-
-                        //text-decoration: line-through; color: #โค้ดสีเส้น;
-
-                      }else{
-                        echo "Call";
-                        echo " บาท";
-                      }
-                    ?>             
-
-                  </span>
+                  5,000 บาท
                 </div>
               </div>
             </div>
@@ -599,7 +675,7 @@
             js.src = "//connect.facebook.net/th_TH/all.js#xfbml=1&appId=357467797616103";
             fjs.parentNode.insertBefore(js, fjs);
           }(document, 'script', 'facebook-jssdk'));</script>
-          <div class="fb-comments" data-href="<?php echo base_url('tour/'.$tour[0]->url.'-'.$tour[0]->id);?>" data-num-posts="20" data-width=""></div>
+          <div class="fb-comments" data-href="<?php echo base_url('hotel/'.$hotel[0]->url.'-'.$hotel[0]->id);?>" data-num-posts="20" data-width=""></div>
         </div>
       </div>
     </div>

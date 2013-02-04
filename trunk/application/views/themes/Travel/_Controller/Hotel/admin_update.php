@@ -38,7 +38,7 @@ $(document).ready(function() {
   
   updateImages();
   function updateImages(){
-            $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:2 },
+            $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:3 },
             function(data) {
               $("#side_bar_block_image").html(data).hide("slow").delay(200).show("slow");
               $(".image_list").mouseover(function() {
@@ -122,7 +122,7 @@ $(document).ready(function() {
       FilesAdded: function(up, files) {
         //autoSave();
         var $uploader = $("#uploader").pluploadQueue();
-        $uploader.settings.multipart_params = {parent_id: $("#id").val(), table_id:2};
+        $uploader.settings.multipart_params = {parent_id: $("#id").val(), table_id:3};
       },
       StateChanged: function(up) {
         // Called when the state of the queue is changed
@@ -279,10 +279,10 @@ $(document).ready(function() {
         var initLatitude = '7.887868';
         var initLongitude = '98.376846';
         <?php
-          if(!empty($tour[0]->latitude)  && !empty($tour[0]->longitude)){
+          if(!empty($hotel[0]->latitude)  && !empty($hotel[0]->longitude)){
        ?>
-          initLatitude = <?php echo $tour[0]->latitude;?>;
-          initLongitude = <?php echo $tour[0]->longitude;?>;
+          initLatitude = <?php echo $hotel[0]->latitude;?>;
+          initLongitude = <?php echo $hotel[0]->longitude;?>;
       <?php
           }
         ?>
@@ -358,25 +358,25 @@ $(document).ready(function() {
 <div class="container_12">
 
   <!-- Form -->
-  <?php echo form_open(base_url("admin/tour/update"),'enctype="multipart/form-data"');?>
+  <?php echo form_open(base_url("admin/hotel/update"),'enctype="multipart/form-data"');?>
   <section class="grid_8">
     <h2 class="section_heading">
       <span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
-        Add Tour Information 
-        [ <a href="<?php echo base_url("admin/tour");?>">list</a> ]  
-        [ <a target="_blank" href="<?php echo !empty($tour[0]->url)?base_url("tour/".$tour[0]->url."-".$tour[0]->id):'';?>">View</a> ]
+        Add Hotel Information 
+        [ <a href="<?php echo base_url("admin/hotel");?>">list</a> ]  
+        [ <a target="_blank" href="<?php echo !empty($hotel[0]->url)?base_url("hotel/".$hotel[0]->url."-".$hotel[0]->id):'';?>">View</a> ]
       </span>
     </h2>
   <br>    
-    <input type="hidden" name="id" id="id" value="<?php echo $tour[0]->id;?>">
-    <!--  Start Tour information -->  
+    <input type="hidden" name="id" id="id" value="<?php echo $hotel[0]->id;?>">
+    <!--  Start Hotel information -->  
 
       <script type="text/javascript">
       $(function(){
         $("#lang").change(function(){
 
           var id = $("#id").val();
-          window.location='http://'+this.value+'.localhostuastravel.com/admin/tour/create/'+id;
+          window.location='http://'+this.value+'.localhostuastravel.com/admin/hotel/create/'+id;
         });
       });
       </script>      
@@ -400,29 +400,33 @@ $(document).ready(function() {
         </select>
       </div>
     <div class="half">
-      <label>Tour Name :</label> <?php echo form_error('name', '<font color="red">', '</font>'); ?>
-      <input type="text" name="name" value="<?php echo !empty($tour[0]->name)?$tour[0]->name:'';?>">
+      <label>Hotel Name :</label> <?php echo form_error('name', '<font color="red">', '</font>'); ?>
+      <input type="text" name="name" value="<?php echo !empty($hotel[0]->name)?$hotel[0]->name:'';?>">
+    </div>    
+    <div class="last half">
+      <label>Star :</label> <?php echo form_error('star', '<font color="red">', '</font>'); ?>
+      <input type="text" name="star" value="<?php echo !empty($hotel[0]->star)?$hotel[0]->star:'';?>">
     </div>
     <div class="clearfix"></div>
 
-    <label>Tour Description : </label> <?php echo form_error('description', '<font color="red">', '</font>'); ?>
-      <textarea cols="30"  class="mceEditor"  rows="150" name="description"><?php echo !empty($tour[0]->description)?$tour[0]->description:'';?></textarea>
+    <label>Hotel Description : </label> <?php echo form_error('description', '<font color="red">', '</font>'); ?>
+      <textarea cols="30"  class="mceEditor"  rows="150" name="description"><?php echo !empty($hotel[0]->description)?$hotel[0]->description:'';?></textarea>
     <div class="clearfix"></div><br>
 
     <label>Short Description : </label> <?php echo form_error('short_description', '<font color="red">', '</font>'); ?>
-      <input type="text" name="short_description" value="<?php echo !empty($tour[0]->short_description)?$tour[0]->short_description:'';?>">
+      <input type="text" name="short_description" value="<?php echo !empty($hotel[0]->short_description)?$hotel[0]->short_description:'';?>">
     <div class="clearfix"></div><br>
 
     <label>Program & Itinerary : </label> <?php echo form_error('detail', '<font color="red">', '</font>'); ?>
-      <textarea cols="30"  class="mceEditor" rows="10" name="detail"><?php echo !empty($tour[0]->detail)?$tour[0]->detail:'';?></textarea>
+      <textarea cols="30"  class="mceEditor" rows="10" name="detail"><?php echo !empty($hotel[0]->detail)?$hotel[0]->detail:'';?></textarea>
     <div class="clearfix"></div>
 
-    <label>Tour included : </label> <?php echo form_error('included', '<font color="red">', '</font>'); ?>
-      <textarea cols="30"  class="mceEditor" rows="10" name="included"><?php echo !empty($tour[0]->included)?$tour[0]->included:'';?></textarea>
+    <label>Hotel included : </label> <?php echo form_error('included', '<font color="red">', '</font>'); ?>
+      <textarea cols="30"  class="mceEditor" rows="10" name="included"><?php echo !empty($hotel[0]->included)?$hotel[0]->included:'';?></textarea>
     <div class="clearfix"></div>
 
-    <label>Tour Remark : </label> 
-      <textarea cols="30"  class="mceEditor" rows="10" name="remark"><?php echo !empty($tour[0]->remark)?$tour[0]->remark:'';?></textarea>
+    <label>Hotel Remark : </label> 
+      <textarea cols="30"  class="mceEditor" rows="10" name="remark"><?php echo !empty($hotel[0]->remark)?$hotel[0]->remark:'';?></textarea>
     <div class="clearfix"></div>
     <br>
 
@@ -472,7 +476,7 @@ $(document).ready(function() {
           <div style="width:100% !important;">            
             <span style='float:left; margin-left:10px; font: 20px Arial, sans-serif; width:auto'>
             <?php echo $valueAgency['agency_name'];?>
-            <input type='hidden' name='agency_tour[<?php echo $count;?>][agency_id]' value='<?php echo $valueAgency["agency_id"];?>'>
+            <input type='hidden' name='agency_hotel[<?php echo $count;?>][agency_id]' value='<?php echo $valueAgency["agency_id"];?>'>
             </span>
             <span style='float:left; margin-left:10px; font: 20px Arial, sans-serif;'>
 
@@ -671,7 +675,7 @@ $(document).ready(function() {
     agency_form += "    <div>";
     agency_form += "      <span style='float:left; margin-left:10px; font: 20px Arial, sans-serif; width:auto'>";
     agency_form += "        [New] "+agency_name;
-    agency_form += "        <input type='hidden' name='agency_tour["+element+"][agency_id]' value='"+agency_id+"'>";
+    agency_form += "        <input type='hidden' name='agency_hotel["+element+"][agency_id]' value='"+agency_id+"'>";
     agency_form += "      </span>";
     agency_form += "      <span style='float:left; margin-left:10px; font: 20px Arial, sans-serif; width:10%'>";
     agency_form += "         <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
@@ -1002,106 +1006,14 @@ $(document).ready(function() {
   </section>
   <!-- End Images -->
   
-  
-  <!-- Sidebar start period-->
-  <section class="simple_sidebar grid_4">
-    <label>Period</label><br>
-  <div class="half" style="width:120px;">
-      <label>Start Month :</label><br>
-      <?php
-        $options = array(
-                          '1'  => 'มกราคม',
-                          '2'  => 'กุมภาพันธ์',
-                          '3'  => 'มีนาคม',
-                          '4'  => 'เมษายน',
-                          '5'  => 'พฤษภาคม',
-                          '6'  => 'มิถุยายน',
-                          '7'  => 'กรกฎาคม',
-                          '8'  => 'สิงหาคม',
-                          '9'  => 'กันยายน',
-                          '10' => 'ตุลาคม',
-                          '11' => 'พฤศจิกายน',
-                          '12' => 'ธันวาคม',
-                        );
-        echo form_dropdown('start_month', $options, $tour[0]->start_month);
-      ?>
-    </div>  
-
-    <div class="half last" style="width:120px;">
-      <label>End Month :</label><br>
-      <?php
-        $options = array(
-                          '1'  => 'มกราคม',
-                          '2'  => 'กุมภาพันธ์',
-                          '3'  => 'มีนาคม',
-                          '4'  => 'เมษายน',
-                          '5'  => 'พฤษภาคม',
-                          '6'  => 'มิถุยายน',
-                          '7'  => 'กรกฎาคม',
-                          '8'  => 'สิงหาคม',
-                          '9'  => 'กันยายน',
-                          '10' => 'ตุลาคม',
-                          '11' => 'พฤศจิกายน',
-                          '12' => 'ธันวาคม',
-                        );
-        echo form_dropdown('end_month', $options, $tour[0]->end_month);
-      ?>
-    </div>          
-    <div class="clearfix"></div>
-  </section>
-  <!-- Sidebar end period-->
-
-
-
-  <!-- Sidebar start time period-->
-  <section class="simple_sidebar grid_4">
-    <label>Time Period</label><br>
-    <div class="half" style="width:120px;">
-      <label>Start time[1] :</label><br>
-      <?php echo form_error('start_time1', '<font color="red">', '</font>'); ?>
-      <input type="text" name="start_time1" id="start_time1" value="<?php echo $tour[0]->start_time1;?>">
-    </div>  
-    <div class="half last" style="width:120px;">
-      <label>End time[1] :</label><br>
-      <?php echo form_error('end_time1', '<font color="red">', '</font>'); ?>
-      <input type="text" name="end_time1" id="end_time1" value="<?php echo $tour[0]->end_time1;?>">
-    </div>          
-    <div class="clearfix"></div>  
-
-    <div class="half" style="width:120px;">
-      <label>Start time[2] :</label><br>
-      <?php echo form_error('start_time2', '<font color="red">', '</font>'); ?>
-      <input type="text" name="start_time2" id="start_time2" value="<?php echo $tour[0]->start_time2;?>">
-    </div>  
-    <div class="half last" style="width:120px;">
-      <label>End time[2] :</label><br>
-      <?php echo form_error('end_time2', '<font color="red">', '</font>'); ?>
-      <input type="text" name="end_time2" id="end_time2" value="<?php echo $tour[0]->end_time2;?>">
-    </div>          
-    <div class="clearfix"></div>
-    
-    <div class="half" style="width:120px;">
-      <label>Start time[3] :</label><br>
-      <?php echo form_error('start_time3', '<font color="red">', '</font>'); ?>
-      <input type="text" name="start_time3" id="start_time3" value="<?php echo $tour[0]->start_time3;?>">
-    </div>  
-    <div class="half last" style="width:120px;">
-      <label>End time[3] :</label><br>
-      <?php echo form_error('end_time3', '<font color="red">', '</font>'); ?>
-      <input type="text" name="end_time3" id="end_time3" value="<?php echo $tour[0]->end_time3;?>">
-    </div>          
-    <div class="clearfix"></div>        
-  </section>
-  <!-- Sidebar end time period-->
-
 
   <!-- Start map -->
   <section class="simple_sidebar grid_4">
         <h3 class="">{_ location_lang_location}</h3>
         <div id="mapCanvas" style="height:300px;"></div>
-        Longitude : <input value="<?php echo set_value('longitude');?>" id="longitude" name="longitude" value="<?php echo $tour[0]->longitude;?>">
+        Longitude : <input value="<?php echo set_value('longitude');?>" id="longitude" name="longitude" value="<?php echo $hotel[0]->longitude;?>">
         <br />
-        Latitude : <input value="<?php echo set_value('latitude');?>" id="latitude" name="latitude" value="<?php echo $tour[0]->latitude;?>">
+        Latitude : <input value="<?php echo set_value('latitude');?>" id="latitude" name="latitude" value="<?php echo $hotel[0]->latitude;?>">
         <br />
         Address : <input value="" id="address" name="address">
   </section>  

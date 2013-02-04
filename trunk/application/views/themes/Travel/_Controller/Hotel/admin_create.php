@@ -1,6 +1,6 @@
 <?php
-echo $this->lang->lang();
-echo "<br>";
+//echo $this->lang->lang();
+//echo "<br>";
 echo base_url();
 $fakeId = rand(100000,999999);
 
@@ -36,7 +36,7 @@ $(document).ready(function() {
   
   updateImages();
   function updateImages(){
-            $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:2 },
+            $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:3 },
             function(data) {
               $("#side_bar_block_image").html(data).hide("slow").delay(200).show("slow");
               $(".image_list").mouseover(function() {
@@ -120,7 +120,7 @@ $(document).ready(function() {
       FilesAdded: function(up, files) {
         //autoSave();
         var $uploader = $("#uploader").pluploadQueue();
-        $uploader.settings.multipart_params = {parent_id: $("#id").val(), table_id:2};
+        $uploader.settings.multipart_params = {parent_id: $("#id").val(), table_id:3};
       },
       StateChanged: function(up) {
         // Called when the state of the queue is changed
@@ -341,7 +341,7 @@ $(document).ready(function() {
 </script>
 
 	
-<?php echo form_open(base_url("admin/tour/create"),'enctype="multipart/form-data"');?>	
+<?php echo form_open(base_url("admin/hotel/create"),'enctype="multipart/form-data"');?>	
 <input type="hidden"  id="id"  name="fakeid"  value="<?php echo $fakeId;?>" />
 <div class="container_12">
 
@@ -350,7 +350,7 @@ $(document).ready(function() {
 		<h2 class="section_heading">
 			<span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
 				Add Tour Information 
-				[ <a href="<?php echo base_url("admin/tour");?>">list</a> ]
+				[ <a href="<?php echo base_url("admin/hotel");?>">list</a> ]
 			</span>			
 		</h2>
 		<br>	
@@ -360,7 +360,7 @@ $(document).ready(function() {
       $(function(){
         $("#lang").change(function(){
 
-          window.location='http://'+this.value+'.localhostuastravel.com/admin/tour/create';
+          window.location='http://'+this.value+'.localhostuastravel.com/admin/hotel/create';
         });
       });
       </script>      
@@ -387,7 +387,11 @@ $(document).ready(function() {
 			<div class="half">
 				<label>Tour Name :</label> <?php echo form_error('name', '<font color="red">', '</font>'); ?>
 				<input type="text" name="name" id="name" value="<?php echo set_value('name');?>">
-			</div>
+			</div>   
+      <div class="last half">
+        <label>Star :</label> <?php echo form_error('star', '<font color="red">', '</font>'); ?>
+        <input type="text" name="star" value="<?php echo !empty($hotel[0]->star)?$hotel[0]->red:'';?>">
+      </div>
 			<div class="clearfix"></div>
 
 			<label>Tour Description : </label> <?php echo form_error('description', '<font color="red">', '</font>'); ?>
@@ -820,7 +824,7 @@ $(document).ready(function() {
     agency_form += "    <div>";
     agency_form += "      <span style='float:left; margin-left:10px; font: 20px Arial, sans-serif; width:auto'>";
     agency_form += "        [New] "+agency_name;
-    agency_form += "        <input type='hidden' name='agency_tour["+element+"][agency_id]' value='"+agency_id+"'>";
+    agency_form += "        <input type='hidden' name='agency_hotel["+element+"][agency_id]' value='"+agency_id+"'>";
     agency_form += "      </span>";
     agency_form += "      <span style='float:left; margin-left:10px; font: 20px Arial, sans-serif; width:10%'>";
     agency_form += "         <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
