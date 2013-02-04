@@ -104,39 +104,39 @@
             <ul class="right">
               <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
               <li class="has-dropdown">
-                <a class="active" href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์</a>
+                <a class="active" href="<?php echo base_url('hotel');?>">แพ๊คเกจทัวร์</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
-                  <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
-                  <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
-                  <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
+                  <li><a href="<?php echo base_url('hotel/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
+                  <li><a href="<?php echo base_url('hotel/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
+                  <li><a href="<?php echo base_url('hotel/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
+                  <li><a href="<?php echo base_url('hotel/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
                 </ul>                
               </li>
               <li class="has-dropdown">
-                <a href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์อื่นๆ</a>
+                <a href="<?php echo base_url('hotel');?>">แพ๊คเกจทัวร์อื่นๆ</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
-                  <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
-                  <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
+                  <li><a href="<?php echo base_url('hotel/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
+                  <li><a href="<?php echo base_url('hotel/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
+                  <li><a href="<?php echo base_url('hotel/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
                 </ul>                
               </li> 
               <li class="has-dropdown">
-                <a href="<?php echo base_url('tour/การเดินทาง');?>">การเดินทาง</a>
+                <a href="<?php echo base_url('hotel/การเดินทาง');?>">การเดินทาง</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
-                  <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
+                  <li><a href="<?php echo base_url('hotel/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
+                  <li><a href="<?php echo base_url('hotel/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
                   <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
                   <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
                 </ul>                
               </li> 
               <li class="has-dropdown">
-                <a href="<?php echo base_url('tour/ที่พัก');?>">ที่พัก</a>
+                <a href="<?php echo base_url('hotel/ที่พัก');?>">ที่พัก</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a></li>
-                  <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
+                  <li><a href="<?php echo base_url('hotel/จองโรงแรม');?>">จองโรงแรม</a></li>
+                  <li><a href="<?php echo base_url('hotel/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                 </ul>                
               </li>
-              <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
+              <li><a href="<?php echo base_url('hotel/โปรโมชั่น');?>">โปรโมชั่น</a></li>
               <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>                
             </ul>
           </section>
@@ -154,17 +154,17 @@
         method="post"
   >
 
-    <input type="hidden" name="toc_tour_id" value="<?php echo $hotel[0]->id;?>">
-    <input type="hidden" name="toc_tour_code" value="<?php echo $hotel[0]->code;?>">
-    <input type="hidden" name="toc_tour_name" value="<?php echo $hotel[0]->name;?>">
-    <input type="hidden" name="toc_tour_url" value="<?php echo $hotel[0]->url;?>">
+    <input type="hidden" name="toc_hotel_id" value="<?php echo $hotel[0]->id;?>">
+    <input type="hidden" name="toc_hotel_code" value="<?php echo $hotel[0]->code;?>">
+    <input type="hidden" name="toc_hotel_name" value="<?php echo $hotel[0]->name;?>">
+    <input type="hidden" name="toc_hotel_url" value="<?php echo $hotel[0]->url;?>">
 
     <!-- Start Content -->
     <div class="row">
 
       <!-- Tour Information -->
       <div class="eight columns">
-        <div class="box_white_in_columns article_tour">
+        <div class="box_white_in_columns article_hotel">
           <div class="row">
             <div class="twelve columns">
               <h3 style="color:#FE5214;">
@@ -209,37 +209,37 @@
               <div class="row">
                 <div class="six columns">
                   <label>
-                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_price_id]" 
+                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_price_id]" 
                     value="<?php echo $value["prh_id"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_agency_id]" 
+                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_agency_id]" 
                     value="<?php echo $value["prh_agency_id"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_tour_id]" 
-                    value="<?php echo $value["prh_tour_id"];?>"
+                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_hotel_id]" 
+                    value="<?php echo $value["prh_hotel_id"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_adult_amount_booking]" 
+                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_adult_amount_booking]" 
                     value='<?php echo ($value["prh_adult_amount_booking"]>0)?$value["prh_adult_amount_booking"]:"0";?>'
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_child_amount_booking]" 
+                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_child_amount_booking]" 
                     value='<?php echo ($value["prh_child_amount_booking"]>0)?$value["prh_child_amount_booking"]:"0";?>'
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_price_name]" 
+                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_price_name]" 
                     value="<?php echo $value["prh_name"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_sale_adult_price]" 
+                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_sale_adult_price]" 
                     value="<?php echo $value["prh_sale_adult_price"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_sale_child_price]" 
+                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_sale_child_price]" 
                     value="<?php echo $value["prh_sale_child_price"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_total_adult_price]" 
+                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_total_adult_price]" 
                     value="<?php echo $value["prh_total_adult_price"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_total_child_price]" 
+                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_total_child_price]" 
                     value="<?php echo $value["prh_total_child_price"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_total_price]" 
+                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_total_price]" 
                     value="<?php echo $value["prh_total_price"];?>"
                     >
                     <?php echo $value["prh_name"];?>
@@ -297,7 +297,7 @@
             <div class="row">
               <div class="six columns">
                 <label>ชื่อ</label>
-                <input type="text" placeholder="Firstname" id="toc_firstname" name="toc_firstname" value="<?php echo set_value('tob_firstname');?>"/>
+                <input type="text" placeholder="Firstname" id="toc_firstname" name="toc_firstname" value="<?php echo set_value('toh_firstname');?>"/>
               </div>
               <div class="six columns">
                 <label>นามสกุล</label>
@@ -308,7 +308,7 @@
             <input type="text" class="twelve" placeholder="Address" id="toc_address" name="toc_address"/>
             <div class="row">
               <div class="six columns">
-                <input type="text" placeholder="City"  id="tob_city" name="toc_city"/>
+                <input type="text" placeholder="City"  id="toh_city" name="toc_city"/>
               </div>
               <div class="three columns">
                 <input type="text" placeholder="Province/State"  id="toc_province" name="toc_province"/>
@@ -447,15 +447,15 @@
       <div class="list_packet">
         <div class="row">
           <div class="twelve columns">              
-            <a href="<?php echo $value["tour"]->tou_url."-".$value["tour"]->tou_id; ?>">
+            <a href="<?php echo $value["tour"]->tout_url."-".$value["tour"]->tou_id; ?>">
               <img src="<?php echo $value["tour"]->tou_banner_image; ?>">
             </a>
           </div>
           <div class="twelve columns">
-            <div class="title_tour">
+            <div class="title_hotel">
               <h4>
-                <a href="<?php echo $value["tour"]->tou_url."-".$value["tour"]->tou_id; ?>">
-                  <?php echo $value["tour"]->tou_name; ?>
+                <a href="<?php echo $value["tour"]->tout_url."-".$value["tour"]->tou_id; ?>">
+                  <?php echo $value["tour"]->tout_name; ?>
                 </a>
               </h4>
             </div>
@@ -473,18 +473,18 @@
             <div class="price">
               <span>
               <?php 
-                  if(!empty($value["price"]->prh_sale_adult_price)){
+                  if(!empty($value["price"]->pri_sale_adult_price)){
                     
-                    if($value["price"]->prh_discount_adult_price>0){
+                    if($value["price"]->pri_discount_adult_price>0){
 
-                      $priceAdultDiscount = number_format($value["price"]->prh_sale_adult_price - $value["price"]->prh_discount_adult_price, 0);
-                      $priceAdult = number_format($value["price"]->prh_sale_adult_price, 0);
+                      $priceAdultDiscount = number_format($value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price, 0);
+                      $priceAdult = number_format($value["price"]->pri_sale_adult_price, 0);
                     
                       echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
                       echo " บาท";
 
                     }else{
-                      echo number_format($value["price"]->prh_sale_adult_price, 0);
+                      echo number_format($value["price"]->pri_sale_adult_price, 0);
                       echo " บาท";
                     }
 
