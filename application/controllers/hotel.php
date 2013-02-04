@@ -751,10 +751,7 @@ class Hotel extends MY_Controller {
 
 
       //print_r($data);  exit;
-  
 
-
-      print_r($args["pricehotel_id"]); exit;
       //Price compute
       if(!empty($args["pricehotel_id"])){
         $this->load->model("pricehotel_model", "pricehotelModel");
