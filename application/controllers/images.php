@@ -7,10 +7,14 @@ class Images extends MY_Controller {
   
   function ajax_list(){
     $_post = $this->input->post();
+
+    //print_r($_post); exit;
     if(!isset($_post) OR empty($_post)){
       return "Error";
     }
     $result["images"] = $this->imagesModel->get($_post);
+
+      //echo $this->db->last_query(); exit;
     return $this->_fetch('ajax_list',$result,FALSE,TRUE);
   }
   

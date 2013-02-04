@@ -1,16 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class TagTour_model extends MY_Model {
+class Taghotel_model extends MY_Model {
   function __construct(){
     parent::__construct();
     $this->_prefix = "tat";
     $this->_column = array(
-                     'id'                => 'tat_id',
-                     'tag_id'            => 'tat_tag_id',
-                     'tour_id'           => 'tat_tour_id',
-                     'cr_date'           => 'tat_cr_date',
-                     'cr_uid'            => 'tat_cr_uid',
-                     'lu_date'           => 'tat_lu_date',
-                     'lu_uid'            => 'tat_lu_uid' 
+                     'id'                => 'tah_id',
+                     'tag_id'            => 'tah_tag_id',
+                     'hotel_id'          => 'tah_hotel_id',
+                     'cr_date'           => 'tah_cr_date',
+                     'cr_uid'            => 'tah_cr_uid',
+                     'lu_date'           => 'tah_lu_date',
+                     'lu_uid'            => 'tah_lu_uid' 
     );
   }
  
@@ -34,16 +34,16 @@ class TagTour_model extends MY_Model {
 
     $count = 0;
     if(!empty($args["tag_id"]) && !empty($args["join"])  && !empty($args["in"]) ){
-      $this->db->select('COUNT(tat_tour_id) AS count_tour');
-      $this->db->from('ci_tagtour');
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
-      $this->db->where_in('tat_tag_id', $args["tag_id"]); 
+      $this->db->select('COUNT(tah_hotel_id) AS count_hotel');
+      $this->db->from('ci_taghotel');
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+      $this->db->join('ci_hotel', 'ci_hotel.hot_id = ci_taghotel.tah_hotel_id');         
+      $this->db->where_in('tah_tag_id', $args["tag_id"]); 
       $query = $this->db->get();
       $count = $query->result(); 
-      return $count[0]->count_tour;
+      return $count[0]->count_hotel;
     }else{  
-      $count = $this->db->count_all('ci_tagtour');
+      $count = $this->db->count_all('ci_taghotel');
       return $count;
     }
 
@@ -53,58 +53,58 @@ class TagTour_model extends MY_Model {
 
   function getRecordFirstpage($args=false){
 
-     //Get distinct tour_id from ci_tagtour
-      $this->db->select('tat_tour_id');
-      $this->db->distinct("tat_tour_id");
-      $this->db->where_in('tat_tag_id', $args["menu"]);
-      //$this->db->where('tat_tag_id', $args["tag_id"]);  
-      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
-      $this->db->order_by('tat_tour_id DESC');  
+     //Get distinct hotel_id from ci_taghotel
+      $this->db->select('tah_hotel_id');
+      $this->db->distinct("tah_hotel_id");
+      $this->db->where_in('tah_tag_id', $args["menu"]);
+      //$this->db->where('tah_tag_id', $args["tag_id"]);  
+      $this->db->join('ci_hotel', 'ci_hotel.hot_id = ci_taghotel.tah_hotel_id');         
+      $this->db->order_by('tah_hotel_id DESC');  
       if($args["per_page"] > -1 && $args["offset"] > -1){
         $this->db->limit($args["per_page"], $args["offset"]);
       }
-      $tour = $this->db->get('ci_tagtour')->result(); 
+      $hotel = $this->db->get('ci_taghotel')->result(); 
 
 
-      //print_r($tour); exit;
+      //print_r($hotel); exit;
       $count = 0;
-      foreach ($tour as $key => $value) {
+      foreach ($hotel as $key => $value) {
 
-        //Get tour data
+        //Get hotel data
         unset($this->db);
-        //$this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-        $this->db->where('tou_id', $value->tat_tour_id);  
-        $this->db->where('tou_display', 1);    
-        $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
-        $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
-        $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');  
-        $tourBuffer = $this->db->get('ci_tour')->result();
+        //$this->db->select('hot_id, hot_name, hot_code, hot_url, hot_first_image, hot_banner_image');
+        $this->db->where('hot_id', $value->tah_hotel_id);  
+        $this->db->where('hot_display', 1);    
+        $this->db->where('ci_hotel_translate.hott_lang', $this->lang->lang());
+        $this->db->join('ci_hotel_translate', 'ci_hotel_translate.hott_hotel_id = ci_hotel.hot_id');
+        $this->db->order_by('CONVERT( hott_name USING tis620 ) ASC');  
+        $hotelBuffer = $this->db->get('ci_hotel')->result();
 
 
 
-        if(!empty($tourBuffer)){
-          $result[$count]["tour"] = $tourBuffer[0];
+        if(!empty($hotelBuffer)){
+          $result[$count]["hotel"] = $hotelBuffer[0];
 
           //Get tag data
           unset($this->db);
-          $this->db->where('tat_tour_id', $value->tat_tour_id);
-          $this->db->where_in('tat_tag_id', $args["menu"]);
-          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-          $query = $this->db->get('ci_tagtour');
+          $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+          $this->db->where_in('tah_tag_id', $args["menu"]);
+          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+          $query = $this->db->get('ci_taghotel');
           $result[$count]["tag"] = $query->result();
 
           //Get price data
           unset($this->db);
-          $this->db->where('pri_tour_id', $value->tat_tour_id);
-          $priceTour = $this->db->get('ci_price')->result();
+          $this->db->where('prh_hotel_id', $value->tah_hotel_id);
+          $priceTour = $this->db->get('ci_pricehotel')->result();
 
           if(!empty($priceTour)){
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->pri_sale_adult_price > $maxAgencyPrice){
+              if($value->prh_sale_adult_price > $maxAgencyPrice){
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->pri_sale_adult_price;
+                $maxAgencyPrice = $value->prh_sale_adult_price;
               }
             }
           }
@@ -123,51 +123,51 @@ class TagTour_model extends MY_Model {
 
 
   function getRecordByTag($args=false){
-   //Get distinct tour_id from ci_tagtour
-    $this->db->select('tat_tour_id');
-    $this->db->distinct("tat_tour_id");
-    $this->db->where('tat_tag_id', $args["tag_id"]);  
-    $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
-    $this->db->order_by('tat_tour_id DESC');  
+   //Get distinct hotel_id from ci_taghotel
+    $this->db->select('tah_hotel_id');
+    $this->db->distinct("tah_hotel_id");
+    $this->db->where('tah_tag_id', $args["tag_id"]);  
+    $this->db->join('ci_hotel', 'ci_hotel.hot_id = ci_taghotel.tah_hotel_id');         
+    $this->db->order_by('tah_hotel_id DESC');  
     if($args["per_page"] > -1 && $args["offset"] > -1){
       $this->db->limit($args["per_page"], $args["offset"]);
     }
-    $tour = $this->db->get('ci_tagtour')->result(); 
+    $hotel = $this->db->get('ci_taghotel')->result(); 
 
 
     $count = 0;
-    foreach ($tour as $key => $value) {
+    foreach ($hotel as $key => $value) {
 
-      //Get tour data
+      //Get hotel data
       unset($this->db);
-      //$this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-      $this->db->where('tou_id', $value->tat_tour_id);  
-      $this->db->where('tou_display', 1);    
-      $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
-      $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
-      $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');  
-      $tourBuffer = $this->db->get('ci_tour')->result();
+      //$this->db->select('hot_id, hot_name, hot_code, hot_url, hot_first_image, hot_banner_image');
+      $this->db->where('hot_id', $value->tah_hotel_id);  
+      $this->db->where('hot_display', 1);    
+      $this->db->where('ci_hotel_translate.hott_lang', $this->lang->lang());
+      $this->db->join('ci_hotel_translate', 'ci_hotel_translate.hott_hotel_id = ci_hotel.hot_id');
+      $this->db->order_by('CONVERT( hott_name USING tis620 ) ASC');  
+      $hotelBuffer = $this->db->get('ci_hotel')->result();
 
 
 
-      if(!empty($tourBuffer)){
+      if(!empty($hotelBuffer)){
 
-        $result[$count]["tour"] = $tourBuffer[0];
+        $result[$count]["hotel"] = $hotelBuffer[0];
 
         //Get tag data
         unset($this->db);
-        $this->db->where('tat_tour_id', $value->tat_tour_id);
-        $this->db->where_in('tat_tag_id', $args["menu"]);
-        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-        $query = $this->db->get('ci_tagtour');
+        $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+        $this->db->where_in('tah_tag_id', $args["menu"]);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+        $query = $this->db->get('ci_taghotel');
         $result[$count]["tag"] = $query->result();
 
         //Get price data
         unset($this->db);
-        $this->db->where('pri_tour_id', $value->tat_tour_id);
-        //$this->db->where('pri_tour_id', 128);
-        $this->db->order_by('pri_agency_id ASC'); 
-        $priceTour = $this->db->get('ci_price')->result();
+        $this->db->where('prh_hotel_id', $value->tah_hotel_id);
+        //$this->db->where('prh_hotel_id', 128);
+        $this->db->order_by('prh_agency_id ASC'); 
+        $priceTour = $this->db->get('ci_pricehotel')->result();
         //print_r($priceTour);
 
         if(!empty($priceTour)){
@@ -176,21 +176,21 @@ class TagTour_model extends MY_Model {
           $agencyArray = array();
           $countagencyArray = array();
           foreach ($priceTour as $key => $value) {
-            if (isset($agencyArray[$value->pri_agency_id])){
-              $countagencyArray[$value->pri_agency_id]++;
-              $agencyArray[$value->pri_agency_id][] = $value;
+            if (isset($agencyArray[$value->prh_agency_id])){
+              $countagencyArray[$value->prh_agency_id]++;
+              $agencyArray[$value->prh_agency_id][] = $value;
             }else{
-              $countagencyArray[$value->pri_agency_id] = 1;
-              $agencyArray[$value->pri_agency_id][] = $value;
+              $countagencyArray[$value->prh_agency_id] = 1;
+              $agencyArray[$value->prh_agency_id][] = $value;
             }
           }
 
           //Find low price in agency
           $agencyLowPriceArray = array();
           foreach ($agencyArray as $keyAgency => $valueAgency) {
-            $agencyLowPrice = $valueAgency[0]->pri_sale_adult_price;
+            $agencyLowPrice = $valueAgency[0]->prh_sale_adult_price;
             foreach ($valueAgency as $key => $value) {
-              if($value->pri_sale_adult_price <= $agencyLowPrice){
+              if($value->prh_sale_adult_price <= $agencyLowPrice){
                 $agencyLowPriceArray[$keyAgency] = $value;
               }
             }
@@ -200,9 +200,9 @@ class TagTour_model extends MY_Model {
           $maxAgencyPrice = 0;
           foreach ($agencyLowPriceArray as $key => $value) {
             # code...
-            if($value->pri_sale_adult_price > $maxAgencyPrice){
+            if($value->prh_sale_adult_price > $maxAgencyPrice){
               $result[$count]["price"] = $value;
-              $maxAgencyPrice = $value->pri_sale_adult_price;
+              $maxAgencyPrice = $value->prh_sale_adult_price;
             }
           }
 
@@ -228,59 +228,59 @@ class TagTour_model extends MY_Model {
 
   function getRecordByType($args=false){
 
-    //SELECT tat_tour_id 
-    //FROM ci_tagtour 
-    //WHERE tat_tag_id = 30 
-    //AND tat_tour_id 
-    //IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = 29))
+    //SELECT tah_hotel_id 
+    //FROM ci_taghotel 
+    //WHERE tah_tag_id = 30 
+    //AND tah_hotel_id 
+    //IN((SELECT tah_hotel_id FROM ci_taghotel WHERE tah_tag_id = 29))
 
-    $sql = "SELECT `tat_tour_id` 
-            FROM (`ci_tagtour`) 
-            WHERE `tat_tag_id` = $args[tag_id] 
-            AND tat_tour_id 
-            IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $args[type_id]))
-            ORDER BY tat_tour_id DESC 
+    $sql = "SELECT `tah_hotel_id` 
+            FROM (`ci_taghotel`) 
+            WHERE `tah_tag_id` = $args[tag_id] 
+            AND tah_hotel_id 
+            IN((SELECT tah_hotel_id FROM ci_taghotel WHERE tah_tag_id = $args[type_id]))
+            ORDER BY tah_hotel_id DESC 
             LIMIT $args[offset], $args[per_page]
             ";
 
-    $tour = $this->db->query($sql)->result();
+    $hotel = $this->db->query($sql)->result();
 
-    //print_r($tour); exit;
+    //print_r($hotel); exit;
     $count = 0;
-    foreach ($tour as $key => $value) {
+    foreach ($hotel as $key => $value) {
 
-      //Get tour data
+      //Get hotel data
       unset($this->db);
-      $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-      $this->db->where('tou_lang', $this->lang->lang());
-      $this->db->where('tou_display', 1);
-      $this->db->where('tou_id', $value->tat_tour_id);
-      $query = $this->db->get('ci_tour');
-      $tourBuffer = $query->result(); 
+      $this->db->select('hot_id, hot_name, hot_code, hot_url, hot_first_image, hot_banner_image');
+      $this->db->where('hot_lang', $this->lang->lang());
+      $this->db->where('hot_display', 1);
+      $this->db->where('hot_id', $value->tah_hotel_id);
+      $query = $this->db->get('ci_hotel');
+      $hotelBuffer = $query->result(); 
 
-      if(!empty($tourBuffer)){
-        $result[$count]["tour"] = $tourBuffer[0];
+      if(!empty($hotelBuffer)){
+        $result[$count]["hotel"] = $hotelBuffer[0];
 
         //Get tag data
         unset($this->db);
-        $this->db->where('tat_tour_id', $value->tat_tour_id);
-        $this->db->where_in('tat_tag_id', $args["menu"]);
-        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-        $query = $this->db->get('ci_tagtour');
+        $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+        $this->db->where_in('tah_tag_id', $args["menu"]);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+        $query = $this->db->get('ci_taghotel');
         $result[$count]["tag"] = $query->result();
 
         //Get price data
         unset($this->db);
-        $this->db->where('pri_tour_id', $value->tat_tour_id);
-        $priceTour = $this->db->get('ci_price')->result();
+        $this->db->where('prh_hotel_id', $value->tah_hotel_id);
+        $priceTour = $this->db->get('ci_pricehotel')->result();
 
         if(!empty($priceTour)){
           $maxAgencyPrice = 0;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->pri_sale_adult_price > $maxAgencyPrice){
+            if($value->prh_sale_adult_price > $maxAgencyPrice){
               $result[$count]["price"] = $value;
-              $maxAgencyPrice = $value->pri_sale_adult_price;
+              $maxAgencyPrice = $value->prh_sale_adult_price;
             }
           }
         }
@@ -300,63 +300,63 @@ class TagTour_model extends MY_Model {
 
   function getRecordBySubType($args=false){
 
-    //SELECT tat_tour_id 
-    //FROM ci_tagtour 
-    //WHERE tat_tag_id = 30 
-    //AND tat_tour_id 
-    //IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = 29))
+    //SELECT tah_hotel_id 
+    //FROM ci_taghotel 
+    //WHERE tah_tag_id = 30 
+    //AND tah_hotel_id 
+    //IN((SELECT tah_hotel_id FROM ci_taghotel WHERE tah_tag_id = 29))
 
-    $sql = "SELECT `tat_tour_id` 
-            FROM (`ci_tagtour`) 
-            WHERE `tat_tag_id` = $args[tag_id] 
-            AND tat_tour_id 
-            IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $args[type_id])) 
-            AND tat_tour_id 
-            IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $args[subtype_id]))
-            ORDER BY tat_tour_id DESC 
+    $sql = "SELECT `tah_hotel_id` 
+            FROM (`ci_taghotel`) 
+            WHERE `tah_tag_id` = $args[tag_id] 
+            AND tah_hotel_id 
+            IN((SELECT tah_hotel_id FROM ci_taghotel WHERE tah_tag_id = $args[type_id])) 
+            AND tah_hotel_id 
+            IN((SELECT tah_hotel_id FROM ci_taghotel WHERE tah_tag_id = $args[subtype_id]))
+            ORDER BY tah_hotel_id DESC 
             LIMIT $args[offset], $args[per_page]
             ";
 
-    $tour = $this->db->query($sql)->result();
+    $hotel = $this->db->query($sql)->result();
 
-    //print_r($tour); exit;
+    //print_r($hotel); exit;
     $count = 0;
-    foreach ($tour as $key => $value) {
+    foreach ($hotel as $key => $value) {
 
-      //Get tour data
+      //Get hotel data
       unset($this->db);
-      $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-      $this->db->where('tou_lang', $this->lang->lang());
-      $this->db->where('tou_display', 1);
-      $this->db->where('tou_id', $value->tat_tour_id);
-      $query = $this->db->get('ci_tour');
-      $tourBuffer = $query->result(); 
+      $this->db->select('hot_id, hot_name, hot_code, hot_url, hot_first_image, hot_banner_image');
+      $this->db->where('hot_lang', $this->lang->lang());
+      $this->db->where('hot_display', 1);
+      $this->db->where('hot_id', $value->tah_hotel_id);
+      $query = $this->db->get('ci_hotel');
+      $hotelBuffer = $query->result(); 
 
 
-      if(!empty($tourBuffer)){
+      if(!empty($hotelBuffer)){
 
-        $result[$count]["tour"] = $tourBuffer[0];
+        $result[$count]["hotel"] = $hotelBuffer[0];
 
         //Get tag data
         unset($this->db);
-        $this->db->where('tat_tour_id', $value->tat_tour_id);
-        $this->db->where_in('tat_tag_id', $args["menu"]);
-        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-        $query = $this->db->get('ci_tagtour');
+        $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+        $this->db->where_in('tah_tag_id', $args["menu"]);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+        $query = $this->db->get('ci_taghotel');
         $result[$count]["tag"] = $query->result();
 
         //Get price data
         unset($this->db);
-        $this->db->where('pri_tour_id', $value->tat_tour_id);
-        $priceTour = $this->db->get('ci_price')->result();
+        $this->db->where('prh_hotel_id', $value->tah_hotel_id);
+        $priceTour = $this->db->get('ci_pricehotel')->result();
 
         if(!empty($priceTour)){
           $maxAgencyPrice = 0;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->pri_sale_adult_price > $maxAgencyPrice){
+            if($value->prh_sale_adult_price > $maxAgencyPrice){
               $result[$count]["price"] = $value;
-              $maxAgencyPrice = $value->pri_sale_adult_price;
+              $maxAgencyPrice = $value->prh_sale_adult_price;
             }
           }
         }
@@ -376,7 +376,7 @@ class TagTour_model extends MY_Model {
 
   function getRecordHome($args=false){
 
-    //First tour 
+    //First hotel 
     //$this->db->select('typ_id', 'typ_name');
     $this->db->where('typ_parent_id', 0);  
     $type = $this->db->get('ci_type')->result(); 
@@ -399,102 +399,102 @@ class TagTour_model extends MY_Model {
     foreach ($tag as $key => $value) {
 
       if($args["tag_id"]){
-        $sql = "SELECT `tat_tour_id` 
-                FROM (`ci_tagtour`) 
-                WHERE tat_tag_id = 1 
-                AND tat_tour_id IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $value->tag_id)) 
-                AND tat_tour_id IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $args[tag_id]))  
-                ORDER BY tat_tour_id DESC 
+        $sql = "SELECT `tah_hotel_id` 
+                FROM (`ci_taghotel`) 
+                WHERE tah_tag_id = 1 
+                AND tah_hotel_id IN((SELECT tah_hotel_id FROM ci_taghotel WHERE tah_tag_id = $value->tag_id)) 
+                AND tah_hotel_id IN((SELECT tah_hotel_id FROM ci_taghotel WHERE tah_tag_id = $args[tag_id]))  
+                ORDER BY tah_hotel_id DESC 
                 LIMIT $args[offset], $args[per_page]
                 ";
       }else{
 
-        $sql = "SELECT `tat_tour_id` 
-                FROM (`ci_tagtour`) 
-                WHERE tat_tag_id = 1 
-                AND tat_tour_id IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $value->tag_id)) 
-                ORDER BY tat_tour_id DESC 
+        $sql = "SELECT `tah_hotel_id` 
+                FROM (`ci_taghotel`) 
+                WHERE tah_tag_id = 1 
+                AND tah_hotel_id IN((SELECT tah_hotel_id FROM ci_taghotel WHERE tah_tag_id = $value->tag_id)) 
+                ORDER BY tah_hotel_id DESC 
                 LIMIT $args[offset], $args[per_page]
                 ";
       }
 
-      $tourByTagTemp = $this->db->query($sql)->result();
+      $hotelByTagTemp = $this->db->query($sql)->result();
 
 
-      //print_r($tourByTagTemp); exit;
+      //print_r($hotelByTagTemp); exit;
 
 
-      if(!empty($tourByTagTemp)){
-        $tourByTag[$count]["tour"] = $tourByTagTemp;
-        $tourByTag[$count]["maintag_name"] = $value->tag_name;
-        $tourByTag[$count]["maintag_url"] = $value->tag_url;
+      if(!empty($hotelByTagTemp)){
+        $hotelByTag[$count]["hotel"] = $hotelByTagTemp;
+        $hotelByTag[$count]["maintag_name"] = $value->tag_name;
+        $hotelByTag[$count]["maintag_url"] = $value->tag_url;
         $count++;
       }
     }
 
-    //print_r($tourByTag); exit;
+    //print_r($hotelByTag); exit;
     //Merge array
 
-    if(empty($tourByTag)){
+    if(empty($hotelByTag)){
       return false;    
     }
-    $firsttour = array();
+    $firsthotel = array();
     $count = 0;
-    foreach ($tourByTag as $key => $valueFirst) {
-      foreach ($valueFirst["tour"] as $key => $valueLast) {
-        $firsttour[$count] = new stdClass();
-        $firsttour[$count]->tat_tour_id = $valueLast->tat_tour_id;
-        $firsttour[$count]->maintag_name = $valueFirst["maintag_name"];
-        $firsttour[$count]->maintag_url = $valueFirst["maintag_url"];
+    foreach ($hotelByTag as $key => $valueFirst) {
+      foreach ($valueFirst["hotel"] as $key => $valueLast) {
+        $firsthotel[$count] = new stdClass();
+        $firsthotel[$count]->tah_hotel_id = $valueLast->tah_hotel_id;
+        $firsthotel[$count]->maintag_name = $valueFirst["maintag_name"];
+        $firsthotel[$count]->maintag_url = $valueFirst["maintag_url"];
         $count++;
       }
     }
-    //print_r($firsttour); exit;
+    //print_r($firsthotel); exit;
 
     $count = 0;
-    foreach ($firsttour as $key => $value) {
+    foreach ($firsthotel as $key => $value) {
 
-      //Get tour data
+      //Get hotel data
       unset($this->db);
-      //$this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-      $this->db->where('tou_id', $value->tat_tour_id);  
-      $this->db->where('tou_display', 1);    
-      $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
-      $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
-      $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');  
-      $tourBuffer = $this->db->get('ci_tour')->result();
+      //$this->db->select('hot_id, hot_name, hot_code, hot_url, hot_first_image, hot_banner_image');
+      $this->db->where('hot_id', $value->tah_hotel_id);  
+      $this->db->where('hot_display', 1);    
+      $this->db->where('ci_hotel_translate.hott_lang', $this->lang->lang());
+      $this->db->join('ci_hotel_translate', 'ci_hotel_translate.hott_hotel_id = ci_hotel.hot_id');
+      $this->db->order_by('CONVERT( hott_name USING tis620 ) ASC');  
+      $hotelBuffer = $this->db->get('ci_hotel')->result();
 
 
 
 
-      if(!empty($tourBuffer)){
+      if(!empty($hotelBuffer)){
 
-        $result[$count]["tour"] = $tourBuffer[0]; 
-        $result[$count]["tour"]->maintag_name = $value->maintag_name;
-        $result[$count]["tour"]->maintag_url = $value->maintag_url;
+        $result[$count]["hotel"] = $hotelBuffer[0]; 
+        $result[$count]["hotel"]->maintag_name = $value->maintag_name;
+        $result[$count]["hotel"]->maintag_url = $value->maintag_url;
 
 
         //Get tag data
         unset($this->db);
-        $this->db->where('tat_tour_id', $value->tat_tour_id);
-        $this->db->where_in('tat_tag_id', $args["menu"]);
-        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-        $query = $this->db->get('ci_tagtour');
+        $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+        $this->db->where_in('tah_tag_id', $args["menu"]);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+        $query = $this->db->get('ci_taghotel');
         $result[$count]["tag"] = $query->result();
 
 
         //Get price data
         unset($this->db);
-        $this->db->where('pri_tour_id', $value->tat_tour_id);
-        $priceTour = $this->db->get('ci_price')->result();
+        $this->db->where('prh_hotel_id', $value->tah_hotel_id);
+        $priceTour = $this->db->get('ci_pricehotel')->result();
 
         if(!empty($priceTour)){
           $maxAgencyPrice = 0;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->pri_sale_adult_price > $maxAgencyPrice){
+            if($value->prh_sale_adult_price > $maxAgencyPrice){
               $result[$count]["price"] = $value;
-              $maxAgencyPrice = $value->pri_sale_adult_price;
+              $maxAgencyPrice = $value->prh_sale_adult_price;
             }
           }
         }
@@ -518,11 +518,11 @@ class TagTour_model extends MY_Model {
   function getRecordRelated($args=false){
 
     //header ('Content-type: text/html; charset=utf-8'); 
-    //print_r($args["tour_tag"]); 
+    //print_r($args["hotel_tag"]); 
  
     //Related by type [3 items]
     $this->load->model("type_model", "typeModel");
-    foreach ($args["tour_tag"] as $key => $value) {
+    foreach ($args["hotel_tag"] as $key => $value) {
       if(!empty($value->id)){
 
         $args["not_id"] = 1;
@@ -541,57 +541,57 @@ class TagTour_model extends MY_Model {
 
       $type_id = $query["type"][0]->tag_id;
 
-      $sql = "SELECT DISTINCT `tat_tour_id` 
-              FROM (`ci_tagtour`) JOIN `ci_tour` 
-              ON `ci_tour`.`tou_id` = `ci_tagtour`.`tat_tour_id` 
-              WHERE `tat_tour_id` != $args[tour_id] 
-              AND `tat_tag_id` 
+      $sql = "SELECT DISTINCT `tah_hotel_id` 
+              FROM (`ci_taghotel`) JOIN `ci_hotel` 
+              ON `ci_hotel`.`hot_id` = `ci_taghotel`.`tah_hotel_id` 
+              WHERE `tah_hotel_id` != $args[hotel_id] 
+              AND `tah_tag_id` 
               IN ($type_id) 
               ORDER BY rand() 
               DESC LIMIT $args[mainper_page] ";
 
-      $tour = $this->db->query($sql)->result();
+      $hotel = $this->db->query($sql)->result();
 
       $count = 0;
-      foreach ($tour as $key => $value) {
+      foreach ($hotel as $key => $value) {
 
-        //Get tour data
+        //Get hotel data
 
         unset($this->db);
-        //$this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-        $this->db->where('tou_id', $value->tat_tour_id);  
-        $this->db->where('tou_display', 1);    
-        $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
-        $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
-        $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');  
-        $tourBuffer = $this->db->get('ci_tour')->result();
+        //$this->db->select('hot_id, hot_name, hot_code, hot_url, hot_first_image, hot_banner_image');
+        $this->db->where('hot_id', $value->tah_hotel_id);  
+        $this->db->where('hot_display', 1);    
+        $this->db->where('ci_hotel_translate.hott_lang', $this->lang->lang());
+        $this->db->join('ci_hotel_translate', 'ci_hotel_translate.hott_hotel_id = ci_hotel.hot_id');
+        $this->db->order_by('CONVERT( hott_name USING tis620 ) ASC');  
+        $hotelBuffer = $this->db->get('ci_hotel')->result();
 
 
 
-        if(!empty($tourBuffer)){
-          $result[$count]["tour"] = $tourBuffer[0];
+        if(!empty($hotelBuffer)){
+          $result[$count]["hotel"] = $hotelBuffer[0];
 
           //Get tag data
           unset($this->db);
-          $this->db->where('tat_tour_id', $value->tat_tour_id);
-          $this->db->where_in('tat_tag_id', $args["menu"]);
-          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-          $query = $this->db->get('ci_tagtour');
+          $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+          $this->db->where_in('tah_tag_id', $args["menu"]);
+          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+          $query = $this->db->get('ci_taghotel');
           $result[$count]["tag"] = $query->result();
 
 
           //Get price data
           unset($this->db);
-          $this->db->where('pri_tour_id', $value->tat_tour_id);
-          $priceTour = $this->db->get('ci_price')->result();
+          $this->db->where('prh_hotel_id', $value->tah_hotel_id);
+          $priceTour = $this->db->get('ci_pricehotel')->result();
           
           if(!empty($priceTour)){
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->pri_sale_adult_price > $maxAgencyPrice){
+              if($value->prh_sale_adult_price > $maxAgencyPrice){
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->pri_sale_adult_price;
+                $maxAgencyPrice = $value->prh_sale_adult_price;
               }
             }
           }
@@ -617,54 +617,54 @@ class TagTour_model extends MY_Model {
     }
     //print_r($tag_in); exit;
 
-    $sql = "SELECT DISTINCT `tat_tour_id` 
-            FROM (`ci_tagtour`) JOIN `ci_tour` 
-            ON `ci_tour`.`tou_id` = `ci_tagtour`.`tat_tour_id` 
-            WHERE `tat_tour_id` != $args[tour_id] 
-            AND `tat_tag_id` 
+    $sql = "SELECT DISTINCT `tah_hotel_id` 
+            FROM (`ci_taghotel`) JOIN `ci_hotel` 
+            ON `ci_hotel`.`hot_id` = `ci_taghotel`.`tah_hotel_id` 
+            WHERE `tah_hotel_id` != $args[hotel_id] 
+            AND `tah_tag_id` 
             IN ($tag_in) 
             ORDER BY rand() 
             DESC LIMIT $args[per_page] ";
 
-    $tour = $this->db->query($sql)->result();
+    $hotel = $this->db->query($sql)->result();
 
-    foreach ($tour as $key => $value) {
+    foreach ($hotel as $key => $value) {
 
       unset($this->db);
-      //$this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-      $this->db->where('tou_id', $value->tat_tour_id);  
-      $this->db->where('tou_display', 1);    
-      $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
-      $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
-      $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');  
-      $tourBuffer = $this->db->get('ci_tour')->result();
+      //$this->db->select('hot_id, hot_name, hot_code, hot_url, hot_first_image, hot_banner_image');
+      $this->db->where('hot_id', $value->tah_hotel_id);  
+      $this->db->where('hot_display', 1);    
+      $this->db->where('ci_hotel_translate.hott_lang', $this->lang->lang());
+      $this->db->join('ci_hotel_translate', 'ci_hotel_translate.hott_hotel_id = ci_hotel.hot_id');
+      $this->db->order_by('CONVERT( hott_name USING tis620 ) ASC');  
+      $hotelBuffer = $this->db->get('ci_hotel')->result();
 
-      if(!empty($tourBuffer)){
+      if(!empty($hotelBuffer)){
 
-        $result[$count]["tour"] = $tourBuffer[0];
+        $result[$count]["hotel"] = $hotelBuffer[0];
 
 
         //Get tag data
         unset($this->db);
-        $this->db->where('tat_tour_id', $value->tat_tour_id);
-        $this->db->where_in('tat_tag_id', $args["menu"]);
-        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-        $query = $this->db->get('ci_tagtour');
+        $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+        $this->db->where_in('tah_tag_id', $args["menu"]);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+        $query = $this->db->get('ci_taghotel');
         $result[$count]["tag"] = $query->result();
 
 
         //Get price data
         unset($this->db);
-        $this->db->where('pri_tour_id', $value->tat_tour_id);
-        $priceTour = $this->db->get('ci_price')->result();
+        $this->db->where('prh_hotel_id', $value->tah_hotel_id);
+        $priceTour = $this->db->get('ci_pricehotel')->result();
 
         if(!empty($priceTour)){
           $maxAgencyPrice = 0;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->pri_sale_adult_price > $maxAgencyPrice){
+            if($value->prh_sale_adult_price > $maxAgencyPrice){
               $result[$count]["price"] = $value;
-              $maxAgencyPrice = $value->pri_sale_adult_price;
+              $maxAgencyPrice = $value->prh_sale_adult_price;
             }
           }
         }
@@ -688,13 +688,13 @@ class TagTour_model extends MY_Model {
   function getRecord($args=false){
     //print_r($args); exit;
 
-    if(!empty($args["tag_id"]) && !empty($args["tour_id"]) && empty($args["join"]) && empty($args["firstpage"])  && empty($args["related"])){
+    if(!empty($args["tag_id"]) && !empty($args["hotel_id"]) && empty($args["join"]) && empty($args["firstpage"])  && empty($args["related"])){
       //Get category by name
 
-      $data["tat_tag_id"] = $args["tag_id"];
-      $data["tat_tour_id"] = $args["tour_id"];
+      $data["tah_tag_id"] = $args["tag_id"];
+      $data["tah_hotel_id"] = $args["hotel_id"];
 
-      $query = $this->db->get_where('ci_tagtour', $data);
+      $query = $this->db->get_where('ci_taghotel', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
         return $newResult;
@@ -703,60 +703,61 @@ class TagTour_model extends MY_Model {
       }
     }else if(!empty($args["tag_id"]) && !empty($args["join"]) && !empty($args["firstpage"])){
 
-      //First tour 
-      $this->db->select('tat_tour_id, tat_tag_id');
-      $this->db->where('tat_tag_id', 1);
-      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');   
+      //First hotel 
+      $this->db->select('tah_hotel_id, tah_tag_id');
+      $this->db->where('tah_tag_id', 1);
+      $this->db->join('ci_hotel', 'ci_hotel.hot_id = ci_taghotel.tah_hotel_id');   
       if($args["per_page"] > -1 && $args["offset"] > -1){
         $this->db->limit($args["per_page"], $args["offset"]);
       }  
-      $firsttour = $this->db->get('ci_tagtour')->result(); 
-      if(!empty($firsttour)){
+      $firsthotel = $this->db->get('ci_taghotel')->result(); 
+      if(!empty($firsthotel)){
 
         $count = 0;
-        foreach ($firsttour as $key => $value) {
-          //Get tour data
+        foreach ($firsthotel as $key => $value) {
+          //Get hotel data
           unset($this->db);
-          $this->db->select('tat_tour_id, tat_tag_id');
-          $this->db->where('tat_tour_id', $value->tat_tour_id);
-          $this->db->where('tat_tag_id', $args["tag_id"]);  
-          $firsttagtourBuffer = $this->db->get('ci_tagtour')->result();
-          if(!empty($firsttagtourBuffer)){
-            $firsttagtour[] = $firsttagtourBuffer[0];
+          $this->db->select('tah_hotel_id, tah_tag_id');
+          $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+          $this->db->where('tah_tag_id', $args["tag_id"]);  
+          $firsttaghotelBuffer = $this->db->get('ci_taghotel')->result();
+          if(!empty($firsttaghotelBuffer)){
+            $firsttaghotel[] = $firsttaghotelBuffer[0];
           }
         }
 
-        if(!empty($firsttagtour)){
+        if(!empty($firsttaghotel)){
           $count = 0;
-          foreach ($firsttagtour as $key => $value) {
+          foreach ($firsttaghotel as $key => $value) {
 
-            //Get tour data
+            //Get hotel data
             unset($this->db);
-            $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-            $this->db->where('tou_lang', $this->lang->lang());
-            $this->db->where('tou_display', 1);
-            $this->db->where('tou_id', $value->tat_tour_id);
-            $query = $this->db->get('ci_tour');
-            $tourBuffer = $query->result(); 
+
+            $this->db->where('hot_id', $value->tah_hotel_id);  
+            $this->db->where('hot_display', 1);    
+            $this->db->where('ci_hotel_translate.hott_lang', $this->lang->lang());
+            $this->db->join('ci_hotel_translate', 'ci_hotel_translate.hott_hotel_id = ci_hotel.hot_id');
+            $this->db->order_by('CONVERT( hott_name USING tis620 ) ASC');  
+            $hotelBuffer = $this->db->get('ci_hotel')->result();            
 
 
 
-            if(!empty($tourBuffer)){            
-              $result[$count]["tour"] = $tourBuffer[0];
+            if(!empty($hotelBuffer)){            
+              $result[$count]["hotel"] = $hotelBuffer[0];
 
 
               //Get tag data
               unset($this->db);
-              $this->db->where('tat_tour_id', $value->tat_tour_id);
-              $this->db->where_in('tat_tag_id', $args["menu"]);
-              $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-              $query = $this->db->get('ci_tagtour');
+              $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+              $this->db->where_in('tah_tag_id', $args["menu"]);
+              $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+              $query = $this->db->get('ci_taghotel');
               $result[$count]["tag"] = $query->result();
 
               //Get price data
               unset($this->db);
-              $this->db->where('pri_tour_id', $value->tat_tour_id);
-              $priceTour = $this->db->get('ci_price')->result();
+              $this->db->where('prh_hotel_id', $value->tah_hotel_id);
+              $priceTour = $this->db->get('ci_pricehotelhotel')->result();
 
               if(!empty($priceTour)){
                 $maxAgencyPrice = 0;
@@ -764,7 +765,7 @@ class TagTour_model extends MY_Model {
                   # code...
                   if($value->agt_sale_adult_price > $maxAgencyPrice){
                     $result[$count]["price"] = $value;
-                    $maxAgencyPrice = $value->pri_sale_adult_price;
+                    $maxAgencyPrice = $value->prh_sale_adult_price;
                   }
                 }
               }
@@ -804,56 +805,56 @@ class TagTour_model extends MY_Model {
       }
       //print_r($tag_in); exit;
 
-      $sql = "SELECT DISTINCT `tat_tour_id` 
-              FROM (`ci_tagtour`) JOIN `ci_tour` 
-              ON `ci_tour`.`tou_id` = `ci_tagtour`.`tat_tour_id` 
-              WHERE `tat_tour_id` != $args[tour_id] 
-              AND `tat_tag_id` 
+      $sql = "SELECT DISTINCT `tah_hotel_id` 
+              FROM (`ci_taghotel`) JOIN `ci_hotel` 
+              ON `ci_hotel`.`hot_id` = `ci_taghotel`.`tah_hotel_id` 
+              WHERE `tah_hotel_id` != $args[hotel_id] 
+              AND `tah_tag_id` 
               IN ($tag_in) 
               ORDER BY rand() 
               DESC LIMIT $args[per_page] ";
 
-      $tour = $this->db->query($sql)->result();
+      $hotel = $this->db->query($sql)->result();
        
 
       $count = 0;
-      foreach ($tour as $key => $value) {
+      foreach ($hotel as $key => $value) {
 
-        //Get tour data
+        //Get hotel data
         unset($this->db);
-        $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-        $this->db->where('tou_lang', $this->lang->lang());
-        $this->db->where('tou_display', 1);
-        $this->db->where('tou_id', $value->tat_tour_id);
-        $query = $this->db->get('ci_tour');
-        $tourBuffer = $query->result(); 
+        $this->db->select('hot_id, hot_name, hot_code, hot_url, hot_first_image, hot_banner_image');
+        $this->db->where('hot_lang', $this->lang->lang());
+        $this->db->where('hot_display', 1);
+        $this->db->where('hot_id', $value->tah_hotel_id);
+        $query = $this->db->get('ci_hotel');
+        $hotelBuffer = $query->result(); 
 
 
-        if(!empty($tourBuffer)){        
-          $result[$count]["tour"] = $tourBuffer[0];
+        if(!empty($hotelBuffer)){        
+          $result[$count]["hotel"] = $hotelBuffer[0];
 
 
           //Get tag data
           unset($this->db);
-          $this->db->where('tat_tour_id', $value->tat_tour_id);
-          $this->db->where_in('tat_tag_id', $args["menu"]);
-          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-          $query = $this->db->get('ci_tagtour');
+          $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+          $this->db->where_in('tah_tag_id', $args["menu"]);
+          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+          $query = $this->db->get('ci_taghotel');
           $result[$count]["tag"] = $query->result();
 
 
           //Get price data
           unset($this->db);
-          $this->db->where('pri_tour_id', $value->tat_tour_id);
-          $priceTour = $this->db->get('ci_price')->result();
+          $this->db->where('prh_hotel_id', $value->tah_hotel_id);
+          $priceTour = $this->db->get('ci_pricehotel')->result();
 
           if(!empty($priceTour)){
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->pri_sale_adult_price > $maxAgencyPrice){
+              if($value->prh_sale_adult_price > $maxAgencyPrice){
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->pri_sale_adult_price;
+                $maxAgencyPrice = $value->prh_sale_adult_price;
               }
             }
           }
@@ -870,56 +871,56 @@ class TagTour_model extends MY_Model {
 
     }else if(!empty($args["tag_id"]) && !empty($args["join"]) && !empty($args["in"])){
 
-      //Get distinct tour_id from ci_tagtour
-      $this->db->select('tat_tour_id');
-      $this->db->distinct("tat_tour_id");
-      $this->db->where_in('tat_tag_id', $args["tag_id"]);  
-      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
-      $this->db->order_by('tat_tour_id DESC');  
+      //Get distinct hotel_id from ci_taghotel
+      $this->db->select('tah_hotel_id');
+      $this->db->distinct("tah_hotel_id");
+      $this->db->where_in('tah_tag_id', $args["tag_id"]);  
+      $this->db->join('ci_hotel', 'ci_hotel.hot_id = ci_taghotel.tah_hotel_id');         
+      $this->db->order_by('tah_hotel_id DESC');  
       if($args["per_page"] > -1 && $args["offset"] > -1){
         $this->db->limit($args["per_page"], $args["offset"]);
       }
-      $tour = $this->db->get('ci_tagtour')->result(); 
+      $hotel = $this->db->get('ci_taghotel')->result(); 
 
 
       $count = 0;
-      foreach ($tour as $key => $value) {
+      foreach ($hotel as $key => $value) {
 
-        //Get tour data
+        //Get hotel data
         unset($this->db);
-        $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-        $this->db->where('tou_lang', $this->lang->lang());
-        $this->db->where('tou_display', 1);
-        $this->db->where('tou_id', $value->tat_tour_id);
-        $query = $this->db->get('ci_tour');
-        $tourBuffer = $query->result(); 
+        $this->db->select('hot_id, hot_name, hot_code, hot_url, hot_first_image, hot_banner_image');
+        $this->db->where('hot_lang', $this->lang->lang());
+        $this->db->where('hot_display', 1);
+        $this->db->where('hot_id', $value->tah_hotel_id);
+        $query = $this->db->get('ci_hotel');
+        $hotelBuffer = $query->result(); 
 
 
 
-        if(!empty($tourBuffer)){
-          $result[$count]["tour"] = $tourBuffer[0];
+        if(!empty($hotelBuffer)){
+          $result[$count]["hotel"] = $hotelBuffer[0];
 
 
           //Get tag data
           unset($this->db);
-          $this->db->where('tat_tour_id', $value->tat_tour_id);
-          $this->db->where_in('tat_tag_id', $args["menu"]);
-          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-          $query = $this->db->get('ci_tagtour');
+          $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+          $this->db->where_in('tah_tag_id', $args["menu"]);
+          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+          $query = $this->db->get('ci_taghotel');
           $result[$count]["tag"] = $query->result();
 
           //Get price data
           unset($this->db);
-          $this->db->where('pri_tour_id', $value->tat_tour_id);
-          $priceTour = $this->db->get('ci_price')->result();
+          $this->db->where('prh_hotel_id', $value->tah_hotel_id);
+          $priceTour = $this->db->get('ci_pricehotel')->result();
 
           if(!empty($priceTour)){
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->pri_sale_adult_price > $maxAgencyPrice){
+              if($value->prh_sale_adult_price > $maxAgencyPrice){
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->pri_sale_adult_price;
+                $maxAgencyPrice = $value->prh_sale_adult_price;
               }
             }
           }
@@ -938,54 +939,54 @@ class TagTour_model extends MY_Model {
 
       //echo "home"; exit;
 
-      //Get distinct tour_id from ci_tagtour
-      $this->db->select('tat_tour_id');
-      $this->db->distinct("tat_tour_id");
-      $this->db->where('tat_tag_id', $args["tag_id"]);  
-      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
-      $this->db->order_by('tat_tour_id DESC');  
+      //Get distinct hotel_id from ci_taghotel
+      $this->db->select('tah_hotel_id');
+      $this->db->distinct("tah_hotel_id");
+      $this->db->where('tah_tag_id', $args["tag_id"]);  
+      $this->db->join('ci_hotel', 'ci_hotel.hot_id = ci_taghotel.tah_hotel_id');         
+      $this->db->order_by('tah_hotel_id DESC');  
       if($args["per_page"] > -1 && $args["offset"] > -1){
         $this->db->limit($args["per_page"], $args["offset"]);
       }
-      $tour = $this->db->get('ci_tagtour')->result(); 
+      $hotel = $this->db->get('ci_taghotel')->result(); 
 
 
       $count = 0;
-      foreach ($tour as $key => $value) {
+      foreach ($hotel as $key => $value) {
 
-        //Get tour data
+        //Get hotel data
         unset($this->db);
-        $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-        $this->db->where('tou_lang', $this->lang->lang());
-        $this->db->where('tou_display', 1);
-        $this->db->where('tou_id', $value->tat_tour_id);
-        $query = $this->db->get('ci_tour');
-        $tourBuffer = $query->result(); 
+        $this->db->select('hot_id, hot_name, hot_code, hot_url, hot_first_image, hot_banner_image');
+        $this->db->where('hot_lang', $this->lang->lang());
+        $this->db->where('hot_display', 1);
+        $this->db->where('hot_id', $value->tah_hotel_id);
+        $query = $this->db->get('ci_hotel');
+        $hotelBuffer = $query->result(); 
 
 
-        if(!empty($tourBuffer)){
-          $result[$count]["tour"] = $tourBuffer[0];
+        if(!empty($hotelBuffer)){
+          $result[$count]["hotel"] = $hotelBuffer[0];
 
 
           //Get tag data
           unset($this->db);
-          $this->db->where('tat_tour_id', $value->tat_tour_id);
-          $this->db->where_in('tat_tag_id', $args["menu"]);
-          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-          $result[$count]["tag"]  = $this->db->get('ci_tagtour')->result();
+          $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+          $this->db->where_in('tah_tag_id', $args["menu"]);
+          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+          $result[$count]["tag"]  = $this->db->get('ci_taghotel')->result();
 
           //Get tag not in menu
           unset($this->db);
-          $this->db->where('tat_tour_id', $value->tat_tour_id);
-          $this->db->where_not_in('tat_tag_id', $args["menu"]);
-          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-          //$this->db->join('ci_tagtype', 'ci_tagtype.tty_tag_id = ci_tagtour.tat_tag_id');
-          $alltag_not_menu = $this->db->get('ci_tagtour')->result();
+          $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+          $this->db->where_not_in('tah_tag_id', $args["menu"]);
+          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+          //$this->db->join('ci_tagtype', 'ci_tagtype.tty_tag_id = ci_taghotel.tah_tag_id');
+          $alltag_not_menu = $this->db->get('ci_taghotel')->result();
 
           //print_r($alltag_not_menu);
           foreach ($alltag_not_menu as $key => $value) {
 
-            $this->db->where('tty_tag_id', $value->tat_tag_id);
+            $this->db->where('tty_tag_id', $value->tah_tag_id);
             $this->db->join('ci_type', 'ci_type.typ_id = ci_tagtype.tty_type_id');
             $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
             $typeTemp = $this->db->get('ci_tagtype')->result();
@@ -998,16 +999,16 @@ class TagTour_model extends MY_Model {
 
           //Get price data
           unset($this->db);
-          $this->db->where('pri_tour_id', $value->tat_tour_id);
-          $priceTour = $this->db->get('ci_price')->result();
+          $this->db->where('prh_hotel_id', $value->tah_hotel_id);
+          $priceTour = $this->db->get('ci_pricehotel')->result();
 
           if(!empty($priceTour)){
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->pri_sale_adult_price > $maxAgencyPrice){
+              if($value->prh_sale_adult_price > $maxAgencyPrice){
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->pri_sale_adult_price;
+                $maxAgencyPrice = $value->prh_sale_adult_price;
               }
             }
           }
@@ -1027,57 +1028,57 @@ class TagTour_model extends MY_Model {
 
       //echo "home"; exit;
 
-      //Get distinct tour_id from ci_tagtour
-      $this->db->select('tat_tour_id');
-      $this->db->distinct("tat_tour_id");
-      $this->db->where('tat_tag_id', $args["tag_id"]);  
-      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');         
-      $this->db->order_by('tat_tour_id DESC');  
+      //Get distinct hotel_id from ci_taghotel
+      $this->db->select('tah_hotel_id');
+      $this->db->distinct("tah_hotel_id");
+      $this->db->where('tah_tag_id', $args["tag_id"]);  
+      $this->db->join('ci_hotel', 'ci_hotel.hot_id = ci_taghotel.tah_hotel_id');         
+      $this->db->order_by('tah_hotel_id DESC');  
       if($args["per_page"] > -1 && $args["offset"] > -1){
         $this->db->limit($args["per_page"], $args["offset"]);
       }
-      $tour = $this->db->get('ci_tagtour')->result(); 
+      $hotel = $this->db->get('ci_taghotel')->result(); 
 
 
       $count = 0;
-      foreach ($tour as $key => $value) {
+      foreach ($hotel as $key => $value) {
 
-        //Get tour data
+        //Get hotel data
         unset($this->db);
-        $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-        $this->db->where('tou_lang', $this->lang->lang());
-        $this->db->where('tou_display', 1);
-        $this->db->where('tou_id', $value->tat_tour_id);
-        $query = $this->db->get('ci_tour');
-        $tourBuffer = $query->result(); 
+        $this->db->select('hot_id, hot_name, hot_code, hot_url, hot_first_image, hot_banner_image');
+        $this->db->where('hot_lang', $this->lang->lang());
+        $this->db->where('hot_display', 1);
+        $this->db->where('hot_id', $value->tah_hotel_id);
+        $query = $this->db->get('ci_hotel');
+        $hotelBuffer = $query->result(); 
 
 
 
-        if(!empty($tourBuffer)){        
-          $result[$count]["tour"] = $tourBuffer[0];
+        if(!empty($hotelBuffer)){        
+          $result[$count]["hotel"] = $hotelBuffer[0];
 
 
           //Get tag data
           unset($this->db);
-          $this->db->where('tat_tour_id', $value->tat_tour_id);
-          $this->db->where_in('tat_tag_id', $args["menu"]);
-          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-          $query = $this->db->get('ci_tagtour');
+          $this->db->where('tah_hotel_id', $value->tah_hotel_id);
+          $this->db->where_in('tah_tag_id', $args["menu"]);
+          $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+          $query = $this->db->get('ci_taghotel');
           $result[$count]["tag"] = $query->result();
 
 
           //Get price data
           unset($this->db);
-          $this->db->where('pri_tour_id', $value->tat_tour_id);
-          $priceTour = $this->db->get('ci_price')->result();
+          $this->db->where('prh_hotel_id', $value->tah_hotel_id);
+          $priceTour = $this->db->get('ci_pricehotel')->result();
 
           if(!empty($priceTour)){
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->pri_sale_adult_price > $maxAgencyPrice){
+              if($value->prh_sale_adult_price > $maxAgencyPrice){
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->pri_sale_adult_price;
+                $maxAgencyPrice = $value->prh_sale_adult_price;
               }
             }
           }
@@ -1096,8 +1097,8 @@ class TagTour_model extends MY_Model {
     }else if(!empty($args["tag_id"])){
       //Get category by name
       //print_r($args); exit;
-      $data["tat_tag_id"] = $args["tag_id"];      
-      $query = $this->db->get_where('ci_tagtour', $data);   
+      $data["tah_tag_id"] = $args["tag_id"];      
+      $query = $this->db->get_where('ci_taghotel', $data);   
 
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -1107,11 +1108,11 @@ class TagTour_model extends MY_Model {
         return false;
       }
 
-    }else if(!empty($args["tour_id"]) && !empty($args["join"])){
+    }else if(!empty($args["hotel_id"]) && !empty($args["join"])){
 
-      $this->db->where('tat_tour_id', $args["tour_id"]);
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-      $query = $this->db->get('ci_tagtour');
+      $this->db->where('tah_hotel_id', $args["hotel_id"]);
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taghotel.tah_tag_id');
+      $query = $this->db->get('ci_taghotel');
       $result = $query->result();
 
       if(!empty($result)){
@@ -1120,11 +1121,11 @@ class TagTour_model extends MY_Model {
         return false;
       }        
 
-    }else if(!empty($args["tour_id"])){
+    }else if(!empty($args["hotel_id"])){
       //Get category by name
-      $data["tat_tour_id"] = $args["tour_id"];
+      $data["tah_hotel_id"] = $args["hotel_id"];
 
-      $query = $this->db->get_where('ci_tagtour', $data);
+      $query = $this->db->get_where('ci_taghotel', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
         return $newResult;
@@ -1133,7 +1134,7 @@ class TagTour_model extends MY_Model {
       }
     }else if(!empty($args["id"])){
       //Get category by id      
-      $query = $this->db->get_where('ci_tagtour', array('agt_id' => $args["id"]), 1, 0);
+      $query = $this->db->get_where('ci_taghotel', array('agt_id' => $args["id"]), 1, 0);
 
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -1143,7 +1144,7 @@ class TagTour_model extends MY_Model {
       }
     }else {
       //Get list page
-      $query = $this->db->get("ci_tagtour");
+      $query = $this->db->get("ci_taghotel");
 
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -1166,9 +1167,9 @@ class TagTour_model extends MY_Model {
         }
       }
 
-      $this->db->set("tat_cr_date", date("Y-m-d H:i:s"));
+      $this->db->set("tah_cr_date", date("Y-m-d H:i:s"));
 
-      $this->db->set("tat_lu_date", date("Y-m-d H:i:s"));
+      $this->db->set("tah_lu_date", date("Y-m-d H:i:s"));
 
       $this->db->insert($this->_table);
 
@@ -1202,7 +1203,7 @@ class TagTour_model extends MY_Model {
   }   
 
   function updateRecord($args=false){
-    //Get tagtour by tour_id
+    //Get taghotel by hotel_id
 
 
 
@@ -1229,8 +1230,8 @@ class TagTour_model extends MY_Model {
 
 
 
-      $tagtour["tour_id"] = $args["id"];
-      $query = $this->getRecord($tagtour);
+      $taghotel["hotel_id"] = $args["id"];
+      $query = $this->getRecord($taghotel);
 
 
       foreach ($tags as $key => $value) {
@@ -1311,7 +1312,7 @@ class TagTour_model extends MY_Model {
             }else{
                 $insertArray[$insertCount] = $valueInput;
                 $insertTag[$insertCount]["tag_id"] = $valueInput->id;
-                $insertTag[$insertCount]["tour_id"] = $args["id"];
+                $insertTag[$insertCount]["hotel_id"] = $args["id"];
                 $insertCount++; 
             }     
         }
@@ -1324,7 +1325,7 @@ class TagTour_model extends MY_Model {
         foreach ($input as $keyInput => $valueInput) {
           $insertArray[$insertCount] = $valueInput;
           $insertTag[$insertCount]["tag_id"] = $valueInput->id;
-          $insertTag[$insertCount]["tour_id"] = $args["id"];
+          $insertTag[$insertCount]["hotel_id"] = $args["id"];
           $insertCount++; 
         }
 
@@ -1359,7 +1360,7 @@ class TagTour_model extends MY_Model {
         echo "<br><br>";
       */
       //exit;
-    }else if(!empty($args["tours"])){
+    }else if(!empty($args["hotels"])){
       //blah blah blah
     }
         
@@ -1368,21 +1369,21 @@ class TagTour_model extends MY_Model {
 
   function deleteRecord($args=false){
     if(!empty($args["id"])){
-      $this->db->where("tat_id", $args["id"]);
-      $this->db->delete("ci_tagtour");
+      $this->db->where("tah_id", $args["id"]);
+      $this->db->delete("ci_taghotel");
 
-    }else if(!empty($args["tag_id"]) && !empty($args["tour_id"])){
-      $this->db->where("tat_tag_id", $args["tag_id"]);
-      $this->db->where("tat_tour_id", $args["tour_id"]);
-      $this->db->delete("ci_tagtour");
+    }else if(!empty($args["tag_id"]) && !empty($args["hotel_id"])){
+      $this->db->where("tah_tag_id", $args["tag_id"]);
+      $this->db->where("tah_hotel_id", $args["hotel_id"]);
+      $this->db->delete("ci_taghotel");
 
-    }else if(!empty($args["tour_id"])){
-      $this->db->where("tat_tour_id", $args["tour_id"]);
-      $this->db->delete("ci_tagtour");
+    }else if(!empty($args["hotel_id"])){
+      $this->db->where("tah_hotel_id", $args["hotel_id"]);
+      $this->db->delete("ci_taghotel");
 
     }else if(!empty($args["tag_id"])){
-      $this->db->where("tat_tag_id", $args["tag_id"]);
-      $this->db->delete("ci_tagtour");
+      $this->db->where("tah_tag_id", $args["tag_id"]);
+      $this->db->delete("ci_taghotel");
 
     }
   }

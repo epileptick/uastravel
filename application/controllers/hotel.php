@@ -1,12 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Tour extends MY_Controller {
+class Hotel extends MY_Controller {
 
   var $per_page = 20;
 
   function __construct(){
     parent::__construct();
-    $this->lang->load('tour', 'thai');
+    $this->lang->load('hotel', 'thai');
   }
 
 
@@ -28,9 +28,9 @@ class Tour extends MY_Controller {
     if(is_numeric($this->uri->segment($index+4))){
       ////////////////////////////
       // subtype/page
-      // algorithm : http://www/tour/2/3/4/5
-      // algorithm : http://www/tour/tag/type/subtype/page        
-      // sample : http://uastravel.com/tour/halfday/phuket/boat/10
+      // algorithm : http://www/hotel/2/3/4/5
+      // algorithm : http://www/hotel/tag/type/subtype/page        
+      // sample : http://uastravel.com/hotel/halfday/phuket/boat/10
       ////////////////////////////
       $page = $this->uri->segment($index+4);//5; 
       $tag = $this->uri->segment($index+1);//2
@@ -43,9 +43,9 @@ class Tour extends MY_Controller {
     }else if(is_numeric($this->uri->segment($index+3))){
       ////////////////////////////
       // type/page
-      // algorithm : http://www/tour/2/3/4
-      // algorithm : http://www/tour/tag/type/page        
-      // sample : http://uastravel.com/tour/halfday/phuket/10
+      // algorithm : http://www/hotel/2/3/4
+      // algorithm : http://www/hotel/tag/type/page        
+      // sample : http://uastravel.com/hotel/halfday/phuket/10
       ////////////////////////////
       $page = $this->uri->segment($index+3);//4; 
       $tag = $this->uri->segment($index+1);//2
@@ -57,9 +57,9 @@ class Tour extends MY_Controller {
     }else if($this->uri->segment($index+3)){
       ////////////////////////////
       // subtype
-      // algorithm : http://www/tour/2/3/4
-      // algorithm : http://www/tour/tag/type/subtype        
-      // sample : http://uastravel.com/tour/halfday/phuket/boat
+      // algorithm : http://www/hotel/2/3/4
+      // algorithm : http://www/hotel/tag/type/subtype        
+      // sample : http://uastravel.com/hotel/halfday/phuket/boat
       ////////////////////////////
       $page = 0;
       $tag = $this->uri->segment($index+1);//2
@@ -72,7 +72,7 @@ class Tour extends MY_Controller {
     }else if($this->uri->segment($index+1) == "inquiry"){
       ////////////////////////////
       // tag
-      // algorithm : http://www/tour/inquiry       
+      // algorithm : http://www/hotel/inquiry       
       // post: id
       ////////////////////////////
 
@@ -90,7 +90,7 @@ class Tour extends MY_Controller {
     }else if($this->uri->segment($index+1) == "booking"){
       ////////////////////////////
       // tag
-      // algorithm : http://www/tour/booking       
+      // algorithm : http://www/hotel/booking       
       // post: id
       ////////////////////////////
 
@@ -108,9 +108,9 @@ class Tour extends MY_Controller {
     }else if(is_numeric($this->uri->segment($index+2))){
       ////////////////////////////
       // tage/page
-      // algorithm : http://www/tour/2/3
-      // algorithm : http://www/tour/tag/page        
-      // sample : http://uastravel.com/tour/halfday/10
+      // algorithm : http://www/hotel/2/3
+      // algorithm : http://www/hotel/tag/page        
+      // sample : http://uastravel.com/hotel/halfday/10
       ////////////////////////////
       $page = $this->uri->segment($index+2);//3;
       $tag = $this->uri->segment($index+1);//2
@@ -123,9 +123,9 @@ class Tour extends MY_Controller {
     }else if($this->uri->segment($index+2)){
       ////////////////////////////
       // type
-      // algorithm : http://www/tour/2/3
-      // algorithm : http://www/tour/tag/type        
-      // sample : http://uastravel.com/tour/halfday/phuket
+      // algorithm : http://www/hotel/2/3
+      // algorithm : http://www/hotel/tag/type        
+      // sample : http://uastravel.com/hotel/halfday/phuket
       ////////////////////////////
       $page = 0;
       $tag = $this->uri->segment($index+1);//2
@@ -138,25 +138,25 @@ class Tour extends MY_Controller {
 
     }else if(is_numeric($this->uri->segment($index+1))){
       ////////////////////////////
-      // tour/page
-      // algorithm : http://www/tour/2
-      // algorithm : http://www/tour/tag/page          
-      // sample : http://uastravel.com/tour/10
+      // hotel/page
+      // algorithm : http://www/hotel/2
+      // algorithm : http://www/hotel/tag/page          
+      // sample : http://uastravel.com/hotel/10
       ////////////////////////////
       $page = $this->uri->segment($index+1); //2
       $tag = 0;
       $type = 0;
       $subtype = 0; 
-      //echo "tour/".$page;
+      //echo "hotel/".$page;
 
       $this->user_list($page); 
 
     }else if($this->uri->segment($index+1)){
       ////////////////////////////
       // tag
-      // algorithm : http://www/tour/2 
-      // algorithm : http://www/tour/tag       
-      // sample : http://uastravel.com/tour/halfday
+      // algorithm : http://www/hotel/2 
+      // algorithm : http://www/hotel/tag       
+      // sample : http://uastravel.com/hotel/halfday
       ////////////////////////////
       $page = 0;
       $tag = $this->uri->segment($index+1); //2
@@ -168,16 +168,16 @@ class Tour extends MY_Controller {
 
     }else{
       ////////////////////////////
-      // tour
-      // algorithm : http://www/tour
-      // algorithm : http://www/tour       
-      // sample : http://uastravel.com/tour
+      // hotel
+      // algorithm : http://www/hotel
+      // algorithm : http://www/hotel       
+      // sample : http://uastravel.com/hotel
       ////////////////////////////
       $page = 0;
       $tag = 0;
       $cat = 0;
       $subcat = 0;      
-      //echo "tour";
+      //echo "hotel";
 
       $this->user_list($page);      
     }
@@ -188,10 +188,10 @@ class Tour extends MY_Controller {
       $this->_fetch('user_test', "", false, true);
   }
   
-  function _tour_menu($argTag=false, $argType=false, $argSubType=false){
+  function _hotel_menu($argTag=false, $argType=false, $argSubType=false){
 
     if($argTag){
-      //tour & tag
+      //hotel & tag
       //Query tag_name by tag_url
       $tag["url"] = $argTag;
       $this->load->model("tag_model", "tagModel");        
@@ -328,16 +328,16 @@ class Tour extends MY_Controller {
     return $random; 
   }
 
-  function _tour_list($tags){
+  function _hotel_list($tags){
 
     $count = 0;
-    $this->load->model("tagtour_model", "tagtourModel");
-    $tour = $this->tagtourModel->getRecord($tags);
+    $this->load->model("taghotel_model", "taghotelModel");
+    $hotel = $this->taghotelModel->getRecord($tags);
 
-    //print_r($this->_shuffle_assoc($tour)); exit;
+    //print_r($this->_shuffle_assoc($hotel)); exit;
 
-    if(!empty($tour)){
-      return $this->_shuffle_assoc($tour);
+    if(!empty($hotel)){
+      return $this->_shuffle_assoc($hotel);
     }else{
       return ;
     }
@@ -347,17 +347,17 @@ class Tour extends MY_Controller {
 
     //echo "Call user_list()"; exit;
 
-    $data = $this->_tour_menu();
+    $data = $this->_hotel_menu();
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
     }  
 
     //////////////////////////////////////////////////////
     // List all 
-    // algorithm : localhost/uastravel/tour/page
-    // example : localhost/uastravel/tour/
-    //           localhost/uastravel/tour/2
-    //           localhost/uastravel/tour/3
+    // algorithm : localhost/uastravel/hotel/page
+    // example : localhost/uastravel/hotel/
+    //           localhost/uastravel/hotel/2
+    //           localhost/uastravel/hotel/3
     //////////////////////////////////////////////////////
     //Filter all
     $query["tag_id"] = $query["menu"];
@@ -367,16 +367,16 @@ class Tour extends MY_Controller {
     $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;   
 
     //Send tag for get data
-    //$data["tour"] = $this->_tour_list($query);
+    //$data["hotel"] = $this->_hotel_list($query);
 
-    //Get tour
-    $this->load->model("tagtour_model", "tagtourModel");
-    $tour = $this->tagtourModel->getRecordFirstpage($query);
+    //Get hotel
+    $this->load->model("taghotel_model", "taghotelModel");
+    $hotel = $this->taghotelModel->getRecordFirstpage($query);
 
-    //print_r($this->_shuffle_assoc($tour)); exit;
+    //print_r($this->_shuffle_assoc($hotel)); exit;
 
-    if(!empty($tour)){
-      $data["tour"] =  $this->_shuffle_assoc($tour);
+    if(!empty($hotel)){
+      $data["hotel"] =  $this->_shuffle_assoc($hotel);
     }   
 
     //print_r($data); exit;
@@ -400,9 +400,9 @@ class Tour extends MY_Controller {
 
     //Check menu is active
     if(empty($tag)){
-      $data= $this->_tour_menu();
+      $data= $this->_hotel_menu();
     }else{
-      $data= $this->_tour_menu($tag);
+      $data= $this->_hotel_menu($tag);
     }
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
@@ -419,12 +419,12 @@ class Tour extends MY_Controller {
       $query["per_page"] = $this->per_page;
       $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;    
 
-      //Get tour by tag
-      $this->load->model("tagtour_model", "tagtourModel");
-      $data["tour"] = $this->tagtourModel->getRecordByTag($query);      
-      //$data["tour"] = $this->_tour_list($query);
+      //Get hotel by tag
+      $this->load->model("taghotel_model", "taghotelModel");
+      $data["hotel"] = $this->taghotelModel->getRecordByTag($query);      
+      //$data["hotel"] = $this->_hotel_list($query);
     }else{
-      $data["tour"] = false;
+      $data["hotel"] = false;
     }
 
     if(!empty($query["offset"])){
@@ -444,7 +444,7 @@ class Tour extends MY_Controller {
 
     //echo "Call user_listbytype()"; exit;
 
-    $data = $this->_tour_menu($tag, $type);
+    $data = $this->_hotel_menu($tag, $type);
 
     //print_r($data); exit;
     foreach ($data["menu"] as $key => $valueTag) {
@@ -469,11 +469,11 @@ class Tour extends MY_Controller {
       $query["join"] = true;
       $query["per_page"] = $this->per_page;
       $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;    
-      //Tour
-      $this->load->model("tagtour_model", "tagtourModel");  
-      $data["tour"] = $this->tagtourModel->getRecordByType($query);
+      //Hotel
+      $this->load->model("taghotel_model", "taghotelModel");  
+      $data["hotel"] = $this->taghotelModel->getRecordByType($query);
     }else{
-      $data["tour"] = false;
+      $data["hotel"] = false;
     }
 
     //print_r($data); exit;
@@ -496,7 +496,7 @@ class Tour extends MY_Controller {
 
     //echo "Call user_listbytype()"; exit;
 
-    $data = $this->_tour_menu($tag, $type, $subtype);
+    $data = $this->_hotel_menu($tag, $type, $subtype);
 
     //print_r($data); exit;
     foreach ($data["menu"] as $key => $valueTag) {
@@ -525,11 +525,11 @@ class Tour extends MY_Controller {
       $query["join"] = true;
       $query["per_page"] = $this->per_page;
       $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;    
-      //Tour
-      $this->load->model("tagtour_model", "tagtourModel");  
-      $data["tour"] = $this->tagtourModel->getRecordBySubType($query);
+      //Hotel
+      $this->load->model("taghotel_model", "taghotelModel");  
+      $data["hotel"] = $this->taghotelModel->getRecordBySubType($query);
     }else{
-      $data["tour"] = false;
+      $data["hotel"] = false;
     }
 
     //print_r($data); exit;
@@ -551,7 +551,7 @@ class Tour extends MY_Controller {
     $keyword = $this->input->post();    
 
 
-    $data = $this->_tour_menu();
+    $data = $this->_hotel_menu();
     if(!empty($keyword["search"])){
 
       foreach ($data["menu"] as $key => $valueTag) {
@@ -561,7 +561,7 @@ class Tour extends MY_Controller {
       $query["tou_name"] = $keyword["search"];
       $query["user_search"] = true; 
 
-      $data["tour"] = $this->tourModel->searchRecord($query);
+      $data["hotel"] = $this->hotelModel->searchRecord($query);
       $data["search"] = $keyword["search"];
 
       $this->_fetch('user_list', $data, false, true); 
@@ -575,31 +575,31 @@ class Tour extends MY_Controller {
   function user_view($id=false){
 
     if($id){    
-      //Tour
-      $tour["id"] = $id;
-      $tagtour["tour_id"] = $id;
-      $agencytour["tour_id"] = $id; 
-      $agencytour["event"] = "display";
-      $extendprice["pri_tour_id"] = $id;  
-      $data["tour"] = $this->tourModel->getRecord($tour); 
+      //Hotel
+      $hotel["id"] = $id;
+      $taghotel["hotel_id"] = $id;
+      $agencyhotel["hotel_id"] = $id; 
+      $agencyhotel["event"] = "display";
+      $extendprice["pri_hotel_id"] = $id;  
+      $data["hotel"] = $this->hotelModel->getRecord($hotel); 
 
-      //Check has tour
-      if(count($data["tour"]) < 1  || empty($data["tour"])){
+      //Check has hotel
+      if(count($data["hotel"]) < 1  || empty($data["hotel"])){
         show_404(); 
       }
 
       //Check translate
-      if(empty($data["tour"][0]->name)){
+      if(empty($data["hotel"][0]->name)){
         show_404(); 
       }
 
       //Tag
-      $this->load->model("tagtour_model", "tagtourModel");
-      $tagtourQuery["tag"] = $this->tagtourModel->getRecord($tagtour);
-      if(!empty($tagtourQuery["tag"])){
-        //TagTour
+      $this->load->model("taghotel_model", "taghotelModel");
+      $taghotelQuery["tag"] = $this->taghotelModel->getRecord($taghotel);
+      if(!empty($taghotelQuery["tag"])){
+        //TagHotel
         $count = 0;
-        foreach ($tagtourQuery["tag"] as $key => $value) {
+        foreach ($taghotelQuery["tag"] as $key => $value) {
           $this->load->model("tag_model", "tagModel");
 
           $tag["id"] = $value->tag_id;
@@ -609,14 +609,14 @@ class Tour extends MY_Controller {
           $count++;
         }
 
-        //Related Tour
-        $query["tour_id"] = $id;
+        //Related Hotel
+        $query["hotel_id"] = $id;
         $query["tag_id"] = $query["menu"];
-        $query["tour_tag"] = $data["tag"];
+        $query["hotel_tag"] = $data["tag"];
         $query["mainper_page"] = 3;
         $query["per_page"] = 5;
         $query["offset"] = 0;
-        $data["related"] = $this->tagtourModel->getRecordRelated($query);
+        $data["related"] = $this->taghotelModel->getRecordRelated($query);
 
 
         //print_r($related); exit;
@@ -624,9 +624,11 @@ class Tour extends MY_Controller {
 
 
       //Price
-      $this->load->model("price_model", "priceModel");
-      $priceQuery = $this->priceModel->getRecord($agencytour);
 
+      //print_r($agencyhotel); exit;
+      $this->load->model("pricehotel_model", "pricehotelModel");
+      $priceQuery = $this->pricehotelModel->getRecord($agencyhotel);
+      //exit;
       if(!empty($priceQuery)){
 
         //Duplicate agency
@@ -644,31 +646,35 @@ class Tour extends MY_Controller {
           foreach ($priceQuery as $key => $value) {
             if($value->agency_id == $keyAgencyID){
 
-              if(strlen($value->name) < $name_length){
-                $mainPrice[$keyAgencyID] =  $value;
-                $name_length = strlen($value->name);
+              if(!empty($value->name)){
+                if(strlen($value->name) < $name_length){
+                  $mainPrice[$keyAgencyID] =  $value;
+                  $name_length = strlen($value->name);
+                }
               }
             }
           }
         }
 
-
-        //Max price
-        $maxSalePrice = 0;
-        $maxSalePriceID = 0;
-        foreach ($mainPrice as $key => $value) {         
-          if($value->sale_adult_price > $maxSalePrice){
-            $maxSalePriceID  = $value->agency_id;
-            $maxSalePrice = $value->sale_adult_price;
+        if(!empty($mainPrice)){
+          //Max price
+          $maxSalePrice = 0;
+          $maxSalePriceID = 0;
+          foreach ($mainPrice as $key => $value) {         
+            if($value->sale_adult_price > $maxSalePrice){
+              $maxSalePriceID  = $value->agency_id;
+              $maxSalePrice = $value->sale_adult_price;
+            }
           }
-        }
 
-        //Price selection
-        foreach ($priceQuery as $key => $value) {
-          if($value->agency_id == $maxSalePriceID){
-            $data["price"][] = $value;
-          }
-        }        
+          //Price selection
+          foreach ($priceQuery as $key => $value) {
+            if($value->agency_id == $maxSalePriceID){
+              $data["price"][] = $value;
+            }
+          } 
+
+        }       
 
 
       }//End price
@@ -676,7 +682,7 @@ class Tour extends MY_Controller {
 
       //Images
       $this->load->model("images_model", "imagesModel");
-      $data["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$id,'table_id'=>2)));
+      $data["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$id,'table_id'=>3)));
       //print_r($data["images"]);exit;
 
 
@@ -700,26 +706,26 @@ class Tour extends MY_Controller {
     
     if($args["id"]){   
 
-      //Tour
+      //Hotel
 
-      $tour["id"] = $args["id"];
-      $tagtour["tour_id"] = $args["id"];
-      $agencytour["tour_id"] = $args["id"];    
-      //$tour["field"] = "tou_id, tou_code, tou_name, tou_url, tou_first_image, tou_short_description";     
-      $data["tour"] = $this->tourModel->getRecord($tour); 
+      $hotel["id"] = $args["id"];
+      $taghotel["hotel_id"] = $args["id"];
+      $agencyhotel["hotel_id"] = $args["id"];    
+      //$hotel["field"] = "tou_id, tou_code, tou_name, tou_url, tou_first_image, tou_short_description";     
+      $data["hotel"] = $this->hotelModel->getRecord($hotel); 
 
-      if(count($data["tour"]) < 1  || empty($data["tour"])){
+      if(count($data["hotel"]) < 1  || empty($data["hotel"])){
         show_404(); 
       }
 
 
       //Tag
-      $this->load->model("tagtour_model", "tagtourModel");
-      $tagtourQuery["tag"] = $this->tagtourModel->getRecord($tagtour);
-      if(!empty($tagtourQuery["tag"])){
-        //TagTour
+      $this->load->model("taghotel_model", "taghotelModel");
+      $taghotelQuery["tag"] = $this->taghotelModel->getRecord($taghotel);
+      if(!empty($taghotelQuery["tag"])){
+        //TagHotel
         $count = 0;
-        foreach ($tagtourQuery["tag"] as $key => $value) {
+        foreach ($taghotelQuery["tag"] as $key => $value) {
           $this->load->model("tag_model", "tagModel");
 
           $tag["id"] = $value->tag_id;
@@ -729,14 +735,14 @@ class Tour extends MY_Controller {
           $count++;
         }
 
-        //Related Tour
-        $query["tour_id"] = $args["id"];
+        //Related Hotel
+        $query["hotel_id"] = $args["id"];
         $query["tag_id"] = $query["menu"];
-        $query["tour_tag"] = $data["tag"];
+        $query["hotel_tag"] = $data["tag"];
         $query["mainper_page"] = 3;
         $query["per_page"] = 4;
         $query["offset"] = 0;
-        $data["related"] = $this->tagtourModel->getRecordRelated($query);
+        $data["related"] = $this->taghotelModel->getRecordRelated($query);
 
 
         //print_r($related); exit;
@@ -747,11 +753,11 @@ class Tour extends MY_Controller {
   
 
       //Price compute
-      if(!empty($args["price_id"])){
-        $this->load->model("price_model", "priceModel");
-        foreach ($args["price_id"] as $key => $value) {
+      if(!empty($args["pricehotel_id"])){
+        $this->load->model("pricehotel_model", "pricehotelModel");
+        foreach ($args["pricehotel_id"] as $key => $value) {
           $price["id"] = $value; 
-          $queryPrice = $this->priceModel->getRecord($price);
+          $queryPrice = $this->pricehotelModel->getRecord($price);
           $queryPriceID = $queryPrice[0]->id;
           $dataPrice[$queryPriceID] = $queryPrice[0];
           //$dataPrice["price"][$queryPriceID] = $queryPrice[0];
@@ -762,7 +768,7 @@ class Tour extends MY_Controller {
 
           $data["price"][$queryPriceID]["pri_id"] = $queryPriceID;
           $data["price"][$queryPriceID]["pri_agency_id"] = $dataPrice[$queryPriceID]->agency_id;
-          $data["price"][$queryPriceID]["pri_tour_id"] = $dataPrice[$queryPriceID]->tour_id;
+          $data["price"][$queryPriceID]["pri_hotel_id"] = $dataPrice[$queryPriceID]->hotel_id;
           $data["price"][$queryPriceID]["pri_name"] = $dataPrice[$queryPriceID]->name;
           $data["price"][$queryPriceID]["pri_sale_adult_price"] = $dataPrice[$queryPriceID]->sale_adult_price;
           $data["price"][$queryPriceID]["pri_net_adult_price"] = $dataPrice[$queryPriceID]->net_adult_price;
@@ -808,8 +814,8 @@ class Tour extends MY_Controller {
 
     if(!empty($args)){
 
-      $this->load->model("tourcustomer_model", "tourcustomerModel");
-      $booking = $this->tourcustomerModel->addRecord($args);
+      $this->load->model("hotelcustomer_model", "hotelcustomerModel");
+      $booking = $this->hotelcustomerModel->addRecord($args);
 
 
       //print_r($booking); exit;
@@ -818,12 +824,12 @@ class Tour extends MY_Controller {
       $this->sendmail_booking_admin($booking);
 
       //Forward
-      redirect(base_url("tour/booking/".$booking["toc_hashcode"]));  
+      redirect(base_url("hotel/booking/".$booking["toc_hashcode"]));  
 
       //print_r($insert_id); exit;
     }else{ //id not send
       //Redirect
-      redirect(base_url("tour/inquiry/".$args["id"]));    
+      redirect(base_url("hotel/inquiry/".$args["id"]));    
     }
 
 
@@ -843,7 +849,7 @@ class Tour extends MY_Controller {
     $to = $booking["toc_email"];
 
 
-    $subject = "คุณได้ทำการจอง ".$booking["toc_tour_name"]." ผ่านทาง uastravel.com";
+    $subject = "คุณได้ทำการจอง ".$booking["toc_hotel_name"]." ผ่านทาง uastravel.com";
 
 
     $message = '<p>สวัสดีค่ะ คุณ'.$booking["toc_firstname"].',</p>';
@@ -852,8 +858,8 @@ class Tour extends MY_Controller {
     $message .='<blockquote>';
     $message .='  ##########  รายละเอียดการจอง ##########';
     $message .='  <br />หมายเลขการจอง : '.$booking["toc_code"];
-    $message .='  <br />ชื่อทัวร์ : '.$booking["toc_tour_name"].'('.$booking["toc_tour_code"].')';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/'.$booking["toc_tour_url"].'-'.$booking["toc_tour_id"].'">'.$booking["toc_tour_name"].'</a>';
+    $message .='  <br />ชื่อทัวร์ : '.$booking["toc_hotel_name"].'('.$booking["toc_hotel_code"].')';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/hotel/'.$booking["toc_hotel_url"].'-'.$booking["toc_hotel_id"].'">'.$booking["toc_hotel_name"].'</a>';
 
 
     $message .='  <br />##########  จำนวนผู้เดินทาง ##########';
@@ -865,7 +871,7 @@ class Tour extends MY_Controller {
     $message .='  <br />##########  รายละเอียดราคา ##########';
     foreach ($booking["price"] as $key => $value) {
       $message .='  <br />';
-      $message .='  <br />ชื่อราคา : '.$value["tob_price_name"];
+      $message .='  <br />ชื่อราคา : '.$value["tob_pricehotel_name"];
       $message .='  <br />ราคารวมของผู้ใหญ่ ('.$value["tob_adult_amount_booking"].') : '.$value["tob_total_adult_price"];
       $message .='  <br />ราคารวมของเด็ก ('.$value["tob_child_amount_booking"].') : '.$value["tob_total_child_price"];
       $message .='  <br />ราคารวมของทารก : ฟรี';
@@ -888,7 +894,7 @@ class Tour extends MY_Controller {
     $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["toc_request"];
     $message .='  <br />';
     $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/hotel/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
     $message .='  <br />';
     $message .='</blockquote>';   
 
@@ -929,8 +935,8 @@ class Tour extends MY_Controller {
     $message .='<blockquote>';
     $message .='  ##########  รายละเอียดการจอง ##########';
     $message .='  <br />หมายเลขการจอง : '.$booking["toc_code"];
-    $message .='  <br />ชื่อทัวร์ : '.$booking["toc_tour_name"].'('.$booking["toc_tour_code"].')';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/'.$booking["toc_tour_url"].'-'.$booking["toc_tour_id"].'">'.$booking["toc_tour_name"].'</a>';
+    $message .='  <br />ชื่อทัวร์ : '.$booking["toc_hotel_name"].'('.$booking["toc_hotel_code"].')';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/hotel/'.$booking["toc_hotel_url"].'-'.$booking["toc_hotel_id"].'">'.$booking["toc_hotel_name"].'</a>';
 
 
     $message .='  <br />##########  จำนวนผู้เดินทาง ##########';
@@ -942,7 +948,7 @@ class Tour extends MY_Controller {
     $message .='  <br />##########  รายละเอียดราคา ##########';
     foreach ($booking["price"] as $key => $value) {
       $message .='  <br />';
-      $message .='  <br />ชื่อราคา : '.$value["tob_price_name"];
+      $message .='  <br />ชื่อราคา : '.$value["tob_pricehotel_name"];
       $message .='  <br />ราคารวมของผู้ใหญ่ ('.$value["tob_adult_amount_booking"].') : '.$value["tob_total_adult_price"];
       $message .='  <br />ราคารวมของเด็ก ('.$value["tob_child_amount_booking"].') : '.$value["tob_total_child_price"];
       $message .='  <br />ราคารวมของทารก : ฟรี';
@@ -965,7 +971,7 @@ class Tour extends MY_Controller {
     $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["toc_request"];
     $message .='  <br />';
     $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/hotel/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
     $message .='  <br />';
     $message .='</blockquote>';   
 
@@ -979,13 +985,13 @@ class Tour extends MY_Controller {
 
     $args["toc_hashcode"] = $hashcode;
 
-    $this->load->model("tourcustomer_model", "tourcustomerModel");
-    $data["booking"] = $this->tourcustomerModel->getRecord($args);  
+    $this->load->model("hotelcustomer_model", "hotelcustomerModel");
+    $data["booking"] = $this->hotelcustomerModel->getRecord($args);  
 
 
-    $this->load->model("tourbooking_model", "tourbookingModel");
-    $args["tob_tourcustomer_id"] = $data["booking"][0]->toc_id;
-    $data["booking"][0]->price = $this->tourbookingModel->getRecord($args); 
+    $this->load->model("hotelbooking_model", "hotelbookingModel");
+    $args["tob_hotelcustomer_id"] = $data["booking"][0]->toc_id;
+    $data["booking"][0]->price = $this->hotelbookingModel->getRecord($args); 
 
 
     //print_r($data["booking"]); exit;
@@ -1019,26 +1025,33 @@ class Tour extends MY_Controller {
 
   function admin_list(){
 
-      $tourField["field"] = "tou_id, tout_name, tout_url, tou_first_image, tou_display";
-      $data["tour"] = $this->tourModel->getRecord($tourField);
+      //$field["field"] = "hot_id, hott_name, hott_url, hot_first_image, hot_display";
+      $data["hotel"] = $this->hotelModel->getRecord();
+      //echo $this->db->last_query();
+      //print_r($data["hotel"]); exit;
 
-      //print_r($data["tour"]); exit;
-      $count = 0;
-      foreach ($data["tour"] as $key => $value) {
+      if($data["hotel"]){
+          $count = 0;
+          foreach ($data["hotel"] as $key => $value) {
 
-        $query["join"] = true;        
-        $query["tour_id"] = $value->id;
+            $query["join"] = true;        
+            $query["hotel_id"] = $value->id;
 
-        $result["tour"][$count]["tour"] = $value;
+            $result["hotel"][$count]["hotel"] = $value;
 
-        $this->load->model("tagtour_model","tagtourModel");  
-        $result["tour"][$count]["tag"] = $this->tagtourModel->getRecord($query);  
+            $this->load->model("taghotel_model","taghotelModel");  
+            $result["hotel"][$count]["tag"] = $this->taghotelModel->getRecord($query);  
 
-        $count++;       
-       } 
+            $count++;       
+           } 
 
-      //print_r($result); exit;
-      $this->_fetch('admin_list', $result);
+          //print_r($result); exit;
+          $this->_fetch('admin_list', $result);
+
+        }else{
+          $result = false;
+          $this->_fetch('admin_list', $result);
+        }
    }
 
   function admin_create($id=false){
@@ -1051,10 +1064,6 @@ class Tour extends MY_Controller {
     //Send argument to validate function
     $validate = $this->validate($args);
 
-    //Load other model
-    $this->load->model("language_model","languageModel");  
-    $data["language"] = $this->languageModel->getRecord();    
-
 
     $this->load->model("tag_model","tagModel"); 
     $field = "tag_id, tag_name";  
@@ -1066,29 +1075,32 @@ class Tour extends MY_Controller {
     $data["agency"] = $this->agencyModel->getRecord(false, $field);   
 
 
-    //print_r($id); exit;
 
+
+         
     //////////
     //Query 
     /////////
     if($id){
-      //Query data by tour_id
+
+      //Query data by hotel_id
       $args["id"] = $id;      
-      $data["tour"] = $this->tourModel->getRecord($args);
+      $data["hotel"] = $this->hotelModel->getRecord($args);
 
+      
 
-      //print_r($data["tour"]); exit;
+      //print_r($data["hotel"]); exit;
       //Check update     
-      if($data["tour"]>0){
+      if(count($data["hotel"])>0){
 
-        $this->load->model("price_model", "priceModel");  
-        $agency["tour_id"] = $id; 
+        $this->load->model("pricehotel_model", "pricehotelModel");  
+        $agency["hotel_id"] = $id; 
         $agency["distinct"] = 1;
-        $agency["distinct_field"] = "pri_agency_id";
-        $queryPrice = $this->priceModel->getRecord($agency);  
+        $agency["distinct_field"] = "prh_agency_id";
+        $queryPrice = $this->pricehotelModel->getRecord($agency);  
 
 
-        //print_r($queryPrice); exit;
+        //print_r($this->db->last_query()); exit;
         if(!empty($queryPrice)){
           $this->load->model("agency_model", "agencyModel");  
           $count = 0;
@@ -1105,11 +1117,11 @@ class Tour extends MY_Controller {
             if(!empty($queryAgencyInfo)){
               $countPrice = 0;
               foreach ($queryAgencyInfo as $key => $value) {
-                $price["tour_id"] = $id;
+                $price["hotel_id"] = $id;
                 $price["agency_id"] = $valueAgency->agency_id;
-                $queryPrice = $this->priceModel->getRecord($price); 
+                $queryPrice = $this->pricehotelModel->getRecord($price); 
                 //echo $this->db->last_query(); exit;
-                $data["price"][$count]["price_data"] = $queryPrice;
+                $data["price"][$count]["pricehotel_data"] = $queryPrice;
                 $countPrice++;
               } 
 
@@ -1122,20 +1134,21 @@ class Tour extends MY_Controller {
           }
         }
 
-
         //print_r($data["price"]); exit;
         //Tag
-        $this->load->model("tagtour_model", "tagtourModel");  
-        $tagTour["tour_id"] = $id;
-        $data["tagTour"] = $this->tagtourModel->getRecord($tagTour, $field);  
-        //print_r($data["tagTour"]); exit;
-        if(!empty($data["tagTour"]) && $data["tagTour"]){
+        $this->load->model("taghotel_model", "taghotelModel");  
+        $tagHotel["hotel_id"] = $id;
+        $data["tagHotel"] = $this->taghotelModel->getRecord($tagHotel, $field);  
+
+        //echo $this->db->last_query(); exit;
+        //print_r($data["tagHotel"]); exit;
+        if(!empty($data["tagHotel"]) && $data["tagHotel"]){
           //$this->load->model("tag_model", "tagModel");  
-          foreach ($data["tagTour"] as $key => $value) {
+          foreach ($data["tagHotel"] as $key => $value) {
             //echo $value->tag_id; echo "<br>";
-            $this->load->model("tag_model"," agModel"); 
-            $tagTour["id"] = $value->tag_id;
-            $tag_result = $this->tagModel->getRecord($tagTour);
+            $this->load->model("tag_model"," tagModel"); 
+            $tagHotel["id"] = $value->tag_id;
+            $tag_result = $this->tagModel->getRecord($tagHotel);
             $data["tag_query"][] = $tag_result[0];
           }
         }
@@ -1167,40 +1180,40 @@ class Tour extends MY_Controller {
         //print_r($args); exit;
         //print_r($args); exit;
         ////////////////////////////////////////////
-        //Add (Tour) main table 
+        //Add (Hotel) main table 
         ////////////////////////////////////////////
-        $insertTourID =  $this->tourModel->addRecord($args);
+        $insertID =  $this->hotelModel->addRecord($args);
         
 
-        $this->_uploadImage($insertTourID);
+        $this->_uploadImage($insertID);
         
         ////////////////////////////////////////////
         //Update images parent_id 
         //////////////////////////////////////////// 
-        if(!empty($insertTourID)){
+        if(!empty($insertID)){
           $this->load->model("images_model","imagesModel"); 
           $options = array(
                             'where'=>array(
                                           'parent_id'=>$args['fakeid']
                                           ),
                             'set'=>array(
-                                          'parent_id'=>$insertTourID)
+                                          'parent_id'=>$insertID)
                           );
           $this->imagesModel->update($options);
         }
 
         ////////////////////////////////////////////
-        //Add (AgencyTour) relationship data table 
+        //Add (AgencyHotel) relationship data table 
         ////////////////////////////////////////////  
         //print_r($args["price"]); exit;
         if(!empty($args["price"])){
-          $this->load->model("price_model","priceModel"); 
+          $this->load->model("pricehotel_model","pricehotelModel"); 
           $count = 0;
 
           foreach ($args["price"] as $keyAgencyId => $valueAgency) {
             foreach ($valueAgency as $keyPriceId => $valuePriceId) {
               foreach ($valuePriceId as $keyPrice => $valuePrice) {
-                $price[$count]["tour_id"]   = $insertTourID;
+                $price[$count]["hotel_id"]   = $insertID;
                 $price[$count]["lang"]   = $this->lang->lang();
                 $price[$count]["agency_id"] = $keyAgencyId;
                 $price[$count]["name"] = $valuePrice["name"];
@@ -1217,7 +1230,7 @@ class Tour extends MY_Controller {
           }
 
           //print_r($price); exit;
-          $this->priceModel->addMultipleRecord($price);
+          $this->pricehotelModel->addMultipleRecord($price);
 
 
           //print_r($args); exit;
@@ -1227,39 +1240,39 @@ class Tour extends MY_Controller {
 
 
         ////////////////////////////////////////////
-        //Add (TagTour) relationship data table 
+        //Add (TagHotel) relationship data table 
         ////////////////////////////////////////////        
-        $this->load->model("tagtour_model", "tagTourModel");
+        $this->load->model("taghotel_model", "tagHotelModel");
         $count = 0; 
-        $tagTour = false;
+        $tagHotel = false;
         
         $this->load->model("tag_model", "tagModel");
         $tagArray = $this->tagModel->cleanTagAndAddTag($args["tags"]);
         foreach ($tagArray as $key => $value) {
-          $tagTour[$count]["tag_id"] = $value->id;
-          $tagTour[$count]["tour_id"] = $insertTourID;
+          $tagHotel[$count]["tag_id"] = $value->id;
+          $tagHotel[$count]["hotel_id"] = $insertID;
           $count++;
         }
-        $this->tagTourModel->addMultipleRecord($tagTour);
+        $this->tagHotelModel->addMultipleRecord($tagHotel);
         
         //Redirect
-        redirect(base_url("admin/tour/"));
+        redirect(base_url("admin/hotel/"));
       }
     }
 
   }
 
-  function admin_view($tag=false, $tourname=false){
+  function admin_view($tag=false, $hotelname=false){
     //implement code here
 
      //Get argument from url
-    $tour["name"] = $tourname;
+    $hotel["name"] = $hotelname;
     $tag["name"] = $tag;
 
 
 
-    if($tag["name"] && $tour["name"]){
-      echo "tag && tour";
+    if($tag["name"] && $hotel["name"]){
+      echo "tag && hotel";
     }else if($tag["name"]){
       ////////////////////////////////////////////
       //Get tag data
@@ -1270,26 +1283,26 @@ class Tour extends MY_Controller {
       //print_r($data["tag"][0]); exit;
 
       ////////////////////////////////////////////
-      //Get tagtour data
+      //Get taghotel data
       ////////////////////////////////////////////        
-      $this->load->model("tagtour_model", "tagtourModel");
-      $tagtourQuery["tag"] = $this->tagtourModel->getRecord($tagArgument);
+      $this->load->model("taghotel_model", "taghotelModel");
+      $taghotelQuery["tag"] = $this->taghotelModel->getRecord($tagArgument);
 
       $count = 0;
-      foreach ($tagtourQuery["tag"] as $key => $value) {
+      foreach ($taghotelQuery["tag"] as $key => $value) {
         # code...
-        $tour["id"] = $value->tour_id;
+        $hotel["id"] = $value->hotel_id;
 
-        $tourQuery = $this->tourModel->getRecord($tour);  
-        $data["tour"][$count] = $tourQuery[0];
-        $data["tour"][$count]->tag_id = $value->tag_id;
-        $data["tour"][$count]->tag_name = $tagQuery["tag"][0]->name;
+        $hotelQuery = $this->hotelModel->getRecord($hotel);  
+        $data["hotel"][$count] = $hotelQuery[0];
+        $data["hotel"][$count]->tag_id = $value->tag_id;
+        $data["hotel"][$count]->tag_name = $tagQuery["tag"][0]->name;
         $count++;
       }
 
 
       ////////////////////////////////////////////
-      //Get tour data
+      //Get hotel data
       //////////////////////////////////////////// 
       //print_r($data) ; exit;
       $this->_fetch('list', $data);
@@ -1316,36 +1329,36 @@ class Tour extends MY_Controller {
 
     if($args["id"]) {
 
-        //Update & get current tour id
-        $updateTourID = $this->tourModel->updateRecord($args);
+        //Update & get current hotel id
+        $updateHotelID = $this->hotelModel->updateRecord($args);
         ////////////////////////////////////////////
-        //Add (TagTour) relationship data table 
+        //Add (TagHotel) relationship data table 
         ////////////////////////////////////////////  
         if(!empty($args["tags"])){ 
 
           if($args["tags"] == "[]"){ 
-            $tour["tour_id"] = $args["id"];
-            $this->load->model("tagtour_model", "tagTourModel");
-            $this->tagTourModel->deleteRecord($tour);
+            $hotel["hotel_id"] = $args["id"];
+            $this->load->model("taghotel_model", "tagHotelModel");
+            $this->tagHotelModel->deleteRecord($hotel);
 
           }else{        
-            $this->load->model("tagtour_model", "tagTourModel");
-            $this->tagTourModel->updateRecord($args);
+            $this->load->model("taghotel_model", "tagHotelModel");
+            $this->tagHotelModel->updateRecord($args);
           }
         }
 
 
         //print_r($args["price"]); exit;
         if(!empty($args["price"])){
-          $this->load->model("price_model","priceModel"); 
+          $this->load->model("pricehotel_model","pricehotelModel"); 
           $count = 0;
-          $price["tour_id"] = $args["id"];
+          $price["hotel_id"] = $args["id"];
           foreach ($args["price"] as $keyAgencyId => $valueAgency) {
             foreach ($valueAgency as $keyPriceId => $valuePriceId) {
               foreach ($valuePriceId as $keyPrice => $valuePrice) {
 
                 $price["price"][$count]["id"]   = $keyPriceId;
-                $price["price"][$count]["tour_id"]   = $args["id"];
+                $price["price"][$count]["hotel_id"]   = $args["id"];
                 $price["price"][$count]["agency_id"] = $keyAgencyId;
                 $price["price"][$count]["lang"]   = $this->lang->lang();
                 $price["price"][$count]["name"] = $valuePrice["name"];
@@ -1355,27 +1368,27 @@ class Tour extends MY_Controller {
                 $price["price"][$count]["sale_child_price"] = $valuePrice["sale_child_price"];
                 $price["price"][$count]["net_child_price"] = $valuePrice["net_child_price"];
                 $price["price"][$count]["discount_child_price"] = $valuePrice["discount_child_price"];
-                //$price_id = $this->priceModel->addRecord($price["price"][$count]);
+                //$pricehotel_id = $this->pricehotelModel->addRecord($price["price"][$count]);
 
                 $count++;  
               }
             }
           }     
           //print_r($price); exit;
-          $this->priceModel->updateRecord($price);          
+          $this->pricehotelModel->updateRecord($price);          
         }else{
-          $this->load->model("price_model", "priceModel");
-          $tour["tour_id"] = $args["id"];
-          $this->priceModel->deleteRecord($tour);
+          $this->load->model("pricehotel_model", "pricehotelModel");
+          $hotel["hotel_id"] = $args["id"];
+          $this->pricehotelModel->deleteRecord($hotel);
         }
 
         $this->_uploadImage($args["id"]);
         //Redirect
-        redirect(base_url("admin/tour")); 
+        redirect(base_url("admin/hotel")); 
     } else {
-        $this->tourModel->addRecord($args);
+        $this->hotelModel->addRecord($args);
         //Redirect
-        redirect(base_url("admin/tour")); 
+        redirect(base_url("admin/hotel")); 
     } 
 
   } 
@@ -1384,17 +1397,17 @@ class Tour extends MY_Controller {
     //implement code here
     if($id) {
 
-        $this->tourModel->deleteRecord($id);
+        $this->hotelModel->deleteRecord($id);
 
-        $args["tour_id"] = $id;
+        $args["hotel_id"] = $id;
 
         //Delete tag
-        $this->load->model("tagtour_model", "tagtourModel");
-        $this->tagtourModel->deleteRecord($id);
+        $this->load->model("taghotel_model", "taghotelModel");
+        $this->taghotelModel->deleteRecord($id);
 
         //Delete agency
-        $this->load->model("price_model", "priceModel");
-        $this->priceModel->deleteRecord($id);
+        $this->load->model("pricehotel_model", "pricehotelModel");
+        $this->pricehotelModel->deleteRecord($id);
 
         //Delete Images
         $this->load->model("images_model", "imagesModel");
@@ -1405,34 +1418,34 @@ class Tour extends MY_Controller {
                                    );
         
         //Redirect
-        redirect(base_url("admin/tour"));      
+        redirect(base_url("admin/hotel"));      
     } 
   }  
 
-  function admin_createtag($tag=false, $tour=false){
+  function admin_createtag($tag=false, $hotel=false){
     //implement code here 
 
-    if($tag && $tour){
+    if($tag && $hotel){
       $argTag["name"] = $tag; 
       $this->load->model("tag_model", "tagModel");     
       $tagQuery = $this->tagModel->getRecord($argTag);
 
-      $tours = explode("-", $tour);
+      $hotels = explode("-", $hotel);
 
-      $this->load->model("tagtour_model", "tagtourModel");
-      foreach ($tours as $key => $value) {
+      $this->load->model("taghotel_model", "taghotelModel");
+      foreach ($hotels as $key => $value) {
         $args['tag_id']  = $tagQuery[0]->id;
-        $args['tour_id'] = $value[0];
+        $args['hotel_id'] = $value[0];
 
-        $tagtour = $this->tagtourModel->getRecord($args);
+        $taghotel = $this->taghotelModel->getRecord($args);
 
-        if(empty($tagtour)){
+        if(empty($taghotel)){
           //Add
-          $this->tagtourModel->addRecord($args);
+          $this->taghotelModel->addRecord($args);
           echo "insert finished.";
         }else{
           //Delete
-          $this->tagtourModel->deleteRecord($args);
+          $this->taghotelModel->deleteRecord($args);
           echo "delete finished.";
         }
       }
@@ -1444,7 +1457,7 @@ class Tour extends MY_Controller {
   function admin_setdisplay(){
     //Get argument from post page
     $args = $this->input->post();
-    $this->tourModel->updateDisplayRecord($args);
+    $this->hotelModel->updateDisplayRecord($args);
     print_r($args); exit();
   }
 
@@ -1454,7 +1467,7 @@ class Tour extends MY_Controller {
     $this->load->library('form_validation');
 
     //Validate information
-    $this->form_validation->set_rules('name', 'tour name', 'required');
+    $this->form_validation->set_rules('name', 'hotel name', 'required');
     $this->form_validation->set_rules('description', 'description', 'required');
     $this->form_validation->set_rules('short_description', 'short_description', 'required');
 
@@ -1514,7 +1527,7 @@ class Tour extends MY_Controller {
 
     if($keyword && $render == "user_list"){
 
-      $data["menu"]= $this->_tour_menu();
+      $data["menu"]= $this->_hotel_menu();
 
       foreach ($data["menu"] as $key => $valueTag) {
         $query["menu"][] = $valueTag->tag_id;
@@ -1523,7 +1536,7 @@ class Tour extends MY_Controller {
       $query["tou_name"] = $keyword["search"];
       $query["user_search"] = true; 
 
-      $data["tour"] = $this->tourModel->searchRecord($query);
+      $data["hotel"] = $this->hotelModel->searchRecord($query);
       $data["search"] = $keyword["search"];
 
       $this->_fetch('user_list', $data, false, true);
@@ -1531,19 +1544,19 @@ class Tour extends MY_Controller {
 
     }else if($keyword && $render == "admin_list"){
       $args["tou_name"] = $keyword["search"];
-      $tour = $this->tourModel->searchRecord($args);
+      $hotel = $this->hotelModel->searchRecord($args);
 
-      //print_r($data["tour"]); exit;
+      //print_r($data["hotel"]); exit;
       $count = 0;
-      foreach ($tour as $key => $value) {
+      foreach ($hotel as $key => $value) {
 
         $query["join"] = true;        
-        $query["tour_id"] = $value->id;
+        $query["hotel_id"] = $value->id;
 
-        $data["tour"][$count]["tour"] = $value;
+        $data["hotel"][$count]["hotel"] = $value;
 
-        $this->load->model("tagtour_model","tagtourModel");  
-        $data["tour"][$count]["tag"] = $this->tagtourModel->getRecord($query);  
+        $this->load->model("taghotel_model","taghotelModel");  
+        $data["hotel"][$count]["tag"] = $this->taghotelModel->getRecord($query);  
 
         $count++;       
        } 
@@ -1555,14 +1568,14 @@ class Tour extends MY_Controller {
  
   }
   
-  function _uploadImage($TourID=""){
-    if(empty($TourID)){
+  function _uploadImage($HotelID=""){
+    if(empty($HotelID)){
       return FALSE;
     }
     
     //Upload and update Images
     $this->load->library('upload');
-    $dir = Hash::make("tour_images")->hash(md5($TourID));
+    $dir = Hash::make("hotel_images")->hash(md5($HotelID));
     
     if(!file_exists($dir)){
       mkdir($dir, 0755,true);
@@ -1573,14 +1586,14 @@ class Tour extends MY_Controller {
     }
     
     if(!empty($_FILES['first_image']["name"])){
-      if(file_exists($dir."/".md5($TourID)."_first.jpg")){
-        Util::rrmdir($dir."/".md5($TourID)."_first.jpg");
+      if(file_exists($dir."/".md5($HotelID)."_first.jpg")){
+        Util::rrmdir($dir."/".md5($HotelID)."_first.jpg");
         
       }
       
       $config[0]['upload_path'] = $dir;
       $config[0]['allowed_types'] = 'gif|jpg|png';
-      $config[0]['file_name'] = md5($TourID)."_first.jpg";
+      $config[0]['file_name'] = md5($HotelID)."_first.jpg";
       $this->upload->initialize($config[0]);
       $this->upload->do_upload("first_image");
       $_firstImg = $this->upload->data();
@@ -1590,12 +1603,12 @@ class Tour extends MY_Controller {
 
     
     if(!empty($_FILES['background_image']["name"])){
-      if(file_exists($dir."/".md5($TourID)."_background.jpg")){
-        Util::rrmdir($dir."/".md5($TourID)."_background.jpg");
+      if(file_exists($dir."/".md5($HotelID)."_background.jpg")){
+        Util::rrmdir($dir."/".md5($HotelID)."_background.jpg");
       }
       $config[1]['upload_path'] = $dir;
       $config[1]['allowed_types'] = 'gif|jpg|png';
-      $config[1]['file_name'] = md5($TourID)."_background.jpg";
+      $config[1]['file_name'] = md5($HotelID)."_background.jpg";
       $this->upload->initialize($config[1]);
       $this->upload->do_upload("background_image");
       $_backgroundImg = $this->upload->data();
@@ -1603,20 +1616,20 @@ class Tour extends MY_Controller {
     }
 
     if(!empty($_FILES['banner_image']["name"])){
-      if(file_exists($dir."/".md5($TourID)."_banner.jpg")){
-        Util::rrmdir($dir."/".md5($TourID)."_banner.jpg");
+      if(file_exists($dir."/".md5($HotelID)."_banner.jpg")){
+        Util::rrmdir($dir."/".md5($HotelID)."_banner.jpg");
       }
       $config[2]['upload_path'] = $dir;
       $config[2]['allowed_types'] = 'gif|jpg|png';
-      $config[2]['file_name'] = md5($TourID)."_banner.jpg";
+      $config[2]['file_name'] = md5($HotelID)."_banner.jpg";
       $this->upload->initialize($config[2]);
       $this->upload->do_upload("banner_image");
       $_bannerImg = $this->upload->data();
       $imgData["banner_image"] = base_url("/".$dir."/".$_bannerImg["file_name"]);
     }
     
-    $imgData["id"] = $TourID;
-    return $this->tourModel->updateRecord($imgData);
+    $imgData["id"] = $HotelID;
+    return $this->hotelModel->updateRecord($imgData);
   }
 
 }

@@ -1,31 +1,33 @@
 <?php
-  //print_r($tour); exit;
+  //print_r($hotel); exit;
   //echo $this->pagination->create_links();
   //echo "<br><br><br><br>";
 
-  if(!empty($tour)){
+  if(!empty($hotel)){
 
-    foreach ($tour as $key => $value) {
+    foreach ($hotel as $key => $value) {
   ?>
     <div class="list_attractions" data-category="transition">
       <?php
-          if(!empty($value["price"]->pri_sale_adult_price)){
+          if(!empty($value["price"]->prh_sale_adult_price)){
       ?>
-        <div class="sticker price">
-          <?php  
-            $sale_price = $value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price;
-            echo number_format($sale_price, 0);
-          ?>
-          บาท
-        </div>                                    
+        <div class="sticker_status">
+          <div class="sticker price">
+            <?php  
+              $sale_price = $value["price"]->prh_sale_adult_price - $value["price"]->prh_discount_adult_price;
+              echo number_format($sale_price, 0);
+            ?>
+            บาท
+          </div> 
+        </div>                                   
       <?php                                    
           }
       ?>
-      <a href="<?php echo base_url('tour/'.$value['tour']->tout_url.'-'.$value['tour']->tou_id);?>" target="_blank" >
+      <a href="<?php echo base_url('hotel/'.$value['hotel']->tout_url.'-'.$value['hotel']->hot_id);?>" target="_blank" >
         <?php
-          if($value['tour']->tou_first_image){
+          if($value['hotel']->hot_first_image){
         ?>
-            <img src="<?php echo $value['tour']->tou_first_image;?>">
+            <img src="<?php echo $value['hotel']->hot_first_image;?>">
         <?php
           }
         ?>
@@ -34,8 +36,8 @@
       <div class="row-fluid">
         <div class="span8">
           <h3>
-            <a href="<?php echo base_url('tour/'.$value['tour']->tout_url.'-'.$value['tour']->tou_id);?>" target="_blank" >
-              <?php echo $value['tour']->tout_name; ?>
+            <a href="<?php echo base_url('hotel/'.$value['hotel']->tout_url.'-'.$value['hotel']->hot_id);?>" target="_blank" >
+              <?php echo $value['hotel']->tout_name; ?>
             </a>
           </h3>
         </div>
@@ -52,9 +54,9 @@
       <div class="row-fluid">
         <div class="span7">
           <?php 
-              if(isset($value['tour']->tout_name)){
+              if(isset($value['hotel']->tout_name)){
             ?>
-              <img src="<?php echo base_url('themes/Travel/tour/images/icon/24tour.png');?>" style="margin-left:7px;">
+              <div class="icon hotel" rel="tooltip" title="แพ็กเก็จทัวร์"></div>
               <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
               <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
           <?php
@@ -67,7 +69,7 @@
               //print_r($value["tag"]); exit;
               foreach ($value["tag"] as $keyTag => $valueTag) {
             ?>
-            <a href="<?php echo base_url('tour/'.$valueTag->tag_url);?>" style="color: #0CACE1;">
+            <a href="<?php echo base_url('hotel/'.$valueTag->tag_url);?>" style="color: #0CACE1;">
               <?php echo $valueTag->tag_name; ?>
             </a>
             <?php
@@ -81,6 +83,6 @@
 
 <?php
     }
-  }//End loop tour 
+  }//End loop hotel 
 ?>
-<?php include_once("themes/Travel/tour/analyticstracking.php") ?>
+<?php include_once("themes/Travel/hotel/analyticstracking.php") ?>

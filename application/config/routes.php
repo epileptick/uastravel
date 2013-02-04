@@ -58,7 +58,6 @@ $route['(:any)'.'_tests'] = '$1'.'_tests';
 
 
 //Carrent
-
 $route['carrent/(:any)'] = 'carrent/user_index/$1';
 $route[$lang_set.'/'.'carrent/(:any)'] = 'carrent/user_index/$1';
 $route["carrent"] = 'carrent/user_index';
@@ -115,20 +114,38 @@ $route['admin/tour/(:any)/(:any)-(:num)'] = 'tour/admin_view/$3';
 $route['admin/tour/(:any)-(:num)'] = 'tour/admin_view/$2';
 $route['admin/tour/(:any)'] = 'tour/admin_list'; //for Tag
 
-
-
 //tour user
 $route[LangUtil::line("url_lang_tour").'/search'] = 'tour/user_search';
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/search'] = 'tour/user_search';
-
-//$route[LangUtil::line("url_lang_tour").'/(:any)/search'] = 'tour/user_search/$1';
-//$route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)/search'] = 'tour/user_search/$1';
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
 $route[LangUtil::line("url_lang_tour")."/(:any)"] = 'tour/user_index'; 
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour")."/(:any)"] = 'tour/user_index'; 
 $route[LangUtil::line("url_lang_tour")] = 'tour/user_index'; 
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour")] = 'tour/user_index'; 
+
+
+//hotel admin
+$route['admin/hotel/userbookingview/(:any)'] = 'hotel/admin_userbookingview/$1';
+$route['admin/hotel/agencybookingview/(:any)'] = 'hotel/admin_agencybookingview/$1';
+$route['admin/hotel/setdisplay'] = 'hotel/admin_setdisplay';
+$route['admin/hotel/(:num)'] = 'hotel/admin_index/$1';
+$route['admin/hotel'] = 'hotel/admin_index';
+$route['admin/hotel/update'] = 'hotel/admin_update';
+$route['admin/hotel/delete/(:num)'] = 'hotel/admin_delete/$1';
+$route['admin/hotel/createtag/(:any)/(:any)'] = 'hotel/admin_createtag/$1/$2';
+$route['admin/hotel/create'] = 'hotel/admin_create';
+$route['admin/hotel/create/(:num)'] = 'hotel/admin_create/$1';
+$route['admin/hotel/(:any)/(:any)-(:num)'] = 'hotel/admin_view/$3';
+$route['admin/hotel/(:any)-(:num)'] = 'hotel/admin_view/$2';
+$route['admin/hotel/(:any)'] = 'hotel/admin_list'; //for Tag
+
+//hotel user
+$route['hotel/search'] = 'hotel/user_search';
+$route['hotel/(:any)-(:num)'] = 'hotel/user_view/$2';
+$route["hotel/(:any)"] = 'hotel/user_index'; 
+$route["hotel"] = 'hotel/user_index'; 
+
 
 //Agency
 $route['admin/'.LangUtil::line("url_lang_agency")] = 'agency/admin_index';
