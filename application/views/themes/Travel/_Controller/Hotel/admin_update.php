@@ -497,8 +497,8 @@ $(document).ready(function() {
 
           <?php
 
-          //print_r(count($valueAgency["price_data"])); exit;
-          foreach ($valueAgency["price_data"] as $key => $value) {
+          
+          foreach ($valueAgency["pricehotel_data"] as $key => $value) {
           ?><br>
             <div id='price_<?php echo $value->agency_id;?>_<?php echo $countExtendPriceJS;?>'>
               <div class='half'> 
