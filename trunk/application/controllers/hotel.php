@@ -580,7 +580,7 @@ class Hotel extends MY_Controller {
       $taghotel["hotel_id"] = $id;
       $agencyhotel["hotel_id"] = $id; 
       $agencyhotel["event"] = "display";
-      $extendprice["pri_hotel_id"] = $id;  
+      $extendprice["prh_hotel_id"] = $id;  
       $data["hotel"] = $this->hotelModel->getRecord($hotel); 
 
       //Check has hotel
@@ -753,6 +753,8 @@ class Hotel extends MY_Controller {
       //print_r($data);  exit;
   
 
+
+      print_r($args["pricehotel_id"]); exit;
       //Price compute
       if(!empty($args["pricehotel_id"])){
         $this->load->model("pricehotel_model", "pricehotelModel");
@@ -767,31 +769,31 @@ class Hotel extends MY_Controller {
           $adult_amount_booking = $args["adult_amount_booking"][$queryPriceID];
           $child_amount_booking = $args["child_amount_booking"][$queryPriceID];
 
-          $data["price"][$queryPriceID]["pri_id"] = $queryPriceID;
-          $data["price"][$queryPriceID]["pri_agency_id"] = $dataPrice[$queryPriceID]->agency_id;
-          $data["price"][$queryPriceID]["pri_hotel_id"] = $dataPrice[$queryPriceID]->hotel_id;
-          $data["price"][$queryPriceID]["pri_name"] = $dataPrice[$queryPriceID]->name;
-          $data["price"][$queryPriceID]["pri_sale_adult_price"] = $dataPrice[$queryPriceID]->sale_adult_price;
-          $data["price"][$queryPriceID]["pri_net_adult_price"] = $dataPrice[$queryPriceID]->net_adult_price;
-          $data["price"][$queryPriceID]["pri_discount_adult_price"] = $dataPrice[$queryPriceID]->discount_adult_price;
-          $data["price"][$queryPriceID]["pri_sale_child_price"] = $dataPrice[$queryPriceID]->sale_child_price;
-          $data["price"][$queryPriceID]["pri_net_child_price"] = $dataPrice[$queryPriceID]->net_child_price;
-          $data["price"][$queryPriceID]["pri_discount_child_price"] = $dataPrice[$queryPriceID]->discount_child_price;
-          $data["price"][$queryPriceID]["pri_adult_amount_booking"] = $adult_amount_booking;
-          $data["price"][$queryPriceID]["pri_child_amount_booking"] = $child_amount_booking;
+          $data["price"][$queryPriceID]["prh_id"] = $queryPriceID;
+          $data["price"][$queryPriceID]["prh_agency_id"] = $dataPrice[$queryPriceID]->agency_id;
+          $data["price"][$queryPriceID]["prh_hotel_id"] = $dataPrice[$queryPriceID]->hotel_id;
+          $data["price"][$queryPriceID]["prh_name"] = $dataPrice[$queryPriceID]->name;
+          $data["price"][$queryPriceID]["prh_sale_adult_price"] = $dataPrice[$queryPriceID]->sale_adult_price;
+          $data["price"][$queryPriceID]["prh_net_adult_price"] = $dataPrice[$queryPriceID]->net_adult_price;
+          $data["price"][$queryPriceID]["prh_discount_adult_price"] = $dataPrice[$queryPriceID]->discount_adult_price;
+          $data["price"][$queryPriceID]["prh_sale_child_price"] = $dataPrice[$queryPriceID]->sale_child_price;
+          $data["price"][$queryPriceID]["prh_net_child_price"] = $dataPrice[$queryPriceID]->net_child_price;
+          $data["price"][$queryPriceID]["prh_discount_child_price"] = $dataPrice[$queryPriceID]->discount_child_price;
+          $data["price"][$queryPriceID]["prh_adult_amount_booking"] = $adult_amount_booking;
+          $data["price"][$queryPriceID]["prh_child_amount_booking"] = $child_amount_booking;
 
           $total_adult_price = $adult_amount_booking * $dataPrice[$queryPriceID]->sale_adult_price;
           $total_child_price = $child_amount_booking * $dataPrice[$queryPriceID]->sale_child_price;
-          $data["price"][$queryPriceID]["pri_total_adult_price"] = $total_adult_price;
-          $data["price"][$queryPriceID]["pri_total_child_price"] = $total_child_price;
-          $data["price"][$queryPriceID]["pri_total_price"] = $total_adult_price + $total_child_price;
+          $data["price"][$queryPriceID]["prh_total_adult_price"] = $total_adult_price;
+          $data["price"][$queryPriceID]["prh_total_child_price"] = $total_child_price;
+          $data["price"][$queryPriceID]["prh_total_price"] = $total_adult_price + $total_child_price;
           
         }
       }
 
 
 
-      //print_r($data); exit;
+      print_r($data["price"]); exit;
 
       //print_r($data); exit;
       //Return

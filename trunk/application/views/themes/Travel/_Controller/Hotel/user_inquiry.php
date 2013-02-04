@@ -201,7 +201,7 @@
             </div>
             <?php
 
-            //print_r($extendprice);
+            
             $count = 0;
             $grand_total_price = 0;
             foreach ($price as $key => $value) {
@@ -209,63 +209,63 @@
               <div class="row">
                 <div class="six columns">
                   <label>
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_price_id]" 
-                    value="<?php echo $value["pri_id"];?>"
+                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_price_id]" 
+                    value="<?php echo $value["prh_id"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_agency_id]" 
-                    value="<?php echo $value["pri_agency_id"];?>"
+                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_agency_id]" 
+                    value="<?php echo $value["prh_agency_id"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_tour_id]" 
-                    value="<?php echo $value["pri_tour_id"];?>"
+                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_tour_id]" 
+                    value="<?php echo $value["prh_tour_id"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_adult_amount_booking]" 
-                    value='<?php echo ($value["pri_adult_amount_booking"]>0)?$value["pri_adult_amount_booking"]:"0";?>'
+                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_adult_amount_booking]" 
+                    value='<?php echo ($value["prh_adult_amount_booking"]>0)?$value["prh_adult_amount_booking"]:"0";?>'
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_child_amount_booking]" 
-                    value='<?php echo ($value["pri_child_amount_booking"]>0)?$value["pri_child_amount_booking"]:"0";?>'
+                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_child_amount_booking]" 
+                    value='<?php echo ($value["prh_child_amount_booking"]>0)?$value["prh_child_amount_booking"]:"0";?>'
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_price_name]" 
-                    value="<?php echo $value["pri_name"];?>"
+                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_price_name]" 
+                    value="<?php echo $value["prh_name"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_sale_adult_price]" 
-                    value="<?php echo $value["pri_sale_adult_price"];?>"
+                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_sale_adult_price]" 
+                    value="<?php echo $value["prh_sale_adult_price"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_sale_child_price]" 
-                    value="<?php echo $value["pri_sale_child_price"];?>"
+                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_sale_child_price]" 
+                    value="<?php echo $value["prh_sale_child_price"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_adult_price]" 
-                    value="<?php echo $value["pri_total_adult_price"];?>"
+                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_total_adult_price]" 
+                    value="<?php echo $value["prh_total_adult_price"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_child_price]" 
-                    value="<?php echo $value["pri_total_child_price"];?>"
+                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_total_child_price]" 
+                    value="<?php echo $value["prh_total_child_price"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_price]" 
-                    value="<?php echo $value["pri_total_price"];?>"
+                    <input type="hidden" name="tob_price[<?php echo $value["prh_id"];?>][tob_total_price]" 
+                    value="<?php echo $value["prh_total_price"];?>"
                     >
-                    <?php echo $value["pri_name"];?>
+                    <?php echo $value["prh_name"];?>
                     <?php $count++;?>
                   </label>
                 </div>
                 <div class="two columns">
                   <center>
                       <label style="float:right;">
-                        <?php echo number_format($value["pri_sale_adult_price"], 0);?>
-                        (<?php echo ($value["pri_adult_amount_booking"]>0)?$value["pri_adult_amount_booking"]:"0";?>)
+                        <?php echo number_format($value["prh_sale_adult_price"], 0);?>
+                        (<?php echo ($value["prh_adult_amount_booking"]>0)?$value["prh_adult_amount_booking"]:"0";?>)
                       </label>
                   </center>
                 </div>
                 <div class="two columns">
                   <center><label style="float:right;">
-                    <?php echo number_format($value["pri_sale_child_price"], 0);?>
-                    (<?php echo ($value["pri_child_amount_booking"]>0)?$value["pri_child_amount_booking"]:"0";?>)
+                    <?php echo number_format($value["prh_sale_child_price"], 0);?>
+                    (<?php echo ($value["prh_child_amount_booking"]>0)?$value["prh_child_amount_booking"]:"0";?>)
                   </label>
                 </center>
                 </div>
                 <div class="two columns">
                   <?php
-                    $grand_total_price += $value["pri_total_price"];
+                    $grand_total_price += $value["prh_total_price"];
                   ?>
-                  <label style="float:right;"><b><?php echo number_format($value["pri_total_price"], 0);?></b></label>
+                  <label style="float:right;"><b><?php echo number_format($value["prh_total_price"], 0);?></b></label>
                 </div>
               </div>
             <?
@@ -473,18 +473,18 @@
             <div class="price">
               <span>
               <?php 
-                  if(!empty($value["price"]->pri_sale_adult_price)){
+                  if(!empty($value["price"]->prh_sale_adult_price)){
                     
-                    if($value["price"]->pri_discount_adult_price>0){
+                    if($value["price"]->prh_discount_adult_price>0){
 
-                      $priceAdultDiscount = number_format($value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price, 0);
-                      $priceAdult = number_format($value["price"]->pri_sale_adult_price, 0);
+                      $priceAdultDiscount = number_format($value["price"]->prh_sale_adult_price - $value["price"]->prh_discount_adult_price, 0);
+                      $priceAdult = number_format($value["price"]->prh_sale_adult_price, 0);
                     
                       echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
                       echo " บาท";
 
                     }else{
-                      echo number_format($value["price"]->pri_sale_adult_price, 0);
+                      echo number_format($value["price"]->prh_sale_adult_price, 0);
                       echo " บาท";
                     }
 
