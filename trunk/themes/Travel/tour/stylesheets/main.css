@@ -602,40 +602,13 @@ input.button_search {
 	position: absolute;
 	top: -46px;
 }
-.promotion{
-	display: none;
-}
+
 /*.have_promotion3{
 	top: 86px;
 }
 .have_promotion4{
 	top: 60px;
 }*/
-.list_attractions:nth-child(1) .style1{
-  display: block;
-}
-
-.list_attractions:nth-child(3) .style2{
-  display: block;
-}
-
-.list_attractions:nth-child(2) .style3{
-  display: block;
-}
-
-.list_attractions:nth-child(5) .style4{
-  display: block;
-}
-
-.list_attractions:nth-child(2) .have_promotion3{
-  top: 86px;
-}
-
-.list_attractions:nth-child(5) .have_promotion4{
-  top: 60px;
-}
-
-
 .promotion p{
 	font-size: 18px;
 	padding: 0 0 0 87px;

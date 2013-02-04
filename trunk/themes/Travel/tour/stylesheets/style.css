@@ -40,6 +40,9 @@ h3{
 	line-height: 20px;
 	text-shadow: 1px 1px 0px #fff;
 }
+h3#detail{
+	color: #0CACE1;
+}
 p{
 	font-family: 'thaisanslite';
 	font-size: 20px;
