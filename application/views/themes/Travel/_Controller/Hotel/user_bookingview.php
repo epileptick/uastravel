@@ -14,10 +14,10 @@
 
 </style>
 <head>
-  <title><?php echo $booking[0]->toc_code."(".$booking[0]->toc_tour_name.")";?></title>
+  <title><?php echo $booking[0]->hoc_code."(".$booking[0]->hoc_hotel_name.")";?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="จอง<?php echo $booking[0]->toc_tour_name.'('.$booking[0]->toc_tour_code.')';?>" />
+  <meta name="description" content="จอง<?php echo $booking[0]->hoc_hotel_name.'('.$booking[0]->hoc_hotel_code.')';?>" />
   <meta name="keywords" content="" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <!-- Set the viewport width to device width for mobile -->
@@ -89,7 +89,7 @@
                   </div>
                   <div class="four columns" style="text-align:right;">
                     <h1>
-                      <strong>Tour</strong> <strong style="color:#FE5214;">Booking</strong>
+                      <strong>Hotel</strong> <strong style="color:#FE5214;">Booking</strong>
                     </h1>                
                   </div>
                 </div>
@@ -162,7 +162,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->toc_code;?>
+                 <?php echo $booking[0]->hoc_code;?>
                 </h5> 
                 </div>
               </div>
@@ -179,7 +179,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->toc_tour_name;?>
+                 <?php echo $booking[0]->hoc_hotel_name;?>
                 </h5> 
                 </div>
               </div>
@@ -196,7 +196,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->toc_firstname;?> <?php echo $booking[0]->toc_lastname;?>
+                 <?php echo $booking[0]->hoc_firstname;?> <?php echo $booking[0]->hoc_lastname;?>
                 </h5> 
                 </div>
               </div>
@@ -214,7 +214,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->toc_nationality;?>
+                 <?php echo $booking[0]->hoc_nationality;?>
                 </h5> 
                 </div>
               </div>
@@ -231,10 +231,10 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->toc_address;?>, 
-                 <?php echo $booking[0]->toc_city;?>, 
-                 <?php echo $booking[0]->toc_province;?>, 
-                 <?php echo $booking[0]->toc_zipcode;?>
+                 <?php echo $booking[0]->hoc_address;?>, 
+                 <?php echo $booking[0]->hoc_city;?>, 
+                 <?php echo $booking[0]->hoc_province;?>, 
+                 <?php echo $booking[0]->hoc_zipcode;?>
                 </h5> 
                 </div>
               </div>
@@ -252,7 +252,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->toc_telephone;?>
+                 <?php echo $booking[0]->hoc_telephone;?>
                 </h5> 
                 </div>
               </div>
@@ -270,7 +270,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->toc_email;?>
+                 <?php echo $booking[0]->hoc_email;?>
                 </h5> 
                 </div>
               </div>
@@ -282,68 +282,45 @@
                 <div class="five columns">
 
                   <h5>
-                      Tranfer: <br>
-                      วันเดินทาง : 
+                      Check In: <br>
+                      วันที่เช็คอินท์ : 
                   </h5>               
                 </div>
                 <div class="seven columns">
 
                   <h5>
                    <?php 
-                      $dateExplode = explode("-", $booking[0]->toc_tranfer_date);
-                      $tranfer_date = $dateExplode[2]."/".$dateExplode[1]."/".$dateExplode[0];
-                      echo $tranfer_date;
+                      $dateExplode = explode("-", $booking[0]->hoc_checkin_date);
+                      $checkin_date = $dateExplode[2]."/".$dateExplode[1]."/".$dateExplode[0];
+                      echo $checkin_date;
                    ?>
                   </h5> 
                 </div>
               </div>
             </div> 
 
-            <div class="row">
+                        <div class="row">
               <div class="twelve columns">
                 <div class="five columns">
 
                   <h5>
-                      Hotel: <br>
-                      ชื่อที่พัก : 
+                      Check Out: <br>
+                      วันที่เช็คเอาท์ : 
                   </h5>               
                 </div>
                 <div class="seven columns">
 
                   <h5>
                    <?php 
-                    if(!empty($booking[0]->toc_hotel_name)){
-                      echo $booking[0]->toc_hotel_name;
-                    }else{
-                      echo "-";
-                    }
+                      $dateExplode = explode("-", $booking[0]->hoc_checkout_date);
+                      $checkout_date = $dateExplode[2]."/".$dateExplode[1]."/".$dateExplode[0];
+                      echo $checkout_date;
                    ?>
                   </h5> 
                 </div>
               </div>
             </div> 
 
-            <div class="row">
-              <div class="twelve columns">
-                <div class="five columns">
-                  <h5>
-                      Room  : <br>
-                      เลขห้อง : 
-                  </h5>                  
-                </div>
-                <div class="seven columns">
-                <h5>
-                 <?php 
-                  if($booking[0]->toc_room_number != 0){
-                    echo $booking[0]->toc_room_number;
-                  }else{
-                    echo "-";
-                  }
-                 ?>
-                </h5> 
-                </div>
-              </div> 
-            </div> 
 
             <div class="row">
               <div class="twelve columns">
@@ -356,7 +333,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->toc_request;?>
+                 <?php echo $booking[0]->hoc_request;?>
                 </h5> 
                 </div>
               </div> 
@@ -370,7 +347,7 @@
             <div class="row">
               <div class="twelve columns">
                 <h5>
-                    <b>จำนวนผู้เดินทาง (Passenger) </b>
+                    <b>จำนวนผู้เข้าพัก (Number of guests) </b>
                 </h5> 
               </div>
             </div>
@@ -386,7 +363,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->toc_adult_amount_passenger;?>
+                 <?php echo $booking[0]->hoc_adult_amount;?>
                 </h5> 
                 </div>
               </div>
@@ -403,7 +380,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->toc_child_amount_passenger;?>
+                 <?php echo $booking[0]->hoc_child_amount;?>
                 </h5> 
                 </div>
               </div>
@@ -419,7 +396,7 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->toc_infant_amount_passenger;?>
+                 <?php echo $booking[0]->hoc_infant_amount;?>
                 </h5> 
                 </div>
               </div>
@@ -455,13 +432,13 @@
                   <div class="five columns">
 
                   <h5>
-                      Name of Price : <br>
-                      ชื่อราคา : 
+                      Room Type : <br>
+                      ประเภทห้อง : 
                   </h5>                
                   </div>
                   <div class="seven columns">
                   <h5>
-                   <?php echo $value->tob_price_name;?>
+                   <?php echo $value->hob_price_name;?> ( <?php echo number_format($value->hob_sale_room_price);?> / ห้อง  / วัน)
                   </h5> 
                   </div>
                 </div>
@@ -472,33 +449,48 @@
                   <div class="five columns">
 
                   <h5>
-                      Price of Adults : <br>
-                      ราคาผู้ใหญ่ : 
+                      Number of Rooms : <br>
+                      จำนวนห้อง : 
                   </h5>                
                   </div>
                   <div class="seven columns">
                   <h5>
+                   <?php echo $value->hob_room_amount_booking;?> ห้อง
+                  </h5> 
+                  </div>
+                </div>
+              </div>
+
+                            <div class="row">
+                <div class="twelve columns">
+                  <div class="five columns">
+
+                  <h5>
+                      Number of Date : <br>
+                      จำนวนวัน : 
+                  </h5>                
+                  </div>
+                  <div class="seven columns">
+                  <h5>
+                   <?php echo $value->hob_date_amount_booking;?> วัน
+                  </h5> 
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="twelve columns">
+                  <div class="five columns">
+
+                  <h5>
+                      Price  : <br>
+                      ราคารวม : 
+                  </h5>                
+                  </div>
+                  <div class="seven columns">
+                  <h5>
+                   <?php echo number_format($value->hob_total_price);?> บาท 
                    
-                   <?php echo number_format($value->tob_total_adult_price, 0);?> บาท 
-                   (<?php echo number_format($value->tob_sale_adult_price, 0);?> x <?php echo $value->tob_adult_amount_booking;?>)
-                  </h5> 
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="twelve columns">
-                  <div class="five columns">
-
-                  <h5>
-                      Price of Children : <br>
-                      ราคาเด็ก : 
-                  </h5>                
-                  </div>
-                  <div class="seven columns">
-                  <h5>
-                   <?php echo number_format($value->tob_total_child_price, 0);?> บาท 
-                   (<?php echo number_format($value->tob_sale_child_price, 0);?> x <?php echo $value->tob_child_amount_booking;?>)
                   </h5> 
                   </div>
                 </div>
@@ -521,7 +513,7 @@
                   </div>
                   <div class="seven columns">
                     <h5 style="color:red; font-size:200%; margin-top:10px !important;" >
-                      <?php echo number_format($booking[0]->toc_grand_total_price, 0);?> บาท
+                      <?php echo number_format($booking[0]->hoc_grand_total_price, 0);?> บาท
                     </h5> 
                   </div>
                 </div>

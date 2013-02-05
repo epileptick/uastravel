@@ -34,16 +34,21 @@
     // validate signup form on keyup and submit
     var validator = $("#booking_validate").validate({
       rules: {
-        toc_firstname: "required",
-        toc_lastname: "required",
-        toc_address: "required",
-        toc_city: "required",
-        toc_province: "required",
-        toc_zipcode: "required",
-        toc_nationality: "required",
-        toc_telephone: "required",
-        toc_email: "required",
-        toc_tranfer_date: "required",
+        hoc_firstname: "required",
+        hoc_lastname: "required",
+        hoc_address: "required",
+        hoc_city: "required",
+        hoc_province: "required",
+        hoc_zipcode: "required",
+        hoc_nationality: "required",
+        hoc_telephone: "required",
+        hoc_email: "required",
+        hoc_checkin_date: "required",
+        hoc_checkout_date: "required",
+        hoc_room_amount: "required",
+        hoc_room_amount: "required",
+        hoc_child_amount: "required",
+        hoc_infant_amount: "required",
       },
       messages: {
       },
@@ -69,7 +74,7 @@
 <script>
 
   $(function() {
-    $( "#toc_tranfer_date" ).datepicker({
+    $( "#hoc_checkin_date" ).datepicker({
         numberOfMonths: 1,  
         minDate: 1,
         dateFormat: 'dd/mm/yy',
@@ -81,6 +86,22 @@
     });
   });
   </script>  
+
+  <script>
+
+  $(function() {
+    $( "#hoc_checkout_date" ).datepicker({
+        numberOfMonths: 1,  
+        minDate: 1,
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,     
+        dayNames: ['อาทิตย์', 'จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'],       
+        dayNamesMin: ['อา','จ','อ','พ','พฤ','ศ','ส'],     
+        monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม']       
+    });
+  });
+  </script>
 </head>
 
 
@@ -132,7 +153,7 @@
               <li class="has-dropdown">
                 <a href="<?php echo base_url('hotel/ที่พัก');?>">ที่พัก</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('hotel/จองโรงแรม');?>">จองโรงแรม</a></li>
+                  <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                   <li><a href="<?php echo base_url('hotel/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                 </ul>                
               </li>
@@ -154,10 +175,10 @@
         method="post"
   >
 
-    <input type="hidden" name="toc_hotel_id" value="<?php echo $hotel[0]->id;?>">
-    <input type="hidden" name="toc_hotel_code" value="<?php echo $hotel[0]->code;?>">
-    <input type="hidden" name="toc_hotel_name" value="<?php echo $hotel[0]->name;?>">
-    <input type="hidden" name="toc_hotel_url" value="<?php echo $hotel[0]->url;?>">
+    <input type="hidden" name="hoc_hotel_id" value="<?php echo $hotel[0]->id;?>">
+    <input type="hidden" name="hoc_hotel_code" value="<?php echo $hotel[0]->code;?>">
+    <input type="hidden" name="hoc_hotel_name" value="<?php echo $hotel[0]->name;?>">
+    <input type="hidden" name="hoc_hotel_url" value="<?php echo $hotel[0]->url;?>">
 
     <!-- Start Content -->
     <div class="row">
@@ -189,13 +210,13 @@
               <div class="six columns">
                 <label style="float:center;"><b>รายการ</b></label>
               </div>
-              <div class="two columns">
-                <label style="float:right;"><b>ผู้ใหญ่(บาท)</b></label>
+              <div class="three columns">
+                <label style="float:right;"><b>ห้องพัก(ห้องxวัน)</b></label>
               </div>
-              <div class="two columns">
+              <!--<div class="two columns">
                 <label style="float:right;"><b>เด็ก(บาท)</b></label>
-              </div>
-              <div class="two columns">
+              </div>-->
+              <div class="three columns">
                 <label style="float:right;"><b>รวม(บาท)</b></label>
               </div>
             </div>
@@ -209,28 +230,31 @@
               <div class="row">
                 <div class="six columns">
                   <label>
-                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_price_id]" 
+                    <input type="hidden" name="hob_price[<?php echo $value["prh_id"];?>][hob_price_id]" 
                     value="<?php echo $value["prh_id"];?>"
                     >
-                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_agency_id]" 
+                    <input type="hidden" name="hob_price[<?php echo $value["prh_id"];?>][hob_agency_id]" 
                     value="<?php echo $value["prh_agency_id"];?>"
                     >
-                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_hotel_id]" 
+                    <input type="hidden" name="hob_price[<?php echo $value["prh_id"];?>][hob_hotel_id]" 
                     value="<?php echo $value["prh_hotel_id"];?>"
                     >
-                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_adult_amount_booking]" 
-                    value='<?php echo ($value["prh_adult_amount_booking"]>0)?$value["prh_adult_amount_booking"]:"0";?>'
+                    <input type="hidden" name="hob_price[<?php echo $value["prh_id"];?>][hob_room_amount_booking]" 
+                    value='<?php echo ($value["prh_room_amount_booking"]>0)?$value["prh_room_amount_booking"]:"0";?>'
                     >
-                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_child_amount_booking]" 
+                     <input type="hidden" name="hob_price[<?php echo $value["prh_id"];?>][hob_date_amount_booking]" 
+                    value='<?php echo ($value["prh_date_amount_booking"]>0)?$value["prh_date_amount_booking"]:"0";?>'
+                    >
+                   <!-- <input type="hidden" name="hob_price[<?php echo $value["prh_id"];?>][hob_child_amount_booking]" 
                     value='<?php echo ($value["prh_child_amount_booking"]>0)?$value["prh_child_amount_booking"]:"0";?>'
-                    >
-                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_price_name]" 
+                    >-->
+                    <input type="hidden" name="hob_price[<?php echo $value["prh_id"];?>][hob_price_name]" 
                     value="<?php echo $value["prh_name"];?>"
                     >
-                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_sale_adult_price]" 
-                    value="<?php echo $value["prh_sale_adult_price"];?>"
+                    <input type="hidden" name="hob_price[<?php echo $value["prh_id"];?>][hob_sale_room_price]" 
+                    value="<?php echo $value["prh_sale_room_price"];?>"
                     >
-                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_sale_child_price]" 
+                   <!-- <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_sale_child_price]" 
                     value="<?php echo $value["prh_sale_child_price"];?>"
                     >
                     <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_total_adult_price]" 
@@ -238,30 +262,23 @@
                     >
                     <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_total_child_price]" 
                     value="<?php echo $value["prh_total_child_price"];?>"
-                    >
-                    <input type="hidden" name="toh_price[<?php echo $value["prh_id"];?>][toh_total_price]" 
+                    > -->
+                    <input type="hidden" name="hob_price[<?php echo $value["prh_id"];?>][hob_total_price]" 
                     value="<?php echo $value["prh_total_price"];?>"
                     >
                     <?php echo $value["prh_name"];?>
                     <?php $count++;?>
                   </label>
                 </div>
-                <div class="two columns">
+                <div class="three columns">
                   <center>
                       <label style="float:right;">
-                        <?php echo number_format($value["prh_sale_adult_price"], 0);?>
-                        (<?php echo ($value["prh_adult_amount_booking"]>0)?$value["prh_adult_amount_booking"]:"0";?>)
+                        <?php echo number_format($value["prh_sale_room_price"], 0);?>
+                        (<?php echo ($value["prh_room_amount_booking"]>0)?$value["prh_room_amount_booking"]:"1";?>x<?php echo ($value["prh_date_amount_booking"]>0)?$value["prh_date_amount_booking"]:"0";?>)
                       </label>
                   </center>
                 </div>
-                <div class="two columns">
-                  <center><label style="float:right;">
-                    <?php echo number_format($value["prh_sale_child_price"], 0);?>
-                    (<?php echo ($value["prh_child_amount_booking"]>0)?$value["prh_child_amount_booking"]:"0";?>)
-                  </label>
-                </center>
-                </div>
-                <div class="two columns">
+                <div class="three columns">
                   <?php
                     $grand_total_price += $value["prh_total_price"];
                   ?>
@@ -284,7 +301,7 @@
             <label style="float:right;"><b>รวมราคาทั้งหมด</b></label>
           </div>
           <div class="three columns">
-                    <input type="hidden" name="toc_grand_total_price" value="<?php echo $grand_total_price ;?>">
+                    <input type="hidden" name="hoc_grand_total_price" value="<?php echo $grand_total_price ;?>">
             <label style="float:right;"><b><u><?php echo number_format($grand_total_price, 0);?></u></b></label>
           </div>
         </div>
@@ -297,107 +314,131 @@
             <div class="row">
               <div class="six columns">
                 <label>ชื่อ</label>
-                <input type="text" placeholder="Firstname" id="toc_firstname" name="toc_firstname" value="<?php echo set_value('toh_firstname');?>"/>
+                <input type="text" placeholder="Firstname" id="hoc_firstname" name="hoc_firstname" value="<?php echo set_value('hoc_firstname');?>"/>
               </div>
               <div class="six columns">
                 <label>นามสกุล</label>
-                <input type="text" placeholder="Lastname" id="toc_lastname" name="toc_lastname"/>
+                <input type="text" placeholder="Lastname" id="hoc_lastname" name="hoc_lastname"/>
               </div>
             </div>
             <label>ที่อยู่</label>
-            <input type="text" class="twelve" placeholder="Address" id="toc_address" name="toc_address"/>
+            <input type="text" class="twelve" placeholder="Address" id="hoc_address" name="hoc_address"/>
             <div class="row">
               <div class="six columns">
-                <input type="text" placeholder="City"  id="toh_city" name="toc_city"/>
+                <input type="text" placeholder="City"  id="hoc_city" name="hoc_city"/>
               </div>
               <div class="three columns">
-                <input type="text" placeholder="Province/State"  id="toc_province" name="toc_province"/>
+                <input type="text" placeholder="Province/State"  id="hoc_province" name="hoc_province"/>
               </div>
               <div class="three columns">
-                <input type="text" placeholder="ZIP" id="toc_zipcode" name="toc_zipcode"/>
+                <input type="text" placeholder="ZIP" id="hoc_zipcode" name="hoc_zipcode"/>
               </div>
             </div>
 
             <div class="row">
               <div class="six columns">
                 <label>สัญชาติ</label>
-                <input type="text" placeholder="Nationality" id="toc_nationality" name="toc_nationality"/>
+                <input type="text" placeholder="Nationality" id="hoc_nationality" name="hoc_nationality"/>
               </div>
             </div>
 
             <div class="row">
               <div class="six columns">
                 <label>เบอร์โทร</label>
-                <input type="text" placeholder="Telephone" id="toc_telephone" name="toc_telephone"/>
+                <input type="text" placeholder="Telephone" id="hoc_telephone" name="hoc_telephone"/>
               </div>
               <div class="six columns">
                 <label>อีเมล์</label>
-                <input type="text" placeholder="Email" id="toc_email" name="toc_email"/>
+                <input type="text" placeholder="Email" id="hoc_email" name="hoc_email"/>
               </div>
             </div>
 
 
+            <h2>ข้อมูลการจองห้องพัก</h2>
+<!--Person Amount-->
+                <div class="row">
+                  <div class="four columns">
+                    <label>จำนวนผู้ใหญ่</label>
+                    <select name="hoc_adult_amount">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                    </select>
+                  </div>
+                  <div class="four columns">
+                    <label>จำนวนเด็ก (4 - 12 years)</label>
+                    <select name="hoc_child_amount">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                    </select>
+                  </div>
+                  <div class="four columns">
+                    <label>จำนวนทารก (under 4 years)</label>
+                    <select name="hoc_infant_amount">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                    </select>
+                  </div>
+                </div>
 
-            <h2>รายละเอียดที่พัก</h2>
-            <div class="row">
-              <div class="nine columns">
-              <label>ชื่อโรงแรม</label>
-                <input type="text"placeholder="Hotel Name" id="toc_hotel_name" name="toc_hotel_name"/>
-              </div>
-              <div class="three columns">
-                <label>หมายเลขห้องพัก</label>
-                <input type="text" placeholder="Room Number" id="toc_room_number" name="toc_room_number"/>
-              </div>
-            </div>
+<!--End Person Amount-->
 
-            <h2>ข้อมูลทัวร์เพิ่มเติม</h2>
-            <div class="row">
-              <div class="four columns">
-                <label>จำนวนผู้ใหญ่</label>
-                <select name="toc_adult_amount_passenger">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-              </div>
-              <div class="four columns">
-                <label>จำนวนเด็ก (4 - 12 years)</label>
-                <select name="toc_child_amount_passenger">
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="4">5</option>
-                </select>
-              </div>
-              <div class="four columns">
-                <label>จำนวนทารก (under 4 years)</label>
-                <select name="toc_infant_amount_passenger">
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
-              </div>
-            </div>
+        <br/>
+
+        <!--Check in&out Date-->
+        <div class="row">
+          <div class="six columns">
+            <label>วันที่เช็คอิน</label>
+            <input type="text" placeholder="Check In Date" id="hoc_checkin_date" name="hoc_checkin_date">
+          </div>      
+     
+          <div class="six columns">
+            <label>วันที่เช็คเอาท์</label>
+            <input type="text" placeholder="Check Out Date" id="hoc_checkout_date" name="hoc_checkout_date">
+        </div>    
+       
+        </div>
+        <!--End Check in&out Date-->
             <br>
-            <div class="row">
-              <div class="six columns">
-                <label>วันเดินทาง</label>
-                <input type="text" placeholder="Travel Date" id="toc_tranfer_date" name="toc_tranfer_date"/>
-              </div>           
-            </div>
+
 
             <label>สิ่งที่ต้องการเพิ่มเติม</label>
-            <textarea placeholder="Message" rows="5" id="message" name="toc_request"></textarea>              
+            <textarea placeholder="Message" rows="5" id="hoc_request" name="hoc_request"></textarea>              
 
 
             <!-- Start contact -->
@@ -417,7 +458,7 @@
                   <div class="eight columns">
                   </div>
                   <div class="four columns">
-                    <input class="button small  booking" style="width:150px;" type="submit" value="จองทัวร์นี้">
+                    <input class="button small  booking" style="width:150px;" type="submit" value="จองโรงแรมนี้">
                   </div>
 
               </div>

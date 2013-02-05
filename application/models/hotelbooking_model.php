@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class TourBooking_model extends MY_Model {
+class HotelBooking_model extends MY_Model {
 
   function __construct(){
     parent::__construct();
@@ -10,19 +10,19 @@ class TourBooking_model extends MY_Model {
   function getRecord($args=false, $field=false){
     //print_r($args); exit;
 
-    if(isset($args["tob_id"])){
+    if(isset($args["hob_id"])){
       //Get category by id      
-      $query = $this->db->get_where('ci_tourbooking', array('tob_id' => $args["tob_id"]), 1, 0);
+      $query = $this->db->get_where('ci_hotelbooking', array('hob_id' => $args["hob_id"]), 1, 0);
 
       if($query->num_rows > 0){
         return $query->result();
       }else{
         return false;
       }
-    }else if(isset($args["tob_tourcustomer_id"])){
+    }else if(isset($args["hob_hotelcustomer_id"])){
       //Get category by id      
-      $this->db->order_by('CONVERT( tob_price_name USING tis620 ) ASC');   
-      $query = $this->db->get_where('ci_tourbooking', array('tob_tourcustomer_id' => $args["tob_tourcustomer_id"]));
+      $this->db->order_by('CONVERT( hob_price_name USING tis620 ) ASC');   
+      $query = $this->db->get_where('ci_hotelbooking', array('hob_hotelcustomer_id' => $args["hob_hotelcustomer_id"]));
 
       if($query->num_rows > 0){
         return $query->result();
@@ -32,8 +32,8 @@ class TourBooking_model extends MY_Model {
     }else{
       //Get list page
       ($field)?$this->db->select($field):"";
-      $this->db->order_by('CONVERT( tob_price_name USING tis620 ) ASC');    
-      $query = $this->db->get("ci_tourbooking");
+      $this->db->order_by('CONVERT( hob_price_name USING tis620 ) ASC');    
+      $query = $this->db->get("ci_hotelbooking");
 
       if($query->num_rows > 0){
         return $query->result();

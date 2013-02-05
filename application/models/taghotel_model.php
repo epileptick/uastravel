@@ -102,9 +102,9 @@ class Taghotel_model extends MY_Model {
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->prh_sale_adult_price > $maxAgencyPrice){
+              if($value->prh_sale_room_price > $maxAgencyPrice){
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->prh_sale_adult_price;
+                $maxAgencyPrice = $value->prh_sale_room_price;
               }
             }
           }
@@ -188,9 +188,9 @@ class Taghotel_model extends MY_Model {
           //Find low price in agency
           $agencyLowPriceArray = array();
           foreach ($agencyArray as $keyAgency => $valueAgency) {
-            $agencyLowPrice = $valueAgency[0]->prh_sale_adult_price;
+            $agencyLowPrice = $valueAgency[0]->prh_sale_room_price;
             foreach ($valueAgency as $key => $value) {
-              if($value->prh_sale_adult_price <= $agencyLowPrice){
+              if($value->prh_sale_room_price <= $agencyLowPrice){
                 $agencyLowPriceArray[$keyAgency] = $value;
               }
             }
@@ -200,9 +200,9 @@ class Taghotel_model extends MY_Model {
           $maxAgencyPrice = 0;
           foreach ($agencyLowPriceArray as $key => $value) {
             # code...
-            if($value->prh_sale_adult_price > $maxAgencyPrice){
+            if($value->prh_sale_room_price > $maxAgencyPrice){
               $result[$count]["price"] = $value;
-              $maxAgencyPrice = $value->prh_sale_adult_price;
+              $maxAgencyPrice = $value->prh_sale_room_price;
             }
           }
 
@@ -278,9 +278,9 @@ class Taghotel_model extends MY_Model {
           $maxAgencyPrice = 0;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->prh_sale_adult_price > $maxAgencyPrice){
+            if($value->prh_sale_room_price > $maxAgencyPrice){
               $result[$count]["price"] = $value;
-              $maxAgencyPrice = $value->prh_sale_adult_price;
+              $maxAgencyPrice = $value->prh_sale_room_price;
             }
           }
         }
@@ -354,9 +354,9 @@ class Taghotel_model extends MY_Model {
           $maxAgencyPrice = 0;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->prh_sale_adult_price > $maxAgencyPrice){
+            if($value->prh_sale_room_price > $maxAgencyPrice){
               $result[$count]["price"] = $value;
-              $maxAgencyPrice = $value->prh_sale_adult_price;
+              $maxAgencyPrice = $value->prh_sale_room_price;
             }
           }
         }
@@ -492,9 +492,9 @@ class Taghotel_model extends MY_Model {
           $maxAgencyPrice = 0;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->prh_sale_adult_price > $maxAgencyPrice){
+            if($value->prh_sale_room_price > $maxAgencyPrice){
               $result[$count]["price"] = $value;
-              $maxAgencyPrice = $value->prh_sale_adult_price;
+              $maxAgencyPrice = $value->prh_sale_room_price;
             }
           }
         }
@@ -589,9 +589,9 @@ class Taghotel_model extends MY_Model {
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->prh_sale_adult_price > $maxAgencyPrice){
+              if($value->prh_sale_room_price > $maxAgencyPrice){
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->prh_sale_adult_price;
+                $maxAgencyPrice = $value->prh_sale_room_price;
               }
             }
           }
@@ -662,9 +662,9 @@ class Taghotel_model extends MY_Model {
           $maxAgencyPrice = 0;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->prh_sale_adult_price > $maxAgencyPrice){
+            if($value->prh_sale_room_price > $maxAgencyPrice){
               $result[$count]["price"] = $value;
-              $maxAgencyPrice = $value->prh_sale_adult_price;
+              $maxAgencyPrice = $value->prh_sale_room_price;
             }
           }
         }
@@ -763,9 +763,9 @@ class Taghotel_model extends MY_Model {
                 $maxAgencyPrice = 0;
                 foreach ($priceTour as $key => $value) {
                   # code...
-                  if($value->agt_sale_adult_price > $maxAgencyPrice){
+                  if($value->agt_sale_room_price > $maxAgencyPrice){
                     $result[$count]["price"] = $value;
-                    $maxAgencyPrice = $value->prh_sale_adult_price;
+                    $maxAgencyPrice = $value->prh_sale_room_price;
                   }
                 }
               }
@@ -852,9 +852,9 @@ class Taghotel_model extends MY_Model {
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->prh_sale_adult_price > $maxAgencyPrice){
+              if($value->prh_sale_room_price > $maxAgencyPrice){
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->prh_sale_adult_price;
+                $maxAgencyPrice = $value->prh_sale_room_price;
               }
             }
           }
@@ -918,9 +918,9 @@ class Taghotel_model extends MY_Model {
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->prh_sale_adult_price > $maxAgencyPrice){
+              if($value->prh_sale_room_price > $maxAgencyPrice){
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->prh_sale_adult_price;
+                $maxAgencyPrice = $value->prh_sale_room_price;
               }
             }
           }
@@ -1006,9 +1006,9 @@ class Taghotel_model extends MY_Model {
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->prh_sale_adult_price > $maxAgencyPrice){
+              if($value->prh_sale_room_price > $maxAgencyPrice){
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->prh_sale_adult_price;
+                $maxAgencyPrice = $value->prh_sale_room_price;
               }
             }
           }
@@ -1076,9 +1076,9 @@ class Taghotel_model extends MY_Model {
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->prh_sale_adult_price > $maxAgencyPrice){
+              if($value->prh_sale_room_price > $maxAgencyPrice){
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->prh_sale_adult_price;
+                $maxAgencyPrice = $value->prh_sale_room_price;
               }
             }
           }
