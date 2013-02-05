@@ -45,7 +45,7 @@ class Airline extends MY_Controller {
   }
 
  function user_inquiry(){
-header('Content-Type: text/html; charset=utf-8');
+    //header('Content-Type: text/html; charset=utf-8');
     $this->_fetch('user_inquiry',false, false, true);
 
   }
