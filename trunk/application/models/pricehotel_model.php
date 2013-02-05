@@ -7,9 +7,9 @@ class Pricehotel_model extends MY_Model {
                      'id'                    => 'prh_id',
                      'agency_id'             => 'prh_agency_id',
                      'hotel_id'              => 'prh_hotel_id',
-                     'sale_adult_price'      => 'prh_sale_adult_price',
-                     'net_adult_price'       => 'prh_net_adult_price',
-                     'discount_adult_price'  => 'prh_discount_adult_price',
+                     'sale_room_price'      => 'prh_sale_room_price',
+                     'net_room_price'       => 'prh_net_room_price',
+                     'discount_room_price'  => 'prh_discount_room_price',
                      'sale_child_price'      => 'prh_sale_child_price',
                      'net_child_price'       => 'prh_net_child_price',
                      'discount_child_price'  => 'prh_discount_child_price'

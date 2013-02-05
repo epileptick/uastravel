@@ -98,7 +98,7 @@
               <li class="has-dropdown">
                 <a href="<?php echo base_url('hotel');?>">ที่พัก</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('hotel/จองโรงแรม');?>">จองโรงแรม</a></li>
+                  <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                   <li><a href="<?php echo base_url('hotel/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                 </ul>                
               </li>
@@ -382,10 +382,10 @@
             <thead>
               <tr>
                 <th style="font-size:18px !important;">รายการ</th>
-                <th style="font-size:18px !important;">ราคาผู้ใหญ่(บาท)</th>
-                <th style="font-size:18px !important;">จำนวน</th>
-                <th style="font-size:18px !important;">ราคาเด็ก(บาท)</th>
-                <th style="font-size:18px !important;">จำนวน</th>
+                <th style="font-size:18px !important;">ราคาห้องพัก(บาท)</th>
+                <th style="font-size:18px !important;">จำนวน(ห้อง)</th>
+               <!-- <th style="font-size:18px !important;">ราคาเด็ก(บาท)</th>-->
+                <th style="font-size:18px !important;">จำนวน(วัน)</th>
               </tr>
             </thead> 
             <tbody>
@@ -427,27 +427,29 @@
                 </td>
 
                 <td style="font-size:18px !important;">
-                  <center><label><?php echo number_format($value->sale_adult_price, 0);?></label></center>
+                  <center><label><?php echo number_format($value->sale_room_price, 0);?></label></center>
                 </td>
 
                 <td style="font-size:18px !important;">
-                  <input name="adult_amount_booking[<?php echo $value->id;?>]" 
+                  <input name="room_amount_booking[<?php echo $value->id;?>]" 
                           type="text" 
-                          id="amount_adult_<?php echo $value->id;?>"
+                          id="amount_room_<?php echo $value->id;?>"
                           style="height: 20px !important; width: 30px !important;"
-                  >
+                          value="1"
+                >
                 </td>
 
-                <td style="font-size:18px !important;">
+             <!--   <td style="font-size:18px !important;">
                   <center><label><?php echo number_format($value->sale_child_price, 0);?></label></center>
-                </td>
+                </td> -->
 
 
                 <td style="font-size:18px !important;">
-                  <input name="child_amount_booking[<?php echo $value->id;?>]" 
+                  <input name="date_amount_booking[<?php echo $value->id;?>]" 
                           type="text" 
-                          id="amount_child_<?php echo $value->id;?>"
+                          id="amount_date_<?php echo $value->id;?>"
                           style="height: 20px !important; width: 30px !important;"
+                          value="1"
                   >
 
                 </td>
@@ -461,7 +463,7 @@
               <tr>
                 <td class="price_booking" colspan="5">
                     <input type="hidden" name="id" value="<?php echo $hotel[0]->id;?>"></input>
-                    <input class="button small  booking"  type="submit" value="จองทัวร์นี้">
+                    <input class="button small  booking" type="submit" value="จองโรงแรมนี้">
                 </td>
               </tr>            
             </tbody>

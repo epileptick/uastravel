@@ -649,20 +649,20 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 			     		
 			     <div>
 			     	<span class='price' style='margin-left:10px; border-left:0px;'>		
-			     		<label>Adult Sale :</label><br>
-			     		<input type='text' name='agency_tour[<?php echo $count;?>][sale_adult_price]' value='<?php echo $value->sale_adult_price;?>'>
+			     		<label>Room Sale :</label><br>
+			     		<input type='text' name='agency_tour[<?php echo $count;?>][sale_room_price]' value='<?php echo $value->sale_room_price;?>'>
 			     	</span>
 			     	<span class='price' style='margin-left:10px; border-left:0px;'>		
-			     		<label>Adult Net :</label><br>
-			     		<input type='text' name='agency_tour[<?php echo $count;?>][net_adult_price]' value='<?php echo $value->net_adult_price;?>'>
+			     		<label>Room Net :</label><br>
+			     		<input type='text' name='agency_tour[<?php echo $count;?>][net_room_price]' value='<?php echo $value->net_room_price;?>'>
 			     	</span>
 			     	<span class='price' style='margin-left:10px; border-left:0px;'>		
-			     		<label>Adult discount :</label><br>
-			     		<input type='text' name='agency_tour[<?php echo $count;?>][discount_adult_price]' value='<?php echo $value->discount_adult_price;?>'>
+			     		<label>Room discount :</label><br>
+			     		<input type='text' name='agency_tour[<?php echo $count;?>][discount_room_price]' value='<?php echo $value->discount_room_price;?>'>
 			     	</span>
 			     </div>
 			     		
-			     <div>
+			    <!-- <div>
 			     	<span class='price' style='margin-left:10px; border-left:0px;'>		
 			     		<label>Child Sale :</label><br>
 			     		<input type='text' name='agency_tour[<?php echo $count;?>][sale_child_price]' value='<?php echo $value->sale_child_price;?>'>
@@ -675,7 +675,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 			     		<label>Child discount :</label><br>
 			     		<input type='text' name='agency_tour[<?php echo $count;?>][discount_child_price]' value='<?php echo $value->discount_child_price;?>'>
 			     	</span>
-			     </div>
+			     </div> -->
 			     <div class='clear'></div>
 			   	<br>
 			   </li>		
@@ -740,33 +740,33 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 			agency_form += "    ";		
 			agency_form += "    <div>";
 			agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
-			agency_form += "    		<label>Adult Sale :</label><br>";
-			agency_form += "    		<input type='text' name='agency_tour["+element+"][sale_adult_price]'>";
+			agency_form += "    		<label>Room Sale :</label><br>";
+			agency_form += "    		<input type='text' name='agency_tour["+element+"][sale_room_price]'>";
 			agency_form += "    	</span>";
 			agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
-			agency_form += "    		<label>Adult Net :</label><br>";
-			agency_form += "    		<input type='text' name='agency_tour["+element+"][net_adult_price]'>";
+			agency_form += "    		<label>Room Net :</label><br>";
+			agency_form += "    		<input type='text' name='agency_tour["+element+"][net_room_price]'>";
 			agency_form += "    	</span>";
 			agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
-			agency_form += "    		<label>Adult discount :</label><br>";
-			agency_form += "    		<input type='text' name='agency_tour["+element+"][discount_adult_price]'>";
+			agency_form += "    		<label>Room discount :</label><br>";
+			agency_form += "    		<input type='text' name='agency_tour["+element+"][discount_room_price]'>";
 			agency_form += "    	</span>";
 			agency_form += "    </div>";
 			agency_form += "    ";		
-			agency_form += "    <div>";
-			agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
-			agency_form += "    		<label>Child Sale :</label><br>";
-			agency_form += "    		<input type='text' name='agency_tour["+element+"][sale_child_price]'>";
-			agency_form += "    	</span>";
-			agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
-			agency_form += "    		<label>Child Net :</label><br>";
-			agency_form += "    		<input type='text' name='agency_tour["+element+"][net_child_price]'>";
-			agency_form += "    	</span>";
-			agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
-			agency_form += "    		<label>Child discount :</label><br>";
-			agency_form += "    		<input type='text' name='agency_tour["+element+"][discount_child_price]'>";
-			agency_form += "    	</span>";
-			agency_form += "    </div>";
+			//agency_form += "    <div>";
+			//agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
+			//agency_form += "    		<label>Child Sale :</label><br>";
+			//agency_form += "    		<input type='text' name='agency_tour["+element+"][sale_child_price]'>";
+			//agency_form += "    	</span>";
+			//agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
+			//agency_form += "    		<label>Child Net :</label><br>";
+			//agency_form += "    		<input type='text' name='agency_tour["+element+"][net_child_price]'>";
+			//agency_form += "    	</span>";
+			//agency_form += "    	<span class='price' style='margin-left:10px; border-left:0px;'>";		
+			//agency_form += "    		<label>Child discount :</label><br>";
+			//agency_form += "    		<input type='text' name='agency_tour["+element+"][discount_child_price]'>";
+			//agency_form += "    	</span>";
+			//agency_form += "    </div>";
 			agency_form += "    <div class='clear'></div>";
 			agency_form += "  <br>";
 			agency_form += "  </li>";

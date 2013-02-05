@@ -662,9 +662,9 @@ class Hotel extends MY_Controller {
           $maxSalePrice = 0;
           $maxSalePriceID = 0;
           foreach ($mainPrice as $key => $value) {         
-            if($value->sale_adult_price > $maxSalePrice){
+            if($value->sale_room_price > $maxSalePrice){
               $maxSalePriceID  = $value->agency_id;
-              $maxSalePrice = $value->sale_adult_price;
+              $maxSalePrice = $value->sale_room_price;
             }
           }
 
@@ -766,27 +766,27 @@ class Hotel extends MY_Controller {
           //$dataPrice["price"][$queryPriceID] = $queryPrice[0];
           //print_r($dataPrice); exit;
           //$data["price"][$queryPriceID] = $queryPrice[0];
-          $adult_amount_booking = $args["adult_amount_booking"][$queryPriceID];
-          $child_amount_booking = $args["child_amount_booking"][$queryPriceID];
+          $room_amount_booking = $args["room_amount_booking"][$queryPriceID];
+          $date_amount_booking = $args["date_amount_booking"][$queryPriceID];
 
           $data["price"][$queryPriceID]["prh_id"] = $queryPriceID;
           $data["price"][$queryPriceID]["prh_agency_id"] = $dataPrice[$queryPriceID]->agency_id;
           $data["price"][$queryPriceID]["prh_hotel_id"] = $dataPrice[$queryPriceID]->hotel_id;
           $data["price"][$queryPriceID]["prh_name"] = $dataPrice[$queryPriceID]->name;
-          $data["price"][$queryPriceID]["prh_sale_adult_price"] = $dataPrice[$queryPriceID]->sale_adult_price;
-          $data["price"][$queryPriceID]["prh_net_adult_price"] = $dataPrice[$queryPriceID]->net_adult_price;
-          $data["price"][$queryPriceID]["prh_discount_adult_price"] = $dataPrice[$queryPriceID]->discount_adult_price;
-          $data["price"][$queryPriceID]["prh_sale_child_price"] = $dataPrice[$queryPriceID]->sale_child_price;
-          $data["price"][$queryPriceID]["prh_net_child_price"] = $dataPrice[$queryPriceID]->net_child_price;
-          $data["price"][$queryPriceID]["prh_discount_child_price"] = $dataPrice[$queryPriceID]->discount_child_price;
-          $data["price"][$queryPriceID]["prh_adult_amount_booking"] = $adult_amount_booking;
-          $data["price"][$queryPriceID]["prh_child_amount_booking"] = $child_amount_booking;
+          $data["price"][$queryPriceID]["prh_sale_room_price"] = $dataPrice[$queryPriceID]->sale_room_price;
+          $data["price"][$queryPriceID]["prh_net_room_price"] = $dataPrice[$queryPriceID]->net_room_price;
+          $data["price"][$queryPriceID]["prh_discount_room_price"] = $dataPrice[$queryPriceID]->discount_room_price;
+         // $data["price"][$queryPriceID]["prh_sale_child_price"] = $dataPrice[$queryPriceID]->sale_child_price;
+         // $data["price"][$queryPriceID]["prh_net_child_price"] = $dataPrice[$queryPriceID]->net_child_price;
+         // $data["price"][$queryPriceID]["prh_discount_child_price"] = $dataPrice[$queryPriceID]->discount_child_price;
+          $data["price"][$queryPriceID]["prh_room_amount_booking"] = $room_amount_booking;
+          $data["price"][$queryPriceID]["prh_date_amount_booking"] = $date_amount_booking;
 
-          $total_adult_price = $adult_amount_booking * $dataPrice[$queryPriceID]->sale_adult_price;
-          $total_child_price = $child_amount_booking * $dataPrice[$queryPriceID]->sale_child_price;
-          $data["price"][$queryPriceID]["prh_total_adult_price"] = $total_adult_price;
-          $data["price"][$queryPriceID]["prh_total_child_price"] = $total_child_price;
-          $data["price"][$queryPriceID]["prh_total_price"] = $total_adult_price + $total_child_price;
+          $total_room_price = $room_amount_booking * $dataPrice[$queryPriceID]->sale_room_price;
+          //$total_date_price = $date_amount_booking->sale_date_price;
+          $data["price"][$queryPriceID]["prh_total_room_price"] = $total_room_price;
+         // $data["price"][$queryPriceID]["prh_total_child_price"] = $total_child_price;
+          $data["price"][$queryPriceID]["prh_total_price"] = $total_room_price * $date_amount_booking;
           
         }
       }
@@ -827,7 +827,7 @@ class Hotel extends MY_Controller {
       $this->sendmail_booking_admin($booking);
 
       //Forward
-      redirect(base_url("hotel/booking/".$booking["toc_hashcode"]));  
+      redirect(base_url("hotel/booking/".$booking["hoc_hashcode"]));  
 
       //print_r($insert_id); exit;
     }else{ //id not send
@@ -846,58 +846,58 @@ class Hotel extends MY_Controller {
     $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
 
     // Additional headers
-    $headers .= 'To: คุณ '.$booking["toc_firstname"].' <'.$booking["toc_email"].'>' . "\r\n";
+    $headers .= 'To: คุณ '.$booking["hoc_firstname"].' <'.$booking["hoc_email"].'>' . "\r\n";
     $headers .= 'From: uastravel.com <booking@uastravel.com>' . "\r\n";
 
-    $to = $booking["toc_email"];
+    $to = $booking["hoc_email"];
 
 
-    $subject = "คุณได้ทำการจอง ".$booking["toc_hotel_name"]." ผ่านทาง uastravel.com";
+    $subject = "คุณได้ทำการจอง ".$booking["hoc_hotel_name"]." ผ่านทาง uastravel.com";
 
 
-    $message = '<p>สวัสดีค่ะ คุณ'.$booking["toc_firstname"].',</p>';
+    $message = '<p>สวัสดีค่ะ คุณ'.$booking["hoc_firstname"].',</p>';
     $message .='<p>ขอขอบคุณที่ไว้วางใจในบริการของ <a href="http://www.uastravel.com">uastravel.com</a></p>';
-    $message .='<p>รายละเอียดการจองทัวร์ของคุณมีดังนี้</p>';
+    $message .='<p>รายละเอียดการจองโรงแรมของคุณมีดังนี้</p>';
     $message .='<blockquote>';
     $message .='  ##########  รายละเอียดการจอง ##########';
-    $message .='  <br />หมายเลขการจอง : '.$booking["toc_code"];
-    $message .='  <br />ชื่อทัวร์ : '.$booking["toc_hotel_name"].'('.$booking["toc_hotel_code"].')';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/hotel/'.$booking["toc_hotel_url"].'-'.$booking["toc_hotel_id"].'">'.$booking["toc_hotel_name"].'</a>';
+    $message .='  <br />หมายเลขการจอง : '.$booking["hoc_code"];
+    $message .='  <br />ชื่อโรงแรม: '.$booking["hoc_hotel_name"].'('.$booking["hoc_hotel_code"].')';
+    $message .='  <br />ลิงค์ข้อมูลโรงแรม : <a href="http://www.uastravel.com/hotel/'.$booking["hoc_hotel_url"].'-'.$booking["hoc_hotel_id"].'">'.$booking["hoc_hotel_name"].'</a>';
 
 
-    $message .='  <br />##########  จำนวนผู้เดินทาง ##########';
-    $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["toc_adult_amount_passenger"];
-    $message .='  <br />จำนวนเด็ก : '.$booking["toc_child_amount_passenger"];
-    $message .='  <br />จำนวนเด็กทารก : '.$booking["toc_infant_amount_passenger"];
+    $message .='  <br />##########  จำนวนผู้เข้าพัก##########';
+    $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["hoc_adult_amount"];
+    $message .='  <br />จำนวนเด็ก : '.$booking["hoc_child_amount"];
+    $message .='  <br />จำนวนเด็กทารก : '.$booking["hoc_infant_amount"];
     $message .='  <br />';
 
     $message .='  <br />##########  รายละเอียดราคา ##########';
     foreach ($booking["price"] as $key => $value) {
       $message .='  <br />';
-      $message .='  <br />ชื่อราคา : '.$value["toh_pricehotel_name"];
-      $message .='  <br />ราคารวมของผู้ใหญ่ ('.$value["toh_adult_amount_booking"].') : '.$value["toh_total_adult_price"];
-      $message .='  <br />ราคารวมของเด็ก ('.$value["toh_child_amount_booking"].') : '.$value["toh_total_child_price"];
-      $message .='  <br />ราคารวมของทารก : ฟรี';
+      $message .='  <br />ประเภทห้อง : '.$value["hob_price_name"];
+      $message .='  <br />จำนวนห้อง : '.$value["hob_room_amount_booking"];
+      $message .='  <br />จำนวนวัน : '.$value["hob_date_amount_booking"];
+      $message .='  <br />ราคารวม : '.$value["hob_total_price"];
       $message .='  <br />';
     }
 
-    $message .='  <br />ราคารวมทั้งหมด : '.$booking["toc_grand_total_price"];
+    $message .='  <br />ราคารวมทั้งหมด : '.$booking["hoc_grand_total_price"];
     $message .='  <br />';
 
     $message .='  <br />##########  รายละเอียดผู้จอง ##########';
-    $message .='  <br />ชื่อผู้จอง : '.$booking["toc_firstname"].' '.$booking["toc_lastname"];
-    $message .='  <br />สัญชาติ : '.$booking["toc_nationality"];
-    $message .='  <br />ที่อยู่ : '.$booking["toc_address"].', '.$booking["toc_city"].', '.$booking["toc_province"].', '.$booking["toc_zipcode"];
-    $message .='  <br />เบอร์ติดต่อ : '.$booking["toc_telephone"];
-    $message .='  <br />อีเมล : '.$booking["toc_email"];
+    $message .='  <br />ชื่อผู้จอง : '.$booking["hoc_firstname"].' '.$booking["hoc_lastname"];
+    $message .='  <br />สัญชาติ : '.$booking["hoc_nationality"];
+    $message .='  <br />ที่อยู่ : '.$booking["hoc_address"].', '.$booking["hoc_city"].', '.$booking["hoc_province"].', '.$booking["hoc_zipcode"];
+    $message .='  <br />เบอร์ติดต่อ : '.$booking["hoc_telephone"];
+    $message .='  <br />อีเมล : '.$booking["hoc_email"];
     $message .='  <br />';
-    $message .='  <br />ชื่อโรงแรมที่พัก : '.$booking["toc_hotel_name"];
-    $message .='  <br />หมายเลขห้อง : '.$booking["toc_room_number"];
-    $message .='  <br />วันที่เดินทาง : '.$booking["toc_tranfer_date"];
-    $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["toc_request"];
+    $message .='  <br />ชื่อโรงแรมที่พัก : '.$booking["hoc_hotel_name"];
+    $message .='  <br />วันที่เช็คอินท์ : '.$booking["hoc_checkin_date"];
+    $message .='  <br />วันที่เช็คเอาท์ : '.$booking["hoc_checkout_date"];
+    $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["hoc_request"];
     $message .='  <br />';
     $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/hotel/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/hotel/booking/'.$booking["hoc_hashcode"].'">'.$booking["hoc_code"].'</a>';
     $message .='  <br />';
     $message .='</blockquote>';   
 
@@ -931,50 +931,50 @@ class Hotel extends MY_Controller {
 
 
     // subject
-    $subject = 'ข้อมูลการจองทัวร์ของคุณ '.$booking["toc_firstname"];
+    $subject = 'ข้อมูลการจองทัวร์ของคุณ '.$booking["hoc_firstname"];
 
-    $message ='<p>รายละเอียดการจองทัวร์มีดังนี้</p>';
+    $message ='<p>รายละเอียดการจองโรงแรมมีดังนี้</p>';
     $message .='<blockquote>';
     $message .='<blockquote>';
     $message .='  ##########  รายละเอียดการจอง ##########';
-    $message .='  <br />หมายเลขการจอง : '.$booking["toc_code"];
-    $message .='  <br />ชื่อทัวร์ : '.$booking["toc_hotel_name"].'('.$booking["toc_hotel_code"].')';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/hotel/'.$booking["toc_hotel_url"].'-'.$booking["toc_hotel_id"].'">'.$booking["toc_hotel_name"].'</a>';
+    $message .='  <br />หมายเลขการจอง : '.$booking["hoc_code"];
+    $message .='  <br />ชื่อโรงแรม : '.$booking["hoc_hotel_name"].'('.$booking["hoc_hotel_code"].')';
+    $message .='  <br />ลิงค์ข้อมูลโรงแรม : <a href="http://www.uastravel.com/hotel/'.$booking["hoc_hotel_url"].'-'.$booking["hoc_hotel_id"].'">'.$booking["hoc_hotel_name"].'</a>';
 
 
-    $message .='  <br />##########  จำนวนผู้เดินทาง ##########';
-    $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["toc_adult_amount_passenger"];
-    $message .='  <br />จำนวนเด็ก : '.$booking["toc_child_amount_passenger"];
-    $message .='  <br />จำนวนเด็กทารก : '.$booking["toc_infant_amount_passenger"];
+    $message .='  <br />##########  จำนวนผู้เข้าพัก ##########';
+    $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["hoc_adult_amount"];
+    $message .='  <br />จำนวนเด็ก : '.$booking["hoc_child_amount"];
+    $message .='  <br />จำนวนเด็กทารก : '.$booking["hoc_infant_amount"];
     $message .='  <br />';
 
     $message .='  <br />##########  รายละเอียดราคา ##########';
     foreach ($booking["price"] as $key => $value) {
       $message .='  <br />';
-      $message .='  <br />ชื่อราคา : '.$value["toh_pricehotel_name"];
-      $message .='  <br />ราคารวมของผู้ใหญ่ ('.$value["toh_adult_amount_booking"].') : '.$value["toh_total_adult_price"];
-      $message .='  <br />ราคารวมของเด็ก ('.$value["toh_child_amount_booking"].') : '.$value["toh_total_child_price"];
-      $message .='  <br />ราคารวมของทารก : ฟรี';
+      $message .='  <br />ประเภทห้อง : '.$value["hob_price_name"];
+      $message .='  <br />จำนวนห้อง : '.$value["hob_room_amount_booking"];
+      $message .='  <br />จำนวนวัน : '.$value["hob_date_amount_booking"];
+      $message .='  <br />ราคารวม : '.$value["hob_total_price"];
       $message .='  <br />';
     }
 
-    $message .='  <br />ราคารวมทั้งหมด : '.$booking["toc_grand_total_price"];
+    $message .='  <br />ราคารวมทั้งหมด : '.$booking["hoc_grand_total_price"];
     $message .='  <br />';
 
     $message .='  <br />##########  รายละเอียดผู้จอง ##########';
-    $message .='  <br />ชื่อผู้จอง : '.$booking["toc_firstname"].' '.$booking["toc_lastname"];
-    $message .='  <br />สัญชาติ : '.$booking["toc_nationality"];
-    $message .='  <br />ที่อยู่ : '.$booking["toc_address"].', '.$booking["toc_city"].', '.$booking["toc_province"].', '.$booking["toc_zipcode"];
-    $message .='  <br />เบอร์ติดต่อ : '.$booking["toc_telephone"];
-    $message .='  <br />อีเมล : '.$booking["toc_email"];
+    $message .='  <br />ชื่อผู้จอง : '.$booking["hoc_firstname"].' '.$booking["hoc_lastname"];
+    $message .='  <br />สัญชาติ : '.$booking["hoc_nationality"];
+    $message .='  <br />ที่อยู่ : '.$booking["hoc_address"].', '.$booking["hoc_city"].', '.$booking["hoc_province"].', '.$booking["hoc_zipcode"];
+    $message .='  <br />เบอร์ติดต่อ : '.$booking["hoc_telephone"];
+    $message .='  <br />อีเมล : '.$booking["hoc_email"];
     $message .='  <br />';
-    $message .='  <br />ชื่อโรงแรมที่พัก : '.$booking["toc_hotel_name"];
-    $message .='  <br />หมายเลขห้อง : '.$booking["toc_room_number"];
-    $message .='  <br />วันที่เดินทาง : '.$booking["toc_tranfer_date"];
-    $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["toc_request"];
+    $message .='  <br />ชื่อโรงแรมที่พัก : '.$booking["hoc_hotel_name"];
+    $message .='  <br />วันที่เช็คอินท์ : '.$booking["hoc_checkin_date"];
+    $message .='  <br />วันที่เช็คเอาท์ : '.$booking["hoc_checkout_date"];
+    $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["hoc_request"];
     $message .='  <br />';
     $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/hotel/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/hotel/booking/'.$booking["hoc_hashcode"].'">'.$booking["hoc_code"].'</a>';
     $message .='  <br />';
     $message .='</blockquote>';   
 
@@ -983,17 +983,19 @@ class Hotel extends MY_Controller {
     mail($to,$subject,$message,$headers);
   }
 
+  
+
 
   function user_bookingview($hashcode){
 
-    $args["toc_hashcode"] = $hashcode;
+    $args["hoc_hashcode"] = $hashcode;
 
     $this->load->model("hotelcustomer_model", "hotelcustomerModel");
     $data["booking"] = $this->hotelcustomerModel->getRecord($args);  
 
 
     $this->load->model("hotelbooking_model", "hotelbookingModel");
-    $args["toh_hotelcustomer_id"] = $data["booking"][0]->toc_id;
+    $args["hob_hotelcustomer_id"] = $data["booking"][0]->hoc_id;
     $data["booking"][0]->price = $this->hotelbookingModel->getRecord($args); 
 
 
@@ -1223,9 +1225,9 @@ class Hotel extends MY_Controller {
                 $price[$count]["sale_adult_price"] = $valuePrice["sale_adult_price"];
                 $price[$count]["net_adult_price"] = $valuePrice["net_adult_price"];
                 $price[$count]["discount_adult_price"] = $valuePrice["discount_adult_price"];
-                $price[$count]["sale_child_price"] = $valuePrice["sale_child_price"];
-                $price[$count]["net_child_price"] = $valuePrice["net_child_price"];
-                $price[$count]["discount_child_price"] = $valuePrice["discount_child_price"];
+              // $price[$count]["sale_child_price"] = $valuePrice["sale_child_price"];
+              // $price[$count]["net_child_price"] = $valuePrice["net_child_price"];
+              // $price[$count]["discount_child_price"] = $valuePrice["discount_child_price"];
                 $count++;  
               }
             }
@@ -1365,12 +1367,12 @@ class Hotel extends MY_Controller {
                 $price["price"][$count]["agency_id"] = $keyAgencyId;
                 $price["price"][$count]["lang"]   = $this->lang->lang();
                 $price["price"][$count]["name"] = $valuePrice["name"];
-                $price["price"][$count]["sale_adult_price"] = $valuePrice["sale_adult_price"];
-                $price["price"][$count]["net_adult_price"] = $valuePrice["net_adult_price"];
-                $price["price"][$count]["discount_adult_price"] = $valuePrice["discount_adult_price"];
-                $price["price"][$count]["sale_child_price"] = $valuePrice["sale_child_price"];
-                $price["price"][$count]["net_child_price"] = $valuePrice["net_child_price"];
-                $price["price"][$count]["discount_child_price"] = $valuePrice["discount_child_price"];
+                $price["price"][$count]["sale_room_price"] = $valuePrice["sale_room_price"];
+                $price["price"][$count]["net_room_price"] = $valuePrice["net_room_price"];
+                $price["price"][$count]["discount_room_price"] = $valuePrice["discount_room_price"];
+               // $price["price"][$count]["sale_child_price"] = $valuePrice["sale_child_price"];
+               // $price["price"][$count]["net_child_price"] = $valuePrice["net_child_price"];
+                //$price["price"][$count]["discount_child_price"] = $valuePrice["discount_child_price"];
                 //$pricehotel_id = $this->pricehotelModel->addRecord($price["price"][$count]);
 
                 $count++;  
