@@ -61,7 +61,7 @@ header('Content-Type: text/html; charset=utf-8');
   }
 
    function user_list($segment=false){
-    header('Content-Type: text/html; charset=utf-8');
+    //header('Content-Type: text/html; charset=utf-8');
     //print_r($segment);exit;
 
     if(!empty($segment)){

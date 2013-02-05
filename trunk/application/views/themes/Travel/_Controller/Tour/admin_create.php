@@ -362,7 +362,7 @@ $(document).ready(function() {
       $(function(){
         $("#lang").change(function(){
 
-          window.location='http://'+this.value+'.localhostuastravel.com/admin/tour/create';
+          window.location='http://'+this.value+'.uastravel.com/admin/tour/create';
         });
       });
       </script>      

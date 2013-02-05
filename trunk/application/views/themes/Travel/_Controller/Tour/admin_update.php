@@ -376,7 +376,7 @@ $(document).ready(function() {
         $("#lang").change(function(){
 
           var id = $("#id").val();
-          window.location='http://'+this.value+'.localhostuastravel.com/admin/tour/create/'+id;
+          window.location='http://'+this.value+'.uastravel.com/admin/tour/create/'+id;
         });
       });
       </script>      
