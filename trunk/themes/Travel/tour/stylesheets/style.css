@@ -97,6 +97,9 @@ h1.title{
 h1.title a{
 	color: #fff;
 }
+h1.title a:hover{
+	color: #F3BD00;
+}
 span.subtitle{
 	display: block;
 	font-size: 26px;
