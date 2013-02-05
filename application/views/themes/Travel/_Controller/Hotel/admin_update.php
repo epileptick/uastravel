@@ -376,7 +376,7 @@ $(document).ready(function() {
         $("#lang").change(function(){
 
           var id = $("#id").val();
-          window.location='http://'+this.value+'.localhostuastravel.com/admin/hotel/create/'+id;
+          window.location='http://'+this.value+'.uastravel.com/admin/hotel/create/'+id;
         });
       });
       </script>      

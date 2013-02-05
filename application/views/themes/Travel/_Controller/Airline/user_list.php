@@ -1,24 +1,10 @@
-<?php
-
-  if(!empty($error)){
-    print_r($error);
-
-  }
-
-  if(!empty($hello)){
-    echo($hello);
-
-  }
-
-?>
-
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <title><?php echo "จองตั๋วเครื่องบิน U As Travel" ;?></title>
+  <title><?php echo "จองตั๋วเครื่องบิน U As Travel - Thai Airways" ;?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
   <meta name="description" content="<?php echo (!empty($booking[0]->name))?$booking[0]->code:"";?>" />

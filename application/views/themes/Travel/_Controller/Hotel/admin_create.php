@@ -360,7 +360,7 @@ $(document).ready(function() {
       $(function(){
         $("#lang").change(function(){
 
-          window.location='http://'+this.value+'.localhostuastravel.com/admin/hotel/create';
+          window.location='http://'+this.value+'.uastravel.com/admin/hotel/create';
         });
       });
       </script>      

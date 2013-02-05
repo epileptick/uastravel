@@ -254,14 +254,14 @@
                               </style>
                               <!---->
                               <div class="promotion style1">
-                                <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">"-->
+                                <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">-->
                                 <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th.png');?>">
                                 <p>จาก <span>15,500</span>  ลดเหลือ <span class="reduce_price"> 5,500</span> บาท</p>
 
                               </div>
 
                               <div class="promotion style2">
-                                <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">"-->
+                                <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">-->
                                 <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th2.png');?>">
                                 <p>จาก <span>15,500</span>  ลดเหลือ <span class="reduce_price"> 5,500</span> บาท</p>
                               </div>

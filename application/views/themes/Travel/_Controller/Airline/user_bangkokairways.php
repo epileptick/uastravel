@@ -18,7 +18,7 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <title><?php echo "จองตั๋วเครื่องบิน U As Travel" ;?></title>
+  <title><?php echo "จองตั๋วเครื่องบิน U As Travel - Bangkok Airways" ;?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
   <meta name="description" content="<?php echo (!empty($booking[0]->name))?$booking[0]->code:"";?>" />
