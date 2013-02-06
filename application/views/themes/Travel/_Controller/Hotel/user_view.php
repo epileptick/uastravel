@@ -648,7 +648,31 @@
                 <div class="icon view tooltip_se" title="จำนวนคนดู">1358</div>
                 <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
                 <div class="price">
-                  5,000 บาท
+                  <span>
+                  <?php 
+                      if(!empty($value["price"]->prh_sale_adult_price)){
+                        
+                        if($value["price"]->prh_discount_adult_price>0){
+
+                          $priceAdultDiscount = number_format($value["price"]->prh_sale_adult_price - $value["price"]->pri_discount_adult_price, 0);
+                          $priceAdult = number_format($value["price"]->prh_sale_adult_price, 0);
+                        
+                          echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
+                          echo " บาท";
+
+                        }else{
+                          echo number_format($value["price"]->pri_sale_adult_price, 0);
+                          echo " บาท";
+                        }
+
+                        //text-decoration: line-through; color: #โค้ดสีเส้น;
+
+                      }else{
+                        echo "Call";
+                        echo " บาท";
+                      }
+                    ?>             
+                  </span>
                 </div>
               </div>
             </div>

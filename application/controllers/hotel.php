@@ -658,13 +658,20 @@ class Hotel extends MY_Controller {
         }
 
         if(!empty($mainPrice)){
+
+
           //Max price
+          $minSalePrice = 9999999;
+          $minSalePriceID = 0;
           $maxSalePrice = 0;
           $maxSalePriceID = 0;
           foreach ($mainPrice as $key => $value) {         
             if($value->sale_room_price > $maxSalePrice){
               $maxSalePriceID  = $value->agency_id;
               $maxSalePrice = $value->sale_room_price;
+            }else if($value->sale_room_price < $minSalePrice){
+              $minSalePriceID  = $value->agency_id;
+              $minSalePrice = $value->sale_room_price;
             }
           }
 

@@ -99,6 +99,7 @@ class Taghotel_model extends MY_Model {
           $priceTour = $this->db->get('ci_pricehotel')->result();
 
           if(!empty($priceTour)){
+            /*
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
@@ -107,6 +108,19 @@ class Taghotel_model extends MY_Model {
                 $maxAgencyPrice = $value->prh_sale_room_price;
               }
             }
+            */
+
+
+            //Min price
+            $minSalePrice = 9999999;
+            foreach ($priceTour as $key => $value) {
+              # code...
+              if($value->prh_sale_room_price < $minSalePrice){
+                $result[$count]["price"] = $value;
+                $minSalePrice = $value->prh_sale_room_price;
+              }
+            }  
+
           }
 
           $count++;
@@ -197,6 +211,7 @@ class Taghotel_model extends MY_Model {
           }
 
           //Find max price for display
+          /*
           $maxAgencyPrice = 0;
           foreach ($agencyLowPriceArray as $key => $value) {
             # code...
@@ -205,6 +220,18 @@ class Taghotel_model extends MY_Model {
               $maxAgencyPrice = $value->prh_sale_room_price;
             }
           }
+          */
+
+          //Min price
+          $minSalePrice = 9999999;
+          foreach ($priceTour as $key => $value) {
+            # code...
+            if($value->prh_sale_room_price < $minSalePrice){
+              $result[$count]["price"] = $value;
+              $minSalePrice = $value->prh_sale_room_price;
+            }
+          }  
+
 
         }
 
@@ -277,11 +304,27 @@ class Taghotel_model extends MY_Model {
         if(!empty($priceTour)){
           $maxAgencyPrice = 0;
           foreach ($priceTour as $key => $value) {
+
+            /*
             # code...
             if($value->prh_sale_room_price > $maxAgencyPrice){
               $result[$count]["price"] = $value;
               $maxAgencyPrice = $value->prh_sale_room_price;
             }
+
+            */
+
+
+            //Min price
+            $minSalePrice = 9999999;
+            foreach ($priceTour as $key => $value) {
+              # code...
+              if($value->prh_sale_room_price < $minSalePrice){
+                $result[$count]["price"] = $value;
+                $minSalePrice = $value->prh_sale_room_price;
+              }
+            }  
+
           }
         }
 
@@ -351,6 +394,8 @@ class Taghotel_model extends MY_Model {
         $priceTour = $this->db->get('ci_pricehotel')->result();
 
         if(!empty($priceTour)){
+
+          /*
           $maxAgencyPrice = 0;
           foreach ($priceTour as $key => $value) {
             # code...
@@ -358,7 +403,19 @@ class Taghotel_model extends MY_Model {
               $result[$count]["price"] = $value;
               $maxAgencyPrice = $value->prh_sale_room_price;
             }
-          }
+          }*/
+
+
+          //Min price
+          $minSalePrice = 9999999;
+          foreach ($priceTour as $key => $value) {
+            # code...
+            if($value->prh_sale_room_price < $minSalePrice){
+              $result[$count]["price"] = $value;
+              $minSalePrice = $value->prh_sale_room_price;
+            }
+          }  
+          
         }
 
         $count++;
@@ -489,6 +546,8 @@ class Taghotel_model extends MY_Model {
         $priceTour = $this->db->get('ci_pricehotel')->result();
 
         if(!empty($priceTour)){
+
+          /*
           $maxAgencyPrice = 0;
           foreach ($priceTour as $key => $value) {
             # code...
@@ -497,6 +556,19 @@ class Taghotel_model extends MY_Model {
               $maxAgencyPrice = $value->prh_sale_room_price;
             }
           }
+
+          */
+
+          //Min price
+          $minSalePrice = 9999999;
+          foreach ($priceTour as $key => $value) {
+            # code...
+            if($value->prh_sale_room_price < $minSalePrice){
+              $result[$count]["price"] = $value;
+              $minSalePrice = $value->prh_sale_room_price;
+            }
+          }  
+
         }
 
         $count++;
@@ -586,6 +658,8 @@ class Taghotel_model extends MY_Model {
           $priceTour = $this->db->get('ci_pricehotel')->result();
           
           if(!empty($priceTour)){
+
+            /*
             $maxAgencyPrice = 0;
             foreach ($priceTour as $key => $value) {
               # code...
@@ -594,6 +668,21 @@ class Taghotel_model extends MY_Model {
                 $maxAgencyPrice = $value->prh_sale_room_price;
               }
             }
+
+
+
+          */
+
+            //Min price
+            $minSalePrice = 9999999;
+            foreach ($priceTour as $key => $value) {
+              # code...
+              if($value->prh_sale_room_price < $minSalePrice){
+                $result[$count]["price"] = $value;
+                $minSalePrice = $value->prh_sale_room_price;
+              }
+            }  
+
           }
           $count++;
         }
@@ -757,9 +846,11 @@ class Taghotel_model extends MY_Model {
               //Get price data
               unset($this->db);
               $this->db->where('prh_hotel_id', $value->tah_hotel_id);
-              $priceTour = $this->db->get('ci_pricehotelhotel')->result();
+              $priceTour = $this->db->get('ci_pricehotel')->result();
 
               if(!empty($priceTour)){
+
+                /*
                 $maxAgencyPrice = 0;
                 foreach ($priceTour as $key => $value) {
                   # code...
@@ -768,6 +859,21 @@ class Taghotel_model extends MY_Model {
                     $maxAgencyPrice = $value->prh_sale_room_price;
                   }
                 }
+
+                */
+
+
+
+                //Min price
+                $minSalePrice = 9999999;
+                foreach ($priceTour as $key => $value) {
+                  # code...
+                  if($value->prh_sale_room_price < $minSalePrice){
+                    $result[$count]["price"] = $value;
+                    $minSalePrice = $value->prh_sale_room_price;
+                  }
+                }
+
               }
 
 

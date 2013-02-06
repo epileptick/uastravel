@@ -763,6 +763,8 @@ class TagTour_model extends MY_Model {
               $priceTour = $this->db->get('ci_price')->result();
 
               if(!empty($priceTour)){
+
+                /*
                 $maxAgencyPrice = 0;
                 foreach ($priceTour as $key => $value) {
                   # code...
@@ -771,7 +773,22 @@ class TagTour_model extends MY_Model {
                     $maxAgencyPrice = $value->pri_sale_adult_price;
                   }
                 }
+
+                */
+
+
+                //Min price
+                $minSalePrice = 9999999;
+                foreach ($priceTour as $key => $value) {
+                  # code...
+                  if($value->agt_sale_adult_price < $minSalePrice){
+                    $result[$count]["price"] = $value;
+                    $minSalePrice = $value->pri_sale_adult_price;
+                  }
+                }
+                
               }
+
 
 
               $count++;
