@@ -1222,9 +1222,9 @@ class Hotel extends MY_Controller {
                 $price[$count]["lang"]   = $this->lang->lang();
                 $price[$count]["agency_id"] = $keyAgencyId;
                 $price[$count]["name"] = $valuePrice["name"];
-                $price[$count]["sale_adult_price"] = $valuePrice["sale_adult_price"];
-                $price[$count]["net_adult_price"] = $valuePrice["net_adult_price"];
-                $price[$count]["discount_adult_price"] = $valuePrice["discount_adult_price"];
+                $price[$count]["sale_room_price"] = $valuePrice["sale_room_price"];
+                $price[$count]["net_room_price"] = $valuePrice["net_room_price"];
+                $price[$count]["discount_room_price"] = $valuePrice["discount_room_price"];
               // $price[$count]["sale_child_price"] = $valuePrice["sale_child_price"];
               // $price[$count]["net_child_price"] = $valuePrice["net_child_price"];
               // $price[$count]["discount_child_price"] = $valuePrice["discount_child_price"];
