@@ -198,25 +198,22 @@
       <div class="eight columns">
         <div class="box_white_in_columns article_tour">
           <div class="row">
-            <div class="eight columns">
               <div class="eight columns">
-                <h4 class="id_tour" id="<?php echo $tour[0]->name;?>">ID : <?php echo $tour[0]->code;?></h4>
-                <h3 class="title_tour"><?php echo $tour[0]->name;?></h3>
+                <h3 class="title_tour">(<?php echo $tour[0]->code;?>) <?php echo $tour[0]->name;?></h3>
               </div>
-            </div>
-            <div class="four columns">
-              <div class="social_network">
-                <!-- AddThis Button BEGIN -->
-                <div class="addthis_toolbox addthis_default_style ">
-                <a class="addthis_button_google_plusone" g:plusone:size="medium"></a> 
-                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+              <div class="four columns">
+                <div class="social_network">
+                  <!-- AddThis Button BEGIN -->
+                  <div class="addthis_toolbox addthis_default_style ">
+                  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a> 
+                  <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
 
-                <!--<a class="addthis_counter addthis_pill_style"></a>-->
+                  <!--<a class="addthis_counter addthis_pill_style"></a>-->
+                  </div>
+                  <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508ccf0302149b28"></script>
+                  <!-- AddThis Button END -->
                 </div>
-                <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508ccf0302149b28"></script>
-                <!-- AddThis Button END -->
               </div>
-            </div>
           </div><!-- Title -->
           <div class="border"></div>
           <p><?php echo $tour[0]->description;?></p>
@@ -422,10 +419,8 @@
         <!-- Start contact -->
         <div class="row">
          <div class="twelve columns">
-            <ul class="tags">
-              <li style="font-size:30px; color:#FE5214;">ติดต่อเรา :</li>
-              <li><b>โทร.</b> 082-8121146, 076-331280&nbsp;&nbsp;<b>แฟกซ์.</b> 076-331273&nbsp;&nbsp;<b>อีเมล์</b> info@uastravel.com</li>
-            </ul>
+              <span style="font-size:30px; color:#FE5214; margin:-10px 0 10px 0; display:inline-block;" >ติดต่อเรา : </span> 
+              <span style="font-size:18px;"><b>โทร.</b> 082-8121146, 076-331280&nbsp;&nbsp;<b>แฟกซ์.</b> 076-331273&nbsp;&nbsp;<b>อีเมล์</b> info@uastravel.com</span> 
           </div> 
         </div> 
         <!-- End contact -->

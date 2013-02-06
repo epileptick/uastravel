@@ -11,15 +11,14 @@
       <?php
           if(!empty($value["price"]->agt_sale_adult_price)){
       ?>
-        <div class="sticker_status">
-          <div class="sticker price">
-            <?php  
-              $sale_price = $value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price;
-              echo number_format($sale_price, 0);
-            ?>
-            บาท
-          </div> 
-        </div>                                   
+            <div class="sticker_status">
+              <div class="sticker price">
+                <?php  
+                  echo number_format($value["price"]->pri_sale_adult_price, 0);
+                ?>
+                บาท
+              </div> 
+            </div>                                 
       <?php                                    
           }
       ?>
@@ -46,7 +45,32 @@
 
           }
         ?>
-        <div><span></span></div>
+
+          <?php
+            //print_r($value["price"]); exit;
+            if($value["price"]->pri_discount_adult_price > 0){
+          ?>
+
+            <div class="promotion style2">
+              <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">-->
+              <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th2.png');?>">
+              <p>จาก 
+                <span>
+                  <?php
+                    echo number_format($value["price"]->pri_sale_adult_price);
+                  ?>
+                </span>  ลดเหลือ 
+                <span class="reduce_price"> 
+                  <?php
+                    echo number_format($value["price"]->pri_discount_adult_price, 0);
+                  ?>
+                </span> บาท
+                </p>
+            </div>
+
+          <?php
+            }
+          ?>
       </a>
 
 
