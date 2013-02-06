@@ -14,8 +14,8 @@
         <div class="sticker_status">
           <div class="sticker price">
             <?php  
-              $sale_price = $value["price"]->prh_sale_adult_price - $value["price"]->prh_discount_adult_price;
-              echo number_format($sale_price, 0);
+              //$sale_price = $value["price"]->prh_sale_adult_price - $value["price"]->prh_discount_adult_price;
+              echo number_format($prh_sale_room_price, 0);
             ?>
             บาท
           </div> 
@@ -23,7 +23,7 @@
       <?php                                    
           }
       ?>
-      <a href="<?php echo base_url('hotel/'.$value['hotel']->tout_url.'-'.$value['hotel']->hot_id);?>" target="_blank" >
+      <a href="<?php echo base_url('hotel/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>" target="_blank" >
         <?php
           if($value['hotel']->hot_first_image){
         ?>
@@ -31,13 +31,40 @@
         <?php
           }
         ?>
-        <div><span></span></div>
+        <?php
+          //print_r($value["price"]); exit;
+          if(!empty($value["price"]->prh_discount_room_price )){
+
+            if($value["price"]->prh_discount_room_price > 0){
+        ?>
+
+              <div class="promotion style2">
+                <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">-->
+                <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th2.png');?>">
+                <p>จาก 
+                  <span>
+                    <?php
+                      echo number_format($value["price"]->prh_sale_room_price);
+                    ?>
+                  </span>  ลดเหลือ 
+                  <span class="reduce_price"> 
+                    <?php
+                      echo number_format($value["price"]->prh_discount_room_price, 0);
+                    ?>
+                  </span> บาท
+                  </p>
+              </div>
+
+        <?php
+            }
+          }
+        ?>
       </a>
       <div class="row-fluid">
         <div class="span8">
           <h3>
-            <a href="<?php echo base_url('hotel/'.$value['hotel']->tout_url.'-'.$value['hotel']->hot_id);?>" target="_blank" >
-              <?php echo $value['hotel']->tout_name; ?>
+            <a href="<?php echo base_url('hotel/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>" target="_blank" >
+              <?php echo $value['hotel']->hott_name; ?>
             </a>
           </h3>
         </div>
@@ -54,7 +81,7 @@
       <div class="row-fluid">
         <div class="span7">
           <?php 
-              if(isset($value['hotel']->tout_name)){
+              if(isset($value['hotel']->hott_name)){
             ?>
               <div class="icon hotel" rel="tooltip" title="แพ็กเก็จทัวร์"></div>
               <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
