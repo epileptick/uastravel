@@ -99,13 +99,14 @@
                     <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
                   </ul>                
                 </li> 
-                <li>
+                <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
+                <!-- li>
                   <a>ที่พัก <span class="arrow_menu"></span></a>
                   <ul class="sub-menu">
-                    <li><a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a></li>
+                    <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                     <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                   </ul>                
-                </li>
+                </li -->
                 <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
                 <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>    
               </ul><!-- End accordion -->
