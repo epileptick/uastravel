@@ -193,18 +193,15 @@
       endif;
     ?>    
     <!-- End Gallery -->
-    <div class="row">
-      <div class="eight columns">
-        <h4  style="margin-bottom:0px !important;"  id="<?php echo $hotel[0]->name;?>">ID : <?php echo $hotel[0]->code;?></h4>
-      </div>
-    </div>  
     <!-- Tour Information -->
     <div class="row">
       <div class="eight columns">
         <div class="box_white_in_columns article_hotel">
           <div class="row">
+
             <div class="eight columns">
               <h3 style="color:#FE5214;">
+                (<?php echo $hotel[0]->code;?>)
                 <?php echo $hotel[0]->name;?>
 
                         <?php
@@ -439,11 +436,7 @@
                 >
                 </td>
 
-             <!--   <td style="font-size:18px !important;">
-                  <center><label><?php echo number_format($value->sale_child_price, 0);?></label></center>
-                </td> -->
-
-
+  
                 <td style="font-size:18px !important;">
                   <input name="date_amount_booking[<?php echo $value->id;?>]" 
                           type="text" 
@@ -650,18 +643,19 @@
                 <div class="price">
                   <span>
                   <?php 
-                      if(!empty($value["price"]->prh_sale_adult_price)){
+                      //print_r($value["price"]); 
+                      if(!empty($value["price"]->prh_sale_room_price)){
                         
-                        if($value["price"]->prh_discount_adult_price>0){
+                        if($value["price"]->prh_discount_room_price>0){
 
-                          $priceAdultDiscount = number_format($value["price"]->prh_sale_adult_price - $value["price"]->pri_discount_adult_price, 0);
-                          $priceAdult = number_format($value["price"]->prh_sale_adult_price, 0);
+                          $priceAdultDiscount = number_format($value["price"]->prh_discount_room_price, 0);
+                          $priceAdult = number_format($value["price"]->prh_sale_room_price, 0);
                         
                           echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
                           echo " บาท";
 
                         }else{
-                          echo number_format($value["price"]->pri_sale_adult_price, 0);
+                          echo number_format($value["price"]->prh_sale_room_price, 0);
                           echo " บาท";
                         }
 

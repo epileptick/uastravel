@@ -79,7 +79,8 @@ class Price_model extends MY_Model {
           $this->db->where('ci_price_translate.prit_price_id', $value->pri_id);        
           $this->db->where('ci_price_translate.prit_lang', $this->lang->lang());
           $this->db->join('ci_price_translate', 'ci_price_translate.prit_price_id = ci_price.pri_id');
-          $this->db->order_by('CONVERT( ci_price_translate.prit_name USING tis620 ) ASC');    
+          $this->db->order_by('ci_price.pri_sale_adult_price ASC');    
+          //$this->db->order_by('CONVERT( ci_price_translate.prit_name USING tis620 ) ASC');    
           $query = $this->db->get("ci_price"); 
 
           if($query->num_rows > 0){
@@ -180,7 +181,8 @@ class Price_model extends MY_Model {
           $this->db->where('ci_price.pri_tour_id', $args["tour_id"]);          
           $this->db->where('ci_price_translate.prit_lang', $this->lang->lang());
           $this->db->join('ci_price_translate', 'ci_price_translate.prit_price_id = ci_price.pri_id');
-          $this->db->order_by('CONVERT( ci_price_translate.prit_name USING tis620 ) ASC');    
+          $this->db->order_by('ci_price.pri_sale_adult_price ASC');    
+          //$this->db->order_by('CONVERT( ci_price_translate.prit_name USING tis620 ) ASC');    
           $query = $this->db->get("ci_price"); 
 
           if($query->num_rows > 0){
@@ -218,7 +220,8 @@ class Price_model extends MY_Model {
           $this->db->where('ci_price.pri_id', $args["id"]);          
           $this->db->where('ci_price_translate.prit_lang', $this->lang->lang());
           $this->db->join('ci_price_translate', 'ci_price_translate.prit_price_id = ci_price.pri_id');
-          $this->db->order_by('CONVERT( ci_price_translate.prit_name USING tis620 ) ASC');    
+          $this->db->order_by('ci_price.pri_sale_adult_price ASC');    
+          //$this->db->order_by('CONVERT( ci_price_translate.prit_name USING tis620 ) ASC');     
           $query = $this->db->get("ci_price"); 
 
           if($query->num_rows > 0){

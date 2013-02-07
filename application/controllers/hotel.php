@@ -619,74 +619,41 @@ class Hotel extends MY_Controller {
         $data["related"] = $this->taghotelModel->getRecordRelated($query);
 
 
+
         //print_r($related); exit;
       }
 
-
+      //print_r($data["related"]); exit;
       //Price
 
       //print_r($agencyhotel); exit;
       $this->load->model("pricehotel_model", "pricehotelModel");
       $priceQuery = $this->pricehotelModel->getRecord($agencyhotel);
 
-      //exit;
+      //print_r($priceQuery); exit;
       if(!empty($priceQuery)){
 
-        //Duplicate agency
-        $duplicateArray = array();
-        foreach ($priceQuery as $value){
-          if (isset($duplicateArray[$value->agency_id]))
-              $duplicateArray[$value->agency_id]++;
-          else
-              $duplicateArray[$value->agency_id] = 1;
-        }
-
-        //Main price
-        foreach ($duplicateArray as $keyAgencyID => $valueAgncyID) {
-          $name_length = 99999;
-          foreach ($priceQuery as $key => $value) {
-            if($value->agency_id == $keyAgencyID){
-
-              if(!empty($value->name)){
-                if(strlen($value->name) < $name_length){
-                  $mainPrice[$keyAgencyID] =  $value;
-                  $name_length = strlen($value->name);
-                }
-              }
-            }
+        //Min price
+        $minSalePrice = 9999999;
+        $minSalePriceID = 0;
+        foreach ($priceQuery as $key => $value) {
+          # code...
+          if($value->sale_room_price < $minSalePrice){
+            $result[$count]["price"] = $value;
+            $minSalePriceID  = $value->agency_id;
+            $minSalePrice = $value->sale_room_price;
           }
-        }
+        }        
 
-        if(!empty($mainPrice)){
-
-
-          //Max price
-          $minSalePrice = 9999999;
-          $minSalePriceID = 0;
-          $maxSalePrice = 0;
-          $maxSalePriceID = 0;
-          foreach ($mainPrice as $key => $value) {         
-            if($value->sale_room_price > $maxSalePrice){
-              $maxSalePriceID  = $value->agency_id;
-              $maxSalePrice = $value->sale_room_price;
-            }else if($value->sale_room_price < $minSalePrice){
-              $minSalePriceID  = $value->agency_id;
-              $minSalePrice = $value->sale_room_price;
-            }
+        //Price selection
+        foreach ($priceQuery as $key => $value) {
+          if($value->agency_id == $minSalePriceID){
+            $data["price"][] = $value;
           }
-
-          //Price selection
-          foreach ($priceQuery as $key => $value) {
-            if($value->agency_id == $maxSalePriceID){
-              $data["price"][] = $value;
-            }
-          } 
-
-        }       
+        }        
 
 
       }//End price
-
 
       //Images
       $this->load->model("images_model", "imagesModel");
