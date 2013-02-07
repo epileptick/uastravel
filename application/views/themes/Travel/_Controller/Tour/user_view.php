@@ -372,8 +372,29 @@
                   ?>
                 </td>
 
+
                 <td style="font-size:18px !important;">
-                  <center><label><?php echo number_format($value->sale_adult_price, 0);?></label></center>
+
+                    <?php 
+                        
+                        if($value->discount_adult_price>0){
+                    ?>
+
+                         <center><label><strike><?php echo number_format($value->sale_adult_price, 0);?></strike> 
+                        <?php echo number_format($value->discount_adult_price, 0);?></label></center>
+
+                      <?php  
+                    }else{
+                      ?>
+                        <center><label><?php echo number_format($value->sale_adult_price, 0);?></label></center>
+
+                    <?php
+                        }
+                     ?> 
+
+                  <!--<center><label><strike><?php echo number_format($value->sale_adult_price, 0);?></strike> 
+                   <?php echo number_format($value->discount_adult_price, 0);?></label></center>-->
+
                 </td>
 
                 <td style="font-size:18px !important;">
@@ -381,11 +402,30 @@
                           type="text" 
                           id="amount_adult_<?php echo $value->id;?>"
                           style="height: 20px !important; width: 30px !important;"
+                          value="1"
                   >
                 </td>
 
                 <td style="font-size:18px !important;">
-                  <center><label><?php echo number_format($value->sale_child_price, 0);?></label></center>
+
+                    <?php 
+                        
+                        if($value->discount_child_price>0){
+                    ?>
+
+                         <center><label><strike><?php echo number_format($value->sale_child_price, 0);?></strike> 
+                        <?php echo number_format($value->discount_child_price, 0);?></label></center>
+
+                      <?php  
+                    }else{
+                      ?>
+                        <center><label><?php echo number_format($value->sale_child_price, 0);?></label></center>
+
+                    <?php
+                        }
+                     ?> 
+                  
+
                 </td>
 
 
@@ -394,6 +434,7 @@
                           type="text" 
                           id="amount_child_<?php echo $value->id;?>"
                           style="height: 20px !important; width: 30px !important;"
+                          value="0"
                   >
 
                 </td>
@@ -547,6 +588,7 @@
                 <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
                 <div class="price">
                   <span>
+
                   <?php 
                       if(!empty($value["price"]->pri_sale_adult_price)){
                         
@@ -569,7 +611,10 @@
                         echo "Call";
                         echo " บาท";
                       }
-                    ?>             
+                    ?>   
+
+
+
                   </span>
                 </div>
               </div>
