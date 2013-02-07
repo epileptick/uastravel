@@ -197,24 +197,26 @@
     <div class="row">
       <div class="eight columns">
         <div class="box_white_in_columns article_tour">
+          <!-- Title -->
           <div class="row">
-              <div class="eight columns">
-                <h3 class="title_tour">(<?php echo $tour[0]->code;?>) <?php echo $tour[0]->name;?></h3>
-              </div>
-              <div class="four columns">
-                <div class="social_network">
-                  <!-- AddThis Button BEGIN -->
-                  <div class="addthis_toolbox addthis_default_style ">
-                  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a> 
-                  <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <div class="eight columns">
+              <h3 class="title_tour">(<?php echo $tour[0]->code;?>) <?php echo $tour[0]->name;?></h3>
+            </div>
+            <div class="four columns">
+              <div class="social_network">
+                <!-- AddThis Button BEGIN -->
+                <div class="addthis_toolbox addthis_default_style ">
+                <a class="addthis_button_google_plusone" g:plusone:size="medium"></a> 
+                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
 
-                  <!--<a class="addthis_counter addthis_pill_style"></a>-->
-                  </div>
-                  <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508ccf0302149b28"></script>
-                  <!-- AddThis Button END -->
+                <!--<a class="addthis_counter addthis_pill_style"></a>-->
                 </div>
+                <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508ccf0302149b28"></script>
+                <!-- AddThis Button END -->
               </div>
-          </div><!-- Title -->
+            </div>
+          </div>
+          <!-- End Title -->
           <div class="border"></div>
           <p><?php echo $tour[0]->description;?></p>
           <h3 style="padding:4px 4px 8px 4px; border:2px solid; border-color:#FAA20A; background-color:#FAA20A; color:#FFF; text-shadow: none !important;">
@@ -550,7 +552,7 @@
                         
                         if($value["price"]->pri_discount_adult_price>0){
 
-                          $priceAdultDiscount = number_format($value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price, 0);
+                          $priceAdultDiscount = number_format(pri_discount_adult_price, 0);
                           $priceAdult = number_format($value["price"]->pri_sale_adult_price, 0);
                         
                           echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;

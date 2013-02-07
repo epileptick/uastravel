@@ -626,54 +626,24 @@ class Tour extends MY_Controller {
       //Price
       $this->load->model("price_model", "priceModel");
       $priceQuery = $this->priceModel->getRecord($agencytour);
-
+      //print_r($priceQuery); exit;
       if(!empty($priceQuery)){
 
-        //Duplicate agency
-        $duplicateArray = array();
-        foreach ($priceQuery as $value){
-          if (isset($duplicateArray[$value->agency_id]))
-              $duplicateArray[$value->agency_id]++;
-          else
-              $duplicateArray[$value->agency_id] = 1;
-        }
-
-        //Main price
-        foreach ($duplicateArray as $keyAgencyID => $valueAgncyID) {
-          $name_length = 99999;
-          $name_size = 0;
-          foreach ($priceQuery as $key => $value) {
-            if($value->agency_id == $keyAgencyID){
-
-              if(!empty($value->name)){
-                $name_size = strlen($value->name);
-              }else{
-                $name_size = 0;
-              }
-
-
-              if($name_size < $name_length){
-                $mainPrice[$keyAgencyID] =  $value;
-                $name_length = $name_size;
-              }              
-            }
+        //Min price
+        $minSalePrice = 9999999;
+        $minSalePriceID = 0;
+        foreach ($priceQuery as $key => $value) {
+          # code...
+          if($value->sale_adult_price < $minSalePrice){
+            $result[$count]["price"] = $value;
+            $minSalePriceID  = $value->agency_id;
+            $minSalePrice = $value->sale_adult_price;
           }
-        }
-
-
-        //Max price
-        $maxSalePrice = 0;
-        $maxSalePriceID = 0;
-        foreach ($mainPrice as $key => $value) {         
-          if($value->sale_adult_price > $maxSalePrice){
-            $maxSalePriceID  = $value->agency_id;
-            $maxSalePrice = $value->sale_adult_price;
-          }
-        }
+        }        
 
         //Price selection
         foreach ($priceQuery as $key => $value) {
-          if($value->agency_id == $maxSalePriceID){
+          if($value->agency_id == $minSalePriceID){
             $data["price"][] = $value;
           }
         }        

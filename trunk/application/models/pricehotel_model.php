@@ -67,7 +67,9 @@ class Pricehotel_model extends MY_Model {
           $this->db->where('ci_pricehotel_translate.prht_price_id', $value->prh_id);        
           $this->db->where('ci_pricehotel_translate.prht_lang', $this->lang->lang());
           $this->db->join('ci_pricehotel_translate', 'ci_pricehotel_translate.prht_price_id = ci_pricehotel.prh_id');
-          $this->db->order_by('CONVERT( ci_pricehotel_translate.prht_name USING tis620 ) ASC');    
+          $this->db->order_by('ci_pricehotel.prh_sale_room_price ASC');    
+          //$this->db->order_by('CONVERT( ci_pricehotel_translate.prht_name USING tis620 ) ASC'); 
+
           $query = $this->db->get("ci_pricehotel"); 
 
           if($query->num_rows > 0){
@@ -168,7 +170,8 @@ class Pricehotel_model extends MY_Model {
           $this->db->where('ci_pricehotel.prh_hotel_id', $args["hotel_id"]);          
           $this->db->where('ci_pricehotel_translate.prht_lang', $this->lang->lang());
           $this->db->join('ci_pricehotel_translate', 'ci_pricehotel_translate.prht_price_id = ci_pricehotel.prh_id');
-          $this->db->order_by('CONVERT( ci_pricehotel_translate.prht_name USING tis620 ) ASC');    
+          $this->db->order_by('ci_pricehotel.prh_sale_room_price ASC');    
+          //$this->db->order_by('CONVERT( ci_pricehotel_translate.prht_name USING tis620 ) ASC');   
           $query = $this->db->get("ci_pricehotel"); 
 
           if($query->num_rows > 0){
@@ -206,7 +209,8 @@ class Pricehotel_model extends MY_Model {
           $this->db->where('ci_pricehotel.prh_id', $args["id"]);          
           $this->db->where('ci_pricehotel_translate.prht_lang', $this->lang->lang());
           $this->db->join('ci_pricehotel_translate', 'ci_pricehotel_translate.prht_price_id = ci_pricehotel.prh_id');
-          $this->db->order_by('CONVERT( ci_pricehotel_translate.prht_name USING tis620 ) ASC');    
+          $this->db->order_by('ci_pricehotel.prh_sale_room_price ASC');    
+          //$this->db->order_by('CONVERT( ci_pricehotel_translate.prht_name USING tis620 ) ASC');   
           $query = $this->db->get("ci_pricehotel"); 
 
           if($query->num_rows > 0){

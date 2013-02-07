@@ -415,7 +415,7 @@ class Taghotel_model extends MY_Model {
               $minSalePrice = $value->prh_sale_room_price;
             }
           }  
-          
+
         }
 
         $count++;
@@ -668,16 +668,13 @@ class Taghotel_model extends MY_Model {
                 $maxAgencyPrice = $value->prh_sale_room_price;
               }
             }
-
-
-
-          */
+            */
 
             //Min price
             $minSalePrice = 9999999;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->prh_sale_room_price < $minSalePrice){
+              if($value->prh_sale_room_price < $minSalePrice && $value->prh_sale_room_price != 0){
                 $result[$count]["price"] = $value;
                 $minSalePrice = $value->prh_sale_room_price;
               }
