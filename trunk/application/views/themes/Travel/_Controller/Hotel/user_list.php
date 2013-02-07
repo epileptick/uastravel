@@ -113,39 +113,40 @@
                 <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
                 <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
                 <li>
-                  <a class="active">แพ๊คเกจทัวร์ <span class="arrow_menu "></span></a>
-                  <ul class="sub-menu" style="display:block;">
-                    <li><a href="<?php echo base_url('hotel/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
-                    <li><a href="<?php echo base_url('hotel/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
-                    <li><a href="<?php echo base_url('hotel/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
-                    <li><a href="<?php echo base_url('hotel/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
+                  <a>แพ๊คเกจทัวร์ <span class="arrow_menu "></span></a>
+                  <ul class="sub-menu">
+                    <li><a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
+                    <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
+                    <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
+                    <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
                   </ul>                
                 </li>
                 <li>
                   <a>แพ๊คเกจทัวร์อื่นๆ <span class="arrow_menu"></span></a>
                   <ul class="sub-menu">
-                    <li><a href="<?php echo base_url('hotel/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
-                    <li><a href="<?php echo base_url('hotel/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
-                    <li><a href="<?php echo base_url('hotel/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
+                    <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
+                    <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
+                    <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
                   </ul>                
                 </li> 
                 <li>
                   <a>การเดินทาง <span class="arrow_menu"></span></a>
                   <ul class="sub-menu">
-                    <li><a href="<?php echo base_url('hotel/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
-                    <li><a href="<?php echo base_url('hotel/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
+                    <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
+                    <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
                     <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
                     <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
                   </ul>                
                 </li> 
-                <li>
+                <li><a class="active"  href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
+                <!-- li>
                   <a>ที่พัก <span class="arrow_menu"></span></a>
                   <ul class="sub-menu">
-                    <li><a href="<?php echo base_url('hotel/จองโรงแรม');?>">จองโรงแรม</a></li>
-                    <li><a href="<?php echo base_url('hotel/จองห้องเช่า');?>">จองห้องเช่า</a></li>
+                    <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
+                    <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                   </ul>                
-                </li>
-                <li><a href="<?php echo base_url('hotel/โปรโมชั่น');?>">โปรโมชั่น</a></li>
+                </li -->
+                <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
                 <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>    
               </ul><!-- End accordion -->
             </nav>
