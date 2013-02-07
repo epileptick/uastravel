@@ -552,7 +552,7 @@
                         
                         if($value["price"]->pri_discount_adult_price>0){
 
-                          $priceAdultDiscount = number_format(pri_discount_adult_price, 0);
+                          $priceAdultDiscount = number_format($value["price"]->pri_sale_adult_price, 0);
                           $priceAdult = number_format($value["price"]->pri_sale_adult_price, 0);
                         
                           echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
