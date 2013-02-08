@@ -635,7 +635,7 @@ class Tour extends MY_Controller {
         foreach ($priceQuery as $key => $value) {
           # code...
           if($value->sale_adult_price < $minSalePrice){
-            $result[$count]["price"] = $value;
+            //$result[$count]["price"] = $value;
             $minSalePriceID  = $value->agency_id;
             $minSalePrice = $value->sale_adult_price;
           }
@@ -1280,7 +1280,7 @@ class Tour extends MY_Controller {
 
     //echo "Call admin_update"; exit;
     //Get argument from post page
-    header ('Content-type: text/html; charset=utf-8');
+    //header ('Content-type: text/html; charset=utf-8');
     $args = $this->input->post();
     //$args["url"] = Util::url_title($args["name"])."-".$args["id"];
 

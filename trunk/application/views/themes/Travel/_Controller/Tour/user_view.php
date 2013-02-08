@@ -116,7 +116,7 @@
       <div class="twelve columns">
         <a href="" class="arrow previous tooltip_nw" title="แหล่งท่องเที่ยวก่อนหน้า">แหล่งท่องเที่ยวก่อนหน้า</a>
         <h1 class="title"><a href=""><?php echo $tour[0]->name;?></a>
-            <a href="#<?php echo $tour[0]->name;?>">
+            <a href="#detail">
             <img src="<?php echo base_url('themes/Travel/images/anchor.png');?>" width="23px" height="23px" align="absmiddle"/></a>
           <span class="subtitle"><?php echo (!empty($tour[0]->short_description))?$tour[0]->short_description:"";?></span>
         </h1>
@@ -200,7 +200,7 @@
           <!-- Title -->
           <div class="row">
             <div class="eight columns">
-              <h3 class="title_tour">(<?php echo $tour[0]->code;?>) <?php echo $tour[0]->name;?></h3>
+              <h3 class="title_tour" id="detail">(<?php echo $tour[0]->code;?>) <?php echo $tour[0]->name;?></h3>
             </div>
             <div class="four columns">
               <div class="social_network">
@@ -392,8 +392,6 @@
                         }
                      ?> 
 
-                  <!--<center><label><strike><?php echo number_format($value->sale_adult_price, 0);?></strike> 
-                   <?php echo number_format($value->discount_adult_price, 0);?></label></center>-->
 
                 </td>
 
@@ -425,7 +423,6 @@
                         }
                      ?> 
                   
-
                 </td>
 
 
@@ -594,7 +591,7 @@
                         
                         if($value["price"]->pri_discount_adult_price>0){
 
-                          $priceAdultDiscount = number_format($value["price"]->pri_sale_adult_price, 0);
+                          $priceAdultDiscount = number_format($value["price"]->pri_discount_adult_price, 0);
                           $priceAdult = number_format($value["price"]->pri_sale_adult_price, 0);
                         
                           echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
