@@ -285,8 +285,8 @@ class Price_model extends MY_Model {
 
     
     //Insert price translate
-    $data["price_id"] = $id;
-    $this->_addTranslateRecord($data);
+    //$data["price_id"] = $id;
+    //$this->_addTranslateRecord($data);
 
     //echo $this->db->last_query(); exit;
     return $id;

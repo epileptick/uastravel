@@ -274,8 +274,8 @@ class Pricehotel_model extends MY_Model {
     
     
     //Insert hotel price translate
-    $data["price_id"] = $id;
-    $this->_addTranslateRecord($data);
+    //$data["price_id"] = $id;
+    //$this->_addTranslateRecord($data);
     //echo $this->db->last_query(); exit;
     return $id;
   }
@@ -339,14 +339,19 @@ class Pricehotel_model extends MY_Model {
       //Get price by hotel_id
       $price["hotel_id"] = $args["hotel_id"];
       $price["event"] = "insert";
-      $queryPrice = $this->getRecord($price);      
+      $queryPrice = $this->getRecord($price);    
+
+
+      //print_r($queryPrice); exit;
 
       if(empty($queryPrice) && !empty($inputPriceArray)){
         foreach ($inputPriceArray as $key => $value) {
-          
+
+
+          //Insert new price
           $insertPriceID = $this->addRecord($value); 
 
-          //Insert tour_translate
+          //Insert price_translate
           $inputPriceTranslateArray[$key]["price_id"] = $insertPriceID;
           $insertPriceTranslateID = $this->_addTranslateRecord($inputPriceTranslateArray[$key]); 
 
@@ -354,6 +359,8 @@ class Pricehotel_model extends MY_Model {
         }
       }else{
 
+
+        //print_r($inputPriceArray); exit;
         //Price
         foreach ($inputPriceArray as $key => $value) {
 

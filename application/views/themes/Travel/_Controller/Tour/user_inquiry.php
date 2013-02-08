@@ -255,7 +255,6 @@
                 </div>
 
                 <div class="two columns">
-
                   <?php 
                         //Adult price   
                         $adult_price = 0;                    
@@ -304,8 +303,8 @@
                   <?php
                       }
                   ?> 
-
                 </div>
+
                 <div class="two columns">
 
                     <?php 

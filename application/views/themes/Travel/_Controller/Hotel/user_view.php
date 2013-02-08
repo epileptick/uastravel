@@ -116,7 +116,7 @@
       <div class="twelve columns">
         <a href="" class="arrow previous tooltip_nw" title="แหล่งท่องเที่ยวก่อนหน้า">แหล่งท่องเที่ยวก่อนหน้า</a>
         <h1 class="title"><a href=""><?php echo $hotel[0]->name;?></a>
-            <a href="#<?php echo $hotel[0]->name;?>">
+            <a href="#detail">
             <img src="<?php echo base_url('themes/Travel/images/anchor.png');?>" width="23px" height="23px" align="absmiddle"/></a>
           <span class="subtitle"><?php echo (!empty($hotel[0]->short_description))?$hotel[0]->short_description:"";?></span>
         </h1>
@@ -200,7 +200,7 @@
           <div class="row">
 
             <div class="eight columns">
-              <h3 style="color:#FE5214;">
+              <h3 style="color:#FE5214;" id="detail">
                 (<?php echo $hotel[0]->code;?>)
                 <?php echo $hotel[0]->name;?>
 
@@ -424,8 +424,26 @@
                 </td>
 
                 <td style="font-size:18px !important;">
-                  <center><label><?php echo number_format($value->sale_room_price, 0);?></label></center>
+
+                    <?php 
+                        
+                        if($value->discount_room_price>0){
+                    ?>
+
+                         <center><label><strike><?php echo number_format($value->sale_room_price, 0);?></strike> 
+                        <?php echo number_format($value->discount_room_price, 0);?></label></center>
+
+                      <?php  
+                    }else{
+                      ?>
+                        <center><label><?php echo number_format($value->sale_room_price, 0);?></label></center>
+
+                    <?php
+                        }
+                     ?> 
+                  
                 </td>
+
 
                 <td style="font-size:18px !important;">
                   <input name="room_amount_booking[<?php echo $value->id;?>]" 

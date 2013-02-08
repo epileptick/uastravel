@@ -639,7 +639,7 @@ class Hotel extends MY_Controller {
         foreach ($priceQuery as $key => $value) {
           # code...
           if($value->sale_room_price < $minSalePrice){
-            $result[$count]["price"] = $value;
+            //$result[$count]["price"] = $value;
             $minSalePriceID  = $value->agency_id;
             $minSalePrice = $value->sale_room_price;
           }
