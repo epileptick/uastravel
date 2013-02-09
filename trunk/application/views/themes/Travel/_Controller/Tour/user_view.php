@@ -337,7 +337,7 @@
             <tbody>
             <?php
 
-            //print_r($extendprice);
+            //print_r($price); exit;
             $countPrice =0;
             foreach ($price as $key => $value) {
             ?>
@@ -345,18 +345,31 @@
               <tr>
                 <td style="font-size:18px !important;">
                   <?php
-                    if($countPrice == 0){
+                    if($value->show_firstpage == 1 && $firstpage_price == 1){
                   ?>
-                    <label for="checkbox_<?php echo $value->id;?>">
-                      <input name="price_id[]" 
-                              type="checkbox" 
-                              id="radio_<?php echo $value->id;?>" 
-                              value="<?php echo $value->id;?>" 
-                              CHECKED
-                      >
-                      <?php echo (!empty($value->name)?$value->name:"");?>
-                    </label>
+                      <label for="checkbox_<?php echo $value->id;?>">
+                        <input name="price_id[]" 
+                                type="checkbox" 
+                                id="radio_<?php echo $value->id;?>" 
+                                value="<?php echo $value->id;?>" 
+                                CHECKED
+                        >
+                        <?php echo (!empty($value->name)?$value->name:"");?>
+                      </label>
                   <?php
+                    }else if($countPrice == 0 && $firstpage_price == 0){
+                  ?>
+                      <label for="checkbox_<?php echo $value->id;?>">
+                        <input name="price_id[]" 
+                                type="checkbox" 
+                                id="radio_<?php echo $value->id;?>" 
+                                value="<?php echo $value->id;?>" 
+                                CHECKED
+                        >
+                        <?php echo (!empty($value->name)?$value->name:"");?>
+                      </label>
+                  <?php
+
                     }else{
                   ?>
                     <label for="checkbox_<?php echo $value->id;?>">
@@ -365,11 +378,11 @@
                               id="radio_<?php echo $value->id;?>" 
                               value="<?php echo $value->id;?>"
                       >
-                      <?php echo $value->name;?>
+                      <?php echo (!empty($value->name)?$value->name:"");?>
                     </label>
                   <?php
-                    }
-                  ?>
+                    } //End 
+                  ?> 
                 </td>
 
 
@@ -396,12 +409,41 @@
                 </td>
 
                 <td style="font-size:18px !important;">
-                  <input name="adult_amount_booking[<?php echo $value->id;?>]" 
-                          type="text" 
-                          id="amount_adult_<?php echo $value->id;?>"
-                          style="height: 20px !important; width: 30px !important;"
-                          value="1"
-                  >
+
+
+                  <?php
+                    if($value->show_firstpage == 1 && $firstpage_price == 1){
+                  ?>
+
+                      <input name="adult_amount_booking[<?php echo $value->id;?>]" 
+                              type="text" 
+                              id="amount_adult_<?php echo $value->id;?>"
+                              style="height: 20px !important; width: 30px !important;"
+                              value="1"
+                      >
+
+                  <?php
+                    }else if($countPrice == 0 && $firstpage_price == 0){
+                  ?>
+                      <input name="adult_amount_booking[<?php echo $value->id;?>]" 
+                              type="text" 
+                              id="amount_adult_<?php echo $value->id;?>"
+                              style="height: 20px !important; width: 30px !important;"
+                              value="1"
+                      >  
+                  <?php
+
+                    }else{
+                  ?>    
+                      <input name="adult_amount_booking[<?php echo $value->id;?>]" 
+                              type="text" 
+                              id="amount_adult_<?php echo $value->id;?>"
+                              style="height: 20px !important; width: 30px !important;"
+                              value="0"
+                      >  
+                  <?php
+                      }
+                   ?>                                                                      
                 </td>
 
                 <td style="font-size:18px !important;">

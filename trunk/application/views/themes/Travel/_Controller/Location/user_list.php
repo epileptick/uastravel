@@ -186,7 +186,7 @@
                             ?>
                           </ul>
                         </div>
-                        <form name="input" action="tour/search" method="post" class="navbar-form pull-right form_search" id="search-form"> 
+                        <form name="input" action="<?php echo base_url('location/search'); ?>" method="post" class="navbar-form pull-right form_search" id="search-form"> 
                           <select name="select" id="selectsearch">
                             <option value="tour">แพคเกจทัวร์</option>
                             <option value="location">สถานที่ท่องเที่ยว</option>

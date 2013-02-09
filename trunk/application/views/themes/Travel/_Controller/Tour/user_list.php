@@ -68,27 +68,6 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 
-  <!-- Search selection -->
-  <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-
-      $("#selectsearch").change(function() {
-        var action = $(this).val() == "tour" ? "tour" : "location";
-        var uri = action+"/search/";
-        var url = "";
-
-        //Check host
-        if(document.domain == "localhost"){
-          url = "http://localhost/uastravel/"+uri;
-        }else{
-          url = "http://"+document.domain+"/"+uri;
-        }
-
-        $("#search-form").attr("action", url);
-      });
-    });
-  </script>
 
   </head>
   <body>
@@ -258,7 +237,30 @@
                             ?>
                           </ul>
                         </div>
-                        <form name="input" action="tour/search" method="post" class="navbar-form pull-right form_search" id="search-form"> 
+
+
+                      <!-- Search selection -->
+                      <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+                      <script type="text/javascript">
+                        $(document).ready(function() {
+
+                          $("#selectsearch").change(function() {
+                            var action = $(this).val() == "tour" ? "tour" : "location";
+                            var uri = action+"/search/";
+                            var url = "";
+
+                            //Check host
+                            if(document.domain == "localhost"){
+                              url = "http://localhost/uastravel/"+uri;    
+                            }else{
+                              url = "http://"+document.domain+"/"+uri;
+                            }
+
+                            $("#search-form").attr("action", url);
+                          });
+                        });
+                      </script>                        
+                        <form name="input" action="<?php echo base_url('tour/search'); ?>" method="post" class="navbar-form pull-right form_search" id="search-form"> 
                           <select name="select" id="selectsearch">
                             <option value="tour">แพคเกจทัวร์</option>
                             <option value="location">สถานที่ท่องเที่ยว</option>

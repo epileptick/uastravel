@@ -7,6 +7,7 @@ class Price_model extends MY_Model {
                      'id'                    => 'pri_id',
                      'agency_id'             => 'pri_agency_id',
                      'tour_id'               => 'pri_tour_id',
+                     'show_firstpage'        => 'pri_show_firstpage',
                      'sale_adult_price'      => 'pri_sale_adult_price',
                      'net_adult_price'       => 'pri_net_adult_price',
                      'discount_adult_price'  => 'pri_discount_adult_price',
@@ -322,6 +323,20 @@ class Price_model extends MY_Model {
     }
   }     
 
+  function updateDisplayFirstpageRecord($args=false){
+
+      //Set data
+      if(!empty($args["id"]) && $args["display"] == "hide"){
+        $this->db->set("pri_show_firstpage", 0);
+      }else if(!empty($args["id"]) && $args["display"] == "show"){
+        $this->db->set("pri_show_firstpage", 1);
+      }
+            
+      $query = $this->db->where("pri_id", $args["id"]);
+      $query = $this->db->update("ci_price");
+
+      return "succees";
+  }
 
   function updateRecord($args=false){
 

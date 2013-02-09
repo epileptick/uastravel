@@ -628,7 +628,7 @@ class Tour extends MY_Controller {
       $priceQuery = $this->priceModel->getRecord($agencytour);
       //print_r($priceQuery); exit;
       if(!empty($priceQuery)){
-
+/*
         //Min price
         $minSalePrice = 9999999;
         $minSalePriceID = 0;
@@ -640,6 +640,28 @@ class Tour extends MY_Controller {
             $minSalePrice = $value->sale_adult_price;
           }
         }        
+*/
+
+          //Min price
+        $minSalePrice = 9999999;
+        $minSalePriceID = 0;
+        $data["firstpage_price"] = 0;
+        foreach ($priceQuery as $key => $value) {
+          # code...
+          if($value->show_firstpage == 1){
+
+              $data["firstpage_price"] = 1;
+              $minSalePriceID  = $value->agency_id;
+              $minSalePrice = $value->sale_adult_price;
+            break;
+          }else{
+            if($value->sale_adult_price < $minSalePrice){
+              $minSalePriceID  = $value->agency_id;
+              $minSalePrice = $value->sale_adult_price;
+            }                
+          }
+        } 
+
 
         //Price selection
         foreach ($priceQuery as $key => $value) {
@@ -1423,6 +1445,15 @@ class Tour extends MY_Controller {
     //Get argument from post page
     $args = $this->input->post();
     $this->tourModel->updateDisplayRecord($args);
+    print_r($args); exit();
+  }
+
+  function admin_setfisrtpageprice(){
+    //Get argument from post page
+    $args = $this->input->post();
+
+    
+    $this->tourModel->updateDisplayFirstpageRecord($args);
     print_r($args); exit();
   }
 

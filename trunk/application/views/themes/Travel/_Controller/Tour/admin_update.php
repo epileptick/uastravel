@@ -498,19 +498,103 @@ $(document).ready(function() {
           ?><br>
             <div id='price_<?php echo $value->agency_id;?>_<?php echo $countExtendPriceJS;?>'>
               <div class='half'> 
+
+                <script type="text/javascript">
+                  $(document).ready(function() {
+
+                    $("#display").live("click", function(){
+
+                      var url = '<?php echo base_url("admin/tour/setfisrtpageprice"); ?>'
+                      var status = $(this).attr("status");
+                      var id = $(this).attr("idval");
+                      var name = $(this).attr("idname");
+
+                      
+                      //Check status
+                      if(status == "show"){
+                        
+                        $("[idname="+name+"]").hide();
+                        $("[idname=display_hide_"+id+"]").show();
+                        status = "hide";
+
+                      }else{
+                        $("[idname="+name+"]").hide();
+                        $("[idname=display_show_"+id+"]").show();
+                        status = "show";
+                      }
+
+
+                      //Send data
+                      var data =  { id: id, display: status };
+                      $.ajax({
+                          type: 'POST',
+                          url: url,
+                          data: data
+                        });
+                      });
+
+
+                  });
+                </script>                
+                <?php 
+                if($value->show_firstpage == 0){
+                ?>
+
+                  <img src="<?php echo base_url('themes/Travel/images/enable.png');?>" 
+                      valign="top" 
+                      id="display" 
+                      class="display_show"
+                      status="show" 
+                      idval="<?php echo $value->id;?>"
+                      idname="display_show_<?php echo $value->id;?>"
+                      style="display:none;"
+                  >
+                  <img src="<?php echo base_url('themes/Travel/images/disable.png');?>" 
+                      valign="top" 
+                      id="display"
+                      class="display_hide" 
+                      status="hide" 
+                      idval="<?php echo $value->id;?>"
+                      idname="display_hide_<?php echo $value->id;?>"
+                  >
+                <?php 
+                }else if($value->show_firstpage== 1){
+                ?>
+                  <img src="<?php echo base_url('themes/Travel/images/enable.png');?>" 
+                      valign="top" 
+                      id="display" 
+                      class="display_show"
+                      status="show" 
+                      idval="<?php echo $value->id;?>"
+                      idname="display_show_<?php $value->id;?>"
+                  >
+                  <img src="<?php echo base_url('themes/Travel/images/disable.png');?>" 
+                      valign="top" 
+                      id="display"
+                      class="display_hide" 
+                      status="hide" 
+                      idval="<?php echo $value->id?>"
+                      idname="display_hide_<?php $value->id;?>"
+                      style="display:none;"
+                  >
+                <?php 
+                }
+                ?>
+                <label>แสดงหน้าแรก</label>
+                &nbsp;&nbsp;| &nbsp;&nbsp;
                 <label>Price Name :</label>
                 <img 
-                  src="http://localhost/uastravel/themes/Travel/images/remove.png" 
+                  src="http://uastravel.com/themes/Travel/images/remove.png" 
                   valign="top" 
                   id="delete_price" 
                   onclick="deletePriceRow('delete','<?php echo $value->agency_id;?>_<?php echo $countExtendPriceJS;?>');"
                 >
+                
                 <br>
                 <input type="text" 
                         name='price[<?php echo $value->agency_id;?>][<?php echo $value->id;?>][<?php echo $countExtendPriceJS;?>][name]' 
                         value='<?php echo !empty($value->name)?$value->name:'';?>'
                 >
-
               </div>
               <div class='clear'></div>
 
