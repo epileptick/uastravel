@@ -269,8 +269,16 @@ class Tour_model extends MY_Model {
       $query = $this->db->update("ci_tour");
     }
     
-    return ;
+    return "success";
   }  
+
+  function updateDisplayFirstpageRecord($data=false){
+
+    $this->load->model("price_model", "priceModel");  
+    $response = $this->priceModel->updateDisplayFirstpageRecord($data);    
+    return $response;
+  }
+  
   
   function deleteRecord($id=false){
     if($id){

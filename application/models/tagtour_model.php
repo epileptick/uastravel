@@ -119,11 +119,17 @@ class TagTour_model extends MY_Model {
             $minSalePrice = 9999999;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->pri_sale_adult_price < $minSalePrice){
-                $result[$count]["price"] = $value;
+              if($value->pri_show_firstpage == 1){
                 $minSalePrice = $value->pri_sale_adult_price;
+                $result[$count]["price"] = $value;
+                break;
+              }else{
+                if($value->pri_sale_adult_price < $minSalePrice){
+                  $result[$count]["price"] = $value;
+                  $minSalePrice = $value->pri_sale_adult_price;
+                }                
               }
-            }            
+            }           
           }
 
           $count++;
@@ -229,11 +235,17 @@ class TagTour_model extends MY_Model {
           $minSalePrice = 9999999;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->pri_sale_adult_price < $minSalePrice){
-              $result[$count]["price"] = $value;
+            if($value->pri_show_firstpage == 1){
               $minSalePrice = $value->pri_sale_adult_price;
+              $result[$count]["price"] = $value;
+              break;
+            }else{
+              if($value->pri_sale_adult_price < $minSalePrice){
+                $result[$count]["price"] = $value;
+                $minSalePrice = $value->pri_sale_adult_price;
+              }                
             }
-          }           
+          }         
 
         }
 
@@ -318,15 +330,22 @@ class TagTour_model extends MY_Model {
             }
           }
           */
+
           //Min price
           $minSalePrice = 9999999;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->pri_sale_adult_price < $minSalePrice){
-              $result[$count]["price"] = $value;
+            if($value->pri_show_firstpage == 1){
               $minSalePrice = $value->pri_sale_adult_price;
+              $result[$count]["price"] = $value;
+              break;
+            }else{
+              if($value->pri_sale_adult_price < $minSalePrice){
+                $result[$count]["price"] = $value;
+                $minSalePrice = $value->pri_sale_adult_price;
+              }                
             }
-          }           
+          }            
         }
 
         $count++;
@@ -413,11 +432,17 @@ class TagTour_model extends MY_Model {
           $minSalePrice = 9999999;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->pri_sale_adult_price < $minSalePrice){
-              $result[$count]["price"] = $value;
+            if($value->pri_show_firstpage == 1){
               $minSalePrice = $value->pri_sale_adult_price;
+              $result[$count]["price"] = $value;
+              break;
+            }else{
+              if($value->pri_sale_adult_price < $minSalePrice){
+                $result[$count]["price"] = $value;
+                $minSalePrice = $value->pri_sale_adult_price;
+              }                
             }
-          }           
+          }            
         }
 
         $count++;
@@ -547,6 +572,8 @@ class TagTour_model extends MY_Model {
         $this->db->where('pri_tour_id', $value->tat_tour_id);
         $priceTour = $this->db->get('ci_price')->result();
 
+
+        //print_r($priceTour);
         if(!empty($priceTour)){
 
           /*
@@ -564,18 +591,24 @@ class TagTour_model extends MY_Model {
           $minSalePrice = 9999999;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->pri_sale_adult_price < $minSalePrice){
-              $result[$count]["price"] = $value;
+            if($value->pri_show_firstpage == 1){
               $minSalePrice = $value->pri_sale_adult_price;
+              $result[$count]["price"] = $value;
+              break;
+            }else{
+              if($value->pri_sale_adult_price < $minSalePrice){
+                $result[$count]["price"] = $value;
+                $minSalePrice = $value->pri_sale_adult_price;
+              }                
             }
-          }            
+          }             
         }
 
         $count++;
       }
     }
 
-
+    //exit;
     //echo $this->db->last_query(); exit;
     //print_r($result); exit;
     if(!empty($result)){
@@ -670,16 +703,21 @@ class TagTour_model extends MY_Model {
             }
             */
 
-
             //Min price
             $minSalePrice = 9999999;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->pri_sale_adult_price < $minSalePrice){
-                $result[$count]["price"] = $value;
+              if($value->pri_show_firstpage == 1){
                 $minSalePrice = $value->pri_sale_adult_price;
+                $result[$count]["price"] = $value;
+                break;
+              }else{
+                if($value->pri_sale_adult_price < $minSalePrice){
+                  $result[$count]["price"] = $value;
+                  $minSalePrice = $value->pri_sale_adult_price;
+                }                
               }
-            }              
+            }             
           }
           $count++;
         }
@@ -746,12 +784,20 @@ class TagTour_model extends MY_Model {
         $priceTour = $this->db->get('ci_price')->result();
 
         if(!empty($priceTour)){
-          $maxAgencyPrice = 0;
+
+          //Min price
+          $minSalePrice = 9999999;
           foreach ($priceTour as $key => $value) {
             # code...
-            if($value->pri_sale_adult_price > $maxAgencyPrice){
+            if($value->pri_show_firstpage == 1){
+              $minSalePrice = $value->pri_sale_adult_price;
               $result[$count]["price"] = $value;
-              $maxAgencyPrice = $value->pri_sale_adult_price;
+              break;
+            }else{
+              if($value->pri_sale_adult_price < $minSalePrice){
+                $result[$count]["price"] = $value;
+                $minSalePrice = $value->pri_sale_adult_price;
+              }                
             }
           }
         }
@@ -859,13 +905,20 @@ class TagTour_model extends MY_Model {
                 */
 
 
+       
                 //Min price
                 $minSalePrice = 9999999;
                 foreach ($priceTour as $key => $value) {
                   # code...
-                  if($value->pri_sale_adult_price < $minSalePrice){
-                    $result[$count]["price"] = $value;
+                  if($value->pri_show_firstpage == 1){
                     $minSalePrice = $value->pri_sale_adult_price;
+                    $result[$count]["price"] = $value;
+                    break;
+                  }else{
+                    if($value->pri_sale_adult_price < $minSalePrice){
+                      $result[$count]["price"] = $value;
+                      $minSalePrice = $value->pri_sale_adult_price;
+                    }                
                   }
                 }
 
@@ -951,12 +1004,21 @@ class TagTour_model extends MY_Model {
           $priceTour = $this->db->get('ci_price')->result();
 
           if(!empty($priceTour)){
-            $maxAgencyPrice = 0;
+
+
+            //Min price
+            $minSalePrice = 9999999;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->pri_sale_adult_price > $maxAgencyPrice){
+              if($value->pri_show_firstpage == 1){
+                $minSalePrice = $value->pri_sale_adult_price;
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->pri_sale_adult_price;
+                break;
+              }else{
+                if($value->pri_sale_adult_price < $minSalePrice){
+                  $result[$count]["price"] = $value;
+                  $minSalePrice = $value->pri_sale_adult_price;
+                }                
               }
             }
           }
@@ -1017,14 +1079,23 @@ class TagTour_model extends MY_Model {
           $priceTour = $this->db->get('ci_price')->result();
 
           if(!empty($priceTour)){
-            $maxAgencyPrice = 0;
+
+
+            //Min price
+            $minSalePrice = 9999999;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->pri_sale_adult_price > $maxAgencyPrice){
+              if($value->pri_show_firstpage == 1){
+                $minSalePrice = $value->pri_sale_adult_price;
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->pri_sale_adult_price;
+                break;
+              }else{
+                if($value->pri_sale_adult_price < $minSalePrice){
+                  $result[$count]["price"] = $value;
+                  $minSalePrice = $value->pri_sale_adult_price;
+                }                
               }
-            }
+            } 
           }
 
           $count++;
@@ -1105,14 +1176,22 @@ class TagTour_model extends MY_Model {
           $priceTour = $this->db->get('ci_price')->result();
 
           if(!empty($priceTour)){
-            $maxAgencyPrice = 0;
+
+          //Min price
+            $minSalePrice = 9999999;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->pri_sale_adult_price > $maxAgencyPrice){
+              if($value->pri_show_firstpage == 1){
+                $minSalePrice = $value->pri_sale_adult_price;
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->pri_sale_adult_price;
+                break;
+              }else{
+                if($value->pri_sale_adult_price < $minSalePrice){
+                  $result[$count]["price"] = $value;
+                  $minSalePrice = $value->pri_sale_adult_price;
+                }                
               }
-            }
+            } 
           }
 
           $count++;
@@ -1175,14 +1254,21 @@ class TagTour_model extends MY_Model {
           $priceTour = $this->db->get('ci_price')->result();
 
           if(!empty($priceTour)){
-            $maxAgencyPrice = 0;
+          //Min price
+            $minSalePrice = 9999999;
             foreach ($priceTour as $key => $value) {
               # code...
-              if($value->pri_sale_adult_price > $maxAgencyPrice){
+              if($value->pri_show_firstpage == 1){
+                $minSalePrice = $value->pri_sale_adult_price;
                 $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->pri_sale_adult_price;
+                break;
+              }else{
+                if($value->pri_sale_adult_price < $minSalePrice){
+                  $result[$count]["price"] = $value;
+                  $minSalePrice = $value->pri_sale_adult_price;
+                }                
               }
-            }
+            }  
           }
 
           $count++;
