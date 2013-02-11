@@ -80,7 +80,6 @@ class TourCustomer_model extends MY_Model {
       $tourCustomer["toc_hashcode"] = $hashcode;
       $tourCustomer["toc_code"] = $code;   
 
-
       //Tranfer date
       $dateExplode = explode("/", $data["toc_tranfer_date"]);
       $toc_tranfer_date = $dateExplode[2]."-".$dateExplode[1]."-".$dateExplode[0];  
@@ -89,6 +88,7 @@ class TourCustomer_model extends MY_Model {
       //Date default
       $tourCustomer["toc_cr_date"] = date("Y-m-d H:i:s");
       $tourCustomer["toc_lu_date"] = date("Y-m-d H:i:s");      
+      //print_r($tourCustomer);exit;
 
       foreach ($tourCustomer as $columnName => $columnValue) {
         $this->db->set($columnName, $columnValue); 
@@ -98,6 +98,7 @@ class TourCustomer_model extends MY_Model {
 
       //Insert customer
       $this->db->insert("ci_tourcustomer");
+      //echo $this->db->last_query();exit;
       $current_customer_id = $this->db->insert_id();
       foreach ($tourBooking as $key => $value) {
         $tourBooking[$key]["tob_tourcustomer_id"] = $current_customer_id; 
