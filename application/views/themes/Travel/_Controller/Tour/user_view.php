@@ -409,6 +409,14 @@
                 </td>
 
                 <td style="font-size:18px !important;">
+<<<<<<< .mine
+                  <input name="adult_amount_booking[<?php echo $value->id;?>]" 
+                          type="text" 
+                          id="amount_adult_<?php echo $value->id;?>"
+                          style="height: 20px !important; width: 30px !important;"
+
+                  >
+=======
 
 
                   <?php
@@ -444,6 +452,7 @@
                   <?php
                       }
                    ?>                                                                      
+>>>>>>> .r326
                 </td>
 
                 <td style="font-size:18px !important;">
@@ -473,7 +482,7 @@
                           type="text" 
                           id="amount_child_<?php echo $value->id;?>"
                           style="height: 20px !important; width: 30px !important;"
-                          value="0"
+
                   >
 
                 </td>

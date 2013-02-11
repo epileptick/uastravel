@@ -470,13 +470,78 @@
                   </div>
                   <div class="seven columns">
                   <h5>
-                   
+
+                  <?php 
+                    $adult_sale = $value->tob_total_adult_price;
+                    $amount_adult = $value->tob_adult_amount_booking;
+                    $total_price_adult = $adult_sale / $amount_adult;
+                  ?>
+
                    <?php echo number_format($value->tob_total_adult_price, 0);?> บาท 
-                   (<?php echo number_format($value->tob_sale_adult_price, 0);?> x <?php echo $value->tob_adult_amount_booking;?>)
+                   (<?php echo number_format($total_price_adult, 0);?> x <?php echo $value->tob_adult_amount_booking;?>)
+                  
                   </h5> 
                   </div>
                 </div>
               </div>
+
+            <!--
+              <div class="row">
+                <div class="twelve columns">
+                  <div class="five columns">
+
+                  <h5>
+                      test price adult : <br>
+                      ทดลองราคาผู้ใหญ่ : 
+                  </h5>                
+                  </div>
+                  <div class="seven columns">
+                  <h5>
+
+                 <?php
+                   $total_a_price = $value->tob_discount_adult_price * $value->tob_adult_amount_booking;
+                   $g_a_total_price = $value->tob_total_adult_price - $total_a_price;
+                   $g_total_adult_price = $value->tob_total_adult_price - $g_a_total_price;
+                   // $grand_total_price += $total_price;
+                  ?>
+                  
+                      <b>
+                        <?php echo number_format($g_a_total_price, 0);?>
+                      </b>     
+
+                  </h5> 
+                  </div>
+                </div>
+              </div> 
+
+
+              <div class="row">
+                <div class="twelve columns">
+                  <div class="five columns">
+
+                  <h5>
+                      test price child : <br>
+                      ทดลองราคาเด็ก : 
+                  </h5>                
+                  </div>
+                  <div class="seven columns">
+                  <h5>
+
+                 <?php
+                   $total_discount_child_price = $value->tob_discount_child_price * $value->tob_child_amount_booking;
+                   $g_total_price = $value->tob_total_child_price - $total_discount_child_price;
+                   $g_total_child_price = $value->tob_total_child_price - $g_total_price;
+                   // $grand_total_price += $total_price;
+                  ?>
+                  
+                      <b>
+                        <?php echo number_format($g_total_price, 0);?>
+                      </b>     
+
+                  </h5> 
+                  </div>
+                </div>
+              </div> -->
 
               <div class="row">
                 <div class="twelve columns">
@@ -489,8 +554,16 @@
                   </div>
                   <div class="seven columns">
                   <h5>
+
+                  <?php 
+                    $child_sale = $value->tob_total_child_price;
+                    $amount_child = $value->tob_child_amount_booking;
+                    $total_price_child = $child_sale / $amount_child;
+                  ?>
+
                    <?php echo number_format($value->tob_total_child_price, 0);?> บาท 
-                   (<?php echo number_format($value->tob_sale_child_price, 0);?> x <?php echo $value->tob_child_amount_booking;?>)
+                   (<?php echo number_format($total_price_child, 0);?> x <?php echo $value->tob_child_amount_booking;?>)
+                  
                   </h5> 
                   </div>
                 </div>
