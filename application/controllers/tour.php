@@ -635,7 +635,6 @@ class Tour extends MY_Controller {
         foreach ($priceQuery as $key => $value) {
           # code...
           if($value->sale_adult_price < $minSalePrice){
-            //$result[$count]["price"] = $value;
             $minSalePriceID  = $value->agency_id;
             $minSalePrice = $value->sale_adult_price;
           }
@@ -773,12 +772,13 @@ class Tour extends MY_Controller {
           $data["price"][$queryPriceID]["pri_adult_amount_booking"] = $adult_amount_booking;
           $data["price"][$queryPriceID]["pri_child_amount_booking"] = $child_amount_booking;
 
+
           $total_adult_price = $adult_amount_booking * $dataPrice[$queryPriceID]->sale_adult_price;
           $total_child_price = $child_amount_booking * $dataPrice[$queryPriceID]->sale_child_price;
           $data["price"][$queryPriceID]["pri_total_adult_price"] = $total_adult_price;
           $data["price"][$queryPriceID]["pri_total_child_price"] = $total_child_price;
           $data["price"][$queryPriceID]["pri_total_price"] = $total_adult_price + $total_child_price;
-          
+
         }
       }
 
