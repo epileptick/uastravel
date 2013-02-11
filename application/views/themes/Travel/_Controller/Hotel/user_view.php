@@ -450,7 +450,7 @@
                           type="text" 
                           id="amount_room_<?php echo $value->id;?>"
                           style="height: 20px !important; width: 30px !important;"
-                          value="1"
+                          
                 >
                 </td>
 
@@ -460,7 +460,7 @@
                           type="text" 
                           id="amount_date_<?php echo $value->id;?>"
                           style="height: 20px !important; width: 30px !important;"
-                          value="1"
+                         
                   >
 
                 </td>

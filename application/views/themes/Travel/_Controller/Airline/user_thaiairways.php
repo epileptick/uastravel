@@ -112,7 +112,7 @@ window.location.href = url;
 
 </head>
 
-
+<body style="background: #ededed url(<?php echo base_url('themes/Travel/tour/images/bg_airline01.jpg');?>) no-repeat top center;">
   <div class="overly-bg"></div>
   <div id="wrapper">
     <!-- Menu -->
@@ -159,7 +159,7 @@ window.location.href = url;
               <li class="has-dropdown">
                 <a href="<?php echo base_url('tour/ที่พัก');?>">ที่พัก</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('hotel/list');?>">จองโรงแรม</a></li>
+                  <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                   <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                 </ul>                
               </li>
