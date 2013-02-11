@@ -204,6 +204,8 @@
             //print_r($extendprice);
             $count = 0;
             $grand_total_price = 0;
+            $total_adult = 0;
+            $total_child = 0;
             foreach ($price as $key => $value) {
             ?>
               <div class="row">
@@ -240,12 +242,12 @@
                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_discount_child_price]" 
                     value="<?php echo $value["pri_discount_child_price"];?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_adult_price]" 
+                    <!--<input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_adult_price]" 
                     value="<?php echo $value["pri_total_adult_price"];?>"
                     >
                     <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_child_price]" 
                     value="<?php echo $value["pri_total_child_price"];?>"
-                    >
+                    >-->
                     <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_price]" 
                     value="<?php echo $value["pri_total_price"];?>"
                     >
@@ -358,15 +360,34 @@
 
                 </div>
 
+
+
+
                 <div class="two columns">
 
                   <?php
                     $total_price = ($adult_price*$adult_amount)+($child_price * $child_amount);
+                    $total_adult_price = $adult_price*$adult_amount;
+                    $total_child_price = $child_price * $child_amount;
                     $grand_total_price += $total_price;
+                    $total_adult += $adult_amount;
+                    $total_child += $child_amount;
                   ?>
+
+                  <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_adult_price]" 
+                    value="<?php echo $total_adult_price ;?>"
+                  >
+                  <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_child_price]" 
+                  value="<?php echo $total_child_price ;?>"
+                  >
+                  <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_price]" 
+                    value="<?php echo $total_price ;?>"
+                  >
+                  
                   <label style="float:right;">
                     <b>
                     <?php echo number_format($total_price, 0);?>
+
                     </b>
                 </label>
                </div>
@@ -377,6 +398,7 @@
             ?>
           </div>
         </div>
+ 
         <?php
           }
         ?>
@@ -456,33 +478,17 @@
 
             <h2>ข้อมูลทัวร์เพิ่มเติม</h2>
             <div class="row">
-              <div class="four columns">
-                <label>จำนวนผู้ใหญ่</label>
-                <select name="toc_adult_amount_passenger">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
+              <div class="three columns">
+                <label>จำนวนผู้ใหญ่ : <?php echo ($total_adult);?></label>
+               <input type="hidden" name="toc_adult_amount_passenger" value="<?php echo ($total_adult);?>"/>
               </div>
+
               <div class="four columns">
-                <label>จำนวนเด็ก (4 - 12 years)</label>
-                <select name="toc_child_amount_passenger">
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="4">5</option>
-                </select>
+                <label>จำนวนเด็ก (4 - 12years) : <?php echo ($total_child);?></label>
+               <input type="hidden" name="toc_child_amount_passenger" value="<?php echo ($total_child);?>"/>
               </div>
-              <div class="four columns">
+
+              <div class="five columns">
                 <label>จำนวนทารก (under 4 years)</label>
                 <select name="toc_infant_amount_passenger">
                   <option value="0">0</option>
@@ -492,7 +498,6 @@
                 </select>
               </div>
             </div>
-            <br>
             <div class="row">
               <div class="six columns">
                 <label>วันเดินทาง</label>
