@@ -221,10 +221,10 @@
               </div>
             </div>
             <?php
-
             
             $count = 0;
             $grand_total_price = 0;
+            $total_price = 0;
             foreach ($price as $key => $value) {
             ?>
               <div class="row">
@@ -251,9 +251,7 @@
                     <input type="hidden" name="hob_price[<?php echo $value["prh_id"];?>][hob_sale_room_price]" 
                     value="<?php echo $value["prh_sale_room_price"];?>"
                     >
-                    <input type="hidden" name="hob_price[<?php echo $value["prh_id"];?>][hob_total_price]" 
-                    value="<?php echo $value["prh_total_price"];?>"
-                    >
+     
                     <?php echo $value["prh_name"];?>
                     <?php $count++;?>
                   </label>
@@ -262,7 +260,7 @@
                 <div class="three columns">
                   <?php 
                         //Adult price   
-                        $adult_price = 0;                    
+                        $room_price = 0;                    
                         if($value["prh_discount_room_price"] > 0){
                     ?>
 
@@ -271,16 +269,23 @@
                           <!--  <?php echo number_format($value["price"]->pri_discount_adult_price, 0);?>-->
 
                            <?php 
-                              echo number_format($value["pri_discount_adult_price"], 0);
-                              $adult_price = $value["pri_discount_adult_price"];
+                              echo number_format($value["prh_discount_room_price"], 0);
+                              $room_price = $value["prh_discount_room_price"];
 
                            ?>
-                              ( 
-                                <?php 
-                                  $adult_amount = ($value["pri_adult_amount_booking"]>0)?$value["pri_adult_amount_booking"]:"0";
-                                  echo $adult_amount;
-                                ?> 
-                              )
+                                (
+                                  <?php 
+                                  
+                                   $room_amount = ($value["prh_room_amount_booking"]>0)?$value["prh_room_amount_booking"]:"0";
+                                   echo $room_amount;
+                                  ?> 
+                                      x 
+
+                                  <?php                                 
+                                    $date_amount = ($value["prh_date_amount_booking"]>0)?$value["prh_date_amount_booking"]:"0";
+                                     echo $date_amount;
+                                  ?>
+                                )
 
                          </label>
                       </center>
@@ -292,14 +297,21 @@
                       <center>
                           <label style="float:right;">
                             <?php 
-                              echo number_format($value["pri_sale_adult_price"], 0);
-                              $adult_price = $value["pri_sale_adult_price"];
+                              echo number_format($value["prh_sale_room_price"], 0);
+                              $room_price = $value["prh_sale_room_price"];
 
                             ?>
                               ( 
                                 <?php 
-                                  $adult_amount = ($value["pri_adult_amount_booking"]>0)?$value["pri_adult_amount_booking"]:"0";
-                                  echo $adult_amount;
+                                  $room_amount = ($value["prh_room_amount_booking"]>0)?$value["prh_room_amount_booking"]:"0";
+                                  echo $room_amount;
+                                ?>
+                                  x 
+
+                                  <?php                                 
+                                    $date_amount = ($value["prh_date_amount_booking"]>0)?$value["prh_date_amount_booking"]:"0";
+                                     echo $date_amount;
+                                  
                                 ?> 
                               )
                           </label>
@@ -313,9 +325,16 @@
                 <div class="three columns">
 
                   <?php
-                    $total_price = ($adult_price*$adult_amount)+($child_price * $child_amount);
+                    $total_price = ($room_price*($room_amount*$date_amount));
                     $grand_total_price += $total_price;
                   ?>
+
+                    <input type="hidden" name="hob_price[<?php echo $value["prh_id"];?>][hob_discount_room_price]" 
+                    value="<?php echo $value["prh_discount_room_price"];?>"
+                    >
+                    <input type="hidden" name="hob_price[<?php echo $value["prh_id"];?>][hob_total_price]" 
+                    value="<?php echo $total_price ;?>"
+                    >
                   <label style="float:right;">
                     <b>
                     <?php echo number_format($total_price, 0);?>
@@ -396,7 +415,7 @@
             <h2>ข้อมูลการจองห้องพัก</h2>
 <!--Person Amount-->
                 <div class="row">
-                  <div class="four columns">
+                  <div class="three columns">
                     <label>จำนวนผู้ใหญ่</label>
                     <select name="hoc_adult_amount">
                       <option value="1">1</option>
@@ -437,7 +456,7 @@
                       <option value="15">15</option>
                     </select>
                   </div>
-                  <div class="four columns">
+                  <div class="five columns">
                     <label>จำนวนทารก (under 4 years)</label>
                     <select name="hoc_infant_amount">
                       <option value="0">0</option>

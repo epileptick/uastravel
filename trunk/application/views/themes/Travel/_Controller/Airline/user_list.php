@@ -98,7 +98,7 @@ window.location.href = url;
 
 </head>
 
-
+<body style="background: #ededed url(<?php echo base_url('themes/Travel/tour/images/bg_airline01.jpg');?>) no-repeat top center;">
   <div class="overly-bg"></div>
   <div id="wrapper">
     <!-- Menu -->
