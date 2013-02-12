@@ -55,11 +55,11 @@
   } 
 ?> 
 
-  <title><?php echo trim($title); ?> - U As Travel</title>
+  <title><?php echo "จองโรงแรม U As Travel" ;?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="<?php echo $title; ?>ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของ<?php echo $title; ?> และแพคเกจ<?php echo $title; ?>ราคาพิเศษ" />
-  <meta name="keywords" content="<?php echo $keyword; ?>" />
+  <meta name="description" content="โรงแรมยอดนิยมในประเทศไทย รวมบทความและรูปภาพของโรงแรม ราคาพิเศษ" />
+  <meta name="keywords" content="" />
   <meta name="author" content="">
 
   <!-- Le styles -->
@@ -497,7 +497,7 @@
                             <div class="row-fluid">
                               <div class="span7">
                                 <!-- img src="http://icons.iconarchive.com/icons/dapino/summer-holiday/24/palm-tree-icon.png" -->
-                                <div class="icon hotel" rel="tooltip" title="แพ็กเก็จทัวร์"></div>
+                                <!--<div class="icon hotel" rel="tooltip" title="แพ็กเก็จทัวร์"></div>-->
                                 <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
                                 <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
                               </div>                              
