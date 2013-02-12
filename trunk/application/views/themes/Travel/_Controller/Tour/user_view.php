@@ -11,7 +11,7 @@
   <?php
     $tag_keyword = "แพ็คเกจทัวร์, ทัวร์, ";
     if(!empty($tag)){
-      foreach ($tag as $key => $value) {
+      foreach ($tag as $key => $value) { 
         if(!empty($value->url) &&  $value->id != 1){
           $tag_keyword .= $value->name.", ";
         }
