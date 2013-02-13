@@ -26,6 +26,18 @@
   }  
   $title = trim($title1." ".$title2);
 
+ //$myString = "เกาะไข่"; 
+  //$myString = "เกาะไข่ ทัวร์ 2 วัน 3 คืน";  
+  if (strpos($title, "ทัวร์") !== FALSE) {
+    if(strpos($title, "ทัวร์", 1) > 0  && strpos($title, "ทัวร์") == 0 ){
+      $title = $title;
+    }else if(strpos($title, "ทัวร์", 1) > 0 ){
+      $title = "ทัวร์".$title;
+    }
+  }else{
+    $title = "ทัวร์".$title;
+  }
+
 
   $tour_keyword = "แพคเกจทัวร์".$this->uri->segment(2+$index).", ทัวร์".$this->uri->segment(2+$index).", เที่ยวไทย".$this->uri->segment(2+$index).", ท่องเที่ยว".$this->uri->segment(2+$index).", ที่ท่องเที่ยว".$this->uri->segment(2+$index).", ท่องเที่ยวไทย".$this->uri->segment(2+$index).", เที่ยวทั่วไทย".$this->uri->segment(2+$index);  
 
