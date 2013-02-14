@@ -480,11 +480,12 @@ class Pricehotel_model extends MY_Model {
       
     }else if(isset($args["hotel_id"])){
 
-      $this->db->where("prh_id", $args["hotel_id"]);
+      $this->db->where("prh_hotel_id", $args["hotel_id"]);
       $priceArray = $this->db->get("ci_pricehotel")->result();
+
       //print_r($priceArray); exit;
       foreach ($priceArray as $key => $value) {
-        $this->db->where("prht_price_id", $value["prh_id"]);
+        $this->db->where("prht_price_id", $value->prh_id);
         $this->db->delete("ci_pricehotel_translate");
       }
 

@@ -278,12 +278,12 @@ class Taghotel_model extends MY_Model {
 
       //Get hotel data
       unset($this->db);
-      $this->db->select('hot_id, hot_name, hot_code, hot_url, hot_first_image, hot_banner_image');
-      $this->db->where('hot_lang', $this->lang->lang());
-      $this->db->where('hot_display', 1);
-      $this->db->where('hot_id', $value->tah_hotel_id);
-      $query = $this->db->get('ci_hotel');
-      $hotelBuffer = $query->result(); 
+      $this->db->where('hot_id', $value->tah_hotel_id);  
+      $this->db->where('hot_display', 1);    
+      $this->db->where('ci_hotel_translate.hott_lang', $this->lang->lang());
+      $this->db->join('ci_hotel_translate', 'ci_hotel_translate.hott_hotel_id = ci_hotel.hot_id');
+      $this->db->order_by('CONVERT( hott_name USING tis620 ) ASC');  
+      $hotelBuffer = $this->db->get('ci_hotel')->result();
 
       if(!empty($hotelBuffer)){
         $result[$count]["hotel"] = $hotelBuffer[0];
@@ -368,12 +368,12 @@ class Taghotel_model extends MY_Model {
 
       //Get hotel data
       unset($this->db);
-      $this->db->select('hot_id, hot_name, hot_code, hot_url, hot_first_image, hot_banner_image');
-      $this->db->where('hot_lang', $this->lang->lang());
-      $this->db->where('hot_display', 1);
-      $this->db->where('hot_id', $value->tah_hotel_id);
-      $query = $this->db->get('ci_hotel');
-      $hotelBuffer = $query->result(); 
+      $this->db->where('hot_id', $value->tah_hotel_id);  
+      $this->db->where('hot_display', 1);    
+      $this->db->where('ci_hotel_translate.hott_lang', $this->lang->lang());
+      $this->db->join('ci_hotel_translate', 'ci_hotel_translate.hott_hotel_id = ci_hotel.hot_id');
+      $this->db->order_by('CONVERT( hott_name USING tis620 ) ASC');  
+      $hotelBuffer = $this->db->get('ci_hotel')->result();
 
 
       if(!empty($hotelBuffer)){

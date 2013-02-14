@@ -1451,8 +1451,6 @@ class Tour extends MY_Controller {
   function admin_setfisrtpageprice(){
     //Get argument from post page
     $args = $this->input->post();
-
-    
     $this->tourModel->updateDisplayFirstpageRecord($args);
     print_r($args); exit();
   }
