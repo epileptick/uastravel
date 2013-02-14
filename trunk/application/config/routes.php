@@ -126,6 +126,15 @@ $route[LangUtil::line("url_lang_tour")] = 'tour/user_index';
 $route[$lang_set.'/'.LangUtil::line("url_lang_tour")] = 'tour/user_index'; 
 
 
+
+
+//Custom Tour user
+$route["customtour/ajax/(:any)"] = 'customtour/ajax_index/$1'; 
+$route['customtour/(:any)-(:num)'] = 'customtour/user_view/$2';
+$route["customtour/(:any)"] = 'customtour/user_index'; 
+$route["customtour"] = 'customtour/user_index'; 
+
+
 //hotel admin
 $route['admin/hotel/userbookingview/(:any)'] = 'hotel/admin_userbookingview/$1';
 $route['admin/hotel/agencybookingview/(:any)'] = 'hotel/admin_agencybookingview/$1';
@@ -141,11 +150,15 @@ $route['admin/hotel/(:any)/(:any)-(:num)'] = 'hotel/admin_view/$3';
 $route['admin/hotel/(:any)-(:num)'] = 'hotel/admin_view/$2';
 $route['admin/hotel/(:any)'] = 'hotel/admin_list'; //for Tag
 
+
+
 //hotel user
 $route['hotel/search'] = 'hotel/user_search';
 $route['hotel/(:any)-(:num)'] = 'hotel/user_view/$2';
 $route["hotel/(:any)"] = 'hotel/user_index'; 
 $route["hotel"] = 'hotel/user_index'; 
+
+
 
 
 //Agency

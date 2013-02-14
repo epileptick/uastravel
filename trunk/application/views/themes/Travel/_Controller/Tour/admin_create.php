@@ -421,10 +421,10 @@ $(document).ready(function() {
       var price = new Array();
     </script>
       <h2 class="section_heading" >
-        <span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
+        <span style="margin: 5px 0px 0px 0px; font: 16px Arial, sans-serif;">
           Agency Information 
           <!-- input type="search" id="query_agencyname" style="width:30%;" disabled/ -->
-          <select id="query_agencyname">
+          <select id="query_agencyname" style="margin: 5px 0px 0px 0px; font: 14px Arial, sans-serif;">
           <?php 
             foreach ($agency as $key => $value) {
               # code...

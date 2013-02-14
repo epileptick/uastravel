@@ -500,11 +500,11 @@ class Price_model extends MY_Model {
       
     }else if(isset($args["tour_id"])){
 
-      $this->db->where("pri_id", $args["tour_id"]);
+      $this->db->where("pri_tour_id", $args["tour_id"]);
       $priceArray = $this->db->get("ci_price")->result();
       //print_r($priceArray); exit;
       foreach ($priceArray as $key => $value) {
-        $this->db->where("prit_price_id", $value["pri_id"]);
+        $this->db->where("prit_price_id", $value->pri_id);
         $this->db->delete("ci_price_translate");
       }
 

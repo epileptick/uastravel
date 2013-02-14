@@ -93,7 +93,6 @@ class Home extends MY_Controller {
         $location = $this->taglocationModel->getRecord($query);
       }
     }
-    
     if($tour && $location){
       $home = array_merge($tour, $location);
     }else if($tour){
@@ -124,7 +123,7 @@ class Home extends MY_Controller {
     if($tag){
       $argTag["url"] = $tag;      
       $tagQuery = $this->tagModel->getRecord($argTag);
-      //print_r($tagQuery); exit;
+
       if(!empty($tagQuery)){
         //$query["tag_id"] = $tagQuery[0]->id;
         $query["tag_id"] = $tagQuery[0]->id;
