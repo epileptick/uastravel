@@ -7,14 +7,99 @@ class Tag_model extends MY_Model {
   function __construct(){
     parent::__construct();
     $this->_prefix = "tag";
+    
     $this->_column = array(
                      'id'                => 'tag_id',
-                     'lang'              => 'tag_lang',
-                     'parent'            => 'tag_parent',
-                     'name'              => 'tag_name',
-                     'url'               => 'tag_url'
+                     'status'            => 'tag_status',
+                     'cr_date'           => 'tag_cr_date',
+                     'cr_uid'            => 'tag_cr_uid',
+                     'lu_date'           => 'tag_lu_date',
+                     'lu_uid'            => 'tag_lu_uid' 
     );
+    
+    $this->_join_column = array(
+                     'tag_id'            => 'tagt_tag_id',
+                     'lang'              => 'tagt_lang',
+                     'name'              => 'tagt_name',
+                     'url'               => 'tagt_url'
+    );
+    
   }
+  
+  function get($options=""){
+    if(is_numeric($options)){
+      $this->load->model("tag_translate_model","tagTranslateModel");
+      $where = array("where"=>array("tag_id"=>$options,"lang"=>$this->lang->lang()));
+      if($this->tagTranslateModel->count_rows($where)){
+        $this->db->where($this->_join_column["lang"],$this->lang->lang());
+      }
+    }else{
+      if($this->lang->lang() == $this->lang->default_lang()){
+        $options["lang"] = $this->lang->lang();
+      }
+      
+    }
+    
+    $this->db->join("ci_tag_translate","ci_tag_translate.tagt_tag_id = ci_tag.tag_id");
+    $mainTable = parent::get($options);
+    
+    return $mainTable;
+  }
+  
+  function getShow($options=""){
+
+    if(is_numeric($options)){
+    
+      $this->load->model("tag_translate_model","tagTranslateModel");
+      $where = array("where"=>array("tag_id"=>$options,"lang"=>$this->lang->lang()));
+      if($this->tagTranslateModel->count_rows($where)){
+        $this->db->join("ci_tag_translate","ci_tag_translate.tagt_tag_id = ci_tag.tag_id");
+        $this->db->where($this->_join_column["lang"],$this->lang->lang());
+      }else{
+        return FALSE;
+      }
+    }else{
+      if(is_array($options)){
+        foreach($options AS $key=>$value){
+          if($_column = $this->_getColumn($key)){
+            $this->db->where($_column,$value);
+          }
+          if($_join_column = $this->_getJoinColumn($key)){
+            $this->db->where($_join_column,$value);
+          }
+        }
+      }
+      $this->db->join("ci_tag_translate","ci_tag_translate.tagt_tag_id = ci_tag.tag_id");
+      $this->db->where($this->_join_column["lang"],$this->lang->lang());
+    }
+    $mainTable = parent::get($options);
+    
+    return $mainTable;
+  }
+  
+  function add($options = NULL ){
+    if(empty($options)){
+      return FALSE;
+    }
+    if(!$this->getShow($options)){
+      $result = parent::add($options);
+    }
+    return $result;
+  }
+  
+  function post_add($options = NULL){
+    if(empty($options)){
+      return FALSE;
+    }
+    $this->load->model("tag_translate_model","tagTranslateModel");
+    if(!empty($options["id"])){
+      $options["tag_id"] = $options["id"];
+      unset($options["id"]);
+    }
+    $result = $this->tagTranslateModel->add($options);
+    return $result;
+  }
+  
   
   function mapField($result){
     foreach ($result as $key => $value) {
@@ -97,6 +182,7 @@ class Tag_model extends MY_Model {
 
 
   function addRecord($data=false){
+  
     if($data){
       //Set data
       if(empty($data["lang"])){
@@ -120,6 +206,7 @@ class Tag_model extends MY_Model {
  
   function addMultipleRecord($args=false){
    //Check duplicate tag data
+   
     if($args){
       //$tagNew = array();
       $count = 0;
@@ -145,6 +232,7 @@ class Tag_model extends MY_Model {
       return ;
     }
   }  
+  
 
   function updateRecord($data=false){
     if($data){
@@ -179,7 +267,7 @@ class Tag_model extends MY_Model {
     ///////////////////////////////////////////
     // Add Tag table sub table
     /////////////////////////////////////////// 
-
+    
     //print_r($args); exit;
     if(isset($tags)){
       //Remove tags  junk          
@@ -202,15 +290,15 @@ class Tag_model extends MY_Model {
 
 
   function searchRecord($args=false){
+    
     if($args){
-      $this->db->like($args);
-      $this->db->order_by('CONVERT( tag_name USING tis620 ) ASC');    
-      $query = $this->db->get("ci_tag");
-
-      //print_r($args); exit;
+      $this->load->model("Tag_translate_model","tagTranslateModel");
+      $this->db->order_by('CONVERT( tagt_name USING tis620 ) ASC');
+      $result = $this->tagTranslateModel->get(array("like"=>$args));
+      
       $newResult = array();
-      if($query->num_rows > 0){
-        $newResult = $this->mapField($query->result());
+      if(!empty($result) AND count($result) > 0){
+        $newResult = $result;
         return $newResult;
       }else{
         return $newResult;
