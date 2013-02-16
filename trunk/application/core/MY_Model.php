@@ -8,6 +8,7 @@ class MY_Model extends CI_Model {
   protected $_error_msg;
   protected $_pk;
   protected $_objData;
+  protected $_join_table;
   
   
   function __construct(){
@@ -17,8 +18,8 @@ class MY_Model extends CI_Model {
     $this->_table = "ci_".str_replace("_model","",strtolower(get_class($this)));
     $this->_column = array();
     $this->_join_column = array();
+    $this->_join_table = array();
     $this->_objData = NULL;
-    
   }
   
   function add($options = NULL){
@@ -102,7 +103,7 @@ class MY_Model extends CI_Model {
         
       }
     }
-    //return $this->db->delete($this->_table);
+    return $this->db->delete($this->_table);
   }
   
   function get($options = NULL){
@@ -111,6 +112,10 @@ class MY_Model extends CI_Model {
       $this->db->where($this->_prefix."_".$this->_pk,$options);
       $this->db->from($this->_table);
       return $this->_mapField(Util::objectToArray($this->db->get()->result()));
+    }
+    
+    if(isset($options['distinct']) AND !empty($options['distinct']) AND $options['distinct'] == TRUE){
+      $this->db->distinct();
     }
     
     if(! isset($options['returnObj']) OR empty($options['returnObj'])){
@@ -133,6 +138,36 @@ class MY_Model extends CI_Model {
       $this->db->order_by($this->_prefix."_".$this->_pk." desc");
     }
     
+    if(!empty($options["lang"]) AND $options["lang"] == "default"){
+      $options["lang"] = $this->lang->default_lang();
+    }
+        
+    if(!empty($options['group'])){
+      if(is_array($options['group'])){
+        foreach($options['group'] AS $groupKey=>$groupValue){
+          if($this->_getColumn($groupValue)){
+            $this->db->group_by($this->_getColumn($groupValue));
+          }
+          if($this->_getJoinColumn($groupValue)){
+            $this->db->group_by($this->_getJoinColumn($groupValue));
+          }
+          if(!$this->_getColumn($groupValue) AND !$this->_getJoinColumn($groupValue)){
+            $this->db->group_by($groupValue);
+          }
+        }
+      }else{
+        if($this->_getColumn($options['group'])){
+          $this->db->group_by($this->_getColumn($options['group']));
+        }
+        if($this->_getJoinColumn($options['group'])){
+          $this->db->group_by($this->_getJoinColumn($options['group']));
+        }
+        if(!$this->_getColumn($options['group']) AND !$this->_getJoinColumn($options['group'])){
+          $this->db->group_by($options['group']);
+        }
+      }
+    }
+    
     if(!is_null($options)){
             
       
@@ -142,13 +177,34 @@ class MY_Model extends CI_Model {
       if(!isset($options['where'])){
         $options['where'] = NULL;
       }
+      
+      if(!empty($options["where_in"])){
+        foreach($options["where_in"] AS $whereInKey=>$whereInValue){
+          if($this->_getColumn($whereInKey)){
+            $this->db->where_in($this->_getColumn($whereInKey),$whereInValue);
+          }else if($this->_getJoinColumn($whereInKey)){
+            $this->db->where_in($this->_getJoinColumn($whereInKey),$whereInValue);
+          }
+        }
+      }
+      if(!empty($options["where_not_in"])){
+        foreach($options["where_not_in"] AS $whereNotInKey=>$whereNotInValue){
+          if($this->_getColumn($whereNotInKey)){
+            $this->db->where_not_in($this->_getColumn($whereNotInKey),$whereNotInValue);
+          }else if($this->_getJoinColumn($whereNotInKey)){
+            $this->db->where_not_in($this->_getJoinColumn($whereNotInKey),$whereNotInValue);
+          }
+        }
+      }
 
       if(! is_null($options['where'])){
         if(is_array($options['where'])){
           foreach( $options['where'] AS $whereField=>$whereValue){
             if(! empty($whereValue)){
-              if(array_key_exists($whereField, $this->_column)){
+              if($this->_getColumn($whereField)){
                 $this->db->where($this->_getColumn($whereField),$whereValue);
+              }else if($this->_getJoinColumn($whereField)){
+                $this->db->where($this->_getJoinColumn($whereField),$whereValue);
               }else{
                 if((strpos($whereField,"=") !== FALSE) OR (strpos($whereField,"!=") !== FALSE) OR (strpos($whereField,"<") !== FALSE) OR (strpos($whereField,">") !== FALSE)){
                   $this->db->where($this->_prefix."_".trim($whereField),$whereValue);
@@ -170,8 +226,21 @@ class MY_Model extends CI_Model {
         }
       }else{
         foreach($options AS $key=>$value){
-          if(array_key_exists($key, $this->_column)){
+          if($this->_getColumn($key)){
             $this->db->where($this->_getColumn($key),$value);
+          }else if($this->_getJoinColumn($key)){
+            $this->db->where($this->_getJoinColumn($key),$value);
+          }
+        }
+      }
+      
+      if(!empty($options['like'])){
+        foreach( $options['like'] AS $likeField=>$likeValue){
+          if(! empty($likeValue)){
+            if($this->_getColumn($likeField)){
+              $this->db->like($this->_getColumn($likeField),$likeValue);
+            }
+            
           }
         }
       }
@@ -206,6 +275,7 @@ class MY_Model extends CI_Model {
     if(is_null($options)){
       return FALSE;
     }
+    
     //Set data
     foreach($options AS $columnName=>$columnValue){
       if(array_key_exists($columnName, $this->_column)){
@@ -214,7 +284,10 @@ class MY_Model extends CI_Model {
     }
     
     if(!empty($options['id']) OR !empty($options['where']) OR (!empty($options['isUpdate']) && $options['isUpdate'] == TRUE)){
-    
+      if($this->_getColumn("lu_date")){
+        $this->db->set($this->_getColumn("lu_date"), date( 'Y-m-d H:i:s')); 
+      }
+      
       if(!empty($options['id'])){
         $this->db->where($this->_column['id'], $options['id']);
         
@@ -228,6 +301,9 @@ class MY_Model extends CI_Model {
         foreach($options['set'] AS $setKey=>$setVal){
           $set[$this->_getColumn($setKey)] = $setVal;
         }
+        if($this->_getColumn("lu_date")){
+          $set[$this->_getColumn("lu_date")] = date( 'Y-m-d H:i:s');
+        }
         $result = $this->db->update($this->_table,$set);
         if(!empty($options['id'])){
           $objData = $options['id'];
@@ -237,7 +313,6 @@ class MY_Model extends CI_Model {
       }else{
         $result = $this->db->update($this->_table);
         if($result){
-          $last_query = $this->db->last_query();
           if(!empty($options['id'])){
             $objData = $options['id'];
           }else{
@@ -249,12 +324,20 @@ class MY_Model extends CI_Model {
         }
       }
     }else{
+      if($this->_getColumn("cr_date")){
+        $this->db->set($this->_getColumn("cr_date"), date( 'Y-m-d H:i:s'));
+      }
+      if($this->_getColumn("lu_date")){
+        $this->db->set($this->_getColumn("lu_date"), date( 'Y-m-d H:i:s')); 
+      }
       $result = $this->db->insert($this->_table);
       $objData = $this->db->insert_id();
     }
     
     if($result){
       return $objData;
+    }else{
+      return FALSE;
     }
   }
   
@@ -315,13 +398,72 @@ class MY_Model extends CI_Model {
       }else{
         $result = FALSE;
       }
-        
-      
-      
+    }
+    return $result;
+  } 
+  
+  public function getColumn($field = NULL){
+    //if field is null then return all
+    if(is_null($field)){
+      return $this->_column;
+    }
+    
+    //if $field is an array then return column that there are in array
+    if(is_array($field)){
+      foreach($field AS $key=>$value){
+        $result[$key] = $this->_column[$value];
+      }
+    }else{
+      if(!empty($this->_column[$field])){
+        $result = $this->_column[$field];
+      }else{
+        $result = FALSE;
+      }
+    }
+    return $result;
+  } 
+   
+  protected function _getJoinColumn($field = NULL){
+    //if field is null then return all
+    
+    if(is_null($field)){
+      return $this->_join_column;
+    }
+    //if $field is an array then return column that there are in array
+    if(is_array($field)){
+      foreach($field AS $key=>$value){
+        $result[$key] = $this->_join_column[$value];
+      }
+    }else{
+      if(!empty($this->_join_column[$field])){
+        $result = $this->_join_column[$field];
+      }else{
+        $result = FALSE;
+      }
     }
     return $result;
   }
   
+  public function getJoinColumn($field = NULL){
+    //if field is null then return all
+    if(is_null($field)){
+      return $this->_join_column;
+    }
+    
+    //if $field is an array then return column that there are in array
+    if(is_array($field)){
+      foreach($field AS $key=>$value){
+        $result[$key] = $this->_join_column[$value];
+      }
+    }else{
+      if(!empty($this->_join_column[$field])){
+        $result = $this->_join_column[$field];
+      }else{
+        $result = FALSE;
+      }
+    }
+    return $result;
+  }
   
   protected function _mapField($result=NULL){
     if(is_null($result)){
