@@ -31,12 +31,27 @@ class TagType_model extends MY_Model {
   function getRecord($args=false){
     //print_r($args); exit;
 
-    if(isset($args["tag_id"]) && isset($args["type_id"]) ){
+    if(isset($args["parent_id"]) && isset($args["type_id"]) ){
+      //Get category by name
+
+      $data["tty_parent_id"] = 0;
+      $data["tty_type_id"] = $args["type_id"];
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
+      $query = $this->db->get_where('ci_tagtype', $data);
+
+      //echo $this->db->last_query(); exit;
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }else if(isset($args["tag_id"]) && isset($args["type_id"]) ){
       //Get category by name
 
       $data["tty_tag_id"] = $args["tag_id"];
       $data["tty_type_id"] = $args["type_id"];
-
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
       $query = $this->db->get_where('ci_tagtype', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -70,15 +85,16 @@ class TagType_model extends MY_Model {
         return false;
       }
     }else if(isset($args["parent_id"])){
+      /*
       $parent["parent_id"] = $args["parent_id"];
       $this->load->model("type_model", "typeModel");   
       $tagtypeQuery = $this->tagtypeModel->getRecord($parent);  
-
+      */
       //Get category by name
-      $data["tty_parent_id"] = $args["parent_id"];
-
-      $query = $this->db->get_where('ci_tagtype', $data);
-          //print_r($query->result()); exit;
+      $parent["tty_parent_id"] = $args["parent_id"];
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
+      $query = $this->db->get_where('ci_tagtype', $parent);
+      //echo $this->db->last_query(); exit;
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
         return $newResult;
@@ -109,6 +125,158 @@ class TagType_model extends MY_Model {
 
   }
 
+
+
+  
+  function getCustomTourRecord($args=false){
+    //print_r($args); exit;
+
+    if($args["parent_id"] == 0 && isset($args["type_id"]) ){
+      //Get category by name
+
+      $data["tty_parent_id"] = 0;
+      $data["tty_type_id"] = $args["type_id"];
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
+      $query = $this->db->get_where('ci_tagtype', $data);
+
+      //echo $this->db->last_query(); exit;
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }else if(isset($args["parent_id"]) && isset($args["type_id"]) ){
+      //Get category by name
+
+      $data["tty_parent_id"] = $args["parent_id"];
+      $data["tty_type_id"] = $args["type_id"];
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
+      $query = $this->db->get_where('ci_tagtype', $data);
+
+      //echo $this->db->last_query(); exit;
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }else if(isset($args["tag_id"]) && isset($args["type_id"]) ){
+      //Get category by name
+
+      $data["tty_tag_id"] = $args["tag_id"];
+      $data["tty_type_id"] = $args["type_id"];
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
+      $query = $this->db->get_where('ci_tagtype', $data);
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }else if(isset($args["tag_id"])){
+      //Get category by name
+
+      $data["tty_tag_id"] = $args["tag_id"];      
+      $query = $this->db->get_where('ci_tagtype', $data);
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }else if(isset($args["type_id"])){
+      //Get category by name
+      $data["tty_type_id"] = $args["type_id"];
+
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');         
+      $this->db->order_by('tty_index ASC'); 
+      $query = $this->db->get_where('ci_tagtype', $data);
+          //print_r($query->result()); exit;
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }else if(isset($args["parent_id"])){
+      /*
+      $parent["parent_id"] = $args["parent_id"];
+      $this->load->model("type_model", "typeModel");   
+      $tagtypeQuery = $this->tagtypeModel->getRecord($parent);  
+      */
+      //Get category by name
+      $parent["tty_parent_id"] = $args["parent_id"];
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
+      $query = $this->db->get_where('ci_tagtype', $parent);
+      //echo $this->db->last_query(); exit;
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }else if(isset($args["id"])){
+      //Get category by id      
+      $query = $this->db->get_where('ci_tagtype', array('tty_id' => $args["id"]), 1, 0);
+
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }else {
+      //Get list page
+      $query = $this->db->get("ci_tagtype");
+
+      if($query->num_rows > 0){
+        $newResult = $this->mapField($query->result());
+        return $newResult;
+      }else{
+        return false;
+      }
+    }    
+  }
+
+
+
+  function getUniqRecordByWhereIn($args){
+
+    //print_r($args); exit;
+
+    //$this->db->where('tty_parent_id', $args["parent_id"]);
+    $this->db->where_in('ci_tagtype.tty_parent_id', $args["where_in"]);
+    $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id'); 
+    $this->db->group_by('ci_tagtype.tty_tag_id');  
+    $query = $this->db->get('ci_tagtype');
+    //echo $this->db->last_query(); exit;
+
+    if($query->num_rows > 0){
+      $newResult = $this->mapField($query->result());
+      return $newResult;
+    }else{
+      return false;
+    }    
+  }
+
+  function getRecordByTypeAndParent($args){
+
+
+    $this->db->where('tty_type_id', $args["type_id"]);
+    $this->db->where('tty_parent_id', $args["parent_id"]);
+    $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id'); 
+    $this->db->group_by('ci_tagtype.tty_tag_id');  
+    $query = $this->db->get('ci_tagtype');
+    //echo $this->db->last_query(); exit;
+
+    if($query->num_rows > 0){
+      $newResult = $this->mapField($query->result());
+      return $newResult;
+    }else{
+      return false;
+    }    
+  }
 
   function addRecord($data=false){
 
