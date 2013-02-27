@@ -361,6 +361,97 @@ class TagTour_model extends MY_Model {
   }
   
 
+  function getRecordBySubTypeIn($args=false){
+
+
+    $sql = "SELECT `tat_tour_id` 
+            FROM (`ci_tagtour`) 
+            WHERE `tat_tag_id` = $args[tag_id] 
+            AND tat_tour_id 
+            IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id = $args[type_id])) 
+            AND tat_tour_id 
+            IN((SELECT tat_tour_id FROM ci_tagtour WHERE tat_tag_id IN($args[subtype_id])))
+            ORDER BY tat_tour_id DESC 
+            LIMIT $args[offset], $args[per_page]
+            ";
+
+    $tour = $this->db->query($sql)->result();
+
+    //print_r($tour); exit;
+    $count = 0;
+    foreach ($tour as $key => $value) {
+
+      //Get tour data
+      unset($this->db);
+      //$this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
+      $this->db->where('tou_id', $value->tat_tour_id);  
+      $this->db->where('tou_display', 1);    
+      $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
+      $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
+      $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');  
+      $tourBuffer = $this->db->get('ci_tour')->result();
+
+
+      if(!empty($tourBuffer)){
+
+        $result[$count]["tour"] = $tourBuffer[0];
+
+        //Get tag data
+        unset($this->db);
+        $this->db->where('tat_tour_id', $value->tat_tour_id);
+        $this->db->where_in('tat_tag_id', $args["menu"]);
+        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
+        $query = $this->db->get('ci_tagtour');
+        $result[$count]["tag"] = $query->result();
+
+        //Get price data
+        unset($this->db);
+        $this->db->where('pri_tour_id', $value->tat_tour_id);
+        $priceTour = $this->db->get('ci_price')->result();
+
+        if(!empty($priceTour)){
+
+          /*
+          $maxAgencyPrice = 0;
+          foreach ($priceTour as $key => $value) {
+            # code...
+            if($value->pri_sale_adult_price > $maxAgencyPrice){
+              $result[$count]["price"] = $value;
+              $maxAgencyPrice = $value->pri_sale_adult_price;
+            }
+          }
+
+          */
+
+          //Min price
+          $minSalePrice = 9999999;
+          foreach ($priceTour as $key => $value) {
+            # code...
+            if($value->pri_show_firstpage == 1){
+              $minSalePrice = $value->pri_sale_adult_price;
+              $result[$count]["price"] = $value;
+              break;
+            }else{
+              if($value->pri_sale_adult_price < $minSalePrice){
+                $result[$count]["price"] = $value;
+                $minSalePrice = $value->pri_sale_adult_price;
+              }                
+            }
+          }            
+        }
+
+        $count++;
+      }
+    }
+    //print_r($result); exit;
+
+    if(!empty($result)){
+      return $result;
+    }else{
+      return false;
+    }
+  }
+
   function getRecordBySubType($args=false){
 
     //SELECT tat_tour_id 
