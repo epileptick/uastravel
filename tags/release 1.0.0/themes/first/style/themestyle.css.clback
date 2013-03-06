@@ -1,0 +1,60 @@
+@charset "utf-8";
+@font-face {
+    font-family: Circular;
+    src: url('font/Circular.eot'); /* IE9 Compatibility Modes */
+    src: url('font/Circular.eot?') format('eot'),  /* IE6-IE8 */
+    url('font/Circular.ttf') format('ttf'), /* Modern Browsers */
+    url('font/Circular.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('font/Circular.svg#svgCircular') format('svg'); /* Legacy iOS */
+}
+@font-face {
+    font-family: CircularBold;
+    src: url('font/CircularBold.eot'); /* IE9 Compatibility Modes */
+    src: url('font/CircularBold.eot?') format('eot'),  /* IE6-IE8 */
+    url('font/CircularBold.ttf') format('ttf'), /* Modern Browsers */
+    url('font/CircularBold.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('font/CircularBold.svg#svgCircularBold') format('svg'); /* Legacy iOS */
+}
+@font-face {
+    font-family: supermarket;
+    src: url('font/supermarket.eot'); /* IE9 Compatibility Modes */
+    src: url('font/supermarket.eot?') format('eot'),  /* IE6-IE8 */
+    url('font/supermarket.ttf') format('ttf'), /* Modern Browsers */
+    url('font/supermarket.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('font/supermarket.svg#svgsupermarket') format('svg'); /* Legacy iOS */
+}
+
+
+/*
+24bikesell
+*/
+* {
+	margin:0px;
+	padding:0px;
+}
+
+p {
+	margin:0px;
+	padding:0px;
+}
+
+body {
+	background-image: url(../images/bg.jpg);
+	margin: 0px;
+	padding: 0px;
+	background-repeat: repeat;
+}
+
+#body {
+  width:980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.shadow {
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         3px 3px 5px 6px #ccc;
+}
+
+#header {

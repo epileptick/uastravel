@@ -1,0 +1,62 @@
+/*
+SQLyog Community v10.51 
+MySQL - 5.5.8 : Database - uastravel
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`uastravel` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `uastravel`;
+
+/*Table structure for table `ci_airlinebooking` */
+
+DROP TABLE IF EXISTS `ci_airlinebooking`;
+
+CREATE TABLE `ci_airlinebooking` (
+  `flt_id` int(11) NOT NULL AUTO_INCREMENT,
+  `flt_code` varchar(50) DEFAULT NULL,
+  `flt_firstname` varchar(50) DEFAULT NULL,
+  `flt_lastname` varchar(50) DEFAULT NULL,
+  `flt_address` varchar(255) DEFAULT NULL,
+  `flt_city` varchar(50) DEFAULT NULL,
+  `flt_province` varchar(50) DEFAULT NULL,
+  `flt_zipcode` varchar(10) DEFAULT NULL,
+  `flt_telephone` varchar(50) DEFAULT NULL,
+  `flt_email` varchar(50) DEFAULT NULL,
+  `flt_nationality` varchar(50) DEFAULT NULL,
+  `flt_from_location` varchar(255) DEFAULT NULL,
+  `flt_go_to_location` varchar(255) DEFAULT NULL,
+  `flt_depart_date` date DEFAULT NULL,
+  `flt_depart_time` varchar(50) DEFAULT NULL,
+  `flt_return_date` date DEFAULT NULL,
+  `flt_return_time` varchar(50) DEFAULT NULL,
+  `flt_adult_amount` int(11) DEFAULT NULL,
+  `flt_child_amount` int(11) DEFAULT NULL,
+  `flt_infant_amount` int(11) DEFAULT NULL,
+  `flt_type` varchar(50) DEFAULT NULL,
+  `flt_class` varchar(50) DEFAULT NULL,
+  `flt_hashcode` varchar(255) DEFAULT NULL,
+  `flt_message` varchar(255) DEFAULT NULL,
+  `flt_cr_uid` int(11) DEFAULT NULL,
+  `flt_cr_date` timestamp NULL DEFAULT NULL,
+  `flt_lu_uid` int(11) DEFAULT NULL,
+  `flt_lu_date` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`flt_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+/*Data for the table `ci_airlinebooking` */
+
+insert  into `ci_airlinebooking`(`flt_id`,`flt_code`,`flt_firstname`,`flt_lastname`,`flt_address`,`flt_city`,`flt_province`,`flt_zipcode`,`flt_telephone`,`flt_email`,`flt_nationality`,`flt_from_location`,`flt_go_to_location`,`flt_depart_date`,`flt_depart_time`,`flt_return_date`,`flt_return_time`,`flt_adult_amount`,`flt_child_amount`,`flt_infant_amount`,`flt_type`,`flt_class`,`flt_hashcode`,`flt_message`,`flt_cr_uid`,`flt_cr_date`,`flt_lu_uid`,`flt_lu_date`) values (1,'0','test01','test01','test01','test01','test01','test01','test01','test01','test01','กรุงเทพมหานคร(สุวรรณภูมิ)','ภูเก็ต','2013-01-10','02:00:00','2013-01-20','03:00:00',1,2,0,'Round Trip','First Class','05c60164',NULL,2013,NULL,2013,NULL),(2,'0','test06','test06','test06','test06','test06','test06','test06','test06','test06','กรุงเทพมหานคร(สุวรรณภูมิ)','ภูเก็ต','2013-01-10','00:00:00','2013-01-20','19:00:00',4,0,0,'One Way','Business Class','05c70165',NULL,2013,NULL,2013,NULL),(3,'B000003','test07','test07','test07','test07','test07','test07','test07','test07','test07','เชียงใหม่','ตรัง','2013-01-10','00:00:00','2013-01-20','19:00:00',6,0,0,'One Way','Economy Class','05c80166',NULL,2013,NULL,2013,NULL),(4,'B000004','test02','test02','test07','test02','test02','test02','test02','test02','test02','เชียงใหม่','นครพนม','2013-01-11','00:00:00','2013-01-20','00:00:00',2,0,0,'Round Trip','First Class','05c90167',NULL,2013,NULL,2013,NULL),(5,'B000005','test03','test03','test03','test03','test03','test03','test03','test03','test03','เกาะพะงัน','เกาะเต่า','2013-01-11','01:00','2013-01-20','ANY',3,0,0,'Round Trip','First Class','05ca0168',NULL,2013,NULL,2013,NULL),(6,'B000006','test03','test03','test03','test03','test03','test03','test03','test03','test03','เกาะพะงัน','เกาะเต่า','2013-01-11','01:00','2013-01-20','ANY',3,0,0,'Round Trip','First Class','05cb0169',NULL,2013,NULL,2013,NULL),(7,'B000007','test09','test09','test09','test09','test09','test09','test09','test09','test09','กรุงเทพมหานคร(สุวรรณภูมิ)','ภูเก็ต','2013-01-12','ANY','2013-01-22','ANY',1,0,0,'Round Trip','First Class','05cc016a',NULL,2013,NULL,2013,NULL),(8,'B000008','test10','test10','test10','test10','test10','test10','test10','test10','test10','กรุงเทพมหานคร(สุวรรณภูมิ)','ภูเก็ต','2013-01-13','ANY','2013-01-23','ANY',1,0,0,'Round Trip','First Class','05cd016b','test10',NULL,'2013-01-10 08:57:01',NULL,'2013-01-10 08:57:01'),(9,'B000009','test10','test10','test10','test10','test10','test10','test10','test10','test10','กรุงเทพมหานคร(สุวรรณภูมิ)','ภูเก็ต','2013-01-13','ANY','2013-01-23','ANY',1,0,0,'Round Trip','First Class','05ce016c','test10',NULL,'2013-01-10 09:17:18',NULL,'2013-01-10 09:17:18');
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
