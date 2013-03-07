@@ -18,7 +18,7 @@
   <![endif]-->
 
 </head>
-<body style="background: #ededed url(<?php echo base_url('themes/Travel/tour/images/bg1.jpg');?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
+<body style="background: #ededed url(<?php echo base_url('themes/Travel/tour/images/bg1.jpg');?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
   <div class="overly-bg"></div>
   <div id="wrapper">
     <!-- Menu -->
@@ -33,10 +33,10 @@
             <ul class="right">
               <li><a href="http://uastravel.com/demo/">หน้าแรก</a></li>
               <li><a class="active" href="#">แหล่งท่องเที่ยว</a></li>
-              <li><a href="#">แพ๊คเกจทัวร์</a></li>          
+              <li><a href="#">แพ๊คเกจทัวร์</a></li>
               <li><a href="#">เกี่ยวกับเรา</a></li>
               <li><a href="#">ติดต่อเรา</a></li>
-              <li><a href="#">โปรโมชั่น</a></li>            
+              <li><a href="#">โปรโมชั่น</a></li>
             </ul>
           </section>
         </nav>
@@ -49,7 +49,7 @@
         <div class="row">
           <div class="eight mobile-three columns">
             <div class="packet">
-              <h3>จัดทัวร์ </h3> 
+              <h3>จัดทัวร์ </h3>
               <p class="action_button top_add_date">
                 <a class="button add_date">เพิ่มวัน</a>
               </p>
@@ -68,7 +68,7 @@
                   <h4>สรุปข้อมูลทัวร์</h4>
                   <ul class="square">
                     <li>
-                      จำนวนวัน <span id="summary_day">1</span> วัน / 
+                      จำนวนวัน <span id="summary_day">1</span> วัน /
                       <span id="summary_night">0</span> คืน
                     </li>
                   </ul>
@@ -103,7 +103,7 @@
             <div class='tabs-container'>
 
 
-        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>  
+        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 
               <!-- Tour -->
               <div id="tabs1">
@@ -118,11 +118,11 @@
                           $firttag_id = 0;
                           foreach ($tours["filter"]["firsttag"] as $key => $value) {
                             if($count == 0){
-                              $firttag_id = $value->tag_id;
+                              $firttag_id = $value["tag_id"];
                             }
                         ?>
-                          <option value="<?php echo $value->tag_id;?>">
-                            <?php echo $value->name;?>
+                          <option value="<?php echo $value["tag_id"];?>">
+                            <?php echo $value["name"];?>
                           </option>
                         <?php
                             $count++;
@@ -135,13 +135,13 @@
                           $secondtag_id = 0;
                           foreach ($tours["filter"]["secondtag"] as $key => $value) {
                         ?>
-                            <option value="<?php echo $value->tag_id;?>">
-                              <?php echo $value->name;?>
+                            <option value="<?php echo $value["tag_id"];?>">
+                              <?php echo $value["name"];?>
                             </option>
                         <?php
                           }
                         ?>
-                     </select>                     
+                     </select>
                    </div>
                   </div>
 
@@ -151,18 +151,18 @@
                       foreach ($tours["filter"]["thirdtag"] as $key => $value) {
                     ?>
                         <span class="btn" id="btn_tag">
-                          <?php echo $value->name;?>
-                          <input  type="checkbox" 
-                                  class="hide" 
-                                  name="thirdtag[]" 
-                                  value="<?php echo $value->tag_id;?>"
+                          <?php echo $value["name"];?>
+                          <input  type="checkbox"
+                                  class="hide"
+                                  name="thirdtag[]"
+                                  value="<?php echo $value["tag_id"];?>"
                                   id="thirdtag_checked"
                             >
                         </span>
-                    <?php                   
+                    <?php
                       }
                     ?>
-                    </form>                    
+                    </form>
                   </div>
                   <div class="input_search">
                     <input type="text" placeholder="Search...">
@@ -172,9 +172,9 @@
                 </div>
                 <div class="scrollbar">
                   <div class="nano">
-                    <div class="content"> 
+                    <div class="content">
                       <ul class="connected list no2" id="data">
-                        <?php 
+                        <?php
                           //print_r($tours); exit;
                           foreach ($tours["tour"] as $key => $value) {
                             if(!empty($value['price'])){
@@ -183,7 +183,7 @@
                           <li>
                             <div class="list_packet">
                               <div class="row">
-                                <div class="twelve columns">              
+                                <div class="twelve columns">
                                   <a href="<?php echo base_url("tour/".$value["tour"]->tout_url."-".$value["tour"]->tou_id); ?>" target="_blank">
                                     <img src="<?php echo $value["tour"]->tou_banner_image; ?>">
                                   </a>
@@ -202,11 +202,11 @@
                                               }
                                             ?>
 
-                                          <input  type="hidden" 
+                                          <input  type="hidden"
                                                   id="packagedata"
                                                   packagetype="tour"
-                                                  packageid="<?php echo $value['tour']->tou_id; ?>" 
-                                                  title="<?php echo $value['tour']->tout_name; ?>" 
+                                                  packageid="<?php echo $value['tour']->tou_id; ?>"
+                                                  title="<?php echo $value['tour']->tout_name; ?>"
                                                   adultprice="<?php echo $value['price']->pri_sale_adult_price; ?>"
                                                   childprice="<?php echo $value['price']->pri_sale_child_price; ?>"
                                                   discountadultprice="<?php echo $value['price']->pri_discount_adult_price; ?>"
@@ -227,7 +227,7 @@
                                 <div class="twelve columns">
                                   <div class="icon time tooltip_se" title="เวลา">
                                     <!-- <?php echo $value['tour']->tou_start_time1; ?> - <?php echo $value['tour']->tou_end_time1; ?> -->
-                                    08.00 - 15.30 
+                                    08.00 - 15.30
                                   </div>
                                   <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด">
                                     <a href="#" data-reveal-id="myTourModal_<?php echo $value['tour']->tou_id; ?>">รายละเอียด</a>
@@ -244,12 +244,12 @@
                             }
                         ?>
 
-                        <?
+                        <?php
                           }
                         ?>
                       <div class="clearfix"></div>
                       </ul>
-                    </div> 
+                    </div>
                   </div>
                 </div>
                 <!-- END scrollbar -->
@@ -284,7 +284,7 @@
 
                   <div class="tag">
                     <span class="btn">
-                      กะตะ 
+                      กะตะ
                       <input type="checkbox" class="hide" name="example1[]" value="Hey">
                     </span>
                     <span class="btn">
@@ -292,11 +292,11 @@
                       <input type="checkbox" class="hide" name="example1[]" value="Hey">
                     </span>
                     <span class="btn">
-                      กะรน 
+                      กะรน
                       <input type="checkbox" class="hide" name="example1[]" value="Click">
                     </span>
                     <span class="btn">
-                      ป่าตอง 
+                      ป่าตอง
                       <input type="checkbox" class="hide" name="example1[]" value="Should">
                     </span>
                   </div>
@@ -308,10 +308,10 @@
                 </form>
                 <div class="scrollbar">
                   <div class="nano">
-                    <div class="content"> 
+                    <div class="content">
                       <ul class="connected list no2">
 
-                        <?php 
+                        <?php
                             //print_r($tour); exit;
                           if(!empty($hotel)){
                             foreach ($hotel as $key => $value) {
@@ -322,7 +322,7 @@
                                 <div class="list_packet">
                                 <div class="ribbon_hotel"></div>
                                   <div class="row">
-                                    <div class="twelve columns">              
+                                    <div class="twelve columns">
                                       <a href="<?php echo base_url("hotel/".$value["hotel"]->hott_url."-".$value["hotel"]->hot_id); ?>" target="_blank">
                                         <img src="<?php echo $value["hotel"]->hot_banner_image; ?>">
                                       </a>
@@ -350,16 +350,16 @@
                                 </div>
                                 <a class="delete tooltip_ne" title="ลบ"></a>
                                 <a class="add tooltip_ne" title="เพิ่ม"></a>
-                              </li>                        
+                              </li>
 
                         <?php
                               }
                             }
                           }
                         ?>
-                        <div class="clearfix"></div> 
+                        <div class="clearfix"></div>
                       </ul>
-                    </div> 
+                    </div>
                   </div>
                 </div>
                 <!-- END scrollbar -->
@@ -392,7 +392,7 @@
 
                   <div class="tag">
                     <span class="btn">
-                      กะตะ 
+                      กะตะ
                       <input type="checkbox" class="hide" name="thirdtag[]" value="Hey">
                     </span>
                     <span class="btn">
@@ -400,11 +400,11 @@
                       <input type="checkbox" class="hide" name="thirdtag[]" value="Hey">
                     </span>
                     <span class="btn">
-                      กะรน 
+                      กะรน
                       <input type="checkbox" class="hide" name="thirdtag[]" value="Click">
                     </span>
                     <span class="btn">
-                      ป่าตอง 
+                      ป่าตอง
                       <input type="checkbox" class="hide" name="thirdtag[]" value="Should">
                     </span>
                   </div>
@@ -416,7 +416,7 @@
                 </form>
                 <div class="scrollbar">
                   <div class="nano">
-                    <div class="content"> 
+                    <div class="content">
                       <ul class="connected list no2">
                       <!--BEGIN List 1-->
                         <li>
@@ -784,7 +784,7 @@
                       <!--END List 1-->
                         <div class="clearfix"></div>
                       </ul>
-                    </div> 
+                    </div>
                   </div>
                 </div>
                 <!-- END scrollbar -->
@@ -824,11 +824,11 @@
               <li><a href="">แพ็คเกจทัวร์</a></li>
               <li><a href="">เกี่ยวกับเรา</a></li>
               <li><a href="">ติดต่อเรา</a></li>
-              <li><a href="">โปรโมชั่น</a></li>                           
+              <li><a href="">โปรโมชั่น</a></li>
             </ul>
           </nav>
           <div class="clearfix"></div>
-          <p>Copyright © Uastravel.com</p>          
+          <p>Copyright © Uastravel.com</p>
         </div>
         <div class="five columns">
           <div class="address">
@@ -846,7 +846,7 @@
 <script src="<?php echo base_url('themes/Travel/tour/javascripts/foundation.min.js'); ?>"></script>
 <!-- Initialize JS Plugins -->
 <script src="<?php echo base_url('themes/Travel/tour/javascripts/app.js'); ?>"></script>
-<!-- To top scrollbar  -->  
+<!-- To top scrollbar  -->
 <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/easing.js'); ?>" type="text/javascript"></script>
 <!-- UItoTop plugin -->
 <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/jquery.ui.totop.js'); ?>" type="text/javascript"></script>
@@ -857,15 +857,15 @@
       containerID: 'moccaUItoTop', // fading element id
       containerHoverClass: 'moccaUIhover', // fading element hover class
       scrollSpeed: 1200,
-      easingType: 'linear' 
+      easingType: 'linear'
     };
-    
+
     $().UItoTop({ easingType: 'easeOutQuart' });
-    
+
   });
 </script>
 
-<!-- Tooltip -->  
+<!-- Tooltip -->
 <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/powertip/jquery.powertip.js'); ?>"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('themes/Travel/tour/javascripts/powertip/jquery.powertip.css'); ?>" />
 <script type="text/javascript">
@@ -934,12 +934,12 @@
     /////////////////////////////////
     var loading = "<img src=<?php echo base_url('themes/Travel/tour/images/ajax-loader.gif'); ?> />";
 
-    //First tag 
+    //First tag
     $("#firsttag_tour").change(function() {
 
       //Request
       var model = "tour";
-      var firsttag_id = $(this).val(); 
+      var firsttag_id = $(this).val();
       var secondtag_id = $("#secondtag_tour").val();
       var thirdtag_id = 0;
       $('#thirdtag_tour :checkbox:checked').each(function() {
@@ -958,18 +958,18 @@
           setDragAndDropDataForExternalFile();
           setDateDataForExternalFile();
           //setCheckedBoxTagForExternalFile();
-      }); 
+      });
 
-     
+
     });
 
- 
-    //Second tag 
+
+    //Second tag
     $("#secondtag_tour").change(function() {
-      
+
       //Request
       var model = "tour";
-      var firsttag_id = $("#firsttag_tour").val(); 
+      var firsttag_id = $("#firsttag_tour").val();
       var secondtag_id = $(this).val();
       var thirdtag_id = 0;
       $('#thirdtag_tour :checkbox:checked').each(function() {
@@ -988,7 +988,7 @@
           setDragAndDropDataForExternalFile();
           setDateDataForExternalFile();
           //setCheckedBoxTagForExternalFile();
-      });       
+      });
 
     });
 
@@ -999,17 +999,17 @@
       class: 'btn-info',
       onChange: function() {
 
-        //Request        
+        //Request
         //$('#thirdtag_tour-serialized').html( decodeURIComponent($('.search_thirdtag').serialize()) );
         if(count > 0){
           var model = "tour";
           var firsttag_id = $("#firsttag_tour").val();
-          var secondtag_id = $("#secondtag_tour").val(); 
+          var secondtag_id = $("#secondtag_tour").val();
           var thirdtag_id = 0;
           $('#thirdtag_tour :checkbox:checked').each(function() {
             thirdtag_id += $(this).val()+",";
-          });          
-          
+          });
+
 
           //Response
           var responseData = data_filter(model, firsttag_id, secondtag_id, thirdtag_id);
@@ -1020,10 +1020,10 @@
             setDragAndDropDataForExternalFile();
             setDateDataForExternalFile();
             //setCheckedBoxTagForExternalFile();
-          });            
-        } 
+          });
+        }
 
-        count++;       
+        count++;
       }
     });
 
@@ -1048,15 +1048,15 @@
           }
         });
         return false;
-    });  
+    });
   }
 
   function tag_filter(model, firsttag_id, secondtag_id, thirdtag_id){
-      var data =  { 
+      var data =  {
                     model : model,
-                    firsttag_id: firsttag_id, 
-                    secondtag_id: secondtag_id , 
-                    thirdtag_id: thirdtag_id 
+                    firsttag_id: firsttag_id,
+                    secondtag_id: secondtag_id ,
+                    thirdtag_id: thirdtag_id
                   };
       var url = "ajax/tourfilter/tag";
 
@@ -1064,7 +1064,7 @@
       $.ajax({
           type: 'POST',
           url: url,
-          data: data,   
+          data: data,
            async: false,
            success : function(text)
            {
@@ -1076,11 +1076,11 @@
   }
 
   function data_filter(model, firsttag_id, secondtag_id, thirdtag_id){
-      var data =  { 
+      var data =  {
                     model : model,
-                    firsttag_id: firsttag_id, 
-                    secondtag_id: secondtag_id , 
-                    thirdtag_id: thirdtag_id 
+                    firsttag_id: firsttag_id,
+                    secondtag_id: secondtag_id ,
+                    thirdtag_id: thirdtag_id
                   };
       var url = "ajax/tourfilter/data";
 
@@ -1088,7 +1088,7 @@
       $.ajax({
           type: 'POST',
           url: url,
-          data: data,   
+          data: data,
            async: false,
            success : function(text)
            {
@@ -1106,13 +1106,13 @@
 <!-- Drag data-->
 <script>
   //Get data from drag&drop
-  var customPackageObject = new Object(); 
+  var customPackageObject = new Object();
 
   var itemObject = new Object();
   var countSelection = 0;
 
   var countDay = 1;
-  var countDayDisplay = 2;  
+  var countDayDisplay = 2;
   var countDayElement = 0;
 
   //var countItem = 0;
@@ -1128,10 +1128,10 @@
   customPackageObject.realday = new Array();
 
 
-  //customPackageObject.day[countDayElement] = new Array(); 
+  //customPackageObject.day[countDayElement] = new Array();
   var countItemInDropArea = 0;
 
-  function setCustomTourData(thisObj){   
+  function setCustomTourData(thisObj){
 
     //Drag&drop item
     var itemHtml = thisObj.html();
@@ -1179,8 +1179,8 @@
       customPackageObject.realday[countDayElement][countItemInDropArea]  = new Array();
 
       if(tag == "ทัวร์ครึ่งวัน"){
-        
-        customPackageObject.day[countDayElement][countItemInDropArea] = day;    
+
+        customPackageObject.day[countDayElement][countItemInDropArea] = day;
         customPackageObject.packagetype[countDayElement][countItemInDropArea] = packagetype;
         customPackageObject.packageId[countDayElement][countItemInDropArea]  = packageid
         customPackageObject.title[countDayElement][countItemInDropArea]  = title;
@@ -1189,12 +1189,12 @@
         customPackageObject.childPrice[countDayElement][countItemInDropArea]  = childPrice;
         customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = discountAdultPrice;
         customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement][countItemInDropArea]  = 0.5;  
+        customPackageObject.realday[countDayElement][countItemInDropArea]  = 0.5;
         //console.log("Add item("+countDayElement+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][countItemInDropArea]);
 
       }else if(tag == "ทัวร์ 1 วัน"){
 
-        customPackageObject.day[countDayElement][countItemInDropArea] = day;    
+        customPackageObject.day[countDayElement][countItemInDropArea] = day;
         customPackageObject.packagetype[countDayElement][countItemInDropArea] = packagetype;
         customPackageObject.packageId[countDayElement][countItemInDropArea]  = packageid
         customPackageObject.title[countDayElement][countItemInDropArea]  = title;
@@ -1203,13 +1203,13 @@
         customPackageObject.childPrice[countDayElement][countItemInDropArea]  = childPrice;
         customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = discountAdultPrice;
         customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement][countItemInDropArea]  = 1;  
+        customPackageObject.realday[countDayElement][countItemInDropArea]  = 1;
 
         //console.log("Add item ("+countDayElement+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][countItemInDropArea]);
 
       }else if(tag == "ทัวร์ 2 วัน 1 คืน"){
 
-        customPackageObject.day[countDayElement][countItemInDropArea] = day;    
+        customPackageObject.day[countDayElement][countItemInDropArea] = day;
         customPackageObject.packagetype[countDayElement][countItemInDropArea] = packagetype;
         customPackageObject.packageId[countDayElement][countItemInDropArea]  = packageid
         customPackageObject.title[countDayElement][countItemInDropArea]  = title;
@@ -1218,12 +1218,12 @@
         customPackageObject.childPrice[countDayElement][countItemInDropArea]  = childPrice;
         customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = discountAdultPrice;
         customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement][countItemInDropArea]  = 2;  
+        customPackageObject.realday[countDayElement][countItemInDropArea]  = 2;
         //console.log("Add item ("+countDayElement+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][countItemInDropArea]);
 
 
 
-        customPackageObject.day[countDayElement+1] = new Array();  
+        customPackageObject.day[countDayElement+1] = new Array();
         customPackageObject.packagetype[countDayElement+1] = new Array();
         customPackageObject.packageId[countDayElement+1] = new Array();
         customPackageObject.title[countDayElement+1] = new Array();
@@ -1234,7 +1234,7 @@
         customPackageObject.discountChildPrice[countDayElement+1] = new Array();
         customPackageObject.realday[countDayElement+1] = new Array();
 
-        customPackageObject.day[countDayElement+1][countItemInDropArea] = day;    
+        customPackageObject.day[countDayElement+1][countItemInDropArea] = day;
         customPackageObject.packagetype[countDayElement+1][countItemInDropArea] = packagetype;
         customPackageObject.packageId[countDayElement+1][countItemInDropArea]  = packageid
         customPackageObject.title[countDayElement+1][countItemInDropArea]  = title;
@@ -1243,14 +1243,14 @@
         customPackageObject.childPrice[countDayElement+1][countItemInDropArea]  = childPrice;
         customPackageObject.discountAdultPrice[countDayElement+1][countItemInDropArea]  = discountAdultPrice;
         customPackageObject.discountChildPrice[countDayElement+1][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement+1][countItemInDropArea]  = 2;  
+        customPackageObject.realday[countDayElement+1][countItemInDropArea]  = 2;
         //console.log("Add item ("+(countDayElement+1)+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement+1][countItemInDropArea]);
-        
+
 
         addDate(itemHtml);
       }else if(tag == "ทัวร์ 3 วัน 2 คืน"){
 
-        customPackageObject.day[countDayElement][countItemInDropArea] = day;    
+        customPackageObject.day[countDayElement][countItemInDropArea] = day;
         customPackageObject.packagetype[countDayElement][countItemInDropArea] = packagetype;
         customPackageObject.packageId[countDayElement][countItemInDropArea]  = packageid
         customPackageObject.title[countDayElement][countItemInDropArea]  = title;
@@ -1259,11 +1259,11 @@
         customPackageObject.childPrice[countDayElement][countItemInDropArea]  = childPrice;
         customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = discountAdultPrice;
         customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement][countItemInDropArea]  = 3;  
+        customPackageObject.realday[countDayElement][countItemInDropArea]  = 3;
         //console.log("Add item ("+countDayElement+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][countItemInDropArea]);
 
 
-        customPackageObject.day[countDayElement+1] = new Array();  
+        customPackageObject.day[countDayElement+1] = new Array();
         customPackageObject.packagetype[countDayElement+1] = new Array();
         customPackageObject.packageId[countDayElement+1] = new Array();
         customPackageObject.title[countDayElement+1] = new Array();
@@ -1274,7 +1274,7 @@
         customPackageObject.discountChildPrice[countDayElement+1] = new Array();
         customPackageObject.realday[countDayElement+1] = new Array();
 
-        customPackageObject.day[countDayElement+1][countItemInDropArea] = day;    
+        customPackageObject.day[countDayElement+1][countItemInDropArea] = day;
         customPackageObject.packagetype[countDayElement+1][countItemInDropArea] = packagetype;
         customPackageObject.packageId[countDayElement+1][countItemInDropArea]  = packageid
         customPackageObject.title[countDayElement+1][countItemInDropArea]  = title;
@@ -1283,13 +1283,13 @@
         customPackageObject.childPrice[countDayElement+1][countItemInDropArea]  = childPrice;
         customPackageObject.discountAdultPrice[countDayElement+1][countItemInDropArea]  = discountAdultPrice;
         customPackageObject.discountChildPrice[countDayElement+1][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement+1][countItemInDropArea]  = 3;  
+        customPackageObject.realday[countDayElement+1][countItemInDropArea]  = 3;
         //console.log("Add item ("+(countDayElement+1)+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement+1][countItemInDropArea]);
 
 
 
 
-        customPackageObject.day[countDayElement+2] = new Array();  
+        customPackageObject.day[countDayElement+2] = new Array();
         customPackageObject.packagetype[countDayElement+2] = new Array();
         customPackageObject.packageId[countDayElement+2] = new Array();
         customPackageObject.title[countDayElement+2] = new Array();
@@ -1300,7 +1300,7 @@
         customPackageObject.discountChildPrice[countDayElement+2] = new Array();
         customPackageObject.realday[countDayElement+2] = new Array();
 
-        customPackageObject.day[countDayElement+2][countItemInDropArea] = day;    
+        customPackageObject.day[countDayElement+2][countItemInDropArea] = day;
         customPackageObject.packagetype[countDayElement+2][countItemInDropArea] = packagetype;
         customPackageObject.packageId[countDayElement+2][countItemInDropArea]  = packageid
         customPackageObject.title[countDayElement+2][countItemInDropArea]  = title;
@@ -1309,7 +1309,7 @@
         customPackageObject.childPrice[countDayElement+2][countItemInDropArea]  = childPrice;
         customPackageObject.discountAdultPrice[countDayElement+2][countItemInDropArea]  = discountAdultPrice;
         customPackageObject.discountChildPrice[countDayElement+2][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement+2][countItemInDropArea]  = 3;  
+        customPackageObject.realday[countDayElement+2][countItemInDropArea]  = 3;
         //console.log("Add item ("+(countDayElement+2)+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement+2][countItemInDropArea]);
 
 
@@ -1329,7 +1329,7 @@
       }else if(customPackageObject.day[countDayElement][0] == 0.5 ){
 
         //alert("Check : "+day);
-        if(customPackageObject.day[countDayElement][0] == 0.5 ){         
+        if(customPackageObject.day[countDayElement][0] == 0.5 ){
 
           //alert("current : "+day);
           //2D
@@ -1346,7 +1346,7 @@
 
 
 
-          customPackageObject.day[countDayElement][0] = day;    
+          customPackageObject.day[countDayElement][0] = day;
           customPackageObject.packagetype[countDayElement][0] = packagetype;
           customPackageObject.packageId[countDayElement][0]  = packageid
           customPackageObject.title[countDayElement][0]  = title;
@@ -1355,7 +1355,7 @@
           customPackageObject.childPrice[countDayElement][0]  = childPrice;
           customPackageObject.discountAdultPrice[countDayElement][0]  = discountAdultPrice;
           customPackageObject.discountChildPrice[countDayElement][0]  = discountChildPrice;
-          customPackageObject.realday[countDayElement][0]  = 0.5;  
+          customPackageObject.realday[countDayElement][0]  = 0.5;
           //console.log("Add item("+countDayElement+":"+0+")"+customPackageObject.day[countDayElement][0]);
 
 
@@ -1371,7 +1371,7 @@
           customPackageObject.discountChildPrice[countDayElement][1]  = new Array();
           customPackageObject.realday[countDayElement][1]  = new Array();
 
-          customPackageObject.day[countDayElement][1] = day;    
+          customPackageObject.day[countDayElement][1] = day;
           customPackageObject.packagetype[countDayElement][1]= packagetype;
           customPackageObject.packageId[countDayElement][1]  = packageid
           customPackageObject.title[countDayElement][1]  = title;
@@ -1380,11 +1380,11 @@
           customPackageObject.childPrice[countDayElement][1]  = childPrice;
           customPackageObject.discountAdultPrice[countDayElement][1] = discountAdultPrice;
           customPackageObject.discountChildPrice[countDayElement][1]  = discountChildPrice;
-          customPackageObject.realday[countDayElement][1] = 0.5;  
+          customPackageObject.realday[countDayElement][1] = 0.5;
           //console.log("Add item("+(countDayElement+1)+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][1]);
 
 
-          customPackageObject.day[countDayElement][0] = 1; 
+          customPackageObject.day[countDayElement][0] = 1;
           summaryDisplay();
         }else{
           //console.log("Equal 1");
@@ -1397,10 +1397,10 @@
       }
     }
 
-    
+
     //alert("item after:"+countItemInDropArea);
 
-  
+
     countItemInDropArea++;
 
   }
@@ -1445,7 +1445,7 @@
       html += item;
       html += '</li>';
       html += '</ul>';
-      html += '<a class="close tooltip_ne" title="ลบ"></div>';      
+      html += '<a class="close tooltip_ne" title="ลบ"></div>';
       $('.packet').append(html);
         $('.tooltip_ne').powerTip({placement: 'ne'});
       $(".packet_item").fadeIn("slow");
@@ -1475,12 +1475,12 @@
 
 
 
-    //customPackageObject.day[countDayElement] = new Array(); 
+    //customPackageObject.day[countDayElement] = new Array();
 
     //console.log("Add day : "+countDayDisplay);
     countItemInDropArea = 0;
-    countDay++;  
-    countDayDisplay++;    
+    countDay++;
+    countDayDisplay++;
     countDayElement++;
 
   }
@@ -1510,7 +1510,7 @@
     $(this).closest(".connected li").fadeOut(function () {
       $(this).prependTo(".connected.no2");
       $(this).fadeIn("slow");
-    }); 
+    });
 
     var packageid = $(this).attr('packageid');
 
@@ -1524,10 +1524,10 @@
     thisObj.closest(".connected li").fadeOut(function () {
       thisObj.prependTo(".connected.no2");
       thisObj.fadeIn("slow");
-    }); 
+    });
   }
 
-  function deletePackageItem(){    
+  function deletePackageItem(){
 
 
 
@@ -1551,14 +1551,14 @@
 
   function deleteDate(){
 
-    //console.log("delete day : "+countDayDisplay);   
-    //console.log("delete day value : "+customPackageObject.day[countDayElement]); 
-    delete customPackageObject.day[countDayElement][countItemInDropArea];   
+    //console.log("delete day : "+countDayDisplay);
+    //console.log("delete day value : "+customPackageObject.day[countDayElement]);
+    delete customPackageObject.day[countDayElement][countItemInDropArea];
     delete customPackageObject.day[countDayElement];
-    //console.log("after delete day value : "+customPackageObject.day[countDayElement]);   
+    //console.log("after delete day value : "+customPackageObject.day[countDayElement]);
 
-    countDay--;  
-    countDayDisplay--;    
+    countDay--;
+    countDayDisplay--;
     countDayElement--;
     summaryDisplay();
   }
@@ -1574,7 +1574,7 @@
               if (value == thing) { // or whatever your criterion
                   //results.push({row: row, col: col});
                   console.log("delete("+row+":"+col+"="+packageArray[row][col]+")");
-                  customPackageArray[row][col] = 0;                  
+                  customPackageArray[row][col] = 0;
               }
           }
       }
@@ -1600,18 +1600,18 @@
         if(customPackageObject.realday[i][j] == 2 || customPackageObject.realday[i][j] == 3){
           if(i==0){
             summaryAdultPrice += parseInt(customPackageObject.adultPrice[i][j]);
-            summaryChildPrice += parseInt(customPackageObject.childPrice[i][j]); 
+            summaryChildPrice += parseInt(customPackageObject.childPrice[i][j]);
           }
 
         }else{
           summaryAdultPrice += parseInt(customPackageObject.adultPrice[i][j]);
-          summaryChildPrice += parseInt(customPackageObject.childPrice[i][j]);          
+          summaryChildPrice += parseInt(customPackageObject.childPrice[i][j]);
         }
       }
-    }   
+    }
 
 
-    // 
+    //
     console.log("######## Summary Data ########");
     var summaryDay = parseInt(countDayElement)+1;
     var summaryNight = countDayElement;
@@ -1621,13 +1621,13 @@
     console.log("Summary child price : "+summaryChildPrice);
 
     $("#summary_day").text(summaryDay);
-    $("#summary_night").text(summaryNight);    
+    $("#summary_night").text(summaryNight);
 
     $("#summary_adult_price").text(addCommas(summaryAdultPrice));
-    $("#summary_child_price").text(addCommas(summaryChildPrice));  
+    $("#summary_child_price").text(addCommas(summaryChildPrice));
 
 
-    
+
 
   }
 
@@ -1661,7 +1661,7 @@ function addCommas(nStr){
 <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/jquery.easytabs.min.js'); ?>"></script>
 <script>
   // Tab
-  $(document).ready(function() { 
+  $(document).ready(function() {
     $('.tabs').easytabs({
       animate : true,
       updateHash : false,
