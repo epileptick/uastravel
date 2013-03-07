@@ -31,10 +31,6 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().
         <label for="description">Description</label>
         <input name="description" id="description" type="text" value="<?=$typeData[0]["description"]?>" size="40">
       </div>
-      <div class="form-field">
-        <label for="url">URL</label>
-        <input name="url" id="url" type="text" value="<?=$typeData[0]["url"]?>" size="40">
-      </div>
       
       <div class="form-field">
         <label for="parent_id">Parent</label>

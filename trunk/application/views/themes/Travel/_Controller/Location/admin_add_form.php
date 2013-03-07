@@ -12,7 +12,7 @@ PageUtil::addVar("javascript",'<script type="text/javascript">
 $(document).ready(function() {
   function autoSave(){
     setTimeout(
-    function() 
+    function()
       {
         //do something special
       },
@@ -28,7 +28,7 @@ $(document).ready(function() {
     }
   }
   updateImages();
-  function updateImages(){  
+  function updateImages(){
             $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:1 },
             function(data) {
               $("#side_bar_block_image").html(data).hide("slow").delay(200).show("slow");
@@ -44,7 +44,7 @@ $(document).ready(function() {
                 //$(this).delImg();
                 //console.log($(this).prop("href"));
                 $.post($(this).prop("href"), {},
-                  function(data) { 
+                  function(data) {
                     //console.log(data);
                     var data = jQuery.parseJSON(data);
                     //console.log(data);
@@ -54,22 +54,22 @@ $(document).ready(function() {
                   }
                 );
                 return false;
-                
+
               });
-              
+
       }
     );
 
   }
-  
+
   (function($){
       $.fn.addImg = function(){
           tinyMCE.execCommand(\'mceInsertContent\',false,\'<img src="\'+this.attr(\'src\')+\'"/>\');
       };
   })(jQuery);
-  
-  
-    
+
+
+
   //Uploader Control
   $("#btnShow").css("display", "block");
   $("#btnHide").css("display", "none");
@@ -79,14 +79,14 @@ $(document).ready(function() {
     $("#btnShow").css("display", "block");
     $("#btnHide").css("display", "none");
   });
-  
+
   $("#btnShow").click(function() {
     $("#uploader").show("slow");
     $("#btnShow").css("display", "none");
     $("#btnHide").css("display", "block");
     $("#btnHide").addClass("hide-button");
   });
-  
+
   $("#title").blur(function() {
     if($("#title").val() == "" ){
       return 0;
@@ -95,7 +95,7 @@ $(document).ready(function() {
     autoSave();
   });
 
-  
+
     tinyMCE.init({
         mode : "specific_textareas",
         editor_selector : "mceEditor",
@@ -105,8 +105,8 @@ $(document).ready(function() {
         //theme_advanced_buttons1 : "justifyleft,justifycenter,justifyright,justifyfull",
         //theme_advanced_buttons2: ",tablecontrols,|,images,youtube,|,bold,italic,underline,strikethrough,|,undo,redo,|,cut,copy,paste,|,code",
         theme_advanced_buttons1 : "fullscreen,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
-        
-        
+
+
         theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
         theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
         theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreakcut,|,copy,paste,pastetext,pasteword,|,image,youtube,|",
@@ -120,7 +120,7 @@ $(document).ready(function() {
         autoresize_on_init: true,
         autoresize_hide_scrollbars: false
     });
-    
+
     tinyMCE.init({
         mode : "specific_textareas",
         editor_selector : "mceEditor2",
@@ -130,8 +130,8 @@ $(document).ready(function() {
         theme_advanced_buttons1 : "justifyleft,justifycenter,justifyright,justifyfull,|,bold,italic,underline,strikethrough,|,bullist,numlist,",
         //theme_advanced_buttons2: "",
         //theme_advanced_buttons1 : "fullscreen,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
-        
-        
+
+
         //theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
         //theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
         //theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreakcut,|,copy,paste,pastetext,pasteword,|,image,youtube,|",
@@ -145,7 +145,7 @@ $(document).ready(function() {
         autoresize_hide_scrollbars: false
     });
 
-    
+
   function successHandler(data){
     console.log(data);
     var json = jQuery.parseJSON(data);
@@ -162,8 +162,8 @@ $(document).ready(function() {
     max_file_size : \'10mb\',
     chunk_size : \'1mb\',
     unique_names : true,
-    
-    
+
+
     // Resize images on clientside if we can
     //resize : {width : 320, height : 240, quality : 90},
 
@@ -178,7 +178,7 @@ $(document).ready(function() {
 
     // Silverlight settings
     silverlight_xap_url : \'/plupload/js/plupload.silverlight.xap\',
-    
+
     init : {
       FilesAdded: function(up, files) {
         autoSave();
@@ -187,7 +187,7 @@ $(document).ready(function() {
         // Called when the state of the queue is changed
         //log(\'[StateChanged]\', up.state == plupload.STARTED ? "STARTED" : "STOPPED");
         var uploader = $(\'#uploader\').pluploadQueue();
-        
+
         if(up.state == plupload.STOPPED){
           setTimeout(function() {
                 $( "#uploader" ).hide(\'slow\').delay(500).show(\'slow\');
@@ -198,16 +198,16 @@ $(document).ready(function() {
                 $(".plupload_upload_status").css("display", "none");
                 uploader.refresh();
           }, 100 );
-          
+
         }
       },
-      
+
       FileUploaded: function(up, file, info) {
         // Called when a file has finished uploading
         //log(\'[FileUploaded] File:\', file, "Info:", info);
         //console.log(info);
         plupload.each(info, function(value, key) {
-       
+
           if(key == "response"){
             var value = jQuery.parseJSON(value);
             if(value.result == "TRUE"){
@@ -215,27 +215,27 @@ $(document).ready(function() {
             }
           }
         });
-        
-       
+
+
         //$( "#side_bar_block_image" ).delay(100).fadeIn(1000);
-        
+
       }
     }
   });
-    
-  
+
+
 });
 
-  
+
 </script>');
 
 PageUtil::addVar("javascript",'
       <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
       <script type="text/javascript">
-      var geocoder = new google.maps.Geocoder();    
+      var geocoder = new google.maps.Geocoder();
       var markersArray = [];
-      var marker;    
-      
+      var marker;
+
       function geocodePosition(pos) {
         geocoder.geocode({
           latLng: pos
@@ -265,7 +265,7 @@ PageUtil::addVar("javascript",'
       }
 
       function initialize() {
-        
+
         var latLng = new google.maps.LatLng('.$post[0]['latitude'].','.$post[0]['longitude'].');
 
         var map = new google.maps.Map(document.getElementById(\'mapCanvas\'), {
@@ -274,79 +274,79 @@ PageUtil::addVar("javascript",'
           center: latLng,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
-        
-        
+
+
         marker = new google.maps.Marker({
           position: latLng,
           title: \'\',
           map: map,
           draggable: false
         });
-        
-        
-        markersArray.push(marker); 
+
+
+        markersArray.push(marker);
         google.maps.event.addListener(map, \'click\', function(e) {
           placeMarker(e.latLng, map);
         });
-        
+
         // Update current position info.
         updateMarkerPosition(latLng);
         geocodePosition(latLng);
-        
+
         /*
         // Add dragging event listeners.
         google.maps.event.addListener(marker, \'dragstart\', function() {
           updateMarkerAddress(\'Dragging...\');
         });
-        
+
         google.maps.event.addListener(marker, \'drag\', function() {
           updateMarkerStatus(\'Dragging...\');
           updateMarkerPosition(marker.getPosition());
         });
-        
+
         google.maps.event.addListener(marker, \'dragend\', function() {
           updateMarkerStatus(\'Drag ended\');
           geocodePosition(marker.getPosition());
         });
         */
       }
-      
+
       function placeMarker(position, map) {
-      
+
         //alert(position);
         //Clean marker point
         clearOverlays();
-        
+
         //Make new marker object
         marker = new google.maps.Marker({
           position: position,
           map: map
         });
-        
+
         //Add marker to array
-        markersArray.push(marker); 
-        
-        //Write marker to map       
+        markersArray.push(marker);
+
+        //Write marker to map
         map.panTo(position);
-        
-        updateMarkerAddress(\'Clicking...\'); 
-        
-        updateMarkerPosition(marker.getPosition()); 
-        
+
+        updateMarkerAddress(\'Clicking...\');
+
+        updateMarkerPosition(marker.getPosition());
+
         geocodePosition(marker.getPosition());
       }
-      
+
       function clearOverlays() {
         if (markersArray) {
           for (i in markersArray) {
             markersArray[i].setMap(null);
           }
         }
-      }        
+      }
 
       // Onload handler to fire off the app.
       google.maps.event.addDomListener(window, \'load\', initialize);
-      
+
       </script>
 ');
 ?>
@@ -355,17 +355,17 @@ PageUtil::addVar("javascript",'
 
   <!-- Blogpost -->
   <section class="blogpost grid_12">
-  
+
   <h2 class="section_heading text_big"><?=$this->lang->line("location_lang_add_post")?></h2>
   <div id="add_form">
   <div id="status"></div>
-  
+
   <?php echo form_open(base_url('admin/location/create'),'enctype="multipart/form-data"'); ?>
       <div class="half">
-        <label>&nbsp;&nbsp;language :</label> 
+        <label>&nbsp;&nbsp;language :</label>
         <select id="lang"  name="lang">
-          <?php 
-            
+          <?php
+
             if($this->lang->lang() == "en"){
           ?>
             <option value="th">thai</option>
@@ -379,7 +379,7 @@ PageUtil::addVar("javascript",'
             }
           ?>
         </select>
-      </div> <br>  
+      </div> <br>
   <input type="hidden" value="<?=$post[0]['id']?>" id="id" name="id" />
   <span id="fedfe"></span>
   <div class="topHolder">
@@ -418,7 +418,7 @@ PageUtil::addVar("javascript",'
       <hr class="dashed" />
     </div>
   </div>
-  
+
   <div id="add_form_right">
     <h2 class="text_big">{_ location_lang_configuration}</h2>
       <div class="side_bar_block">
@@ -431,7 +431,7 @@ PageUtil::addVar("javascript",'
         <span id="btnHide"  class="upload-button" onClick="return(false);"></span>
         <span id="btnShow"  class="upload-button" onClick="return(false);">Show</span>
       </div>
-      
+
       <div class="side_bar_block">
         <p>First Image (Minimum width: 300px)</p>
         <?php
@@ -446,8 +446,8 @@ PageUtil::addVar("javascript",'
           echo form_upload('banner_image', '', 'class="form_input"');
         ?>
       </div>
-      
-      
+
+
       <div class="side_bar_block">
         <h3 class="tag">{_ location_lang_tag} <span style="cursor:pointer;"  id="show_all">show all</span></h3>
           <textarea id="textarea" name="jquerytag" class="example" rows="1" style="width: 250px;"></textarea>
@@ -455,11 +455,11 @@ PageUtil::addVar("javascript",'
             //Rewrite tag value
             $(document).ready(function(){
               $("#save").live('click', function() {
-                $("#tags").val($("#jquerytag").val());          
+                $("#tags").val($("#jquerytag").val());
               });
             });
           </script>
-          <input type="hidden"id="tags" name="tags" value="">  
+          <input type="hidden"id="tags" name="tags" value="">
           <br>
           <span id="show_all_result">
             <?php
@@ -469,22 +469,22 @@ PageUtil::addVar("javascript",'
               foreach ($tag as $key => $value) {
                 # code...
                 if($count == count($tag)){
-                ?>  
+                ?>
                   <font color='6182E6'>
-                    <span   style="cursor:pointer;" 
+                    <span   style="cursor:pointer;"
                         onClick="this.style.color='red'"
                           id='addtag<?php echo $count; ?>'
-                      ><?php echo $value->name; ?></span>
+                      ><?php echo $value["name"]; ?></span>
                     </font>
-                <?php           
-                }else{          
-                ?>  
-                  <font color='6182E6'><span  style="cursor:pointer; " 
+                <?php
+                }else{
+                ?>
+                  <font color='6182E6'><span  style="cursor:pointer; "
                         onClick="this.style.color='red'"
                           id='addtag<?php echo $count; ?>'
-                      ><?php echo $value->name; ?></span>
-                    </font>,          
-                <?php 
+                      ><?php echo $value["name"]; ?></span>
+                    </font>,
+                <?php
                 }
                 $count++;
               }
@@ -494,7 +494,7 @@ PageUtil::addVar("javascript",'
 
    <script type="text/javascript">
 
-      //Start update tag 
+      //Start update tag
       $('#textarea')
         .textext({
           plugins : 'tags autocomplete'
@@ -503,10 +503,10 @@ PageUtil::addVar("javascript",'
             if(isset($tag_query)){
           ?>
 
-            ,tagsItems : [  <?php  
+            ,tagsItems : [  <?php
                       foreach ($tag_query as $key => $value) {
-                        if(!empty($value->name)){
-                          echo "'".$value->name."',";
+                        if(!empty($value["name"])){
+                          echo "'".$value["name"]."',";
                         }
                       }
                     ?>
@@ -525,8 +525,8 @@ PageUtil::addVar("javascript",'
             var query = (data ? data.query : '') || '';
 
             validate = textext.itemManager().filter(list, query)
-            
-            //Show suggestion list 
+
+            //Show suggestion list
             $(this).trigger(
               'setSuggestions',
               { result : validate }
@@ -538,14 +538,14 @@ PageUtil::addVar("javascript",'
             var query = (data ? data.query : '') || '';
 
             validate = textext.itemManager().filter(list, query)
-          
-            //Show suggestion list 
+
+            //Show suggestion list
             $(this).trigger(
               'setSuggestions',
               { result : validate }
             );
 
-          }         
+          }
         }).bind('tagClick', function(e, tag, value, callback){
           var newValue = window.prompt('New value', value);
 
@@ -558,23 +558,23 @@ PageUtil::addVar("javascript",'
       function tagSearch(str) {
 
         var url ="<?php echo base_url('/tag/jssearch');?>/"+str;
-        var response = $.ajax({ type: "GET",   
-                                url: url,   
+        var response = $.ajax({ type: "GET",
+                                url: url,
                                 async: false
                               }).responseText;
 
         var list = response.split(/,/);
 
         return list;
-      } 
+      }
 
 
-      //Function display tag 
+      //Function display tag
       $("#show_all_result").hide();
       $("#show_all").click(function () {
         $("#show_all_result").toggle("slow");
-      }); 
-    </script>   
+      });
+    </script>
           <?php
 
             //echo $tag;
@@ -589,8 +589,8 @@ PageUtil::addVar("javascript",'
                       //alert($('#addtag<?php echo $count; ?>').text());
                           $('#textarea').textext()[0].tags().addTags([ $('#addtag<?php echo $count; ?>').text() ]);
                       });
-                  </script> 
-                <?php     
+                  </script>
+                <?php
                   $count++;
                 }
               }

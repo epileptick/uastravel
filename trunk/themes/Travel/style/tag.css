@@ -1,0 +1,44 @@
+input, .textarea {
+	width: 90%;
+	height: 26px;
+	margin-bottom: 8px;
+	margin-top: 8px;
+	border: 1px;
+	background-color: #fff;
+	-moz-box-shadow: inset 0px 1px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	padding: 7px 5px 6px 5px;
+	color: #999;
+	font-family: "PT Sans", sans-serif;
+	font-size: 14px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;.
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+table {
+	font-size: 14px;
+}
+
+td span {
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+	display: block;
+	text-align: center;
+	height: 26px;
+}
+
+tr:nth-child(even) {background: rgb(247, 247, 247);}
+tr:nth-child(odd) {background: #FFF;}
+
+tr:hover {
+	background: #FDA352;
+}

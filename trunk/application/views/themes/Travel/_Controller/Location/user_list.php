@@ -6,20 +6,20 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 
-<?php 
+<?php
   //Check class
   if($this->uri->segment(1) == $this->router->class){
     $index = 1;
-    //echo $index; 
+    //echo $index;
   }else if($this->uri->segment(2) == $this->router->class){
     $index = 2;
-    //echo $index; 
+    //echo $index;
   }
 
   //Title
-  $title = "สถานที่ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index));  
-  $keyword = $title.", แพคเกจทัวร์".str_replace("-", " ",$this->uri->segment(1+$index)).", ทัวร์".str_replace("-", " ",$this->uri->segment(1+$index)).", เที่ยวไทย".str_replace("-", " ",$this->uri->segment(1+$index)).", ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index)).", ที่ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index)).", ท่องเที่ยวไทย".str_replace("-", " ",$this->uri->segment(1+$index)).", เที่ยวทั่วไทย".str_replace("-", " ",$this->uri->segment(1+$index));   
-?> 
+  $title = "สถานที่ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index));
+  $keyword = $title.", แพคเกจทัวร์".str_replace("-", " ",$this->uri->segment(1+$index)).", ทัวร์".str_replace("-", " ",$this->uri->segment(1+$index)).", เที่ยวไทย".str_replace("-", " ",$this->uri->segment(1+$index)).", ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index)).", ที่ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index)).", ท่องเที่ยวไทย".str_replace("-", " ",$this->uri->segment(1+$index)).", เที่ยวทั่วไทย".str_replace("-", " ",$this->uri->segment(1+$index));
+?>
 
   <title><?php echo trim($title); ?> - U As Travel</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -85,7 +85,7 @@
                     <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
                     <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
                     <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
-                  </ul>                
+                  </ul>
                 </li>
                 <li>
                   <a>แพ๊คเกจทัวร์อื่นๆ <span class="arrow_menu"></span></a>
@@ -93,8 +93,8 @@
                     <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
                     <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
                     <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
-                  </ul>                
-                </li> 
+                  </ul>
+                </li>
                 <li>
                   <a>การเดินทาง <span class="arrow_menu"></span></a>
                   <ul class="sub-menu">
@@ -102,18 +102,18 @@
                     <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
                     <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
                     <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
-                  </ul>                
-                </li> 
+                  </ul>
+                </li>
                 <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                 <!-- li>
                   <a>ที่พัก <span class="arrow_menu"></span></a>
                   <ul class="sub-menu">
                     <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                     <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
-                  </ul>                
+                  </ul>
                 </li -->
                 <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
-                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>    
+                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
               </ul><!-- End accordion -->
             </nav>
             <div class="social">
@@ -163,14 +163,14 @@
                             <?php
                             }
                             ?>
-                            
+
                             <?php
                               if(!empty($menu))
                               foreach ($menu as $key => $value) {
                             ?>
                               <li>
-                                <a href="<?php echo base_url("location/".$value->url);?>" 
-                                  <?php  
+                                <a href="<?php echo base_url("location/".$value->url);?>"
+                                  <?php
                                     if($value->select == 1){
                                       echo "class='selected'";
                                     }else{
@@ -181,17 +181,17 @@
                                   <?php echo $value->name; ?>
                                 </a>
                               </li>
-                            <?php                                                     
+                            <?php
                               }
                             ?>
                           </ul>
                         </div>
-                        <form name="input" action="<?php echo base_url('location/search'); ?>" method="post" class="navbar-form pull-right form_search" id="search-form"> 
+                        <form name="input" action="<?php echo base_url('location/search'); ?>" method="post" class="navbar-form pull-right form_search" id="search-form">
                           <select name="select" id="selectsearch">
                             <option value="tour">แพคเกจทัวร์</option>
                             <option value="location">สถานที่ท่องเที่ยว</option>
                           </select>
-                          <div class="input_search"> 
+                          <div class="input_search">
                             <input type="text" name="search" class="text_search"
                                    value="<?php echo (!empty($search))?$search:"";?>"
                             >
@@ -205,7 +205,7 @@
 
 
         <?php
-        if(!empty($location)){        
+        if(!empty($location)){
 
           //print_r($location); exit;
         ?>
@@ -221,11 +221,11 @@
                         ?>
                           <div class="list_attractions" data-category="transition">
                             <!-- div class="sticker new">New</div -->
-                            <a href="<?php echo base_url('location/'.$value['location']->loc_url.'-'.$value['location']->loc_id);?>" target="_blank" >
+                            <a href="<?php echo base_url('location/'.$value['location']["url"].'-'.$value['location']["loc_id"]);?>" target="_blank" >
                               <?php
-                                if($value['location']->loc_first_image){
+                                if($value['location']["first_image"]){
                               ?>
-                                  <img src="<?php echo $value['location']->loc_first_image;?>">
+                                  <img src="<?php echo $value['location']["first_image"];?>">
                               <?php
                                 }
                               ?>
@@ -234,8 +234,8 @@
                             <div class="row-fluid">
                               <div class="span8">
                                 <h3>
-                                  <a href="<?php echo base_url('location/'.$value['location']->loc_url.'-'.$value['location']->loc_id);?>" target="_blank" >
-                                  <?php echo $value['location']->loc_title; ?>
+                                  <a href="<?php echo base_url('location/'.$value['location']["url"].'-'.$value['location']["loc_id"]);?>" target="_blank" >
+                                  <?php echo $value['location']["title"]; ?>
                                   </a>
                                 </h3>
                               </div>
@@ -261,13 +261,13 @@
                                     //print_r($value["tag"]); exit;
                                     foreach ($value["tag"] as $keyTag => $valueTag) {
                                   ?>
-                                  <a href="<?php echo base_url('tour/'.$valueTag->tag_url);?>" style="color: #0CACE1;">
-                                    <?php echo $valueTag->tag_name; ?>
+                                  <a href="<?php echo base_url('tour/'.$valueTag["url"]);?>" style="color: #0CACE1;">
+                                    <?php echo $valueTag["name"]; ?>
                                   </a>
                                   <?php
                                     }
                                   ?>
-                                  
+
                                 </span>
                                 <span class="icon  tag_icon"></span>
                               </div>
@@ -275,10 +275,10 @@
                           </div>
 
                       <?php
-                          }//End loop tour 
+                          }//End loop tour
                       ?>
-                    
-                  
+
+
 
                       <nav id="page_nav">
                         <a href="<?php echo base_url(uri_string().'/2');?>"></a>
@@ -299,12 +299,12 @@
             ไม่พบข้อมูลที่ท่านต้องการ
           </font>
           <center>
-        
+
         <?php
         }
         //End check tour
         ?>
-            
+
             </div>
           </div><!--/content-->
         </div>
@@ -334,7 +334,7 @@
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/function.js');?>"></script>
 
 
-    <!-- To top scrollbar  -->  
+    <!-- To top scrollbar  -->
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/easing.js');?>" type="text/javascript"></script>
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/jquery.ui.totop.js');?>" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/css/ui.totop.css');?>" />

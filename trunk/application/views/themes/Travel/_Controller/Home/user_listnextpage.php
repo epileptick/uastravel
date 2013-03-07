@@ -13,16 +13,16 @@
       ?>
             <div class="sticker_status">
               <div class="sticker price">
-                <?php  
+                <?php
                   echo number_format($value["price"]->pri_sale_adult_price, 0);
                 ?>
                 บาท
-              </div> 
-            </div>                                 
-      <?php                                    
+              </div>
+            </div>
+      <?php
           }
       ?>
-      <?php 
+      <?php
         if(isset($value["tour"]->tou_url)){
       ?>
           <a href="<?php echo base_url('tour/'.$value["tour"]->tou_url.'-'.$value["tour"]->tou_id);?>" target="_blank" >
@@ -32,7 +32,7 @@
           <a href="<?php echo base_url('location/'.$value["location"]->loc_url.'-'.$value["location"]->loc_id);?>" target="_blank" >
       <?php
         }
-      ?>  
+      ?>
         <?php
           if(!empty($value["tour"]->tou_first_image)){
         ?>
@@ -54,13 +54,13 @@
             <div class="promotion style2">
               <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">-->
               <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th2.png');?>">
-              <p>จาก 
+              <p>จาก
                 <span>
                   <?php
                     echo number_format($value["price"]->pri_sale_adult_price);
                   ?>
-                </span>  ลดเหลือ 
-                <span class="reduce_price"> 
+                </span>  ลดเหลือ
+                <span class="reduce_price">
                   <?php
                     echo number_format($value["price"]->pri_discount_adult_price, 0);
                   ?>
@@ -78,7 +78,7 @@
       <div class="row-fluid">
         <div class="span8">
           <h3>
-            <?php 
+            <?php
               if(isset($value["tour"]->tou_url)){
             ?>
                 <a href="<?php echo base_url('tour/'.$value["tour"]->tou_url.'-'.$value["tour"]->tou_id);?>" target="_blank" >
@@ -88,15 +88,15 @@
                 <a href="<?php echo base_url('location/'.$value["location"]->loc_url.'-'.$value["location"]->loc_id);?>" target="_blank" >
             <?php
               }
-            ?>  
-            <?php 
+            ?>
+            <?php
               if(isset($value["tour"]->tou_name)){
                 echo $value["tour"]->tou_name;
               }else if(isset($value["location"]->loc_title)){
                 echo $value["location"]->loc_title;
               }
-            ?>  
-            </a>                                
+            ?>
+            </a>
           </h3>
         </div>
         <div class="span4">
@@ -111,7 +111,7 @@
       <div class="border"></div>
       <div class="row-fluid">
         <div class="span7">
-        <?php 
+        <?php
             if(isset($value["tour"]->tou_name)){
           ?>
             <div class="icon tour" rel="tooltip" title="แพ็กเก็จทัวร์"></div>
@@ -125,7 +125,7 @@
             <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
         <?php
             }
-        ?> 
+        ?>
         </div>
         <div class="span5">
           <span class="tag">
@@ -133,8 +133,8 @@
                 //print_r($value["tag"]); exit;
                 foreach ($value["tag"] as $keyTag => $valueTag) {
               ?>
-              <a href="<?php echo base_url('tour/'.$valueTag->tag_url);?>" style="color: #0CACE1;">
-                <?php echo $valueTag->tag_name; ?>
+              <a href="<?php echo base_url('tour/'.$valueTag["url"]);?>" style="color: #0CACE1;">
+                <?php echo $valueTag["name"]; ?>
               </a>
               <?php
                 }
@@ -148,7 +148,7 @@
 
 <?php
     }
-  }//End loop tour 
+  }//End loop tour
 ?>
 
 <?php include_once("themes/Travel/tour/analyticstracking.php") ?>

@@ -10,24 +10,71 @@ class TagType_model extends MY_Model {
                      //'parent_id'         => 'tty_parent_id',
                      'index'             => 'tty_index'
     );
+    $this->_join_column = array(
+                     'tag_id'            => 'tagt_tag_id',
+                     'lang'              => 'tagt_lang',
+                     'name'              => 'tagt_name',
+                     'url'               => 'tagt_url'
+    );
   }
- 
+
+  function get($options = NULL){
+    if(is_numeric($options)){
+      $this->load->model("tag_translate_model","tagTranslateModel");
+      $where = array("where"=>array("tag_id"=>$options,"lang"=>$this->lang->lang()));
+      if($this->tagTranslateModel->count_rows($where)){
+        $this->db->where($this->_join_column["lang"],$this->lang->lang());
+      }
+    }
+    $this->db->join("ci_tag_translate","ci_tag_translate.tagt_tag_id = ci_tagtype.tty_tag_id");
+    $mainTable = parent::get($options);
+    if(empty($mainTable) AND (!empty($options["lang"]) OR !empty($options["where"]["lang"]))){
+      unset($options["lang"]);
+      unset($options["where"]["lang"]);
+      $mainTable =  $this->get($options);
+    }
+    return $mainTable;
+  }
+
+  function getTagTypeList($options = NULL){
+    $options["where"]["lang"] = $this->lang->lang();
+    $result = $this->get($options);
+    unset($options["where"]["lang"]);
+    $resultAll = $this->get($options);
+
+    if(empty($result)){
+      return $resultAll;
+    }
+
+    foreach ($resultAll as $keyAll => $valueAll) {
+      foreach ($result as $key => $value) {
+        if($valueAll["tag_id"] == $value["tag_id"]){
+          unset($resultAll[$keyAll]);
+        }
+      }
+    }
+    if(empty($resultAll)){
+      return $result;
+    }
+    return array_merge($result,$resultAll);
+  }
+
   function mapField($result){
-    
+
     foreach ($result as $key => $value) {
       $data = new stdClass();
       foreach ($value as $keyField => $valueFiled) {
         $keyExplode = explode("_", $keyField, 2);
         $newkey = $keyExplode[1];
 
-        $data->$newkey = $valueFiled; 
+        $data->$newkey = $valueFiled;
       }
-      $newResult[] = $data;      
+      $newResult[] = $data;
     }
 
     return $newResult;
   }
-  
+
   function getRecord($args=false){
     //print_r($args); exit;
 
@@ -36,7 +83,7 @@ class TagType_model extends MY_Model {
 
       $data["tty_parent_id"] = 0;
       $data["tty_type_id"] = $args["type_id"];
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
       $query = $this->db->get_where('ci_tagtype', $data);
 
       //echo $this->db->last_query(); exit;
@@ -51,7 +98,7 @@ class TagType_model extends MY_Model {
 
       $data["tty_tag_id"] = $args["tag_id"];
       $data["tty_type_id"] = $args["type_id"];
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
       $query = $this->db->get_where('ci_tagtype', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -62,7 +109,7 @@ class TagType_model extends MY_Model {
     }else if(isset($args["tag_id"])){
       //Get category by name
 
-      $data["tty_tag_id"] = $args["tag_id"];      
+      $data["tty_tag_id"] = $args["tag_id"];
       $query = $this->db->get_where('ci_tagtype', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -74,8 +121,8 @@ class TagType_model extends MY_Model {
       //Get category by name
       $data["tty_type_id"] = $args["type_id"];
 
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');         
-      $this->db->order_by('tty_index ASC'); 
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
+      $this->db->order_by('tty_index ASC');
       $query = $this->db->get_where('ci_tagtype', $data);
           //print_r($query->result()); exit;
       if($query->num_rows > 0){
@@ -87,12 +134,12 @@ class TagType_model extends MY_Model {
     }else if(isset($args["parent_id"])){
       /*
       $parent["parent_id"] = $args["parent_id"];
-      $this->load->model("type_model", "typeModel");   
-      $tagtypeQuery = $this->tagtypeModel->getRecord($parent);  
+      $this->load->model("type_model", "typeModel");
+      $tagtypeQuery = $this->tagtypeModel->getRecord($parent);
       */
       //Get category by name
       $parent["tty_parent_id"] = $args["parent_id"];
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
       $query = $this->db->get_where('ci_tagtype', $parent);
       //echo $this->db->last_query(); exit;
       if($query->num_rows > 0){
@@ -102,7 +149,7 @@ class TagType_model extends MY_Model {
         return false;
       }
     }else if(isset($args["id"])){
-      //Get category by id      
+      //Get category by id
       $query = $this->db->get_where('ci_tagtype', array('tty_id' => $args["id"]), 1, 0);
 
       if($query->num_rows > 0){
@@ -121,13 +168,13 @@ class TagType_model extends MY_Model {
       }else{
         return false;
       }
-    }    
+    }
 
   }
 
 
 
-  
+
   function getCustomTourRecord($args=false){
     //print_r($args); exit;
 
@@ -136,7 +183,7 @@ class TagType_model extends MY_Model {
 
       $data["tty_parent_id"] = 0;
       $data["tty_type_id"] = $args["type_id"];
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
       $query = $this->db->get_where('ci_tagtype', $data);
 
       //echo $this->db->last_query(); exit;
@@ -151,7 +198,7 @@ class TagType_model extends MY_Model {
 
       $data["tty_parent_id"] = $args["parent_id"];
       $data["tty_type_id"] = $args["type_id"];
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
       $query = $this->db->get_where('ci_tagtype', $data);
 
       //echo $this->db->last_query(); exit;
@@ -166,7 +213,7 @@ class TagType_model extends MY_Model {
 
       $data["tty_tag_id"] = $args["tag_id"];
       $data["tty_type_id"] = $args["type_id"];
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
       $query = $this->db->get_where('ci_tagtype', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -177,7 +224,7 @@ class TagType_model extends MY_Model {
     }else if(isset($args["tag_id"])){
       //Get category by name
 
-      $data["tty_tag_id"] = $args["tag_id"];      
+      $data["tty_tag_id"] = $args["tag_id"];
       $query = $this->db->get_where('ci_tagtype', $data);
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
@@ -189,8 +236,8 @@ class TagType_model extends MY_Model {
       //Get category by name
       $data["tty_type_id"] = $args["type_id"];
 
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');         
-      $this->db->order_by('tty_index ASC'); 
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
+      $this->db->order_by('tty_index ASC');
       $query = $this->db->get_where('ci_tagtype', $data);
           //print_r($query->result()); exit;
       if($query->num_rows > 0){
@@ -202,12 +249,12 @@ class TagType_model extends MY_Model {
     }else if(isset($args["parent_id"])){
       /*
       $parent["parent_id"] = $args["parent_id"];
-      $this->load->model("type_model", "typeModel");   
-      $tagtypeQuery = $this->tagtypeModel->getRecord($parent);  
+      $this->load->model("type_model", "typeModel");
+      $tagtypeQuery = $this->tagtypeModel->getRecord($parent);
       */
       //Get category by name
       $parent["tty_parent_id"] = $args["parent_id"];
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');      
+      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
       $query = $this->db->get_where('ci_tagtype', $parent);
       //echo $this->db->last_query(); exit;
       if($query->num_rows > 0){
@@ -217,7 +264,7 @@ class TagType_model extends MY_Model {
         return false;
       }
     }else if(isset($args["id"])){
-      //Get category by id      
+      //Get category by id
       $query = $this->db->get_where('ci_tagtype', array('tty_id' => $args["id"]), 1, 0);
 
       if($query->num_rows > 0){
@@ -236,7 +283,7 @@ class TagType_model extends MY_Model {
       }else{
         return false;
       }
-    }    
+    }
   }
 
 
@@ -247,8 +294,8 @@ class TagType_model extends MY_Model {
 
     //$this->db->where('tty_parent_id', $args["parent_id"]);
     $this->db->where_in('ci_tagtype.tty_parent_id', $args["where_in"]);
-    $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id'); 
-    $this->db->group_by('ci_tagtype.tty_tag_id');  
+    $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
+    $this->db->group_by('ci_tagtype.tty_tag_id');
     $query = $this->db->get('ci_tagtype');
     //echo $this->db->last_query(); exit;
 
@@ -257,7 +304,7 @@ class TagType_model extends MY_Model {
       return $newResult;
     }else{
       return false;
-    }    
+    }
   }
 
   function getRecordByTypeAndParent($args){
@@ -265,8 +312,8 @@ class TagType_model extends MY_Model {
 
     $this->db->where('tty_type_id', $args["type_id"]);
     $this->db->where('tty_parent_id', $args["parent_id"]);
-    $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id'); 
-    $this->db->group_by('ci_tagtype.tty_tag_id');  
+    $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
+    $this->db->group_by('ci_tagtype.tty_tag_id');
     $query = $this->db->get('ci_tagtype');
     //echo $this->db->last_query(); exit;
 
@@ -275,7 +322,7 @@ class TagType_model extends MY_Model {
       return $newResult;
     }else{
       return false;
-    }    
+    }
   }
 
   function addRecord($data=false){
@@ -284,20 +331,20 @@ class TagType_model extends MY_Model {
       //Set data
       foreach($data AS $columnName=>$columnValue){
         if(array_key_exists($columnName, $this->_column)){
-          $this->db->set($this->_column[$columnName], $columnValue); 
+          $this->db->set($this->_column[$columnName], $columnValue);
         }
       }
       $this->db->insert($this->_table);
 
       return $this->db->insert_id();
     }
-    
+
     return ;
   }
-  
 
 
- 
+
+
   function addMultipleRecord($args=false){
 
    //print_r($args); exit;
@@ -307,7 +354,7 @@ class TagType_model extends MY_Model {
       $count = 0;
       $tag = false;
       foreach ($args as $key => $value) {
-          $tagInsertID = $this->addRecord($value);  
+          $tagInsertID = $this->addRecord($value);
           //$tag[$count]->id = $tagInsertID;
           //$tag[$count]->name = $tagInput["name"];
          $count++;
@@ -317,8 +364,8 @@ class TagType_model extends MY_Model {
       return ;
     }
 
-    
-  }   
+
+  }
 
 
 /*
@@ -330,14 +377,14 @@ class TagType_model extends MY_Model {
       //Set data
       foreach($data AS $columnName=>$columnValue){
         if(array_key_exists($columnName, $this->_column)){
-          $this->db->set($this->_column[$columnName], $columnValue); 
+          $this->db->set($this->_column[$columnName], $columnValue);
         }
       }
       //$query = $this->db->where("agt_agency_id", $data["agency_id"]);
       $query = $this->db->where("tal_location_id", $data["location_id"]);
       $query = $this->db->update("ci_taglocation");
     }
-    
+
     return ;
   }
 */
@@ -349,9 +396,9 @@ class TagType_model extends MY_Model {
     $query = $this->getRecord($taglocation);
 
     //Get tag by tagname
-    $tags = str_replace('[', '', $args["tags"]);  
-    $tags = str_replace(']', '', $tags);      
-    $tags = str_replace('"', '', $tags);  
+    $tags = str_replace('[', '', $args["tags"]);
+    $tags = str_replace(']', '', $tags);
+    $tags = str_replace('"', '', $tags);
     $tags = explode(",",  $tags);
     $tags = array_unique($tags);
     $this->load->model("tag_model", "tagModel");
@@ -365,7 +412,7 @@ class TagType_model extends MY_Model {
         $input[$count]->id = $this->tagModel->addRecord($tag);
         $input[$count]->name = $tag["name"];
       }else{
-        $input[$count] = $tagQuery[0];   
+        $input[$count] = $tagQuery[0];
       }
       $count++;
     }
@@ -395,7 +442,7 @@ class TagType_model extends MY_Model {
 
         foreach ($input as $keyInput => $valueInput) {
             //echo "Input : ".$valueInput->id;
-            //echo "<br><br>";            
+            //echo "<br><br>";
             if($valueQuery->tag_id == $valueInput->id){
                 $update = true;
                 $updateData = $valueInput;
@@ -405,19 +452,19 @@ class TagType_model extends MY_Model {
         if($update){
             //Update
             $updateArray[$updateCount] = $updateData;
-            $updateCount++;  
-            $update = false;  
+            $updateCount++;
+            $update = false;
         }else{
             //Delete
             $deleteArray[$deleteCount] = $valueQuery;
-            $deleteCount++; 
-        }     
+            $deleteCount++;
+        }
     }
 
 
     //Loop check insert
     foreach ($input as $keyInput => $valueInput) {
-        foreach ($query as $keyQuery => $valueQuery) {          
+        foreach ($query as $keyQuery => $valueQuery) {
             if($valueInput->id == $valueQuery->tag_id){
                 $insert = true;
                 //$insertData = $valueInput;
@@ -426,18 +473,18 @@ class TagType_model extends MY_Model {
 
         //Insert
         if($insert){
-            $insert = false;  
+            $insert = false;
         }else{
             $insertArray[$insertCount] = $valueInput;
             $insertTagLocation[$insertCount]["tag_id"] = $valueInput->id;
             $insertTagLocation[$insertCount]["type_id"] = $args["id"];
-            $insertCount++; 
-        }     
+            $insertCount++;
+        }
     }
     //return $updateArray;
 
 
- 
+
 
     if(!empty($insertTagLocation)){
       $this->addMultipleRecord($insertTagLocation);
@@ -452,16 +499,16 @@ class TagType_model extends MY_Model {
 
     }
     //exit;
-  /*  
+  /*
       echo "Update : ";
       echo "<br><br>";
       print_r($updateArray);
       echo "<br><br>";
-    
+
     exit;
-     */   
+     */
     return ;
-  }  
+  }
   function deleteRecord($args=false){
     if(isset($args["id"])){
       $this->db->where("tty_id", $args["id"]);

@@ -14,12 +14,8 @@ class Tag_translate_model extends MY_Model {
   }
    
   function add($options = NULL){
-    
     if(empty($options)){
       return FALSE;
-    }
-    if(empty($options["lang"])){
-      $this->db->set($this->_getColumn("lang"), $this->lang->lang()); 
     }
     if(parent::add($options) === FALSE){
       return FALSE;
@@ -27,6 +23,40 @@ class Tag_translate_model extends MY_Model {
       return $options["tag_id"];
     }
     
+  }
+
+  function updateLang($options = NULL){
+    if(empty($options)){
+      return FALSE;
+    }
+    if(empty($options["where"])){
+      return FALSE;
+    }
+    if(empty($options["set"])){
+      return FALSE;
+    }
+    if(empty($options["set"]["name"])){
+      return FALSE;
+    }
+
+    $this->db->where($this->_getColumn("tag_id"),$options["where"]["tag_id"]);
+    $this->db->where($this->_getColumn("lang"),$options["where"]["lang"]);
+
+    if ($this->db->count_all_results($this->_table) == 0) {
+      $this->db->set($this->_getColumn("lang"),$options["where"]["lang"]);
+      $this->db->set($this->_getColumn("tag_id"),$options["where"]["tag_id"]);
+      $this->db->set($this->_getColumn("name"),$options["set"]["name"]);
+      $this->db->set($this->_getColumn("url"),Util::url_title($options["set"]["name"]));
+      $result = $this->db->insert($this->_table);
+    }else{
+
+      $this->db->where($this->_getColumn("tag_id"),$options["where"]["tag_id"]);
+      $this->db->where($this->_getColumn("lang"),$options["where"]["lang"]);
+      $this->db->set($this->_getColumn("name"),$options["set"]["name"]);
+      $this->db->set($this->_getColumn("url"),Util::url_title($options["set"]["name"]));
+      $result = $this->db->update($this->_table);
+    }
+    return $result;
   }
 }
 ?>

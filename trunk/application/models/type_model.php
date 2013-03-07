@@ -5,28 +5,23 @@ class Type_model extends MY_Model {
     $this->_prefix = "typ";
     $this->_column = array(
                      'id'             => 'typ_id',
-                     'lang'           => 'typ_lang',
                      'name'           => 'typ_name',
                      'parent_id'      => 'typ_parent_id',
                      'description'    => 'typ_description',
-                     'url'            => 'typ_url',
                      'status'         => 'typ_status'
     );
   }
   
   function mapField($result){
-    
     foreach ($result as $key => $value) {
       $data = new stdClass();
       foreach ($value as $keyField => $valueFiled) {
         $keyExplode = explode("_", $keyField, 2);
         $newkey = $keyExplode[1];
-
         $data->$newkey = $valueFiled; 
       }
       $newResult[] = $data;      
     }
-
     return $newResult;
   }
   
