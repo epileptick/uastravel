@@ -995,7 +995,7 @@ ul.menu_footer li a:hover{
 
 .price{
 	float: right;
-	font-size: 16px;
+	font-size: 20px;
 	margin: -5px 5px 0 0;
 	line-height: 30px;
 	letter-spacing: -1px;
@@ -1003,10 +1003,11 @@ ul.menu_footer li a:hover{
 	text-align: right;
 }
 .price span{
-	display: inline-block;
-	color: #0cace1;
+	color: #FE5214;
 	text-align: right;
 	letter-spacing: 0px;
+	font-size: 20px;
+
 }
 .icon{
 	float: left;
