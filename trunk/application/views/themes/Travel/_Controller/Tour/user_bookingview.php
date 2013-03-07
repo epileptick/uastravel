@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -556,13 +553,19 @@
                   <h5>
 
                   <?php 
-                    $child_sale = $value->tob_total_child_price;
-                    $amount_child = $value->tob_child_amount_booking;
-                    $total_price_child = $child_sale / $amount_child;
+                    if($value->tob_child_amount_booking > 0){
+                      $child_sale = $value->tob_total_child_price;
+                      $amount_child = $value->tob_child_amount_booking;
+                      $total_price_child = $child_sale / $amount_child;
+
+                     echo number_format($value->tob_total_child_price, 0)."บาท";
+                     echo "(".number_format($total_price_child, 0)."x".$value->tob_child_amount_booking.")";
+                    }else{
+
+                     echo "-";
+                    }
                   ?>
 
-                   <?php echo number_format($value->tob_total_child_price, 0);?> บาท 
-                   (<?php echo number_format($total_price_child, 0);?> x <?php echo $value->tob_child_amount_booking;?>)
                   
                   </h5> 
                   </div>
@@ -664,10 +667,7 @@
             </div>  
           </div>
           
-  <!--End Remark-->
-
-
-  
+  <!--End Remark-->  
 </div>
 
 

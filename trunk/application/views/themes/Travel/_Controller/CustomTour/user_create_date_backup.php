@@ -56,34 +56,82 @@
               <input type="text" placeholder="ชื่อทัวร์">
               <div class="packet_item" number="1">
                 <div class="sticker_date">วันที่ 1</div>
+                <!-- div class="date_tour">
+                  <div class="selects">
+                    <div class="select-block">
+                      <label>เวลาเริ่ม</label>
+                      <select id="time_start" name="time_start">
+                          <option value="08.00">08.00</option>
+                          <option value="09.00">09.00</option>
+                          <option value="10.00">10.00</option>
+                          <option value="11.00">11.00</option>
+                          <option value="12.00">12.00</option>
+                          <option value="13.00">13.00</option>
+                          <option value="14.00">14.00</option>
+                          <option value="15.00">15.00</option>
+                          <option value="16.00">16.00</option>
+                          <option value="17.00">17.00</option>
+                          <option value="18.00">18.00</option>
+                          <option value="19.00">19.00</option>
+                     </select>
+                   </div>
+                  </div>
+                </div -->
                 <ul class="connected list no1" >
                 </ul>
-                <!-- a class="close tooltip_ne" title="ลบ"></a -->
+                <a class="close tooltip_ne" title="ลบ"></a>
               </div>
 
+              <div class="packet_item"  number="2">
+                <div class="sticker_date">วันที่ 2</div>
+                <ul class="connected list no1" >
+                </ul>
+                <a class="close tooltip_ne" title="ลบ"></a>
+              </div>
+
+              <div class="packet_item" number="3">
+                <div class="sticker_date">วันที่ 3</div>
+                <!-- div class="date_tour">
+                  <div class="selects">
+                    <div class="select-block">
+                      <label>เวลาสิ้นสุด</label>
+                      <select id="time_end" name="time_end">
+                          <option value="08.00">08.00</option>
+                          <option value="09.00">09.00</option>
+                          <option value="10.00">10.00</option>
+                          <option value="11.00">11.00</option>
+                          <option value="12.00">12.00</option>
+                          <option value="13.00">13.00</option>
+                          <option value="14.00">14.00</option>
+                          <option value="15.00">15.00</option>
+                          <option value="16.00">16.00</option>
+                          <option value="17.00">17.00</option>
+                          <option value="18.00">18.00</option>
+                          <option value="19.00">19.00</option>
+                     </select>
+                   </div>
+                  </div>
+                </div -->
+                <ul class="connected list no1">
+                </ul>
+                <a class="close tooltip_ne" title="ลบ"></a>
+              </div>
             </div>
             <div class="abstract">
               <div class="row">
                 <div class="six columns">
                   <h4>สรุปข้อมูลทัวร์</h4>
                   <ul class="square">
-                    <li>
-                      จำนวนวัน <span id="summary_day">1</span> วัน / 
-                      <span id="summary_night">0</span> คืน
-                    </li>
+                    <li>จำนวนวัน 2 วัน / 2 คืน</li>
                   </ul>
                 </div>
                 <div class="six columns">
                   <h4>สรุปราคา</h4>
                   <ul class="square">
-                    <li>
-                      ราคาผู้ใหญ่ <span id="summary_adult_price">0</span> บาท
-                    </li>
-                    <li>
-                      ราคาเด็ก <span id="summary_child_price">0</span> บาท
-                    </li>
+                    <li>ราคาผู้ใหญ่ 6,000 บาท</li>
+                    <li>ราคาเด็ก 3,000 บาท</li>
                   </ul>
-                  <!-- p class="totol_price">ราคารวม 6,000 บาท</p -->
+                  <p class="totol_price">ราคารวม 6,000 บาท</p>
                 </div>
               </div>
             </div>
@@ -194,25 +242,14 @@
                                       <div class="title_tour">
                                         <h4>
                                           <a href=""><?php echo $value['tour']->tout_name; ?></a>
-                                            <?php
-                                              if($tours["filter"]["defaulttag"] == "ทัวร์ครึ่งวัน"){
-                                                $day = 0.5;
-                                              }else{
-                                                $day = 1;
-                                              }
-                                            ?>
 
-                                          <input  type="hidden" 
-                                                  id="packagedata"
-                                                  packagetype="tour"
+
+                                          <input  id="packagedata"
                                                   packageid="<?php echo $value['tour']->tou_id; ?>" 
                                                   title="<?php echo $value['tour']->tout_name; ?>" 
                                                   adultprice="<?php echo $value['price']->pri_sale_adult_price; ?>"
-                                                  childprice="<?php echo $value['price']->pri_sale_child_price; ?>"
-                                                  discountadultprice="<?php echo $value['price']->pri_discount_adult_price; ?>"
-                                                  discountchildprice="<?php echo $value['price']->pri_discount_child_price; ?>"
                                                   tag="<?php echo $tours["filter"]["defaulttag"]; ?>"
-                                                  day="<?php echo $day; ?>"
+                                                  type="hidden" 
                                           />
                                         </h4>
                                       </div>
@@ -1106,308 +1143,87 @@
 <!-- Drag data-->
 <script>
   //Get data from drag&drop
+  //var customPackage = new Array();
   var customPackageObject = new Object(); 
+  var customPackageArray = new Array(); 
 
-  var itemObject = new Object();
-  var countSelection = 0;
-
-  var countDay = 1;
-  var countDayDisplay = 2;  
-  var countDayElement = 0;
-
-  //var countItem = 0;
-  customPackageObject.day = new Array();
-  customPackageObject.packagetype = new Array();
-  customPackageObject.packageId = new Array();
-  customPackageObject.title = new Array();
-  customPackageObject.tag = new Array();
-  customPackageObject.adultPrice = new Array();
-  customPackageObject.childPrice = new Array();
-  customPackageObject.discountAdultPrice = new Array();
-  customPackageObject.discountChildPrice = new Array();
-  customPackageObject.realday = new Array();
-
-
-  //customPackageObject.day[countDayElement] = new Array(); 
-  var countItemInDropArea = 0;
 
   function setCustomTourData(thisObj){   
 
-    //Drag&drop item
-    var itemHtml = thisObj.html();
 
-    //Get value from drag&drop
+    console.log(thisObj.find("input").attr('tag'));
+
     var tag = thisObj.find("input").attr('tag');
-    var title = thisObj.find("input").attr('title');
-    var day = thisObj.find("input").attr('day');
-    var packagetype = thisObj.find("input").attr('packagetype');
-    var packageid = thisObj.find("input").attr('packageid');
-    var adultPrice = thisObj.find("input").attr('adultprice');
-    var childPrice = thisObj.find("input").attr('childprice');
-    var discountAdultPrice = thisObj.find("input").attr('discountadultprice');
-    var discountChildPrice = thisObj.find("input").attr('discountchildprice');
-    var realday = thisObj.find("input").attr('realday');
 
-
-    //console.log(customPackageObject.day[countDayElement]);
-    //Defined array
-    if(typeof customPackageObject.day[countDayElement] == 'undefined'){
-      //1D
-      customPackageObject.day[countDayElement] = new Array();
-      customPackageObject.packagetype[countDayElement] = new Array();
-      customPackageObject.packageId[countDayElement] = new Array();
-      customPackageObject.title[countDayElement] = new Array();
-      customPackageObject.tag[countDayElement] = new Array();
-      customPackageObject.adultPrice[countDayElement] = new Array();
-      customPackageObject.childPrice[countDayElement] = new Array();
-      customPackageObject.discountAdultPrice[countDayElement] = new Array();
-      customPackageObject.discountChildPrice[countDayElement] = new Array();
-      customPackageObject.realday[countDayElement] = new Array();
+    if(tag == "ทัวร์ครึ่งวัน"){
+      console.log(tag);
+    }else if(tag == "ทัวร์ 1 วัน"){
+      console.log(tag);
+    }else if(tag == "ทัวร์ 2 วัน 1 คืน"){
+      console.log(tag);
+    }else if(tag == "ทัวร์ 3 วัน 2  คืน"){
+      console.log(tag);
     }
 
-    if(countItemInDropArea == 0){
-      //2D
-      customPackageObject.day[countDayElement][countItemInDropArea] = new Array();
-      customPackageObject.packagetype[countDayElement][countItemInDropArea]  = new Array();
-      customPackageObject.packageId[countDayElement][countItemInDropArea]  = new Array();
-      customPackageObject.title[countDayElement][countItemInDropArea]  = new Array();
-      customPackageObject.tag[countDayElement][countItemInDropArea]  = new Array();
-      customPackageObject.adultPrice[countDayElement][countItemInDropArea]  = new Array();
-      customPackageObject.childPrice[countDayElement][countItemInDropArea]  = new Array();
-      customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = new Array();
-      customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = new Array();
-      customPackageObject.realday[countDayElement][countItemInDropArea]  = new Array();
 
-      if(tag == "ทัวร์ครึ่งวัน"){
+/*
+    customPackageObject.packageId = new Array();
+    customPackageObject.title = new Array();
+    customPackageObject.tag = new Array();
+    customPackageObject.adultPrice = new Array();
+    customPackageObject.childPrice = new Array();
+
+    //customPackageProperty.packageid = [];
+    var dragAndDropHtml = "";
+
+    var countDay = 0;
+    var countPackage = 0;
+ 
+    $(".packet").find("ul").attr('class', 'connected list no1').each(function( index1 ) {
+      customPackageArray[index1] = new Array();
+
+      //Object array
+      customPackageObject.packageId[index1] = new Array();
+      customPackageObject.title[index1] = new Array();
+      customPackageObject.tag[index1] = new Array();
+      customPackageObject.adultPrice[index1] = new Array();
+      customPackageObject.childPrice[index1] = new Array();
+
+      $(this).find('input').each(function(index2){
+
+        var packageid = $(this).attr('packageid');
+        if(typeof packageid != 'undefined'){
+         
+          //countPackage++;
+          //packageArray[index1][index2]  =  index1+":"+$(this).attr('packageid');
+
+          customPackageArray[index1][index2] = $(this).attr('packageid');
+
+
+          //Init data
+          customPackageObject.packageId[index1][index2] = $(this).attr('packageid');
+          customPackageObject.title[index1][index2] = $(this).attr('title');
+          customPackageObject.tag[index1][index2] = $(this).attr('tag');
+          customPackageObject.adultPrice[index1][index2] = $(this).attr('adultprice');
+
+
         
-        customPackageObject.day[countDayElement][countItemInDropArea] = day;    
-        customPackageObject.packagetype[countDayElement][countItemInDropArea] = packagetype;
-        customPackageObject.packageId[countDayElement][countItemInDropArea]  = packageid
-        customPackageObject.title[countDayElement][countItemInDropArea]  = title;
-        customPackageObject.tag[countDayElement][countItemInDropArea]  = tag;
-        customPackageObject.adultPrice[countDayElement][countItemInDropArea]  = adultPrice;
-        customPackageObject.childPrice[countDayElement][countItemInDropArea]  = childPrice;
-        customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = discountAdultPrice;
-        customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement][countItemInDropArea]  = 0.5;  
-        //console.log("Add item("+countDayElement+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][countItemInDropArea]);
-
-      }else if(tag == "ทัวร์ 1 วัน"){
-
-        customPackageObject.day[countDayElement][countItemInDropArea] = day;    
-        customPackageObject.packagetype[countDayElement][countItemInDropArea] = packagetype;
-        customPackageObject.packageId[countDayElement][countItemInDropArea]  = packageid
-        customPackageObject.title[countDayElement][countItemInDropArea]  = title;
-        customPackageObject.tag[countDayElement][countItemInDropArea]  = tag;
-        customPackageObject.adultPrice[countDayElement][countItemInDropArea]  = adultPrice;
-        customPackageObject.childPrice[countDayElement][countItemInDropArea]  = childPrice;
-        customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = discountAdultPrice;
-        customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement][countItemInDropArea]  = 1;  
-
-        //console.log("Add item ("+countDayElement+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][countItemInDropArea]);
-
-      }else if(tag == "ทัวร์ 2 วัน 1 คืน"){
-
-        customPackageObject.day[countDayElement][countItemInDropArea] = day;    
-        customPackageObject.packagetype[countDayElement][countItemInDropArea] = packagetype;
-        customPackageObject.packageId[countDayElement][countItemInDropArea]  = packageid
-        customPackageObject.title[countDayElement][countItemInDropArea]  = title;
-        customPackageObject.tag[countDayElement][countItemInDropArea]  = tag;
-        customPackageObject.adultPrice[countDayElement][countItemInDropArea]  = adultPrice;
-        customPackageObject.childPrice[countDayElement][countItemInDropArea]  = childPrice;
-        customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = discountAdultPrice;
-        customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement][countItemInDropArea]  = 2;  
-        //console.log("Add item ("+countDayElement+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][countItemInDropArea]);
-
-
-
-        customPackageObject.day[countDayElement+1] = new Array();  
-        customPackageObject.packagetype[countDayElement+1] = new Array();
-        customPackageObject.packageId[countDayElement+1] = new Array();
-        customPackageObject.title[countDayElement+1] = new Array();
-        customPackageObject.tag[countDayElement+1] = new Array();
-        customPackageObject.adultPrice[countDayElement+1] = new Array();
-        customPackageObject.childPrice[countDayElement+1] = new Array();
-        customPackageObject.discountAdultPrice[countDayElement+1] = new Array();
-        customPackageObject.discountChildPrice[countDayElement+1] = new Array();
-        customPackageObject.realday[countDayElement+1] = new Array();
-
-        customPackageObject.day[countDayElement+1][countItemInDropArea] = day;    
-        customPackageObject.packagetype[countDayElement+1][countItemInDropArea] = packagetype;
-        customPackageObject.packageId[countDayElement+1][countItemInDropArea]  = packageid
-        customPackageObject.title[countDayElement+1][countItemInDropArea]  = title;
-        customPackageObject.tag[countDayElement+1][countItemInDropArea]  = tag;
-        customPackageObject.adultPrice[countDayElement+1][countItemInDropArea]  = adultPrice;
-        customPackageObject.childPrice[countDayElement+1][countItemInDropArea]  = childPrice;
-        customPackageObject.discountAdultPrice[countDayElement+1][countItemInDropArea]  = discountAdultPrice;
-        customPackageObject.discountChildPrice[countDayElement+1][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement+1][countItemInDropArea]  = 2;  
-        //console.log("Add item ("+(countDayElement+1)+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement+1][countItemInDropArea]);
-        
-
-        addDate(itemHtml);
-      }else if(tag == "ทัวร์ 3 วัน 2 คืน"){
-
-        customPackageObject.day[countDayElement][countItemInDropArea] = day;    
-        customPackageObject.packagetype[countDayElement][countItemInDropArea] = packagetype;
-        customPackageObject.packageId[countDayElement][countItemInDropArea]  = packageid
-        customPackageObject.title[countDayElement][countItemInDropArea]  = title;
-        customPackageObject.tag[countDayElement][countItemInDropArea]  = tag;
-        customPackageObject.adultPrice[countDayElement][countItemInDropArea]  = adultPrice;
-        customPackageObject.childPrice[countDayElement][countItemInDropArea]  = childPrice;
-        customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = discountAdultPrice;
-        customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement][countItemInDropArea]  = 3;  
-        //console.log("Add item ("+countDayElement+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][countItemInDropArea]);
-
-
-        customPackageObject.day[countDayElement+1] = new Array();  
-        customPackageObject.packagetype[countDayElement+1] = new Array();
-        customPackageObject.packageId[countDayElement+1] = new Array();
-        customPackageObject.title[countDayElement+1] = new Array();
-        customPackageObject.tag[countDayElement+1] = new Array();
-        customPackageObject.adultPrice[countDayElement+1] = new Array();
-        customPackageObject.childPrice[countDayElement+1] = new Array();
-        customPackageObject.discountAdultPrice[countDayElement+1] = new Array();
-        customPackageObject.discountChildPrice[countDayElement+1] = new Array();
-        customPackageObject.realday[countDayElement+1] = new Array();
-
-        customPackageObject.day[countDayElement+1][countItemInDropArea] = day;    
-        customPackageObject.packagetype[countDayElement+1][countItemInDropArea] = packagetype;
-        customPackageObject.packageId[countDayElement+1][countItemInDropArea]  = packageid
-        customPackageObject.title[countDayElement+1][countItemInDropArea]  = title;
-        customPackageObject.tag[countDayElement+1][countItemInDropArea]  = tag;
-        customPackageObject.adultPrice[countDayElement+1][countItemInDropArea]  = adultPrice;
-        customPackageObject.childPrice[countDayElement+1][countItemInDropArea]  = childPrice;
-        customPackageObject.discountAdultPrice[countDayElement+1][countItemInDropArea]  = discountAdultPrice;
-        customPackageObject.discountChildPrice[countDayElement+1][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement+1][countItemInDropArea]  = 3;  
-        //console.log("Add item ("+(countDayElement+1)+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement+1][countItemInDropArea]);
-
-
-
-
-        customPackageObject.day[countDayElement+2] = new Array();  
-        customPackageObject.packagetype[countDayElement+2] = new Array();
-        customPackageObject.packageId[countDayElement+2] = new Array();
-        customPackageObject.title[countDayElement+2] = new Array();
-        customPackageObject.tag[countDayElement+2] = new Array();
-        customPackageObject.adultPrice[countDayElement+2] = new Array();
-        customPackageObject.childPrice[countDayElement+2] = new Array();
-        customPackageObject.discountAdultPrice[countDayElement+2] = new Array();
-        customPackageObject.discountChildPrice[countDayElement+2] = new Array();
-        customPackageObject.realday[countDayElement+2] = new Array();
-
-        customPackageObject.day[countDayElement+2][countItemInDropArea] = day;    
-        customPackageObject.packagetype[countDayElement+2][countItemInDropArea] = packagetype;
-        customPackageObject.packageId[countDayElement+2][countItemInDropArea]  = packageid
-        customPackageObject.title[countDayElement+2][countItemInDropArea]  = title;
-        customPackageObject.tag[countDayElement+2][countItemInDropArea]  = tag;
-        customPackageObject.adultPrice[countDayElement+2][countItemInDropArea]  = adultPrice;
-        customPackageObject.childPrice[countDayElement+2][countItemInDropArea]  = childPrice;
-        customPackageObject.discountAdultPrice[countDayElement+2][countItemInDropArea]  = discountAdultPrice;
-        customPackageObject.discountChildPrice[countDayElement+2][countItemInDropArea]  = discountChildPrice;
-        customPackageObject.realday[countDayElement+2][countItemInDropArea]  = 3;  
-        //console.log("Add item ("+(countDayElement+2)+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement+2][countItemInDropArea]);
-
-
-        addDate(itemHtml);
-        addDate(itemHtml);
-      }
-        summaryDisplay();
-
-    }else{
-      if(customPackageObject.day[countDayElement][0] == 1 ){
-
-        //console.log("Equal 1");
-        alert("ท่านไม่สามารถเพิ่ม package ในวันนี้ได้แล้ว \nกรุณาเพิ่มในวันอื่น");
-        deletePakckageFromDisplay(thisObj);
-        return false;
-
-      }else if(customPackageObject.day[countDayElement][0] == 0.5 ){
-
-        //alert("Check : "+day);
-        if(customPackageObject.day[countDayElement][0] == 0.5 ){         
-
-          //alert("current : "+day);
-          //2D
-          customPackageObject.day[countDayElement][0] = new Array();
-          customPackageObject.packagetype[countDayElement][0]  = new Array();
-          customPackageObject.packageId[countDayElement][0]  = new Array();
-          customPackageObject.title[countDayElement][0]  = new Array();
-          customPackageObject.tag[countDayElement][0]  = new Array();
-          customPackageObject.adultPrice[countDayElement][0]  = new Array();
-          customPackageObject.childPrice[countDayElement][0]  = new Array();
-          customPackageObject.discountAdultPrice[countDayElement][0]  = new Array();
-          customPackageObject.discountChildPrice[countDayElement][0]  = new Array();
-          customPackageObject.realday[countDayElement][0]  = new Array();
-
-
-
-          customPackageObject.day[countDayElement][0] = day;    
-          customPackageObject.packagetype[countDayElement][0] = packagetype;
-          customPackageObject.packageId[countDayElement][0]  = packageid
-          customPackageObject.title[countDayElement][0]  = title;
-          customPackageObject.tag[countDayElement][0]  = tag;
-          customPackageObject.adultPrice[countDayElement][0]  = adultPrice;
-          customPackageObject.childPrice[countDayElement][0]  = childPrice;
-          customPackageObject.discountAdultPrice[countDayElement][0]  = discountAdultPrice;
-          customPackageObject.discountChildPrice[countDayElement][0]  = discountChildPrice;
-          customPackageObject.realday[countDayElement][0]  = 0.5;  
-          //console.log("Add item("+countDayElement+":"+0+")"+customPackageObject.day[countDayElement][0]);
-
-
-
-          customPackageObject.day[countDayElement][1] = new Array();
-          customPackageObject.packagetype[countDayElement][1]  = new Array();
-          customPackageObject.packageId[countDayElement][1]  = new Array();
-          customPackageObject.title[countDayElement][1]  = new Array();
-          customPackageObject.tag[countDayElement][1]  = new Array();
-          customPackageObject.adultPrice[countDayElement][1]  = new Array();
-          customPackageObject.childPrice[countDayElement][1]  = new Array();
-          customPackageObject.discountAdultPrice[countDayElement][1]  = new Array();
-          customPackageObject.discountChildPrice[countDayElement][1]  = new Array();
-          customPackageObject.realday[countDayElement][1]  = new Array();
-
-          customPackageObject.day[countDayElement][1] = day;    
-          customPackageObject.packagetype[countDayElement][1]= packagetype;
-          customPackageObject.packageId[countDayElement][1]  = packageid
-          customPackageObject.title[countDayElement][1]  = title;
-          customPackageObject.tag[countDayElement][1] = tag;
-          customPackageObject.adultPrice[countDayElement][1] = adultPrice;
-          customPackageObject.childPrice[countDayElement][1]  = childPrice;
-          customPackageObject.discountAdultPrice[countDayElement][1] = discountAdultPrice;
-          customPackageObject.discountChildPrice[countDayElement][1]  = discountChildPrice;
-          customPackageObject.realday[countDayElement][1] = 0.5;  
-          //console.log("Add item("+(countDayElement+1)+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][1]);
-
-
-          customPackageObject.day[countDayElement][0] = 1; 
-          summaryDisplay();
-        }else{
-          //console.log("Equal 1");
-          alert("กรุณาเลือก package ครึ่งวัน");
-          deletePakckageFromDisplay(thisObj);
-          return false;
-
+          console.log("add("+index1+":"+index2+"="+$(this).attr('packageid')+")");
+          console.log("Object : "+customPackageObject.title[index1][index2]);
+          
+          //console.log(countPackage);     
         }
+      });
 
-      }
-    }
+      //console.log(countDay);
+    });
 
-    
-    //alert("item after:"+countItemInDropArea);
+*/
 
-  
-    countItemInDropArea++;
 
   }
 
 </script>
-
-
 
 
 <!-- Drop data  -->
@@ -1426,65 +1242,18 @@
 
 <!-- Add date button   -->
 <script>
-
-
   $(".add_date").click(function() {
-    addDate();
+    $('.packet').append('<div class="packet_item" style="display:none"></a><div class="sticker_date">วันที่ 2</div><ul class="connected list no1"></ul><a class="close tooltip_ne" title="ลบ"></div>');
+      $('.tooltip_ne').powerTip({placement: 'ne'});
+    $(".packet_item").fadeIn("slow");
+
+    $('.connected').sortable({
+      connectWith: '.connected'
+    });
+
+    $('.tooltip_ne').powerTip({placement: 'ne'});
+
   });
-
-
-
-  function addDate(item){
-
-    if(item){
-      //Init with data
-      var html = '<div class="packet_item" style="display:none"></a>';
-      html += '<div class="sticker_date">วันที่ '+countDayDisplay+'</div>';
-      html += '<ul class="connected list no1">';
-      html += '<li draggable="true" class="" style="display: list-item;">';
-      html += item;
-      html += '</li>';
-      html += '</ul>';
-      html += '<a class="close tooltip_ne" title="ลบ"></div>';      
-      $('.packet').append(html);
-        $('.tooltip_ne').powerTip({placement: 'ne'});
-      $(".packet_item").fadeIn("slow");
-
-      $('.connected').sortable({
-        connectWith: '.connected'
-      });
-
-      $('.tooltip_ne').powerTip({placement: 'ne'});
-    }else{
-      //Init without data
-
-      var html = '<div class="packet_item" style="display:none"></a>';
-      html += '<div class="sticker_date">วันที่ '+countDayDisplay+'</div>';
-      html += '<ul class="connected list no1"></ul>';
-      html += '<a class="close tooltip_ne" title="ลบ"></div>';
-      $('.packet').append(html);
-        $('.tooltip_ne').powerTip({placement: 'ne'});
-      $(".packet_item").fadeIn("slow");
-
-      $('.connected').sortable({
-        connectWith: '.connected'
-      });
-
-      $('.tooltip_ne').powerTip({placement: 'ne'});
-    }
-
-
-
-    //customPackageObject.day[countDayElement] = new Array(); 
-
-    //console.log("Add day : "+countDayDisplay);
-    countItemInDropArea = 0;
-    countDay++;  
-    countDayDisplay++;    
-    countDayElement++;
-
-  }
-
 
   //Close button
   $(".packet_item a.close").click(function() {
@@ -1492,7 +1261,6 @@
       $(this).prependTo(".connected.no2");
     });
     alert("Close all");
-    deleteDate();
   });
 
   $(document).on("click", ".packet_item a.close", function (e) {
@@ -1500,69 +1268,27 @@
     $(this).closest(".packet_item").fadeOut(function () {
       $(this).remove();
     });
-
-    deleteDate();
   });
 
   $(document).on("click", ".connected li a.delete", function (e) {
     e.preventDefault();
-
     $(this).closest(".connected li").fadeOut(function () {
       $(this).prependTo(".connected.no2");
       $(this).fadeIn("slow");
-    }); 
+    });
+
+
+    //console.log($(this).attr('packageid'));
 
     var packageid = $(this).attr('packageid');
 
 
-    deletePackageItem();
-    //findArray(packageid, customPackageArray);
+
+    findArray(packageid, customPackageArray);
 
   });
 
-  function deletePakckageFromDisplay(thisObj){
-    thisObj.closest(".connected li").fadeOut(function () {
-      thisObj.prependTo(".connected.no2");
-      thisObj.fadeIn("slow");
-    }); 
-  }
 
-  function deletePackageItem(){    
-
-
-
-    if(countItemInDropArea > 0){
-      countItemInDropArea--;
-
-      //console.log("delete package : ["+countDayElement+","+countItemInDropArea+"]");
-      //console.log("delete package value : "+customPackageObject.day[countDayElement][countItemInDropArea]);
-      delete customPackageObject.day[countDayElement][countItemInDropArea];
-      //console.log("after delete package value : "+customPackageObject.day[countDayElement][countItemInDropArea]);
-
-    }else if(countItemInDropArea == 0){
-      delete customPackageObject.day[countDayElement][0];
-      countItemInDropArea = 0;
-    }
-
-
-    summaryDisplay();
-  }
-
-
-  function deleteDate(){
-
-    //console.log("delete day : "+countDayDisplay);   
-    //console.log("delete day value : "+customPackageObject.day[countDayElement]); 
-    delete customPackageObject.day[countDayElement][countItemInDropArea];   
-    delete customPackageObject.day[countDayElement];
-    //console.log("after delete day value : "+customPackageObject.day[countDayElement]);   
-
-    countDay--;  
-    countDayDisplay--;    
-    countDayElement--;
-    summaryDisplay();
-  }
-/*
   function findArray(thing, theArray) {
       var results, col, row, subArray;
 
@@ -1582,66 +1308,6 @@
       //console.log(packageArray[0][0]);
       //return results;
   }
-
-  */
-
-  function summaryDisplay(){
-
-
-
-    var summaryAdultPrice = 0;
-    var summaryChildPrice = 0;
-
-    for (var i = 0; i < customPackageObject.day.length; i++) {
-      for (var j = 0; j < customPackageObject.day[i].length; j++) {
-        //console.log("length 2D ["+i+","+j+"]: "+customPackageObject.realday[i][j]);
-
-
-        if(customPackageObject.realday[i][j] == 2 || customPackageObject.realday[i][j] == 3){
-          if(i==0){
-            summaryAdultPrice += parseInt(customPackageObject.adultPrice[i][j]);
-            summaryChildPrice += parseInt(customPackageObject.childPrice[i][j]); 
-          }
-
-        }else{
-          summaryAdultPrice += parseInt(customPackageObject.adultPrice[i][j]);
-          summaryChildPrice += parseInt(customPackageObject.childPrice[i][j]);          
-        }
-      }
-    }   
-
-
-    // 
-    console.log("######## Summary Data ########");
-    var summaryDay = parseInt(countDayElement)+1;
-    var summaryNight = countDayElement;
-    console.log("Summary day : "+ summaryDay);
-    console.log("Summary night : "+ summaryNight);
-    console.log("Summary adult price : "+summaryAdultPrice);
-    console.log("Summary child price : "+summaryChildPrice);
-
-    $("#summary_day").text(summaryDay);
-    $("#summary_night").text(summaryNight);    
-
-    $("#summary_adult_price").text(addCommas(summaryAdultPrice));
-    $("#summary_child_price").text(addCommas(summaryChildPrice));  
-
-
-    
-
-  }
-
-function addCommas(nStr){
-  nStr += '';
-  x = nStr.split('.');
-  x1 = x[0];
-  x2 = x.length > 1 ? '.' + x[1] : '';
-  var rgx = /(\d+)(\d{3})/;
-  while (rgx.test(x1)) {
-    x1 = x1.replace(rgx, '$1' + ',' + '$2');
-  }
-  return x1 + x2;
-}
 </script>
 
 
