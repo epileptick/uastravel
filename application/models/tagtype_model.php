@@ -7,7 +7,7 @@ class TagType_model extends MY_Model {
                      'id'                => 'tty_id',
                      'tag_id'            => 'tty_tag_id',
                      'type_id'           => 'tty_type_id',
-                     //'parent_id'         => 'tty_parent_id',
+                     'parent_id'         => 'tty_parent_id',
                      'index'             => 'tty_index'
     );
     $this->_join_column = array(
@@ -28,7 +28,7 @@ class TagType_model extends MY_Model {
     }
     $this->db->join("ci_tag_translate","ci_tag_translate.tagt_tag_id = ci_tagtype.tty_tag_id");
     $mainTable = parent::get($options);
-    if(empty($mainTable) AND (!empty($options["lang"]) OR !empty($options["where"]["lang"]))){
+    if(empty($mainTable) AND !empty($options["lang"])){
       unset($options["lang"]);
       unset($options["where"]["lang"]);
       $mainTable =  $this->get($options);
@@ -181,15 +181,12 @@ class TagType_model extends MY_Model {
     if($args["parent_id"] == 0 && isset($args["type_id"]) ){
       //Get category by name
 
-      $data["tty_parent_id"] = 0;
-      $data["tty_type_id"] = $args["type_id"];
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
-      $query = $this->db->get_where('ci_tagtype', $data);
-
+      $data["where"]["parent_id"] = 0;
+      $data["where"]["type_id"] = $args["type_id"];
+      $query = $this->getTagTypeList($data);
       //echo $this->db->last_query(); exit;
-      if($query->num_rows > 0){
-        $newResult = $this->mapField($query->result());
-        return $newResult;
+      if(count($query) > 0){
+        return $query;
       }else{
         return false;
       }
@@ -247,6 +244,7 @@ class TagType_model extends MY_Model {
         return false;
       }
     }else if(isset($args["parent_id"])){
+
       /*
       $parent["parent_id"] = $args["parent_id"];
       $this->load->model("type_model", "typeModel");
@@ -290,18 +288,20 @@ class TagType_model extends MY_Model {
 
   function getUniqRecordByWhereIn($args){
 
-    //print_r($args); exit;
 
     //$this->db->where('tty_parent_id', $args["parent_id"]);
-    $this->db->where_in('ci_tagtype.tty_parent_id', $args["where_in"]);
-    $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
-    $this->db->group_by('ci_tagtype.tty_tag_id');
-    $query = $this->db->get('ci_tagtype');
-    //echo $this->db->last_query(); exit;
+    //$this->db->where_in('ci_tagtype.tty_parent_id', $args["where_in"]);
+    //$this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
+    //$this->db->group_by('ci_tagtype.tty_tag_id');
+    //$query = $this->db->get('ci_tagtype');
 
-    if($query->num_rows > 0){
-      $newResult = $this->mapField($query->result());
-      return $newResult;
+    $where["where_in"]["parent_id"] = $args["where_in"];
+    $where["group"] = "tag_id";
+    $query = $this->getTagTypeList($where);
+
+
+    if(count($query) > 0){
+      return $query;
     }else{
       return false;
     }
@@ -309,17 +309,13 @@ class TagType_model extends MY_Model {
 
   function getRecordByTypeAndParent($args){
 
+    $where["where"]["parent_id"] = $args["parent_id"];
+    $where["where"]["type_id"] = $args["type_id"];
+    $where["group"] = "tag_id";
+    $query = $this->getTagTypeList($where);
 
-    $this->db->where('tty_type_id', $args["type_id"]);
-    $this->db->where('tty_parent_id', $args["parent_id"]);
-    $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
-    $this->db->group_by('ci_tagtype.tty_tag_id');
-    $query = $this->db->get('ci_tagtype');
-    //echo $this->db->last_query(); exit;
-
-    if($query->num_rows > 0){
-      $newResult = $this->mapField($query->result());
-      return $newResult;
+    if(count($query) > 0){
+      return $query;
     }else{
       return false;
     }

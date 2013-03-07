@@ -203,7 +203,7 @@ class MY_Model extends CI_Model {
       if(! is_null($options['where'])){
         if(is_array($options['where'])){
           foreach( $options['where'] AS $whereField=>$whereValue){
-            if(! empty($whereValue)){
+            if(!empty($whereValue) OR is_numeric($whereValue)){
               if($this->_getColumn($whereField)){
                 $this->db->where($this->_getColumn($whereField),$whereValue);
               }else if($this->_getJoinColumn($whereField)){
