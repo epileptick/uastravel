@@ -8,6 +8,7 @@
 (function($) {
 var dragging, placeholders = $();
 $.fn.sortable = function(options) {
+
 	var method = String(options);
 	options = $.extend({
 		connectWith: false
@@ -22,6 +23,7 @@ $.fn.sortable = function(options) {
 			return;
 		}
 		var isHandle, index, items = $(this).children(options.items);
+
 		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
@@ -39,9 +41,12 @@ $.fn.sortable = function(options) {
 			}
 			isHandle = false;
 			var dt = e.originalEvent.dataTransfer;
+			//console.log(dt);
 			dt.effectAllowed = 'move';
 			dt.setData('Text', 'dummy');
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
+			//alert(index);
+			//console.log(dragging);
 		}).on('dragend.h5s', function() {
 			if (!dragging) {
 				return;
@@ -52,10 +57,14 @@ $.fn.sortable = function(options) {
 				dragging.parent().trigger('sortupdate', {item: dragging});
 			}
 			dragging = null;
+
+			setCustomTourData($(this));
 		}).not('a[href], img').on('selectstart.h5s', function() {
 			this.dragDrop && this.dragDrop();
 			return false;
 		}).end().add([this, placeholder]).on('dragover.h5s dragenter.h5s drop.h5s', function(e) {
+
+			//alert(dragging);
 			if (!items.is(dragging) && options.connectWith !== $(dragging).parent().data('connectWith')) {
 				return true;
 			}
@@ -63,6 +72,11 @@ $.fn.sortable = function(options) {
 				e.stopPropagation();
 				placeholders.filter(':visible').after(dragging);
 				dragging.trigger('dragend.h5s');
+				//alert("Jetdo");
+
+				
+
+
 				return false;
 			}
 			e.preventDefault();
@@ -78,6 +92,9 @@ $.fn.sortable = function(options) {
 				placeholders.detach();
 				$(this).append(placeholder);
 			}
+
+
+
 			return false;
 		});
 	});
