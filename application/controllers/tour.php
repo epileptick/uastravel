@@ -831,7 +831,7 @@ class Tour extends MY_Controller {
 
   function sendmail_booking_user($booking){
 
-
+/*
     // To send HTML mail, the Content-type header must be set
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
@@ -841,7 +841,7 @@ class Tour extends MY_Controller {
     $headers .= 'From: uastravel.com <booking@uastravel.com>' . "\r\n";
 
     $to = $booking["toc_email"];
-
+*/
 
     $subject = "คุณได้ทำการจอง ".$booking["toc_tour_name"]." ผ่านทาง uastravel.com";
 
@@ -903,12 +903,29 @@ class Tour extends MY_Controller {
       ';        
 
 
+
+    $this->load->library('email');
+
+    $config['mailtype'] = 'html';
+    $this->email->initialize($config);
+
+    $this->email->from('info@uastravel.com', 'uastravel.com ');
+    $this->email->to($booking["toc_email"]); 
+    //$this->email->bcc('ottowan@gmail.com'); 
+
+    $this->email->subject($subject);
+    $this->email->message($message);  
+
+    $this->email->send();
+
     //echo $message; exit;
-    mail($to,$subject,$message,$headers);
+    //mail($to,$subject,$message,$headers);
   }
 
   function sendmail_booking_admin($booking){
 
+
+/*
     // To send HTML mail, the Content-type header must be set
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
@@ -918,7 +935,7 @@ class Tour extends MY_Controller {
     $headers .= 'From: uastravel.com <info@uastravel.com>' . "\r\n";
 
     $to = "booking.uastravel@gmail.com";
-
+*/
 
 
     // subject
@@ -970,8 +987,22 @@ class Tour extends MY_Controller {
     $message .='</blockquote>';   
 
 
+    $this->load->library('email');
+    
+    $config['mailtype'] = 'html';
+    $this->email->initialize($config);
+
+    $this->email->from('info@uastravel.com', 'uastravel.com ');
+    $this->email->to('booking.uastravel@gmail.com'); 
+    $this->email->bcc('ottowan@gmail.com'); 
+
+    $this->email->subject($subject);
+    $this->email->message($message);  
+
+    $this->email->send();
+
     //echo $message; exit;
-    mail($to,$subject,$message,$headers);
+    //mail($to,$subject,$message,$headers);
   }
 
 

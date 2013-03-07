@@ -417,7 +417,7 @@
                               id="radio_<?php echo $value->id;?>" 
                               value="<?php echo $value->id;?>"
                       >
-                      <?php echo $value->name;?>
+                      <?php echo (!empty($value->name)?$value->name:"");?>
                     </label>
                   <?php
                     }
