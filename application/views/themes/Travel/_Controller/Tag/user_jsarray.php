@@ -3,9 +3,9 @@
 	foreach ($tag as $key => $value) {
 		# code...
 		if($i==count($tag)){
-			echo $value->name;
+			echo $value["name"];
 		}else{
-			echo $value->name.",";
+			echo $value["name"].",";
 		}
 		$i++;
 	}

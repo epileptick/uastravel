@@ -8,10 +8,24 @@ class Tag extends MY_Controller {
 
   function _index($where=""){
 
-    $tagData["tag"] = $this->tagModel->get();
+    $tagData= $this->tagModel->get();
+    //var_dump($this->db->last_query());exit;
+    foreach ($tagData as $tagKey => $tagValue) {
+      $result["tag"][$tagValue["tag_id"]] = $tagValue;
+      unset($result["tag"][$tagValue["tag_id"]]["url"]);
+      unset($result["tag"][$tagValue["tag_id"]]["name"]);
+      unset($result["tag"][$tagValue["tag_id"]]["lang"]);
+
+      foreach ($this->config->item("language_list") as $langKey => $langValue) {
+        $result["tag"][$tagValue["tag_id"]][$langKey] = $this->_searchTagInArray($tagValue["tag_id"],$langKey,$tagData);
+      }
+    }
     
-    return $tagData;
+    return $result;
   }
+
+
+
 
   function admin_index(){
     
@@ -27,7 +41,7 @@ class Tag extends MY_Controller {
   function admin_list(){
     $result = array();
     
-    $config['per_page'] = 1000; 
+    $config['per_page'] = 50; 
     
     $config['prev_link'] = '<img class="blogg-button-image" alt="โพสต์ใหม่" src="/themes/Travel/images/left_arrow.png">';
     $config['prev_tag_open'] = '<button class="blogg-button blogg-collapse-right" title="โพสต์ใหม่" disabled="" tabindex="0">';
@@ -53,7 +67,7 @@ class Tag extends MY_Controller {
       $where = array(
                       'limit'=>'',
                       'returnObj'=>'',
-                      'order'=>'CONVERT( tag_name USING tis620 ) ASC',
+                      'order'=>'CONVERT( tagt_name USING tis620 ) ASC',
                       'where'=>array('tag_name LIKE'=>'%'.$keyword["search"].'%')
                     );
     }else{
@@ -61,7 +75,7 @@ class Tag extends MY_Controller {
       $where = array(
                     'limit'=>'',
                     'returnObj'=>'',
-                    'order'=>'CONVERT( tag_name USING tis620 ) ASC',
+                    'order'=>'CONVERT( tagt_name USING tis620 ) ASC',
                     'where'=>''
                   );
     }
@@ -92,6 +106,8 @@ class Tag extends MY_Controller {
     
     $result = array_merge($result,$this->_index($where));
     
+    
+
     //initialize pagination
     $this->pagination->initialize($config);
     
@@ -183,10 +199,25 @@ class Tag extends MY_Controller {
         //Redirect
         redirect(base_url("admin/tag"));      
     } 
-  }  
+  }
+
+  function admin_updatelang(){
+    $post = $this->input->post();
+    foreach ($post["tagData"] as $tagKey => $tagValue) {
+      foreach ($this->config->item("language_list") as $langListKey => $langListValue) {
+        $input["where"]["tag_id"] = $tagKey;
+        $input["where"]["lang"] = $langListKey;
+        $input["set"]["name"] = $tagValue[$langListKey];
+        if(!empty($input["set"]["name"])){
+          if(!$result = $this->tagModel->updateLang($input)){
+            show_error('Error: '.$input["set"]["name"]);
+          }
+        }
+      }
+    }
+    redirect($_SERVER["HTTP_REFERER"]);   
+  }
   
-
-
   function _search($render = "user_list"){
     //Get argument from post page
     $keyword = $this->input->post();
@@ -243,6 +274,15 @@ class Tag extends MY_Controller {
 
     return $this->form_validation->run();
 
+  }
+
+  function _searchTagInArray($tagId = NULL,$lang = NULL,$tagArray = NULL){
+    foreach ($tagArray as $key => $value) {
+      if($value["tag_id"] == $tagId AND $value["lang"] == $lang){
+        return $tagArray[$key];
+      }
+    }
+    return NULL;
   }
 
 }

@@ -635,7 +635,7 @@ $(document).ready(function() {
               </div>
               <div class='clear'></div>
               </div>
-        <?
+        <?php
             $countExtendPriceJS++;
           }          
         ?>

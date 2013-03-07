@@ -26,7 +26,7 @@ class Tour_model extends MY_Model {
                      'cr_date'           => 'tou_cr_date',
                      'cr_uid'            => 'tou_cr_uid',
                      'lu_date'           => 'tou_lu_date',
-                     'lu_uid'            => 'tou_lu_uid'  
+                     'lu_uid'            => 'tou_lu_uid'
     );
 
     $this->_joincolumn = array(
@@ -43,38 +43,38 @@ class Tour_model extends MY_Model {
                      'cr_date'           => 'tout_cr_date',
                      'cr_uid'            => 'tout_cr_uid',
                      'lu_date'           => 'tout_lu_date',
-                     'lu_uid'            => 'tout_lu_uid'  
+                     'lu_uid'            => 'tout_lu_uid'
     );
   }
-  
-  
+
+
   function mapField($result){
-    
+
     foreach ($result as $key => $value) {
       $data = new stdClass();
 
-      foreach ($value as $keyField => $valueFiled) {      
+      foreach ($value as $keyField => $valueFiled) {
         if( $keyField != "tout_id"){
           $keyExplode = explode("_", $keyField, 2);
           $newkey = $keyExplode[1];
-          $data->$newkey = $valueFiled; 
+          $data->$newkey = $valueFiled;
         }
       }
-      $newResult[] = $data;      
+      $newResult[] = $data;
     }
 
     return $newResult;
   }
-  
+
   function getRecord($args=false){
 
     if(isset($args["tag"]) && isset($args["tour_name"]) ){
       echo $args;
     }else if(isset($args["id"])){
-      //Get page by id for create 
+      //Get page by id for create
       if(!empty($args["field"])){
         $this->db->select($args["field"]);
-      }      
+      }
 
 
       $this->db->where("tout_tour_id", $args["id"]);
@@ -83,14 +83,14 @@ class Tour_model extends MY_Model {
 
       if($query->num_rows > 0){
         //Found & update
-        $this->db->where('ci_tour.tou_id', $args["id"]);      
+        $this->db->where('ci_tour.tou_id', $args["id"]);
         $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
         $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
-        $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');    
+        $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');
         $query = $this->db->get("ci_tour");
       }else{
-        //Not found & insert  
-        $this->db->where('ci_tour.tou_id', $args["id"]);   
+        //Not found & insert
+        $this->db->where('ci_tour.tou_id', $args["id"]);
         $query = $this->db->get("ci_tour");
       }
 
@@ -105,7 +105,7 @@ class Tour_model extends MY_Model {
         return false;
       }
     }else if(isset($args["tour_name"])){
-      //Get page by id for create      
+      //Get page by id for create
       $query = $this->db->get_where('ci_tour', array('tou_name' => $args["tour_name"]), 1, 0);
 
       if($query->num_rows > 0){
@@ -128,21 +128,21 @@ class Tour_model extends MY_Model {
       //$this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
       $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
       $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
-      $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');    
+      $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');
       $query = $this->db->get("ci_tour");
 
       //print_r($this->db->last_query()); exit;
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
-          
+
         return $newResult;
       }else{
         return false;
       }
-    }    
+    }
 
   }
-  
+
   function addRecord($data=false){
 //print_r($data);
 //print_r($this->_joincolumn);
@@ -151,7 +151,7 @@ class Tour_model extends MY_Model {
       //Insert tour
       foreach($data AS $columnName=>$columnValue){
         if(array_key_exists($columnName, $this->_column)){
-          $this->db->set($this->_column[$columnName], $columnValue); 
+          $this->db->set($this->_column[$columnName], $columnValue);
         }
       }
       $this->db->set("tou_cr_date", date("Y-m-d H:i:s"));
@@ -160,9 +160,9 @@ class Tour_model extends MY_Model {
 
       //Generate code
       $id = $this->db->insert_id();
-      $digit = 6-strlen($id); 
-      $code = "TU"; 
-      for ($i=0; $i < $digit; $i++) { 
+      $digit = 6-strlen($id);
+      $code = "TU";
+      for ($i=0; $i < $digit; $i++) {
         $code .= "0";
       }
       $code .= $id;
@@ -178,8 +178,8 @@ class Tour_model extends MY_Model {
           //print_r($columnJoinName); exit;
           if($columnJoinName == "name"){
             $this->db->set("tout_url", Util::url_title($columnJoinValue));
-          }          
-          $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue); 
+          }
+          $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue);
         }
       }
 
@@ -188,24 +188,24 @@ class Tour_model extends MY_Model {
       $this->db->set("tout_lu_date", date("Y-m-d H:i:s"));
       $this->db->insert("ci_tour_translate");
 
-      return $id; 
+      return $id;
     }
 
     return ;
   }
-  
+
   function updateRecord($data=false){
     if($data){
       //Update tour
       foreach($data AS $columnName=>$columnValue){
         if(array_key_exists($columnName, $this->_column)){
-          $this->db->set($this->_column[$columnName], $columnValue); 
+          $this->db->set($this->_column[$columnName], $columnValue);
         }
       }
 
 
       $this->db->set("tou_lu_date", date("Y-m-d H:i:s"));
-            
+
       $query = $this->db->where("tou_id", $data["id"]);
       $query = $this->db->update("ci_tour");
 
@@ -225,14 +225,14 @@ class Tour_model extends MY_Model {
           if($columnJoinName != "id"){
             if($columnJoinName == "name"){
               $this->db->set("tout_url", Util::url_title($columnJoinValue));
-            }          
-            $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue); 
+            }
+            $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue);
           }else{
 
             $this->db->set("tout_tour_id", $columnJoinValue);
           }
         }
-      }      
+      }
 
       if($query->num_rows > 0){
         //Found & update
@@ -251,11 +251,11 @@ class Tour_model extends MY_Model {
 
 
     }
-    
+
     return ;
   }
 
-  
+
   function updateDisplayRecord($data=false){
     if($data){
       //Set data
@@ -264,22 +264,22 @@ class Tour_model extends MY_Model {
       }else if(!empty($data["id"]) && $data["display"] == "show"){
         $this->db->set("tou_display", 1);
       }
-            
+
       $query = $this->db->where("tou_id", $data["id"]);
       $query = $this->db->update("ci_tour");
     }
-    
+
     return "success";
-  }  
+  }
 
   function updateDisplayFirstpageRecord($data=false){
 
-    $this->load->model("price_model", "priceModel");  
-    $response = $this->priceModel->updateDisplayFirstpageRecord($data);    
+    $this->load->model("price_model", "priceModel");
+    $response = $this->priceModel->updateDisplayFirstpageRecord($data);
     return $response;
   }
-  
-  
+
+
   function deleteRecord($id=false){
     if($id){
       $this->db->where("tou_id", $id);
@@ -296,10 +296,10 @@ class Tour_model extends MY_Model {
 
       $search["tout_name"] = $args["tou_name"];
       $this->db->like($search, 'both');
-      $this->db->where('ci_tour.tou_display', 1);     
+      $this->db->where('ci_tour.tou_display', 1);
       $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
       $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
-      $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');    
+      $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');
       $tour = $this->db->get("ci_tour")->result();
 
       //print_r($tour); exit;
@@ -312,11 +312,11 @@ class Tour_model extends MY_Model {
         unset($this->db);
         //$this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
         $this->db->where('tou_id', $value->tou_id);
-        $this->db->where('ci_tour.tou_display', 1);     
+        $this->db->where('ci_tour.tou_display', 1);
         $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
-        $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');    
+        $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
         $query = $this->db->get("ci_tour");
-        $tourBuffer = $query->result(); 
+        $tourBuffer = $query->result();
         $result[$count]["tour"] = $tourBuffer[0];
 
 
@@ -354,8 +354,8 @@ class Tour_model extends MY_Model {
         return false;
       }
     }else if(!empty($args["tou_name"])){
-      $this->db->like($args); 
-      $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');    
+      $this->db->like($args);
+      $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');
       $query = $this->db->get("ci_tour");
 
       $newResult = array();
@@ -364,8 +364,8 @@ class Tour_model extends MY_Model {
         return $newResult;
       }else{
         return false;
-      }      
+      }
     }
-  }  
+  }
 }
 ?>

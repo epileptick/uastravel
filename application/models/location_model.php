@@ -15,11 +15,11 @@ class Location_model extends MY_Model {
                      'cr_uid'           => 'loc_cr_uid',
                      'lu_date'          => 'loc_lu_date',
                      'lu_uid'           => 'loc_lu_uid'
-                     
+
     );
-    
+
     $this->_join_column = array(
-                     'loct_id'         => 'loct_id',
+                     'loc_id'           => 'loct_loc_id',
                      'lang'             => 'loct_lang',
                      'title'            => 'loct_title',
                      'body'             => 'loct_body',
@@ -28,53 +28,21 @@ class Location_model extends MY_Model {
                      'url'              => 'loct_url'
     );
   }
-  
+
   function get($options=""){
-    if(empty($options)){
-      return FALSE;
-    }
     if(is_numeric($options)){
       $this->load->model("location_translate_model","locationTranslateModel");
       $where = array("where"=>array("loc_id"=>$options,"lang"=>$this->lang->lang()));
-      if($this->locationTranslateModel->count_rows($where)){
-        $this->db->join("ci_location_translate","ci_location_translate.loct_loc_id = ci_location.loc_id");
+      if($this->count_rows($where)){
         $this->db->where($this->_join_column["lang"],$this->lang->lang());
       }
-    }else{
-      $this->db->join("ci_location_translate","ci_location_translate.loct_loc_id = ci_location.loc_id");
-      $this->db->where($this->_join_column["lang"],$this->lang->lang());
     }
-    $mainTable = parent::get($options);
-    return $mainTable;
-  }
-  
-  function getShow($options=""){
-    if(empty($options)){
-      return FALSE;
-    }
-    
-    if(is_numeric($options)){
-    
-      $this->load->model("location_translate_model","locationTranslateModel");
-      $where = array("where"=>array("loc_id"=>$options,"lang"=>$this->lang->lang()));
-      if($this->locationTranslateModel->count_rows($where)){
-        
-        $this->db->join("ci_location_translate","ci_location_translate.loct_loc_id = ci_location.loc_id");
-        $this->db->where($this->_join_column["lang"],$this->lang->lang());
-        
-      }else{
-        
-        return FALSE;
-      }
-    }else{
-      $this->db->join("ci_location_translate","ci_location_translate.loct_loc_id = ci_location.loc_id");
-      $this->db->where($this->_join_column["lang"],$this->lang->lang());
-    }
+    $this->db->join("ci_location_translate","ci_location_translate.loct_loc_id = ci_location.loc_id");
     $mainTable = parent::get($options);
 
     return $mainTable;
   }
-  
+
   function post_add($options = NULL){
     $this->load->model("location_translate_model","locationTranslateModel");
     if(!empty($options["id"])){
@@ -84,8 +52,8 @@ class Location_model extends MY_Model {
     $result = $this->locationTranslateModel->add($options);
     return $result;
   }
-  
-  
+
+
   function updateDisplayRecord($data=false){
     if($data){
       //Set data
@@ -94,13 +62,13 @@ class Location_model extends MY_Model {
       }else if(!empty($data["id"]) && $data["display"] == "show"){
         $this->db->set("loc_display", 1);
       }
-            
+
       $query = $this->db->where("loc_id", $data["id"]);
       $query = $this->db->update("ci_location");
     }
-    
+
     return ;
-  }  
+  }
 
 
   function updateRecord($options=""){
@@ -130,16 +98,16 @@ class Location_model extends MY_Model {
       $options["url"] = strtolower(trim($string, '-'));
       $options["url"] = trim($options["url"]);
     }
-    
+
     //Set data
     foreach($options AS $columnName=>$columnValue){
       if(array_key_exists($columnName, $this->_column)){
-        $this->db->set($this->_column[$columnName], $columnValue); 
+        $this->db->set($this->_column[$columnName], $columnValue);
       }
     }
     $this->db->where($this->_column['id'], $options['id']);
     $result = $this->db->update($this->_table);
-    
+
     //print_r($options);
     if($result){
       return $options['id'];
@@ -147,23 +115,23 @@ class Location_model extends MY_Model {
       return $result;
     }
   }
-  
+
 
   function getRecordRelated($args=false){
     //Related by tour
     $this->load->model("tag_model", "tagModel");
     $args["url"] = $args["tag_url"];
-    $tag = $this->tagModel->getRecord($args);
+    $tag = $this->tagModel->get($args);
 
     if(!empty($tag)){
-      //print_r($tag); exit; 
+      //print_r($tag); exit;
       $tag_id = $tag[0]->id;
-      $sql = "SELECT DISTINCT `tat_tour_id` 
-              FROM (`ci_tagtour`) JOIN `ci_tour` 
-              ON `ci_tour`.`tou_id` = `ci_tagtour`.`tat_tour_id` 
-              WHERE `tat_tag_id` 
-              IN ($tag_id) 
-              ORDER BY rand() 
+      $sql = "SELECT DISTINCT `tat_tour_id`
+              FROM (`ci_tagtour`) JOIN `ci_tour`
+              ON `ci_tour`.`tou_id` = `ci_tagtour`.`tat_tour_id`
+              WHERE `tat_tag_id`
+              IN ($tag_id)
+              ORDER BY rand()
               DESC LIMIT 5 ";
 
       $tour = $this->db->query($sql)->result();
@@ -177,7 +145,7 @@ class Location_model extends MY_Model {
         $this->db->where('tou_lang', $this->lang->lang());
         $this->db->where('tou_id', $value->tat_tour_id);
         $query = $this->db->get('ci_tour');
-        $tourBuffer = $query->result(); 
+        $tourBuffer = $query->result();
 
         if(!empty($tourBuffer)){
           $result[$count]["tour"] = $tourBuffer[0];
@@ -208,7 +176,7 @@ class Location_model extends MY_Model {
           }
           $count++;
         }
-      }//End related by tour   
+      }//End related by tour
     }//End check tag
 
 
@@ -231,7 +199,7 @@ class Location_model extends MY_Model {
       $this->_addError("invalid id");
       return FALSE;
     }
-    
+
     if(isset($options['id'])){
       $this->db->where($this->_prefix.'_id',$options['id']);
     }
@@ -255,8 +223,8 @@ class Location_model extends MY_Model {
     if(!empty($args["loc_title"]) && !empty($args["user_search"])){
 
       $search["loc_title"] = $args["loc_title"];
-      $this->db->like($search); 
-      //$this->db->order_by('CONVERT( ci_location_translate.loct_title USING tis620 ) ASC');    
+      $this->db->like($search);
+      //$this->db->order_by('CONVERT( ci_location_translate.loct_title USING tis620 ) ASC');
       $location = $this->db->get("ci_location")->result();
 
 
@@ -285,7 +253,7 @@ class Location_model extends MY_Model {
         return $result;
       }else{
         return false;
-      }            
+      }
     }
   }
 

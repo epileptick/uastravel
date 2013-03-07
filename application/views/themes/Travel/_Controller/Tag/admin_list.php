@@ -64,21 +64,12 @@ function selectAll(){
 ?>
 <div class="container_12">
 <section class="similar_hotels grid_12">
-
+  <?php echo form_open(base_url("admin/tag/updatelang"),'name="tagList" id="tagList"'); ?>
     <h2 class="section_heading"><?php echo $this->lang->line("tag_lang_tag_list");?></h2>  
     <div class="topHolder bottom-shadow">
-      <span class="GM1BAGKBGJB">
-      <button class="blogg-button" tabindex="0" id="btnSelect"><?php echo $this->lang->line("global_lang_select_all");?></button>
-      </span>
-      <span class="GM1BAGKBGJB">
-      <button class="blogg-button blogg-collapse-right" tabindex="0" href='<?php echo base_url("admin/location/create");?>'><?php echo $this->lang->line("location_lang_publish");?></button>
-      <button class="blogg-button blogg-collapse-left blogg-collapse-right" tabindex="0" href='<?php echo base_url("admin/location/create");?>'><?php echo $this->lang->line("location_lang_unpublish");?></button>
-      <button class="blogg-button blogg-collapse-left" tabindex="0" href='#' id="btnDelete">
-        <img class="blogg-button-image" alt="" src="<?php echo $imagepath."/delete.png" ?>" />
-      </button>
-      </span>
+      
       <span class="GM1BAGKBNIB">
-        <a class="blogg-button blogg-primary" tabindex="0" href='<?php echo base_url("admin/location/create");?>'><?php echo $this->lang->line("location_lang_add_post");?></a>
+        <input class="blogg-button blogg-primary" tabindex="0" value="<?php echo $this->lang->line("tag_lang_submit");?>" type="submit">
       </span>
       
       <div class="GM1BAGKBG5B">
@@ -90,34 +81,45 @@ function selectAll(){
          </div>
        </div>
     </div>
-    <?php echo form_open('','name="locationList" id="locationList"'); ?>
-    <ul id="location-list">
+    
+    <table width="100%">
     <?php
-      
-      if($tag):
+
+      if(!empty($tag)):
+      ?>
+      <tr>
+        <th>
+          ID
+        </th>
+        <?php
+          foreach ($this->config->item("language_list") as $langListKey => $langListValue) :
+        ?>
+          <th>
+            <?php echo $langListValue; ?> (<?php echo $langListKey; ?>)
+          </th>
+        <?php
+          endforeach;
+        ?>
+      </tr>
+      <?php
+        //var_dump($tag);exit;
         foreach ($tag as $key => $value) :
       ?>
-        <li>
-          <span><input type="checkbox" name="<?php echo $value["id"];?>" id="location_<?php echo $value["id"];?>"></span>
-          <div>
-            <span>  
-            <h3><a href="<?php echo base_url($this->lang->line("url_lang_tag")."/create/$value[id]");?>" target="_blank"><?php echo $value["name"];?></a></h3>
-            </span>
-            <!--
-            <span class="description"><?php echo trim(substr(strip_tags($value["description"]),0,100));?></span>
-            -->
+        <tr>
+          <td>
+            <span><?php echo $value["tag_id"]; ?></span>
             
-            <span id="location-list-control">
-              <!-- <a href="<?php echo base_url("admin/".$this->lang->line("url_lang_tag")."/delete/$value[id]");?>">
-                <?php echo $this->lang->line("global_lang_delete");?>
-              </a> | -->
-              <a href="<?php echo base_url("admin/".$this->lang->line("url_lang_tag")."/create/$value[id]");?>">
-                <?php echo $this->lang->line("global_lang_edit");?>
-              </a>
-            </span>
-          </div>
-          
-        </li>
+          </td>
+          <?php
+            foreach ($this->config->item("language_list") as $langListKey => $langListValue) {
+              ?>
+              <td>
+                <input value="<?php echo $value[$langListKey]["name"]; ?>" name="tagData[<?php echo $value["tag_id"]; ?>][<?php echo $langListKey; ?>]">
+              </td>
+              <?php
+            }
+          ?>
+        </tr>
       <?php
         endforeach;
       else:
@@ -128,9 +130,23 @@ function selectAll(){
       <?php
       endif;
       ?>
-    </ul>
-    <?php echo form_close(); ?>
+    </table>
     
+    <div class="topHolder bottom-shadow">
+      
+      <span class="GM1BAGKBNIB">
+        <input class="blogg-button blogg-primary" tabindex="0" value="<?php echo $this->lang->line("tag_lang_submit");?>" type="submit">
+      </span>
+      
+      <div class="GM1BAGKBG5B">
+        <div>
+          <span class="GM1BAGKBD5B"><?php echo $start_offset;?>-<?php echo $end_offset;?> จาก <?php echo $total_rows;?></span>
+            <?php
+              echo $this->pagination->create_links();
+            ?>
+         </div>
+       </div>
+    </div>
   </section>
-  
+  <?php echo form_close(); ?>
 </div>

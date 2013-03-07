@@ -117,22 +117,19 @@ $route['admin/tour/(:any)'] = 'tour/admin_list'; //for Tag
 
 //tour user
 $route[LangUtil::line("url_lang_tour").'/search'] = 'tour/user_search';
-$route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/search'] = 'tour/user_search';
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
-$route[$lang_set.'/'.LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
-$route[LangUtil::line("url_lang_tour")."/(:any)"] = 'tour/user_index'; 
-$route[$lang_set.'/'.LangUtil::line("url_lang_tour")."/(:any)"] = 'tour/user_index'; 
-$route[LangUtil::line("url_lang_tour")] = 'tour/user_index'; 
-$route[$lang_set.'/'.LangUtil::line("url_lang_tour")] = 'tour/user_index'; 
+$route[LangUtil::line("url_lang_tour")."/(:any)"] = 'tour/user_index';
+$route[LangUtil::line("url_lang_tour")] = 'tour/user_index';
+
 
 
 
 
 //Custom Tour user
-$route["customtour/ajax/(:any)"] = 'customtour/ajax_index/$1'; 
+$route["customtour/ajax/(:any)"] = 'customtour/ajax_index/$1';
 $route['customtour/(:any)-(:num)'] = 'customtour/user_view/$2';
-$route["customtour/(:any)"] = 'customtour/user_index'; 
-$route["customtour"] = 'customtour/user_index'; 
+$route["customtour/(:any)"] = 'customtour/user_index';
+$route["customtour"] = 'customtour/user_index';
 
 
 //hotel admin
@@ -155,8 +152,8 @@ $route['admin/hotel/(:any)'] = 'hotel/admin_list'; //for Tag
 //hotel user
 $route['hotel/search'] = 'hotel/user_search';
 $route['hotel/(:any)-(:num)'] = 'hotel/user_view/$2';
-$route["hotel/(:any)"] = 'hotel/user_index'; 
-$route["hotel"] = 'hotel/user_index'; 
+$route["hotel/(:any)"] = 'hotel/user_index';
+$route["hotel"] = 'hotel/user_index';
 
 
 
@@ -180,6 +177,8 @@ $route['admin/tag/update'] = 'tag/admin_update';
 $route['admin/tag/delete/(:num)'] = 'tag/admin_delete/$1';
 $route['admin/tag/create'] = 'tag/admin_create';
 $route['admin/tag/create/(:num)'] = 'tag/admin_create/$1';
+$route['admin/tag/list'] = 'tag/admin_list';
+$route['admin/tag/updatelang'] = 'tag/admin_updatelang';
 $route['admin/tag/(:any)/(:any)-(:num)'] = 'tag/admin_view/$3';
 $route['admin/tag/(:any)-(:num)'] = 'tag/admin_view/$2';
 $route['admin/tag/(:any)'] = 'tag/admin_list'; //for Tag

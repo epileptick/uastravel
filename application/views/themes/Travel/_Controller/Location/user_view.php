@@ -39,7 +39,7 @@
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
 
-<?php 
+<?php
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("/themes/Travel/tour/stylesheets/foundation.css").'">');
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("/themes/Travel/tour/stylesheets/style.css").'">');
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("/themes/Travel/tour/stylesheets/app.css").'">');
@@ -48,7 +48,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("
 PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
       <script type="text/javascript">
       function initialize() {
-      
+
         var latLng = new google.maps.LatLng('.$location['latitude'].','.$location['longitude'].');
         var map = new google.maps.Map(document.getElementById(\'mapCanvas\'), {
           scrollwheel: false,
@@ -58,18 +58,18 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
           streetViewControl:true,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
-        
+
         marker = new google.maps.Marker({
-          position: latLng, 
+          position: latLng,
           title: \'\',
           map: map,
           draggable: false
         });
       }
-      
+
       // Onload handler to fire off the app.
       google.maps.event.addDomListener(window, \'load\', initialize);
-      
+
       </script>');
 
 preg_match('/MSIE (.*?);/', $_SERVER['HTTP_USER_AGENT'], $matches);
@@ -95,15 +95,15 @@ if (count($matches)>1){
 ?>
 
 </head>
-<?php 
+<?php
 if(!empty($location['background_image'])){
 ?>
-<body style="background: #ededed url('<?php echo $location['background_image']; ?>') no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
-<?php 
+<body style="background: #ededed url('<?php echo $location['background_image']; ?>') no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
+<?php
 }else{
 ?>
-<body style="background: #ededed url('/themes/Travel/tour/images/bg1.jpg') no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg--> 
-<?php 
+<body style="background: #ededed url('/themes/Travel/tour/images/bg1.jpg') no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
+<?php
 }
 ?>
 
@@ -116,7 +116,7 @@ if(!empty($location['background_image'])){
         <nav class="top-bar">
           <ul>
             <li class="name">
-              <a href="<?php echo base_url();?>"> 
+              <a href="<?php echo base_url();?>">
                 <img src="<?php echo base_url('themes/Travel/tour/images/logo.png');?>">
               </a>
             </li>
@@ -134,7 +134,7 @@ if(!empty($location['background_image'])){
                   <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
                   <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
                   <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
-                </ul>                
+                </ul>
               </li>
               <li class="has-dropdown">
                 <a href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์อื่นๆ</a>
@@ -142,8 +142,8 @@ if(!empty($location['background_image'])){
                   <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
                   <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
                   <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
-                </ul>                
-              </li> 
+                </ul>
+              </li>
               <li class="has-dropdown">
                 <a href="<?php echo base_url('tour/การเดินทาง');?>">การเดินทาง</a>
                 <ul class="dropdown">
@@ -151,17 +151,17 @@ if(!empty($location['background_image'])){
                   <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
                   <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
                   <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
-                </ul>                
-              </li> 
+                </ul>
+              </li>
               <li class="has-dropdown">
                 <a href="<?php echo base_url('tour/ที่พัก');?>">ที่พัก</a>
                 <ul class="dropdown">
                   <li><a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a></li>
                   <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
-                </ul>                
+                </ul>
               </li>
               <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
-              <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>                
+              <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
             </ul>
           </section>
         </nav>
@@ -176,7 +176,7 @@ if(!empty($location['background_image'])){
         <h1 class="title"><a href=""><?php echo $location['title'];?></a>
           <a href="#detail">
             <img src="<?php echo base_url('themes/Travel/images/anchor.png');?>" width="23px" height="23px" align="absmiddle"/>
-          </a>          
+          </a>
           <?php if(!empty($location['subtitle'])): ?>
           <span class="subtitle"><?php echo $location['subtitle'];?></span>
           <?php endif; ?>
@@ -189,7 +189,7 @@ if(!empty($location['background_image'])){
     <!-- Gallery -->
     <?php
       if(!empty($images)):
-    ?>      
+    ?>
     <div class="row">
       <section class="gallery_pc">
         <div class="eight columns">
@@ -202,7 +202,7 @@ if(!empty($location['background_image'])){
             <div id="caption" class="caption-container"></div>
           </div>
         </div>
-      
+
           <div class="four columns">
             <div id="thumbs" class="navigation">
               <ul class="thumbs noscript">
@@ -246,7 +246,7 @@ if(!empty($location['background_image'])){
 
     <?php
       endif;
-    ?>    
+    ?>
     <!-- End Gallery -->
 
     <div class="row">
@@ -261,27 +261,27 @@ if(!empty($location['background_image'])){
         <div class="border"></div>
         <div class="row">
           <div class="four columns">
-            <?php 
+            <?php
             if(! empty($location['body'][0])){
               echo $location['body'][0];
             }
             ?>
           </div>
           <div class="four columns">
-            <?php 
+            <?php
             if(! empty($location['body'][1])){
               echo $location['body'][1];
             }
             ?>
           </div>
           <div class="four columns">
-            <?php 
+            <?php
             if(! empty($location['body'][2])){
               echo $location['body'][2];
             }
             ?>
-          </div> 
-        </div>  
+          </div>
+        </div>
 
         <!-- Tag -->
         <div class="row">
@@ -294,22 +294,22 @@ if(!empty($location['background_image'])){
                 if(!empty($tag)){
 
                   foreach ($tag as $key => $value) {
-                    if(!empty($value->url) &&  $value->id != 1){
+                    if(!empty($value["url"]) &&  $value["id"] != 1){
               ?>
-                      <li><a href="<?php echo base_url('/location/'.$value->url);?>"><?php echo $value->name; ?></a></li>
+                      <li><a href="<?php echo base_url('/location/'.$value["url"]);?>"><?php echo $value["name"]; ?></a></li>
               <?php
                     }
                   }
                 }
               ?>
             </ul>
-          </div> 
-        </div> 
+          </div>
+        </div>
         <!-- End Tag -->
 
       </section>
     </div>
- 
+
 
     <!-- Relate -->
     <div class="row">
@@ -331,18 +331,18 @@ if(!empty($location['background_image'])){
                 endif;
               ?>
             </div>
-            
+
           </div>
         </div>
         <div class="row">
-          <?php 
+          <?php
             if(! empty($location['suggestion'])):
           ?>
           <div class="six columns">
             <h3>{_ location_lang_suggestion}</h3>
             <?php echo $location['suggestion'];?>
           </div>
-          <?php 
+          <?php
             endif;
             if(! empty($location['route'])):
           ?>
@@ -350,7 +350,7 @@ if(!empty($location['background_image'])){
             <h3>{_ location_lang_route}</h3>
             <?php echo $location['route'];?>
           </div>
-          <?php 
+          <?php
             endif;
           ?>
         </div>
@@ -358,7 +358,7 @@ if(!empty($location['background_image'])){
       <div class="four columns">
         <h3>แพ็กเก็จทัวร์แนะนำ</h3>
 
-        <?php 
+        <?php
           if(!empty($related)){
 
 
@@ -367,7 +367,7 @@ if(!empty($location['background_image'])){
         ?>
               <div class="list_packet">
                 <div class="row">
-                  <div class="twelve columns">             
+                  <div class="twelve columns">
                     <a href="<?php echo base_url('/tour/'.$value["tour"]->tou_url."-".$value["tour"]->tou_id);?>">
                       <img src="<?php echo $value["tour"]->tou_banner_image; ?>">
                     </a>
@@ -399,14 +399,14 @@ if(!empty($location['background_image'])){
                     <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
                     <div class="price">
                       <span>
-                        <?php 
+                        <?php
                             if(!empty($value["price"]->pri_sale_adult_price)){
-                              
+
                               if($value["price"]->pri_discount_adult_price>0){
 
                                 $priceAdultDiscount = number_format($value["price"]->pri_sale_adult_price, 0);
                                 $priceAdult = number_format($value["price"]->pri_sale_adult_price, 0);
-                              
+
                                 echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
                                 echo " บาท";
 
@@ -421,7 +421,7 @@ if(!empty($location['background_image'])){
                               echo "Call";
                               echo " บาท";
                             }
-                          ?>            
+                          ?>
 
                       </span>
 
@@ -430,8 +430,8 @@ if(!empty($location['background_image'])){
                 </div>
               </div>
 
-        <?php 
-            }  
+        <?php
+            }
           }else{
             echo "ไม่มีรายการใกล้เคียง";
           }
@@ -467,11 +467,11 @@ if(!empty($location['background_image'])){
               <li><a href="">แพ็คเกจทัวร์</a></li>
               <li><a href="">เกี่ยวกับเรา</a></li>
               <li><a href="">ติดต่อเรา</a></li>
-              <li><a href="">โปรโมชั่น</a></li>                           
+              <li><a href="">โปรโมชั่น</a></li>
             </ul>
           </nav>
           <div class="clearfix"></div>
-          <p>Copyright © Uastravel.com</p>          
+          <p>Copyright © Uastravel.com</p>
         </div>
         <div class="five columns">
           <div class="address">
@@ -486,7 +486,7 @@ if(!empty($location['background_image'])){
   </div>
   <script src="/themes/Travel/tour/javascripts/jquery.js"></script>
   <script src="/themes/Travel/tour/javascripts/foundation.min.js"></script>
-  
+
   <!-- Initialize JS Plugins -->
   <script src="/themes/Travel/tour/javascripts/app.js"></script>
 
@@ -511,7 +511,7 @@ if(!empty($location['background_image'])){
           fadeSpeed:         'fast',
           exemptionSelector: '.selected'
         });
-        
+
         // Initialize Advanced Galleriffic Gallery
         var gallery = $('#thumbs').galleriffic({
           delay:                     2500,
@@ -551,31 +551,31 @@ if(!empty($location['background_image'])){
         });
       });
   </script>
-  
-  <!-- Gallery Mobile -->  
+
+  <!-- Gallery Mobile -->
   <link href="/themes/Travel/tour/javascripts/gallery_mobie/photoswipe.css" type="text/css" rel="stylesheet" />
   <script type="text/javascript" src="/themes/Travel/tour/javascripts/gallery_mobie/lib/klass.min.js"></script>
   <script type="text/javascript" src="/themes/Travel/tour/javascripts/gallery_mobie/code.photoswipe-3.0.5.min.js"></script>
-  
-  
+
+
   <script type="text/javascript">
 
     (function(window, PhotoSwipe){
-    
+
       document.addEventListener('DOMContentLoaded', function(){
-      
+
         var
           options = {},
           instance = PhotoSwipe.attach( window.document.querySelectorAll('#gallery_mobile a'), options );
-      
+
       }, false);
-      
-      
+
+
     }(window, window.Code.PhotoSwipe));
-    
+
   </script>
 
-  <!-- To top scrollbar  -->  
+  <!-- To top scrollbar  -->
   <script src="/themes/Travel/tour/javascripts/top-scrollbar/js/easing.js" type="text/javascript"></script>
   <!-- UItoTop plugin -->
   <script src="/themes/Travel/tour/javascripts/top-scrollbar/js/jquery.ui.totop.js" type="text/javascript"></script>
@@ -586,15 +586,15 @@ if(!empty($location['background_image'])){
           containerID: 'moccaUItoTop', // fading element id
         containerHoverClass: 'moccaUIhover', // fading element hover class
         scrollSpeed: 1200,
-        easingType: 'linear' 
+        easingType: 'linear'
       };
-      
+
       $().UItoTop({ easingType: 'easeOutQuart' });
-      
+
     });
   </script>
 
-  <!-- Tooltip -->  
+  <!-- Tooltip -->
   <script type="text/javascript" src="/themes/Travel/tour/javascripts/powertip/jquery.powertip.js"></script>
   <link rel="stylesheet" type="text/css" href="/themes/Travel/tour/javascripts/powertip/jquery.powertip.css" />
   <script type="text/javascript">
