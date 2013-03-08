@@ -193,113 +193,57 @@ class TagType_model extends MY_Model {
     }else if(isset($args["parent_id"]) && isset($args["type_id"]) ){
       //Get category by name
 
-      $data["tty_parent_id"] = $args["parent_id"];
-      $data["tty_type_id"] = $args["type_id"];
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
-      $query = $this->db->get_where('ci_tagtype', $data);
-
+      $data["where"]["parent_id"] = $args["parent_id"];
+      $data["where"]["type_id"] = $args["type_id"];
+      $query = $this->getTagTypeList($data);
       //echo $this->db->last_query(); exit;
-      if($query->num_rows > 0){
-        $newResult = $this->mapField($query->result());
-        return $newResult;
+      if(count($query) > 0){
+        return $query;
       }else{
         return false;
-      }
-    }else if(isset($args["tag_id"]) && isset($args["type_id"]) ){
-      //Get category by name
-
-      $data["tty_tag_id"] = $args["tag_id"];
-      $data["tty_type_id"] = $args["type_id"];
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
-      $query = $this->db->get_where('ci_tagtype', $data);
-      if($query->num_rows > 0){
-        $newResult = $this->mapField($query->result());
-        return $newResult;
-      }else{
-        return false;
-      }
-    }else if(isset($args["tag_id"])){
-      //Get category by name
-
-      $data["tty_tag_id"] = $args["tag_id"];
-      $query = $this->db->get_where('ci_tagtype', $data);
-      if($query->num_rows > 0){
-        $newResult = $this->mapField($query->result());
-        return $newResult;
-      }else{
-        return false;
-      }
-    }else if(isset($args["type_id"])){
-      //Get category by name
-      $data["tty_type_id"] = $args["type_id"];
-
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
-      $this->db->order_by('tty_index ASC');
-      $query = $this->db->get_where('ci_tagtype', $data);
-          //print_r($query->result()); exit;
-      if($query->num_rows > 0){
-        $newResult = $this->mapField($query->result());
-        return $newResult;
-      }else{
-        return false;
-      }
-    }else if(isset($args["parent_id"])){
-
-      /*
-      $parent["parent_id"] = $args["parent_id"];
-      $this->load->model("type_model", "typeModel");
-      $tagtypeQuery = $this->tagtypeModel->getRecord($parent);
-      */
-      //Get category by name
-      $parent["tty_parent_id"] = $args["parent_id"];
-      $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
-      $query = $this->db->get_where('ci_tagtype', $parent);
-      //echo $this->db->last_query(); exit;
-      if($query->num_rows > 0){
-        $newResult = $this->mapField($query->result());
-        return $newResult;
-      }else{
-        return false;
-      }
-    }else if(isset($args["id"])){
-      //Get category by id
-      $query = $this->db->get_where('ci_tagtype', array('tty_id' => $args["id"]), 1, 0);
-
-      if($query->num_rows > 0){
-        $newResult = $this->mapField($query->result());
-        return $newResult;
-      }else{
-        return false;
-      }
-    }else {
-      //Get list page
-      $query = $this->db->get("ci_tagtype");
-
-      if($query->num_rows > 0){
-        $newResult = $this->mapField($query->result());
-        return $newResult;
-      }else{
-        return false;
-      }
+      }      
     }
   }
 
 
 
+  function getCustomHotelRecord($args=false){
+
+    if($args["parent_id"] == 0 && isset($args["type_id"]) ){
+      //Get category by name
+
+      $data["where"]["parent_id"] = 0;
+      $data["where"]["type_id"] = $args["type_id"];
+      $query = $this->getTagTypeList($data);
+      //echo $this->db->last_query(); exit;
+      if(count($query) > 0){
+        return $query;
+      }else{
+        return false;
+      }
+    }else if(isset($args["parent_id"]) && isset($args["type_id"]) ){
+      //Get category by name
+
+      $data["where"]["parent_id"] = $args["parent_id"];
+      $data["where"]["type_id"] = $args["type_id"];
+      $query = $this->getTagTypeList($data);
+      //echo $this->db->last_query(); exit;
+      if(count($query) > 0){
+        return $query;
+      }else{
+        return false;
+      }      
+    }
+  }
+
   function getUniqRecordByWhereIn($args){
 
-
-    //$this->db->where('tty_parent_id', $args["parent_id"]);
-    //$this->db->where_in('ci_tagtype.tty_parent_id', $args["where_in"]);
-    //$this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtype.tty_tag_id');
-    //$this->db->group_by('ci_tagtype.tty_tag_id');
-    //$query = $this->db->get('ci_tagtype');
-
+    $where["where"]["type_id"] = $args["type_id"];
     $where["where_in"]["parent_id"] = $args["where_in"];
     $where["group"] = "tag_id";
     $query = $this->getTagTypeList($where);
 
-
+    //echo $this->db->last_query();
     if(count($query) > 0){
       return $query;
     }else{
@@ -313,6 +257,8 @@ class TagType_model extends MY_Model {
     $where["where"]["type_id"] = $args["type_id"];
     $where["group"] = "tag_id";
     $query = $this->getTagTypeList($where);
+
+    //echo $this->db->last_query(); exit;
 
     if(count($query) > 0){
       return $query;

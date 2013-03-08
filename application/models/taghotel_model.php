@@ -147,7 +147,7 @@ class Taghotel_model extends MY_Model {
       $this->db->limit($args["per_page"], $args["offset"]);
     }
     $hotel = $this->db->get('ci_taghotel')->result(); 
-
+    //echo $this->db->last_query(); exit;
 
     $count = 0;
     foreach ($hotel as $key => $value) {

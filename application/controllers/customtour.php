@@ -29,6 +29,15 @@ class CustomTour extends MY_Controller {
         $id = $this->uri->segment($index+2);
         $this->user_create($id);
 
+    }else if($this->uri->segment($index+1) == "add"){
+        ////////////////////////////
+        // tag
+        // algorithm : http://www/customtour/add/
+        // sample : http://uastravel.com/customtour/add/
+        ////////////////////////////
+        $args = $this->input->post();
+        $this->user_add($args);
+
     }else if($this->uri->segment($index+1) == "search"){
         ////////////////////////////
         // tag
@@ -93,13 +102,15 @@ class CustomTour extends MY_Controller {
     if($args["model"] == "tour"){
 
       //Type
-      $args["name"] = "customtour_filter";
+      $args["name"] = "customtour_tour_filter";
       $type = $this->typeModel->getRecord($args);
 
       //Third tag
       $third["type_id"] = $type[0]->id;
       $third["parent_id"]  = $args["secondtag_id"];
       $data["tours"]["filter"]["thirdtag"] = $this->tagtypeModel->getRecordByTypeAndParent($third);
+
+      //print_r($data["tours"]["filter"]["thirdtag"]); exit;
       $this->_fetch('ajax_filtertag', $data, false, true);
 
     }
@@ -189,37 +200,38 @@ class CustomTour extends MY_Controller {
 
       //Type
       $args["name"] = "customtour_tour_filter";
-      $type = $this->typeModel->getRecord($args);
+      $typeTour = $this->typeModel->getRecord($args);
 
       //First tag
-      $first["type_id"] = $type[0]->id;
-      $first["parent_id"] = 0;
-      $firsttag = $this->tagtypeModel->getCustomTourRecord($first);
+      $firstTagTour["type_id"] = $typeTour[0]->id;
+      $firstTagTour["parent_id"] = 0;
+      $firstTagTourQuery = $this->tagtypeModel->getCustomTourRecord($firstTagTour);
 
-      $default_tag = $firsttag[0]["name"];
+      $defaultTag = $firstTagTourQuery[0]["name"];
 
       //Second tag
-      foreach ($firsttag as $key => $valueFirstTag) {
-        $second["where_in"][] = $valueFirstTag["tag_id"];
+      foreach ($firstTagTourQuery as $key => $valueFirstTag) {
+        $secondTagTour["where_in"][] = $valueFirstTag["tag_id"];
       }
-      $secondtag = $this->tagtypeModel->getUniqRecordByWhereIn($second);
+      $secondTagTour["type_id"] = $typeTour[0]->id;
+      $secondTagTourQuery = $this->tagtypeModel->getUniqRecordByWhereIn($secondTagTour);
 
       //Third tag
-      $third["type_id"] = $type[0]->id;
-      $third["parent_id"]  = $secondtag[0]["tag_id"];
-      $thirdtag  = $this->tagtypeModel->getRecordByTypeAndParent($third);
+      $thirdTagTour["type_id"] = $typeTour[0]->id;
+      $thirdTagTour["parent_id"]  = $secondTagTourQuery[0]["tag_id"];
+      $thirdTagTourQuery  = $this->tagtypeModel->getRecordByTypeAndParent($thirdTagTour);
 
       //sprint_r($thirdtag); exit();
-      $data["tours"]["filter"]["firsttag"] = $firsttag;
-      $data["tours"]["filter"]["secondtag"] = $secondtag;
-      $data["tours"]["filter"]["thirdtag"] = $thirdtag;
+      $data["tours"]["filter"]["firsttag"] = $firstTagTourQuery;
+      $data["tours"]["filter"]["secondtag"] = $secondTagTourQuery;
+      $data["tours"]["filter"]["thirdtag"] = $thirdTagTourQuery;
 
-      $data["tours"]["filter"]["defaulttag"] = $firsttag[0]["name"];
+      $data["tours"]["filter"]["defaulttag"] = $firstTagTourQuery[0]["name"];
 
-      $argTour["type_id"] = $firsttag[0]["tag_id"];
-      $argTour["tag_id"]  = $secondtag[0]["tag_id"];
-      $argTour["menu"][0] = $firsttag[0]["tag_id"];
-      $argTour["menu"][1] = $secondtag[0]["tag_id"];
+      $argTour["type_id"] = $firstTagTourQuery[0]["tag_id"];
+      $argTour["tag_id"]  = $secondTagTourQuery[0]["tag_id"];
+      $argTour["menu"][0] = $firstTagTourQuery[0]["tag_id"];
+      $argTour["menu"][1] = $secondTagTourQuery[0]["tag_id"];
       $argTour["per_page"] = 20;
       $argTour["offset"] = 0;
       $data["tours"]["tour"] = $this->tagtourModel->getRecordByType($argTour);
@@ -228,54 +240,60 @@ class CustomTour extends MY_Controller {
       ////////////////////////
       // Hotel
       ////////////////////////
-/*
       //Type
       $args["name"] = "customtour_hotel_filter";
-      $type = $this->typeModel->getRecord($args);
+      $typeHotel = $this->typeModel->getRecord($args);
 
       //First tag
-      $first["type_id"] = $type[0]->id;
-      $first["parent_id"] = 0;
-      $firsttag = $this->tagtypeModel->getCustomTourRecord($first);
+      $firstTagHotel["type_id"] = $typeHotel[0]->id;
+      $firstTagHotel["parent_id"] = 0;
+      $firstTagHotelQuery = $this->tagtypeModel->getCustomTourRecord($firstTagHotel);
 
-      $default_tag = $firsttag[0]->name;
-      //print_r($firsttag); exit;
+      $defaultTagHotel = $firstTagHotelQuery[0]["name"];
+
+      //print_r($firstTagHotelQuery); exit;
+
       //Second tag
-      foreach ($firsttag as $key => $valueFirstTag) {
-        $second["where_in"][] = $valueFirstTag->tag_id;
+      foreach ($firstTagHotelQuery as $key => $valueFirstTag) {
+        $secondTagHotel["where_in"][] = $valueFirstTag["tag_id"];
       }
-      $secondtag = $this->tagtypeModel->getUniqRecordByWhereIn($second);
-
-      //print_r($secondtag); exit;
+      $secondTagHotel["type_id"] = $typeHotel[0]->id;
+      $secondTagHotelQuery = $this->tagtypeModel->getUniqRecordByWhereIn($secondTagHotel);
 
       //Third tag
-      $third["type_id"] = $type[0]->id;
-      $third["parent_id"]  = $secondtag[0]->tag_id;
-      //$third["parent_id"][0] = $firsttag[0]->tag_id;
-      $thirdtag  = $this->tagtypeModel->getRecordByTypeAndParent($third);
+      $thirdTagHotel["type_id"] = $typeHotel[0]->id;
+      $thirdTagHotel["parent_id"]  = $secondTagHotelQuery[0]["tag_id"];
+      $thirdTagHotelQuery = $this->tagtypeModel->getRecordByTypeAndParent($thirdTagHotel);
 
-      //sprint_r($thirdtag); exit();
-      $data["tours"]["filter"]["firsttag"] = $firsttag;
-      $data["tours"]["filter"]["secondtag"] = $secondtag;
-      $data["tours"]["filter"]["thirdtag"] = $thirdtag;
 
-      $data["tours"]["filter"]["defaulttag"] = $firsttag[0]->name;
+      $data["hotels"]["filter"]["firsttag"] = $firstTagHotelQuery;
+      $data["hotels"]["filter"]["secondtag"] = $secondTagHotelQuery;
+      $data["hotels"]["filter"]["thirdtag"] = $thirdTagHotelQuery;
 
-      $argTour["type_id"] = $firsttag[0]->tag_id;
-      $argTour["tag_id"]  = $secondtag[0]->tag_id;
-      $argTour["menu"][0] = $firsttag[0]->tag_id;
-      $argTour["menu"][1] = $secondtag[0]->tag_id;
-      $argTour["per_page"] = 20;
-      $argTour["offset"] = 0;
-      $data["tours"]["tour"] = $this->tagtourModel->getRecordByType($argTour);
-*/
+      $data["hotels"]["filter"]["defaulttag"] = $firstTagHotelQuery[0]["name"];
 
+
+      $argHotel["type_id"] = $firstTagHotelQuery[0]["tag_id"];
+      $argHotel["tag_id"]  = $firstTagHotelQuery[0]["tag_id"];
+      $argHotel["menu"][0] = $firstTagHotelQuery[0]["tag_id"];
+      $argHotel["menu"][1] = $secondTagHotelQuery[0]["tag_id"];
+      $argHotel["per_page"] = 20;
+      $argHotel["offset"] = 0;
+      $data["hotels"]["hotel"] = $this->taghotelModel->getRecordByTag($argHotel);      
 
     }
+
+
+    //print_r($data["hotels"]); exit;
 
     $this->_fetch('user_create', $data, false, true);
 
   }
+
+
+  function user_add($data = false){
+
+  }  
 
   function user_list($page){
     echo "user list : ".$page;
