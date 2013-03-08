@@ -11,7 +11,7 @@ class Extendprice_model extends MY_Model {
     //print_r($args); exit;
 
     if(isset($args["extp_id"])){
-      //Get category by id      
+      //Get category by id
       $query = $this->db->get_where('ci_extendprice', array('extp_id' => $args["extp_id"]), 1, 0);
 
       if($query->num_rows > 0){
@@ -19,9 +19,9 @@ class Extendprice_model extends MY_Model {
       }else{
         return false;
       }
-    
+
     }else if(isset($args["extp_tour_id"])){
-      //Get category by id      
+      //Get category by id
       $query = $this->db->get_where('ci_extendprice', array('extp_tour_id' => $args["extp_tour_id"]));
 
       if($query->num_rows > 0){
@@ -29,11 +29,11 @@ class Extendprice_model extends MY_Model {
       }else{
         return false;
       }
-    
+
     }else{
       //Get list page
       ($field)?$this->db->select($field):"";
-      $this->db->order_by('CONVERT( extp_name USING tis620 ) ASC');    
+      $this->db->order_by('CONVERT( extp_name USING tis620 ) ASC');
       $query = $this->db->get("ci_extendprice");
 
       if($query->num_rows > 0){
@@ -41,7 +41,7 @@ class Extendprice_model extends MY_Model {
       }else{
         return false;
       }
-    }    
+    }
 
   }
 
@@ -52,7 +52,7 @@ class Extendprice_model extends MY_Model {
 
       //Insert
       foreach ($data as $columnName => $columnValue) {
-        $this->db->set($columnName, $columnValue); 
+        $this->db->set($columnName, $columnValue);
       }
 
       $this->db->insert($this->_table);
@@ -67,21 +67,21 @@ class Extendprice_model extends MY_Model {
 
 
 
-  
+
   function addMultipleRecord($args=false){
 
     if($args){
       $count = 0;
       $tag = false;
       foreach ($args as $key => $value) {
-          $tagInsertID = $this->addRecord($value);  
+          $tagInsertID = $this->addRecord($value);
          $count++;
       }
       return ;
     }else{
       return ;
     }
-  }    
+  }
 
 
   function updateRecord($args=false){
@@ -101,16 +101,16 @@ class Extendprice_model extends MY_Model {
 
     $insert = false;
     $insertCount = 0;
-    $insertArray = array();  
+    $insertArray = array();
 
 
     //Get extendprice by this tour_id
-    $query = $this->getRecord($extendprice); 
+    $query = $this->getRecord($extendprice);
 
     //Check Update & Delete
     if(!empty($query)){
       foreach ($query as $keyQuery => $valueQuery) {
-        foreach ($input as $keyInput => $valueInput) { 
+        foreach ($input as $keyInput => $valueInput) {
             if(!empty($valueInput["extp_id"])){
               if($valueQuery->extp_id == $valueInput["extp_id"]){
                 $update = true;
@@ -122,34 +122,34 @@ class Extendprice_model extends MY_Model {
         if($update){
           //Update
           $updateArray[$updateCount] = $updateData;
-          $updateCount++;  
-          $update = false;  
+          $updateCount++;
+          $update = false;
         }else{
           //Delete
           $deleteArray[$deleteCount] = $valueQuery;
-          $deleteCount++; 
-        }     
+          $deleteCount++;
+        }
       }
-      
+
     }
 
     //Check Insert
-    foreach ($input as $keyInput => $valueInput) { 
+    foreach ($input as $keyInput => $valueInput) {
       if(empty($valueInput["extp_id"])){
         $insert = true;
-        $valueInput["extp_tour_id"] = $args["id"];        
+        $valueInput["extp_tour_id"] = $args["id"];
         $insertArray[] = $valueInput;
       }
     }
 
 
     //Insert extendprice to database
-    if(!empty($insertArray)){ 
+    if(!empty($insertArray)){
       $this->addMultipleRecord($insertArray);
     }
 
     //Update extendprice to database
-    if(!empty($updateArray)){ 
+    if(!empty($updateArray)){
       foreach ($updateArray as $key => $value) {
         $this->_updateRecord($value);
       }
@@ -164,20 +164,20 @@ class Extendprice_model extends MY_Model {
     }
 
     return ;
-  }  
+  }
 
   function _updateRecord($data=false){
     if(!empty($data["extp_id"])){
       //Set data
       foreach($data AS $columnName=>$columnValue){
-        $this->db->set($columnName, $columnValue); 
+        $this->db->set($columnName, $columnValue);
       }
       $query = $this->db->where("extp_id", $data["extp_id"]);
       $query = $this->db->update("ci_extendprice");
     }else if($data["extp_tour_id"]  && $data["extp_id"]){
       //Set data
       foreach ($data as $columnName => $columnValue) {
-        $this->db->set($columnName, $columnValue); 
+        $this->db->set($columnName, $columnValue);
       }
 
       $query = $this->db->where("extp_tour_id", $data["extp_tour_id"]);
@@ -200,8 +200,8 @@ class Extendprice_model extends MY_Model {
       $this->db->where("extp_tour_id", $args["extp_tour_id"]);
       $this->db->delete("ci_extendprice");
 
-    }  
+    }
   }
-  
+
 }
 ?>

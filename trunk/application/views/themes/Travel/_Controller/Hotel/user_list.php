@@ -9,28 +9,28 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 
-<?php 
+<?php
   //Check class
   if($this->uri->segment(1) == $this->router->class){
     $index = 1;
-    //echo $index; 
+    //echo $index;
   }else if($this->uri->segment(2) == $this->router->class){
     $index = 2;
-    //echo $index; 
+    //echo $index;
   }
 
   $maintag = str_replace("-", " ",$this->uri->segment(1+$index));
 
   //Title
-  $title1 = str_replace("-", " ",$this->uri->segment(1+$index)).str_replace("-", " ",$this->uri->segment(2+$index));  
+  $title1 = str_replace("-", " ",$this->uri->segment(1+$index)).str_replace("-", " ",$this->uri->segment(2+$index));
   $title2 = "";
   if($this->uri->segment(3+$index)){
-    $title2 = str_replace("-", " ",$this->uri->segment(3+$index)).str_replace("-", " ",$this->uri->segment(2+$index));     
-  }  
+    $title2 = str_replace("-", " ",$this->uri->segment(3+$index)).str_replace("-", " ",$this->uri->segment(2+$index));
+  }
   $title = trim($title1." ".$title2);
 
 
-  $hotel_keyword = "แพคเกจทัวร์".$this->uri->segment(2+$index).", ทัวร์".$this->uri->segment(2+$index).", เที่ยวไทย".$this->uri->segment(2+$index).", ท่องเที่ยว".$this->uri->segment(2+$index).", ที่ท่องเที่ยว".$this->uri->segment(2+$index).", ท่องเที่ยวไทย".$this->uri->segment(2+$index).", เที่ยวทั่วไทย".$this->uri->segment(2+$index);  
+  $hotel_keyword = "แพคเกจทัวร์".$this->uri->segment(2+$index).", ทัวร์".$this->uri->segment(2+$index).", เที่ยวไทย".$this->uri->segment(2+$index).", ท่องเที่ยว".$this->uri->segment(2+$index).", ที่ท่องเที่ยว".$this->uri->segment(2+$index).", ท่องเที่ยวไทย".$this->uri->segment(2+$index).", เที่ยวทั่วไทย".$this->uri->segment(2+$index);
 
   if($maintag == "โชว์กลางคืน"){
     $keyword = "โชว์".$this->uri->segment(2+$index).", โชว์การแสดง".$this->uri->segment(2+$index).", โชว์กลางคืน".$this->uri->segment(2+$index).", ".$hotel_keyword;
@@ -52,8 +52,8 @@
     $keyword = $title1.", ".$title2.", ".$hotel_keyword;
   }else{
     $keyword = $title1.", ".$hotel_keyword;
-  } 
-?> 
+  }
+?>
 
   <title><?php echo "จองโรงแรม U As Travel" ;?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -119,7 +119,7 @@
                     <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
                     <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
                     <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
-                  </ul>                
+                  </ul>
                 </li>
                 <li>
                   <a>แพ๊คเกจทัวร์อื่นๆ <span class="arrow_menu"></span></a>
@@ -127,8 +127,8 @@
                     <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
                     <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
                     <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
-                  </ul>                
-                </li> 
+                  </ul>
+                </li>
                 <li>
                   <a>การเดินทาง <span class="arrow_menu"></span></a>
                   <ul class="sub-menu">
@@ -136,18 +136,18 @@
                     <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
                     <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
                     <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
-                  </ul>                
-                </li> 
+                  </ul>
+                </li>
                 <li><a class="active"  href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                 <!-- li>
                   <a>ที่พัก <span class="arrow_menu"></span></a>
                   <ul class="sub-menu">
                     <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                     <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
-                  </ul>                
+                  </ul>
                 </li -->
                 <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
-                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>    
+                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
               </ul><!-- End accordion -->
             </nav>
             <div class="social">
@@ -178,11 +178,11 @@
           <div class="shadow"></div>
           </div><!--/sidebar-->
           <div class="main">
-            <div class="content">   
+            <div class="content">
 
               <!-- Start first menu -->
               <div class="row-fluid">
-                <div class="navbar">     
+                <div class="navbar">
                     <div class="navbar-inner">
                         <div id="options">
                           <ul class="option-set nav" >
@@ -191,7 +191,7 @@
                             if($menu_selectall == true){
                             ?>
                               <li>
-                                <a href="<?php echo base_url('hotel/'.$this->uri->segment(2));?>" 
+                                <a href="<?php echo base_url('hotel/'.$this->uri->segment(2));?>"
                                   class="selected"
                                   title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
                                 >
@@ -224,7 +224,7 @@
                               $uri2 = "";
                               if($this->uri->segment(3)){
                                 $uri2 = $this->uri->segment(3)."/";
-                              }                              
+                              }
 
 
                               //Check menu link
@@ -233,18 +233,18 @@
                                 if($value->url == $this->uri->segment(3)){
                                   $isMenu = true;
                                 }
-                              }  
+                              }
 
                               foreach ($menu as $key => $value) {
                                 if($isMenu){
-                                  $link = base_url('hotel/'.$uri1.$value->url); 
+                                  $link = base_url('hotel/'.$uri1.$value->url);
                                 }else{
-                                  $link = base_url('hotel/'.$uri1.$value->url."/".$uri2); 
+                                  $link = base_url('hotel/'.$uri1.$value->url."/".$uri2);
                                 }
                             ?>
                               <li>
-                                <a href="<?php echo $link?>" 
-                                  <?php  
+                                <a href="<?php echo $link?>"
+                                  <?php
                                     if($value->select == 1){
                                       echo "class='selected'";
                                     }else{
@@ -256,28 +256,28 @@
                                   <?php echo $value->name; ?>
                                 </a>
                               </li>
-                            <?php                                                     
+                            <?php
                               }
                             ?>
                           </ul>
                         </div>
-                        <form name="input" action="hotel/search" method="post" class="navbar-form pull-right form_search" id="search-form"> 
+                        <form name="input" action="hotel/search" method="post" class="navbar-form pull-right form_search" id="search-form">
                           <select name="select" id="selectsearch">
                             <option value="hotel">แพคเกจทัวร์</option>
                             <option value="location">สถานที่ท่องเที่ยว</option>
                           </select>
-                          <div class="input_search"> 
+                          <div class="input_search">
                             <input type="text" name="search" class="text_search"
                                    value="<?php echo (!empty($search))?$search:"";?>"
                             >
                             <input type="submit" value="ค้นหา" class="button_search">
                           </div>
-                        </form>                         
+                        </form>
                     </div>
                   </div>
               </div>
               <!-- End first menu -->
-              
+
               <!-- Start sub menu -->
               <?php
               if(!empty($submenu)){
@@ -288,10 +288,10 @@
                   if($value->url == $this->uri->segment(3)){
                     $isSubMenu = true;
                   }
-                }                  
-              ?>   
+                }
+              ?>
               <div class="row-fluid">
-                <div class="navbar">                                       
+                <div class="navbar">
                     <div class="navbar-inner">
                         <div id="options">
                           <ul class="option-set nav" >
@@ -299,9 +299,9 @@
                             <?php
 
                             if($isMenu){
-                              $link = base_url('hotel/'.$uri1.$uri2); 
+                              $link = base_url('hotel/'.$uri1.$uri2);
                             }else{
-                              $link = base_url('hotel/'.$uri1); 
+                              $link = base_url('hotel/'.$uri1);
                             }
 
                             if($submenu_selectall == true){
@@ -328,14 +328,14 @@
 
                             foreach ($submenu as $key => $value) {
                               if($isSubMenu){
-                                  $link = base_url('hotel/'.$uri1.$value->url); 
+                                  $link = base_url('hotel/'.$uri1.$value->url);
                               }else{
-                                $link = base_url('hotel/'.$uri1.$uri2.$value->url); 
+                                $link = base_url('hotel/'.$uri1.$uri2.$value->url);
                               }
                             ?>
                               <li>
-                                <a href="<?php echo $link?>" 
-                                  <?php  
+                                <a href="<?php echo $link?>"
+                                  <?php
                                     if($value->select == 1){
                                       echo "class='selected'";
                                     }else{
@@ -347,22 +347,22 @@
                                   <?php echo $value->name; ?>
                                 </a>
                               </li>
-                            <?php                                                     
-                              }                              
+                            <?php
+                              }
                             ?>
                           </ul>
-                        </div>  
+                        </div>
                     </div>
 
                   </div>
               </div>
-              <?php                                                     
-                }                              
-              ?>                    
+              <?php
+                }
+              ?>
               <!-- End sub menu -->
 
     			  <?php
-    				if(!empty($hotel)){			  
+    				if(!empty($hotel)){
     			  ?>
               <div class="row-fluid">
                 <div class="span12">
@@ -379,19 +379,19 @@
                             ?>
                               <div class="sticker_status">
                                 <div class="sticker price">
-                                  <?php  
+                                  <?php
                                     //$sale_price = $value["price"]->prh_sale_adult_price - $value["price"]->prh_discount_adult_price;
                                     echo number_format($value["price"]->prh_sale_room_price, 0);
                                   ?>
                                   บาท
-                                </div> 
-                              </div>                                     
-                            <?php                                    
+                                </div>
+                              </div>
+                            <?php
                                 }
                             ?>
-                            <a href="<?php echo base_url('hotel/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>" 
-                              target="_blank" 
-                              title="<?php echo $value['hotel']->hott_name;?>"                                
+                            <a href="<?php echo base_url('hotel/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>"
+                              target="_blank"
+                              title="<?php echo $value['hotel']->hott_name;?>"
                             >
                               <?php
                                 if($value['hotel']->hot_first_image){
@@ -410,13 +410,13 @@
                                     <div class="promotion style2">
                                       <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">-->
                                       <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th2.png');?>">
-                                      <p>จาก 
+                                      <p>จาก
                                         <span>
                                           <?php
                                             echo number_format($value["price"]->prh_sale_room_price);
                                           ?>
-                                        </span>  ลดเหลือ 
-                                        <span class="reduce_price"> 
+                                        </span>  ลดเหลือ
+                                        <span class="reduce_price">
                                           <?php
                                             echo number_format($value["price"]->prh_discount_room_price, 0);
                                           ?>
@@ -432,9 +432,9 @@
                             <div class="row-fluid">
                               <div class="span8">
                                 <h3>
-                                  <a href="<?php echo base_url('hotel/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>" 
-                                    target="_blank" 
-                                    title="<?php echo $value['hotel']->hott_name;?>"                                    
+                                  <a href="<?php echo base_url('hotel/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>"
+                                    target="_blank"
+                                    title="<?php echo $value['hotel']->hott_name;?>"
                                   >
                                   <?php echo $value['hotel']->hott_name; ?>
                                   </a>
@@ -446,10 +446,10 @@
                                   if($value['hotel']->hot_star == 2){
                                 ?>
                                   <div class="rating two_star"></div>
-                                <?php    
+                                <?php
                                   }else{
                                 ?>
-                                  <div class="rating two_star" style="display:none"></div>                              
+                                  <div class="rating two_star" style="display:none"></div>
                                 <?php
                                   }
                                 ?>
@@ -458,10 +458,10 @@
                                   if($value['hotel']->hot_star == 3){
                                 ?>
                                   <div class="rating three_star"></div>
-                                <?php    
+                                <?php
                                   }else{
                                 ?>
-                                  <div class="rating three_star" style="display:none"></div>                              
+                                  <div class="rating three_star" style="display:none"></div>
                                 <?php
                                   }
                                 ?>
@@ -471,10 +471,10 @@
                                   if($value['hotel']->hot_star == 4){
                                 ?>
                                   <div class="rating four_star"></div>
-                                <?php    
+                                <?php
                                   }else{
                                 ?>
-                                  <div class="rating four_star" style="display:none"></div>                              
+                                  <div class="rating four_star" style="display:none"></div>
                                 <?php
                                   }
                                 ?>
@@ -483,13 +483,13 @@
                                   if($value['hotel']->hot_star == 5){
                                 ?>
                                   <div class="rating five_star"></div>
-                                <?php    
+                                <?php
                                   }else{
                                 ?>
-                                  <div class="rating five_star" style="display:none"></div>                              
+                                  <div class="rating five_star" style="display:none"></div>
                                 <?php
                                   }
-                                ?>                                
+                                ?>
                               </div>
                             </div>
                             <div class="clearfix"></div>
@@ -500,18 +500,18 @@
                                 <!--<div class="icon hotel" rel="tooltip" title="แพ็กเก็จทัวร์"></div>-->
                                 <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
                                 <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                              </div>                              
+                              </div>
                               <div class="span5">
                                 <span class="tag">
                                   <?php
                                     //print_r($value["tag"]); exit;
                                     foreach ($value["tag"] as $keyTag => $valueTag) {
                                   ?>
-                                  <a href="<?php echo base_url('hotel/'.$uri1.$valueTag->tag_url);?>" 
+                                  <a href="<?php echo base_url('hotel/'.$uri1.$valueTag["url"]);?>"
                                       style="color: #0CACE1;"
-                                      title="<?php echo $valueTag->tag_name." ".str_replace("-", " ", $this->uri->segment(2))." ".str_replace("-", " ", $this->uri->segment(3));?>"
+                                      title="<?php echo $valueTag["name"]." ".str_replace("-", " ", $this->uri->segment(2))." ".str_replace("-", " ", $this->uri->segment(3));?>"
                                   >
-                                    <?php echo $valueTag->tag_name; ?>
+                                    <?php echo $valueTag["name"]; ?>
                                   </a>
                                   <?php
                                     }
@@ -525,8 +525,8 @@
                       <?php
                           }//End loop hotel
                       ?>
-                    
-                  
+
+
 
                       <nav id="page_nav">
                         <?php
@@ -535,7 +535,7 @@
                             <a href="<?php echo base_url(uri_string().'/2');?>"></a>
 
                         <?php
-                          } 
+                          }
                         ?>
                       </nav>
 
@@ -551,12 +551,12 @@
     						ไม่พบข้อมูลที่ท่านต้องการ
     					</font>
     					<center>
-    			  
+
     			  <?php
     				}
     				//End check hotel
     			  ?>
-					  
+
             </div>
           </div><!--/content-->
         </div>
@@ -584,7 +584,7 @@
     <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-typeahead.js');?>"></script>
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/function.js');?>"></script>
 
-    <!-- To top scrollbar  -->  
+    <!-- To top scrollbar  -->
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/easing.js');?>" type="text/javascript"></script>
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/jquery.ui.totop.js');?>" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/css/ui.totop.css');?>" />

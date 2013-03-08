@@ -100,5 +100,6 @@ if($this->uri->segment(0)=="post"){
 
 	</div></footer>
 
+
 </body>
 </html>

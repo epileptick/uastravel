@@ -13,13 +13,13 @@
       ?>
         <div class="sticker_status">
           <div class="sticker price">
-            <?php  
+            <?php
               echo number_format($value["price"]->pri_sale_adult_price, 0);
             ?>
             บาท
-          </div> 
-        </div>                                   
-      <?php                                    
+          </div>
+        </div>
+      <?php
           }
       ?>
       <a href="<?php echo base_url('tour/'.$value['tour']->tout_url.'-'.$value['tour']->tou_id);?>" target="_blank" >
@@ -41,13 +41,13 @@
               <div class="promotion style2">
                 <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">-->
                 <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th2.png');?>">
-                <p>จาก 
+                <p>จาก
                   <span>
                     <?php
                       echo number_format($value["price"]->pri_sale_adult_price);
                     ?>
-                  </span>  ลดเหลือ 
-                  <span class="reduce_price"> 
+                  </span>  ลดเหลือ
+                  <span class="reduce_price">
                     <?php
                       echo number_format($value["price"]->pri_discount_adult_price, 0);
                     ?>
@@ -80,7 +80,7 @@
       <div class="border"></div>
       <div class="row-fluid">
         <div class="span7">
-          <?php 
+          <?php
               if(isset($value['tour']->tout_name)){
             ?>
               <div class="icon tour" rel="tooltip" title="แพ็กเก็จทัวร์"></div>
@@ -96,8 +96,8 @@
               //print_r($value["tag"]); exit;
               foreach ($value["tag"] as $keyTag => $valueTag) {
             ?>
-            <a href="<?php echo base_url('tour/'.$valueTag->tag_url);?>" style="color: #0CACE1;">
-              <?php echo $valueTag->tag_name; ?>
+            <a href="<?php echo base_url('tour/'.$valueTag["url"]);?>" style="color: #0CACE1;">
+              <?php echo $valueTag["name"]; ?>
             </a>
             <?php
               }
@@ -110,6 +110,6 @@
 
 <?php
     }
-  }//End loop tour 
+  }//End loop tour
 ?>
 <?php include_once("themes/Travel/tour/analyticstracking.php") ?>
