@@ -96,8 +96,8 @@
               //print_r($value["tag"]); exit;
               foreach ($value["tag"] as $keyTag => $valueTag) {
             ?>
-            <a href="<?php echo base_url('hotel/'.$valueTag->tag_url);?>" style="color: #0CACE1;">
-              <?php echo $valueTag->tag_name; ?>
+            <a href="<?php echo base_url('hotel/'.$valueTag["url"]);?>" style="color: #0CACE1;">
+              <?php echo $valueTag["name"]; ?>
             </a>
             <?php
               }

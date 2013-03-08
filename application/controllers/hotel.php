@@ -193,9 +193,9 @@ class Hotel extends MY_Controller {
     if($argTag){
       //hotel & tag
       //Query tag_name by tag_url
-      $tag["url"] = $argTag;
+      $tag["where"]["url"] = $argTag;
       $this->load->model("tag_model", "tagModel");
-      $tagQuery = $this->tagModel->getRecord($tag);
+      $tagQuery = $this->tagModel->get($tag);
       unset($tag);
       //print_r($tagQuery); exit;
 
@@ -203,28 +203,28 @@ class Hotel extends MY_Controller {
       $empty = false;
       if(!empty($tag)){
         //Query type_id by tag_name
-        $tag["name"] = $tagQuery[0]->name;
+        $tag["where"]["name"] = $tagQuery[0]["name"];
         $this->load->model("type_model", "typeModel");
-        $typeQuery = $this->typeModel->getRecord($tag);
+        $typeQuery = $this->typeModel->get($tag);
         //print_r($typeQuery); exit;
 
         if(!empty($typeQuery)){
           //Query tagtype by type_id
-          $type["type_id"] = $typeQuery[0]->id;
+          $type["where"]["type_id"] = $typeQuery[0]["type_id"];
           $this->load->model("tagtype_model", "tagtypeModel");
-          $menuQuery = $this->tagtypeModel->getRecord($type);
+          $menuQuery = $this->tagtypeModel->get($type);
           //print_r($menuQuery); exit;
 
           //Query type_id by parent_id
-          $parent["parent_id"] = $type["type_id"];
+          $parent["where"]["parent_id"] = $type["where"]["type_id"];
           $this->load->model("type_model", "typeModel");
-          $parenttypeQuery = $this->typeModel->getRecord($parent);
+          $parenttypeQuery = $this->typeModel->get($parent);
           //print_r($parenttypeQuery); exit;
 
           //Query tagname by type_id (Submenu)
-          $type["type_id"] = $parenttypeQuery[0]->id;
+          $type["where"]["type_id"] = $parenttypeQuery[0]["id"];
           $this->load->model("tagtype_model", "tagtypeModel");
-          $subMenuQuery = $this->tagtypeModel->getRecord($type);
+          $subMenuQuery = $this->tagtypeModel->get($type);
           //print_r($subMenuQuery); exit;
 
         }else{
@@ -242,24 +242,24 @@ class Hotel extends MY_Controller {
 	//Not type & tag & argTag
 	if($empty){
 		//Query tagtype by type_id
-		$type["type_id"] = 4;
+		$type["where"]["type_id"] = 4;
 		$this->load->model("tagtype_model", "tagtypeModel");
-		$menuQuery = $this->tagtypeModel->getRecord($type);
+		$menuQuery = $this->tagtypeModel->getTagTypeList($type);
 		//print_r($menuQuery); exit;
 
 		//Query type_id by parent_id
-		$parent["parent_id"] = $type["type_id"];
+		$parent["where"]["parent_id"] = $type["where"]["type_id"];
 		$this->load->model("type_model", "typeModel");
-		$parenttypeQuery = $this->typeModel->getRecord($parent);
+		$parenttypeQuery = $this->typeModel->get($parent);
 		//print_r($parenttypeQuery); exit;
 
 		//Query tagname by type_id (Submenu)
     if(!empty($parenttypeQuery[0]->id)){
-      $type["type_id"] = $parenttypeQuery[0]->id;
+      $type["where"]["type_id"] = $parenttypeQuery[0]["id"];
     }
 
 		$this->load->model("tagtype_model", "tagtypeModel");
-		$subMenuQuery = $this->tagtypeModel->getRecord($type);
+		$subMenuQuery = $this->tagtypeModel->getTagTypeList($type);
 		//print_r($subMenuQuery); exit;
 	}
 
@@ -269,12 +269,12 @@ class Hotel extends MY_Controller {
     foreach ($menuQuery as $key => $value) {
       //Menu Tag
 	    $return["menu"][$count] = new stdClass();
-      $return["menu"][$count]->tag_id = $value->id;
-      $return["menu"][$count]->name = $value->name;
-      $return["menu"][$count]->url = $value->url;
+      $return["menu"][$count]->tag_id = $value["tag_id"];
+      $return["menu"][$count]->name = $value["name"];
+      $return["menu"][$count]->url = $value["url"];
 
       //Select element
-      if($argType && $argType == $value->url){
+      if($argType && $argType == $value["url"]){
         $return["menu"][$count]->select = 1;
         $menu_select_all = false;
       }else{
@@ -289,16 +289,16 @@ class Hotel extends MY_Controller {
       $count = 0;
       $submenu_select_all = true;
       foreach ($subMenuQuery as $key => $value) {
-		$return["submenu"][$count] = new stdClass();
-        $return["submenu"][$count]->tag_id = $value->id;
-        $return["submenu"][$count]->name = $value->name;
-        $return["submenu"][$count]->url = $value->url;
+		    $return["submenu"][$count] = new stdClass();
+        $return["submenu"][$count]->tag_id = $value["tag_id"];
+        $return["submenu"][$count]->name = $value["name"];
+        $return["submenu"][$count]->url = $value["url"];
 
         //Select element
-        if($argType && $argType == $value->url){
+        if($argType && $argType == $value["url"]){
           $return["submenu"][$count]->select = 1;
           $submenu_select_all = false;
-        }else if($argSubType && $argSubType == $value->url){
+        }else if($argSubType && $argSubType == $value["url"]){
           $return["submenu"][$count]->select = 1;
           $submenu_select_all = false;
         }else{
@@ -348,6 +348,7 @@ class Hotel extends MY_Controller {
     //echo "Call user_list()"; exit;
 
     $data = $this->_hotel_menu();
+
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
     }

@@ -126,7 +126,25 @@ class MY_Model extends CI_Model {
     }
 
     if(isset($options['limit']) AND ! empty($options['limit'])){
+      if(empty($options['limit']["start"]) AND empty($options['limit']["amount"])){
         $this->db->limit($options['limit']);
+      }else{
+        $this->db->limit($options['limit']["amount"],$options['limit']["start"]);
+      }
+    }
+
+    if(isset($options['select']) AND ! empty($options['select'])){
+      if(is_array($options['select'])){
+        foreach ($options['select'] as $selectKey => $selectValue) {
+          if($this->_getColumn($selectValue)){
+            $this->db->select($this->_getColumn($selectValue));
+          }
+        }
+      }else{
+        if($this->_getColumn($options['select'])){
+          $this->db->select($this->_getColumn($options['select']));
+        }
+      }
     }
 
     if(isset($options['order']) AND ! empty($options['order'])){
@@ -258,6 +276,9 @@ class MY_Model extends CI_Model {
         $result = Util::objectToArray($query->result());
       }else{
         $result = $query->result();
+      }
+      if(isset($options['select']) AND ! empty($options['select'])){
+        return $this->_mapField($result,$options['select']);
       }
       return $this->_mapField($result);
     }else{
@@ -472,29 +493,32 @@ class MY_Model extends CI_Model {
     return $result;
   }
 
-  protected function _mapField($result=NULL){
+  protected function _mapField($result=NULL,$field = NULL){
     if(is_null($result)){
       return FALSE;
+    }
+    $_column = $this->_column;
+    if(isset($field) AND !empty($field)){
+      $_column = $field;
     }
     if(!empty($result[0]) && is_array($result[0])){
       foreach ($result as $key => $value) {
         $data = array();
-        /*
-        foreach ($value as $keyField => $valueFiled) {
-          $newkey = str_replace($this->_prefix."_","",$keyField);
-          $data[$newkey] = $valueFiled;
-        }
-        */
-        foreach($this->_column AS $kColumn=>$vColumn){
-          $data[$kColumn] = $value[$vColumn];
-        }
-        foreach($this->_join_column AS $kjColumn=>$vjColumn){
-          if(isset($value[$vjColumn])){
-            $data[$kjColumn] = $value[$vjColumn];
-          }else{
-            $data[$kjColumn] = "";
+        if(is_array($_column)){
+          foreach($_column AS $kColumn=>$vColumn){
+            $data[$kColumn] = $value[$vColumn];
           }
-
+          if(!isset($field) AND empty($field)){
+            foreach($this->_join_column AS $kjColumn=>$vjColumn){
+              if(isset($value[$vjColumn])){
+                $data[$kjColumn] = $value[$vjColumn];
+              }else{
+                $data[$kjColumn] = "";
+              }
+            }
+          }
+        }else{
+          $data[$_column] = $value[$this->_prefix."_".$_column];
         }
         $result[$key] = $data;
       }

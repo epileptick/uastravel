@@ -4,7 +4,7 @@ class Tag extends MY_Controller {
   function __construct(){
     parent::__construct();
   }
-  
+
 
   function _index($where=""){
 
@@ -20,7 +20,7 @@ class Tag extends MY_Controller {
         $result["tag"][$tagValue["tag_id"]][$langKey] = $this->_searchTagInArray($tagValue["tag_id"],$langKey,$tagData);
       }
     }
-    
+
     return $result;
   }
 
@@ -28,11 +28,11 @@ class Tag extends MY_Controller {
 
 
   function admin_index(){
-    
+
     $this->load->model("type_model", "typeModel");
     $this->load->model("tagtype_model", "tagTypeModel");
     $result["typeData"] = array_reverse($this->typeModel->get());
-    
+
     $result["tagTypeData"] = $this->tagTypeModel->get();
     $result['tagData'] = $this->_index();
     $this->_fetch("admin_index",$result);
@@ -40,23 +40,23 @@ class Tag extends MY_Controller {
 
   function admin_list(){
     $result = array();
-    
-    $config['per_page'] = 50; 
-    
+
+    $config['per_page'] = 50;
+
     $config['prev_link'] = '<img class="blogg-button-image" alt="โพสต์ใหม่" src="/themes/Travel/images/left_arrow.png">';
     $config['prev_tag_open'] = '<button class="blogg-button blogg-collapse-right" title="โพสต์ใหม่" disabled="" tabindex="0">';
     $config['prev_tag_close'] = '</button>';
-    
+
     $config['next_link'] = '<img class="blogg-button-image" alt="โพสต์เก่า" src="/themes/Travel/images/right_arrow.png">';
     $config['next_tag_open'] = '<button class="blogg-button blogg-button-page blogg-collapse-left" title="โพสต์เก่า"  tabindex="0">';
     $config['next_tag_close'] = '</button>';
-    
+
     $config['num_tag_open'] = '<button class="blogg-button blogg-button-page blogg-collapse-right blogg-collapse-left" title="โพสต์เก่า"  tabindex="0">';
     $config['num_tag_close'] = '</button>';
-    
+
     $config['cur_tag_open'] = '<button class="blogg-button blogg-collapse-right blogg-collapse-left" title="โพสต์เก่า" disabled="true" tabindex="0">';
     $config['cur_tag_close'] = '</button>';
-    
+
     //get all the URI segments for pagination and sorting
     $segment_array=$this->uri->segment_array();
     $segment_count=$this->uri->total_segments();
@@ -79,13 +79,13 @@ class Tag extends MY_Controller {
                     'where'=>''
                   );
     }
-    
+
     $this->load->library('pagination');
     $config['base_url'] = site_url(join("/",$segment_array));
     $config['total_rows'] = $this->tagModel->count_rows($where);
-    
+
     $result['total_rows'] = $config['total_rows'];
-    
+
     //getting the records and limit setting
     if (ctype_digit($segment_array[$segment_count])) {
       $this->db->limit($config['per_page'],$segment_array[$segment_count]);
@@ -100,27 +100,27 @@ class Tag extends MY_Controller {
       $result['start_offset'] = 1;
       $result['end_offset'] = $config['per_page'];
     }
-    
+
     $config['base_url'] = site_url(join("/",$segment_array));
     $config['uri_segment'] = count($segment_array)+1;
-    
+
     $result = array_merge($result,$this->_index($where));
-    
-    
+
+
 
     //initialize pagination
     $this->pagination->initialize($config);
-    
+
     $this->_fetch("admin_list",$result);
   }
-  
+
 
   function admin_create($id=false){
-    //implement code here  
+    //implement code here
 
     $args = $this->input->post();
     $validate = $this->validate($args);
-    
+
     if($id){
       $args["id"] = $id;
       $data["tag"] = $this->tagModel->getRecord($args);
@@ -137,22 +137,22 @@ class Tag extends MY_Controller {
         $this->_fetch('admin_create');
       }else{
         $this->tagModel->addRecord($args);
-        //$data["tag"] = $this->tagModel->getRecord();  
+        //$data["tag"] = $this->tagModel->getRecord();
         //$data["message"] = "Create successful !!!";
         //Redirect
-        redirect(base_url("admin/tag"));  
+        redirect(base_url("admin/tag"));
       }
     }
 
   }
-  
+
 
   function admin_ajaxcreate($id=false){
-    //implement code here  
+    //implement code here
 
     $args = $this->input->post();
     $validate = $this->validate($args);
-    
+
     if($id){
       $args["id"] = $id;
       $data["tag"] = $this->tagModel->getRecord($args);
@@ -165,11 +165,11 @@ class Tag extends MY_Controller {
       }
     }
   }
-  
+
   function admin_update(){
 
     $args = $this->input->post();
-  
+
     $validate = $this->validate($args);
 
     //print_r($args); exit;
@@ -177,16 +177,16 @@ class Tag extends MY_Controller {
     if($args["id"]) {
         $this->tagModel->updateRecord($args);
 
-        $data["tag"] = $this->tagModel->getRecord();  
+        $data["tag"] = $this->tagModel->getRecord();
         $data["message"] = "Update successful !!!";
         //Redirect
-        redirect(base_url("admin/tag"));       
+        redirect(base_url("admin/tag"));
     } else {
         $this->tagModel->addRecord($args);
         //Redirect
-        redirect(base_url("admin/tag"));  
-    } 
-  } 
+        redirect(base_url("admin/tag"));
+    }
+  }
 
   function admin_delete($id=false){
     //implement code here
@@ -194,11 +194,11 @@ class Tag extends MY_Controller {
         $args["id"] = $id;
         $this->tagModel->deleteRecord($args);
 
-        $data["tag"] = $this->tagModel->getRecord();  
-        $data["message"] = "Delete successful !!!";  
+        $data["tag"] = $this->tagModel->getRecord();
+        $data["message"] = "Delete successful !!!";
         //Redirect
-        redirect(base_url("admin/tag"));      
-    } 
+        redirect(base_url("admin/tag"));
+    }
   }
 
   function admin_updatelang(){
@@ -215,9 +215,9 @@ class Tag extends MY_Controller {
         }
       }
     }
-    redirect($_SERVER["HTTP_REFERER"]);   
+    redirect($_SERVER["HTTP_REFERER"]);
   }
-  
+
   function _search($render = "user_list"){
     //Get argument from post page
     $keyword = $this->input->post();
