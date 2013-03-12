@@ -33,7 +33,7 @@
 
 
 
-<!--test-->
+<?php $today = date("j / n / Y"); ?>
 
 <!--End test-->
 
@@ -110,20 +110,22 @@
         <!-- End Header -->
 
         <div class="clearfix"></div>
-        <div class="border" style="margin-bottom:0px !important;"></div>
 
         <!-- Header Line-->
-        <div class="row">
+         <div class="row">
           <div class="twelve columns">
 
-              <div class="row">
+              <div class="row" style="border-style:solid; border-width:1px; margin-top:10px; margin-bottom:10px; border-color:#000000; !important;">
                 <div class="twelve columns" >
-                  <div class="four columns" >
+
+                  <div class="eight columns" style="font-size:400%; margin-top:-7px;">
+                      <center><strong>Carrent</strong> <strong style="color:#FE5214;">Voucher</strong></center>
+                    
                   </div>
-                  <div class="six columns" style="margin-bottom:-2px; margin-left:-30px; font-size:350%; margin-top:-12px;">
-                      <strong>Carrent</strong> <strong style="color:#FE5214;">Booking</strong>                  
-                  </div>
-                  <div class="two columns" >
+                  <div class="four columns" style="font-size:150%; margin-top:5px; margin-bottom:7px;">
+                    Voucher No. &nbsp;:     <?php echo $booking[0]->cab_code;?> <br/>
+                    Voucher Date :  <?php echo($today); ?> 
+
                   </div>
                 </div>
               </div>
@@ -133,7 +135,7 @@
 
 
         <div class="clearfix"></div>
-        <div class="border"></div>
+
 
         <!-- Row 1 -->
         <div class="row">
@@ -147,24 +149,6 @@
                 </h5> 
               </div>
             </div>
-
-            <div class="row">
-              <div class="twelve columns">
-                <div class="six columns">
-
-                <h5>
-                    Booking ID : <br>
-                    หมายเลขการจอง : 
-                </h5>                
-                </div>
-                <div class="six columns">
-                <h5>
-                 <?php echo $booking[0]->cab_code;?>
-                </h5> 
-                </div>
-              </div>
-            </div>
-
 
             <div class="row">
               <div class="twelve columns">
@@ -339,7 +323,17 @@
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo number_format ($booking[0]->cab_price);?> ฿ / วัน
+                  <?php 
+                    if($booking[0]->cab_price != 0){
+                  ?>
+                    <?php echo number_format ($booking[0]->cab_price);?> ฿ / วัน
+                    
+                  <?php 
+                    }else{
+                      echo "-";
+                    }
+                  ?>
+
                 </h5> 
                 </div>
               </div>
@@ -585,20 +579,6 @@
   </div>
   <!-- End Content -->
 
-  <!--Remark-->
-          <div class="twelve columns">
-            <div class="twelve columns" style="border-style:solid; border-width:1px; margin-top:-5px; margin-bottom:10px; border-color:#C0C0C0; !important;">
-              <b style="color:red; font-size:200%; margin-top:-6px; margin-bottom:-22px; !important;" > หมายเหตุ : </b>
-              <ul style="margin-bottom:5px;"> 
-                <li style="font-size:115%;"><b>การชำระเงิน :</b> โดยการโอนเงินผ่านธนาคารกสิกรไทย / ชื่อบัญชี : นาง วารีรัตน์ คู่อรุณ / เลขที่บัญชี 482-2-41669-7 <br/> 
-                  &nbsp;&nbsp;&nbsp;หรือ ธนาคารไทยพาณิชย์ / ชื่อบัญชี : นางวารีรัตน์ คู่อรุณ / เลขที่บัญชี 817-241178-7</li>                <li style="font-size:115%;">แฟกซ์เอกสารการโอนเงิน มาที่ 076-331273 หรือ Email แจ้งที่ info@uastravel.com </li>
-                <li style="font-size:115%;">เมื่อได้รับการยืนยัน การชำระเงินแล้ว ทางทีมงานจะจัดส่งใบยืนยัน และใบเสร็จรับเงิน ให้ทางอีเมล ( ภายในเวลาไม่เกิน 1 วัน นับจากวันโอนเงิน )</li>
-                <li style="font-size:115%;"><b> สอบถามข้อมูลเพิ่มเติม ติดต่อ :</b> info@uastravel.com  หรือโทร 082-812-1146 ขอบคุณค่ะ</li>
-            </ul> 
-            </div>  
-          </div>
-          
-  <!--End Remark-->
 </div>
 
 <?php include_once("themes/Travel/tour/analyticstracking.php") ?>

@@ -5,6 +5,7 @@ class Carrent extends MY_Controller {
     parent::__construct();
     //var_dump($this->lang->lang());
   }
+
   
  function user_index(){
 
@@ -31,7 +32,19 @@ class Carrent extends MY_Controller {
         $this->user_booking($args);
       }
     }
+    
   }
+
+  function validate_captcha(){
+    if($this->input->post('captcha') != $this->session->userdata['captcha'])
+    {
+        $this->form_validation->set_message('validate_captcha', 'Wrong captcha code, hmm are you the Terminator?');
+        return false;
+    }else{
+        return true;
+    }
+
+}
 
   function user_inquiry(){
 

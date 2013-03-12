@@ -584,8 +584,8 @@
             <div class="twelve columns" style="border-style:solid; border-width:1px; margin-top:-5px; margin-bottom:10px; border-color:#C0C0C0; !important;">
               <b style="color:red; font-size:200%; margin-top:-6px; margin-bottom:-22px; !important;" > หมายเหตุ : </b>
               <ul style="margin-bottom:5px;"> 
-                <li style="font-size:115%;"><b>การชำระเงิน :</b> โดยการโอนเงินผ่านธนาคารกสิกรไทย / ชื่อบัญชี : หจก.ยู แอสทราเวล / เลขที่บัญชี  482-2-39689-0</li>
-                <li style="font-size:115%;">แฟกซ์เอกสารการโอนเงิน มาที่ 076-331273 หรือ Email แจ้งที่ info@uastravel.com </li>
+                <li style="font-size:115%;"><b>การชำระเงิน :</b> โดยการโอนเงินผ่านธนาคารกสิกรไทย / ชื่อบัญชี : นาง วารีรัตน์ คู่อรุณ / เลขที่บัญชี 482-2-41669-7 <br/> 
+                  &nbsp;&nbsp;&nbsp;หรือ ธนาคารไทยพาณิชย์ / ชื่อบัญชี : นางวารีรัตน์ คู่อรุณ / เลขที่บัญชี 817-241178-7</li>                <li style="font-size:115%;">แฟกซ์เอกสารการโอนเงิน มาที่ 076-331273 หรือ Email แจ้งที่ info@uastravel.com </li>
                 <li style="font-size:115%;">เมื่อได้รับการยืนยัน การชำระเงินแล้ว ทางทีมงานจะจัดส่งใบยืนยัน และใบเสร็จรับเงิน ให้ทางอีเมล ( ภายในเวลาไม่เกิน 1 วัน นับจากวันโอนเงิน )</li>
                 <li style="font-size:115%;"><b> สอบถามข้อมูลเพิ่มเติม ติดต่อ :</b> info@uastravel.com  หรือโทร 082-812-1146 ขอบคุณค่ะ</li>
             </ul> 

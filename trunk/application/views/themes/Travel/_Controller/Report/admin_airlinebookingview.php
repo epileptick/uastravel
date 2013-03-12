@@ -12,12 +12,11 @@
     margin-top: 0px !important;
   }
 </style>
-
 <head>
-  <title><?php echo $booking[0]->cab_code."(".$booking[0]->cab_typecar.")";?></title>
+  <title><?php echo $booking[0]->flt_code."(".$booking[0]->flt_nameairline.")";?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="จอง<?php echo $booking[0]->cab_firstname.'('.$booking[0]->cab_code.')';?>" />
+  <meta name="description" content="จอง<?php echo $booking[0]->flt_firstname.'('.$booking[0]->flt_code.')';?>" />
   <meta name="keywords" content="" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <!-- Set the viewport width to device width for mobile -->
@@ -31,11 +30,7 @@
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 
-
-
-<!--test-->
-
-<!--End test-->
+   <?php $today = date("j / n / Y"); ?>
 
   <!-- Menu -->
   <div class="overly-bg"></div>
@@ -81,8 +76,6 @@
         <!-- Header -->
         <div class="row">
           <div class="twelve columns" >
-            <div class="row">
-              <div class="twelve columns" >
 
               <div class="row">
                 <div class="twelve columns">
@@ -102,28 +95,27 @@
                     </div>                
                 </div>
               </div>
-
-          </div>
-        </div>
           </div>
         </div>
         <!-- End Header -->
 
         <div class="clearfix"></div>
-        <div class="border" style="margin-bottom:0px !important;"></div>
 
         <!-- Header Line-->
-        <div class="row">
+         <div class="row">
           <div class="twelve columns">
 
-              <div class="row">
+              <div class="row" style="border-style:solid; border-width:1px; margin-top:10px; margin-bottom:10px; border-color:#000000; !important;">
                 <div class="twelve columns" >
-                  <div class="four columns" >
+
+                  <div class="eight columns" style="font-size:400%; margin-top:-7px;">
+                      <center><strong>Airline</strong> <strong style="color:#FE5214;">Voucher</strong></center>
+                    
                   </div>
-                  <div class="six columns" style="margin-bottom:-2px; margin-left:-30px; font-size:350%; margin-top:-12px;">
-                      <strong>Carrent</strong> <strong style="color:#FE5214;">Booking</strong>                  
-                  </div>
-                  <div class="two columns" >
+                  <div class="four columns" style="font-size:150%; margin-top:5px; margin-bottom:7px;">
+                    Voucher No. &nbsp;:     <?php echo $booking[0]->flt_code;?> <br/>
+                    Voucher Date :  <?php echo($today); ?> 
+
                   </div>
                 </div>
               </div>
@@ -131,9 +123,7 @@
         </div>
         <!-- End Header Line-->
 
-
         <div class="clearfix"></div>
-        <div class="border"></div>
 
         <!-- Row 1 -->
         <div class="row">
@@ -150,34 +140,16 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="six columns">
-
-                <h5>
-                    Booking ID : <br>
-                    หมายเลขการจอง : 
-                </h5>                
-                </div>
-                <div class="six columns">
-                <h5>
-                 <?php echo $booking[0]->cab_code;?>
-                </h5> 
-                </div>
-              </div>
-            </div>
-
-
-            <div class="row">
-              <div class="twelve columns">
-                <div class="six columns">
+                <div class="five columns">
 
                 <h5>
                     Client : <br>
                     ลูกค้า : 
                 </h5>                
                 </div>
-                <div class="six columns">
+                <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->cab_firstname;?> <?php echo $booking[0]->cab_lastname;?>
+                 <?php echo $booking[0]->flt_firstname;?> <?php echo $booking[0]->flt_lastname;?>
                 </h5> 
                 </div>
               </div>
@@ -186,16 +158,16 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="six columns">
+                <div class="five columns">
 
                 <h5>
                     Nationality : <br>
                     สัญชาติ : 
                 </h5>                
                 </div>
-                <div class="six columns">
+                <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->cab_nationality;?>
+                 <?php echo $booking[0]->flt_nationality;?>
                 </h5> 
                 </div>
               </div>
@@ -203,16 +175,16 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="six columns">
+                <div class="five columns">
 
                 <h5>
                     Address : <br>
                     ที่อยู่ : 
                 </h5>                
                 </div>
-                <div class="six columns">
+                <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->cab_address;?>, <?php echo $booking[0]->cab_city;?>, <?php echo $booking[0]->cab_province;?>, <?php echo $booking[0]->cab_zipcode;?>
+                 <?php echo $booking[0]->flt_address;?>, <?php echo $booking[0]->flt_city;?>, <?php echo $booking[0]->flt_province;?>, <?php echo $booking[0]->flt_zipcode;?>
                 </h5> 
                 </div>
               </div>
@@ -221,55 +193,41 @@
 
             <div class="row">
               <div class="twelve columns">
-                <div class="six columns">
+                <div class="five columns">
 
                 <h5>
                     Telephone : <br>
                     เบอร์โทร : 
                 </h5>                
                 </div>
-                <div class="six columns">
+                <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->cab_telephone;?>
+                 <?php echo $booking[0]->flt_telephone;?>
                 </h5> 
                 </div>
               </div>
             </div> 
 
-
             <div class="row">
               <div class="twelve columns">
-                <div class="six columns">
+                <div class="five columns">
 
                 <h5>
                     Email : <br>
                     อีเมล์ : 
                 </h5>                
                 </div>
-                <div class="six columns">
+                <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->cab_email;?>
+                 <?php echo $booking[0]->flt_email;?>
                 </h5> 
                 </div>
               </div>
             </div> 
 
-            <div class="row">
-              <div class="twelve columns">
-                <div class="six columns">
+    <!-- End Customer -->
 
-                  <h5>
-                      Request  : <br>
-                      ความต้องการเพิ่มเติม : 
-                  </h5>                  
-                </div>
-                <div class="six columns">
-                <h5>
-                 <?php echo $booking[0]->cab_message;?>
-                </h5> 
-                </div>
-              </div> 
-            </div> 
+    <!-- Amount -->
 
             <div class="row">
               <div class="twelve columns">
@@ -279,35 +237,20 @@
               </div>
             </div>
 
-            <div class="row">
+          <div class="row">
               <div class="twelve columns">
-                <div class="six columns">
+                <div class="five columns">
 
                 <h5>
-                    Number of Passenger : <br>
-                    จำนวนผู้โดยสาร : 
+                    Number of Adults : <br>
+                    จำนวนผู้ใหญ่ : 
                 </h5>                
                 </div>
-                <div class="six columns">
+                <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->cab_passenger_amount;?>
+                 <?php echo $booking[0]->flt_adult_amount;?>
                 </h5> 
                 </div>
-              </div>
-            </div> 
-
-          </div>
-          <!-- End Customer -->
-
-
-
-          <!-- Detail Booking-->
-          <div class="six columns">
-            <div class="row">
-              <div class="twelve columns">
-                <h5>
-                    <b>รายละเอียดการจองรถ (Carrent Booking Information) </b>
-                </h5> 
               </div>
             </div>
 
@@ -316,13 +259,62 @@
                 <div class="five columns">
 
                 <h5>
-                    Type of car : <br>
-                    ประเภทรถยนต์ : 
+                    Number of Children: <br>
+                    จำนวนเด็ก : 
                 </h5>                
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->cab_typecar;?>
+                 <?php echo $booking[0]->flt_child_amount;?>
+                </h5> 
+                </div>
+              </div>
+            </div>    
+
+            <div class="row">
+              <div class="twelve columns">
+                <div class="five columns">
+                <h5>
+                    Number of Infants : <br>
+                    จำนวนเด็กทารก : 
+                </h5>                
+                </div>
+                <div class="seven columns">
+                <h5>
+                 <?php echo $booking[0]->flt_infant_amount;?>
+                </h5> 
+                </div>
+              </div>
+            </div>  
+
+          </div>
+    <!-- End Amount -->
+
+
+
+    <!-- Airline Booking-->
+          <div class="six columns">
+            <div class="row">
+              <div class="twelve columns">
+                <h5>
+                    <b>รายละเอียดการจองตั๋วเครื่องบิน (Airline Booking Information) </b>
+                </h5> 
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="twelve columns">
+                <div class="five columns">
+
+                <h5>
+                    Airline : <br>
+                    สายการบิน : 
+                </h5>                
+                </div>
+                <div class="seven columns">
+                <h5>
+                 <?php echo $booking[0]->flt_nameairline;?>
                 </h5> 
                 </div>
               </div>
@@ -333,13 +325,13 @@
                 <div class="five columns">
 
                 <h5>
-                    Price : <br>
-                    ราคา : 
+                    From : <br>
+                    เดินทางจาก : 
                 </h5>                
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo number_format ($booking[0]->cab_price);?> ฿ / วัน
+                 <?php echo $booking[0]->flt_from_location;?>
                 </h5> 
                 </div>
               </div>
@@ -350,13 +342,13 @@
                 <div class="five columns">
 
                 <h5>
-                    Pick up location : <br>
-                    สถานที่รับรถ : 
+                    To : <br>
+                    ไป : 
                 </h5>                
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->cab_pickup_location;?>
+                 <?php echo $booking[0]->flt_go_to_location;?>
                 </h5> 
                 </div>
               </div>
@@ -367,75 +359,17 @@
                 <div class="five columns">
 
                   <h5>
-                      Tranfer: <br>
-                      วันที่จองรถ : 
+                      Depart date : <br>
+                      วันที่ออกเดินทาง : 
                   </h5>               
                 </div>
                 <div class="seven columns">
 
                   <h5>
                    <?php 
-                      $dateExplode = explode("-", $booking[0]->cab_pickup_date);
-                      $cab_pickup_date = $dateExplode[2]."/".$dateExplode[1]."/".$dateExplode[0];
-                      echo $cab_pickup_date;
-                   ?>
-                  </h5> 
-                </div>
-              </div>
-            </div> 
-
- 
-
-            <div class="row">
-              <div class="twelve columns">
-                <div class="five columns">
-
-                <h5>
-                    Pick up location : <br>
-                    เวลาที่รับรถ : 
-                </h5>                
-                </div>
-                <div class="seven columns">
-                <h5>
-                 <?php echo $booking[0]->cab_pickup_time;?>
-                </h5> 
-                </div>
-              </div>
-            </div> 
-
-            <div class="row">
-              <div class="twelve columns">
-                <div class="five columns">
-
-                <h5>
-                    Drop off location : <br>
-                    สถานที่คืนรถ : 
-                </h5>                
-                </div>
-                <div class="seven columns">
-                <h5>
-                 <?php echo $booking[0]->cab_dropoff_location;?>
-                </h5> 
-                </div>
-              </div>
-            </div> 
-
-            <div class="row">
-              <div class="twelve columns">
-                <div class="five columns">
-
-                  <h5>
-                      Tranfer: <br>
-                      วันที่คืนรถ : 
-                  </h5>               
-                </div>
-                <div class="seven columns">
-
-                  <h5>
-                   <?php 
-                      $sdateExplode = explode("-", $booking[0]->cab_dropoff_date);
-                      $cab_dropoff_date = $sdateExplode[2]."/".$sdateExplode[1]."/".$sdateExplode[0];
-                      echo $cab_dropoff_date;
+                      $dateExplode = explode("-", $booking[0]->flt_depart_date);
+                      $flt_depart_date = $dateExplode[2]."/".$dateExplode[1]."/".$dateExplode[0];
+                      echo $flt_depart_date;
                    ?>
                   </h5> 
                 </div>
@@ -447,16 +381,89 @@
                 <div class="five columns">
 
                 <h5>
-                    Pick up location : <br>
-                    เวลาที่คืนรถ : 
+                    Depart time : <br>
+                    เวลาออกเดินทาง : 
                 </h5>                
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->cab_dropoff_time;?>
+                 <?php echo $booking[0]->flt_depart_time;?>
                 </h5> 
                 </div>
               </div>
+            </div> 
+
+            <div class="row">
+              <div class="twelve columns">
+                <div class="five columns">
+
+                  <h5>
+                      Return date : <br>
+                      วันที่เดินทางกลับ : 
+                  </h5>               
+                </div>
+                <div class="seven columns">
+
+                  <h5>
+                   <?php 
+                      $dateExplode = explode("-", $booking[0]->flt_return_date);
+                      $flt_return_date = $dateExplode[2]."/".$dateExplode[1]."/".$dateExplode[0];
+                      echo $flt_return_date;
+                   ?>
+                  </h5> 
+                </div>
+              </div>
+            </div> 
+
+            <div class="row">
+              <div class="twelve columns">
+                <div class="five columns">
+
+                <h5>
+                    Return time : <br>
+                    เวลาเดินทางกลับ : 
+                </h5>                
+                </div>
+                <div class="seven columns">
+                <h5>
+                 <?php echo $booking[0]->flt_return_time;?>
+                </h5> 
+                </div>
+              </div>
+            </div> 
+
+            <div class="row">
+              <div class="twelve columns">
+                <div class="five columns">
+
+                  <h5>
+                      Request  : <br>
+                      ความต้องการเพิ่มเติม: 
+                  </h5>                  
+                </div>
+                <div class="seven columns">
+                <h5>
+                 <?php echo $booking[0]->flt_message;?>
+                </h5> 
+                </div>
+              </div> 
+            </div> 
+
+            <div class="row">
+              <div class="twelve columns">
+                <div class="five columns">
+
+                  <h5>
+                      Type  : <br>
+                      ประเภท : 
+                  </h5>                  
+                </div>
+                <div class="seven columns">
+                <h5>
+                 <?php echo $booking[0]->flt_type;?>
+                </h5> 
+                </div>
+              </div> 
             </div> 
 
 
@@ -464,77 +471,38 @@
               <div class="twelve columns">
                 <div class="five columns">
 
-                <h5>
-                    Credit card : <br>
-                    บัตรเครดิต : 
-                </h5>                
+                  <h5>
+                      class : <br>
+                      ชั้นที่นั่ง : 
+                  </h5>                  
                 </div>
                 <div class="seven columns">
                 <h5>
-                 <?php echo $booking[0]->cab_credit;?>
+                 <?php echo $booking[0]->flt_class;?>
                 </h5> 
                 </div>
-              </div>
+              </div> 
             </div> 
+
 
 
           <div class="clearfix"></div>
           <div class="border"></div>
           <div class="row">
-            <div class="twelve columns" >
+            <div class="twelve columns">
               <div class="twelve columns" style="border-style:solid; border-width:1px;">
-                <div class="row">
-                    <?php 
-                      $dateExplode = explode("-", $booking[0]->cab_pickup_date);
-                      $cab_pickup_date = $dateExplode[2]."/".$dateExplode[1]."/".$dateExplode[0];
-                      $sdateExplode = explode("-", $booking[0]->cab_dropoff_date);
-                      $cab_dropoff_date = $sdateExplode[2]."/".$sdateExplode[1]."/".$sdateExplode[0];
-                      $price = ($booking[0]->cab_price);                     
-                        $mymonth=$dateExplode[1];
-                        $mymonth2=$sdateExplode[1];
-                        $myday=$dateExplode[2];
-                        $myday2=$sdateExplode[2];
-                        $myyear=$dateExplode[0];
-                        $myyear2=$sdateExplode[0];
-                        $jdDay = gregoriantojd($mymonth,$myday,$myyear); 
-                        $jdDay2 = gregoriantojd($mymonth2,$myday2,$myyear2); 
-                        $mycal = $jdDay2-$jdDay;
-                            $mycal = $jdDay2 - $jdDay;
-
-                            $totalprice = $mycal * $price;
-                    ?>
-                  <div class="five columns" >
-                    <h5 style="color:red; margin-top:10px !important;">
-                        Total Price : <br>
-                        ราคารวมทั้งหมด : 
-                    </h5>                
-                  </div>
-                  <div class="five columns">
-                    <h5 style="color:red; font-size:200%; margin-top:10px !important;" >
-                    <?php echo number_format("$totalprice") ;?> บาท
-                    </h5> 
-                  </div>
-                  <div class="two columns" style="border-style:solid; margin-top:10px; border-width:0px;">
-                    <input type="image" src="<?php echo base_url('themes/Travel/images/button_print.jpg');?>" onClick="window.print()" >
-                  </div>  
+                <div class="ten columns">
+                  <center style="color:red; margin-top:6px; margin-bottom:6px; font-size:135%; !important;">
+                        ขอขอบคุณที่ไว้วางใจในบริการของเรา <br />ทางทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง               
+                  </center>
                 </div>
-
+                <div class="two columns" style="border-style:solid; margin-top:5px; border-width:0px;">
+                  <input type="image" src="<?php echo base_url('themes/Travel/images/button_print.jpg');?>" onClick="window.print()" >
+                </div>
               </div>
-            </div>        
+            </div> 
           </div>
-
-          <div class="row">
-            <div class="twelve columns" ><center style="color:red; font-size:130%; margin-top:10px !important;">
-               ขอขอบคุณที่ไว้วางใจในบริการของเรา ทางทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง</center>
-            </div>
-          </div>
-           
-        </div> 
-  
- <!-- End Carrent Booking -->
-
-      
-
+          <!-- End Airline Booking -->
         </div>
         <!-- End Row 1 -->
 
@@ -585,21 +553,8 @@
   </div>
   <!-- End Content -->
 
-  <!--Remark-->
-          <div class="twelve columns">
-            <div class="twelve columns" style="border-style:solid; border-width:1px; margin-top:-5px; margin-bottom:10px; border-color:#C0C0C0; !important;">
-              <b style="color:red; font-size:200%; margin-top:-6px; margin-bottom:-22px; !important;" > หมายเหตุ : </b>
-              <ul style="margin-bottom:5px;"> 
-                <li style="font-size:115%;"><b>การชำระเงิน :</b> โดยการโอนเงินผ่านธนาคารกสิกรไทย / ชื่อบัญชี : นาง วารีรัตน์ คู่อรุณ / เลขที่บัญชี 482-2-41669-7 <br/> 
-                  &nbsp;&nbsp;&nbsp;หรือ ธนาคารไทยพาณิชย์ / ชื่อบัญชี : นางวารีรัตน์ คู่อรุณ / เลขที่บัญชี 817-241178-7</li>                <li style="font-size:115%;">แฟกซ์เอกสารการโอนเงิน มาที่ 076-331273 หรือ Email แจ้งที่ info@uastravel.com </li>
-                <li style="font-size:115%;">เมื่อได้รับการยืนยัน การชำระเงินแล้ว ทางทีมงานจะจัดส่งใบยืนยัน และใบเสร็จรับเงิน ให้ทางอีเมล ( ภายในเวลาไม่เกิน 1 วัน นับจากวันโอนเงิน )</li>
-                <li style="font-size:115%;"><b> สอบถามข้อมูลเพิ่มเติม ติดต่อ :</b> info@uastravel.com  หรือโทร 082-812-1146 ขอบคุณค่ะ</li>
-            </ul> 
-            </div>  
-          </div>
-          
-  <!--End Remark-->
 </div>
+<!-- End Wraper -->
 
 <?php include_once("themes/Travel/tour/analyticstracking.php") ?>
 </body>

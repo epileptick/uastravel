@@ -68,7 +68,7 @@
 
           <section>
             <ul class="right">
-              <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
+              <li><a href="<?php echo base_url('location');?>"><?php echo $this->lang->line("tour_lang_location"); ?></a></li>
               <li class="has-dropdown">
                 <a class="active" href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์</a>
                 <ul class="dropdown">
@@ -96,9 +96,9 @@
                 </ul>
               </li>
               <li class="has-dropdown">
-                <a href="<?php echo base_url('tour/ที่พัก');?>">ที่พัก</a>
+                <a href="<?php echo base_url('hotel');?>">ที่พัก</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('tour/จองโรงแรม');?>">จองโรงแรม</a></li>
+                  <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                   <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                 </ul>
               </li>

@@ -157,9 +157,9 @@ window.location.href = url;
                 </ul>                
               </li> 
               <li class="has-dropdown">
-                <a href="<?php echo base_url('tour/ที่พัก');?>">ที่พัก</a>
+                <a href="<?php echo base_url('hotel');?>">ที่พัก</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('hotel/list');?>">จองโรงแรม</a></li>
+                  <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                   <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                 </ul>                
               </li>
@@ -283,10 +283,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                     </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Chiang-Mai-CNX');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Chiang-Mai-CNX');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -334,10 +333,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Chiang-Rai-CEI');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Chiang-Rai-CEI');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -405,10 +403,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Oct - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Hat-Yai-HDY');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Hat-Yai-HDY');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -498,10 +495,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Phuket-HKT');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Phuket-HKT');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -541,10 +537,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/UbonRatchathani-UBP');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/UbonRatchathani-UBP');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -585,10 +580,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Surat-Thani-URT');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Surat-Thani-URT');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -636,10 +630,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Udon-Thani-UTH');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Udon-Thani-UTH');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -692,10 +685,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Krabi-KBV');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Krabi-KBV');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -735,10 +727,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">28 Oct- 30 Mar</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Nakhon-Phanom-KOP');?>" target="blank" title"จองตั๋วแอร์เอเชีย">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Nakhon-Phanom-KOP');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -771,10 +762,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Narathiwat-NAW');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Narathiwat-NAW');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines:</span></td>
@@ -812,10 +802,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Nakon-Si-Thanm-NST');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Bangkok-Don-Mueang-DMK/Nakon-Si-Thanm-NST');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines:
@@ -854,10 +843,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Phuket-HKT/Chiang-Mai-CNX');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Phuket-HKT/Chiang-Mai-CNX');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -890,10 +878,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Phuket-HKT/Ubon-Ratchathani-UBP');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Phuket-HKT/Ubon-Ratchathani-UBP');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines:</span></td>
@@ -924,10 +911,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Phuket-HKT/Udon-Thani-UTH');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Phuket-HKT/Udon-Thani-UTH');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines:</span></td>
@@ -957,10 +943,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Hat-Yai-HDY/Chiang-Mai-CNX');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Hat-Yai-HDY/Chiang-Mai-CNX');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines:</span></td>
@@ -1039,10 +1024,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Chiang-Mai-CNX/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Chiang-Mai-CNX/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -1090,10 +1074,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Chiang-Rai-CEI/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Chiang-Rai-CEI/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -1167,10 +1150,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Hat-Yai-HDY/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Hat-Yai-HDY/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -1259,10 +1241,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Phuket-HKT/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Phuket-HKT/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -1302,10 +1283,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/UbonRatchathani-UBP/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/UbonRatchathani-UBP/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -1344,10 +1324,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Surat-Thani-URT/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Surat-Thani-URT/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -1392,10 +1371,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Udon-Thani-UTH/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Udon-Thani-UTH/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -1448,10 +1426,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Krabi-KBV/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Krabi-KBV/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -1490,10 +1467,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">28 Oct - 30 Mar</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Nakhon-Phanom-KOP/Bangkok-Don-Mueang-DMK');?>" target="blank" title"จองตั๋วแอร์เอเชีย">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Nakhon-Phanom-KOP/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -1524,10 +1500,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Narathiwat-NAW/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Narathiwat-NAW/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines:</span></td>
@@ -1563,10 +1538,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Nakon-Si-Tham-NST/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Nakon-Si-Tham-NST/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines:
@@ -1604,10 +1578,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Chiang-Mai-CNX/Phuket-HKT');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Chiang-Mai-CNX/Phuket-HKT');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
@@ -1637,10 +1610,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Ubon-Ratchathani-UBP/Phuket-HKT');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Ubon-Ratchathani-UBP/Phuket-HKT');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines:</span></td>
@@ -1668,10 +1640,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Udon-Thani-UTH/Phuket-HKT');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Udon-Thani-UTH/Phuket-HKT');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines:</span></td>
@@ -1700,10 +1671,9 @@ window.location.href = url;
                     <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">01 Octr - 27 Oct</div></td>
                   </tr>
                   <tr>
-                    <td align="center" nowrap class="frame_header_3">
-                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Chiang-Mai-CNX/Hat-Yai-HDY');?>" target="blank" title="Book Air Asia Ticket">
-                        <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Air Asia Ticket" rel="nofollow"></center>                      
+                    <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                      <a href="<?php echo base_url('airline/inquiry/Air-Asia/Chiang-Mai-CNX/Hat-Yai-HDY');?>" target="blank" title="Book Air Asia Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
                       </a>
                     </td>
                     <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines:</span></td>

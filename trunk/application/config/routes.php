@@ -155,7 +155,15 @@ $route['hotel/(:any)-(:num)'] = 'hotel/user_view/$2';
 $route["hotel/(:any)"] = 'hotel/user_index';
 $route["hotel"] = 'hotel/user_index';
 
-
+//Report
+$route['admin/report'] = 'report/admin_index';
+$route['admin/report/(:any)'] = 'report/admin_index';
+$route['admin/report/(:num)'] = 'report/admin_index'; 
+/*
+$route['admin/report/(:any)/(:any)-(:num)'] = 'report/admin_view/$3';
+$route['admin/report/(:any)-(:num)'] = 'report/admin_view/$1';
+$route['admin/report/(:any)'] = 'report/admin_list'; 
+*/
 
 
 //Agency

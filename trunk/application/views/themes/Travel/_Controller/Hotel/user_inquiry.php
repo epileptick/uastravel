@@ -151,7 +151,7 @@
                 </ul>                
               </li> 
               <li class="has-dropdown">
-                <a href="<?php echo base_url('hotel/ที่พัก');?>">ที่พัก</a>
+                <a href="<?php echo base_url('hotel');?>">ที่พัก</a>
                 <ul class="dropdown">
                   <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                   <li><a href="<?php echo base_url('hotel/จองห้องเช่า');?>">จองห้องเช่า</a></li>
@@ -203,7 +203,7 @@
           <div class="twelve columns">
             <div class="row">
               <div class="twelve columns">
-                <label><b>[สรุปราคาทัวร์]</b></label>
+                <label><b>[สรุปราคาโรงแรม]</b></label>
               </div>
             </div>
             <div class="row">

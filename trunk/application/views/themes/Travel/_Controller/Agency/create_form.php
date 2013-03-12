@@ -1,10 +1,10 @@
 <div class="container_12">
 	<!-- Filter -->
 	<section class="grid_12">
-		<h2 class="section_heading">Add Agent Information [ <a href="<?php echo base_url("agency");?>">list</a> ]</h2>
+		<h2 class="section_heading">Add Agent Information [ <a href="<?php echo base_url("report");?>">list</a> ]</h2>
 		<br>
 
-		<?php echo form_open(base_url("agency/create"));?>
+		<?php echo form_open(base_url("report/create"));?>
 		
 			<!--  Start Agent information -->		
 			<div class="half">
