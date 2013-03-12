@@ -37,7 +37,7 @@ class Taghotel_model extends MY_Model {
     return $mainTable;
   }
 
-  function getTagTourList($options = NULL){
+  function getTagHotelList($options = NULL){
     $options["where"]["lang"] = $this->lang->lang();
     $result = $this->get($options);
     unset($options["where"]["lang"]);
@@ -132,7 +132,7 @@ class Taghotel_model extends MY_Model {
           //Get tag data
           $argsTag["where"]['hotel_id'] = $value->tah_hotel_id;
           $argsTag["where_in"]['tag_id'] = $args["menu"];
-          $result[$count]["tag"] = $this->getTagTourList($argsTag);
+          $result[$count]["tag"] = $this->getTagHotelList($argsTag);
 
           //Get price data
           unset($this->db);
@@ -178,7 +178,8 @@ class Taghotel_model extends MY_Model {
 
 
   function getRecordByTag($args=false){
-   //Get distinct hotel_id from ci_taghotel
+
+    //Get distinct hotel_id from ci_taghotel
     $this->db->select('tah_hotel_id');
     $this->db->distinct("tah_hotel_id");
     $this->db->where('tah_tag_id', $args["tag_id"]);
@@ -212,7 +213,7 @@ class Taghotel_model extends MY_Model {
         //Get tag data
         $argsTag["where"]['hotel_id'] = $value->tah_hotel_id;
         $argsTag["where_in"]['tag_id'] = $args["menu"];
-        $result[$count]["tag"] = $this->getTagTourList($argsTag);
+        $result[$count]["tag"] = $this->getTagHotelList($argsTag);
 
         //Get price data
         unset($this->db);
@@ -329,7 +330,7 @@ class Taghotel_model extends MY_Model {
         //Get tag data
         $argsTag["where"]['hotel_id'] = $value->tah_hotel_id;
         $argsTag["where_in"]['tag_id'] = $args["menu"];
-        $result[$count]["tag"] = $this->getTagTourList($argsTag);
+        $result[$count]["tag"] = $this->getTagHotelList($argsTag);
 
         //Get price data
         unset($this->db);
@@ -418,7 +419,7 @@ class Taghotel_model extends MY_Model {
         //Get tag data
         $argsTag["where"]['hotel_id'] = $value->tah_hotel_id;
         $argsTag["where_in"]['tag_id'] = $args["menu"];
-        $result[$count]["tag"] = $this->getTagTourList($argsTag);
+        $result[$count]["tag"] = $this->getTagHotelList($argsTag);
 
         //Get price data
         unset($this->db);
@@ -566,7 +567,7 @@ class Taghotel_model extends MY_Model {
         //Get tag data
         $argsTag["where"]['hotel_id'] = $value->tah_hotel_id;
         $argsTag["where_in"]['tag_id'] = $args["menu"];
-        $result[$count]["tag"] = $this->getTagTourList($argsTag);
+        $result[$count]["tag"] = $this->getTagHotelList($argsTag);
 
 
         //Get price data
@@ -619,21 +620,21 @@ class Taghotel_model extends MY_Model {
   function getRecordRelated($args=false){
 
     //header ('Content-type: text/html; charset=utf-8');
-    //print_r($args["hotel_tag"]);
 
     //Related by type [3 items]
     $this->load->model("type_model", "typeModel");
     foreach ($args["hotel_tag"] as $key => $value) {
+
       if(!empty($value->id)){
 
         $args["not_id"] = 1;
         $args["parent_id"] = 0;
-        $args["name"] = $value->name;
+        $args["name"] = $value["name"];
         $typeQuery["tag"] = $this->typeModel->getRecord($args);
 
         if(!empty($typeQuery["tag"])){
           $query["type"] = $typeQuery["tag"];
-          $query["type"][0]->tag_id = $value->id;
+          $query["type"][0]->tag_id = $value["tag_id"];
         }
       }
     }
@@ -674,7 +675,8 @@ class Taghotel_model extends MY_Model {
         //Get tag data
         $argsTag["where"]['hotel_id'] = $value->tah_hotel_id;
         $argsTag["where_in"]['tag_id'] = $args["menu"];
-        $result[$count]["tag"] = $this->getTagTourList($argsTag);
+        $result[$count]["tag"] = $this->getTagHotelList($argsTag);
+        
 
           //Get price data
           unset($this->db);
@@ -757,7 +759,7 @@ class Taghotel_model extends MY_Model {
         //Get tag data
         $argsTag["where"]['hotel_id'] = $value->tah_hotel_id;
         $argsTag["where_in"]['tag_id'] = $args["menu"];
-        $result[$count]["tag"] = $this->getTagTourList($argsTag);
+        $result[$count]["tag"] = $this->getTagHotelList($argsTag);
 
 
         //Get price data
@@ -855,7 +857,7 @@ class Taghotel_model extends MY_Model {
               //Get tag data
               $argsTag["where"]['hotel_id'] = $value->tah_hotel_id;
               $argsTag["where_in"]['tag_id'] = $args["menu"];
-              $result[$count]["tag"] = $this->getTagTourList($argsTag);
+              $result[$count]["tag"] = $this->getTagHotelList($argsTag);
 
               //Get price data
               unset($this->db);
@@ -956,7 +958,7 @@ class Taghotel_model extends MY_Model {
           //Get tag data
           $argsTag["where"]['hotel_id'] = $value->tah_hotel_id;
           $argsTag["where_in"]['tag_id'] = $args["menu"];
-          $result[$count]["tag"] = $this->getTagTourList($argsTag);
+          $result[$count]["tag"] = $this->getTagHotelList($argsTag);
 
 
           //Get price data
@@ -1019,7 +1021,7 @@ class Taghotel_model extends MY_Model {
           //Get tag data
           $argsTag["where"]['hotel_id'] = $value->tah_hotel_id;
           $argsTag["where_in"]['tag_id'] = $args["menu"];
-          $result[$count]["tag"] = $this->getTagTourList($argsTag);
+          $result[$count]["tag"] = $this->getTagHotelList($argsTag);
 
           //Get price data
           unset($this->db);
@@ -1083,7 +1085,7 @@ class Taghotel_model extends MY_Model {
           //Get tag data
           $argsTag["where"]['hotel_id'] = $value->tah_hotel_id;
           $argsTag["where_in"]['tag_id'] = $args["menu"];
-          $result[$count]["tag"] = $this->getTagTourList($argsTag);
+          $result[$count]["tag"] = $this->getTagHotelList($argsTag);
 
           //Get tag not in menu
           unset($this->db);
@@ -1171,7 +1173,7 @@ class Taghotel_model extends MY_Model {
           //Get tag data
           $argsTag["where"]['hotel_id'] = $value->tah_hotel_id;
           $argsTag["where_in"]['tag_id'] = $args["menu"];
-          $result[$count]["tag"] = $this->getTagTourList($argsTag);
+          $result[$count]["tag"] = $this->getTagHotelList($argsTag);
 
 
           //Get price data

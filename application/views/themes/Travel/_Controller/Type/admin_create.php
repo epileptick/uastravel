@@ -31,7 +31,6 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().
         <label for="description">Description</label>
         <input name="description" id="description" type="text" value="<?=$typeData[0]["description"]?>" size="40">
       </div>
-      
       <div class="form-field">
         <label for="parent_id">Parent</label>
         <select name="parent_id" id="parent_id" class="postform">
@@ -54,11 +53,8 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().
             endif;
           ?>
         </select>
-            
       </div>
-      
       <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Add New Category"></p>
-    
 </section>
 <section class="similar_hotels grid_12">
   <h2 class="section_heading"><?php echo $this->lang->line("tag_lang_tag_management");?></h2>

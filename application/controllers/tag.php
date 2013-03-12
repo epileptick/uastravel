@@ -8,17 +8,21 @@ class Tag extends MY_Controller {
 
   function _index($where=""){
 
-    $tagData= $this->tagModel->get();
-    //var_dump($this->db->last_query());exit;
+    $tagData = $this->tagModel->get();
     foreach ($tagData as $tagKey => $tagValue) {
-      $result["tag"][$tagValue["tag_id"]] = $tagValue;
-      unset($result["tag"][$tagValue["tag_id"]]["url"]);
-      unset($result["tag"][$tagValue["tag_id"]]["name"]);
-      unset($result["tag"][$tagValue["tag_id"]]["lang"]);
+      $getTagWhere["where"]["tag_id"] = $tagValue["tag_id"];
+      $getTagData = $this->tagModel->get($getTagWhere);
+      foreach ($getTagData as $getTagDataKey => $getTagDataValue) {
+        $result["tag"][$getTagDataValue["tag_id"]] = $getTagDataValue;
+        unset($result["tag"][$getTagDataValue["tag_id"]]["url"]);
+        unset($result["tag"][$getTagDataValue["tag_id"]]["name"]);
+        unset($result["tag"][$getTagDataValue["tag_id"]]["lang"]);
 
-      foreach ($this->config->item("language_list") as $langKey => $langValue) {
-        $result["tag"][$tagValue["tag_id"]][$langKey] = $this->_searchTagInArray($tagValue["tag_id"],$langKey,$tagData);
+        foreach ($this->config->item("language_list") as $langKey => $langValue) {
+          $result["tag"][$getTagDataValue["tag_id"]][$langKey] = $this->_searchTagInArray($getTagDataValue["tag_id"],$langKey,$getTagData);
+        }
       }
+
     }
 
     return $result;

@@ -125,7 +125,7 @@ class Location_model extends MY_Model {
 
     if(!empty($tag)){
       //print_r($tag); exit;
-      $tag_id = $tag[0]->id;
+      $tag_id = $tag[0]["tag_id"];
       $sql = "SELECT DISTINCT `tat_tour_id`
               FROM (`ci_tagtour`) JOIN `ci_tour`
               ON `ci_tour`.`tou_id` = `ci_tagtour`.`tat_tour_id`
