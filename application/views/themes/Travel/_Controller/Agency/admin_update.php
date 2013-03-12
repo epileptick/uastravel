@@ -2,9 +2,9 @@
 
 	<!-- Filter -->
 	<section class="grid_12">
-		<h2 class="section_heading">Add Agent Information [ <a href="<?php echo base_url("admin/agency");?>">list</a> ]</h2>
+		<h2 class="section_heading">Add Agent Information [ <a href="<?php echo base_url("admin/report");?>">list</a> ]</h2>
 		<br>
-		<?php echo form_open(base_url("admin/agency/update"));?>
+		<?php echo form_open(base_url("admin/report/update"));?>
 		
 
 			<input type="hidden" name="id" value="<?php echo $agency[0]->id;?>">		

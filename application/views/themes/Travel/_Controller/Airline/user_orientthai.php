@@ -157,9 +157,9 @@ window.location.href = url;
                 </ul>                
               </li> 
               <li class="has-dropdown">
-                <a href="<?php echo base_url('tour/ที่พัก');?>">ที่พัก</a>
+                <a href="<?php echo base_url('hotel');?>">ที่พัก</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('hotel/list');?>">จองโรงแรม</a></li>
+                  <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                   <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                 </ul>                
               </li>
@@ -247,12 +247,11 @@ window.location.href = url;
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">-</div></td>
                     </tr>
                     <tr>
-                      <td align="center" nowrap class="frame_header_3">
-                        <a href="<?php echo base_url('airline/inquiry/Orient-Thai/Bangkok-Don-Mueang-DMK/Chiang-Mai-CNX');?>" target="blank" title="Book Orient Thai(One-Two-Go) Ticket">
-                          <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Orient Thai (One-Two-Go) Ticket"></center>
-                        </a>
-                      </td>
+                      <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                        <a href="<?php echo base_url('airline/inquiry/Orient-Thai/Bangkok-Don-Mueang-DMK/Chiang-Mai-CNX');?>" target="blank" title="Book Orient Thai(One-Two-Go) Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
+                        </a>          
+                     </td>
                       <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
                         <a href="<?php echo base_url('airline/list/thaiairways');?>" title="Thai Airways Flight Schedule" target="_blank">TG</a> | 
                         <a href="<?php echo base_url('airline/list/bangkokairways');?>" title="Bangkok Airways Flight Schedule" target="_blank">PG</a> | 
@@ -275,28 +274,27 @@ window.location.href = url;
                       <td width="18%" nowrap class="frame_header_4"><div align="center" style="font-size:120%;"><strong>Dep.</strong></div></td>
                       <td width="18%" nowrap class="frame_header_4"><div align="center" style="font-size:120%;"><strong>Arr.</strong></div></td>
                       <td width="24%" nowrap class="frame_header_4"><div align="center" style="font-size:120%;"><strong>Between</strong></div></td>
-                      </tr>
+                    </tr>
                     <tr>
                       <td nowrap class="frame_header_3"><div align="center" style="font-size:120%;">Daily</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">OX8221</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">11:50</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">13:05</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">-</div></td>
-                      </tr>
+                    </tr>
                     <tr>
                       <td nowrap class="frame_header_3"><div align="center" style="font-size:120%;">Daily</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">OX8223</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">19:00</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">20:20</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">-</div></td>
-                      </tr>
+                    </tr>
                     <tr>
-                      <td align="center" nowrap class="frame_header_3">
-                        <a href="<?php echo base_url('airline/inquiry/Orient-Thai/Bangkok-Don-Mueang-DMK/Phuket-HKT');?>" target="blank" title="Book Orient Thai(One-Two-Go) Ticket">
-                          <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Orient Thai (One-Two-Go) Ticket"></center>                        
-                      </a>
-                      </td>
+                      <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                        <a href="<?php echo base_url('airline/inquiry/Orient-Thai/Bangkok-Don-Mueang-DMK/Phuket-HKT');?>" target="blank" title="Book Orient Thai(One-Two-Go) Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
+                        </a>          
+                     </td>
                       <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
                         <a href="<?php echo base_url('airline/list/thaiairways');?>" title="Thai Airways Flight Schedule" target="_blank">TG</a> | 
                         <a href="<?php echo base_url('airline/list/bangkokairways');?>" title="Bangkok Airways Flight Schedule" target="_blank">PG</a> | 
@@ -324,28 +322,27 @@ window.location.href = url;
                       <td width="18%" nowrap class="frame_header_4"><div align="center" style="font-size:120%;"><strong>Dep.</strong></div></td>
                       <td width="18%" nowrap class="frame_header_4"><div align="center" style="font-size:120%;"><strong>Arr.</strong></div></td>
                       <td width="24%" nowrap class="frame_header_4"><div align="center" style="font-size:120%;"><strong>Between</strong></div></td>
-                      </tr>
+                    </tr>
                     <tr>
                       <td nowrap class="frame_header_3"><div align="center" style="font-size:120%;">Daily</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">OX8121</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">09:55</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">11:05</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">-</div></td>
-                      </tr>
+                    </tr>
                     <tr>
                       <td nowrap class="frame_header_3"><div align="center" style="font-size:120%;">Daily</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">OX8125</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">17:10</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">18:25</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">-</div></td>
-                      </tr>
+                    </tr>
                     <tr>
-                      <td align="center" nowrap class="frame_header_3">
-                        <a href="<?php echo base_url('airline/inquiry/Orient-Thai/Chiang-Mai-CNX/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Orient Thai(One-Two-Go) Ticket">
-                          <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Orient Thai (One-Two-Go) Ticket"></center>                        
-                      </a>
-                      </td>
+                      <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                        <a href="<?php echo base_url('airline/inquiry/Orient-Thai/Chiang-Mai-CNX/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Orient Thai(One-Two-Go) Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
+                        </a>          
+                     </td>
                       <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
                         <a href="<?php echo base_url('airline/list/thaiairways');?>" title="Thai Airways Flight Schedule" target="_blank">TG</a> | 
                         <a href="<?php echo base_url('airline/list/bangkokairways');?>" title="Bangkok Airways Flight Schedule" target="_blank">PG</a> | 
@@ -368,28 +365,27 @@ window.location.href = url;
                       <td width="18%" nowrap class="frame_header_4"><div align="center" style="font-size:120%;"><strong>Dep.</strong></div></td>
                       <td width="18%" nowrap class="frame_header_4"><div align="center" style="font-size:120%;"><strong>Arr.</strong></div></td>
                       <td width="24%" nowrap class="frame_header_4"><div align="center" style="font-size:120%;"><strong>Between</strong></div></td>
-                      </tr>
+                    </tr>
                     <tr>
                       <td nowrap class="frame_header_3"><div align="center" style="font-size:120%;">Daily</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">OX8220</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">13:40</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">15:00</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">-</div></td>
-                      </tr>
+                    </tr>
                     <tr>
                       <td nowrap class="frame_header_3"><div align="center" style="font-size:120%;">Daily</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">OX8222</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">20:50</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">21:10</div></td>
                       <td nowrap class="frame_header_4"><div align="center" style="font-size:120%;">-</div></td>
-                      </tr>
+                    </tr>
                     <tr>
-                      <td align="center" nowrap class="frame_header_3">
-                        <a href="<?php echo base_url('airline/inquiry/Orient-Thai/Phuket-HKT/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Orient Thai(One-Two-Go) Ticket">
-                          <center><img  border="no" src="<?php echo base_url('themes/Travel/tour/images/button_book.jpg');?>" 
-                          width="50" height="20" alt="Book Orient Thai (One-Two-Go) Ticket"></center>                        
-                      </a>
-                      </td>
+                      <td class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
+                        <a href="<?php echo base_url('airline/inquiry/Orient-Thai/Phuket-HKT/Bangkok-Don-Mueang-DMK');?>" target="blank" title="Book Orient Thai(One-Two-Go) Ticket"
+                       class="button small booking" style="width:135px; font-size:150%; margin-top:5px; margin-left:5px;" type="submit" value="จองตั๋วเครื่องบิน">จองตั๋วเครื่องบิน
+                        </a>          
+                     </td>
                       <td colspan="4" class="frame_header_3"><span class="style11" style="font-size:120%;">Alternative Airlines: 
                         <a href="<?php echo base_url('airline/list/thaiairways');?>" title="Thai Airways Flight Schedule" target="_blank">TG</a> | 
                         <a href="<?php echo base_url('airline/list/bangkokairways');?>" title="Bangkok Airways Flight Schedule" target="_blank">PG</a> | 

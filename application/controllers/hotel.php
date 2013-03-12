@@ -895,7 +895,7 @@ class Hotel extends MY_Controller {
 
 
     // subject
-    $subject = 'ข้อมูลการจองทัวร์ของคุณ '.$booking["hoc_firstname"];
+    $subject = 'ข้อมูลการจองโรงแรมของคุณ '.$booking["hoc_firstname"];
 
     $message ='<p>รายละเอียดการจองโรงแรมมีดังนี้</p>';
     $message .='<blockquote>';

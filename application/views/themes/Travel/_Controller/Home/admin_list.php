@@ -11,5 +11,8 @@
 <a href="<?php echo base_url("admin/location");?>">location</a><br/><br/>
 
 
-<a href="<?php echo base_url("admin/type");?>">type</a><br/><br/>
+<a href="<?php echo base_url("admin/report");?>">report</a><br/><br/>
+
+
+<a href="<?php echo base_url("admin/type");?>">type</a><br/>
 

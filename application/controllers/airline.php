@@ -46,19 +46,19 @@ class Airline extends MY_Controller {
 
  function user_inquiry(){
     //header('Content-Type: text/html; charset=utf-8');
-    $this->_fetch('user_inquiry',false, false, true);
+
+
+    //Captcha create
+    $this->load->model("captcha_model", "captchaModel");
+    $data['imageCaptcha'] = $this->captchaModel->createRecord();
+
+ 
+  
+    $this->_fetch('user_inquiry',$data, false, true);
+
 
   }
 
-  function user_view($id = 0){
-
-    if($id > 0){
-      $this->_fetch('user_view_'.$id, false, false, true);
-    }else{
-      show_404(); 
-    }
-
-  }
 
    function user_list($segment=false){
     //header('Content-Type: text/html; charset=utf-8');
@@ -78,19 +78,30 @@ class Airline extends MY_Controller {
 
     if(!empty($args)){
 
-      $this->load->model("airlinebooking_model", "airlinebooking_model");
-      $booking = $this->airlinebooking_model->addRecord($args);
+        //Captcha check
+        $this->load->model("captcha_model", "captchaModel");
+        $checkCaptcha = $this->captchaModel->checkRecord($args['captcha']);
 
+        if ($checkCaptcha == 0){
+          $data['imageCaptcha'] = $this->captchaModel->createRecord();
+          $data["error_message"] = "Captcha is incorrect";
+          $data["input"] = $args;
+          //redirect(base_url("airline/inquiry/".$args["id"]));
+          $this->_fetch('user_inquiry',$data, false, true);
 
-      //print_r($booking); exit;
-      //Send Mail
-      $this->sendmail_booking_user($booking);
-      $this->sendmail_booking_admin($booking);
+        }else{
+          echo "Success";
+          unset($args['captcha']);
+          $this->load->model("airlinebooking_model", "airlinebooking_model");
+          $booking = $this->airlinebooking_model->addRecord($args);
 
-      //Forward
-      redirect(base_url("airline/booking/".$booking["flt_hashcode"]));  
+          $this->sendmail_booking_user($booking);
+          $this->sendmail_booking_admin($booking);
 
-      //print_r($insert_id); exit;
+          //Forward
+          redirect(base_url("airline/booking/".$booking["flt_hashcode"]));            
+        }
+
     }else{ //id not send
       //Redirect
       redirect(base_url("airline/inquiry/".$args["id"]));    

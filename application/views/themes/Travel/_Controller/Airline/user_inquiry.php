@@ -164,9 +164,9 @@ print_r($id);
                 </ul>                
               </li> 
               <li class="has-dropdown">
-                <a href="<?php echo base_url('tour/ที่พัก');?>">ที่พัก</a>
+                <a href="<?php echo base_url('hotel');?>">ที่พัก</a>
                 <ul class="dropdown">
-                  <li><a href="<?php echo base_url('hotel/list');?>">จองโรงแรม</a></li>
+                  <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                   <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                 </ul>                
               </li>
@@ -189,6 +189,292 @@ print_r($id);
           method="post"
     >
 
+
+    <?php
+      if(!empty($input)){
+    ?>
+      <!-- Header -->
+      <div class="row">
+        <div class="twelve columns">
+          <font style="color:#FE5214; font-size:300%;">
+            Airlines Ticket   
+
+            : <?php echo ($input['flt_nameairline']); ?> 
+            <input type="hidden" name="flt_nameairline" value="<?php echo ($input['flt_nameairline']); ?>">
+          </font> 
+        </div>
+      </div>
+      <div class="border"></div>
+      <!-- Header End -->
+      <br/>
+
+        <!--From-->
+        <div class="row">
+          <div class="six columns">
+            <label><h4><b>เดินทางจาก :</b> <?php echo ($input['flt_from_location']); ?></h4></label>
+            <input type="hidden" name="flt_from_location" value="<?php echo ($input['flt_from_location']); ?>">
+          </div>       
+        <!--End From-->
+
+        <!--go-->    
+          <div class="six columns">
+            <label><h4><b>ไป :</b> <?php echo ($input['flt_go_to_location']); ?></h4></label>
+            <input type="hidden" name="flt_go_to_location" value="<?php echo ($input['flt_go_to_location']); ?>">
+          </div>
+        </div>      
+        <!--End Go-->
+
+        <!--Class-->
+        <div class="row">
+          <div class="six columns">
+            <label>ประเภท</label>
+            <select name="flt_type"> 
+              <option value="<?php echo ($input['flt_type']); ?>" selected><?php echo ($input['flt_type']); ?></option> 
+                <optgroup label="**** Select New Type****">
+                  <option value="Rount Trip">Rount Trip</option>  
+                  <option value="One Way">One Way</option>                    
+                </optgroup>
+            </select>
+          </div>
+          <div class="six columns">
+            <label>ชั้นที่นั่ง</label>
+            <select name="flt_class"> 
+              <option value="<?php echo ($input['flt_class']); ?>" selected><?php echo ($input['flt_class']); ?></option>  
+                <optgroup label="**** Select New Class****">
+                  <option value="Economy Class">Economy Class</option>  
+                  <option value="Business Class">Business Class</option>        
+                  <option value="First Class">First Class</option>              
+                </optgroup>
+            </select>
+          </div>
+        </div>
+        <!--End Class-->        
+
+      <br/>
+        <!--Depart Date&Time-->
+        <div class="row">
+          <div class="six columns">
+            <label>ออกเดินทาง</label>
+            <input type="text" placeholder="Depart Date" id="flt_depart_date" name="flt_depart_date" value="<?php echo ($input['flt_depart_date']); ?>">
+          </div>      
+          <div class="six columns">
+            <label>เวลาออกเดินทาง</label>         
+            <select name="flt_depart_time">
+              <option value="<?php echo ($input['flt_depart_time']); ?>" selected><?php echo ($input['flt_depart_time']); ?></option>
+              <optgroup label="----- Select New Time -----">             
+                  <option value="ANY TIME">Any Time</option>          
+                  <option value="01:00">01:00</option>
+                  <option value="02:00">02:00</option>
+                  <option value="03:00">03:00</option>
+                  <option value="04:00">04:00</option>
+                  <option value="05:00">05:00</option>
+                  <option value="06:00">06:00</option>
+                  <option value="07:00">07:00</option>
+                  <option value="08:00">08:00</option>
+                  <option value="09:00">09:00</option>
+                  <option value="10:00">10:00</option>
+                  <option value="11:00">11:00</option>
+                  <option value="12:00">12:00</option>
+                  <option value="13:00">13:00</option>
+                  <option value="14:00">14:00</option>
+                  <option value="15:00">15:00</option>
+                  <option value="16:00">16:00</option>
+                  <option value="17:00">17:00</option>
+                  <option value="18:00">18:00</option>
+                  <option value="19:00">19:00</option>
+                  <option value="20:00">20:00</option>
+                  <option value="21:00">21:00</option>
+                  <option value="22:00">22:00</option>
+                  <option value="23:oo">23:00</option>
+                  <option value="24:00">24:00</option> 
+                  </optgroup>
+            </select>
+          </div>
+        </div>
+        <!--End Depart Date And Time-->
+
+        <!--Return Date And Time-->
+        <div class="row">
+          <div class="six columns">
+            <label>เดินทางกลับ</label>
+            <input type="text" placeholder="Return Date" id="flt_return_date" name="flt_return_date" value="<?php echo ($input['flt_return_date']); ?>">
+        </div>    
+          <div class="six columns">
+            <label>เวลาเดินทางกลับ</label>
+            <select name="flt_return_time">
+              <option value="<?php echo ($input['flt_return_time']); ?>" selected><?php echo ($input['flt_return_time']); ?></option>
+              <optgroup label="----- Select New Time -----">             
+                  <option value="ANY TIME">Any Time</option>          
+                  <option value="01:00">01:00</option>
+                  <option value="02:00">02:00</option>
+                  <option value="03:00">03:00</option>
+                  <option value="04:00">04:00</option>
+                  <option value="05:00">05:00</option>
+                  <option value="06:00">06:00</option>
+                  <option value="07:00">07:00</option>
+                  <option value="08:00">08:00</option>
+                  <option value="09:00">09:00</option>
+                  <option value="10:00">10:00</option>
+                  <option value="11:00">11:00</option>
+                  <option value="12:00">12:00</option>
+                  <option value="13:00">13:00</option>
+                  <option value="14:00">14:00</option>
+                  <option value="15:00">15:00</option>
+                  <option value="16:00">16:00</option>
+                  <option value="17:00">17:00</option>
+                  <option value="18:00">18:00</option>
+                  <option value="19:00">19:00</option>
+                  <option value="20:00">20:00</option>
+                  <option value="21:00">21:00</option>
+                  <option value="22:00">22:00</option>
+                  <option value="23:oo">23:00</option>
+                  <option value="24:00">24:00</option> 
+                </optgroup>
+            </select>
+          </div>         
+        </div>
+        <!--End Return Date&Time-->
+
+        <br/>
+
+        <!-- Amount of person -->
+        <div class="row">
+          <div class="twelve columns">
+            <h3>ข้อมูลผู้เดินทาง</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="four columns">
+            <label>จำนวนผู้ใหญ่</label>
+            <select name="flt_adult_amount">
+              <option value="<?php echo ($input['flt_adult_amount']); ?>" selected><?php echo ($input['flt_adult_amount']); ?></option>
+                <optgroup label="----- New Select -----"> 
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </optgroup>
+            </select>
+          </div>
+          <div class="four columns">
+            <label>จำนวนเด็ก (4 - 12 years)</label>
+            <select name="flt_child_amount">
+              <option value="<?php echo ($input['flt_child_amount']); ?>" selected><?php echo ($input['flt_child_amount']); ?></option>
+                <optgroup label="----- New Select -----"> 
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="4">5</option>
+                </optgroup>
+            </select>
+          </div>
+          <div class="four columns">
+            <label>จำนวนทารก (under 4 years)</label>
+            <select name="flt_infant_amount">
+              <option value="<?php echo ($input['flt_infant_amount']); ?>" selected><?php echo ($input['flt_infant_amount']); ?></option>
+                <optgroup label="----- New Select -----"> 
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </optgroup>
+            </select>
+          </div>
+        </div>
+        <!-- Amount of person End -->
+
+      <!-- Name -->
+      <div class="row">
+        <div class="six columns">
+          <label>ชื่อ</label>
+          <input type="text" placeholder="Firstname" id="flt_firstname" name="flt_firstname" alue="<?php echo set_value('flt_firstname');?>" 
+          value="<?php echo ($input['flt_firstname']); ?>">
+        </div>
+        <div class="six columns">
+          <label>นามสกุล</label>
+          <input type="text" placeholder="Lastname" id="flt_lastname" name="flt_lastname" value="<?php echo ($input['flt_lastname']); ?>">
+      </div>
+    </div>
+      <!-- Name End -->
+
+      <!--Address-->
+      <div class="row">
+       <div class="twelve columns">
+          <label>ที่อยู่</label>
+          <input type="text" placeholder="Address" id="flt_address" name="flt_address" value="<?php echo ($input['flt_address']); ?>">
+        </div>
+      </div>
+      <div class="row">
+        <div class="six columns">
+          <input type="text" placeholder="City" id="flt_city" name="flt_city" value="<?php echo ($input['flt_city']); ?>">
+        </div>
+        <div class="three columns">
+          <input type="text" placeholder="Province/State" id="flt_province" name="flt_province" value="<?php echo ($input['flt_province']); ?>">
+        </div>
+        <div class="three columns">
+          <input type="text" placeholder="ZIP" id="flt_zipcode" name="flt_zipcode" value="<?php echo ($input['flt_zipcode']); ?>">
+        </div>
+      </div>
+        <!--End Address-->
+
+        <!--Nationality-->
+        <div class="row">
+          <div class="six columns">
+            <label>สัญชาติ</label>
+            <input type="text" placeholder="Nationality" id="flt_nationality" name="flt_nationality" value="<?php echo ($input['flt_nationality']); ?>">
+          </div>
+        </div> 
+        <!--End Nationality-->
+
+        <!--Telephone and email-->
+        <div class="row">
+          <div class="six columns">
+            <label>เบอร์โทร</label>
+            <input type="text" placeholder="Telephone" id="flt_telephone" name="flt_telephone" value="<?php echo ($input['flt_telephone']); ?>">
+          </div>
+
+          <div class="six columns">
+            <label>อีเมล์</label>
+            <input type="text" placeholder="Email" id="flt_email" name="flt_email" value="<?php echo ($input['flt_email']); ?>">
+          </div>
+        </div>
+        <!--End Telephone and email-->
+
+        <div class="row">
+           <div class="twelve columns">
+            <h2>สิ่งที่ต้องการเพิ่มเติม</h2>
+            <textarea placeholder="Message" rows="5" id="flt_message" name="flt_message"><?php echo ($input['flt_message']); ?></textarea>
+          </div>
+        </div>
+
+        <!--Captcha-->
+        <div class="row">
+           <div class="four columns">
+         
+         <label>พิมพ์ตัวอักษรที่เห็นในรูปด้านล่าง</label>
+            
+          <?php      
+            echo $imageCaptcha;
+          ?>
+            <lable style="color:red;">กรุณากรอกใหม่อีกครั้ง</lable>
+          <?php
+            echo '<input type="text" name="captcha" value="" />';       
+          ?>
+          </div>
+        </div>
+        <!--End Captcha-->
+
+    <?php
+      } else {
+    ?>
       <!-- Header -->
       <div class="row">
         <div class="twelve columns">
@@ -204,7 +490,7 @@ print_r($id);
       <!-- Header End -->
       <br/>
 
-              <!--From-->
+        <!--From-->
         <div class="row">
           <div class="six columns">
             <label><h4><b>เดินทางจาก :</b> <?php echo $this->uri->segment(4);?></h4></label>
@@ -219,8 +505,6 @@ print_r($id);
           </div>
         </div>      
         <!--End Go-->
-
-
         <!--Class-->
         <div class="row">
           <div class="six columns">
@@ -236,9 +520,9 @@ print_r($id);
             <label>ชั้นที่นั่ง</label>
             <select name="flt_class">  
               <optgroup label="**** Select Class****">
-                <option value="First Class">Economy Class</option>  
+                <option value="Economy Class">Economy Class</option>  
                 <option value="Business Class">Business Class</option>        
-                <option value="Economy Class">First Class</option>              
+                <option value="First Class">First Class</option>              
               </optgroup>
             </select>
           </div>
@@ -393,7 +677,7 @@ print_r($id);
       </div>
       <div class="row">
         <div class="six columns">
-          <input type="text" placeholder="City" id="flt_city" name="flt_city" >
+          <input type="text" placeholder="City" id="flt_city" name="flt_city">
         </div>
         <div class="three columns">
           <input type="text" placeholder="Province/State" id="flt_province" name="flt_province">
@@ -419,6 +703,7 @@ print_r($id);
             <label>เบอร์โทร</label>
             <input type="text" placeholder="Telephone" id="flt_telephone" name="flt_telephone">
           </div>
+
           <div class="six columns">
             <label>อีเมล์</label>
             <input type="text" placeholder="Email" id="flt_email" name="flt_email">
@@ -432,6 +717,24 @@ print_r($id);
             <textarea placeholder="Message" rows="5" id="flt_message" name="flt_message"></textarea>
           </div>
         </div>
+
+        <!--Captcha-->
+        <div class="row">
+           <div class="four columns">
+         
+         <label>พิมพ์ตัวอักษรที่เห็นในรูปด้านล่าง</label>
+            
+        <?php      
+            echo $imageCaptcha;
+            echo '<input type="text" name="captcha" value="" />';       
+          ?>
+          </div>
+        </div>
+        <!--End Captcha-->
+<?php
+}
+?>
+
 
       <!-- Contact Us -->
       <div class="row">
