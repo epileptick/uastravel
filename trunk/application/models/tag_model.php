@@ -215,13 +215,13 @@ class Tag_model extends MY_Model {
       $count = 0;
       foreach ($args["tags"] as $key => $value) {
         $tagInput["name"] = $value;
-        $tagFound = $this->getRecord($tagInput, $args["field"]);
-        if(!$tagFound){
-
-          $tagInsertID = $this->addRecord($tagInput);
+        $tagFound = $this->get($tagInput);
+        if(empty($tagFound)){
+          $tagInsertID = $this->add($tagInput);
 
           $this->tag[$count]->id = $tagInsertID;
           $this->tag[$count]->name = $tagInput["name"];
+          var_dump($this->tag[$count]);exit;
           //$this->newTag[] = $value;
         }else{
           $this->tag[$count] = $tagFound[0];
@@ -273,13 +273,8 @@ class Tag_model extends MY_Model {
 
     //print_r($args); exit;
     if(isset($tags)){
-      //Remove tags  junk
-      $tags = str_replace('[', '', $tags);
-      $tags = str_replace(']', '', $tags);
-      $tags = str_replace('"', '', $tags);
 
-      $tags = explode(",",  $tags);
-      $args["tags"] = array_unique($tags);
+      $args["tags"] = array_unique(json_decode($tags));
 
       //Load tag_model
       $args["field"] = "tag_id, tag_name";

@@ -409,13 +409,13 @@ class Hotel extends MY_Controller {
       $query["menu"][] = $valueTag->tag_id;
     }
     //print_r($data); exit;
-    $argTag["url"] = $tag;
+    $argTag["where"]["url"] = $tag;
     $this->load->model("tag_model", "tagModel");
-    $tagQuery = $this->tagModel->getRecord($argTag);
+    $tagQuery = $this->tagModel->get($argTag);
 
       //print_r($tagQuery); exit;
     if(!empty($tagQuery)){
-      $query["tag_id"] = $tagQuery[0]->id;
+      $query["tag_id"] = $tagQuery[0]["tag_id"];
       $query["join"] = true;
       $query["per_page"] = $this->per_page;
       $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;
@@ -454,10 +454,10 @@ class Hotel extends MY_Controller {
 
     $this->load->model("tag_model", "tagModel");
 
-    $argTag["url"] = $tag;
-    $tagQuery = $this->tagModel->getRecord($argTag);
-    $argType["url"] = $type;
-    $typeQuery = $this->tagModel->getRecord($argType);
+    $argTag["where"]["url"] = $tag;
+    $tagQuery = $this->tagModel->get($argTag);
+    $argType["where"]["url"] = $type;
+    $typeQuery = $this->tagModel->get($argType);
     //print_r($query); exit;
 
 
@@ -506,14 +506,14 @@ class Hotel extends MY_Controller {
 
     $this->load->model("tag_model", "tagModel");
 
-    $argTag["url"] = $tag;
-    $tagQuery = $this->tagModel->getRecord($argTag);
+    $argTag["where"]["url"] = $tag;
+    $tagQuery = $this->tagModel->get($argTag);
 
-    $argType["url"] = $type;
-    $typeQuery = $this->tagModel->getRecord($argType);
+    $argType["where"]["url"] = $type;
+    $typeQuery = $this->tagModel->get($argType);
 
-    $argSubType["url"] = $subtype;
-    $subTypeQuery = $this->tagModel->getRecord($argSubType);
+    $argSubType["where"]["url"] = $subtype;
+    $subTypeQuery = $this->tagModel->get($argSubType);
 
     //var_dump($typeQuery); exit;
 
@@ -596,18 +596,14 @@ class Hotel extends MY_Controller {
 
       //Tag
       $this->load->model("taghotel_model", "taghotelModel");
-      $taghotelQuery["tag"] = $this->taghotelModel->getRecord($taghotel);
-      if(!empty($taghotelQuery["tag"])){
+      $taghotelWhere["where"]["hotel_id"] = $taghotel["hotel_id"];
+      $data["tag"] = $this->taghotelModel->getTagHotelList($taghotelWhere);
+
+      if(!empty($data["tag"])){
         //TagHotel
         $count = 0;
-        foreach ($taghotelQuery["tag"] as $key => $value) {
-          $this->load->model("tag_model", "tagModel");
-
-          $tag["id"] = $value->tag_id;
-          $query["menu"][] = $value->tag_id;
-          $tagQuery = $this->tagModel->getRecord($tag);
-          $data["tag"][] = $tagQuery[0];
-          $count++;
+        foreach ($data["tag"] as $key => $value) {
+          $query["menu"][] = $value["tag_id"];
         }
 
         //Related Hotel
@@ -619,15 +615,8 @@ class Hotel extends MY_Controller {
         $query["offset"] = 0;
         $data["related"] = $this->taghotelModel->getRecordRelated($query);
 
-
-
-        //print_r($related); exit;
       }
 
-      //print_r($data["related"]); exit;
-      //Price
-
-      //print_r($agencyhotel); exit;
       $this->load->model("pricehotel_model", "pricehotelModel");
       $priceQuery = $this->pricehotelModel->getRecord($agencyhotel);
 
