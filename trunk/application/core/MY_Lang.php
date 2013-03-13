@@ -50,13 +50,13 @@ class MY_Lang extends CI_Lang {
     global $URI;
     global $RTR;
 
-    if(count(explode(".",$_SERVER['SERVER_NAME']))>2){
-      $current_lang = explode(".",$_SERVER['SERVER_NAME'],2);
+    if(count(explode(".",$_SERVER['HTTP_HOST']))>2){
+      $current_lang = explode(".",$_SERVER['HTTP_HOST'],2);
       if(array_key_exists($current_lang[0], $this->languages)){
-        $CFG->set_item("base_url","http://".$_SERVER['SERVER_NAME']."/");
+        $CFG->set_item("base_url","http://".$_SERVER['HTTP_HOST']."/");
         $CFG->set_item('language', $this->languages[$current_lang[0]]);
       }else if($current_lang[0] == "www"){
-        $CFG->set_item("base_url","http://".$_SERVER['SERVER_NAME']."/");
+        $CFG->set_item("base_url","http://".$_SERVER['HTTP_HOST']."/");
         $CFG->set_item('language', $this->languages[$this->default_lang()]);
       }else{
         header("Location: ".$CFG->item("base_url"));

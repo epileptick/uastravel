@@ -20,7 +20,7 @@ class Tour_model extends MY_Model {
                      'longitude'         => 'tou_longitude',
                      'latitude'          => 'tou_latitude',
                      'first_image'       => 'tou_first_image',
-                     'tou_diplay'        => 'tou_tou_diplay',
+                     'display'           => 'tou_display',
                      'background_image'  => 'tou_background_image',
                      'banner_image'      => 'tou_banner_image',
                      'cr_date'           => 'tou_cr_date',
@@ -29,7 +29,7 @@ class Tour_model extends MY_Model {
                      'lu_uid'            => 'tou_lu_uid'
     );
 
-    $this->_joincolumn = array(
+    $this->_join_column = array(
                      'id'                => 'tout_id',
                      'tour_id'           => 'tout_tour_id',
                      'lang'              => 'tout_lang',
@@ -45,6 +45,23 @@ class Tour_model extends MY_Model {
                      'lu_date'           => 'tout_lu_date',
                      'lu_uid'            => 'tout_lu_uid'
     );
+  }
+
+  function get($options = ""){
+    if(is_numeric($options)){
+      $this->load->model("tour_translate_model","tourTranslateModel");
+      $where = array("where"=>array("tour_id"=>$options,"lang"=>$this->lang->lang()));
+      if($this->tagTranslateModel->count_rows($where)){
+        $this->db->where($this->_join_column["lang"],$this->lang->lang());
+      }
+    }
+    $this->db->join("ci_tour_translate","ci_tour_translate.tout_tour_id = ci_tour.tou_id");
+    $mainTable = parent::get($options);
+    if(empty($mainTable) AND !empty($options["lang"])){
+      unset($options["lang"]);
+      $mainTable =  $this->get($options);
+    }
+    return $mainTable;
   }
 
 
@@ -145,7 +162,7 @@ class Tour_model extends MY_Model {
 
   function addRecord($data=false){
 //print_r($data);
-//print_r($this->_joincolumn);
+//print_r($this->_join_column);
     if($data){
 
       //Insert tour
@@ -174,12 +191,12 @@ class Tour_model extends MY_Model {
 
       //Insert tour_translate
       foreach($data AS $columnJoinName=>$columnJoinValue){
-        if(array_key_exists($columnJoinName, $this->_joincolumn)){
+        if(array_key_exists($columnJoinName, $this->_join_column)){
           //print_r($columnJoinName); exit;
           if($columnJoinName == "name"){
             $this->db->set("tout_url", Util::url_title($columnJoinValue));
           }
-          $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue);
+          $this->db->set($this->_join_column[$columnJoinName], $columnJoinValue);
         }
       }
 
@@ -195,6 +212,7 @@ class Tour_model extends MY_Model {
   }
 
   function updateRecord($data=false){
+
     if($data){
       //Update tour
       foreach($data AS $columnName=>$columnValue){
@@ -220,13 +238,13 @@ class Tour_model extends MY_Model {
 
       //print_r($this->db->last_query()); exit;
       foreach($data AS $columnJoinName=>$columnJoinValue){
-        if(array_key_exists($columnJoinName, $this->_joincolumn)){
+        if(array_key_exists($columnJoinName, $this->_join_column)){
           //print_r($columnJoinName); exit;
           if($columnJoinName != "id"){
             if($columnJoinName == "name"){
               $this->db->set("tout_url", Util::url_title($columnJoinValue));
             }
-            $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue);
+            $this->db->set($this->_join_column[$columnJoinName], $columnJoinValue);
           }else{
 
             $this->db->set("tout_tour_id", $columnJoinValue);
