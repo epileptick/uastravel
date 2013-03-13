@@ -4,16 +4,16 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <title><?php echo $tour[0]->name;?></title>
+  <title><?php echo $tour[0]["name"];?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="<?php echo (!empty($tour[0]->short_description))?$tour[0]->short_description:"";?>" />
+  <meta name="description" content="<?php echo (!empty($tour[0]["short_description"]))?$tour[0]["short_description"]:"";?>" />
   <?php
     $tag_keyword = "แพ็คเกจทัวร์, ทัวร์, ";
     if(!empty($tag)){
       foreach ($tag as $key => $value) {
-        if(!empty($value->url) &&  $value->id != 1){
-          $tag_keyword .= $value->name.", ";
+        if(!empty($value["url"]) &&  $value["tag_id"] != 1){
+          $tag_keyword .= $value["name"].", ";
         }
       }
 
@@ -39,9 +39,10 @@
 </head>
 
 <?php
-  if(!empty($tour[0]->background_image)){
+
+  if(!empty($tour[0]["background_image"])){
 ?>
-    <body style="background: #ededed url(<?php echo $tour[0]->background_image;?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
+    <body style="background: #ededed url(<?php echo $tour[0]["background_image"];?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
 <?php
   }else{
 ?>
@@ -115,10 +116,10 @@
     <div class="row">
       <div class="twelve columns">
         <a href="" class="arrow previous tooltip_nw" title="แหล่งท่องเที่ยวก่อนหน้า">แหล่งท่องเที่ยวก่อนหน้า</a>
-        <h1 class="title"><a href=""><?php echo $tour[0]->name;?></a>
+        <h1 class="title"><a href=""><?php echo $tour[0]["name"];?></a>
             <a href="#detail">
             <img src="<?php echo base_url('themes/Travel/images/anchor.png');?>" width="23px" height="23px" align="absmiddle"/></a>
-          <span class="subtitle"><?php echo (!empty($tour[0]->short_description))?$tour[0]->short_description:"";?></span>
+          <span class="subtitle"><?php echo (!empty($tour[0]["short_description"]))?$tour[0]["short_description"]:"";?></span>
         </h1>
         <a href="" class="arrow next south" title="แหล่งท่องเที่ยวถัดไป">แหล่งท่องเที่ยวถัดไป</a>
       </div>
@@ -154,12 +155,12 @@
               ?>
               <li>
                 <a class="thumb"  href="<?php echo $value['url'];?>" >
-                  <img src="<?php echo $value['url'];?>" alt="<?php echo $tour[0]->name;?>" />
+                  <img src="<?php echo $value['url'];?>" alt="<?php echo $tour[0]["name"];?>" />
                   <div><span></span></div>
                 </a>
                 <div class="captions">
-                  <div class="image-title"><?php echo $tour[0]->name;?></div>
-                  <div class="image-desc"><?php echo $tour[0]->short_description;?></div>
+                  <div class="image-title"><?php echo $tour[0]["name"];?></div>
+                  <div class="image-desc"><?php echo $tour[0]["short_description"];?></div>
                 </div>
               </li>
               <?php
@@ -179,7 +180,7 @@
           ?>
             <li>
               <a href="<?php echo $value['url'];?>">
-                <img src="<?php echo $value['url'];?>" alt="<?php echo $tour[0]->name;?>" />
+                <img src="<?php echo $value['url'];?>" alt="<?php echo $tour[0]["name"];?>" />
               </a>
             </li>
           <?php
@@ -200,7 +201,7 @@
           <!-- Title -->
           <div class="row">
             <div class="eight columns">
-              <h3 class="title_tour" id="detail">(<?php echo $tour[0]->code;?>) <?php echo $tour[0]->name;?></h3>
+              <h3 class="title_tour" id="detail">(<?php echo $tour[0]["code"];?>) <?php echo $tour[0]["name"];?></h3>
             </div>
             <div class="four columns">
               <div class="social_network">
@@ -218,7 +219,7 @@
           </div>
           <!-- End Title -->
           <div class="border"></div>
-          <p><?php echo $tour[0]->description;?></p>
+          <p><?php echo $tour[0]["description"];?></p>
           <h3 style="padding:4px 4px 8px 4px; border:2px solid; border-color:#FAA20A; background-color:#FAA20A; color:#FFF; text-shadow: none !important;">
             <?php echo $this->lang->line("tour_lang_program_and_itinerary");?>
           </h3>
@@ -229,13 +230,13 @@
           <p>ได้เวลาพอสมควร ออกเดินทางกลับจากอุทยานแห่งชาติหมู่เกาะสุรินทร์ สู่ท่าเรือ คุระบุรี จังหวัดพังงา เดินทางกลับสู่ที่พัก ประมาณ 1 ทุ่ม  ส่งท่านถึงที่โรงแรมที่พักในจังหวัดภูเก็ต</p>
           -->
           <p>
-            <?php echo $tour[0]->detail;?>
+            <?php echo $tour[0]["detail"];?>
           </p>
 
 
 
           <?php
-            if(!empty($tour[0]->included) && !empty($tour[0]->remark)){
+            if(!empty($tour[0]["included"]) && !empty($tour[0]["remark"])){
           ?>
             <div class="row">
               <div class="five columns">
@@ -252,7 +253,7 @@
                 -->
                 <p>
                   <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
-                    <?php echo (!empty($tour[0]->included)?$tour[0]->included:"");?>
+                    <?php echo (!empty($tour[0]["included"])?$tour[0]["included"]:"");?>
                   </div>
                 </p>
               </div>
@@ -261,7 +262,7 @@
                 <h3 style="color:#0000;"><?php echo $this->lang->line("tour_lang_tour_remark");?></h3>
                 <p>
                   <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
-                    <?php echo $tour[0]->remark;?>
+                    <?php echo $tour[0]["remark"];?>
                   </div>
                 </p>
                 <!--
@@ -273,20 +274,20 @@
               </div>
             </div>
           <?php
-          }else if(!empty($tour[0]->included)){
+          }else if(!empty($tour[0]["included"])){
           ?>
             <div class="row">
               <div class="five columns">
                 <h3><?php echo $this->lang->line("tour_lang_tour_includes");?></h3>
                 <p>
                   <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
-                    <?php echo (!empty($tour[0]->included)?$tour[0]->included:"");?>
+                    <?php echo (!empty($tour[0]["included"])?$tour[0]["included"]:"");?>
                   </div>
                 </p>
               </div>
             </div>
           <?php
-          }else if(!empty($tour[0]->remark)){
+          }else if(!empty($tour[0]["remark"])){
           ?>
             <div class="row">
               <div class="five columns">
@@ -303,7 +304,7 @@
                 -->
                 <p>
                   <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
-                    <?php echo (!empty($tour[0]->included)?$tour[0]->remark:"");?>
+                    <?php echo (!empty($tour[0]["included"])?$tour[0]["remark"]:"");?>
                   </div>
                 </p>
               </div>
@@ -486,7 +487,7 @@
 
               <tr>
                 <td class="price_booking" colspan="5">
-                    <input type="hidden" name="id" value="<?php echo $tour[0]->id;?>"></input>
+                    <input type="hidden" name="id" value="<?php echo $tour[0]["tour_id"];?>"></input>
                     <input class="button small  booking"  type="submit" value="จองทัวร์นี้">
                 </td>
               </tr>
@@ -542,10 +543,10 @@
                 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
                 <script type="text/javascript">
                       <?php
-                        if($tour[0]->latitude && $tour[0]->longitude){
+                        if($tour[0]["latitude"] && $tour[0]["longitude"]){
                       ?>
-                          var lat = <?php echo $tour[0]->latitude;?>;
-                          var lon = <?php echo $tour[0]->longitude;?>;
+                          var lat = <?php echo $tour[0]["latitude"];?>;
+                          var lon = <?php echo $tour[0]["longitude"];?>;
                       <?php
                         }else{
                       ?>
@@ -567,7 +568,7 @@
 
                         marker = new google.maps.Marker({
                           position: latLng,
-                          title: '<?php echo $tour[0]->name;?>',
+                          title: '<?php echo $tour[0]["name"];?>',
                           map: map,
                           draggable: false
                         });
@@ -683,7 +684,7 @@
             js.src = "//connect.facebook.net/th_TH/all.js#xfbml=1&appId=357467797616103";
             fjs.parentNode.insertBefore(js, fjs);
           }(document, 'script', 'facebook-jssdk'));</script>
-          <div class="fb-comments" data-href="<?php echo base_url('tour/'.$tour[0]->url.'-'.$tour[0]->id);?>" data-num-posts="20" data-width=""></div>
+          <div class="fb-comments" data-href="<?php echo base_url('tour/'.$tour[0]["url"].'-'.$tour[0]["tour_id"]);?>" data-num-posts="20" data-width=""></div>
         </div>
       </div>
     </div>

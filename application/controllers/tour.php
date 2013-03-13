@@ -565,12 +565,12 @@ class Tour extends MY_Controller {
 
     if($id){
       //Tour
-      $tour["id"] = $id;
-      $tagtour["tour_id"] = $id;
+      $tour["where"]["tour_id"] = $id;
+      $tagtour["where"]["tour_id"] = $id;
       $agencytour["tour_id"] = $id;
       $agencytour["event"] = "display";
       $extendprice["pri_tour_id"] = $id;
-      $data["tour"] = $this->tourModel->getRecord($tour);
+      $data["tour"] = $this->tourModel->get($tour);
 
       //Check has tour
       if(count($data["tour"]) < 1  || empty($data["tour"])){
@@ -578,24 +578,19 @@ class Tour extends MY_Controller {
       }
 
       //Check translate
-      if(empty($data["tour"][0]->name)){
+      if(empty($data["tour"][0]["name"])){
         show_404();
       }
 
       //Tag
       $this->load->model("tagtour_model", "tagTourModel");
-      $tagtourQuery["tag"] = $this->tagTourModel->getRecord($tagtour);
-      if(!empty($tagtourQuery["tag"])){
+      $data["tag"] = $this->tagTourModel->getTagTourList($tagtour);
+
+      if(!empty($data["tag"])){
         //TagTour
         $count = 0;
-        foreach ($tagtourQuery["tag"] as $key => $value) {
-          $this->load->model("tag_model", "tagModel");
-
-          $tag["id"] = $value->tag_id;
-          $query["menu"][] = $value->tag_id;
-          $tagQuery = $this->tagModel->get($tag);
-          $data["tag"][] = $tagQuery[0];
-          $count++;
+        foreach ($data["tag"] as $key => $value) {
+          $query["menu"][] = $value["tag_id"];
         }
 
         //Related Tour
@@ -1026,25 +1021,64 @@ class Tour extends MY_Controller {
 
   function admin_list(){
 
-      $tourField["field"] = "tou_id, tout_name, tout_url, tou_first_image, tou_display";
-      $data["tour"] = $this->tourModel->getRecord($tourField);
 
-      //print_r($data["tour"]); exit;
+    $this->load->library('pagination');
+    $this->load->model("tagtour_model","tagTourModel");
+
+    $config['per_page'] = 15;
+
+    //get all the URI segments for pagination and sorting
+    $segment_array = $this->uri->segment_array();
+    $segment_count = $this->uri->total_segments();
+
+
+    $where["group"] = "tour_id";
+
+    $config['base_url'] = site_url(join("/",$segment_array));
+    $config['total_rows'] = $this->tourModel->count_rows($where);
+
+    $result['total_rows'] = $config['total_rows'];
+
+    //getting the records and limit setting
+    if (ctype_digit($segment_array[$segment_count])) {
+      $this->db->limit($config['per_page'],$segment_array[$segment_count]);
+      $result['start_offset'] = $segment_array[$segment_count]+1;
+      $result['end_offset'] = $segment_array[$segment_count]+$config['per_page'];
+      if(($result['end_offset'])>$config['total_rows']){
+        $result['end_offset'] = $result['total_rows'];
+      }
+
+      array_pop($segment_array);
+    } else {
+      $this->db->limit($config['per_page']);
+      $result['start_offset'] = 1;
+
+    }
+
+      $data["tour"] = $this->tourModel->get();
       $count = 0;
       foreach ($data["tour"] as $key => $value) {
-
-        $query["join"] = true;
-        $query["tour_id"] = $value->id;
+        $query["where"]["tour_id"] = $value["tour_id"];
 
         $result["tour"][$count]["tour"] = $value;
 
-        $this->load->model("tagtour_model","tagTourModel");
-        $result["tour"][$count]["tag"] = $this->tagTourModel->getRecord($query);
+        $result["tour"][$count]["tag"] = $this->tagTourModel->getTagTourList($query);
 
         $count++;
-       }
+      }
 
-      //print_r($result); exit;
+      $config['base_url'] = site_url(join("/",$segment_array));
+      $config['uri_segment'] = count($segment_array)+1;
+
+      if((count($result['tour'])+1)>$result['start_offset']){
+        $result['end_offset'] = count($result['tour']);
+      }
+
+      //initialize pagination
+      $this->pagination->initialize($config);
+      //load the view
+
+
       $this->_fetch('admin_list', $result);
    }
 
@@ -1084,7 +1118,6 @@ class Tour extends MY_Controller {
       $data["tour"] = $this->tourModel->getRecord($args);
 
 
-      //print_r($data["tour"]); exit;
       //Check update
       if($data["tour"]>0){
 
@@ -1131,18 +1164,10 @@ class Tour extends MY_Controller {
         //print_r($data["price"]); exit;
         //Tag
 
-        $tagTour["tour_id"] = $id;
-        $data["tagTour"] = $this->tagTourModel->getRecord($tagTour, $field);
-        //print_r($data["tagTour"]); exit;
-        if(!empty($data["tagTour"]) && $data["tagTour"]){
-          //$this->load->model("tag_model", "tagModel");
-          foreach ($data["tagTour"] as $key => $value) {
-            //echo $value->tag_id; echo "<br>";
-            $tagTour["where"]["tag_id"] = $value->tag_id;
-            $tag_result = $this->tagModel->get($tagTour);
-            $data["tag_query"][] = $tag_result[0];
-          }
-        }
+        $tagTour["where"]["tour_id"] = $id;
+        $data["tag_query"] = $this->tagTourModel->getTagTourList($tagTour);
+        //var_dump($this->db->last_query());
+        //var_dump($data["tag_query"]); exit;
 
         //print_r($data); exit;
         //Send data to update form
@@ -1332,6 +1357,7 @@ class Tour extends MY_Controller {
             $this->tagTourModel->updateRecord($args);
           }
         }
+
 
 
         //print_r($args["price"]); exit;

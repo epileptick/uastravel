@@ -512,8 +512,6 @@ class MY_Model extends CI_Model {
             foreach($this->_join_column AS $kjColumn=>$vjColumn){
               if(isset($value[$vjColumn])){
                 $data[$kjColumn] = $value[$vjColumn];
-              }else{
-                $data[$kjColumn] = "";
               }
             }
           }

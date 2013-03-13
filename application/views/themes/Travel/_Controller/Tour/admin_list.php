@@ -1,6 +1,3 @@
-<?php
-      //print_r($tour); exit;
-?>
 <?php PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().'/style/form.css">');
 
 PageUtil::addVar("javascript",'<script type="text/javascript">
@@ -15,7 +12,7 @@ $(document).ready(function() {
   );
   $("input:checkbox, li").click(
     function () {
-    	
+
       var checkBoxes = $(this).find("input:checkbox");
       checkBoxes.prop("checked", !checkBoxes.prop("checked"));
       if(checkBoxes.prop("checked")){
@@ -25,7 +22,7 @@ $(document).ready(function() {
       }
     }
   );
-  
+
   $("input:checkbox").click(
     function () {
       $(this).prop("checked", !$(this).prop("checked"));
@@ -44,13 +41,13 @@ $(document).ready(function() {
       });
     }
   );
-  
+
 });
 function selectAll(){
     var checkBoxes = $("ul#location-list").find("input:checkbox");
     $("ul#location-list").prop("checkedall",!$("ul#location-list").prop("checkedall"));
     checkBoxes.prop("checked", $("ul#location-list").prop("checkedall"));
-    
+
     if(!$("ul#location-list").prop("checkedall")){
       $("ul#location-list li").removeClass("highlight");
       $("#btnSelect").html("'.$this->lang->line("global_lang_select_all").'");
@@ -58,7 +55,7 @@ function selectAll(){
       $("ul#location-list li").addClass("highlight");
       $("#btnSelect").html("'.$this->lang->line("global_lang_unselect_all").'");
     }
-    
+
   }
 </script>');
 
@@ -85,7 +82,7 @@ function selectAll(){
         if(status == "show"){
           //$("[attr_name=value]")
           //$("[data-fundId="+$(this).data('fundId')+"]").hide();
-          
+
           $("[idname="+name+"]").hide();
           $("[idname=display_hide_"+id+"]").show();
           status = "hide";
@@ -115,7 +112,7 @@ function selectAll(){
 <div class="container_12">
 <section class="similar_hotels grid_12">
 
-    <h2 class="section_heading"><?php echo $this->lang->line("location_lang_location_list");?></h2>  
+    <h2 class="section_heading"><?php echo $this->lang->line("location_lang_location_list");?></h2>
     <div class="topHolder bottom-shadow">
       <span class="GM1BAGKBGJB">
       <button class="blogg-button" tabindex="0" id="btnSelect"><?php echo $this->lang->line("global_lang_select_all");?></button>
@@ -151,9 +148,9 @@ function selectAll(){
             //alert("Fed ped");
 
             if(numclick%2 == 0){
-              $("#tag_list").css("display", "none");              
+              $("#tag_list").css("display", "none");
             }else{
-              $("#tag_list").css("display", "block");              
+              $("#tag_list").css("display", "block");
             }
 
             numclick++;
@@ -163,27 +160,27 @@ function selectAll(){
 
 
 <!-- Tag list -->
-<div id="tag_list" style="position: absolute; overflow-x: visible; overflow-y: visible; left: 310px; top: 385px; display:none; " 
+<div id="tag_list" style="position: absolute; overflow-x: visible; overflow-y: visible; left: 310px; top: 385px; display:none; "
 class="blogg-menu-popup">
   <div class="popupContent">
-  <div> 
+  <div>
     <div tabindex="0" class="GFUQPS5BEGB">
-      <input type="text" tabindex="-1" role="presentation" 
+      <input type="text" tabindex="-1" role="presentation"
       style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow-x: hidden; overflow-y: hidden; position: absolute; border-bottom: solid 1px #ddd;">
     <div>
-      <div class="GFUQPS5BCGB" 
+      <div class="GFUQPS5BCGB"
             style="overflow-y: auto; ; background:white; border:1px solid #ddd; padding: 15px;height: 120px;">
-        <div tabindex="0" role="listbox" 
-              style="outline-style: none; outline-width: initial; outline-color: initial; " 
+        <div tabindex="0" role="listbox"
+              style="outline-style: none; outline-width: initial; outline-color: initial; "
               aria-activedescendant="gwt-uid-935">
-          <input type="text" tabindex="-1" role="presentation" 
-        style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow-x: hidden; overflow-y: hidden; position: absolute; " 
+          <input type="text" tabindex="-1" role="presentation"
+        style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow-x: hidden; overflow-y: hidden; position: absolute; "
         aria-hidden="true">
           <style type="text/css">
             #tags:hover {
               color:#fff;
               background: #FFA951;
-              cursor:pointer; 
+              cursor:pointer;
             }
           </style>
           <div>
@@ -204,17 +201,17 @@ class="blogg-menu-popup">
             }
             </script>
 
-            <div id="tags" value="__new__" class="GFUQPS5BODB selected" role="option" id="gwt-uid-935" 
+            <div id="tags" value="__new__" class="GFUQPS5BODB selected" role="option" id="gwt-uid-935"
             style="border-bottom:1px solid #ccc;"
             onclick="addNewTag()"
             >
               ป้ายกำกับใหม่...
             </div>
             <div id="tags"
-                 value="ของกินภูเก็ต" 
-                 class="GFUQPS5BODB" 
-                 role="option" 
-                 id="gwt-uid-937" 
+                 value="ของกินภูเก็ต"
+                 class="GFUQPS5BODB"
+                 role="option"
+                 id="gwt-uid-937"
                  title="เพิ่มหรือลบป้าย ของกินภูเก็ต"
             >
               ของกินภูเก็ต
@@ -224,17 +221,19 @@ class="blogg-menu-popup">
             <div id="tags" value="อาหารภูเก็ต" class="GFUQPS5BODB" role="option" id="gwt-uid-940" title="เพิ่มหรือลบป้าย อาหารภูเก็ต">อาหารภูเก็ต</div>
             <div id="tags" value="เฉาก๊วย" class="GFUQPS5BODB" role="option" id="gwt-uid-941" title="เพิ่มหรือลบป้าย เฉาก๊วย">เฉาก๊วย</div>
           </div>
+
+
       </div>
     </div>
   </div>
-</div> 
+</div>
 <div tabindex="0">
-  <input type="text" tabindex="-1" role="presentation" 
+  <input type="text" tabindex="-1" role="presentation"
   style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow-x: hidden; overflow-y: hidden; position: absolute; ">
 </div>
 </div>
 </div>
-</div>          
+</div>
 
 
 
@@ -242,7 +241,7 @@ class="blogg-menu-popup">
       <button class="blogg-button blogg-collapse-right" tabindex="0" href='<?php echo base_url("admin/tour/create");?>'>
         <?php echo $this->lang->line("location_lang_publish");?>
       </button>
-    
+
       <button class="blogg-button blogg-collapse-left blogg-collapse-right" tabindex="0" href='<?php echo base_url("admin/tour/create");?>'>
         <?php echo $this->lang->line("location_lang_unpublish");?>
       </button>
@@ -255,17 +254,19 @@ class="blogg-menu-popup">
           <?php echo $this->lang->line("location_lang_add_post");?>
         </a>
       </span>
-      <!--
+
       <div class="GM1BAGKBG5B">
         <div>
-          <span class="GM1BAGKBD5B"><?php //echo $start_offset;?>-<?php //echo $end_offset;?> จาก <?php //echo $total_rows;?></span>
+          <span class="GM1BAGKBD5B"><?php echo $start_offset;?>-<?php echo $end_offset;?> จาก <?php echo $total_rows;?></span>
             <?php
-              //echo $this->pagination->create_links();
+              echo $this->pagination->create_links();
             ?>
-        </div>
-      </div>
-    -->
+         </div>
+       </div>
+
+
     </div>
+
     <?php //echo form_open('','name="locationList" id="locationList"'); ?>
     <ul id="location-list">
     <?php
@@ -276,95 +277,95 @@ class="blogg-menu-popup">
         <li>
           <span>
 
-            <?php 
-            if($value['tour']->display == 0){
+            <?php
+            if($value['tour']["display"] == 0){
             ?>
-              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>" 
-                  valign="top" 
-                  id="display" 
+              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>"
+                  valign="top"
+                  id="display"
                   class="display_show"
-                  status="show" 
-                  idval="<?php echo $value['tour']->id;?>"
-                  idname="display_show_<?php echo $value['tour']->id;?>"
+                  status="show"
+                  idval="<?php echo $value['tour']["tour_id"];?>"
+                  idname="display_show_<?php echo $value['tour']["tour_id"];?>"
                   style="display:none;"
               >
-              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>" 
-                  valign="top" 
+              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>"
+                  valign="top"
                   id="display"
-                  class="display_hide" 
-                  status="hide" 
-                  idval="<?php echo $value['tour']->id;?>"
-                  idname="display_hide_<?php echo $value['tour']->id;?>"
+                  class="display_hide"
+                  status="hide"
+                  idval="<?php echo $value['tour']["tour_id"];?>"
+                  idname="display_hide_<?php echo $value['tour']["tour_id"];?>"
               >
-            <?php 
-            }else if($value['tour']->display == 1){
+            <?php
+            }else if($value['tour']["display"] == 1){
             ?>
-              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>" 
-                  valign="top" 
-                  id="display" 
-                  class="display_show"
-                  status="show" 
-                  idval="<?php echo $value['tour']->id;?>"
-                  idname="display_show_<?php echo $value['tour']->id;?>"
-              >
-              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>" 
-                  valign="top" 
+              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>"
+                  valign="top"
                   id="display"
-                  class="display_hide" 
-                  status="hide" 
-                  idval="<?php echo $value['tour']->id;?>"
-                  idname="display_hide_<?php echo $value['tour']->id;?>"
+                  class="display_show"
+                  status="show"
+                  idval="<?php echo $value['tour']["tour_id"];?>"
+                  idname="display_show_<?php echo $value['tour']["tour_id"];?>"
+              >
+              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>"
+                  valign="top"
+                  id="display"
+                  class="display_hide"
+                  status="hide"
+                  idval="<?php echo $value['tour']["tour_id"];?>"
+                  idname="display_hide_<?php echo $value['tour']["tour_id"];?>"
                   style="display:none;"
               >
-            <?php 
+            <?php
             }
             ?>
-            <input type="checkbox" name="<?php echo $value['tour']->id;?>" id="tour_<?php echo $value['tour']->id;?>">
+            <input type="checkbox" name="<?php echo $value['tour']["tour_id"];?>" id="tour_<?php echo $value['tour']["tour_id"];?>">
           </span>
           <div>
-            <span>  
+            <span>
             <h3>
-              <a href="<?php echo base_url('tour/'.$value['tour']->url.'-'.$value['tour']->id);?>" target="_blank">
-                <?php echo $value['tour']->name;?>
-              </a>                
-                &nbsp;&nbsp;
+              <a href="<?php echo base_url('tour/'.$value['tour']["url"].'-'.$value['tour']["tour_id"]);?>" target="_blank">
+                <?php echo $value['tour']["name"];?>
+              </a>
+
                 <?php
-                //print_r($value['tag']); exit;
+
                   if(!empty($value['tag'])){
                     $countTag = count($value['tag']);
                     $count = 1;
                     foreach ($value['tag'] as $keyTag => $valueTag) {
                 ?>
                     <font color="#FFA951">
-                      <a href="<?php echo base_url('admin/tour/'.$valueTag->tag_name);?>" style="color:#FFA951;">
+                      <a href="<?php echo base_url('admin/tour/'.$valueTag["name"]);?>" style="color:#FFA951;">
                         <i><u>
-                          <?php echo $valueTag->tag_name; ?>
+                          <?php echo $valueTag["name"]; ?>
                         </u></i>
                       </a>
                     </font>
-                <?php  
+                <?php
                       if($countTag != $count){
                         echo ",&nbsp;";
-                      } 
+                      }
                       $count++;
-                    }                                  
+                    }
                   }
                 ?>
             </h3>
-            </span>            
+            </span>
             <span id="location-list-control">
-              <a href="<?php echo base_url('tour/'.$value['tour']->url.'-'.$value['tour']->id);?>" target="_blank">
+              <a href="<?php echo base_url('tour/'.$value['tour']["url"].'-'.$value['tour']["tour_id"]);?>" target="_blank">
                view
-              </a> | 
-              <a href="<?php echo base_url('admin/tour/create/'.$value['tour']->id);?>">
+              </a> |
+              <a href="<?php echo base_url('admin/tour/create/'.$value['tour']["tour_id"]);?>">
                 <?php echo $this->lang->line("global_lang_edit");?>
               </a> |
-              <a href="<?php echo base_url('admin/tour/delete/'.$value['tour']->id);?>"  onclick="return confirm('Are you sure you want to delete?')">
+              <a href="<?php echo base_url('admin/tour/delete/'.$value['tour']["tour_id"]);?>"  onclick="return confirm('Are you sure you want to delete?')">
               <?php echo $this->lang->line("global_lang_delete");?>
-              </a> 
+              </a>
             </span>
           </div>
-          
+
         </li>
       <?php
         endforeach;
@@ -378,7 +379,7 @@ class="blogg-menu-popup">
       ?>
     </ul>
     <?php echo form_close(); ?>
-    
+
   </section>
-  
+
 </div>
