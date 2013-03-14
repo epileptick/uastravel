@@ -670,14 +670,16 @@ class Hotel extends MY_Controller {
 
 
     if($args["id"]){
+      $this->load->model("taghotel_model", "taghotelModel");
+      $this->load->model("tagtour_model", "tagtourModel");
 
       //Hotel
 
-      $hotel["id"] = $args["id"];
+      $hotel["where"]["id"] = $args["id"];
       $taghotel["hotel_id"] = $args["id"];
       $agencyhotel["hotel_id"] = $args["id"];
-      //$hotel["field"] = "tou_id, tou_code, tou_name, tou_url, tou_first_image, tou_short_description";
-      $data["hotel"] = $this->hotelModel->getRecord($hotel);
+
+      $data["hotel"] = $this->hotelModel->get($hotel);
 
       if(count($data["hotel"]) < 1  || empty($data["hotel"])){
         show_404();
@@ -685,8 +687,7 @@ class Hotel extends MY_Controller {
 
 
       //Tag
-      $this->load->model("taghotel_model", "taghotelModel");
-      $this->load->model("tagtour_model", "tagtourModel");
+
       $taghotelQuery["tag"] = $this->taghotelModel->getRecord($taghotel);
       if(!empty($taghotelQuery["tag"])){
         //TagHotel

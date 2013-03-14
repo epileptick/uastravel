@@ -291,6 +291,9 @@
 
 
                             <!-- Title/Name-->
+                            <?php
+                              if($value["type"] == "normal"):
+                            ?>
                             <div class="row-fluid">
                               <div class="span8">
                                 <h3>
@@ -346,7 +349,7 @@
                               <div class="span5">
                                 <span class="tag">
                                   <?php
-                                    //print_r($value["tag"]); exit;
+                                    if(!empty($value["tag"]))
                                     foreach ($value["tag"] as $keyTag => $valueTag) {
 
                                       if(!empty($value["tour"]->maintag_url)){
@@ -376,6 +379,9 @@
                                 <span class="icon  tag_icon"></span>
                               </div>
                             </div>
+                            <?php
+                              endif;
+                            ?>
                           </div>
 
                       <?php

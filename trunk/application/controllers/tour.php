@@ -566,6 +566,7 @@ class Tour extends MY_Controller {
     if($id){
       //Tour
       $tour["where"]["tour_id"] = $id;
+      $tour["where"]["lang"] = $this->lang->lang();
       $tagtour["where"]["tour_id"] = $id;
       $agencytour["tour_id"] = $id;
       $agencytour["event"] = "display";

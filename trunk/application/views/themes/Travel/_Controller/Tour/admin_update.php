@@ -923,7 +923,7 @@ $(document).ready(function() {
               <span   style="cursor:pointer;"
                   onClick="this.style.color='red'"
                     id='addtag<?php echo $count; ?>'
-                ><?php echo $value->name; ?></span>
+                ><?php echo $value["name"]; ?></span>
               </font>
           <?php
           }else{
@@ -931,7 +931,7 @@ $(document).ready(function() {
             <font color='6182E6'><span  style="cursor:pointer; "
                   onClick="this.style.color='red'"
                     id='addtag<?php echo $count; ?>'
-                ><?php echo $value->name; ?></span>
+                ><?php echo $value["name"]; ?></span>
               </font>,
           <?php
           }
