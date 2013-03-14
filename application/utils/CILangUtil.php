@@ -11,14 +11,14 @@ class LangUtil{
     $fds = scandir(APPPATH."language/".$config['language']);
     //var_dump($fds);
     foreach($fds as $fd){
-      if($fd != '.' AND $fd != '..' AND $fd != "index.html"){
+      if($fd != '.' AND $fd != '..' AND $fd != "index.html" AND $fd != ".svn"){
         include(APPPATH."language/".$config['language']."/".$fd);
-        
+
       }
     }
     return $lang[$line];
   }
-  
+
   function get_uri_lang($uri = '')
   {
     // languages
@@ -32,11 +32,11 @@ class LangUtil{
      if (!empty($uri))
      {
       $uri = ($uri[0] == '/') ? substr($uri, 1): $uri;
-      
+
       $uri_expl = explode('/', $uri, 2);
       $uri_segment['lang'] = NULL;
-      $uri_segment['parts'] = $uri_expl;  
-      
+      $uri_segment['parts'] = $uri_expl;
+
       if (array_key_exists($uri_expl[0], $languages))
       {
         $uri_segment['lang'] = $uri_expl[0];
@@ -51,7 +51,7 @@ class LangUtil{
      else
       return FALSE;
     }
-    
+
 }
 
 ?>
