@@ -16,12 +16,11 @@ class Hotel_model extends MY_Model {
                      'cr_date'           => 'hot_cr_date',
                      'cr_uid'            => 'hot_cr_uid',
                      'lu_date'           => 'hot_lu_date',
-                     'lu_uid'            => 'hot_lu_uid'  
+                     'lu_uid'            => 'hot_lu_uid'
     );
 
-    $this->_joincolumn = array(
-                     'id'                => 'hott_id',
-                     'id'                => 'hott_hotel_id',
+    $this->_join_column = array(
+                     'hotel_id'          => 'hott_hotel_id',
                      'lang'              => 'hott_lang',
                      'url'               => 'hott_url',
                      'name'              => 'hott_name',
@@ -33,38 +32,51 @@ class Hotel_model extends MY_Model {
                      'cr_date'           => 'hott_cr_date',
                      'cr_uid'            => 'hott_cr_uid',
                      'lu_date'           => 'hott_lu_date',
-                     'lu_uid'            => 'hott_lu_uid'  
+                     'lu_uid'            => 'hott_lu_uid'
     );
   }
-  
-  
+
+  function get($options=""){
+    if(is_numeric($options)){
+      $this->load->model("hotel_translate_model","hotelTranslateModel");
+      $where = array("where"=>array("loc_id"=>$options,"lang"=>$this->lang->lang()));
+      if($this->count_rows($where)){
+        $this->db->where($this->_join_column["lang"],$this->lang->lang());
+      }
+    }
+    $this->db->join("ci_location_translate","ci_location_translate.loct_loc_id = ci_location.loc_id");
+    $mainTable = parent::get($options);
+
+    return $mainTable;
+  }
+
   function mapField($result){
-    
+
     foreach ($result as $key => $value) {
       $data = new stdClass();
 
-      foreach ($value as $keyField => $valueFiled) {      
+      foreach ($value as $keyField => $valueFiled) {
         if( $keyField != "hott_id"){
           $keyExplode = explode("_", $keyField, 2);
           $newkey = $keyExplode[1];
-          $data->$newkey = $valueFiled; 
+          $data->$newkey = $valueFiled;
         }
       }
-      $newResult[] = $data;      
+      $newResult[] = $data;
     }
 
     return $newResult;
   }
-  
+
   function getRecord($args=false){
 
     if(isset($args["tag"]) && isset($args["hotel_name"]) ){
       echo $args;
     }else if(isset($args["id"])){
-      //Get page by id for create 
+      //Get page by id for create
       if(!empty($args["field"])){
         $this->db->select($args["field"]);
-      }      
+      }
 
 
       $this->db->where("hott_hotel_id", $args["id"]);
@@ -73,14 +85,14 @@ class Hotel_model extends MY_Model {
 
       if($query->num_rows > 0){
         //Found & update
-        $this->db->where('ci_hotel.hot_id', $args["id"]);      
+        $this->db->where('ci_hotel.hot_id', $args["id"]);
         $this->db->where('ci_hotel_translate.hott_lang', $this->lang->lang());
         $this->db->join('ci_hotel_translate', 'ci_hotel_translate.hott_hotel_id = ci_hotel.hot_id');
-        $this->db->order_by('CONVERT( hott_name USING tis620 ) ASC');    
+        $this->db->order_by('CONVERT( hott_name USING tis620 ) ASC');
         $query = $this->db->get("ci_hotel");
       }else{
-        //Not found & insert  
-        $this->db->where('ci_hotel.hot_id', $args["id"]);   
+        //Not found & insert
+        $this->db->where('ci_hotel.hot_id', $args["id"]);
         $query = $this->db->get("ci_hotel");
       }
 
@@ -95,7 +107,7 @@ class Hotel_model extends MY_Model {
         return false;
       }
     }else if(isset($args["hotel_name"])){
-      //Get page by id for create      
+      //Get page by id for create
       $query = $this->db->get_where('ci_hotel', array('hotel_name' => $args["hotel_name"]), 1, 0);
 
       if($query->num_rows > 0){
@@ -117,30 +129,30 @@ class Hotel_model extends MY_Model {
 
       $this->db->where('ci_hotel_translate.hott_lang', $this->lang->lang());
       $this->db->join('ci_hotel_translate', 'ci_hotel_translate.hott_hotel_id = ci_hotel.hot_id');
-      $this->db->order_by('CONVERT( hott_name USING tis620 ) ASC');    
-      $query = $this->db->get("ci_hotel");      
+      $this->db->order_by('CONVERT( hott_name USING tis620 ) ASC');
+      $query = $this->db->get("ci_hotel");
 
 
       if($query->num_rows > 0){
         $newResult = $this->mapField($query->result());
-          
+
         return $newResult;
       }else{
         return false;
       }
-    }    
+    }
 
   }
-  
+
   function addRecord($data=false){
 //print_r($data);
-//print_r($this->_joincolumn);
+//print_r($this->_join_column);
     if($data){
 
       //Insert tour
       foreach($data AS $columnName=>$columnValue){
         if(array_key_exists($columnName, $this->_column)){
-          $this->db->set($this->_column[$columnName], $columnValue); 
+          $this->db->set($this->_column[$columnName], $columnValue);
         }
       }
       $this->db->set("hot_cr_date", date("Y-m-d H:i:s"));
@@ -149,9 +161,9 @@ class Hotel_model extends MY_Model {
 
       //Generate code
       $id = $this->db->insert_id();
-      $digit = 6-strlen($id); 
-      $code = "HT"; 
-      for ($i=0; $i < $digit; $i++) { 
+      $digit = 6-strlen($id);
+      $code = "HT";
+      for ($i=0; $i < $digit; $i++) {
         $code .= "0";
       }
       $code .= $id;
@@ -163,12 +175,12 @@ class Hotel_model extends MY_Model {
 
       //Insert tour_translate
       foreach($data AS $columnJoinName=>$columnJoinValue){
-        if(array_key_exists($columnJoinName, $this->_joincolumn)){
+        if(array_key_exists($columnJoinName, $this->_join_column)){
           //print_r($columnJoinName); exit;
           if($columnJoinName == "name"){
             $this->db->set("hott_url", Util::url_title($columnJoinValue));
-          }          
-          $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue); 
+          }
+          $this->db->set($this->_join_column[$columnJoinName], $columnJoinValue);
         }
       }
 
@@ -177,24 +189,24 @@ class Hotel_model extends MY_Model {
       $this->db->set("hott_lu_date", date("Y-m-d H:i:s"));
       $this->db->insert("ci_hotel_translate");
 
-      return $id; 
+      return $id;
     }
 
     return ;
   }
-  
+
   function updateRecord($data=false){
     if($data){
       //Update tour
       foreach($data AS $columnName=>$columnValue){
         if(array_key_exists($columnName, $this->_column)){
-          $this->db->set($this->_column[$columnName], $columnValue); 
+          $this->db->set($this->_column[$columnName], $columnValue);
         }
       }
 
 
       $this->db->set("hot_lu_date", date("Y-m-d H:i:s"));
-            
+
       $query = $this->db->where("hot_id", $data["id"]);
       $query = $this->db->update("ci_hotel");
 
@@ -209,19 +221,19 @@ class Hotel_model extends MY_Model {
 
       //print_r($this->db->last_query()); exit;
       foreach($data AS $columnJoinName=>$columnJoinValue){
-        if(array_key_exists($columnJoinName, $this->_joincolumn)){
+        if(array_key_exists($columnJoinName, $this->_join_column)){
           //print_r($columnJoinName); exit;
           if($columnJoinName != "id"){
             if($columnJoinName == "name"){
               $this->db->set("hott_url", Util::url_title($columnJoinValue));
-            }          
-            $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue); 
+            }
+            $this->db->set($this->_join_column[$columnJoinName], $columnJoinValue);
           }else{
 
             $this->db->set("hott_hotel_id", $columnJoinValue);
           }
         }
-      }      
+      }
 
       if($query->num_rows > 0){
         //Found & update
@@ -240,11 +252,11 @@ class Hotel_model extends MY_Model {
 
 
     }
-    
+
     return ;
   }
 
-  
+
   function updateDisplayRecord($data=false){
     if($data){
       //Set data
@@ -253,14 +265,14 @@ class Hotel_model extends MY_Model {
       }else if(!empty($data["id"]) && $data["display"] == "show"){
         $this->db->set("hot_display", 1);
       }
-            
+
       $query = $this->db->where("hot_id", $data["id"]);
       $query = $this->db->update("ci_hotel");
     }
-    
+
     return ;
-  }  
-  
+  }
+
   function deleteRecord($id=false){
     if($id){
       $this->db->where("hot_id", $id);
@@ -274,6 +286,6 @@ class Hotel_model extends MY_Model {
 
   function searchRecord($args=false){
     return ;
-  }  
+  }
 }
 ?>

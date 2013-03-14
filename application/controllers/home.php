@@ -84,13 +84,13 @@ class Home extends MY_Controller {
   function _home_list($query){
 
     if(!empty($query)){
-      $this->load->model("tagtour_model", "tagtourModel");
+      $this->load->model("tagtour_model", "tagTourModel");
       //Tour
-      $tour = $this->tagtourModel->getRecordHome($query);
-
+      $tour = $this->tagTourModel->getRecordHome($query);
+      
       //Location
-      $this->load->model("taglocation_model", "taglocationModel");
-      $location = $this->taglocationModel->getRecord($query);
+      $this->load->model("taglocation_model", "tagLocationModel");
+      $location = $this->tagLocationModel->getRecord($query);
     }
     if($tour && $location){
       $home = array_merge($tour, $location);
@@ -155,7 +155,7 @@ class Home extends MY_Controller {
       $query["per_page"] = $per_page;
       $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;
 
-      //var_dump($query);
+      
       //Tour
       $data["home"] = $this->_home_list($query);
     }

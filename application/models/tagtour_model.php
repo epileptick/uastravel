@@ -567,98 +567,124 @@ class TagTour_model extends MY_Model {
 
 
   function getRecordHome($args=false){
+    // ==================================================================
+    //
+    // Load Model
+    //
+    // ------------------------------------------------------------------
     $this->load->model("tag_model","tagModel");
     $this->load->model("type_model","typeModel");
     $this->load->model("tagtour_model","tagTourModel");
-    //First tour
+    $this->load->model("tagtype_model","tagTypeModel");
+
+    // ==================================================================
+    //
+    // Get "first_page" type id.
+    //
+    // ------------------------------------------------------------------
     $typeWhere["where"]['parent_id'] = 0;
-    $type = $this->typeModel->get($typeWhere);
+    $typeWhere["where"]['name'] = "first_page";
+    $firstPageType = $this->typeModel->get($typeWhere);
+    unset($typeWhere);
+
+    // ==================================================================
+    //
+    // Get "banner" type id.
+    //
+    // ------------------------------------------------------------------
+    $typeWhere["where"]['parent_id'] = 0;
+    $typeWhere["where"]['name'] = "banner";
+    $bannerType = $this->typeModel->get($typeWhere);
     unset($typeWhere);
 
 
-    foreach ($type as $key => $value) {
-      $argsTag[] = $value["name"];
+    // ==================================================================
+    //
+    // Generating where for query tag_id from tagtypemodel for query tour.
+    //
+    // ------------------------------------------------------------------
+    foreach ($firstPageType as $typeKey => $typeValue) {
+      $tagIDForTourWhere[] = $typeValue["id"];
     }
-    $whereTag["where_in"]["name"] = $argsTag;
-    $tagTemp = $this->tagModel->get($whereTag);
 
-    foreach ($tagTemp as $key => $value) {
-      if(!empty($value)  && $value["tag_id"] != 1){
-        $tag[] = $value;
-      }
+    // ==================================================================
+    //
+    // Generating where for query tag_id from tagtypemodel for query banner (tour).
+    //
+    // ------------------------------------------------------------------
+    foreach ($bannerType as $typeKey => $typeValue) {
+      $tagIDForBannerWhere[] = $typeValue["id"];
     }
-    unset($tagTemp);
+
+    // ==================================================================
+    //
+    // Get "tag_id" from tagType_model by type id for query tour.
+    //
+    // ------------------------------------------------------------------
+    $whereTag["where_in"]["type_id"] = $tagIDForTourWhere;
+    $whereTag["group"] = "tag_id";
+    $inCondition = $this->tagTypeModel->getTagTypeList($whereTag);
     unset($whereTag);
-    unset($argsTag);
+
+    if(!empty($inCondition)){
+      foreach ($inCondition as $inConditionKey => $inConditionValue) {
+        $conditions[] = $inConditionValue["tag_id"];
+      }
+      unset($inCondition);
+    }
+    $whereTag["select"] = "tour_id";
+    $whereTag["where_in"]["tag_id"] = $conditions;
+    $whereTag["limit"]["start"] = $args["offset"];
+    $whereTag["limit"]["amount"] = $args["per_page"];
+    $whereTag["order"] = "tour_id DESC";
+    $whereTag["distinct"] = "tour_id";
+    $tourIDByTag = $this->tagTourModel->get($whereTag);
+    unset($whereTag);
+    unset($conditions);
 
 
+    // ==================================================================
+    //
+    // Get "tag_id" from tagType_model by type id for query banner (tour).
+    //
+    // ------------------------------------------------------------------
+    $whereTag["where_in"]["type_id"] = $tagIDForBannerWhere;
+    $whereTag["group"] = "tag_id";
+    $inCondition = $this->tagTypeModel->getTagTypeList($whereTag);
+    unset($whereTag);
 
+    if(!empty($inCondition)){
+      foreach ($inCondition as $inConditionKey => $inConditionValue) {
+        $conditions[] = $inConditionValue["tag_id"];
+      }
+      unset($inCondition);
+    }
+    $whereTag["select"] = "tour_id";
+    $whereTag["where_in"]["tag_id"] = $conditions;
+    $whereTag["limit"]["start"] = $args["offset"];
+    $whereTag["limit"]["amount"] = $args["per_page"];
+    $whereTag["order"] = "tour_id DESC";
+    $whereTag["distinct"] = "tour_id";
+    $bannerIDByTag = $this->tagTourModel->get($whereTag);
+    unset($whereTag);
+    unset($conditions);
 
-    $count = 0;
-    if(!empty($tag))
-
-    foreach ($tag as $key => $value) {
-        $whereTag["where"]["tag_id"] = $value["tag_id"];
-        $whereTag["select"] = "tour_id";
-        $inCondition = $this->tagTourModel->get($whereTag);
-
-        if(!empty($inCondition)){
-          foreach ($inCondition as $inConditionKey => $inConditionValue) {
-            $conditions[] = $inConditionValue["tour_id"];
-          }
-          unset($whereTag);
-          unset($inCondition);
+    foreach ($tourIDByTag as $tourIDByTagKey => $tourIDByTagValue) {
+      foreach ($bannerIDByTag as $bannerIDByTagKey => $bannerIDByTagValue) {
+        if($tourIDByTagValue["tour_id"] == $bannerIDByTagValue["tour_id"]){
+          unset($tourIDByTag[$tourIDByTagKey]);
         }
-
-      if($args["tag_id"]){
-        $conditions[] = $args["tag_id"];
-      }
-      $whereTag["select"] = "tour_id";
-      $whereTag["where"]["tag_id"] = 1;
-      $whereTag["where_in"]["tour_id"] = $conditions;
-      $whereTag["limit"]["start"] = $args["offset"];
-      $whereTag["limit"]["amount"] = $args["per_page"];
-      $whereTag["order"] = "tour_id DESC";
-      $tourByTagTemp = $this->tagTourModel->get($whereTag);
-
-
-
-
-      if(!empty($tourByTagTemp)){
-        $tourByTag[$count]["tour"] = $tourByTagTemp;
-        $tourByTag[$count]["maintag_name"] = $value["name"];
-        $tourByTag[$count]["maintag_url"] = $value["url"];
-        $count++;
-      }
-      unset($conditions);
-    }
-
-    //print_r($tourByTag); exit;
-    //Merge array
-
-    if(empty($tourByTag)){
-      return false;
-    }
-    $firsttour = array();
-    $count = 0;
-    foreach ($tourByTag as $key => $valueFirst) {
-      foreach ($valueFirst["tour"] as $key => $valueLast) {
-        $firsttour[$count] = new stdClass();
-        $firsttour[$count]->tat_tour_id = $valueLast["tour_id"];
-        $firsttour[$count]->maintag_name = $valueFirst["maintag_name"];
-        $firsttour[$count]->maintag_url = $valueFirst["maintag_url"];
-        $count++;
       }
     }
 
 
+    $tourByTagTemp = array_merge($bannerIDByTag, $tourIDByTag);
 
-    $count = 0;
-    $time = 0;
-    foreach ($firsttour as $key => $value) {
+
+    foreach ($tourByTagTemp as $tourByTagTempKey => $tourByTagTempValue) {
       //Get tour data
       unset($this->db);
-      $this->db->where('tou_id', $value->tat_tour_id);
+      $this->db->where('tou_id', $tourByTagTempValue["tour_id"]);
       $this->db->where('tou_display', 1);
       $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
       $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
@@ -667,45 +693,54 @@ class TagTour_model extends MY_Model {
 
       if(!empty($tourBuffer)){
 
-        $result[$count]["tour"] = $tourBuffer[0];
-        $result[$count]["tour"]->maintag_name = $value->maintag_name;
-        $result[$count]["tour"]->maintag_url = $value->maintag_url;
+        $result[$tourByTagTempKey]["tour"] = $tourBuffer[0];
+        //$result[$key]["tour"]->maintag_name = $value->maintag_name;
+        //$result[$key]["tour"]->maintag_url = $value->maintag_url;
 
         //Get tag data
-        $argsTag["where"]['tour_id'] = $value->tat_tour_id;
+        $argsTag["where"]['tour_id'] = $tourByTagTempValue["tour_id"];
         $argsTag["where_in"]['tag_id'] = $args["menu"];
-        $result[$count]["tag"] = $this->getTagTourList($argsTag);
+        $result[$tourByTagTempKey]["tag"] = $this->getTagTourList($argsTag);
 
         //Get price data
         unset($this->db);
-        $this->db->where('pri_tour_id', $value->tat_tour_id);
+        $this->db->where('pri_tour_id', $tourByTagTempValue["tour_id"]);
         $priceTour = $this->db->get('ci_price')->result();
 
-
-        //print_r($priceTour);
-        if(!empty($priceTour)){
-
-          //Min price
-          $minSalePrice = 9999999;
-          foreach ($priceTour as $key => $value) {
-            if($value->pri_show_firstpage == 1){
-              $minSalePrice = $value->pri_sale_adult_price;
-              $result[$count]["price"] = $value;
-              break;
-            }else{
-              if($value->pri_sale_adult_price < $minSalePrice){
-                $result[$count]["price"] = $value;
-                $minSalePrice = $value->pri_sale_adult_price;
-              }
+        if(!empty($bannerIDByTag)){
+          foreach ($bannerIDByTag as $bannerIDByTagKey => $bannerIDByTagValue) {
+            if($tourByTagTempValue["tour_id"] == $bannerIDByTagValue["tour_id"]){
+              //echo "tour_id (".$tourByTagTempValue["tour_id"].") = (".$bannerIDByTagValue["tour_id"].") banner_id <BR>";
+              $result[$tourByTagTempKey]["type"] = "banner";
             }
           }
         }
 
-        $count++;
+        if(empty($result[$tourByTagTempKey]["type"])){
+          $result[$tourByTagTempKey]["type"] = "normal";
+        }
+        //var_dump($priceTour);exit;
+        if(!empty($priceTour)){
+
+          //Min price
+          $minSalePrice = 9999999;
+          foreach ($priceTour as $priceTourKey => $priceTourValue) {
+            if($priceTourValue->pri_show_firstpage == 1){
+              $minSalePrice = $priceTourValue->pri_sale_adult_price;
+              $result[$tourByTagTempKey]["price"] = $priceTourValue;
+              break;
+            }else{
+              if($priceTourValue->pri_sale_adult_price < $minSalePrice){
+                $result[$tourByTagTempKey]["price"] = $priceTourValue;
+                $minSalePrice = $priceTourValue->pri_sale_adult_price;
+              }
+            }
+          }
+        }
       }
     }
 
-    //exit;
+    //var_dump($result);exit;
     //echo $this->db->last_query(); exit;
     //print_r($result); exit;
     if(!empty($result)){
@@ -786,17 +821,6 @@ class TagTour_model extends MY_Model {
           $priceTour = $this->db->get('ci_price')->result();
 
           if(!empty($priceTour)){
-
-            /*
-            $maxAgencyPrice = 0;
-            foreach ($priceTour as $key => $value) {
-              # code...
-              if($value->pri_sale_adult_price > $maxAgencyPrice){
-                $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->pri_sale_adult_price;
-              }
-            }
-            */
 
             //Min price
             $minSalePrice = 9999999;
