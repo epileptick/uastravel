@@ -1324,7 +1324,6 @@ class Tour extends MY_Controller {
 
   function admin_update(){
 
-
     //echo "Call admin_update"; exit;
     //Get argument from post page
     //header ('Content-type: text/html; charset=utf-8');

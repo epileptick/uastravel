@@ -1518,15 +1518,13 @@ class TagTour_model extends MY_Model {
         if(empty($tagQuery)){
           $tag["url"] = Util::url_title($value);
           $tag["lang"] = $this->lang->lang();
-          $input[$count]["tour_id"] = $this->tagModel->add($tag);
+          $input[$count]["tag_id"] = $this->tagModel->add($tag);
           $input[$count]["name"] = $tag["name"];
         }else{
           $input[$count] = $tagQuery[0];
         }
         $count++;
       }
-
-
 
       $update = false;
       $updateCount = 0;

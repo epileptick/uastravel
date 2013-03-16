@@ -87,7 +87,7 @@ class Home extends MY_Controller {
       $this->load->model("tagtour_model", "tagTourModel");
       //Tour
       $tour = $this->tagTourModel->getRecordHome($query);
-      
+
       //Location
       $this->load->model("taglocation_model", "tagLocationModel");
       $location = $this->tagLocationModel->getRecord($query);
@@ -103,7 +103,8 @@ class Home extends MY_Controller {
 
     //print_r($this->_shuffle_assoc($home)); exit;
     if(!empty($home)){
-      return $this->_shuffle_assoc($home);
+      //return $this->_shuffle_assoc($home);
+      return $home;
     }else{
       return FALSE;
     }
@@ -155,7 +156,7 @@ class Home extends MY_Controller {
       $query["per_page"] = $per_page;
       $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;
 
-      
+
       //Tour
       $data["home"] = $this->_home_list($query);
     }

@@ -239,11 +239,11 @@
                               <?php
                                 if(!empty($value["tour"]->tou_first_image)){
                               ?>
-                                  <img src="<?php echo $value["tour"]->tou_first_image;?>">
+                                  <img <?php if($value["type"] == "banner") echo "class=\"nozoom\"";?> src="<?php echo $value["tour"]->tou_first_image;?>">
                               <?php
                                 }else if(!empty($value["location"]->loc_first_image)){
                               ?>
-                                  <img src="<?php echo $value["location"]->loc_first_image;?>">
+                                  <img <?php if($value["type"] == "banner") echo "class=\"nozoom\"";?> src="<?php echo $value["location"]->loc_first_image;?>">
                               <?php
 
                                 }
