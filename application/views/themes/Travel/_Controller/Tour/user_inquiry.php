@@ -71,17 +71,17 @@
 
   $(function() {
     $( "#toc_tranfer_date" ).datepicker({
-        numberOfMonths: 1,  
+        numberOfMonths: 1,
         minDate: 1,
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
-        changeYear: true,     
-        dayNames: ['อาทิตย์', 'จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'],       
-        dayNamesMin: ['อา','จ','อ','พ','พฤ','ศ','ส'],     
-        monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม']       
+        changeYear: true,
+        dayNames: ['อาทิตย์', 'จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'],
+        dayNamesMin: ['อา','จ','อ','พ','พฤ','ศ','ส'],
+        monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม']
     });
   });
-  </script>  
+  </script>
 </head>
 
 
@@ -93,7 +93,7 @@
         <nav class="top-bar">
           <ul>
             <li class="name">
-              <a href="<?php echo base_url();?>"> 
+              <a href="<?php echo base_url();?>">
                 <img src="<?php echo base_url('themes/Travel/tour/images/logo.png');?>">
               </a>
             </li>
@@ -111,7 +111,7 @@
                   <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
                   <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
                   <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
-                </ul>                
+                </ul>
               </li>
               <li class="has-dropdown">
                 <a href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์อื่นๆ</a>
@@ -119,8 +119,8 @@
                   <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
                   <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
                   <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
-                </ul>                
-              </li> 
+                </ul>
+              </li>
               <li class="has-dropdown">
                 <a href="<?php echo base_url('tour/การเดินทาง');?>">การเดินทาง</a>
                 <ul class="dropdown">
@@ -128,17 +128,17 @@
                   <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
                   <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
                   <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
-                </ul>                
-              </li> 
+                </ul>
+              </li>
               <li class="has-dropdown">
                 <a href="<?php echo base_url('hotel');?>">ที่พัก</a>
                 <ul class="dropdown">
                   <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                   <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
-                </ul>                
+                </ul>
               </li>
               <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
-              <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>                
+              <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
             </ul>
           </section>
         </nav>
@@ -148,10 +148,10 @@
    <br>
 
 
-  <form class="custom" 
-        id="booking_validate" 
-        name="input" 
-        action="<?php echo base_url('tour/booking');?>" 
+  <form class="custom"
+        id="booking_validate"
+        name="input"
+        action="<?php echo base_url('tour/booking');?>"
         method="post"
   >
 
@@ -162,11 +162,11 @@
 
       <!-- Start Content -->
       <div class="row">
-<?php 
+<?php
     $input_session = $this->session->all_userdata();
 
 
-    print_r($input_session); 
+    //print_r($input_session);
 ?>
         <!-- Tour Information -->
         <div class="eight columns">
@@ -181,7 +181,7 @@
             <div class="border"></div>
 
           <!-- price -->
-          <?php 
+          <?php
             if(!empty($price)){
           ?>
           <div class="row">
@@ -217,72 +217,74 @@
                 <div class="row">
                   <div class="six columns">
                     <label>
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_price_id]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_price_id]"
                       value="<?php echo $value["pri_id"];?>"
                       >
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_agency_id]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_agency_id]"
                       value="<?php echo $value["pri_agency_id"];?>"
                       >
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_tour_id]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_tour_id]"
                       value="<?php echo $value["pri_tour_id"];?>"
                       >
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_adult_amount_booking]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_adult_amount_booking]"
                       value='<?php echo ($value["pri_adult_amount_booking"]>0)?$value["pri_adult_amount_booking"]:"0";?>'
                       >
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_child_amount_booking]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_child_amount_booking]"
                       value='<?php echo ($value["pri_child_amount_booking"]>0)?$value["pri_child_amount_booking"]:"0";?>'
                       >
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_price_name]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_price_name]"
                       value="<?php echo $value["pri_name"];?>"
                       >
 
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_sale_adult_price]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_sale_adult_price]"
                       value="<?php echo $value["pri_sale_adult_price"];?>"
                       >
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_discount_adult_price]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_discount_adult_price]"
                       value="<?php echo $value["pri_discount_adult_price"];?>"
                       >
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_sale_child_price]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_sale_child_price]"
                       value="<?php echo $value["pri_sale_child_price"];?>"
                       >
-                       <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_discount_child_price]" 
+                       <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_discount_child_price]"
                       value="<?php echo $value["pri_discount_child_price"];?>"
                       >
-                      <!--<input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_adult_price]" 
+                      <!--<input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_adult_price]"
                       value="<?php echo $value["pri_total_adult_price"];?>"
                       >
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_child_price]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_child_price]"
                       value="<?php echo $value["pri_total_child_price"];?>"
                       >-->
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_price]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_price]"
                       value="<?php echo $value["pri_total_price"];?>"
                       >
 
-
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_net_adult_price]" 
+                      <!--
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_net_adult_price]"
                       value="<?php echo $value["pri_net_adult_price"];?>"
                       >
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_net_child_price]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_net_child_price]"
                       value="<?php echo $value["pri_net_child_price"];?>"
                       >
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_adult_net_price]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_adult_net_price]"
                       value="<?php echo $value["pri_total_adult_net_price"];?>"
                       >
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_child_net_price]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_child_net_price]"
                       value="<?php echo $value["pri_total_child_net_price"];?>"
                       >
-                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_net_price]" 
+                      <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_net_price]"
                       value="<?php echo $value["pri_total_net_price"];?>"
                       >
+
+                    -->
                       <?php echo $value["pri_name"];?>
                       <?php $count++;?>
                     </label>
                   </div>
 
                   <div class="two columns">
-                    <?php 
-                          //Adult price   
-                          $adult_price = 0;                    
+                    <?php
+                          //Adult price
+                          $adult_price = 0;
                           if($value["pri_discount_adult_price"] > 0){
                       ?>
 
@@ -290,51 +292,51 @@
                             <label style="float:right;">
                             <!--  <?php echo number_format($value["price"]->pri_discount_adult_price, 0);?>-->
 
-                             <?php 
+                             <?php
                                 echo number_format($value["pri_discount_adult_price"], 0);
                                 $adult_price = $value["pri_discount_adult_price"];
 
                              ?>
-                                ( 
-                                  <?php 
+                                (
+                                  <?php
                                     $adult_amount = ($value["pri_adult_amount_booking"]>0)?$value["pri_adult_amount_booking"]:"0";
                                     echo $adult_amount;
-                                  ?> 
+                                  ?>
                                 )
 
                            </label>
                         </center>
 
 
-                     <?php  
+                     <?php
                       }else{
                      ?>
                         <center>
                             <label style="float:right;">
-                              <?php 
+                              <?php
                                 echo number_format($value["pri_sale_adult_price"], 0);
                                 $adult_price = $value["pri_sale_adult_price"];
 
                               ?>
-                                ( 
-                                  <?php 
+                                (
+                                  <?php
                                     $adult_amount = ($value["pri_adult_amount_booking"]>0)?$value["pri_adult_amount_booking"]:"0";
                                     echo $adult_amount;
-                                  ?> 
+                                  ?>
                                 )
                             </label>
                         </center>
 
                     <?php
                         }
-                    ?> 
+                    ?>
                   </div>
 
                   <div class="two columns">
 
-                      <?php 
-                          //Child price  
-                          $child_price = 0;                         
+                      <?php
+                          //Child price
+                          $child_price = 0;
                           if($value["pri_discount_child_price"] > 0){
                       ?>
 
@@ -342,21 +344,21 @@
                               <label style="float:right;">
                               <!--  <?php echo number_format($value["price"]->pri_discount_adult_price, 0);?>-->
 
-                               <?php 
+                               <?php
                                   echo number_format($value["pri_discount_child_price"], 0);
                                   $child_price = $value["pri_discount_child_price"];
 
                                ?>
-                                ( 
-                                  <?php 
+                                (
+                                  <?php
                                     $child_amount = ($value["pri_child_amount_booking"]>0)?$value["pri_child_amount_booking"]:"0";
                                     echo $child_amount;
-                                  ?> 
+                                  ?>
                                 )
                               </label>
                           </center>
 
-                     <?php  
+                     <?php
                       }
                       else{
                      ?>
@@ -366,20 +368,20 @@
                                 echo number_format($value["pri_sale_child_price"], 0);
                                 $child_price = $value["pri_sale_child_price"];
                               ?>
-                              ( 
-                                <?php 
+                              (
+                                <?php
                                   $child_amount =  ($value["pri_child_amount_booking"]>0)?$value["pri_child_amount_booking"]:"0";
                                   echo $child_amount;
-                                ?> 
+                                ?>
                               )
                             </label>
-                          </center> 
+                          </center>
 
                     <?php
                         }
 
 
-                    ?> 
+                    ?>
 
                   </div>
 
@@ -397,16 +399,16 @@
                       $total_child += $child_amount;
                     ?>
 
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_adult_price]" 
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_adult_price]"
                       value="<?php echo $total_adult_price ;?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_child_price]" 
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_child_price]"
                     value="<?php echo $total_child_price ;?>"
                     >
-                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_price]" 
+                    <input type="hidden" name="tob_price[<?php echo $value["pri_id"];?>][tob_total_price]"
                       value="<?php echo $total_price ;?>"
                     >
-                    
+
                     <label style="float:right;">
                       <b>
                       <?php echo number_format($total_price, 0);?>
@@ -421,19 +423,19 @@
               ?>
             </div>
           </div>
-   
+
           <?php
             }
           ?>
 
           <!-- Start Booking Form -->
-          <div class="border"></div> 
-          <div class="row"> 
+          <div class="border"></div>
+          <div class="row">
             <div class="nine columns">
               <label style="float:right;"><b>รวมราคาทั้งหมด</b></label>
             </div>
             <div class="three columns">
-                  <input type="hidden" name="toc_grand_total_net_price" value="<?php echo $value["pri_total_net_price"];?>">
+                  <!-- input type="hidden" name="toc_grand_total_net_price" value="<?php echo $value["pri_total_net_price"];?>" -->
                   <input type="hidden" name="toc_grand_total_price" value="<?php echo $grand_total_price ;?>">
               <label style="float:right;"><b><u><?php echo number_format($grand_total_price, 0);?></u></b></label>
             </div>
@@ -441,7 +443,7 @@
 
 
 
-          <div class="row">         
+          <div class="row">
           <div class="twelve columns">
               <h2>รายละเอียดลูกค้า</h2>
               <div class="row">
@@ -526,26 +528,26 @@
                 <div class="six columns">
                   <label>วันเดินทาง</label>
                   <input type="text" placeholder="Travel Date" id="toc_tranfer_date" name="toc_tranfer_date"/>
-                </div>           
+                </div>
               </div>
 
               <label>สิ่งที่ต้องการเพิ่มเติม</label>
-              <textarea placeholder="Message" rows="5" id="message" name="toc_request"></textarea>  
+              <textarea placeholder="Message" rows="5" id="message" name="toc_request"></textarea>
 
                       <!--Captcha-->
           <div class="row">
              <div class="five columns">
-           
-           <label>พิมพ์ตัวอักษรที่เห็นในรูปด้านล่าง</label>
-              
-            <?php      
-              echo $imageCaptcha;
 
-              echo '<input type="text" name="captcha" value="" />';       
+           <label>พิมพ์ตัวอักษรที่เห็นในรูปด้านล่าง</label>
+
+            <?php
+              //echo $imageCaptcha;
+
+              //echo '<input type="text" name="captcha" value="" />';
             ?>
             </div>
           </div>
-          <!--End Captcha--> 
+          <!--End Captcha-->
 
 
             <!-- Start contact -->
@@ -555,13 +557,13 @@
                   <li style="font-size:30px; color:#FE5214;">ติดต่อเรา :</li>
                   <li><b>โทร.</b> 082-8121146, 076-331280&nbsp;&nbsp;<b>แฟกซ์.</b> 076-331273&nbsp;&nbsp;<b>อีเมล์</b> info@uastravel.com</li>
                 </ul>
-              </div> 
-            </div> 
+              </div>
+            </div>
             <!-- End contact -->
 
             <!-- Start price -->
             <div class="row">
-              <div class="price_booking"  style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;"> 
+              <div class="price_booking"  style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;">
                   <div class="eight columns">
                   </div>
                   <div class="four columns">
@@ -579,24 +581,24 @@
 
       </div><!-- End Rows -->
     </div>
-    <!-- End Tour Information -->  
+    <!-- End Tour Information -->
 
   </form>
 
   <!-- Statr Right bar -->
   <div class="four columns">
-    <!-- Related Packet -->        
+    <!-- Related Packet -->
     <h3>แพ็กเก็จทัวร์แนะนำ</h3>
 
     <?php
 
-    //print_r($related); 
+    //print_r($related);
     if(!empty($related )):
       foreach ($related as $key => $value):
     ?>
       <div class="list_packet">
         <div class="row">
-          <div class="twelve columns">              
+          <div class="twelve columns">
             <a href="<?php echo $value["tour"]->tout_url."-".$value["tour"]->tou_id; ?>">
               <img src="<?php echo $value["tour"]->tou_banner_image; ?>">
             </a>
@@ -622,14 +624,14 @@
             <div class="icon comment tooltip_se" title="จำนวนคอมเม้น">25</div>
             <div class="price">
               <span>
-              <?php 
+              <?php
                   if(!empty($value["price"]->pri_sale_adult_price)){
-                    
+
                     if($value["price"]->pri_discount_adult_price>0){
 
                       $priceAdultDiscount = number_format($value["price"]->pri_sale_adult_price - $value["price"]->pri_discount_adult_price, 0);
                       $priceAdult = number_format($value["price"]->pri_sale_adult_price, 0);
-                    
+
                       echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
                       echo " บาท";
 
@@ -644,7 +646,7 @@
                     echo "Call";
                     echo " บาท";
                   }
-                ?>             
+                ?>
 
               </span>
             </div>
@@ -674,11 +676,11 @@
             <li><a href="">แพ็คเกจทัวร์</a></li>
             <li><a href="">เกี่ยวกับเรา</a></li>
             <li><a href="">ติดต่อเรา</a></li>
-            <li><a href="">โปรโมชั่น</a></li>                           
+            <li><a href="">โปรโมชั่น</a></li>
           </ul>
         </nav>
         <div class="clearfix"></div>
-        <p>Copyright © Uastravel.com</p>          
+        <p>Copyright © Uastravel.com</p>
       </div>
       <div class="five columns">
         <div class="address">
