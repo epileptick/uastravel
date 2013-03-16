@@ -16,14 +16,19 @@ $hook['post_controller_constructor'][] = array(
                                 'filename' => 'Init.php',
                                 'filepath' => 'hooks/Initialize'
                                 );
-                                
 $hook['post_controller_constructor'][] = array(
                                 'class'    => 'Login',
                                 'function' => 'checkLogin',
                                 'filename' => 'Login.php',
                                 'filepath' => 'hooks/Permission'
                                 );
- 
-
+/*
+$hook['post_controller_constructor'][] = array(
+                                'class'    => 'CacheControl',
+                                'function' => 'CacheConfig',
+                                'filename' => 'CacheControl.php',
+                                'filepath' => 'hooks/Initialize'
+                                );
+*/
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */
