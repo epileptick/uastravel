@@ -385,9 +385,6 @@
 
                   </div>
 
-
-
-
                   <div class="two columns">
 
                     <?php

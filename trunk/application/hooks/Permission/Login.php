@@ -14,7 +14,7 @@ class Login {
         redirect(base_url("user/login"),"refresh");
       }
     }else{
-      echo "Cache disable!";
+      //echo "Cache disable!";
       $this->CI->load->driver('cache');
       $this->CI->cache->clean();
       $this->CI->output->cache(0);
@@ -23,6 +23,5 @@ class Login {
       $this->CI->output->set_header('Pragma: no-cache');
       $this->CI->output->set_header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
     }
-
   }
 }

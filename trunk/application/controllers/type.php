@@ -4,19 +4,19 @@ class Type extends MY_Controller {
   function __construct(){
     parent::__construct();
   }
-  
+
 
   function _index($where=""){
-  
+
   }
-  
-  
+
+
   function admin_delete($id=NULL){
     //implement code here
     if(!empty($id) && is_numeric($id)){
-      
+
       $this->load->model("tagtype_model", "tagTypeModel");
-      
+
       $childTagResult = $this->tagTypeModel->get(array("where"=>array("type_id"=>$id)));
       if($childTagResult){
         redirect(base_url("admin/tag/?error=01"));
@@ -29,62 +29,82 @@ class Type extends MY_Controller {
       redirect(base_url("admin/tag"));
     }
   }
-  
+
   function admin_create($id=NULL){
     if(!empty($id)){
       //load model
       $this->load->model("tagtype_model", "tagTypeModel");
       $this->load->model("tag_model", "tagModel");
-      
+
       $result["typeData"] = $this->typeModel->get($id);
       $result["allTypeData"] = $this->typeModel->get();
-      $result["tagTypeData"] = $this->tagTypeModel->get(array("where"=>array("type_id"=>$id)));
-      $result["tagData"] = $this->tagModel->get();
-      
-      
+      $whereTagType["where"]["type_id"] = $id;
+      $whereTagType["where"]["parent_id"] = 0;
+      $whereTagType["group"] = "tag_id";
+      $result["tagTypeData"] = $this->tagTypeModel->getTagTypeList($whereTagType);
+      $result["tagData"] = $this->tagModel->getTagList();
+
+
       $this->_fetch("admin_create",$result);
     }else{
       $post = $this->input->post();
-      
+//var_dump($post);exit;
+      if(empty($post)){
+        redirect(base_url("admin/tag/"));
+      }
       if(empty($post["url"])){
-        $string = $post["name"];
-        $string = preg_replace("`\[.*\]`U","",$string);
-        $string = preg_replace('`&(amp;)?#?[a-z0-9]+;`i','-',$string);
-        $string = str_replace('%', '-percent', $string);
-        $string = htmlentities($string, ENT_COMPAT, 'utf-8');
-        $string = preg_replace( "`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);`i","\\1", $string );
-        $string = preg_replace( array("`[^a-z0-9ก-๙เ-า]`i","`[-]+`") , "-", $string);
-        $string = strtolower(trim($string, '-'));
-        $post["url"] = trim($string);
+        $post["url"] = Util::url_title(trim($post["name"]));
       }
       if(!empty($post["name"])){
-        if($post["tag"]){
-          $this->load->model("tagtype_model", "tagTypeModel");
-          $tagTypeData = $this->tagTypeModel->get(array("where"=>array("type_id"=>$post["id"])));
-          
-          foreach($tagTypeData AS $tagTypeDataKey=>$tagTypeDataValue){
-            if(($resultSearch = array_search($tagTypeDataValue["tag_id"],$post["tag"]["id"])) === FALSE){
-              $deleteTagType[] = $tagTypeDataValue["id"];
-              $this->tagTypeModel->delete($tagTypeDataValue["id"]);
+        $this->load->model("tagtype_model", "tagTypeModel");
+        if(!empty($post["tag"]["id"])){
+          $whereTagType["where"]["type_id"] = $post["id"];
+          $whereTagType["where"]["parent_id"] = 0;
+          $whereTagType["group"] = "tag_id";
+          $tagTypeData = $this->tagTypeModel->get($whereTagType);
+          var_dump($this->db->last_query());
+//var_dump($post["tag"]);
+//var_dump($tagTypeData);
+          if(!empty($tagTypeData)){
+            foreach($tagTypeData AS $tagTypeDataKey=>$tagTypeDataValue){
+              //echo "Tag_id from select: $tagTypeDataValue[tag_id] \n";
+              if(($resultSearch = array_search($tagTypeDataValue["tag_id"],$post["tag"]["id"])) === FALSE){
+                //echo "resultSearch:  ";
+                //var_dump($resultSearch);
+                $deleteTagType[] = $tagTypeDataValue["id"];
+                $this->tagTypeModel->delete($tagTypeDataValue["id"]);
+              }
+              //echo "resultSearch: $resultSearch \n";
+              if($resultSearch !== FALSE){
+                unset($post["tag"]["id"][$resultSearch]);
+              }
             }
-            unset($post["tag"]["id"]["$resultSearch"]);
           }
-          //var_dump($deleteTagType);
+          //var_dump($post["tag"]);
+          //exit;
+
           foreach($post["tag"]["id"] AS $addTagKey => $addTagValue){
             $tagToAdd["tag_id"] = $addTagValue;
             $tagToAdd["type_id"] = $post["id"];
             $this->tagTypeModel->add($tagToAdd);
           }
           unset($post["tag"]);
-          $this->typeModel->add($post);
-        }else{
-          $this->typeModel->add($post);
+
+        }else if(!empty($post["id"])){
+          $whereTagType["where"]["type_id"] = $post["id"];
+          $whereTagType["where"]["parent_id"] = 0;
+          $this->tagTypeModel->delete($whereTagType);
         }
       }
-      redirect(base_url("admin/type/create/".$post["id"]));
+      $post["id"] = $this->typeModel->add($post);
+      if(!empty($post["id"])){
+        redirect(base_url("admin/type/create/".$post["id"]));
+      }else{
+        redirect(base_url("admin/tag/"));
+      }
     }
   }
-  
+
 }
 
 ?>

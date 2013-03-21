@@ -31,50 +31,50 @@
 </style>
 
 <div class="container_12">
-<?php 
+<?php
 	if(isset($message)){
-?>		
+?>
 		<ul >
 			<li class="alert_message">
 				<font color="green"><?php echo $message;?> [X] </font>
-			</li>		
-		</ul>	
+			</li>
+		</ul>
 
-<?php 		
+<?php
 	}
-?>	
+?>
 <section class="similar_hotels grid_12">
-		
+
 		<h2 class="section_heading">Tag List [ <a href='<?php echo base_url("tag/create");?>'>Create</a> ]</h2>
 		<ul>
 
-			<?php 
+			<?php
 
 			if($tag){
 				foreach ($tag as $key => $value) {
 					# code...
-			?>							
+			?>
 				<li>
 					<span style="font: 32px Arial, sans-serif; float:left;"><?php echo $value->id;?></span>
-					<span style="float:left; margin-left:10px;">	
+					<span style="float:left; margin-left:10px;">
 					<h3><a href="#"><?php echo $value->name;?></a></h3>
-					
+
 						[ <a href='<?php echo base_url("tag/create/$value->id");?>'>Edit</a> ]
 						[ <a href='<?php echo base_url("tag/delete/$value->id");?>'>Delete</a> ]
 					</span><br>
-				</li>			
-			<?php					
+				</li>
+			<?php
 				}
 			}else{
-			?>							
+			?>
 				<li>
 					<span>Data not found</span>
-				</li>			
+				</li>
 			<?php
 			}
 			?>
 		</ul>
-		
+
 	</section>
 
 </div>

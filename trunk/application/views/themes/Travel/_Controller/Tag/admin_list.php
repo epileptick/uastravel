@@ -1,6 +1,7 @@
 <?php PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().'/style/tag.css">');?>
 <?php PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().'/style/form.css">');
 
+
 PageUtil::addVar("javascript",'<script type="text/javascript">
 $(document).ready(function() {
   $("li").hover(
@@ -71,6 +72,10 @@ function selectAll(){
       <span class="GM1BAGKBNIB">
         <input class="blogg-button blogg-primary" tabindex="0" value="<?php echo $this->lang->line("tag_lang_submit");?>" type="submit">
       </span>
+      <span class="GM1BAGKBNIB">
+        <button class="blogg-button" title="โพสต์เก่า" tabindex="0"><a href="<?php echo base_url("admin/tag/create")?>"><?php echo $this->lang->line("tag_lang_add");?></a></button>
+      </span>
+
       
       <div class="GM1BAGKBG5B">
         <div>

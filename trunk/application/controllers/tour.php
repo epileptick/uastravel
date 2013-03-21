@@ -12,12 +12,11 @@ class Tour extends MY_Controller {
 
   function user_index(){
 
-    //print_r($this->lang->lang()); exit;
     //Default function for call read method
-    if($this->uri->segment(1) == $this->router->class){
+    if($this->uri->segment(1) == $this->lang->line("url_lang_tour")){
       $index = 1;
       //echo $index;
-    }else if($this->uri->segment(2) == $this->router->class){
+    }else if($this->uri->segment(2) == $this->lang->line("url_lang_tour")){
       $index = 2;
       //echo $index;
     }
@@ -351,6 +350,7 @@ class Tour extends MY_Controller {
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
     }
+    $data["main_menu"]= Menu::main_menu();
 
     //////////////////////////////////////////////////////
     // List all
@@ -407,6 +407,9 @@ class Tour extends MY_Controller {
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
     }
+
+    $data["main_menu"]= Menu::main_menu();
+
     //print_r($data); exit;
     $argTag["url"] = $tag;
     $this->load->model("tag_model", "tagModel");
@@ -446,6 +449,8 @@ class Tour extends MY_Controller {
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
     }
+
+    $data["main_menu"]= Menu::main_menu();
 
     $this->load->model("tag_model", "tagModel");
 
@@ -495,6 +500,8 @@ class Tour extends MY_Controller {
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
     }
+
+    $data["main_menu"]= Menu::main_menu();
 
     $this->load->model("tag_model", "tagModel");
 
@@ -547,6 +554,8 @@ class Tour extends MY_Controller {
         $query["menu"][] = $valueTag->tag_id;
       }
 
+      $data["main_menu"]= Menu::main_menu();
+
       $query["tou_name"] = $keyword["search"];
       $query["user_search"] = true;
 
@@ -593,6 +602,9 @@ class Tour extends MY_Controller {
         foreach ($data["tag"] as $key => $value) {
           $query["menu"][] = $value["tag_id"];
         }
+        
+
+        $data["main_menu"]= Menu::main_menu();
 
         //Related Tour
         $query["tour_id"] = $id;
