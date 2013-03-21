@@ -42,3 +42,33 @@ tr:nth-child(odd) {background: #FFF;}
 tr:hover {
 	background: #FDA352;
 }
+
+
+.form-field {
+	height: auto !important;
+	margin: 5px;
+}
+.form-field input[type="text"] {
+	-moz-box-shadow: inset 0px 0px 01px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0px 0px 01px rgba(0,0,0,0.5);
+	box-shadow: inset 0px 0px 01px rgba(0,0,0,0.5);
+	display: inline-block;
+}
+.form-field label {
+	width: 150px;
+}
+.form-field select {
+	vertical-align: middle;
+}
+.form-container {
+	padding:5px;
+	height: auto !important;
+}
+.button {
+	width: auto !important;
+	padding: 5px !important;
+}
+
+form {
+	padding: 5px;
+}

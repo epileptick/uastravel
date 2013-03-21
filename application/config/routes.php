@@ -40,8 +40,6 @@
 
 include(APPPATH."utils/CILangUtil.php");
 
-$lang_set = '^(en|th|de|fr|nl)';
-
 $route['default_controller'] = "home";
 
 $route['404_override'] = '';
@@ -59,16 +57,12 @@ $route['(:any)'.'_tests'] = '$1'.'_tests';
 
 //Carrent
 $route['carrent/(:any)'] = 'carrent/user_index/$1';
-$route[$lang_set.'/'.'carrent/(:any)'] = 'carrent/user_index/$1';
 $route["carrent"] = 'carrent/user_index';
-$route[$lang_set.'/'."carrent"] = 'carrent/user_index';
 
 
 //Airline
 $route['airline/(:any)'] = 'airline/user_index/$1';
-$route[$lang_set.'/'.'airline/(:any)'] = 'airline/user_index/$1';
 $route["airline"] = 'airline/user_index';
-$route[$lang_set.'/'."airline"] = 'airline/user_index';
 
 //location
 $route['admin/location/setdisplay'] = 'location/admin_setdisplay';
@@ -84,13 +78,7 @@ $route['admin/location'] = 'location/admin_index';
 
 
 $route[LangUtil::line("url_lang_location").'/search'] = 'location/user_search';
-$route[$lang_set.'/'.LangUtil::line("url_lang_location").'/search'] = 'location/user_search';
 
-
-$route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/user_view/$4';
-$route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/user_view/$3';
-$route[$lang_set.'/'.LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_index/$2'; //for Tag
-$route[$lang_set.'/'.LangUtil::line("url_lang_location")] = 'location/user_index';
 
 $route[LangUtil::line("url_lang_location").'/(:num)'] = 'location/user_index';
 $route[LangUtil::line("url_lang_location").'/(:any)/(:any)-(:num)'] = 'location/user_view/$3';
@@ -114,7 +102,6 @@ $route['admin/tour/create/(:num)'] = 'tour/admin_create/$1';
 $route['admin/tour/(:any)/(:any)-(:num)'] = 'tour/admin_view/$3';
 $route['admin/tour/(:any)-(:num)'] = 'tour/admin_view/$2';
 $route['admin/tour/(:any)'] = 'tour/admin_list'; //for Tag
-
 //tour user
 $route[LangUtil::line("url_lang_tour").'/search'] = 'tour/user_search';
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
@@ -187,6 +174,7 @@ $route['admin/tag/create'] = 'tag/admin_create';
 $route['admin/tag/create/(:num)'] = 'tag/admin_create/$1';
 $route['admin/tag/list'] = 'tag/admin_list';
 $route['admin/tag/updatelang'] = 'tag/admin_updatelang';
+$route['admin/tag/child/(:num)/(:num)'] = 'tag/admin_child/$1/$2';
 $route['admin/tag/(:any)/(:any)-(:num)'] = 'tag/admin_view/$3';
 $route['admin/tag/(:any)-(:num)'] = 'tag/admin_view/$2';
 $route['admin/tag/(:any)'] = 'tag/admin_list'; //for Tag
@@ -212,10 +200,7 @@ $route['user/login'] = 'user/login';
 
 //Home
 $route['admin'] = 'home/admin_list';
-$route[$lang_set] = 'home/index';
 $route['(:any)'] = 'home/index';
-$route[$lang_set.'/(:num)'] = 'home/index';
-$route[$lang_set.'/(:any)'] = 'home/index';
 
 ///////// Urls end
 

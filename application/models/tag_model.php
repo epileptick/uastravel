@@ -71,7 +71,33 @@ class Tag_model extends MY_Model {
     return $mainTable;
   }
 
+  function getTagList($options = NULL){
+    $options["where"]["lang"] = $this->lang->lang();
+    $result = $this->get($options);
+    unset($options["where"]["lang"]);
+    $resultAll = $this->get($options);
+
+    if(empty($result)){
+      return $resultAll;
+    }
+
+    foreach ($resultAll as $keyAll => $valueAll) {
+      foreach ($result as $key => $value) {
+        if($valueAll["tag_id"] == $value["tag_id"]){
+          unset($resultAll[$keyAll]);
+        }
+      }
+    }
+    if(empty($resultAll)){
+      return $result;
+    }
+    return array_merge($result,$resultAll);
+  }
+
   function add($options = NULL ){
+    if(empty($options["url"])){
+      $options["url"] = Util::url_title($options["name"]);
+    }
     if(empty($options)){
       return FALSE;
     }

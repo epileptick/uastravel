@@ -98,10 +98,10 @@ class Location extends MY_Controller {
 
   function user_index(){
 
-    if($this->uri->segment(1) == $this->router->class){
+    if($this->uri->segment(1) == $this->lang->line("url_lang_location")){
       $index = 1;
       //echo $index;
-    }else if($this->uri->segment(2) == $this->router->class){
+    }else if($this->uri->segment(2) == $this->lang->line("url_lang_location")){
       $index = 2;
       //echo $index;
     }
@@ -306,6 +306,7 @@ class Location extends MY_Controller {
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
     }
+    $data["main_menu"]= Menu::main_menu();
 
     //Filter all
     $query["tag_id"] = $query["menu"];
@@ -349,6 +350,7 @@ class Location extends MY_Controller {
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
     }
+    $data["main_menu"]= Menu::main_menu();
 
     $argTag["url"] = $tag;
     $tagQuery = $this->tagModel->get($argTag);
@@ -402,6 +404,7 @@ class Location extends MY_Controller {
       foreach ($data["menu"] as $key => $valueTag) {
         $query["menu"][] = $valueTag->tag_id;
       }
+      $data["main_menu"]= Menu::main_menu();
 
       $query["loc_title"] = $keyword["search"];
       $query["user_search"] = true;
@@ -621,6 +624,7 @@ class Location extends MY_Controller {
         $locationData["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$id,'table_id'=>1)));
         $locationData["location"] = $locationData["location"][0];
       }
+      $locationData["main_menu"]= Menu::main_menu();
 
 
       //Related Tour in Location

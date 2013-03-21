@@ -3,6 +3,7 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().'/style/form.css">');
 
 
+
 PageUtil::addVar("javascript",'<script type="text/javascript">
 $(document).ready(function() {
   $("li").hover(
@@ -16,7 +17,7 @@ $(document).ready(function() {
   );
   $("input:checkbox, li").click(
     function () {
-    	
+
       var checkBoxes = $(this).find("input:checkbox");
       checkBoxes.prop("checked", !checkBoxes.prop("checked"));
       if(checkBoxes.prop("checked")){
@@ -26,7 +27,7 @@ $(document).ready(function() {
       }
     }
   );
-  
+
   $("input:checkbox").click(
     function () {
       $(this).prop("checked", !$(this).prop("checked"));
@@ -45,13 +46,13 @@ $(document).ready(function() {
       });
     }
   );
-  
+
 });
 function selectAll(){
     var checkBoxes = $("ul#location-list").find("input:checkbox");
     $("ul#location-list").prop("checkedall",!$("ul#location-list").prop("checkedall"));
     checkBoxes.prop("checked", $("ul#location-list").prop("checkedall"));
-    
+
     if(!$("ul#location-list").prop("checkedall")){
       $("ul#location-list li").removeClass("highlight");
       $("#btnSelect").html("'.$this->lang->line("global_lang_select_all").'");
@@ -59,7 +60,7 @@ function selectAll(){
       $("ul#location-list li").addClass("highlight");
       $("#btnSelect").html("'.$this->lang->line("global_lang_unselect_all").'");
     }
-    
+
   }
 </script>');
 
@@ -81,7 +82,7 @@ function selectAll(){
         if(status == "show"){
           //$("[attr_name=value]")
           //$("[data-fundId="+$(this).data('fundId')+"]").hide();
-          
+
           $("[idname="+name+"]").hide();
           $("[idname=display_hide_"+id+"]").show();
           status = "hide";
@@ -109,7 +110,7 @@ function selectAll(){
 
 <div class="container_12" style="background-color:#FFF;">
 
-<h2 class="section_heading" style="margin-bottom:10px;font-size:24px;"><?php echo $this->lang->line("tag_lang_tag_control");?></h2>  
+<h2 class="section_heading" style="margin-bottom:10px;font-size:24px;"><?php echo $this->lang->line("tag_lang_tag_control");?></h2>
 <?php
   $get = $this->input->get();
 
@@ -124,9 +125,9 @@ function selectAll(){
 ?>
 <section class="similar_hotels grid_6">
 
-  <h2 class="section_heading"><?php echo $this->lang->line("tag_lang_add_type");?></h2>  
+  <h2 class="section_heading"><?php echo $this->lang->line("tag_lang_add_type");?></h2>
     <?php echo form_open(base_url("admin/type/create"),'name="tagTypeForm" id="tagTypeForm"'); ?>
-      <div class="form-field form-required form-invalid">
+      <div class="form-field">
         <label for="name">Name</label>
         <input name="name" id="name" type="text" value="" size="40" aria-required="true">
       </div>
@@ -138,7 +139,7 @@ function selectAll(){
         <label for="url">URL</label>
         <input name="url" id="url" type="text" value="" size="40">
       </div>
-      
+
       <div class="form-field">
         <label for="parent_id">Parent</label>
         <select name="parent_id" id="parent_id" class="postform">
@@ -155,14 +156,14 @@ function selectAll(){
             endif;
           ?>
         </select>
-            
+
       </div>
-      
+
       <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Add New Category"></p>
     <?php echo form_close(); ?>
 </section>
 <section class="similar_hotels grid_6">
-    <h2 class="section_heading"><?php echo $this->lang->line("tag_lang_tag_type_list");?></h2>  
+    <h2 class="section_heading"><?php echo $this->lang->line("tag_lang_tag_type_list");?></h2>
     <div class="topHolder bottom-shadow">
       <span class="GM1BAGKBGJB">
       <button class="blogg-button" tabindex="0" id="btnSelect"><?php echo $this->lang->line("global_lang_select_all");?></button>
@@ -181,7 +182,7 @@ function selectAll(){
     <?php echo form_open('','name="tagTypeList" id="tagTypeList"'); ?>
     <ul id="location-list">
     <?php
-      
+
       if($typeData):
         foreach ($typeData as $typeKey => $typeValue) :
         if($typeValue["parent_id"] == 0):
@@ -189,70 +190,70 @@ function selectAll(){
         <li>
           <span>
 
-            <?php 
-            
+            <?php
+
             if($typeValue['status'] == 0){
             ?>
-              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>" 
-                  valign="top" 
-                  id="display" 
+              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>"
+                  valign="top"
+                  id="display"
                   class="display_show"
-                  status="show" 
+                  status="show"
                   idval="<?php echo $typeValue['id'];?>"
                   idname="display_show_<?php echo $typeValue['id'];?>"
                   style="display:none;"
               >
-              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>" 
-                  valign="top" 
+              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>"
+                  valign="top"
                   id="display"
-                  class="display_hide" 
-                  status="hide" 
+                  class="display_hide"
+                  status="hide"
                   idval="<?php echo $typeValue['id'];?>"
                   idname="display_hide_<?php echo $typeValue['id'];?>"
               >
-            <?php 
+            <?php
             }else if($typeValue['status'] == 1){
             ?>
-              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>" 
-                  valign="top" 
-                  id="display" 
+              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>"
+                  valign="top"
+                  id="display"
                   class="display_show"
-                  status="show" 
+                  status="show"
                   idval="<?php echo $typeValue['id'];?>"
                   idname="display_show_<?php echo $typeValue['id'];?>"
               >
-              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>" 
-                  valign="top" 
+              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>"
+                  valign="top"
                   id="display"
-                  class="display_hide" 
-                  status="hide" 
+                  class="display_hide"
+                  status="hide"
                   idval="<?php echo $typeValue['id'];?>"
                   idname="display_hide_<?php echo $typeValue['id'];?>"
                   style="display:none;"
               >
-            <?php 
+            <?php
             }
-            
+
             ?>
             <input type="checkbox" name="<?php echo $typeValue["id"];?>" id="location_<?php echo $typeValue["id"];?>">
           </span>
           <div>
-            <span>  
+            <span>
             <h3><a href="<?php echo base_url("admin/type/create/$typeValue[id]");?>" target="_blank"><?php echo $typeValue["name"];?></a></h3>
             </span>
-            
-            
-            <span class="tag-list-control">               
+
+
+            <span class="tag-list-control">
               <a href="<?php echo base_url("admin/type/create/$typeValue[id]");?>">
                 <?php echo $this->lang->line("global_lang_edit");?>
-              </a> | 
+              </a> |
 
               <a href="<?php echo base_url("admin/type/delete/$typeValue[id]");?>" onclick="return confirm('Are you sure you want to delete?')">
                 <?php echo $this->lang->line("global_lang_delete");?>
-              </a>               
+              </a>
             </span>
           </div>
-          
+
         </li>
       <?php
           unset($typeData[$typeKey]);
@@ -263,70 +264,70 @@ function selectAll(){
           <li>
           <span>
 
-            <?php 
-            
+            <?php
+
             if($typeValue2['status'] == 0){
             ?>
-              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>" 
-                  valign="top" 
-                  id="display" 
+              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>"
+                  valign="top"
+                  id="display"
                   class="display_show"
-                  status="show" 
+                  status="show"
                   idval="<?php echo $typeValue2['id'];?>"
                   idname="display_show_<?php echo $typeValue2['id'];?>"
                   style="display:none;"
               >
-              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>" 
-                  valign="top" 
+              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>"
+                  valign="top"
                   id="display"
-                  class="display_hide" 
-                  status="hide" 
+                  class="display_hide"
+                  status="hide"
                   idval="<?php echo $typeValue2['id'];?>"
                   idname="display_hide_<?php echo $typeValue2['id'];?>"
               >
-            <?php 
+            <?php
             }else if($typeValue2['status'] == 1){
             ?>
-              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>" 
-                  valign="top" 
-                  id="display" 
+              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>"
+                  valign="top"
+                  id="display"
                   class="display_show"
-                  status="show" 
+                  status="show"
                   idval="<?php echo $typeValue2['id'];?>"
                   idname="display_show_<?php echo $typeValue2['id'];?>"
               >
-              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>" 
-                  valign="top" 
+              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>"
+                  valign="top"
                   id="display"
-                  class="display_hide" 
-                  status="hide" 
+                  class="display_hide"
+                  status="hide"
                   idval="<?php echo $typeValue2['id'];?>"
                   idname="display_hide_<?php echo $typeValue2['id'];?>"
                   style="display:none;"
               >
-            <?php 
+            <?php
             }
-            
+
             ?>
             <input type="checkbox" name="<?php echo $typeValue2["id"];?>" id="location_<?php echo $typeValue2["id"];?>">
           </span>
           <div>
-            <span>  
+            <span>
             <h3><a href="<?php echo base_url("admin/type/create/$typeValue2[id]");?>" target="_blank"> — <?php echo $typeValue2["name"];?></a></h3>
             </span>
-            
-            
-            <span class="tag-list-control">               
+
+
+            <span class="tag-list-control">
               <a href="<?php echo base_url("admin/type/create/$typeValue2[id]");?>">
                 <?php echo $this->lang->line("global_lang_edit");?>
-              </a> | 
+              </a> |
 
               <a href="<?php echo base_url("admin/type/delete/$typeValue2[id]");?>" onclick="return confirm('Are you sure you want to delete?')">
                 <?php echo $this->lang->line("global_lang_delete");?>
-              </a>               
+              </a>
             </span>
           </div>
-          
+
         </li>
           <?php
             endif;
@@ -343,5 +344,5 @@ function selectAll(){
     </ul>
     <?php echo form_close(); ?>
   </section>
-  
+
 </div>

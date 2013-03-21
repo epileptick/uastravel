@@ -121,7 +121,6 @@ class Tag extends MY_Controller {
 
   function admin_create($id=false){
     //implement code here
-
     $args = $this->input->post();
     $validate = $this->validate($args);
 
@@ -140,14 +139,13 @@ class Tag extends MY_Controller {
       if($validate == FALSE){
         $this->_fetch('admin_create');
       }else{
-        $this->tagModel->addRecord($args);
+        $this->tagModel->add($args);
         //$data["tag"] = $this->tagModel->getRecord();
         //$data["message"] = "Create successful !!!";
         //Redirect
-        redirect(base_url("admin/tag"));
+        redirect(base_url("admin/tag/list"));
       }
     }
-
   }
 
 
@@ -220,6 +218,73 @@ class Tag extends MY_Controller {
       }
     }
     redirect($_SERVER["HTTP_REFERER"]);
+  }
+
+
+  function admin_child($type_id = NULL, $tag_id = NULL){
+    $post = $this->input->post();
+    //load model
+    $this->load->model("tagtype_model", "tagTypeModel");
+    $this->load->model("type_model", "typeModel");
+    if(empty($post)){
+
+      //$result["selfData"] = $this->tagModel->get($tag_id);
+      $whereTagType["where"]["type_id"] = $type_id;
+      $whereTagType["where"]["tag_id"] = $tag_id;
+      $whereTagType["group"] = "tag_id";
+      $result["selfData"] = $this->tagTypeModel->getTagTypeList($whereTagType);
+      unset($whereTagType);
+
+      $result["selfTypeData"] = $this->typeModel->get($type_id);
+      $whereTagType["where"]["type_id"] = $type_id;
+      $whereTagType["where"]["parent_id"] = $tag_id;
+      $whereTagType["group"] = "tag_id";
+      $result["tagTypeData"] = $this->tagTypeModel->getTagTypeList($whereTagType);
+
+      $result["type_id"] = $type_id;
+      $result["tag_id"] = $tag_id;
+
+      $result["tagData"] = $this->tagModel->getTagList();
+      if($result["selfData"][0]["parent_id"] == 0){
+        $result["backLink"] = base_url("/admin/type/create/".$result["selfData"][0]["type_id"]);
+      }else{
+        $result["backLink"] = base_url("/admin/tag/child/".$result["selfData"][0]["type_id"]."/".$result["selfData"][0]["parent_id"]);
+      }
+
+
+      $this->_fetch("admin_child",$result);
+    }else{
+      //var_dump($post);exit;
+      if(!empty($post["tag"]["id"])){
+        $whereTagType["where"]["type_id"] = $type_id;
+        $whereTagType["where"]["parent_id"] = $tag_id;
+        $whereTagType["group"] = "tag_id";
+        $tagTypeData = $this->tagTypeModel->get($whereTagType);
+
+        foreach($tagTypeData AS $tagTypeDataKey=>$tagTypeDataValue){
+          if(($resultSearch = array_search($tagTypeDataValue["tag_id"],$post["tag"]["id"])) === FALSE){
+            $deleteTagType[] = $tagTypeDataValue["id"];
+            $this->tagTypeModel->delete($tagTypeDataValue["id"]);
+          }else{
+            unset($post["tag"]["id"][$resultSearch]);
+          }
+        }
+
+        foreach($post["tag"]["id"] AS $addTagKey => $addTagValue){
+          $tagToAdd["tag_id"] = $addTagValue;
+          $tagToAdd["type_id"] = $type_id;
+          $tagToAdd["parent_id"] = $tag_id;
+          $this->tagTypeModel->add($tagToAdd);
+        }
+        unset($post["tag"]);
+      }else if(!empty($type_id) AND !empty($tag_id)){
+        $whereTagType["where"]["type_id"] = $type_id;
+        $whereTagType["where"]["parent_id"] = $tag_id;
+        $this->tagTypeModel->delete($whereTagType);
+      }
+      redirect(base_url("/admin/tag/child/".$type_id."/".$tag_id));
+    }
+
   }
 
   function _search($render = "user_list"){

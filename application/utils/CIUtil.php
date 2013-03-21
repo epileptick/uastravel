@@ -7,7 +7,7 @@ class Util {
 			// with get_object_vars function
 			$d = get_object_vars($d);
 		}
- 
+
 		if (is_array($d)) {
 			/*
 			* Return array converted to object
@@ -21,11 +21,11 @@ class Util {
 			return $d;
 		}
 	}
-  
+
   public static function ThemePath(){
     return base_url('themes/'.Config::getConfig("theme_name"));
   }
-  
+
   public static function url_title($title=false){
   	if($title){
 		$string = $title;
@@ -43,18 +43,18 @@ class Util {
   	}
 
   }
-  
-  public static function rrmdir($dir) { 
-   if (is_dir($dir)) { 
-     $objects = scandir($dir); 
-     foreach ($objects as $object) { 
-       if ($object != "." && $object != "..") { 
-         if (filetype($dir."/".$object) == "dir") self::rrmdir($dir."/".$object); else unlink($dir."/".$object); 
-       } 
-     } 
-     reset($objects); 
-     rmdir($dir); 
-   } 
+
+  public static function rrmdir($dir) {
+   if (is_dir($dir)) {
+     $objects = scandir($dir);
+     foreach ($objects as $object) {
+       if ($object != "." && $object != "..") {
+         if (filetype($dir."/".$object) == "dir") self::rrmdir($dir."/".$object); else unlink($dir."/".$object);
+       }
+     }
+     reset($objects);
+     rmdir($dir);
+   }
  }
 }
 

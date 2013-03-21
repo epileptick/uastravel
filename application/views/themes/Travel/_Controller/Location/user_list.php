@@ -8,10 +8,10 @@
 
 <?php
   //Check class
-  if($this->uri->segment(1) == $this->router->class){
+  if($this->uri->segment(1) == $this->lang->line("url_lang_location")){
     $index = 1;
     //echo $index;
-  }else if($this->uri->segment(2) == $this->router->class){
+  }else if($this->uri->segment(2) == $this->lang->line("url_lang_location")){
     $index = 2;
     //echo $index;
   }
@@ -77,33 +77,33 @@
             <nav>
               <ul class="accordion">
                 <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
-                <li><a class="active" href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
-                <li>
-                  <a>แพ๊คเกจทัวร์ <span class="arrow_menu"></span></a>
-                  <ul class="sub-menu">
-                    <li><a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
-                    <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
-                    <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
-                    <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <a>แพ๊คเกจทัวร์อื่นๆ <span class="arrow_menu"></span></a>
-                  <ul class="sub-menu">
-                    <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
-                    <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
-                    <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <a>การเดินทาง <span class="arrow_menu"></span></a>
-                  <ul class="sub-menu">
-                    <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
-                    <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
-                    <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
-                    <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
-                  </ul>
-                </li>
+                <li><a class="active" href="<?php echo base_url($this->lang->line("url_lang_location"));?>">สถานที่ท่องเที่ยว</a></li>
+                <?php
+                  if(!empty($main_menu)){
+                    foreach ($main_menu as $main_menuKey => $main_menuValue) {
+                      echo "<li>";
+                      $span = "";
+                      if(!empty($main_menuValue["child"])){
+                        $span = "<span class=\"arrow_menu\"></span>";
+                        echo "<a>$main_menuValue[name] $span</a>";
+                      }else{
+                        $mainURL = base_url($this->lang->line("url_lang_tour").'/'.$main_menuValue["url"]);
+                        echo "<a href=\"$mainURL\">$main_menuValue[name]</a>";
+                      }
+                      if(!empty($main_menuValue["child"])){
+                        echo "<ul class=\"sub-menu\">";
+                        foreach ($main_menuValue["child"] as $childKey => $childValue) {
+                          echo "<li>";
+                          $childURL = base_url($this->lang->line("url_lang_tour").'/'.$childValue["url"]);
+                          echo "<a href=\"$childURL\">$childValue[name]</a>";
+                          echo "</li>";
+                        }
+                        echo "</ul>";
+                      }
+                      echo "</li>";
+                    }
+                  }
+                ?>
                 <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                 <!-- li>
                   <a>ที่พัก <span class="arrow_menu"></span></a>
@@ -169,7 +169,7 @@
                               foreach ($menu as $key => $value) {
                             ?>
                               <li>
-                                <a href="<?php echo base_url("location/".$value->url);?>"
+                                <a href="<?php echo base_url($this->lang->line("url_lang_location")."/".$value->url);?>"
                                   <?php
                                     if($value->select == 1){
                                       echo "class='selected'";
@@ -186,7 +186,7 @@
                             ?>
                           </ul>
                         </div>
-                        <form name="input" action="<?php echo base_url('location/search'); ?>" method="post" class="navbar-form pull-right form_search" id="search-form">
+                        <form name="input" action="<?php echo base_url($this->lang->line("url_lang_location").'/search'); ?>" method="post" class="navbar-form pull-right form_search" id="search-form">
                           <select name="select" id="selectsearch">
                             <option value="tour">แพคเกจทัวร์</option>
                             <option value="location">สถานที่ท่องเที่ยว</option>
@@ -221,7 +221,7 @@
                         ?>
                           <div class="list_attractions" data-category="transition">
                             <!-- div class="sticker new">New</div -->
-                            <a href="<?php echo base_url('location/'.$value['location']["url"].'-'.$value['location']["loc_id"]);?>" target="_blank" >
+                            <a href="<?php echo base_url($this->lang->line("url_lang_location").'/'.$value['location']["url"].'-'.$value['location']["loc_id"]);?>" target="_blank" >
                               <?php
                                 if($value['location']["first_image"]){
                               ?>
@@ -234,7 +234,7 @@
                             <div class="row-fluid">
                               <div class="span8">
                                 <h3>
-                                  <a href="<?php echo base_url('location/'.$value['location']["url"].'-'.$value['location']["loc_id"]);?>" target="_blank" >
+                                  <a href="<?php echo base_url($this->lang->line("url_lang_location").'/'.$value['location']["url"].'-'.$value['location']["loc_id"]);?>" target="_blank" >
                                   <?php echo $value['location']["title"]; ?>
                                   </a>
                                 </h3>
@@ -261,7 +261,7 @@
                                     //print_r($value["tag"]); exit;
                                     foreach ($value["tag"] as $keyTag => $valueTag) {
                                   ?>
-                                  <a href="<?php echo base_url('tour/'.$valueTag["url"]);?>" style="color: #0CACE1;">
+                                  <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$valueTag["url"]);?>" style="color: #0CACE1;">
                                     <?php echo $valueTag["name"]; ?>
                                   </a>
                                   <?php

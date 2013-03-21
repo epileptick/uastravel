@@ -8,10 +8,10 @@
 
 <?php
   //Check class
-  if($this->uri->segment(1) == $this->router->class){
+  if($this->uri->segment(1) == $this->lang->line("url_lang_tour")){
     $index = 1;
     //echo $index;
-  }else if($this->uri->segment(2) == $this->router->class){
+  }else if($this->uri->segment(2) == $this->lang->line("url_lang_tour")){
     $index = 2;
     //echo $index;
   }
@@ -99,33 +99,33 @@
             <nav>
               <ul class="accordion">
                 <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
-                <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
-                <li>
-                  <a class="active">แพ๊คเกจทัวร์ <span class="arrow_menu "></span></a>
-                  <ul class="sub-menu" style="display:block;">
-                    <li><a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
-                    <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
-                    <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
-                    <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <a>แพ๊คเกจทัวร์อื่นๆ <span class="arrow_menu"></span></a>
-                  <ul class="sub-menu">
-                    <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
-                    <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
-                    <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <a>การเดินทาง <span class="arrow_menu"></span></a>
-                  <ul class="sub-menu">
-                    <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
-                    <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
-                    <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
-                    <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
-                  </ul>
-                </li>
+                <li><a href="<?php echo base_url($this->lang->line("url_lang_location"));?>"><?php echo base_url($this->lang->line("url_lang_location"));?></a></li>
+                <?php
+                  if(!empty($main_menu)){
+                    foreach ($main_menu as $main_menuKey => $main_menuValue) {
+                      echo "<li>";
+                      $span = "";
+                      if(!empty($main_menuValue["child"])){
+                        $span = "<span class=\"arrow_menu\"></span>";
+                        echo "<a>$main_menuValue[name] $span</a>";
+                      }else{
+                        $mainURL = base_url($this->lang->line("url_lang_tour").'/'.$main_menuValue["url"]);
+                        echo "<a href=\"$mainURL\">$main_menuValue[name]</a>";
+                      }
+                      if(!empty($main_menuValue["child"])){
+                        echo "<ul class=\"sub-menu\">";
+                        foreach ($main_menuValue["child"] as $childKey => $childValue) {
+                          echo "<li>";
+                          $childURL = base_url($this->lang->line("url_lang_tour").'/'.$childValue["url"]);
+                          echo "<a href=\"$childURL\">$childValue[name]</a>";
+                          echo "</li>";
+                        }
+                        echo "</ul>";
+                      }
+                      echo "</li>";
+                    }
+                  }
+                ?>
                 <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
                 <!-- li>
                   <a>ที่พัก <span class="arrow_menu"></span></a>
@@ -134,8 +134,8 @@
                     <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
                   </ul>
                 </li -->
-                <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
-                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
+                <li><a href="<?php echo base_url($this->lang->line("url_lang_tour").'/โปรโมชั่น');?>">โปรโมชั่น</a></li>
+                <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
               </ul><!-- End accordion -->
             </nav>
             <div class="social">
@@ -179,7 +179,7 @@
                             if($menu_selectall == true){
                             ?>
                               <li>
-                                <a href="<?php echo base_url('tour/'.$this->uri->segment(2));?>"
+                                <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$this->uri->segment(2));?>"
                                   class="selected"
                                   title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
                                 >
@@ -190,7 +190,7 @@
                             }else{
                             ?>
                               <li>
-                                <a href="<?php echo base_url('tour/'.$this->uri->segment(2));?>"
+                                <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$this->uri->segment(2));?>"
                                   title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
                                 >
                                   ทั้งหมด
@@ -225,9 +225,9 @@
 
                               foreach ($menu as $key => $value) {
                                 if($isMenu){
-                                  $link = base_url('tour/'.$uri1.$value->url);
+                                  $link = base_url($this->lang->line("url_lang_tour").'/'.$uri1.$value->url);
                                 }else{
-                                  $link = base_url('tour/'.$uri1.$value->url."/".$uri2);
+                                  $link = base_url($this->lang->line("url_lang_tour").'/'.$uri1.$value->url."/".$uri2);
                                 }
                             ?>
                               <li>
@@ -272,7 +272,7 @@
                           });
                         });
                       </script>
-                        <form name="input" action="<?php echo base_url('tour/search'); ?>" method="post" class="navbar-form pull-right form_search" id="search-form">
+                        <form name="input" action="<?php echo base_url($this->lang->line("url_lang_tour").'/search'); ?>" method="post" class="navbar-form pull-right form_search" id="search-form">
                           <select name="select" id="selectsearch">
                             <option value="tour">แพคเกจทัวร์</option>
                             <option value="location">สถานที่ท่องเที่ยว</option>
@@ -310,9 +310,9 @@
                             <?php
 
                             if($isMenu){
-                              $link = base_url('tour/'.$uri1.$uri2);
+                              $link = base_url($this->lang->line("url_lang_tour").'/'.$uri1.$uri2);
                             }else{
-                              $link = base_url('tour/'.$uri1);
+                              $link = base_url($this->lang->line("url_lang_tour").'/'.$uri1);
                             }
 
                             if($submenu_selectall == true){
@@ -339,9 +339,9 @@
 
                             foreach ($submenu as $key => $value) {
                               if($isSubMenu){
-                                  $link = base_url('tour/'.$uri1.$value->url);
+                                  $link = base_url($this->lang->line("url_lang_tour").'/'.$uri1.$value->url);
                               }else{
-                                $link = base_url('tour/'.$uri1.$uri2.$value->url);
+                                $link = base_url($this->lang->line("url_lang_tour").'/'.$uri1.$uri2.$value->url);
                               }
                             ?>
                               <li>
@@ -399,7 +399,7 @@
                             <?php
                                 }
                             ?>
-                            <a href="<?php echo base_url('tour/'.$value['tour']->tout_url.'-'.$value['tour']->tou_id);?>"
+                            <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value['tour']->tout_url.'-'.$value['tour']->tou_id);?>"
                               target="_blank"
                               title="<?php echo $value['tour']->tout_name;?>"
                             >
@@ -443,7 +443,7 @@
                             <div class="row-fluid">
                               <div class="span8">
                                 <h3>
-                                  <a href="<?php echo base_url('tour/'.$value['tour']->tout_url.'-'.$value['tour']->tou_id);?>"
+                                  <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value['tour']->tout_url.'-'.$value['tour']->tou_id);?>"
                                     target="_blank"
                                     title="<?php echo $value['tour']->tout_name;?>"
                                   >
@@ -475,7 +475,7 @@
                                     if(!empty($value["tag"]))
                                     foreach ($value["tag"] as $keyTag => $valueTag) {
                                   ?>
-                                  <a href="<?php echo base_url('tour/'.$uri1.$valueTag["url"]);?>"
+                                  <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$uri1.$valueTag["url"]);?>"
                                       style="color: #0CACE1;"
                                       title="<?php echo $valueTag["name"]." ".str_replace("-", " ", $this->uri->segment(2))." ".str_replace("-", " ", $this->uri->segment(3));?>"
                                   >

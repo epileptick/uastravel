@@ -110,11 +110,13 @@ class Home extends MY_Controller {
     }
   }
 
+
   function user_list($tag=false, $page=0){
 
     $per_page = 20;
 
     $data["menu"]= $this->_home_menu($tag);
+    $data["main_menu"]= Menu::main_menu();
 
 
     foreach ($data["menu"] as $key => $valueTag) {
