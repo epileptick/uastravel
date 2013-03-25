@@ -7,12 +7,12 @@ class LangUtil{
     }
     include(APPPATH."config/config.php");
     $config = self::get_uri_lang($_SERVER['REQUEST_URI']);
-    //var_dump($config['language']);
-    $fds = scandir(APPPATH."language/".$config['language']);
-    //var_dump($fds);
+
+    $fds = scandir(APPPATH."language/".$config);
+
     foreach($fds as $fd){
       if($fd != '.' AND $fd != '..' AND $fd != "index.html" AND $fd != ".svn"){
-        include(APPPATH."language/".$config['language']."/".$fd);
+        include(APPPATH."language/".$config."/".$fd);
 
       }
     }
@@ -21,36 +21,20 @@ class LangUtil{
 
   function get_uri_lang($uri = '')
   {
-    // languages
-    $languages = array(
-        'th' => 'thai',
-        'en' => 'english',
-        'de' => 'german',
-        'fr' => 'french',
-        'nl' => 'dutch'
-    );
-     if (!empty($uri))
-     {
-      $uri = ($uri[0] == '/') ? substr($uri, 1): $uri;
+    include(APPPATH."config/config.php");
 
-      $uri_expl = explode('/', $uri, 2);
-      $uri_segment['lang'] = NULL;
-      $uri_segment['parts'] = $uri_expl;
-
-      if (array_key_exists($uri_expl[0], $languages))
-      {
-        $uri_segment['lang'] = $uri_expl[0];
-        $uri_segment['language'] = $languages[$uri_segment['lang']];
-      }else{
-        $arrayLang = array_keys($languages);
-        $uri_segment['lang'] = $arrayLang[0];
-        $uri_segment['language'] = $languages[$uri_segment['lang']];
+    if(count(explode(".",$_SERVER['HTTP_HOST']))>2){
+      $current_lang = explode(".",$_SERVER['HTTP_HOST'],2);
+      if(array_key_exists($current_lang[0], $config["language_list"])){
+        $uri_segment = $config["language_list"][$current_lang[0]];
+      }else if($current_lang[0] == "www"){
+        $uri_segment = $config["language"];
       }
-      return $uri_segment;
-     }
-     else
-      return FALSE;
+    }else{
+      $uri_segment = $config["language"];
     }
+    return $uri_segment;
+  }
 
 }
 

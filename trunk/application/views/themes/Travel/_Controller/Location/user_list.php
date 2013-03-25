@@ -77,7 +77,7 @@
             <nav>
               <ul class="accordion">
                 <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
-                <li><a class="active" href="<?php echo base_url($this->lang->line("url_lang_location"));?>">สถานที่ท่องเที่ยว</a></li>
+                <li><a class="active" href="<?php echo base_url($this->lang->line("url_lang_location"));?>"><?php echo $this->lang->line("tour_lang_location"); ?></a></li>
                 <?php
                   if(!empty($main_menu)){
                     foreach ($main_menu as $main_menuKey => $main_menuValue) {
