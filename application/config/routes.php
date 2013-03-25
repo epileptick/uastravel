@@ -86,7 +86,6 @@ $route[LangUtil::line("url_lang_location").'/(:any)-(:num)'] = 'location/user_vi
 $route[LangUtil::line("url_lang_location").'/(:any)'] = 'location/user_index/$1'; //for Tag
 $route[LangUtil::line("url_lang_location")] = 'location/user_index';
 
-
 //tour admin
 $route['admin/tour/userbookingview/(:any)'] = 'tour/admin_userbookingview/$1';
 $route['admin/tour/agencybookingview/(:any)'] = 'tour/admin_agencybookingview/$1';
