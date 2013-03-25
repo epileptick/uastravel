@@ -5,7 +5,7 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().
 ?>
 <div class="container_12" style="background-color:#FFF;">
 
-<h2 class="section_heading" style="margin-bottom:10px;font-size:24px;"><?php echo $this->lang->line("tag_lang_tag_control");?></h2>
+<h2 class="section_heading" style="margin-bottom:10px;font-size:24px;"><?php echo $this->lang->line("tag_lang_tag_control");?> [<a href="<?php echo base_url("admin/tag");?>">กลับ</a>]</h2>
 <?php
   $get = $this->input->get();
 
@@ -69,9 +69,9 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().
     if(!empty($tagData)){
       foreach($tagData AS $tagDataKey => $tagDataValue){
         if($tagTypeDataValue["tag_id"] == $tagDataValue["id"]){
-          echo "<li>";
+          echo "<li> <input class=\"order\" type=\"text\" value=\"0\" name=\"order[$tagTypeDataValue[tag_id]][]\">";
           echo $tagDataValue["name"]." (89)";
-          echo "<span>[<a href='".base_url("/admin/tag/child/".$typeData[0]["id"]."/".$tagTypeDataValue["tag_id"])."'>Edit Child</a>]</span></li>";
+          echo "<span>[<a href='".base_url("/admin/tag/child/".$typeData[0]["id"]."/".$tagTypeDataValue["tag_id"])."'>Edit Child</a>]</span> </li>";
         }
       }
     }
@@ -92,7 +92,7 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().
     if(!empty($tagData)){
       foreach($tagData AS $tagDataKey => $tagDataValue){
         if($tagTypeDataValue["tag_id"] == $tagDataValue["id"]){
-          echo "<li>";
+          echo "<li> <input class=\"order\" type=\"text\" value=\"0\" name=\"order[$tagTypeDataValue[tag_id]][]\">";
           echo $tagDataValue["name"]." (89)";
           echo "<span>[<a href='".base_url("/admin/tag/child/".$typeData[0]["id"]."/".$tagTypeDataValue["tag_id"])."'>Edit Child</a>]</span></li>";
         }

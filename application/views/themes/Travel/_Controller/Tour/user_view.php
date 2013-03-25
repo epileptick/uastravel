@@ -71,29 +71,29 @@
             <ul class="right">
               <li><a href="<?php echo base_url($this->lang->line("tour_lang_location"));?>"><?php echo $this->lang->line("tour_lang_location"); ?></a></li>
               <?php
-                  if(!empty($main_menu)){
-                    foreach ($main_menu as $main_menuKey => $main_menuValue) {
-                      $mainURL = base_url($this->lang->line("url_lang_tour").'/'.$main_menuValue["url"]);
-                      if(!empty($main_menuValue["child"])){
-                        echo "<li class=\"has-dropdown\">";
-                      }else{
-                        echo "<li>";
-                      }
-                      echo "<a href=\"$mainURL\">$main_menuValue[name]</a>";
-                      if(!empty($main_menuValue["child"])){
-                        echo "<ul class=\"dropdown\">";
-                        foreach ($main_menuValue["child"] as $childKey => $childValue) {
-                          echo "<li>";
-                          $childURL = base_url($this->lang->line("url_lang_tour").'/'.$childValue["url"]);
-                          echo "<a href=\"$childURL\">$childValue[name]</a>";
-                          echo "</li>";
-                        }
-                        echo "</ul>";
-                      }
-                      echo "</li>";
+                if(!empty($main_menu)){
+                  foreach ($main_menu as $main_menuKey => $main_menuValue) {
+                    $mainURL = base_url($this->lang->line("url_lang_tour").'/'.$main_menuValue["url"]);
+                    if(!empty($main_menuValue["child"])){
+                      echo "<li class=\"has-dropdown\">";
+                    }else{
+                      echo "<li>";
                     }
+                    echo "<a href=\"$mainURL\">$main_menuValue[name]</a>";
+                    if(!empty($main_menuValue["child"])){
+                      echo "<ul class=\"dropdown\">";
+                      foreach ($main_menuValue["child"] as $childKey => $childValue) {
+                        echo "<li>";
+                        $childURL = base_url($this->lang->line("url_lang_tour").'/'.$childValue["url"]);
+                        echo "<a href=\"$childURL\">$childValue[name]</a>";
+                        echo "</li>";
+                      }
+                      echo "</ul>";
+                    }
+                    echo "</li>";
                   }
-                ?>
+                }
+              ?>
               <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
             </ul>
           </section>

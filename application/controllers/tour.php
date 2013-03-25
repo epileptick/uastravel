@@ -695,6 +695,8 @@ class Tour extends MY_Controller {
         show_404();
       }
 
+      $data["main_menu"]= Menu::main_menu();
+
 
       //Tag
       $this->load->model("tagtour_model", "tagTourModel");
@@ -802,12 +804,12 @@ class Tour extends MY_Controller {
       $this->sendmail_booking_admin($booking);
 
       //Forward
-      redirect(base_url("tour/booking/".$booking["toc_hashcode"]));
+      redirect(base_url($this->lang->line("url_lang_tour")."/booking/".$booking["toc_hashcode"]));
 
       //print_r($insert_id); exit;
     }else{ //id not send
       //Redirect
-      redirect(base_url("tour/inquiry/".$args["id"]));
+      redirect(base_url($this->lang->line("url_lang_tour")."/inquiry/".$args["id"]));
     }
 
 

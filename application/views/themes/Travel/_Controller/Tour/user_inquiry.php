@@ -103,42 +103,32 @@
 
           <section>
             <ul class="right">
-              <li><a href="<?php echo base_url('location');?>">สถานที่ท่องเที่ยว</a></li>
-              <li class="has-dropdown">
-                <a class="active" href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์</a>
-                <ul class="dropdown">
-                  <li><a href="<?php echo base_url('tour/ทัวร์ครึ่งวัน');?>">ทัวร์ครึ่งวัน</a></li>
-                  <li><a href="<?php echo base_url('tour/ทัวร์-1-วัน');?>">ทัวร์ 1 วัน</a></li>
-                  <li><a href="<?php echo base_url('tour/ทัวร์-2-วัน-1-คืน');?>">ทัวร์ 2 วัน 1 คืน</a></li>
-                  <li><a href="<?php echo base_url('tour/ทัวร์-3-วัน-2-คืน');?>">ทัวร์ 3 วัน 2 คืน</a></li>
-                </ul>
-              </li>
-              <li class="has-dropdown">
-                <a href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์อื่นๆ</a>
-                <ul class="dropdown">
-                  <li><a href="<?php echo base_url('tour/โชว์กลางคืน');?>">โชว์กลางคืน</a></li>
-                  <li><a href="<?php echo base_url('tour/สปาแพ็คเกจ');?>">สปาแพ็คเกจ</a></li>
-                  <li><a href="<?php echo base_url('tour/กอล์ฟแพ็คเกจ');?>">กอล์ฟแพ็คเกจ</a></li>
-                </ul>
-              </li>
-              <li class="has-dropdown">
-                <a href="<?php echo base_url('tour/การเดินทาง');?>">การเดินทาง</a>
-                <ul class="dropdown">
-                  <li><a href="<?php echo base_url('tour/เช่าเรือเหมาลำ');?>">เช่าเรือเหมาลำ</a></li>
-                  <li><a href="<?php echo base_url('tour/จองตั๋วเรือโดยสาร');?>">จองตั๋วเรือโดยสาร</a></li>
-                  <li><a href="<?php echo base_url('carrent/list');?>">จองรถเช่า</a></li>
-                  <li><a href="<?php echo base_url('airline/list');?>">จองตั๋วเครื่องบิน</a></li>
-                </ul>
-              </li>
-              <li class="has-dropdown">
-                <a href="<?php echo base_url('hotel');?>">ที่พัก</a>
-                <ul class="dropdown">
-                  <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
-                  <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
-                </ul>
-              </li>
-              <li><a href="<?php echo base_url('tour/โปรโมชั่น');?>">โปรโมชั่น</a></li>
-              <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
+              <li><a href="<?php echo base_url($this->lang->line("tour_lang_location"));?>"><?php echo $this->lang->line("tour_lang_location"); ?></a></li>
+              <?php
+                if(!empty($main_menu)){
+                  foreach ($main_menu as $main_menuKey => $main_menuValue) {
+                    $mainURL = base_url($this->lang->line("url_lang_tour").'/'.$main_menuValue["url"]);
+                    if(!empty($main_menuValue["child"])){
+                      echo "<li class=\"has-dropdown\">";
+                    }else{
+                      echo "<li>";
+                    }
+                    echo "<a href=\"$mainURL\">$main_menuValue[name]</a>";
+                    if(!empty($main_menuValue["child"])){
+                      echo "<ul class=\"dropdown\">";
+                      foreach ($main_menuValue["child"] as $childKey => $childValue) {
+                        echo "<li>";
+                        $childURL = base_url($this->lang->line("url_lang_tour").'/'.$childValue["url"]);
+                        echo "<a href=\"$childURL\">$childValue[name]</a>";
+                        echo "</li>";
+                      }
+                      echo "</ul>";
+                    }
+                    echo "</li>";
+                  }
+                }
+              ?>
+              <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
             </ul>
           </section>
         </nav>
@@ -151,7 +141,7 @@
   <form class="custom"
         id="booking_validate"
         name="input"
-        action="<?php echo base_url('tour/booking');?>"
+        action="<?php echo base_url($this->lang->line("url_lang_tour")."/booking");?>"
         method="post"
   >
 
