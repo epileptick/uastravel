@@ -136,10 +136,10 @@ $route['admin/hotel/(:any)'] = 'hotel/admin_list'; //for Tag
 
 
 //hotel user
-$route['hotel/search'] = 'hotel/user_search';
-$route['hotel/(:any)-(:num)'] = 'hotel/user_view/$2';
-$route["hotel/(:any)"] = 'hotel/user_index';
-$route["hotel"] = 'hotel/user_index';
+$route[LangUtil::line("url_lang_hotel").'/search'] = 'hotel/user_search';
+$route[LangUtil::line("url_lang_hotel").'/(:any)-(:num)'] = 'hotel/user_view/$2';
+$route[LangUtil::line("url_lang_hotel")."/(:any)"] = 'hotel/user_index';
+$route[LangUtil::line("url_lang_hotel")] = 'hotel/user_index';
 
 //Report
 $route['admin/report'] = 'report/admin_index';

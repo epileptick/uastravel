@@ -67,21 +67,15 @@ class Type extends MY_Controller {
 //var_dump($tagTypeData);
           if(!empty($tagTypeData)){
             foreach($tagTypeData AS $tagTypeDataKey=>$tagTypeDataValue){
-              //echo "Tag_id from select: $tagTypeDataValue[tag_id] \n";
               if(($resultSearch = array_search($tagTypeDataValue["tag_id"],$post["tag"]["id"])) === FALSE){
-                //echo "resultSearch:  ";
-                //var_dump($resultSearch);
                 $deleteTagType[] = $tagTypeDataValue["id"];
                 $this->tagTypeModel->delete($tagTypeDataValue["id"]);
               }
-              //echo "resultSearch: $resultSearch \n";
               if($resultSearch !== FALSE){
                 unset($post["tag"]["id"][$resultSearch]);
               }
             }
           }
-          //var_dump($post["tag"]);
-          //exit;
 
           foreach($post["tag"]["id"] AS $addTagKey => $addTagValue){
             $tagToAdd["tag_id"] = $addTagValue;

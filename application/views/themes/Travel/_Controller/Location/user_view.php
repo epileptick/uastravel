@@ -243,7 +243,12 @@ if(!empty($location['background_image'])){
       <section class="article">
         <div class="row">
           <div class="seven columns">
-            <h3 id="detail"><?php echo $location['title'];?></h3>
+            <h3 id="detail"><?php echo $location['title'];?>
+              <?php
+                if($this->session->userdata("logged_in")){
+                  echo "[ <a href=\"".base_url("admin/location/create/".$location['id'])."\" target=\"_blank\">Edit</a> ]";
+                }
+              ?></h3>
           </div>
           <div class="five columns">
           </div>

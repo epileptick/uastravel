@@ -5,7 +5,7 @@
   ?>
     <div class="list_attractions" data-category="transition">
       <!-- div class="sticker new">New</div -->
-      <a href="<?php echo base_url('location/'.$value['location']["url"].'-'.$value['location']["id"]);?>" target="_blank" >
+      <a href="<?php echo base_url($this->lang->line("url_lang_location").'/'.$value['location']["url"].'-'.$value['location']["id"]);?>" target="_blank" >
         <?php
           if($value['location']["first_image"]){
         ?>
@@ -18,7 +18,7 @@
       <div class="row-fluid">
         <div class="span8">
           <h3>
-            <a href="<?php echo base_url('location/'.$value['location']["url"].'-'.$value['location']["id"]);?>" target="_blank" >
+            <a href="<?php echo base_url($this->lang->line("url_lang_location").'/'.$value['location']["url"].'-'.$value['location']["id"]);?>" target="_blank" >
             <?php echo $value['location']["title"]; ?>
             </a>
           </h3>
@@ -51,7 +51,7 @@
               //print_r($value["tag"]); exit;
               foreach ($value["tag"] as $keyTag => $valueTag) {
             ?>
-            <a href="<?php echo base_url('tour/'.$valueTag["url"]);?>" style="color: #0CACE1;">
+            <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$valueTag["url"]);?>" style="color: #0CACE1;">
               <?php echo $valueTag["name"]; ?>
             </a>
             <?php

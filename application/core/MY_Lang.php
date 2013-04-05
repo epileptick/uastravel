@@ -22,8 +22,8 @@ class MY_Lang extends CI_Lang {
 
     // languages
     private $languages = array(
-        'th' => 'thai',
         'en' => 'english',
+        'th' => 'thai',
         'de' => 'german',
         'fr' => 'french',
         'nl' => 'dutch'
@@ -93,21 +93,27 @@ class MY_Lang extends CI_Lang {
 
     function switch_uri($lang)
      {
-         if ((!empty($this->uri)) && (array_key_exists($lang, $this->languages)))
-         {
-
-          if ($uri_segment = $this->get_uri_lang($this->uri))
-          {
-           $uri_segment['parts'][0] = $lang;
-           $uri = implode('/',$uri_segment['parts']);
+        $request_uri = "";
+        //$request_uri = $_SERVER["REQUEST_URI"];
+        
+        if(count(explode(".",$_SERVER['HTTP_HOST']))>2){
+          $current_lang = explode(".",$_SERVER['HTTP_HOST'],2);
+            if($lang != "en"){
+              if(array_key_exists($lang, $this->languages)){
+                $uri = "http://".$lang.".".$current_lang[1].$request_uri;
+              }
+            }else{
+              $uri = "http://".$current_lang[1].$request_uri;
+            }
+        }else if($lang != "en"){
+          if(array_key_exists($lang, $this->languages)){
+            $uri = "http://".$lang.".".$_SERVER['HTTP_HOST'].$request_uri;
           }
-          else
-          {
-           $uri = $lang.'/'.$this->uri;
-          }
-         }
+        }else{
+          $uri = "http://".$_SERVER['HTTP_HOST'].$request_uri;
+        }
 
-         return $uri;
+        return $uri;
      }
 
  //check if the language exists
