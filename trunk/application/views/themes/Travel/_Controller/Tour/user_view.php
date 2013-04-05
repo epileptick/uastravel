@@ -9,7 +9,7 @@
   <meta name="ROBOTS" content="NOODP" />
   <meta name="description" content="<?php echo (!empty($tour[0]["short_description"]))?$tour[0]["short_description"]:"";?>" />
   <?php
-    $tag_keyword = "แพ็คเกจทัวร์, ทัวร์, ";
+    $tag_keyword = $this->lang->line("tour_lang_tour").", ".$this->lang->line("tour_lang_location").", ";
     if(!empty($tag)){
       foreach ($tag as $key => $value) {
         if(!empty($value["url"]) &&  $value["tag_id"] != 1){
@@ -34,8 +34,6 @@
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-
-
 </head>
 
 <?php
@@ -69,7 +67,7 @@
 
           <section>
             <ul class="right">
-              <li><a href="<?php echo base_url($this->lang->line("tour_lang_location"));?>"><?php echo $this->lang->line("tour_lang_location"); ?></a></li>
+              <li><a href="<?php echo base_url($this->lang->line("tour_lang_location"));?>"><?php echo $this->lang->line("global_lang_location"); ?></a></li>
               <?php
                 if(!empty($main_menu)){
                   foreach ($main_menu as $main_menuKey => $main_menuValue) {
@@ -94,7 +92,7 @@
                   }
                 }
               ?>
-              <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
+              <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/ติดต่อเรา-119');?>"><?php echo $this->lang->line("global_lang_contact_us");?></a></li>
             </ul>
           </section>
         </nav>
@@ -105,13 +103,13 @@
     <!-- Title -->
     <div class="row">
       <div class="twelve columns">
-        <a href="" class="arrow previous tooltip_nw" title="แหล่งท่องเที่ยวก่อนหน้า">แหล่งท่องเที่ยวก่อนหน้า</a>
+        <a href="" class="arrow previous tooltip_nw" title="<?php echo $this->lang->line("tour_lang_next_previous");?>"><?php echo $this->lang->line("tour_lang_next_previous");?></a>
         <h1 class="title"><a href=""><?php echo $tour[0]["name"];?></a>
             <a href="#detail">
             <img src="<?php echo base_url('themes/Travel/images/anchor.png');?>" width="23px" height="23px" align="absmiddle"/></a>
           <span class="subtitle"><?php echo (!empty($tour[0]["short_description"]))?$tour[0]["short_description"]:"";?></span>
         </h1>
-        <a href="" class="arrow next south" title="แหล่งท่องเที่ยวถัดไป">แหล่งท่องเที่ยวถัดไป</a>
+        <a href="" class="arrow next south" title="<?php echo $this->lang->line("tour_lang_next_location");?>"><?php echo $this->lang->line("tour_lang_next_location");?></a>
       </div>
     </div>
     <!-- End Title -->
@@ -191,7 +189,12 @@
           <!-- Title -->
           <div class="row">
             <div class="eight columns">
-              <h3 class="title_tour" id="detail">(<?php echo $tour[0]["code"];?>) <?php echo $tour[0]["name"];?></h3>
+              <h3 class="title_tour" id="detail">(<?php echo $tour[0]["code"];?>) <?php echo $tour[0]["name"];?>
+              <?php
+                if($this->session->userdata("logged_in")){
+                  echo "[ <a href=\"".base_url("admin/tour/create/".$tour[0]["tour_id"])."\" target=\"_blank\">Edit</a> ]";
+                }
+              ?></h3>
             </div>
             <div class="four columns">
               <div class="social_network">
@@ -578,7 +581,7 @@
       <!-- Right bar -->
       <div class="four columns">
         <!-- Packet -->
-        <h3>แพ็กเก็จทัวร์แนะนำ</h3>
+        <h3><?php echo $this->lang->line("tour_lang_packages_tour_suggest");?></h3>
 
         <?php
         if(!empty($related )):
@@ -628,18 +631,18 @@
                           $priceAdult = number_format($value["price"]->pri_sale_adult_price, 0);
 
                           echo "<f style='text-decoration: line-through;'>".$priceAdult."</f>&nbsp;".$priceAdultDiscount;
-                          echo " บาท";
+                          echo " ".$this->lang->line("global_lang_baht");
 
                         }else{
                           echo number_format($value["price"]->pri_sale_adult_price, 0);
-                          echo " บาท";
+                          echo " ".$this->lang->line("global_lang_baht");
                         }
 
                         //text-decoration: line-through; color: #โค้ดสีเส้น;
 
                       }else{
                         echo "Call";
-                        echo " บาท";
+                        echo " ".$this->lang->line("global_lang_baht");
                       }
                     ?>
 

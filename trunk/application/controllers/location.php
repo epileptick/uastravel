@@ -236,18 +236,13 @@ class Location extends MY_Controller {
       $this->load->model("tag_model", "tagModel");
       $this->load->model("taglocation_model", "tagLocationModel");
 
-
-
       $count = 0;
       foreach ($tagtypeQuery as $key => $value) {
-        //Menu Tag
-        $tag["where"]["tag_id"] = $value["tag_id"];
-        $tagQuery = $this->tagLocationModel->getTagLocationList($tag);
         
 		    $menu[$count] = new stdClass();
-        $menu[$count]->tag_id = $tagQuery[0]["tag_id"];
-        $menu[$count]->name = $tagQuery[0]["name"];
-        $menu[$count]->url = $tagQuery[0]["url"];
+        $menu[$count]->tag_id = $value["tag_id"];
+        $menu[$count]->name = $value["name"];
+        $menu[$count]->url = $value["url"];
 
         //Select all
         if($select){
@@ -256,7 +251,7 @@ class Location extends MY_Controller {
           $menu[$count]->select_all = 1;
         }
         //Select element
-        if($select && $select == $tagQuery[0]["name"]){
+        if($select && $select == $value["name"]){
           $menu[$count]->select = 1;
         }else{
           $menu[$count]->select = 0;
@@ -406,7 +401,7 @@ class Location extends MY_Controller {
       }
       $data["main_menu"]= Menu::main_menu();
 
-      $query["loc_title"] = $keyword["search"];
+      $query["title"] = $keyword["search"];
       $query["user_search"] = true;
 
       $data["location"] = $this->locationModel->searchRecord($query);

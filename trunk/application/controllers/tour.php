@@ -555,7 +555,7 @@ class Tour extends MY_Controller {
       }
 
       $data["main_menu"]= Menu::main_menu();
-
+ 
       $query["tou_name"] = $keyword["search"];
       $query["user_search"] = true;
 
@@ -829,7 +829,7 @@ class Tour extends MY_Controller {
     $to = $booking["toc_email"];
 */
 
-    $subject = "คุณได้ทำการจอง ".$booking["toc_tour_name"]." ผ่านทาง uastravel.com";
+    $subject = "รายละเอียดการจองทัวร์ - www.uastravel.com";
 
 
     $message = '<p>สวัสดีค่ะ คุณ'.$booking["toc_firstname"].',</p>';
@@ -933,7 +933,7 @@ class Tour extends MY_Controller {
     $message .='  ##########  รายละเอียดการจอง ##########';
     $message .='  <br />หมายเลขการจอง : '.$booking["toc_code"];
     $message .='  <br />ชื่อทัวร์ : '.$booking["toc_tour_name"].'('.$booking["toc_tour_code"].')';
-    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/tour/'.$booking["toc_tour_url"].'-'.$booking["toc_tour_id"].'">'.$booking["toc_tour_name"].'</a>';
+    $message .='  <br />ลิงค์ข้อมลการจอง : <a href="http://www.uastravel.com/'.$this->lang->line("url_lang_tour").'/'.$booking["toc_tour_url"].'-'.$booking["toc_tour_id"].'">'.$booking["toc_tour_name"].'</a>';
 
 
     $message .='  <br />##########  จำนวนผู้เดินทาง ##########';
@@ -968,7 +968,7 @@ class Tour extends MY_Controller {
     $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["toc_request"];
     $message .='  <br />';
     $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
-    $message .='  <br />ลิงค์ข้อมูลการจอง : <a href="http://www.uastravel.com/tour/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
+    $message .='  <br />ลิงค์ข้อมูลการจอง : <a href="http://www.uastravel.com/'.$this->lang->line("url_lang_tour").'/booking/'.$booking["toc_hashcode"].'">'.$booking["toc_code"].'</a>';
     $message .='  <br />';
     $message .='</blockquote>';
 

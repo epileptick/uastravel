@@ -312,6 +312,8 @@ class Tour_model extends MY_Model {
   function searchRecord($args=false){
     if(!empty($args["tou_name"]) && !empty($args["user_search"])){
 
+      $this->load->model("tagtour_model","tagTourModel");
+
       $search["tout_name"] = $args["tou_name"];
       $this->db->like($search, 'both');
       $this->db->where('ci_tour.tou_display', 1);
@@ -320,7 +322,7 @@ class Tour_model extends MY_Model {
       $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');
       $tour = $this->db->get("ci_tour")->result();
 
-      //print_r($tour); exit;
+      //var_dump($tour); exit;
       //echo $this->db->last_query(); exit;
 
       $count = 0;
@@ -339,12 +341,9 @@ class Tour_model extends MY_Model {
 
 
         //Get tag data
-        unset($this->db);
-        $this->db->where('tat_tour_id', $value->tou_id);
-        $this->db->where_in('tat_tag_id', $args["menu"]);
-        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_tagtour.tat_tag_id');
-        $query = $this->db->get('ci_tagtour');
-        $result[$count]["tag"] = $query->result();
+        $argsTag["where"]['tour_id'] = $value->tou_id;
+        $argsTag["where_in"]['tag_id'] = $args["menu"];
+        $result[$count]["tag"] = $this->tagTourModel->getTagTourList($argsTag);
 
 
         //Get price data

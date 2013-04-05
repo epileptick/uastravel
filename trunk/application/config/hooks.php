@@ -22,13 +22,13 @@ $hook['post_controller_constructor'][] = array(
                                 'filename' => 'Login.php',
                                 'filepath' => 'hooks/Permission'
                                 );
-/*
+
 $hook['post_controller_constructor'][] = array(
-                                'class'    => 'CacheControl',
-                                'function' => 'CacheConfig',
-                                'filename' => 'CacheControl.php',
-                                'filepath' => 'hooks/Initialize'
+                                'class'    => 'Redirect',
+                                'function' => 'RedirectClass',
+                                'filename' => 'Redirect.php',
+                                'filepath' => 'hooks'
                                 );
-*/
+
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

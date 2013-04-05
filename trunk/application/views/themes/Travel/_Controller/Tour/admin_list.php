@@ -354,7 +354,7 @@ class="blogg-menu-popup">
             </h3>
             </span>
             <span id="location-list-control">
-              <a href="<?php echo base_url('tour/'.$value['tour']["url"].'-'.$value['tour']["tour_id"]);?>" target="_blank">
+              <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value['tour']["url"].'-'.$value['tour']["tour_id"]);?>" target="_blank">
                view
               </a> |
               <a href="<?php echo base_url('admin/tour/create/'.$value['tour']["tour_id"]);?>">

@@ -148,7 +148,6 @@ class MY_Model extends CI_Model {
     }
 
     if(isset($options['order']) AND ! empty($options['order'])){
-
       $orderPart = explode(" ",$options['order']);
       if($this->_getColumn($orderPart[0])){
         $this->db->order_by($this->_prefix."_".trim($options['order']));
@@ -156,7 +155,7 @@ class MY_Model extends CI_Model {
         $this->db->order_by(trim($options['order']));
       }
     }else{
-      $this->db->order_by($this->_prefix."_".$this->_pk." desc");
+        $this->db->order_by($this->_prefix."_".$this->_pk." desc");
     }
 
     if(!empty($options["lang"]) AND $options["lang"] == "default"){

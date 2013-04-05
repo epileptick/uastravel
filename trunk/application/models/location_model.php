@@ -220,31 +220,25 @@ class Location_model extends MY_Model {
 
 
   function searchRecord($args=false){
-    if(!empty($args["loc_title"]) && !empty($args["user_search"])){
+    if(!empty($args["title"]) && !empty($args["user_search"])){
 
-      $search["loc_title"] = $args["loc_title"];
-      $this->db->like($search);
-      //$this->db->order_by('CONVERT( ci_location_translate.loct_title USING tis620 ) ASC');
-      $location = $this->db->get("ci_location")->result();
+      $this->load->model("taglocation_model","tagLocationModel");
 
+      $this->db->like("loct_title",$args["title"],"both");
+      $this->db->where('ci_location_translate.loct_lang', $this->lang->lang());
+      $location = $this->get();
 
       $count = 0;
       foreach ($location as $key => $value) {
 
-        //Get tour data
-        unset($this->db);
-        $this->db->select('loc_id, loc_title, loc_url, loc_first_image, loc_banner_image');
-        $this->db->where('loc_id', $value->loc_id);
-        $tourBuffer = $this->db->get('ci_location')->result();
-        $result[$count]["location"] = $tourBuffer[0];
+        $result[$count]["location"] = $value;
 
 
         //Get tag data
-        unset($this->db);
-        $this->db->where('tal_location_id', $value->loc_id);
-        $this->db->where_in('tal_tag_id', $args["menu"]);
-        $this->db->join('ci_tag', 'ci_tag.tag_id = ci_taglocation.tal_tag_id');
-        $result[$count]["tag"] = $this->db->get('ci_taglocation')->result();
+        $argsTag["where"]['location_id'] = $value["loc_id"];
+        $argsTag["where_in"]['tag_id'] = $args["menu"];
+        $result[$count]["tag"] = $this->tagLocationModel->getTagLocationList($argsTag);
+
         $count++;
       }
 

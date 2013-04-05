@@ -80,7 +80,17 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 
+  <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
 
+      $("#selectsearch").change(function() {
+        var action = $(this).val() == "<?php echo $this->lang->line("url_lang_location"); ?>" ? "<?php echo $this->lang->line("url_lang_location"); ?>" : "<?php echo $this->lang->line("url_lang_tour"); ?>";
+        var url = "<?php echo base_url(); ?>"+action+"/search/";
+        $("#search-form").attr("action", url);
+      });
+    });
+  </script>
   </head>
   <body>
     <div class="container-fluid">
@@ -90,16 +100,23 @@
             <header class="header">
               <a class="logo"> <img src="<?php echo base_url('themes/Travel/tour/images/logo_home.png');?>"></a>
               <div class="address">
-                <p class="copyright">ใบอนุญาตเลขที่ 34/000837</p>
-                <!--<p>085-7148830</p>
-                <p class="copyright">Copyright © Uastravel.com</p>-->
+                <p class="copyright"><?php echo $this->lang->line("global_lang_license_number");?> 34/00974</p>
+                <p>
+                  <a href="<?php echo $this->lang->switch_uri("en");?>">
+                    <img src="<?php echo base_url('themes/Travel/images/flags/us.png');?>" border="0" />
+                  </a>
+                  <a href="<?php echo $this->lang->switch_uri("th");?>">
+                  <img src="<?php echo base_url('themes/Travel/images/flags/th.png');?>" border="0" />
+                  </a>
+                </p>
+                <!--<p class="copyright">Copyright © Uastravel.com</p>-->
               </div>
             </header>
             <div class="line"></div>
             <nav>
               <ul class="accordion">
-                <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
-                <li><a href="<?php echo base_url($this->lang->line("url_lang_location"));?>"><?php echo $this->lang->line("url_lang_location");?></a></li>
+                <li><a href="<?php echo base_url();?>"><?php echo $this->lang->line("global_lang_home");?></a></li>
+                <li><a href="<?php echo base_url($this->lang->line("url_lang_location"));?>"><?php echo $this->lang->line("global_lang_location"); ?></a></li>
                 <?php
                   if(!empty($main_menu)){
                     foreach ($main_menu as $main_menuKey => $main_menuValue) {
@@ -126,16 +143,8 @@
                     }
                   }
                 ?>
-                <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
-                <!-- li>
-                  <a>ที่พัก <span class="arrow_menu"></span></a>
-                  <ul class="sub-menu">
-                    <li><a href="<?php echo base_url('hotel');?>">จองโรงแรม</a></li>
-                    <li><a href="<?php echo base_url('tour/จองห้องเช่า');?>">จองห้องเช่า</a></li>
-                  </ul>
-                </li -->
-                <li><a href="<?php echo base_url($this->lang->line("url_lang_tour").'/โปรโมชั่น');?>">โปรโมชั่น</a></li>
-                <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
+                <li><a href="<?php echo base_url($this->lang->line("url_lang_hotel"));?>"><?php echo $this->lang->line("global_lang_hotel"); ?></a></li>
+                <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/ติดต่อเรา-119');?>"><?php echo $this->lang->line("global_lang_contact_us");?></a></li>
               </ul><!-- End accordion -->
             </nav>
             <div class="social">
@@ -183,7 +192,7 @@
                                   class="selected"
                                   title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
                                 >
-                                  ทั้งหมด
+                                  <?php echo $this->lang->line("global_lang_all");?>
                                 </a>
                               </li>
                             <?php
@@ -193,7 +202,7 @@
                                 <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$this->uri->segment(2));?>"
                                   title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
                                 >
-                                  ทั้งหมด
+                                  <?php echo $this->lang->line("global_lang_all");?>
                                 </a>
                               </li>
                             <?php
@@ -252,30 +261,11 @@
 
 
                       <!-- Search selection -->
-                      <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-                      <script type="text/javascript">
-                        $(document).ready(function() {
 
-                          $("#selectsearch").change(function() {
-                            var action = $(this).val() == "tour" ? "tour" : "location";
-                            var uri = action+"/search/";
-                            var url = "";
-
-                            //Check host
-                            if(document.domain == "localhost"){
-                              url = "http://localhost/uastravel/"+uri;
-                            }else{
-                              url = "http://"+document.domain+"/"+uri;
-                            }
-
-                            $("#search-form").attr("action", url);
-                          });
-                        });
-                      </script>
                         <form name="input" action="<?php echo base_url($this->lang->line("url_lang_tour").'/search'); ?>" method="post" class="navbar-form pull-right form_search" id="search-form">
                           <select name="select" id="selectsearch">
-                            <option value="tour">แพคเกจทัวร์</option>
-                            <option value="location">สถานที่ท่องเที่ยว</option>
+                            <option value="<?php echo $this->lang->line("url_lang_tour"); ?>"><?php echo $this->lang->line("tour_lang_packages_tour"); ?></option>
+                            <option value="<?php echo $this->lang->line("url_lang_location"); ?>"><?php echo $this->lang->line("global_lang_location"); ?></option>
                           </select>
                           <div class="input_search">
                             <input type="text" name="search" class="text_search"
@@ -321,7 +311,7 @@
                                 <a href="<?php echo $link;?>" class="selected"
                                   title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
                                 >
-                                ทั้งหมด
+                                <?php echo $this->lang->line("global_lang_all");?>
                                 </a>
                               </li>
                             <?php
@@ -331,7 +321,7 @@
                                 <a href="<?php echo $link;?>"
                                   title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
                                 >
-                                ทั้งหมด
+                                <?php echo $this->lang->line("global_lang_all");?>
                                 </a>
                               </li>
                             <?php
@@ -393,7 +383,7 @@
                                   <?php
                                     echo number_format($value["price"]->pri_sale_adult_price, 0);
                                   ?>
-                                  บาท
+                                  <?php echo $this->lang->line("global_lang_baht");?>
                                 </div>
                               </div>
                             <?php
@@ -421,17 +411,16 @@
                                     <div class="promotion style2">
                                       <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">-->
                                       <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th2.png');?>">
-                                      <p>จาก
+                                      <p><?php echo $this->lang->line("global_lang_from");?>
                                         <span>
                                           <?php
                                             echo number_format($value["price"]->pri_sale_adult_price);
-                                          ?>
-                                        </span>  ลดเหลือ
+                                          ?></span>  <?php echo $this->lang->line("global_lang_discount_to");?>
                                         <span class="reduce_price">
                                           <?php
                                             echo number_format($value["price"]->pri_discount_adult_price, 0);
                                           ?>
-                                        </span> บาท
+                                        </span> <?php echo $this->lang->line("global_lang_baht");?>
                                         </p>
                                     </div>
 
