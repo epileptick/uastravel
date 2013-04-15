@@ -11,8 +11,20 @@ class Menu {
     $typeResult = $this->typeModel->get($typeWhere);
 
     $tagTypeWhere["where"]["type_id"] = $typeResult[0]["id"];
+    $tagTypeWhere["order"] = "index ASC";
     $tagTypeResult = $this->tagTypeModel->getTagTypeList($tagTypeWhere);
 
+
+    foreach ($tagTypeResult as $key => $value) {
+      $arrayIndex[$key] = $value["index"];
+      $arrayToSort[$key] = $value;
+    }
+    unset($tagTypeResult);
+    asort($arrayIndex);
+    foreach ($arrayIndex as $key => $value) {
+      $tagTypeResult[$key] = $arrayToSort[$key];
+      $tagTypeResult[$key]["index"] = $value;
+    }
     return Menu::sort_main_menu($tagTypeResult);
   }
 

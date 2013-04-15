@@ -239,7 +239,19 @@ class Tag extends MY_Controller {
       $whereTagType["where"]["type_id"] = $type_id;
       $whereTagType["where"]["parent_id"] = $tag_id;
       $whereTagType["group"] = "tag_id";
+      $whereTagType["order"] = "index ASC";
       $result["tagTypeData"] = $this->tagTypeModel->getTagTypeList($whereTagType);
+
+      foreach ($result["tagTypeData"] as $key => $value) {
+        $arrayIndex[$key] = $value["index"];
+        $arrayToSort[$key] = $value;
+      }
+      unset($result["tagTypeData"]);
+      asort($arrayIndex);
+      foreach ($arrayIndex as $key => $value) {
+        $result["tagTypeData"][$key] = $arrayToSort[$key];
+        $result["tagTypeData"][$key]["index"] = $value;
+      }
 
       $result["type_id"] = $type_id;
       $result["tag_id"] = $tag_id;
@@ -265,6 +277,9 @@ class Tag extends MY_Controller {
           if(($resultSearch = array_search($tagTypeDataValue["tag_id"],$post["tag"]["id"])) === FALSE){
             $deleteTagType[] = $tagTypeDataValue["id"];
             $this->tagTypeModel->delete($tagTypeDataValue["id"]);
+            if(isset($post["order"][$tagTypeDataValue["tag_id"]])){
+              unset($post["order"][$tagTypeDataValue["tag_id"]]);
+            }
           }else{
             unset($post["tag"]["id"][$resultSearch]);
           }
@@ -274,6 +289,13 @@ class Tag extends MY_Controller {
           $tagToAdd["tag_id"] = $addTagValue;
           $tagToAdd["type_id"] = $type_id;
           $tagToAdd["parent_id"] = $tag_id;
+          $this->tagTypeModel->add($tagToAdd);
+        }
+        foreach ($post["order"] as $orderKey => $orderValue) {
+          $tagToAdd["where"]["tag_id"] = $orderKey;
+          $tagToAdd["where"]["type_id"] = $type_id;
+          $tagToAdd["where"]["parent_id"] = $tag_id;
+          $tagToAdd["set"]["index"] = $orderValue;
           $this->tagTypeModel->add($tagToAdd);
         }
         unset($post["tag"]);

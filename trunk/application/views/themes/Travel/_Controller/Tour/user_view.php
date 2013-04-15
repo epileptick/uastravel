@@ -92,7 +92,7 @@
                   }
                 }
               ?>
-              <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/ติดต่อเรา-119');?>"><?php echo $this->lang->line("global_lang_contact_us");?></a></li>
+              <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/'.Util::url_title($this->lang->line("global_lang_contact_us")).'-119');?>"><?php echo $this->lang->line("global_lang_contact_us");?></a></li>
             </ul>
           </section>
         </nav>

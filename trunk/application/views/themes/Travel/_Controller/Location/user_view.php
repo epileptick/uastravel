@@ -126,7 +126,7 @@ if(!empty($location['background_image'])){
 
           <section>
             <ul class="right">
-              <li><a href="<?php echo base_url($this->lang->line("url_lang_location"));?>"><?php echo $this->lang->line("url_lang_location"); ?></a></li>
+              <li><a href="<?php echo base_url($this->lang->line("url_lang_location"));?>"><?php echo $this->lang->line("global_lang_location"); ?></a></li>
               <?php
                   if(!empty($main_menu)){
                     foreach ($main_menu as $main_menuKey => $main_menuValue) {
@@ -151,7 +151,7 @@ if(!empty($location['background_image'])){
                     }
                   }
                 ?>
-              <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
+              <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/'.Util::url_title($this->lang->line("global_lang_contact_us")).'-119');?>"><?php echo $this->lang->line("global_lang_contact_us");?></a></li>
             </ul>
           </section>
         </nav>
@@ -363,7 +363,7 @@ if(!empty($location['background_image'])){
               <div class="list_packet">
                 <div class="row">
                   <div class="twelve columns">
-                    <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value["tour"]->tou_url."-".$value["tour"]->tou_id);?>">
+                    <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value["tour"]->tout_url."-".$value["tour"]->tou_id);?>">
                       <img src="<?php echo $value["tour"]->tou_banner_image; ?>">
                     </a>
                   </div>
@@ -372,8 +372,8 @@ if(!empty($location['background_image'])){
                       <div class="nine columns">
                         <div class="title_tour">
                           <h4>
-                            <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value["tour"]->tou_url."-".$value["tour"]->tou_id);?>">
-                              <?php echo $value["tour"]->tou_name; ?>
+                            <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value["tour"]->tout_url."-".$value["tour"]->tou_id);?>">
+                              <?php echo $value["tour"]->tout_name; ?>
                             </a>
                           </h4>
                         </div>

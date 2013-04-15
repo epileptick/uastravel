@@ -17,8 +17,8 @@
   }
 
   //Title
-  $title = "สถานที่ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index));
-  $keyword = $title.", แพคเกจทัวร์".str_replace("-", " ",$this->uri->segment(1+$index)).", ทัวร์".str_replace("-", " ",$this->uri->segment(1+$index)).", เที่ยวไทย".str_replace("-", " ",$this->uri->segment(1+$index)).", ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index)).", ที่ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index)).", ท่องเที่ยวไทย".str_replace("-", " ",$this->uri->segment(1+$index)).", เที่ยวทั่วไทย".str_replace("-", " ",$this->uri->segment(1+$index));
+  $title = $this->lang->line("global_lang_location")." ".str_replace("-", " ",$this->uri->segment(1+$index));
+  $keyword = $title.", ".$this->lang->line("global_lang_location").str_replace("-", " ",$this->uri->segment(1+$index)).", ทัวร์".str_replace("-", " ",$this->uri->segment(1+$index)).", เที่ยวไทย".str_replace("-", " ",$this->uri->segment(1+$index)).", ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index)).", ที่ท่องเที่ยว".str_replace("-", " ",$this->uri->segment(1+$index)).", ท่องเที่ยวไทย".str_replace("-", " ",$this->uri->segment(1+$index)).", เที่ยวทั่วไทย".str_replace("-", " ",$this->uri->segment(1+$index));
 ?>
 
   <title><?php echo trim($title); ?> - U As Travel</title>
@@ -103,7 +103,7 @@
                   }
                 ?>
                 <li><a href="<?php echo base_url($this->lang->line("url_lang_hotel"));?>"><?php echo $this->lang->line("global_lang_hotel"); ?></a></li>
-                <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/ติดต่อเรา-119');?>"><?php echo $this->lang->line("global_lang_contact_us");?></a></li>
+                <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/'.Util::url_title($this->lang->line("global_lang_contact_us")).'-119');?>"><?php echo $this->lang->line("global_lang_contact_us");?></a></li>
               </ul><!-- End accordion -->
             </nav>
             <div class="social">

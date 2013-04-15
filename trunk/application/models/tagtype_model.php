@@ -4,7 +4,6 @@ class TagType_model extends MY_Model {
     parent::__construct();
     $this->_prefix = "tty";
     $this->_column = array(
-                     'id'                => 'tty_id',
                      'tag_id'            => 'tty_tag_id',
                      'type_id'           => 'tty_type_id',
                      'parent_id'         => 'tty_parent_id',
@@ -16,6 +15,7 @@ class TagType_model extends MY_Model {
                      'name'              => 'tagt_name',
                      'url'               => 'tagt_url'
     );
+    $this->_pk = "tag_id";
   }
 
   function get($options = NULL){
@@ -444,7 +444,7 @@ class TagType_model extends MY_Model {
   /*
       echo "Update : ";
       echo "<br><br>";
-      print_r($updateArray);
+      //print_r($updateArray);
       echo "<br><br>";
 
     exit;

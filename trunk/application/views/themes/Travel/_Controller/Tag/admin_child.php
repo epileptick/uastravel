@@ -29,7 +29,7 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().
     if(!empty($tagData)){
       foreach($tagData AS $tagDataKey => $tagDataValue){
         if($tagTypeDataValue["tag_id"] == $tagDataValue["id"]){
-          echo "<li>";
+          echo "<li> <input class=\"order\" type=\"text\" value=\"".$tagTypeDataValue["index"]."\" name=\"order[$tagTypeDataValue[tag_id]]\">";
           echo $tagDataValue["name"]." (89)";
           echo "<span>[<a href='".base_url("/admin/tag/child/".$selfTypeData[0]["id"]."/".$tagTypeDataValue["tag_id"])."'>Edit Child</a>]</span></li>";
         }
@@ -52,7 +52,7 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().
     if(!empty($tagData)){
       foreach($tagData AS $tagDataKey => $tagDataValue){
         if($tagTypeDataValue["tag_id"] == $tagDataValue["id"]){
-          echo "<li>";
+          echo "<li> <input class=\"order\" type=\"text\" value=\"".$tagTypeDataValue["index"]."\" name=\"order[$tagTypeDataValue[tag_id]]\">";
           echo $tagDataValue["name"]." (89)";
           echo "<span>[<a href='".base_url("/admin/tag/child/".$selfTypeData[0]["id"]."/".$tagTypeDataValue["tag_id"])."'>Edit Child</a>]</span></li>";
         }
