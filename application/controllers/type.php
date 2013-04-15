@@ -41,14 +41,26 @@ class Type extends MY_Controller {
       $whereTagType["where"]["type_id"] = $id;
       $whereTagType["where"]["parent_id"] = 0;
       $whereTagType["group"] = "tag_id";
+      $whereTagType["order"] = "index ASC";
       $result["tagTypeData"] = $this->tagTypeModel->getTagTypeList($whereTagType);
       $result["tagData"] = $this->tagModel->getTagList();
+
+      foreach ($result["tagTypeData"] as $key => $value) {
+        $arrayIndex[$key] = $value["index"];
+        $arrayToSort[$key] = $value;
+      }
+      unset($result["tagTypeData"]);
+      asort($arrayIndex);
+      foreach ($arrayIndex as $key => $value) {
+        $result["tagTypeData"][$key] = $arrayToSort[$key];
+        $result["tagTypeData"][$key]["index"] = $value;
+      }
 
 
       $this->_fetch("admin_create",$result);
     }else{
       $post = $this->input->post();
-//var_dump($post);exit;
+//var_dump($post);
       if(empty($post)){
         redirect(base_url("admin/tag/"));
       }
@@ -62,24 +74,34 @@ class Type extends MY_Controller {
           $whereTagType["where"]["parent_id"] = 0;
           $whereTagType["group"] = "tag_id";
           $tagTypeData = $this->tagTypeModel->get($whereTagType);
-          var_dump($this->db->last_query());
-//var_dump($post["tag"]);
-//var_dump($tagTypeData);
+          //var_dump($this->db->last_query());
+			//var_dump($post["tag"]);
+			//var_dump($tagTypeData);
           if(!empty($tagTypeData)){
             foreach($tagTypeData AS $tagTypeDataKey=>$tagTypeDataValue){
               if(($resultSearch = array_search($tagTypeDataValue["tag_id"],$post["tag"]["id"])) === FALSE){
                 $deleteTagType[] = $tagTypeDataValue["id"];
                 $this->tagTypeModel->delete($tagTypeDataValue["id"]);
+                if(isset($post["order"][$tagTypeDataValue["tag_id"]])){
+                  unset($post["order"][$tagTypeDataValue["tag_id"]]);
+                }
               }
               if($resultSearch !== FALSE){
                 unset($post["tag"]["id"][$resultSearch]);
               }
             }
           }
-
           foreach($post["tag"]["id"] AS $addTagKey => $addTagValue){
             $tagToAdd["tag_id"] = $addTagValue;
             $tagToAdd["type_id"] = $post["id"];
+            $tagToAdd["index"] = "0";
+            $this->tagTypeModel->add($tagToAdd);
+          }
+          foreach ($post["order"] as $orderKey => $orderValue) {
+            $tagToAdd["where"]["tag_id"] = $orderKey;
+            $tagToAdd["where"]["type_id"] = $post["id"];
+            $tagToAdd["where"]["parent_id"] = 0;
+            $tagToAdd["set"]["index"] = $orderValue;
             $this->tagTypeModel->add($tagToAdd);
           }
           unset($post["tag"]);
@@ -90,6 +112,7 @@ class Type extends MY_Controller {
           $this->tagTypeModel->delete($whereTagType);
         }
       }
+
       $post["id"] = $this->typeModel->add($post);
       if(!empty($post["id"])){
         redirect(base_url("admin/type/create/".$post["id"]));

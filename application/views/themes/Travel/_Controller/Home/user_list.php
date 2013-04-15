@@ -22,8 +22,9 @@
 
 <?php
   if($this->uri->segment(1)){
+
 ?>
-  <title>ท่องเที่ยวไปในสถานที่ท่องเที่ยวจังหวัด<?php echo $this->uri->segment(1);?> ด้วยแพคเกจทัวร์<?php echo $this->uri->segment(1);?>ราคาพิเศษ - U As Travel</title>
+  <title><?php echo $this->lang->line("global_lang_main_title_province_1");?> <?php echo $this->uri->segment(1);?> <?php echo $this->lang->line("global_lang_main_title_province_2");?> - U As Travel</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
   <meta name="description" content="สถานที่ท่องเที่ยวในจังหวัด<?php echo $this->uri->segment(1);?> และทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยวในจังหวัด<?php echo $this->uri->segment(1);?>  และแพคเกจทัวร์ราคาพิเศษ" />
@@ -31,7 +32,7 @@
 <?php
   }else{
 ?>
-  <title>ท่องเที่ยวไปในสถานที่ท่องเที่ยว ด้วยแพคเกจทัวร์ราคาพิเศษ - U As Travel</title>
+  <title><?php echo $this->lang->line("global_lang_main_title");?> - U As Travel</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
   <meta name="description" content="สถานที่ท่องเที่ยว และทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยว  และแพคเกจทัวร์ราคาพิเศษ" />
@@ -110,7 +111,7 @@
                 ?>
 
                 <li><a href="<?php echo base_url($this->lang->line("url_lang_hotel"));?>"><?php echo $this->lang->line("global_lang_hotel"); ?></a></li>
-                <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/ติดต่อเรา-119');?>"><?php echo $this->lang->line("global_lang_contact_us");?></a></li>
+                <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/'.Util::url_title($this->lang->line("global_lang_contact_us")).'-119');?>"><?php echo $this->lang->line("global_lang_contact_us");?></a></li>
               </ul><!-- End accordion -->
             </nav>
             <div class="social">

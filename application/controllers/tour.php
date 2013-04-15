@@ -6,7 +6,6 @@ class Tour extends MY_Controller {
 
   function __construct(){
     parent::__construct();
-    $this->lang->load('tour', 'thai');
   }
 
 
@@ -389,6 +388,7 @@ class Tour extends MY_Controller {
         $this->_fetch('user_list', $data, false, true);
       }
     }else{
+      
       $this->_fetch('user_list', $data, false, true);
     }
 
@@ -1298,7 +1298,7 @@ class Tour extends MY_Controller {
 
 
     if($tag["name"] && $tour["name"]){
-      echo "tag && tour";
+      //echo "tag && tour";
     }else if($tag["name"]){
       ////////////////////////////////////////////
       //Get tag data
@@ -1484,14 +1484,14 @@ class Tour extends MY_Controller {
     //Get argument from post page
     $args = $this->input->post();
     $this->tourModel->updateDisplayRecord($args);
-    print_r($args); exit();
+    //print_r($args); exit();
   }
 
   function admin_setfisrtpageprice(){
     //Get argument from post page
     $args = $this->input->post();
     $this->tourModel->updateDisplayFirstpageRecord($args);
-    print_r($args); exit();
+    //print_r($args); exit();
   }
 
   function validate(){

@@ -134,7 +134,7 @@
                   }
                 ?>
                 <li><a class="active" href="<?php echo base_url($this->lang->line("url_lang_hotel"));?>"><?php echo $this->lang->line("global_lang_hotel"); ?></a></li>
-                <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/ติดต่อเรา-119');?>"><?php echo $this->lang->line("global_lang_contact_us");?></a></li>
+                <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/'.Util::url_title($this->lang->line("global_lang_contact_us")).'-119');?>"><?php echo $this->lang->line("global_lang_contact_us");?></a></li>
               </ul><!-- End accordion -->
             </nav>
             <div class="social">
@@ -178,7 +178,7 @@
                             if($menu_selectall == true){
                             ?>
                               <li>
-                                <a href="<?php echo base_url('hotel/'.$this->uri->segment(2));?>"
+                                <a href="<?php echo base_url($this->lang->line("url_lang_hotel").'/'.$this->uri->segment(2));?>"
                                   class="selected"
                                   title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
                                 >
@@ -224,9 +224,9 @@
 
                               foreach ($menu as $key => $value) {
                                 if($isMenu){
-                                  $link = base_url('hotel/'.$uri1.$value->url);
+                                  $link = base_url($this->lang->line("url_lang_hotel").'/'.$uri1.$value->url);
                                 }else{
-                                  $link = base_url('hotel/'.$uri1.$value->url."/".$uri2);
+                                  $link = base_url($this->lang->line("url_lang_hotel").'/'.$uri1.$value->url."/".$uri2);
                                 }
                             ?>
                               <li>
@@ -315,9 +315,9 @@
 
                             foreach ($submenu as $key => $value) {
                               if($isSubMenu){
-                                  $link = base_url('hotel/'.$uri1.$value->url);
+                                  $link = base_url($this->lang->line("url_lang_hotel").'/'.$uri1.$value->url);
                               }else{
-                                $link = base_url('hotel/'.$uri1.$uri2.$value->url);
+                                $link = base_url($this->lang->line("url_lang_hotel").'/'.$uri1.$uri2.$value->url);
                               }
                             ?>
                               <li>
@@ -376,7 +376,7 @@
                             <?php
                                 }
                             ?>
-                            <a href="<?php echo base_url('hotel/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>"
+                            <a href="<?php echo base_url($this->lang->line("url_lang_hotel").'/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>"
                               target="_blank"
                               title="<?php echo $value['hotel']->hott_name;?>"
                             >
@@ -418,7 +418,7 @@
                             <div class="row-fluid">
                               <div class="span8">
                                 <h3>
-                                  <a href="<?php echo base_url('hotel/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>"
+                                  <a href="<?php echo base_url($this->lang->line("url_lang_hotel").'/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>"
                                     target="_blank"
                                     title="<?php echo $value['hotel']->hott_name;?>"
                                   >
@@ -493,7 +493,7 @@
                                     //print_r($value["tag"]); exit;
                                     foreach ($value["tag"] as $keyTag => $valueTag) {
                                   ?>
-                                  <a href="<?php echo base_url('hotel/'.$uri1.$valueTag["url"]);?>"
+                                  <a href="<?php echo base_url($this->lang->line("url_lang_hotel").'/'.$uri1.$valueTag["url"]);?>"
                                       style="color: #0CACE1;"
                                       title="<?php echo $valueTag["name"]." ".str_replace("-", " ", $this->uri->segment(2))." ".str_replace("-", " ", $this->uri->segment(3));?>"
                                   >

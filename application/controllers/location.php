@@ -611,7 +611,7 @@ class Location extends MY_Controller {
 
       $locationData["location"] = $this->locationModel->get($id);
       if(!$locationData["location"]){
-        redirect(base_url(),"refresh");
+        show_404();
       }
       if(count($locationData["location"]) < 1){
         show_404();

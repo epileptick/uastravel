@@ -1001,7 +1001,7 @@ div.progress.round .meter { -webkit-border-radius: 1000px; -moz-border-radius: 1
 .top-bar ul > li.has-dropdown .dropdown li.has-dropdown .dropdown { position: absolute; left: 100%; top: 0; }
 .top-bar ul > li.has-dropdown .dropdown li.has-dropdown:hover > .dropdown { display: block; }
 .top-bar ul.left { float: left; width: auto; margin-bottom: 0; }
-.top-bar ul.right { float: right; width: auto; margin-bottom: 0; /* Dropdown Right Side Alignment */ }
+.top-bar ul.right { float: right; width: auto; margin-bottom: 0; width: 770px; /* Dropdown Right Side Alignment */ }
 .top-bar ul.right .has-dropdown .dropdown { left: auto; right: -1px; }
 .top-bar ul.right .has-dropdown .dropdown li.has-dropdown > .dropdown { right: 100%; left: auto; width: 100%; }
 .top-bar .js-generated { display: none; }

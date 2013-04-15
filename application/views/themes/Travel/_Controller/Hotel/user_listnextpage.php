@@ -13,17 +13,17 @@
       ?>
         <div class="sticker_status">
           <div class="sticker price">
-            <?php  
+            <?php
               //$sale_price = $value["price"]->prh_sale_adult_price - $value["price"]->prh_discount_adult_price;
               echo number_format($prh_sale_room_price, 0);
             ?>
             บาท
-          </div> 
-        </div>                                   
-      <?php                                    
+          </div>
+        </div>
+      <?php
           }
       ?>
-      <a href="<?php echo base_url('hotel/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>" target="_blank" >
+      <a href="<?php echo base_url($this->lang->line("url_lang_hotel").'/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>" target="_blank" >
         <?php
           if($value['hotel']->hot_first_image){
         ?>
@@ -41,13 +41,13 @@
               <div class="promotion style2">
                 <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">-->
                 <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th2.png');?>">
-                <p>จาก 
+                <p>จาก
                   <span>
                     <?php
                       echo number_format($value["price"]->prh_sale_room_price);
                     ?>
-                  </span>  ลดเหลือ 
-                  <span class="reduce_price"> 
+                  </span>  ลดเหลือ
+                  <span class="reduce_price">
                     <?php
                       echo number_format($value["price"]->prh_discount_room_price, 0);
                     ?>
@@ -63,7 +63,7 @@
       <div class="row-fluid">
         <div class="span8">
           <h3>
-            <a href="<?php echo base_url('hotel/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>" target="_blank" >
+            <a href="<?php echo base_url($this->lang->line("url_lang_hotel").'/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>" target="_blank" >
               <?php echo $value['hotel']->hott_name; ?>
             </a>
           </h3>
@@ -80,7 +80,7 @@
       <div class="border"></div>
       <div class="row-fluid">
         <div class="span7">
-          <?php 
+          <?php
               if(isset($value['hotel']->hott_name)){
             ?>
               <div class="icon hotel" rel="tooltip" title="แพ็กเก็จทัวร์"></div>
@@ -96,7 +96,7 @@
               //print_r($value["tag"]); exit;
               foreach ($value["tag"] as $keyTag => $valueTag) {
             ?>
-            <a href="<?php echo base_url('hotel/'.$valueTag["url"]);?>" style="color: #0CACE1;">
+            <a href="<?php echo base_url($this->lang->line("url_lang_hotel").'/'.$valueTag["url"]);?>" style="color: #0CACE1;">
               <?php echo $valueTag["name"]; ?>
             </a>
             <?php
@@ -110,6 +110,6 @@
 
 <?php
     }
-  }//End loop hotel 
+  }//End loop hotel
 ?>
 <?php include_once("themes/Travel/hotel/analyticstracking.php") ?>

@@ -107,8 +107,7 @@ class Location_model extends MY_Model {
     }
     $this->db->where($this->_column['id'], $options['id']);
     $result = $this->db->update($this->_table);
-
-    //print_r($options);
+    
     if($result){
       return $options['id'];
     }else{
@@ -141,8 +140,9 @@ class Location_model extends MY_Model {
 
         //Get tour data
         unset($this->db);
-        $this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-        $this->db->where('tou_lang', $this->lang->lang());
+        $this->db->select('tou_id, tout_name, tou_code, tout_url, tou_first_image, tou_banner_image');
+        $this->db->join("ci_tour_translate","ci_tour_translate.tout_tour_id = ci_tour.tou_id");
+        $this->db->where('tout_lang', $this->lang->lang());
         $this->db->where('tou_id', $value->tat_tour_id);
         $query = $this->db->get('ci_tour');
         $tourBuffer = $query->result();

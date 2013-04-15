@@ -55,7 +55,7 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().
           ?>
         </select>
       </div>
-      <p class="submit"><input type="submit" name="submit" id="submit" class="button" value="Add New Category"></p>
+      <p class="submit"><input type="submit" name="submit" id="submit" class="button" value="<?php echo $this->lang->line("global_lang_submit");?>"></p>
     </div>
 </section>
 <section class="similar_hotels grid_6">
@@ -69,7 +69,7 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().
     if(!empty($tagData)){
       foreach($tagData AS $tagDataKey => $tagDataValue){
         if($tagTypeDataValue["tag_id"] == $tagDataValue["id"]){
-          echo "<li> <input class=\"order\" type=\"text\" value=\"0\" name=\"order[$tagTypeDataValue[tag_id]][]\">";
+          echo "<li> <input class=\"order\" type=\"text\" value=\"".$tagTypeDataValue["index"]."\" name=\"order[$tagTypeDataValue[tag_id]]\">";
           echo $tagDataValue["name"]." (89)";
           echo "<span>[<a href='".base_url("/admin/tag/child/".$typeData[0]["id"]."/".$tagTypeDataValue["tag_id"])."'>Edit Child</a>]</span> </li>";
         }
@@ -92,13 +92,12 @@ PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().
     if(!empty($tagData)){
       foreach($tagData AS $tagDataKey => $tagDataValue){
         if($tagTypeDataValue["tag_id"] == $tagDataValue["id"]){
-          echo "<li> <input class=\"order\" type=\"text\" value=\"0\" name=\"order[$tagTypeDataValue[tag_id]][]\">";
+          echo "<li> <input class=\"order\" type=\"text\" value=\"".$tagTypeDataValue["index"]."\" name=\"order[$tagTypeDataValue[tag_id]]\">";
           echo $tagDataValue["name"]." (89)";
           echo "<span>[<a href='".base_url("/admin/tag/child/".$typeData[0]["id"]."/".$tagTypeDataValue["tag_id"])."'>Edit Child</a>]</span></li>";
         }
       }
     }
-
   }
 ?>
   </ul>

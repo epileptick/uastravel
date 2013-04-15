@@ -35,11 +35,10 @@ class Location_translate_model extends MY_Model {
         $this->db->where($this->_getColumn("loc_id"), $options["loc_id"]);
         unset($options["loc_id"]);
       }
-      if(empty($options["url"])){
-        $options["url"] = Util::url_title($options["title"]);
-      }
-
       $options["isUpdate"] = TRUE;
+    }
+    if(empty($options["url"])){
+      $options["url"] = Util::url_title($options["title"]);
     }
 
 

@@ -247,7 +247,7 @@ class Tag_model extends MY_Model {
 
           $this->tag[$count]->id = $tagInsertID;
           $this->tag[$count]->name = $tagInput["name"];
-          var_dump($this->tag[$count]);exit;
+          //var_dump($this->tag[$count]);exit;
           //$this->newTag[] = $value;
         }else{
           $this->tag[$count] = $tagFound[0];

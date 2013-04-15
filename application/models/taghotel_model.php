@@ -1451,7 +1451,7 @@ class Taghotel_model extends MY_Model {
         /*echo "<br><br>";
         echo "Delete : ";
         echo "<br><br>";
-        print_r($deleteArray);
+        //print_r($deleteArray);
         echo "<br><br>";
   */
         foreach ($deleteArray as $key => $value) {
@@ -1465,7 +1465,7 @@ class Taghotel_model extends MY_Model {
       /*
         echo "Update : ";
         echo "<br><br>";
-        print_r($updateArray);
+        //print_r($updateArray);
         echo "<br><br>";
       */
       //exit;

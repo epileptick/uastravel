@@ -361,25 +361,35 @@ PageUtil::addVar("javascript",'
   <div id="status"></div>
 
   <?php echo form_open(base_url('admin/location/create'),'enctype="multipart/form-data"'); ?>
-      <div class="half">
-        <label>&nbsp;&nbsp;language :</label>
-        <select id="lang"  name="lang">
-          <?php
+      <script type="text/javascript">
+      $(function(){
+        $("#lang").change(function(){
 
-            if($this->lang->lang() == "en"){
-          ?>
-            <option value="th">thai</option>
-            <option value="en" selected>english</option>
-          <?php
-            }else{
-          ?>
-            <option value="th" selected>thai</option>
-            <option value="en">english</option>
-          <?php
-            }
-          ?>
+          var id = $("#id").val();
+          window.location='http://'+this.value+'.uastravel.com/admin/location/create/'+id;
+        });
+      });
+      </script>
+      <div class="half" id="lang_select">
+        <label>language :</label> 
+        <select id="lang"  name="lang">
+
+        <?php
+          if($this->lang->lang() == "en"){
+        ?>
+          <option value="th">thai</option>
+          <option value="en" selected>english</option>
+        <?php
+          }else{
+        ?>
+          <option value="th" selected>thai</option>
+          <option value="en">english</option>
+        <?php
+          }
+        ?>
         </select>
-      </div> <br>
+      </div>
+      <div class="clearfix"></div>
   <input type="hidden" value="<?=$post[0]['id']?>" id="id" name="id" />
   <span id="fedfe"></span>
   <div class="topHolder">

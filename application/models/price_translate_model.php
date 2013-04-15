@@ -298,8 +298,8 @@ class PriceTranslate_model extends MY_Model {
         $count++;
       }
       /*
-      print_r($priceArray); 
-      print_r($priceTranslateArray); 
+      //print_r($priceArray); 
+      //print_r($priceTranslateArray); 
       exit;
       */
 
@@ -307,7 +307,7 @@ class PriceTranslate_model extends MY_Model {
       $price["event"] = "insert";
       $queryPrice = $this->getRecord($price);      
 
-      print_r($queryPrice); exit;
+      //print_r($queryPrice); exit;
       //$input = $args["price"];
 
       //print_r($input); exit;
@@ -372,13 +372,13 @@ class PriceTranslate_model extends MY_Model {
         $deleteArray = array_diff($queryPriceID , $inputPriceID);
 
         echo "insert";
-        print_r($insertArray); 
+        //print_r($insertArray); 
 
         echo "update";
-        print_r($updateArray); 
+        //print_r($updateArray); 
 
         echo "delete";
-        print_r($deleteArray); exit;
+        //print_r($deleteArray); exit;
 
         if(!empty($insertArray)){ 
           $this->addMultipleRecord($insertArray);
@@ -519,7 +519,7 @@ class PriceTranslate_model extends MY_Model {
 
       $this->db->where("pri_id", $args["tour_id"]);
       $priceArray = $this->db->get("ci_price")->result();
-      print_r($priceArray); exit;
+      //print_r($priceArray); exit;
       foreach ($priceArray as $key => $value) {
         $this->db->where("prit_price_id", $value["pri_id"]);
         $this->db->delete("ci_price_translate");

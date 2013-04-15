@@ -71,7 +71,7 @@ class Hotel_model extends MY_Model {
   function getRecord($args=false){
 
     if(isset($args["tag"]) && isset($args["hotel_name"]) ){
-      echo $args;
+      
     }else if(isset($args["id"])){
       //Get page by id for create
       if(!empty($args["field"])){

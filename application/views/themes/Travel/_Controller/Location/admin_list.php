@@ -190,6 +190,7 @@ function selectAll(){
           </span>
           <div>
             <span>
+
             <h3><a href="<?php echo base_url($this->lang->line("url_lang_location")."/$value[url]-$value[id]");?>" target="_blank"><?php echo $value["title"];?></a></h3>
             </span>
             <span class="description"><?php echo trim(substr(strip_tags($value["body"]),0,100));?></span>
