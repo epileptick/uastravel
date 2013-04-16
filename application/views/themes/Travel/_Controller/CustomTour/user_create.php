@@ -97,7 +97,7 @@
 
                 <!-- Booking data -->
                 <input type="hidden" name="id" value=""></input>
-                <input class="button"  type="submit" value="จองทัวร์นี้">              
+                <input class="button"  type="submit" value="จองทัวร์นี้">
               </form>
             </p>
           </div>
@@ -354,7 +354,7 @@
                                                   discountchildprice="<?php echo $value['price']->prh_discount_room_price; ?>"
                                                   tag="<?php echo $hotels["filter"]["defaulttag"]; ?>"
                                                   day="1"
-                                          />                                            
+                                          />
                                           </div>
                                         </div>
                                         <div class="three columns">
@@ -1651,7 +1651,7 @@
           if(i==countDayElement){
             summaryAdultPrice += parseInt(customPackageObject.adultPrice[i][j]);
             summaryChildPrice += parseInt(customPackageObject.childPrice[i][j]);
-          }          
+          }
         }
 
       }
@@ -1669,8 +1669,6 @@
       }
 
     }
-
-
 
     //
     console.log("######## Summary Data ########");

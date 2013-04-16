@@ -317,15 +317,15 @@
         ?>
         <div class="row">
 
-          <h3>ราคาทัวร์</h3>
+          <h3><?php echo $this->lang->line("tour_lang_tour_price"); ?></h3>
           <table class="twelve">
             <thead>
               <tr>
-                <th style="font-size:18px !important;">รายการ</th>
-                <th style="font-size:18px !important;">ราคาผู้ใหญ่(บาท)</th>
-                <th style="font-size:18px !important;">จำนวน</th>
-                <th style="font-size:18px !important;">ราคาเด็ก(บาท)</th>
-                <th style="font-size:18px !important;">จำนวน</th>
+                <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_list"); ?></th>
+                <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_adult_price"); ?></th>
+                <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_amount"); ?></th>
+                <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_child_price"); ?></th>
+                <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_amount"); ?></th>
               </tr>
             </thead>
             <tbody>
@@ -481,7 +481,7 @@
               <tr>
                 <td class="price_booking" colspan="5">
                     <input type="hidden" name="id" value="<?php echo $tour[0]["tour_id"];?>"></input>
-                    <input class="button small  booking"  type="submit" value="จองทัวร์นี้">
+                    <input class="button small  booking"  type="submit" value="<?php echo $this->lang->line("tour_lang_tour_booking");?>">
                 </td>
               </tr>
             </tbody>
@@ -495,8 +495,8 @@
         <!-- Start contact -->
         <div class="row">
          <div class="twelve columns">
-              <span style="font-size:30px; color:#FE5214; margin:-10px 0 10px 0; display:inline-block;" >ติดต่อเรา : </span>
-              <span style="font-size:18px;"><b>โทร.</b> 082-8121146, 076-331280&nbsp;&nbsp;<b>แฟกซ์.</b> 076-331273&nbsp;&nbsp;<b>อีเมล์</b> info@uastravel.com</span>
+              <span style="font-size:30px; color:#FE5214; margin:-10px 0 10px 0; display:inline-block;" ><?php echo $this->lang->line("global_lang_contact_us");?> : </span>
+              <span style="font-size:18px;"><b><?php echo $this->lang->line("global_lang_telephone");?>.</b> 082-8121146, 076-331280&nbsp;&nbsp;<b><?php echo $this->lang->line("global_lang_fax");?>.</b> 076-331273&nbsp;&nbsp;<b><?php echo $this->lang->line("global_lang_e_mail");?></b> info@uastravel.com</span>
           </div>
         </div>
         <!-- End contact -->
@@ -531,7 +531,7 @@
         <!-- Map -->
           <div class="row">
             <div class="twelve columns">
-              <h3>แผนที่</h3>
+              <h3><?php echo $this->lang->line("global_lang_map");?></h3>
               <div class="map">
                 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
                 <script type="text/javascript">
@@ -668,13 +668,13 @@
     <div class="row">
       <div class="facebook_comment">
         <div class="twelve columns">
-          <h3>แสดงความคิดเห็น</h3>
+          <h3><?php echo $this->lang->line("global_lang_comment");?></h3>
           <div id="fb-root"></div>
           <script>(function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/th_TH/all.js#xfbml=1&appId=357467797616103";
+            js.src = "//connect.facebook.net/<?php echo strtolower($this->lang->lang()); ?>_<?php echo strtoupper($this->lang->lang()); ?>/all.js#xfbml=1&appId=357467797616103";
             fjs.parentNode.insertBefore(js, fjs);
           }(document, 'script', 'facebook-jssdk'));</script>
           <div class="fb-comments" data-href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$tour[0]["url"].'-'.$tour[0]["tour_id"]);?>" data-num-posts="20" data-width=""></div>
