@@ -185,6 +185,7 @@
                       <ul class="connected list no2" id="data">
                         <?php
                           //print_r($tours); exit;
+                          if(!empty($tours["tour"]))
                           foreach ($tours["tour"] as $key => $value) {
                             if(!empty($value['price'])){
                         ?>
@@ -823,7 +824,7 @@
 
 
     <?php
-
+      if(!empty($tours["tour"]))
       foreach ($tours["tour"] as $key => $value) {
     ?>
       <div id="myTourModal_<?php echo $value['tour']->tou_id; ?>" class="reveal-modal [expand, xlarge, large, medium, small]">
