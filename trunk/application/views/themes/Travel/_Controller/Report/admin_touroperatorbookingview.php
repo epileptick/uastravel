@@ -731,6 +731,6 @@ if($booking[0]->toc_grand_total_net_price > 0){
   <!-- Agency End -->
 
 <br>
-<?php include_once("themes/Travel/tour/analyticstracking.php") ?>
+{_include tracker}
 </body>
 </html>

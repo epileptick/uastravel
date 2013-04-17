@@ -583,6 +583,6 @@
     <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/Full-screen/jquery.fullscreen-min.js');?>"></script>
 
 
-    <?php include_once("themes/Travel/tour/analyticstracking.php") ?>
+    {_include tracker}
   </body>
 </html>

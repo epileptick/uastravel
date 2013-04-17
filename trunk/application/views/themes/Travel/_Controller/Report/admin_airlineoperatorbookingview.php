@@ -555,6 +555,6 @@
 </div>
 <!-- End Wraper -->
 
-<?php include_once("themes/Travel/tour/analyticstracking.php") ?>
+{_include tracker}
 </body>
 </html>
