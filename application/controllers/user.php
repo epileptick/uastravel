@@ -1,20 +1,24 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class User extends MY_Controller {
-  
+
   function __construct(){
     parent::__construct();
   }
-  
+
   function index(){
-    redirect(base_url(),"refresh");
+    if($this->session->userdata("logged_in") == TRUE){
+      var_dump($this->session->all_userdata());
+    }else{
+      redirect(base_url("/user/login"));
+    }
   }
-  
+
   function login(){
-    if($this->session->userdata("logged_in",TRUE)){
+    if($this->session->userdata("logged_in") == TRUE){
         redirect(base_url(),"refresh");
     }
-    
-    
+
+
     $data = array();
     if($this->input->post("submit") != NULL){
       $_post = $this->input->post();
@@ -34,17 +38,17 @@ class User extends MY_Controller {
 
     $this->_fetch("login",$data);
   }
-  
+
   function logout(){
-    if($this->session->userdata("logged_in",TRUE)){
+    if($this->session->userdata("logged_in") == TRUE){
         $this->session->set_userdata("logged_in",FALSE);
-        redirect(base_url("/user"),"refresh");
     }
+    redirect(base_url("/user"),"refresh");
   }
-  
+
   function register(){
     
   }
-  
+
 }
 ?>

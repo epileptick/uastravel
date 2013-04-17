@@ -42,9 +42,7 @@
   ?>
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Le styles -->
@@ -58,6 +56,7 @@
   </head>
   <body>
     <div class="container-fluid">
+
       <div class="row-fluid">
         <div class="span12">
           <div class="sidebar" style="display:none;">
@@ -142,7 +141,9 @@
           <div class="shadow"></div>
           </div><!--/sidebar-->
           <div class="main">
+
             <div class="content">
+              {_include user_tab}
               <div class="row-fluid">
                 <div class="navbar">
                     <div class="navbar-inner">
@@ -453,6 +454,7 @@
     <!-- Isotope -->
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/isotope/jquery.isotope.min.js');?>"></script>
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/isotope/js/jquery.infinitescroll.min.js');?>"></script>
-    <?php include_once("themes/Travel/tour/analyticstracking.php") ?>
+    {_include tracker}
+    
   </body>
 </html>

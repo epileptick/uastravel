@@ -151,4 +151,4 @@
   }//End loop tour
 ?>
 
-<?php include_once("themes/Travel/tour/analyticstracking.php") ?>
+{_include tracker}
