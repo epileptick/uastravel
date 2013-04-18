@@ -195,6 +195,7 @@ $route['images/ajax_delete/(:any)'] = 'images/ajax_delete/$1';
 //User
 $route['user'] = 'user';
 $route['user/login'] = 'user/login';
+$route['user/login_ajax'] = 'user/login_ajax';
 $route['user/logout'] = 'user/logout';
 
 

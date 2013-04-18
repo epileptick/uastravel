@@ -91,7 +91,7 @@ class MY_Parser extends CI_Parser {
     }
 
     protected function replace_block_keys($template) {
-        return preg_replace_callback(self::LANG_INCLUDE_REGEXP, array($this, 'replace_block_key'), $template);
+        return preg_replace_callback(self::LANG_BLOCK_REGEXP, array($this, 'replace_block_key'), $template);
     }
 
     protected function replace_lang_key($key) {
