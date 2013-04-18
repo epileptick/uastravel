@@ -455,6 +455,6 @@
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/isotope/jquery.isotope.min.js');?>"></script>
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/isotope/js/jquery.infinitescroll.min.js');?>"></script>
     {_include tracker}
-    
+    {_block modal_login}
   </body>
 </html>
