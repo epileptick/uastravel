@@ -195,9 +195,18 @@ $route['images/ajax_delete/(:any)'] = 'images/ajax_delete/$1';
 //User
 $route['user'] = 'user';
 $route['user/login'] = 'user/login';
+$route['user/fblogin'] = 'user/fblogin';
 $route['user/login_ajax'] = 'user/login_ajax';
+$route['user/logout_ajax'] = 'user/logout_ajax';
 $route['user/logout'] = 'user/logout';
 
+$route['admin/user'] = 'user/admin_index';
+$route['admin/user/create'] = 'user/admin_create';
+$route['admin/user/create/(:num)'] = 'user/admin_create/$1';
+
+//Group
+$route['admin/group'] = 'group/admin_index';
+$route['admin/group/create'] = 'group/admin_create';
 
 //Home
 $route['admin'] = 'home/admin_list';
