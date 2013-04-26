@@ -298,7 +298,6 @@ class MY_Model extends CI_Model {
     if(is_null($options)){
       return FALSE;
     }
-
     //Set data
     foreach($options AS $columnName=>$columnValue){
       if(array_key_exists($columnName, $this->_column)){
@@ -306,7 +305,7 @@ class MY_Model extends CI_Model {
       }
     }
 
-    if(!empty($options['id']) OR !empty($options['where']) OR (!empty($options['isUpdate']) && $options['isUpdate'] == TRUE)){
+    if((!empty($options['id']) OR !empty($options['where']) OR (!empty($options['isUpdate']) AND $options['isUpdate'] == TRUE)) AND (empty($options['forceAdd']) OR $options['forceAdd'] == FALSE)){
       if($this->_getColumn("lu_date")){
         $this->db->set($this->_getColumn("lu_date"), date( 'Y-m-d H:i:s'));
       }
@@ -331,13 +330,16 @@ class MY_Model extends CI_Model {
         if($this->_getColumn("lu_date")){
           $set[$this->_getColumn("lu_date")] = date( 'Y-m-d H:i:s');
         }
+
         $result = $this->db->update($this->_table,$set);
+
         if(!empty($options['id'])){
           $objData = $options['id'];
         }else{
           $objData = $result;
         }
       }else{
+
         $result = $this->db->update($this->_table);
         if($result){
           if(!empty($options['id'])){

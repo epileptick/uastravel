@@ -4,6 +4,8 @@ $('a.login-window').click(function() {
 
     //Getting the variable's value from a link
     var loginBox = $(this).attr('href');
+    //console.log(this);
+    //console.log(loginBox);
 
     //Fade in the Popup
     $(loginBox).fadeIn(300);
@@ -26,26 +28,27 @@ $('a.login-window').click(function() {
 
 // When clicking on the button close or the mask layer the popup closed
 $('a.close, #mask').live('click', function() {
-      $('#mask , .login-popup').fadeOut(300 , function() {
+      $('#mask , .login-popup, #redirect-box').fadeOut(300 , function() {
         $('#mask').remove();
     });
     return false;
 });
 
 $('form').submit(function() {
-    console.log('Log: submit');
+    //console.log('Log: submit');
+    $('#alert').html('<img src=\"".Util::ThemePath()."/images/ajax-loader.gif\" border=\"0\">');
+    $('#alert').show('300');
+    $('#alert').css('display', 'block').delay(5000);
+    $('#alert').css('text-align', 'center');
     $.post('".base_url("user/login_ajax")."', $('#login_form').serialize(),function(data) {
-        console.log('Data Loaded: ' + data);
-        var obj = jQuery.parseJSON(data);
+        //console.log('Data Loaded: ' + data);
+        //var obj = jQuery.parseJSON(data);
+        var obj = data;
         if(obj.result == '0'){
             $('#alert').html(obj.error);
-            $('#alert').show('300');
-            $('#alert').css('display', 'block').delay(5000);
             $('#alert').hide('300');
         }else{
             $('#alert').html('Successful!');
-            $('#alert').show('300');
-            $('#alert').css('display', 'block').delay(5000);
             $('#alert').hide('300');
             location.reload();
         }
@@ -56,7 +59,9 @@ $('form').submit(function() {
 
 });</script>");
 ?>
-
+<div id="redirect-box" class="redirect-popup" style="text-align:center;">
+    <img src="<?php echo Util::ThemePath();?>/images/ajax-loader.gif" border="0">
+</div>
 <div id="login-box" class="login-popup">
 <a href="#" class="close"><img src="<?php echo Util::ThemePath();?>/images/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>
   <form method="post" class="signin" id="login_form" action="<?php echo base_url("user/login"); ?>">
@@ -76,4 +81,51 @@ $('form').submit(function() {
         </p>
         </fieldset>
   </form>
+  <hr />
+<img src="<?php echo Util::ThemePath(); ?>/images/login_with_facebook.png" border="0" id="facebook" style="cursor:pointer;display:block;margin-left:auto;margin-right:auto;">
+<div id="fb-root"></div>
+   <script type="text/javascript">
+  window.fbAsyncInit = function() {
+     FB.init({ 
+       appId:'<?php echo $this->config->item('appId'); ?>', cookie:true, 
+       status:true, xfbml:true,oauth : true 
+     });
+   };
+   (function(d){
+           var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement('script'); js.id = id; js.async = true;
+           js.src = "//connect.facebook.net/en_US/all.js";
+           ref.parentNode.insertBefore(js, ref);
+         }(document));
+ $('#facebook').click(function(e) {
+    $('#login-box').fadeOut(300);
+    $('#redirect-box').fadeIn(300);
+    FB.login(function(response) {
+      $('#alert').css('display', 'block').delay(5000);
+      $('#alert').css('text-align', 'center');
+      console.log(response);
+      if(response.authResponse) {
+          $('#redirect-box').html('Successful!').fadeIn(300);
+          $('#redirect-box').html('<img src="<?php echo Util::ThemePath();?>/images/ajax-loader.gif" border="0"><br />Please wait for redirection...').fadeIn(300);
+          $('#redirect-box').css('text-align', 'center');
+          parent.location ='<?php echo base_url("user/fblogin"); ?>';
+      }else{
+        $('#redirect-box').fadeOut(300);
+        $('#login-box').fadeIn(300);
+        $('#alert').html("An error occurred, Please try again later").show(300);
+        $('#alert').hide(1000);
+      }
+    //Set the center alignment padding + border see css style
+    var popMargTop = ($('#redirect-box').height() + 44) / 2;
+    var popMargLeft = ($('#redirect-box').width() + 44) / 2;
+
+    $('#redirect-box').css({
+      'margin-top' : -popMargTop,
+      'margin-left' : -popMargLeft
+    });
+ },{scope: 'email,read_stream,publish_stream,user_birthday,user_location,user_work_history,user_hometown,user_photos,photo_upload,user_photo_video_tags'});
+});
+   </script>
 </div>
+

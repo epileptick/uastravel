@@ -57,14 +57,87 @@ class User extends MY_Controller {
         $data["result"] = "1";
       }else{
         $data["result"] = "0";
-        $data["error"] = "Password not match.";
+        $data["error"] = "Username and Password not match.";
       }
     }else{
       $data["result"] = "0";
       $data["error"] = "Please fill the required fields.";
     }
-    echo json_encode($data);
-    exit;
+    $this->output
+    ->set_content_type('application/json')
+    ->set_output(json_encode($data));
+  }
+
+  function fblogin(){
+
+    $facebook = new Facebook(array(
+    'appId'     =>  $this->config->item('appId'),
+    'secret'    => $this->config->item('secret'),
+    ));
+
+    $user = $facebook->getUser();
+    if($user){
+        try{
+            $user_profile = $facebook->api('/me');
+            //var_dump($user_profile);exit;
+            $user_profile["forceAdd"] = FALSE;
+            if(!$getResult = $this->userModel->get($user_profile["id"])){
+              $randPassword = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') , 0 , 8 );
+              $user_profile["password"] = md5(md5($randPassword));
+              $user_profile["forceAdd"] = TRUE;
+              if(!empty($user_profile["hometown"]["name"])){
+                $user_profile["hometown"] = $user_profile["hometown"]["name"];
+              }
+              if(!empty($user_profile["location"]["name"])){
+                $user_profile["location"] = $user_profile["location"]["name"];
+              }
+
+              if(!empty($user_profile["birthday"])){
+                $birthdayArray = explode("/", $user_profile["birthday"]);
+                $user_profile["birthday"] = ($birthdayArray[2]."-".$birthdayArray[0]."-".$birthdayArray[1]);
+              }
+
+              $user_profile["status"] = $user_profile["verified"];
+
+              $this->userModel->add($user_profile);
+              $addResult = $this->userModel->get($user_profile["id"]);
+              if($addResult){
+                if($user_profile["forceAdd"]){
+                  $this->load->library('email');
+                  $this->email->from('no-reply@uastravel.com', 'UAsTravel');
+                  $this->email->to($user_profile["email"]);
+
+                  $this->email->subject('UAsTravel Password');
+                  $this->email->message('Testing the email class.\n password: '.$randPassword);
+
+                  $this->email->send();
+                }
+              }
+
+            }
+            if(empty($addResult)){
+              $addResult = $this->userModel->get($user_profile["id"]);
+            }
+            unset($addResult[0]["password"]);
+            $this->session->set_userdata("user_data",$addResult[0]);
+            $this->session->set_userdata("logged_in",TRUE);
+        }catch(FacebookApiException $e){
+            error_log($e);
+            $user = NULL;
+        }
+    }
+    redirect(base_url(),"refresh");
+  }
+
+
+  function logout_ajax(){
+    if($this->session->userdata("logged_in") == TRUE){
+        $this->session->set_userdata("logged_in",FALSE);
+    }
+    $data["result"] = "1";
+    $this->output
+    ->set_content_type('application/json')
+    ->set_output(json_encode($data));
   }
 
   function logout(){
@@ -75,8 +148,88 @@ class User extends MY_Controller {
   }
 
   function register(){
-    
+
   }
 
+
+  function admin_index(){
+    $result = array();
+
+    $config['per_page'] = 50;
+
+    $config['prev_link'] = '<img class="blogg-button-image" alt="โพสต์ใหม่" src="/themes/Travel/images/left_arrow.png">';
+    $config['prev_tag_open'] = '<button class="blogg-button blogg-collapse-right" title="โพสต์ใหม่" disabled="" tabindex="0">';
+    $config['prev_tag_close'] = '</button>';
+
+    $config['next_link'] = '<img class="blogg-button-image" alt="โพสต์เก่า" src="/themes/Travel/images/right_arrow.png">';
+    $config['next_tag_open'] = '<button class="blogg-button blogg-button-page blogg-collapse-left" title="โพสต์เก่า"  tabindex="0">';
+    $config['next_tag_close'] = '</button>';
+
+    $config['num_tag_open'] = '<button class="blogg-button blogg-button-page blogg-collapse-right blogg-collapse-left" title="โพสต์เก่า"  tabindex="0">';
+    $config['num_tag_close'] = '</button>';
+
+    $config['cur_tag_open'] = '<button class="blogg-button blogg-collapse-right blogg-collapse-left" title="โพสต์เก่า" disabled="true" tabindex="0">';
+    $config['cur_tag_close'] = '</button>';
+
+    //get all the URI segments for pagination and sorting
+    $segment_array=$this->uri->segment_array();
+    $segment_count=$this->uri->total_segments();
+
+    $this->load->library('pagination');
+    $config['base_url'] = site_url(join("/",$segment_array));
+    $config['total_rows'] = $this->userModel->count_rows();
+
+    $result['total_rows'] = $config['total_rows'];
+
+    //getting the records and limit setting
+    if (ctype_digit($segment_array[$segment_count])) {
+      $this->db->limit($config['per_page'],$segment_array[$segment_count]);
+      $result['start_offset'] = $segment_array[$segment_count]+1;
+      $result['end_offset'] = $segment_array[$segment_count]+$config['per_page'];
+      if(($result['end_offset'])>$config['total_rows']){
+       $result['end_offset'] = $result['total_rows'];
+      }
+      array_pop($segment_array);
+    } else {
+      $this->db->limit($config['per_page']);
+      $result['start_offset'] = 1;
+      $result['end_offset'] = $config['per_page'];
+    }
+
+    $config['base_url'] = site_url(join("/",$segment_array));
+    $config['uri_segment'] = count($segment_array)+1;
+
+    $result["user_list"] = $this->userModel->get();
+
+    //initialize pagination
+    $this->pagination->initialize($config);
+    $this->_fetch("admin_index",$result);
+  }
+
+function admin_create($id = NULL){
+
+    if(empty($id)){
+      $_post = $this->input->post();
+      if(empty($_post["password"])){
+        unset($_post["password"]);
+        unset($_post["password_retry"]);
+      }
+      $_post["name"] = $_post["first_name"]." ".$_post["last_name"];
+
+      $userData = $this->userModel->add($_post);
+      if($userData){
+        redirect(base_url("admin/user/create/".$userData));
+      }else{
+        redirect(base_url("admin/user"));
+      }
+    }else{
+      $this->load->model("group_model","groupModel");
+      $userData = $this->userModel->get($id);
+      $groupData = $this->groupModel->get(array("order"=>"id ASC"));
+      $result["user"] = $userData[0];
+      $result["group"] = $groupData;
+      $this->_fetch("admin_create",$result);
+    }
+  }
 }
 ?>

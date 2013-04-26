@@ -67,6 +67,7 @@ class Type extends MY_Controller {
       if(empty($post["url"])){
         $post["url"] = Util::url_title(trim($post["name"]));
       }
+
       if(!empty($post["name"])){
         $this->load->model("tagtype_model", "tagTypeModel");
         if(!empty($post["tag"]["id"])){
@@ -75,13 +76,14 @@ class Type extends MY_Controller {
           $whereTagType["group"] = "tag_id";
           $tagTypeData = $this->tagTypeModel->get($whereTagType);
           //var_dump($this->db->last_query());
-			//var_dump($post["tag"]);
-			//var_dump($tagTypeData);
+
           if(!empty($tagTypeData)){
             foreach($tagTypeData AS $tagTypeDataKey=>$tagTypeDataValue){
               if(($resultSearch = array_search($tagTypeDataValue["tag_id"],$post["tag"]["id"])) === FALSE){
-                $deleteTagType[] = $tagTypeDataValue["id"];
-                $this->tagTypeModel->delete($tagTypeDataValue["id"]);
+                $deleteTagType["where"]["tag_id"] = $tagTypeDataValue["tag_id"];
+                $deleteTagType["where"]["type_id"] = $tagTypeDataValue["type_id"];
+                $deleteTagType["where"]["parent_id"] = $tagTypeDataValue["parent_id"];
+                $this->tagTypeModel->delete($deleteTagType);
                 if(isset($post["order"][$tagTypeDataValue["tag_id"]])){
                   unset($post["order"][$tagTypeDataValue["tag_id"]]);
                 }
@@ -98,11 +100,11 @@ class Type extends MY_Controller {
             $this->tagTypeModel->add($tagToAdd);
           }
           foreach ($post["order"] as $orderKey => $orderValue) {
-            $tagToAdd["where"]["tag_id"] = $orderKey;
-            $tagToAdd["where"]["type_id"] = $post["id"];
-            $tagToAdd["where"]["parent_id"] = 0;
-            $tagToAdd["set"]["index"] = $orderValue;
-            $this->tagTypeModel->add($tagToAdd);
+            $tagOrderToUpdate["where"]["tag_id"] = $orderKey;
+            $tagOrderToUpdate["where"]["type_id"] = $post["id"];
+            $tagOrderToUpdate["where"]["parent_id"] = 0;
+            $tagOrderToUpdate["set"]["index"] = $orderValue;
+            $this->tagTypeModel->add($tagOrderToUpdate);
           }
           unset($post["tag"]);
 
@@ -112,7 +114,6 @@ class Type extends MY_Controller {
           $this->tagTypeModel->delete($whereTagType);
         }
       }
-
       $post["id"] = $this->typeModel->add($post);
       if(!empty($post["id"])){
         redirect(base_url("admin/type/create/".$post["id"]));
