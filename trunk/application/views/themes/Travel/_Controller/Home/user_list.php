@@ -20,26 +20,11 @@
   });
 </script>
 
-<?php
-  if($this->uri->segment(1)){
-
-?>
-  <title><?php echo $this->lang->line("global_lang_main_title_province_1");?> <?php echo $this->uri->segment(1);?> <?php echo $this->lang->line("global_lang_main_title_province_2");?> - U As Travel</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="สถานที่ท่องเที่ยวในจังหวัด<?php echo $this->uri->segment(1);?> และทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยวในจังหวัด<?php echo $this->uri->segment(1);?>  และแพคเกจทัวร์ราคาพิเศษ" />
-  <meta name="keywords" content="" />
-<?php
-  }else{
-?>
   <title><?php echo $this->lang->line("global_lang_main_title");?> - U As Travel</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
   <meta name="description" content="สถานที่ท่องเที่ยว และทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยว  และแพคเกจทัวร์ราคาพิเศษ" />
   <meta name="keywords" content="" />
-<?php
-  }
-  ?>
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -144,12 +129,13 @@
 
             <div class="content">
               {_include user_tab}
+              {_block modal_login}
               <div class="row-fluid">
                 <div class="navbar">
                     <div class="navbar-inner">
                         <div id="options">
                           <ul class="option-set nav" >
-                            <span class="brand">Filter :</span>
+                            <span class="brand"><?php echo $this->lang->line("global_lang_province");?> :</span>
                             <?php
                             if(!empty($menu))
                             if($menu[0]->select_all == 1){
@@ -455,6 +441,6 @@
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/isotope/jquery.isotope.min.js');?>"></script>
     <script src="<?php echo base_url('themes/Travel/tour/javascripts/isotope/js/jquery.infinitescroll.min.js');?>"></script>
     {_include tracker}
-    {_block modal_login}
+    
   </body>
 </html>

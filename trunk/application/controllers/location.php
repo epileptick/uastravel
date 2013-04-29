@@ -3,17 +3,14 @@
 class Location extends MY_Controller {
   function __construct(){
     parent::__construct();
-    //var_dump($this->lang->lang());
   }
 
   function _index($where=""){
     $locationData["location"] = $this->locationModel->get($where);
-
     return $locationData;
   }
 
   function admin_index(){
-
     $result = array();
 
     $config['per_page'] = 15;
@@ -120,6 +117,7 @@ class Location extends MY_Controller {
 
       $this->user_listbytag($tag, $page);
 
+
     }else if(is_numeric($this->uri->segment($index+1))){
       ////////////////////////////
       // location/page
@@ -147,6 +145,7 @@ class Location extends MY_Controller {
       $this->user_listbytag($tag, $page);
 
     }else{
+
       ////////////////////////////
       // tour
       // algorithm : http://www/tour
@@ -158,73 +157,7 @@ class Location extends MY_Controller {
       //echo "tour";
       $this->user_list($page);
     }
-/*
-    print_r($index);
-    exit;
 
-    if(is_numeric($this->uri->segment($index+2))){
-      ////////////////////////////
-      // tage/page
-      // algorithm : http://www/tour/2/3
-      // algorithm : http://www/tour/tag/page
-      // sample : http://uastravel.com/tour/halfday/10
-      ////////////////////////////
-      $page = $this->uri->segment($index+2);//3;
-      $tag = $this->uri->segment($index+1);//2
-      //echo "tag/".$page;
-
-      $this->user_listbytag($tag, $page);
-
-    }else if(is_numeric($this->uri->segment($index+1))){
-      ////////////////////////////
-      // tour/page
-      // algorithm : http://www/tour/2
-      // algorithm : http://www/tour/tag/page
-      // sample : http://uastravel.com/tour/10
-      ////////////////////////////
-      $page = $this->uri->segment($index+1); //2
-      $tag = 0;
-
-      //echo "tour/".$page;
-
-      $this->user_list($page);
-
-    }else if($this->uri->segment($index+1)){
-      ////////////////////////////
-      // tag
-      // algorithm : http://www/tour/2
-      // algorithm : http://www/tour/tag
-      // sample : http://uastravel.com/tour/halfday
-      ////////////////////////////
-      $page = 0;
-      $tag = $this->uri->segment($index+1); //2
-      //$call = "tag";
-
-      $this->user_listbytag($tag, $page);
-
-    }else{
-      ////////////////////////////
-      // tour
-      // algorithm : http://www/tour
-      // algorithm : http://www/tour
-      // sample : http://uastravel.com/tour
-      ////////////////////////////
-      $page = 0;
-      $tag = 0;
-      //echo "tour";
-
-      $this->user_list($page);
-    }
-
-
-    $keyword = $this->input->post();
-    if($keyword){
-      $this->_search("user_list");
-    }else{
-      $this->user_list();
-    }
-
-    */
   }
 
 
@@ -339,6 +272,7 @@ class Location extends MY_Controller {
 
 
   function user_listbytag($tag=false, $page=0){
+
     $per_page = 20;
     $data["menu"] = $this->_location_menu($tag);
 
@@ -374,6 +308,9 @@ class Location extends MY_Controller {
 
     if(!empty($query["offset"])){
       if($query["offset"]>0){
+        if(empty($data["location"])){
+          show_404();
+        }
         $this->_fetch('user_listnextpage', $data, false, true);
       }else{
         //print_r($data);

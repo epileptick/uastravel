@@ -17,9 +17,7 @@ class Carrent extends MY_Controller {
     }
 
     //Check path
-     if($this->uri->segment($index+1)=="list"){
-        $this->user_list();
-    } else if($this->uri->segment($index+1)=="inquiry"){
+     if($this->uri->segment($index+1)=="inquiry"){
         $this->user_inquiry();
     }else if($this->uri->segment($index+1) == "booking"){
 
@@ -31,36 +29,36 @@ class Carrent extends MY_Controller {
         $args = $this->input->post(); 
         $this->user_booking($args);
       }
+    }else{
+        $this->user_list();
     }
-    
   }
 
-  function validate_captcha(){
-    if($this->input->post('captcha') != $this->session->userdata['captcha'])
-    {
-        $this->form_validation->set_message('validate_captcha', 'Wrong captcha code, hmm are you the Terminator?');
-        return false;
-    }else{
-        return true;
-    }
-
-}
-
   function user_inquiry(){
-
-    $this->_fetch('user_inquiry',false, false, true);
+    $data['recaptcha_html'] = $this->recaptcha->recaptcha_get_html();
+    $this->_fetch('user_inquiry',$data, false, true);
  
   }
 
    function user_list(){
+
 
     $this->_fetch('user_list',false, false, true);
   }
 
 
   function user_booking($args){
-
     if(!empty($args)){
+      $this->recaptcha->recaptcha_check_answer(
+              $_SERVER['REMOTE_ADDR'],
+              $this->input->post('recaptcha_challenge_field'),
+              $this->input->post('recaptcha_response_field'));
+      if(!$this->recaptcha->is_valid){
+        return;
+      }
+
+      unset($args["recaptcha_challenge_field"]);
+      unset($args["recaptcha_response_field"]);
 
       $this->load->model("carbooking_model", "carbookingModel");
       $booking = $this->carbookingModel->addRecord($args);

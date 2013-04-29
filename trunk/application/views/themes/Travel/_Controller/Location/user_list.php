@@ -135,12 +135,14 @@
           </div><!--/sidebar-->
           <div class="main">
             <div class="content">
+              {_include user_tab}
+              {_block modal_login}
               <div class="row-fluid">
                 <div class="navbar">
                     <div class="navbar-inner">
                         <div id="options">
                           <ul class="option-set nav" >
-                            <span class="brand">Filter :</span>
+                            <span class="brand"><?php echo $this->lang->line("global_lang_province");?> :</span>
                             <?php
                             if(!empty($menu))
                             if($menu[0]->select_all == 1){

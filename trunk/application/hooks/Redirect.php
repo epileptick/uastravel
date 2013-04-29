@@ -59,20 +59,20 @@ class Redirect {
         }
       }
     }
-/*
+
     if($current_lang == "th"){
       if($segment_array[1] == "location"){
         $segment_array[1] = $langEN["url_lang_location"];
         Redirect(base_url(implode("/", $segment_array)),"301");
       }
+      
       foreach ($langEN as $keyEN => $valueEN) {
         if($valueEN == $segment_array[1]){
+          $segment_array[1] = $langTH[$keyEN];
           $base_url = $this->CI->config->item('base_url');
           $base_url = str_replace("http://", "", $base_url);
           $base_urlArray = explode(".", $base_url);
           if(count($base_urlArray)<3){
-            $base_url = "en.".$base_url;
-          }else{
             $base_urlArray[0] = "en";
             $base_url = implode(".", $base_urlArray);
           }
@@ -81,7 +81,7 @@ class Redirect {
         }
       }
     }
-*/
+
   }
 
 }

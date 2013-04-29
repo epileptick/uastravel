@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/foundation.css');?>">
   <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/style.css');?>">
   <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/app.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('themes/Travel/style/carrent.css');?>">
   <script src="<?php echo base_url('themes/Travel/tour/javascripts/modernizr.foundation.js');?>"></script>
   <!--[if lt IE 9]>
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
@@ -391,9 +392,16 @@
       <!--button booking-->
       <div class="row">
           <div class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;"> 
-            <div class="eight columns">
+            <div class="twelve columns box-recaptcha">
+              <script type="text/javascript">
+               var RecaptchaOptions = {
+                  theme : 'clean'
+               };
+              </script>
+              <?php echo $recaptcha_html;?>
+              <div class="clearfix"></div>
             </div>
-            <div class="four columns">
+            <div class="twelve columns">
               <input class="button small  booking" style="width:150px;" type="submit" value="จองรถเช่า">
             </div>
           </div>
