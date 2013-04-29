@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE ]>    <html class="no-js ie-all" lang="en"> <![endif]-->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -166,14 +166,15 @@
           </div><!--/sidebar-->
           <div class="main">
             <div class="content">
-
+              {_include user_tab}
+              {_block modal_login}
               <!-- Start first menu -->
               <div class="row-fluid">
                 <div class="navbar">
                     <div class="navbar-inner">
                         <div id="options">
                           <ul class="option-set nav" >
-                          <span class="brand">จังหวัด :</span>
+                          <span class="brand"><?php echo $this->lang->line("global_lang_province");?> :</span>
                             <?php
                             if($menu_selectall == true){
                             ?>
@@ -348,9 +349,9 @@
               ?>
               <!-- End sub menu -->
 
-    			  <?php
-    				if(!empty($hotel)){
-    			  ?>
+            <?php
+            if(!empty($hotel)){
+            ?>
               <div class="row-fluid">
                 <div class="span12">
                   <div id="attractions" style="display:none;" class="clickable variable-sizes">
@@ -528,20 +529,20 @@
                   </div> <!-- #attractions -->
                 </div><!--/span12-->
               </div>
-    			  <?php
-    				}else{
-    			  ?>
-    					<br><br><br><br><br>
-    					<center>
-    					<font size="28">
-    						ไม่พบข้อมูลที่ท่านต้องการ
-    					</font>
-    					<center>
+            <?php
+            }else{
+            ?>
+              <br><br><br><br><br>
+              <center>
+              <font size="28">
+                ไม่พบข้อมูลที่ท่านต้องการ
+              </font>
+              <center>
 
-    			  <?php
-    				}
-    				//End check hotel
-    			  ?>
+            <?php
+            }
+            //End check hotel
+            ?>
 
             </div>
           </div><!--/content-->

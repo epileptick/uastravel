@@ -23,48 +23,36 @@ class Home extends MY_Controller {
   }
 
   function _home_menu($select=false){
-      $type["type_id"] = 1;
-      $currentLang = $this->lang->lang();
+      $type["where"]["type_id"] = 1;
       $this->load->model("tagtype_model", "tagtypeModel");
-      $tagtypeQuery = $this->tagtypeModel->getRecord($type);
+      $tagtypeQuery = $this->tagtypeModel->getTagTypeList($type);
 
       $this->load->model("tag_model", "tagModel");
 
       $count = 0;
-      if(!empty($tagtypeQuery)){
-        foreach ($tagtypeQuery as $key => $value) {
-          //Menu Tag
-          $tag["id"] = $value->tag_id;
-          $tag["lang"] = $currentLang;
-          $tagQuery = $this->tagModel->get($tag);
+      foreach ($tagtypeQuery as $key => $value) {
+        
+        $menu[$count] = new stdClass();
+        $menu[$count]->tag_id = $value["tag_id"];
+        $menu[$count]->name = $value["name"];
+        $menu[$count]->url = $value["url"];
 
-          if(!empty($tagQuery)){
-            $menu[$count] = new stdClass();
-            $menu[$count]->tag_id = $tagQuery[0]["id"];
-            $menu[$count]->name = $tagQuery[0]["name"];
-            $menu[$count]->url = $tagQuery[0]["url"];
-          }
-
-
-          //Select all
-          if($select){
-            $menu[$count]->select_all = 0;
-          }else{
-            $menu[$count]->select_all = 1;
-          }
-          //Select element
-          if($select && $select == $tagQuery[0]["name"]){
-            $menu[$count]->select = 1;
-          }else{
-            $menu[$count]->select = 0;
-          }
-
-          $count++;
+        //Select all
+        if($select){
+          $menu[$count]->select_all = 0;
+        }else{
+          $menu[$count]->select_all = 1;
         }
-      }else{
-        $menu = FALSE;
-      }
+        //Select element
+        if($select && $select == $value["name"]){
+          $menu[$count]->select = 1;
+        }else{
+          $menu[$count]->select = 0;
+        }
 
+        $count++;
+      }
+      
       return $menu;
       //print_r($menu);  exit;
   }

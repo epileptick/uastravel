@@ -9,9 +9,15 @@ class Login {
   }
 
   public function checkLogin(){
+    $user_data = $this->CI->session->userdata("user_data");
+    if($this->CI->uri->segment(1) == "admin"){
+      if($user_data["group"] != 1){
+        show_404();
+      }
+    }
     if(($this->CI->session->userdata("logged_in") === NULL OR $this->CI->session->userdata("logged_in") === FALSE OR $this->CI->session->userdata("logged_in") === 0) AND  $this->CI->uri->segment(1) == "admin"){
       if($this->CI->router->class != "user"){
-        redirect(base_url("user/login"),"refresh");
+        redirect(base_url(),"refresh");
       }
     }else{
       //echo "Cache disable!";

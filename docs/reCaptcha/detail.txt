@@ -1,0 +1,8 @@
+Domain Name:	uastravel.com
+reCAPTCHA will only work on this domain and subdomains. If you have more than one domain (or a staging server), you can create a new set of keys.
+
+Public Key:	6LeYe-ASAAAAAKgycV47zjR0vN-XdQPHa4f5tkd_
+Use this in the JavaScript code that is served to your users
+
+Private Key:	6LeYe-ASAAAAANuvKivAHPh-ulpLPiCBK5Ih3gPT
+Use this when communicating between your server and our server. Be sure to keep it a secret.
