@@ -9,6 +9,11 @@ class Redirect {
   function RedirectClass(){
     $current_lang = $this->CI->lang->lang();
     $segment_array = $this->CI->uri->segment_array();
+    if(!empty($segment_array["1"])){
+      if($segment_array["1"] == "tag"){
+        return;
+      }
+    }
 
     $redirect = FALSE;
 
@@ -65,7 +70,6 @@ class Redirect {
         $segment_array[1] = $langEN["url_lang_location"];
         Redirect(base_url(implode("/", $segment_array)),"301");
       }
-      
       foreach ($langEN as $keyEN => $valueEN) {
         if($valueEN == $segment_array[1]){
           $segment_array[1] = $langTH[$keyEN];

@@ -128,6 +128,7 @@ class CustomTour extends MY_Controller {
 
       //var_dump($tagQuery); exit;
       $data["tours"]["filter"]["defaulttag"] = $tagQuery[0]["name"];
+      $data["tours"]["filter"]["defaulttag_id"] = $tagQuery[0]["id"];
 
 
       $this->load->model("tagtour_model", "tagtourModel");
@@ -146,14 +147,12 @@ class CustomTour extends MY_Controller {
         unset($explode_thirdtag[count($explode_thirdtag)-1]);
         $implode_thirdtag = implode(",", $explode_thirdtag);
 
-
         $argTour["type_id"] = $args["firsttag_id"];
         $argTour["tag_id"]  = $args["secondtag_id"];
         $argTour["subtype_id"] = $implode_thirdtag;
 
         $argTour["menu"][0] = $args["firsttag_id"];
         $argTour["menu"][1] = $args["secondtag_id"];
-
 
         $count = 2;
         foreach($explode_thirdtag as $key => $value) {
@@ -170,14 +169,10 @@ class CustomTour extends MY_Controller {
       //print_r($data);
       $this->_fetch('ajax_filterdata', $data, false, true);
     }
-
-
   }
 
 
   function user_create($id = false){
-
-
      //header('Content-Type: text/xml; charset=utf-8');
     //echo "user create : ".$id;
     $data = false;
@@ -227,6 +222,7 @@ class CustomTour extends MY_Controller {
       $data["tours"]["filter"]["thirdtag"] = $thirdTagTourQuery;
 
       $data["tours"]["filter"]["defaulttag"] = $firstTagTourQuery[0]["name"];
+      $data["tours"]["filter"]["defaulttag_id"] = $firstTagTourQuery[0]["tag_id"];
 
       $argTour["type_id"] = $firstTagTourQuery[0]["tag_id"];
       $argTour["tag_id"]  = $secondTagTourQuery[0]["tag_id"];
@@ -291,7 +287,9 @@ class CustomTour extends MY_Controller {
 
 
   function user_add($data = false){
-
+    $post = $this->input->post();
+    var_dump($_REQUEST);die;
+    var_dump($post);die;
   }
 
   function user_list($page){

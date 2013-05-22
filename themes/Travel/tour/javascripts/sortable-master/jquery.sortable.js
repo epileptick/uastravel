@@ -16,6 +16,8 @@ $.fn.sortable = function(options) {
 	return this.each(function() {
 		if (/^enable|disable|destroy$/.test(method)) {
 			var items = $(this).children($(this).data('items')).attr('draggable', method == 'enable');
+			console.log("index"+$(items).index());
+			console.dir(items);
 			if (method == 'destroy') {
 				items.add(this).removeData('connectWith items')
 					.off('dragstart.h5s dragend.h5s selectstart.h5s dragover.h5s dragenter.h5s drop.h5s');
@@ -45,8 +47,8 @@ $.fn.sortable = function(options) {
 			dt.effectAllowed = 'move';
 			dt.setData('Text', 'dummy');
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
-			//alert(index);
-			//console.log(dragging);
+			//console.log("index"+index);
+			//console.dir("dragging"+dragging);
 		}).on('dragend.h5s', function() {
 			if (!dragging) {
 				return;

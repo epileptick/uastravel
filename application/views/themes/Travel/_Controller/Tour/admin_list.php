@@ -335,7 +335,7 @@ class="blogg-menu-popup">
                     $countTag = count($value['tag']);
                     $count = 1;
                     foreach ($value['tag'] as $keyTag => $valueTag) {
-                ?>
+                ?><!--
                     <font color="#FFA951">
                       <a href="<?php echo base_url('admin/tour/'.$valueTag["name"]);?>" style="color:#FFA951;">
                         <i><u>
@@ -343,9 +343,10 @@ class="blogg-menu-popup">
                         </u></i>
                       </a>
                     </font>
+                  -->
                 <?php
                       if($countTag != $count){
-                        echo ",&nbsp;";
+                        //echo ",&nbsp;";
                       }
                       $count++;
                     }
