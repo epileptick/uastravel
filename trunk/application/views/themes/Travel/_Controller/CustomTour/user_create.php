@@ -11,12 +11,48 @@
   <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/foundation.css');?>">
   <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/style.css');?>">
   <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/app.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('themes/Travel/style/customtour.css');?>">
   <script src="<?php echo base_url('themes/Travel/tour/javascripts/modernizr.foundation.js');?>"></script>
   <!--[if lt IE 9]>
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+
+  <script src="<?php echo base_url('themes/Travel/tour/javascripts/foundation.min.js'); ?>"></script>
+  <!-- Initialize JS Plugins -->
+  <script src="<?php echo base_url('themes/Travel/tour/javascripts/app.js'); ?>"></script>
+  <!-- To top scrollbar  -->
+  <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/easing.js'); ?>" type="text/javascript"></script>
+  <!-- UItoTop plugin -->
+  <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/jquery.ui.totop.js'); ?>" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/css/ui.totop.css'); ?>" />
+  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/powertip/jquery.powertip.js'); ?>"></script>
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url('themes/Travel/tour/javascripts/powertip/jquery.powertip.css'); ?>" />
+
+  <script src="<?php echo base_url('themes/Travel/tour/javascripts/jquery.nanoscroller.min.js'); ?>"></script>
+
+
+  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/selectik-master/js/jquery.mousewheel.js'); ?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/selectik-master/js/jquery.selectik.js'); ?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/jquery.easytabs.min.js'); ?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/alertify.js'); ?>"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/jquery.selectable.min.js'); ?>"></script>
+  <script>
+  // Tab
+  $(document).ready(function() {
+    $('.tabs').easytabs({
+      animate : true,
+      updateHash : false,
+      animationSpeed :'normal',
+      defaultTab: "li:last-child"
+    });
+  });
+
+</script>
 </head>
 <body style="background: #ededed url(<?php echo base_url('themes/Travel/tour/images/bg1.jpg');?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
   <div class="overly-bg"></div>
@@ -44,6 +80,13 @@
     </div>
     <!-- End Menu -->
     <br/><br/><br/><br/><br/>
+
+    <form name="package_customize"
+          id="form_package_customize"
+          action="<?php echo base_url('customtour/add');?>"
+          method="post"
+    >
+
     <div class="row">
       <section class="article darg_packet">
         <div class="row">
@@ -53,13 +96,14 @@
               <p class="action_button top_add_date">
                 <a class="button add_date">เพิ่มวัน</a>
               </p>
-              <input type="text" placeholder="ชื่อทัวร์">
+              <input type="text" placeholder="ชื่อทัวร์" name="packageName">
               <div class="packet_item" number="1">
                 <div class="sticker_date">วันที่ 1</div>
                 <ul class="connected list no1" >
                 </ul>
-                <!-- a class="close tooltip_ne" title="ลบ"></a -->
+                <a class="close tooltip_ne" title="ลบ"></a>
               </div>
+
 
             </div>
             <div class="abstract">
@@ -89,15 +133,12 @@
             </div>
             <p class="action_button">
 
-              <form name="input"
-                    action="<?php echo base_url('customtour/add');?>"
-                    method="post"
-              >
+                <a class="button clear_date">เคลียทั้งหมด</a>
                 <a class="button add_date">เพิ่มวัน</a>
 
                 <!-- Booking data -->
                 <input type="hidden" name="id" value=""></input>
-                <input class="button"  type="submit" value="จองทัวร์นี้">
+                <input class="button"  type="submit" value="จัดทัวร์">
               </form>
             </p>
           </div>
@@ -112,15 +153,49 @@
             <div class='tabs-container'>
 
 
-        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 
               <!-- Tour -->
               <div id="tabs1">
+
                 <input type="hidden" id="example1-serialized" class="span6"></textarea>
-                <h3>แพ็กเก็จทัวร์</h3>
                 <div class="search_package">
                   <div class="selects">
                     <div class="select-block">
+                      <h4>จำนวนวันที่ต้องการ</h4>
+                      <select name='day_tour' id='day_tour'>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                     </select>
+
+                      <h4>จังหวัด</h4>
+                      <select name='secondtag_tour' id='secondtag_tour'>
+                        <?php
+                          $count = 0;
+                          $secondtag_id = 0;
+                          foreach ($tours["filter"]["secondtag"] as $key => $value) {
+                        ?>
+                            <option value="<?php echo $value["tag_id"];?>">
+                              <?php echo $value["name"];?>
+                            </option>
+                        <?php
+                          }
+                        ?>
+                     </select>
+                    <h4>แพ็กเก็จทัวร์</h4>
+                      <form >
                       <select name='firsttag_tour' id='firsttag_tour'>
                         <?php
                           $count = 0;
@@ -138,22 +213,11 @@
                           }
                         ?>
                      </select>
-                      <select name='secondtag_tour' id='secondtag_tour'>
-                        <?php
-                          $count = 0;
-                          $secondtag_id = 0;
-                          foreach ($tours["filter"]["secondtag"] as $key => $value) {
-                        ?>
-                            <option value="<?php echo $value["tag_id"];?>">
-                              <?php echo $value["name"];?>
-                            </option>
-                        <?php
-                          }
-                        ?>
-                     </select>
+                     </form>
                    </div>
                   </div>
 
+                  <h4>ตัวกรอง</h4>
                   <div class="tag" id="thirdtag_tour">
                     <form class="search_thirdtag">
                     <?php
@@ -182,6 +246,7 @@
                 <div class="scrollbar">
                   <div class="nano">
                     <div class="content">
+                      <form>
                       <ul class="connected list no2" id="data">
                         <?php
                           //print_r($tours); exit;
@@ -190,7 +255,7 @@
                             if(!empty($value['price'])){
                         ?>
 
-                          <li>
+                          <li class="sortable_item">
                             <div class="list_packet">
                               <div class="row">
                                 <div class="twelve columns">
@@ -204,16 +269,22 @@
                                       <div class="title_tour">
                                         <h4>
                                           <a href=""><?php echo $value['tour']->tout_name; ?></a>
-                                            <?php
-                                              if($tours["filter"]["defaulttag"] == "ทัวร์ครึ่งวัน"){
-                                                $day = 0.5;
-                                              }else{
-                                                $day = 1;
-                                              }
-                                            ?>
-
-                                          <input  type="hidden"
+                                          <?php
+                                            if($tours["filter"]["defaulttag_id"] == 85){
+                                              $day = 0.5;
+                                            }else if($tours["filter"]["defaulttag_id"] == 95){
+                                              $day = 1;
+                                            }else if($tours["filter"]["defaulttag_id"] == 166){
+                                              $day = 2;
+                                            }else if($tours["filter"]["defaulttag_id"] == 163){
+                                              $day = 3;
+                                            }
+                                          ?>
+                                          <input  class="item_property"
+                                                  type="hidden"
                                                   id="packagedata"
+                                                  name="packagedata[]"
+                                                  value="<?php echo $value['tour']->tou_id; ?>"
                                                   packagetype="tour"
                                                   packageid="<?php echo $value['tour']->tou_id; ?>"
                                                   title="<?php echo $value['tour']->tout_name; ?>"
@@ -222,7 +293,8 @@
                                                   discountadultprice="<?php echo $value['price']->pri_discount_adult_price; ?>"
                                                   discountchildprice="<?php echo $value['price']->pri_discount_child_price; ?>"
                                                   tag="<?php echo $tours["filter"]["defaulttag"]; ?>"
-                                                  day="<?php echo $day; ?>"
+                                                  tagid="<?php echo $tours["filter"]["defaulttag_id"]; ?>"
+                                                  totalday="<?php echo $day; ?>"
                                           />
                                         </h4>
                                       </div>
@@ -259,6 +331,7 @@
                         ?>
                       <div class="clearfix"></div>
                       </ul>
+                    </form>
                     </div>
                   </div>
                 </div>
@@ -366,9 +439,9 @@
                                       <div class="border"></div>
                                     </div>
                                     <div class="twelve columns">
-                                      <div class="icon time tooltip_se" title="เวลา">08.00 - 15.30 </div>
+                                      <div class="icon time tooltip_se" title="เวลา">N/A</div>
                                       <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด"><a href="#" data-reveal-id="myModal">รายละเอียด</a></div>
-                                      <div class="price"><span><?php echo $value['price']->prh_sale_room_price; ?> B</span> / 3 วัน</div>
+                                      <div class="price"><span><?php echo $value['price']->prh_sale_room_price; ?> B</span> / <?php echo $day; ?> วัน</div>
                                     </div>
                                   </div>
                                 </div>
@@ -866,15 +939,6 @@
     <!-- End Gallery -->
   </div>
 
-<script src="<?php echo base_url('themes/Travel/tour/javascripts/jquery.js'); ?>"></script>
-<script src="<?php echo base_url('themes/Travel/tour/javascripts/foundation.min.js'); ?>"></script>
-<!-- Initialize JS Plugins -->
-<script src="<?php echo base_url('themes/Travel/tour/javascripts/app.js'); ?>"></script>
-<!-- To top scrollbar  -->
-<script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/easing.js'); ?>" type="text/javascript"></script>
-<!-- UItoTop plugin -->
-<script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/jquery.ui.totop.js'); ?>" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" media="screen,projection" href="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/css/ui.totop.css'); ?>" />
 <script type="text/javascript">
   $(document).ready(function() {
     var defaults = {
@@ -887,12 +951,7 @@
     $().UItoTop({ easingType: 'easeOutQuart' });
 
   });
-</script>
 
-<!-- Tooltip -->
-<script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/powertip/jquery.powertip.js'); ?>"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('themes/Travel/tour/javascripts/powertip/jquery.powertip.css'); ?>" />
-<script type="text/javascript">
   $(function() {
     // placement examples
     $('.tooltip_n').powerTip({placement: 'n'});
@@ -905,21 +964,20 @@
     $('.tooltip_se').powerTip({placement: 'se'});
     // api examples
   });
-</script>
 
-
-<!-- Nano Scroller -->
-<script src="<?php echo base_url('themes/Travel/tour/javascripts/jquery.nanoscroller.min.js'); ?>"></script>
-<script>
   $(function(){
 
-    $(".nano").nanoScroller({ scroll: 'top' });
+    $(".nano").nanoScroller(
+      {
+        scroll: 'top',
+        sliderMaxHeight: 200,
+        alwaysVisible: true,
+        sliderClass: 'pane'
+      }
+    );
 
   });
-</script>
 
-<!-- Scroll -->
-<script type="text/javascript">
   $(function () {
     var offset = $(".sticky_content").offset();
     var topPadding = 34;
@@ -932,99 +990,35 @@
         $(".sticky_content").stop().animate({
           marginTop: 0
         });
-      };
+      }
     });
   });
-</script>
 
-<!-- Modal-->
-<script type="text/javascript">
   $(document).ready(function() {
     $("#buttonForModal").click(function() {
       $("#myModal").reveal();
     });
   });
-</script>
 
-<!--  Filter  -->
-<script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/jquery.selectable.min.js'); ?>"></script>
-<script>
-  $(function(){
-
+  $(document).ready(function() {
+    setDragAndDropDataForExternalFile();
     /////////////////////////////////
     //
     // Search box use jquery
     //
     /////////////////////////////////
-    var loading = "<img src=<?php echo base_url('themes/Travel/tour/images/ajax-loader.gif'); ?> />";
 
-    //First tag
-    $("#firsttag_tour").change(function() {
-
-      //Request
-      var model = "tour";
-      var firsttag_id = $(this).val();
-      var secondtag_id = $("#secondtag_tour").val();
-      var thirdtag_id = 0;
-      $('#thirdtag_tour :checkbox:checked').each(function() {
-          thirdtag_id += $(this).val()+",";
-      });
-
-
-      //Response
-      var responseTag = tag_filter(model, firsttag_id, secondtag_id, thirdtag_id);
-      $('#thirdtag_tour').html(responseTag);
-
-      var responseData = data_filter(model, firsttag_id, secondtag_id, thirdtag_id);
-      $('#data').html(loading);
-      $('#data').html(responseData);
-      $("#data").append(function(){
-          setDragAndDropDataForExternalFile();
-          setDateDataForExternalFile();
-          //setCheckedBoxTagForExternalFile();
-      });
-
-
+    //First tag and Second tag
+    $("#secondtag_tour , #firsttag_tour").change(function() {
+      updateTab();
     });
-
-
-    //Second tag
-    $("#secondtag_tour").change(function() {
-
-      //Request
-      var model = "tour";
-      var firsttag_id = $("#firsttag_tour").val();
-      var secondtag_id = $(this).val();
-      var thirdtag_id = 0;
-      $('#thirdtag_tour :checkbox:checked').each(function() {
-        thirdtag_id += $(this).val()+",";
-      });
-
-      //Response
-      var responseTag = tag_filter(model, firsttag_id, secondtag_id, thirdtag_id);
-      $('#thirdtag_tour').html(responseTag);
-
-      var responseData = data_filter(model, firsttag_id, secondtag_id, thirdtag_id);
-      $('#data').html(loading);
-      $('#data').html(responseData);
-
-      $("#data").append(function(){
-          setDragAndDropDataForExternalFile();
-          setDateDataForExternalFile();
-          //setCheckedBoxTagForExternalFile();
-      });
-
-    });
-
 
     //Third tag
     var count = 0;
-    $('.search_thirdtag .btn').selectable({
+    $('.tag .btn').selectable({
       class: 'btn-info',
       onChange: function() {
-
         //Request
-        //$('#thirdtag_tour-serialized').html( decodeURIComponent($('.search_thirdtag').serialize()) );
         if(count > 0){
           var model = "tour";
           var firsttag_id = $("#firsttag_tour").val();
@@ -1034,32 +1028,24 @@
             thirdtag_id += $(this).val()+",";
           });
 
-
           //Response
           var responseData = data_filter(model, firsttag_id, secondtag_id, thirdtag_id);
-          $('#data').html(loading);
-          $('#data').html(responseData);
+          $('#data').html("<div style=\"text-align:center;\"><img src=<?php echo Util::ThemePath().'/images/ajax-loader.gif'; ?> /></div>");
+          responseData.done(function(data) {
+            $('#data').hide().html(data).fadeIn("slow");
 
-          $("#data").append(function(){
-            setDragAndDropDataForExternalFile();
-            setDateDataForExternalFile();
-            //setCheckedBoxTagForExternalFile();
+            $("#data").append(function(){
+              setDragAndDropDataForExternalFile();
+              setDateDataForExternalFile();
+              //setCheckedBoxTagForExternalFile();
+            });
           });
         }
-
         count++;
       }
     });
 
   });
-
-  function setDragAndDropDataForExternalFile(){
-    $(function() {
-      $('.connected').sortable({
-        connectWith: '.connected'
-      });
-    });
-  }
 
   function setDateDataForExternalFile(){
     $(".add").click(function() {
@@ -1084,19 +1070,7 @@
                   };
       var url = "ajax/tourfilter/tag";
 
-      var response = "";
-      $.ajax({
-          type: 'POST',
-          url: url,
-          data: data,
-           async: false,
-           success : function(text)
-           {
-               response = text;
-           }
-      });
-
-      return response;
+      return  $.post(url, data);
   }
 
   function data_filter(model, firsttag_id, secondtag_id, thirdtag_id){
@@ -1108,379 +1082,120 @@
                   };
       var url = "ajax/tourfilter/data";
 
-      var response = "";
-      $.ajax({
-          type: 'POST',
-          url: url,
-          data: data,
-           async: false,
-           success : function(text)
-           {
-               response = text;
-           }
-      });
-
-      return response;
-
+      return  $.post(url, data);
   }
-</script>
-<!--  End Filter  -->
 
-
-<!-- Drag data-->
-<script>
-  //Get data from drag&drop
-  var customPackageObject = new Object();
-
-  var itemObject = new Object();
-  var countSelection = 0;
-
-  var countDay = 1;
-  var countDayDisplay = 2;
-  var countDayElement = 0;
-
-  //var countItem = 0;
-  customPackageObject.day = new Array();
-  customPackageObject.packagetype = new Array();
-  customPackageObject.packageId = new Array();
-  customPackageObject.title = new Array();
-  customPackageObject.tag = new Array();
-  customPackageObject.adultPrice = new Array();
-  customPackageObject.childPrice = new Array();
-  customPackageObject.discountAdultPrice = new Array();
-  customPackageObject.discountChildPrice = new Array();
-  customPackageObject.realday = new Array();
-
-
-  //customPackageObject.day[countDayElement] = new Array();
-  var countItemInDropArea = 0;
+  function setDragAndDropDataForExternalFile(){
+    $(function() {
+      $('.connected').sortable({
+        connectWith: '.connected',
+        items: ".sortable_item",
+        forcePlaceholderSize: true,
+        revert: true,
+        start: function(event, ui){
+          $(ui.item).find("input").attr("dragging","true");
+          $(".packet_item").each(function(list_index, list_item) {
+            if($(list_item).find("li input").attr("value") == $(ui.item).find("input").attr("value") && $(list_item).find("li input").attr("dragging") == "false"){
+              $(list_item).find("li").fadeOut("slow",function(){
+                $(this).remove();
+              });
+            }
+          });
+        },
+        stop: function(event, ui){
+          $(ui.item).find("input").attr("dragging","false");
+          //console.log(ui.item);
+          $(".packet_item").each(function(index, item) {
+            if($(this).find("li").length > 1){
+              var count_day = 0;
+              $(this).find("li input").each(function(index, item) {
+                count_day = count_day+parseFloat($(item).attr("totalday"));
+              });
+              console.log("count_day: "+count_day);
+              if(count_day > 1){
+                alertify.error("ไม่สามารถเพิ่มทัวร์ได้เนื่องจากเกินเวลาที่กำหนดค่ะ")
+                $(ui.item).fadeOut("slow",function(){
+                  $(this).prependTo("#tabs1 .connected.no2");
+                  $(this).fadeIn("slow");
+                });
+              }
+            }
+          });
+          setCustomTourData(ui.item);
+        },
+        create:function(){
+            var list=this;
+            resize=function(){
+                jQuery(list).css("height","auto");
+                jQuery(list).height(jQuery(list).height());
+            };
+            jQuery(list).height(jQuery(list).height());
+        }
+      }).disableSelection();
+      $(".sortable_item").disableSelection();
+    });
+  }
 
   function setCustomTourData(thisObj){
-
     //Drag&drop item
     var itemHtml = thisObj.html();
-
-    //Get value from drag&drop
-    var tag = thisObj.find("input").attr('tag');
-    var title = thisObj.find("input").attr('title');
-    var day = thisObj.find("input").attr('day');
-    var packagetype = thisObj.find("input").attr('packagetype');
-    var packageid = thisObj.find("input").attr('packageid');
-    var adultPrice = thisObj.find("input").attr('adultprice');
-    var childPrice = thisObj.find("input").attr('childprice');
-    var discountAdultPrice = thisObj.find("input").attr('discountadultprice');
-    var discountChildPrice = thisObj.find("input").attr('discountchildprice');
-    var realday = thisObj.find("input").attr('realday');
-
-
-
-    if(packagetype == "tour"){
-        if(typeof customPackageObject.day[countDayElement] == 'undefined'){
-          //1D
-          customPackageObject.day[countDayElement] = new Array();
-          customPackageObject.packagetype[countDayElement] = new Array();
-          customPackageObject.packageId[countDayElement] = new Array();
-          customPackageObject.title[countDayElement] = new Array();
-          customPackageObject.tag[countDayElement] = new Array();
-          customPackageObject.adultPrice[countDayElement] = new Array();
-          customPackageObject.childPrice[countDayElement] = new Array();
-          customPackageObject.discountAdultPrice[countDayElement] = new Array();
-          customPackageObject.discountChildPrice[countDayElement] = new Array();
-          customPackageObject.realday[countDayElement] = new Array();
-        }
-
-        if(countItemInDropArea == 0){
-          //2D
-          customPackageObject.day[countDayElement][countItemInDropArea] = new Array();
-          customPackageObject.packagetype[countDayElement][countItemInDropArea]  = new Array();
-          customPackageObject.packageId[countDayElement][countItemInDropArea]  = new Array();
-          customPackageObject.title[countDayElement][countItemInDropArea]  = new Array();
-          customPackageObject.tag[countDayElement][countItemInDropArea]  = new Array();
-          customPackageObject.adultPrice[countDayElement][countItemInDropArea]  = new Array();
-          customPackageObject.childPrice[countDayElement][countItemInDropArea]  = new Array();
-          customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = new Array();
-          customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = new Array();
-          customPackageObject.realday[countDayElement][countItemInDropArea]  = new Array();
-
-          if(tag == "ทัวร์ครึ่งวัน"){
-
-            customPackageObject.day[countDayElement][countItemInDropArea] = day;
-            customPackageObject.packagetype[countDayElement][countItemInDropArea] = packagetype;
-            customPackageObject.packageId[countDayElement][countItemInDropArea]  = packageid
-            customPackageObject.title[countDayElement][countItemInDropArea]  = title;
-            customPackageObject.tag[countDayElement][countItemInDropArea]  = tag;
-            customPackageObject.adultPrice[countDayElement][countItemInDropArea]  = adultPrice;
-            customPackageObject.childPrice[countDayElement][countItemInDropArea]  = childPrice;
-            customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = discountAdultPrice;
-            customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = discountChildPrice;
-            customPackageObject.realday[countDayElement][countItemInDropArea]  = 0.5;
-
-            console.log("Add item("+countDayElement+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][countItemInDropArea]);
-
-          }else if(tag == "ทัวร์ 1 วัน"){
-
-            customPackageObject.day[countDayElement][countItemInDropArea] = day;
-            customPackageObject.packagetype[countDayElement][countItemInDropArea] = packagetype;
-            customPackageObject.packageId[countDayElement][countItemInDropArea]  = packageid
-            customPackageObject.title[countDayElement][countItemInDropArea]  = title;
-            customPackageObject.tag[countDayElement][countItemInDropArea]  = tag;
-            customPackageObject.adultPrice[countDayElement][countItemInDropArea]  = adultPrice;
-            customPackageObject.childPrice[countDayElement][countItemInDropArea]  = childPrice;
-            customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = discountAdultPrice;
-            customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = discountChildPrice;
-            customPackageObject.realday[countDayElement][countItemInDropArea]  = 1;
-
-            //console.log("Add item ("+countDayElement+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][countItemInDropArea]);
-
-          }else if(tag == "ทัวร์ 2 วัน 1 คืน"){
-
-            customPackageObject.day[countDayElement][countItemInDropArea] = day;
-            customPackageObject.packagetype[countDayElement][countItemInDropArea] = packagetype;
-            customPackageObject.packageId[countDayElement][countItemInDropArea]  = packageid
-            customPackageObject.title[countDayElement][countItemInDropArea]  = title;
-            customPackageObject.tag[countDayElement][countItemInDropArea]  = tag;
-            customPackageObject.adultPrice[countDayElement][countItemInDropArea]  = adultPrice;
-            customPackageObject.childPrice[countDayElement][countItemInDropArea]  = childPrice;
-            customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = discountAdultPrice;
-            customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = discountChildPrice;
-            customPackageObject.realday[countDayElement][countItemInDropArea]  = 2;
-            //console.log("Add item ("+countDayElement+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][countItemInDropArea]);
-
-
-
-            customPackageObject.day[countDayElement+1] = new Array();
-            customPackageObject.packagetype[countDayElement+1] = new Array();
-            customPackageObject.packageId[countDayElement+1] = new Array();
-            customPackageObject.title[countDayElement+1] = new Array();
-            customPackageObject.tag[countDayElement+1] = new Array();
-            customPackageObject.adultPrice[countDayElement+1] = new Array();
-            customPackageObject.childPrice[countDayElement+1] = new Array();
-            customPackageObject.discountAdultPrice[countDayElement+1] = new Array();
-            customPackageObject.discountChildPrice[countDayElement+1] = new Array();
-            customPackageObject.realday[countDayElement+1] = new Array();
-
-            customPackageObject.day[countDayElement+1][countItemInDropArea] = day;
-            customPackageObject.packagetype[countDayElement+1][countItemInDropArea] = packagetype;
-            customPackageObject.packageId[countDayElement+1][countItemInDropArea]  = packageid
-            customPackageObject.title[countDayElement+1][countItemInDropArea]  = title;
-            customPackageObject.tag[countDayElement+1][countItemInDropArea]  = tag;
-            customPackageObject.adultPrice[countDayElement+1][countItemInDropArea]  = adultPrice;
-            customPackageObject.childPrice[countDayElement+1][countItemInDropArea]  = childPrice;
-            customPackageObject.discountAdultPrice[countDayElement+1][countItemInDropArea]  = discountAdultPrice;
-            customPackageObject.discountChildPrice[countDayElement+1][countItemInDropArea]  = discountChildPrice;
-            customPackageObject.realday[countDayElement+1][countItemInDropArea]  = 2;
-            //console.log("Add item ("+(countDayElement+1)+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement+1][countItemInDropArea]);
-
-
-            addDate(itemHtml);
-          }else if(tag == "ทัวร์ 3 วัน 2 คืน"){
-
-            customPackageObject.day[countDayElement][countItemInDropArea] = day;
-            customPackageObject.packagetype[countDayElement][countItemInDropArea] = packagetype;
-            customPackageObject.packageId[countDayElement][countItemInDropArea]  = packageid
-            customPackageObject.title[countDayElement][countItemInDropArea]  = title;
-            customPackageObject.tag[countDayElement][countItemInDropArea]  = tag;
-            customPackageObject.adultPrice[countDayElement][countItemInDropArea]  = adultPrice;
-            customPackageObject.childPrice[countDayElement][countItemInDropArea]  = childPrice;
-            customPackageObject.discountAdultPrice[countDayElement][countItemInDropArea]  = discountAdultPrice;
-            customPackageObject.discountChildPrice[countDayElement][countItemInDropArea]  = discountChildPrice;
-            customPackageObject.realday[countDayElement][countItemInDropArea]  = 3;
-            //console.log("Add item ("+countDayElement+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement][countItemInDropArea]);
-
-
-            customPackageObject.day[countDayElement+1] = new Array();
-            customPackageObject.packagetype[countDayElement+1] = new Array();
-            customPackageObject.packageId[countDayElement+1] = new Array();
-            customPackageObject.title[countDayElement+1] = new Array();
-            customPackageObject.tag[countDayElement+1] = new Array();
-            customPackageObject.adultPrice[countDayElement+1] = new Array();
-            customPackageObject.childPrice[countDayElement+1] = new Array();
-            customPackageObject.discountAdultPrice[countDayElement+1] = new Array();
-            customPackageObject.discountChildPrice[countDayElement+1] = new Array();
-            customPackageObject.realday[countDayElement+1] = new Array();
-
-            customPackageObject.day[countDayElement+1][countItemInDropArea] = day;
-            customPackageObject.packagetype[countDayElement+1][countItemInDropArea] = packagetype;
-            customPackageObject.packageId[countDayElement+1][countItemInDropArea]  = packageid
-            customPackageObject.title[countDayElement+1][countItemInDropArea]  = title;
-            customPackageObject.tag[countDayElement+1][countItemInDropArea]  = tag;
-            customPackageObject.adultPrice[countDayElement+1][countItemInDropArea]  = adultPrice;
-            customPackageObject.childPrice[countDayElement+1][countItemInDropArea]  = childPrice;
-            customPackageObject.discountAdultPrice[countDayElement+1][countItemInDropArea]  = discountAdultPrice;
-            customPackageObject.discountChildPrice[countDayElement+1][countItemInDropArea]  = discountChildPrice;
-            customPackageObject.realday[countDayElement+1][countItemInDropArea]  = 3;
-            //console.log("Add item ("+(countDayElement+1)+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement+1][countItemInDropArea]);
-
-
-
-
-            customPackageObject.day[countDayElement+2] = new Array();
-            customPackageObject.packagetype[countDayElement+2] = new Array();
-            customPackageObject.packageId[countDayElement+2] = new Array();
-            customPackageObject.title[countDayElement+2] = new Array();
-            customPackageObject.tag[countDayElement+2] = new Array();
-            customPackageObject.adultPrice[countDayElement+2] = new Array();
-            customPackageObject.childPrice[countDayElement+2] = new Array();
-            customPackageObject.discountAdultPrice[countDayElement+2] = new Array();
-            customPackageObject.discountChildPrice[countDayElement+2] = new Array();
-            customPackageObject.realday[countDayElement+2] = new Array();
-
-            customPackageObject.day[countDayElement+2][countItemInDropArea] = day;
-            customPackageObject.packagetype[countDayElement+2][countItemInDropArea] = packagetype;
-            customPackageObject.packageId[countDayElement+2][countItemInDropArea]  = packageid
-            customPackageObject.title[countDayElement+2][countItemInDropArea]  = title;
-            customPackageObject.tag[countDayElement+2][countItemInDropArea]  = tag;
-            customPackageObject.adultPrice[countDayElement+2][countItemInDropArea]  = adultPrice;
-            customPackageObject.childPrice[countDayElement+2][countItemInDropArea]  = childPrice;
-            customPackageObject.discountAdultPrice[countDayElement+2][countItemInDropArea]  = discountAdultPrice;
-            customPackageObject.discountChildPrice[countDayElement+2][countItemInDropArea]  = discountChildPrice;
-            customPackageObject.realday[countDayElement+2][countItemInDropArea]  = 3;
-            //console.log("Add item ("+(countDayElement+2)+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement+2][countItemInDropArea]);
-
-
-            addDate(itemHtml);
-            addDate(itemHtml);
-          }
-          summaryDisplay();
-
-        }else{
-          if(customPackageObject.day[countDayElement][0] == 1 ){
-
-            //console.log("Equal 1");
-            alert("ท่านไม่สามารถเพิ่ม package ในวันนี้ได้แล้ว \nกรุณาเพิ่มในวันอื่น");
-            deletePakckageFromDisplay(thisObj);
-            return false;
-
-          }else if(customPackageObject.day[countDayElement][0] == 0.5 ){
-
-            //alert("Check : "+day);
-            if(customPackageObject.day[countDayElement][0] == 0.5 ){
-
-              //alert("current : "+day);
-              //2D
-              customPackageObject.day[countDayElement][0] = new Array();
-              customPackageObject.packagetype[countDayElement][0]  = new Array();
-              customPackageObject.packageId[countDayElement][0]  = new Array();
-              customPackageObject.title[countDayElement][0]  = new Array();
-              customPackageObject.tag[countDayElement][0]  = new Array();
-              customPackageObject.adultPrice[countDayElement][0]  = new Array();
-              customPackageObject.childPrice[countDayElement][0]  = new Array();
-              customPackageObject.discountAdultPrice[countDayElement][0]  = new Array();
-              customPackageObject.discountChildPrice[countDayElement][0]  = new Array();
-              customPackageObject.realday[countDayElement][0]  = new Array();
-
-
-
-              customPackageObject.day[countDayElement][0] = day;
-              customPackageObject.packagetype[countDayElement][0] = packagetype;
-              customPackageObject.packageId[countDayElement][0]  = packageid
-              customPackageObject.title[countDayElement][0]  = title;
-              customPackageObject.tag[countDayElement][0]  = tag;
-              customPackageObject.adultPrice[countDayElement][0]  = adultPrice;
-              customPackageObject.childPrice[countDayElement][0]  = childPrice;
-              customPackageObject.discountAdultPrice[countDayElement][0]  = discountAdultPrice;
-              customPackageObject.discountChildPrice[countDayElement][0]  = discountChildPrice;
-              customPackageObject.realday[countDayElement][0]  = 0.5;
-              console.log("Add item("+countDayElement+":"+0+")"+customPackageObject.day[countDayElement]);
-
-
-
-              customPackageObject.day[countDayElement][1] = new Array();
-              customPackageObject.packagetype[countDayElement][1]  = new Array();
-              customPackageObject.packageId[countDayElement][1]  = new Array();
-              customPackageObject.title[countDayElement][1]  = new Array();
-              customPackageObject.tag[countDayElement][1]  = new Array();
-              customPackageObject.adultPrice[countDayElement][1]  = new Array();
-              customPackageObject.childPrice[countDayElement][1]  = new Array();
-              customPackageObject.discountAdultPrice[countDayElement][1]  = new Array();
-              customPackageObject.discountChildPrice[countDayElement][1]  = new Array();
-              customPackageObject.realday[countDayElement][1]  = new Array();
-
-              customPackageObject.day[countDayElement][1] = day;
-              customPackageObject.packagetype[countDayElement][1]= packagetype;
-              customPackageObject.packageId[countDayElement][1]  = packageid
-              customPackageObject.title[countDayElement][1]  = title;
-              customPackageObject.tag[countDayElement][1] = tag;
-              customPackageObject.adultPrice[countDayElement][1] = adultPrice;
-              customPackageObject.childPrice[countDayElement][1]  = childPrice;
-              customPackageObject.discountAdultPrice[countDayElement][1] = discountAdultPrice;
-              customPackageObject.discountChildPrice[countDayElement][1]  = discountChildPrice;
-              customPackageObject.realday[countDayElement][1] = 0.5;
-              console.log("Add item("+(countDayElement+1)+":"+countItemInDropArea+")"+customPackageObject.day[countDayElement]);
-
-
-              customPackageObject.day[countDayElement][0] = 1;
-              summaryDisplay();
-            }else{
-              //console.log("Equal 1");
-              alert("กรุณาเลือก package ครึ่งวัน");
-              deletePakckageFromDisplay(thisObj);
-              return false;
-
+    var Looped = false;
+    var packageDay = $(thisObj).find("input").attr("totalday");
+    if(packageDay > 1){
+      var objID = $(thisObj).find("input").attr("value");
+      $(".packet_item").each(function(list_index, list_item) {
+        if($(list_item).find("li input").attr("value") == objID && !Looped){
+          Looped = true;
+          for(var i = 1; i<packageDay;i++){
+            if($(".packet_item:eq("+parseInt((parseInt(list_index)+parseInt(i)))+")").find("li input").attr("value") != objID){
+              if($(".packet_item:eq("+parseInt((parseInt(list_index)+parseInt(i)))+")").length == 0 || $(".packet_item:eq("+parseInt((parseInt(list_index)+parseInt(i)))+")").find("li").length > 0){
+                var html = '<div class="packet_item" style="display:none"></a>';
+                    html += '<div class="sticker_date"></div>';
+                    html += '<ul class="connected list no1">';
+                    html += '<li draggable="true" class="" style="display: list-item;">';
+                    html += itemHtml;
+                    html += '</li>';
+                    html += '</ul>';
+                    html += '<a class="close tooltip_ne" title="ลบ"></a></div>';
+                    $(list_item).after(html).append(function(){
+                      setDragAndDropDataForExternalFile();
+                      setDateDataForExternalFile();
+                    });
+              }else{
+                var html = '<li draggable="true" class="" style="display: list-item;">';
+                    html += itemHtml;
+                    html += '</li>';
+                $(".packet_item:eq("+parseInt((parseInt(list_index)+parseInt(i)))+") ul").append(html).fadeIn("slow");
+              }
             }
-
           }
-        }
-    }else if(packagetype = "hotel"){
-
-        if(typeof customPackageObject.hotelDay[countDayElement] == 'undefined'){
-          //1D
-          customPackageObject.day[countDayElement] = new Array();
-          customPackageObject.packagetype[countDayElement] = new Array();
-          customPackageObject.packageId[countDayElement] = new Array();
-          customPackageObject.title[countDayElement] = new Array();
-          customPackageObject.tag[countDayElement] = new Array();
-          customPackageObject.adultPrice[countDayElement] = new Array();
-          customPackageObject.childPrice[countDayElement] = new Array();
-          customPackageObject.discountAdultPrice[countDayElement] = new Array();
-          customPackageObject.discountChildPrice[countDayElement] = new Array();
-          customPackageObject.realday[countDayElement] = new Array();
+          $(".packet_item").fadeIn("slow");
         }
 
+      });
     }
-    //console.log(customPackageObject.day[countDayElement]);
-    //Defined array
-
-
-
-    //alert("item after:"+countItemInDropArea);
-
-
-    countItemInDropArea++;
-
+    updateAllPackage();
   }
-
-</script>
-
-
-
-
-<!-- Drop data  -->
-<script src="<?php echo base_url('themes/Travel/tour/javascripts/sortable-master/jquery.sortable.js');?>"></script>
-
-<!-- Drop Area Connection  -->
-<script>
-  $(function() {
-    $('.connected').sortable({
-      connectWith: '.connected'
-    });
-  });
-
-</script>
-
-
-<!-- Add date button   -->
-<script>
-
 
   $(".add_date").click(function() {
     addDate();
   });
+  $(".clear_date").click(function() {
+    clearDate();
+    updateTab();
 
+  });
 
+  function clearDate(item){
+    $(".packet_item").each(function(list_index, list_item) {
+      $(list_item).find("li").fadeOut("slow", function(){
+        $(this).remove();
+        alertify.success("เคลียร์สำเร็จ!");
+      });
+    });
+  }
 
   function addDate(item){
-
     if(item){
       //Init with data
       var html = '<div class="packet_item" style="display:none"></a>';
@@ -1490,9 +1205,9 @@
       html += item;
       html += '</li>';
       html += '</ul>';
-      html += '<a class="close tooltip_ne" title="ลบ"></div>';
+      html += '<a class="close tooltip_ne" title="ลบ"></a></div>';
       $('.packet').append(html);
-        $('.tooltip_ne').powerTip({placement: 'ne'});
+      $('.tooltip_ne').powerTip({placement: 'ne'});
       $(".packet_item").fadeIn("slow");
 
       $('.connected').sortable({
@@ -1502,11 +1217,10 @@
       $('.tooltip_ne').powerTip({placement: 'ne'});
     }else{
       //Init without data
-
       var html = '<div class="packet_item" style="display:none"></a>';
-      html += '<div class="sticker_date">วันที่ '+countDayDisplay+'</div>';
+      html += '<div class="sticker_date"></div>';
       html += '<ul class="connected list no1"></ul>';
-      html += '<a class="close tooltip_ne" title="ลบ"></div>';
+      html += '<a class="close tooltip_ne" title="ลบ"></a></div>';
       $('.packet').append(html);
         $('.tooltip_ne').powerTip({placement: 'ne'});
       $(".packet_item").fadeIn("slow");
@@ -1517,52 +1231,80 @@
 
       $('.tooltip_ne').powerTip({placement: 'ne'});
     }
-
-
-
-    //customPackageObject.day[countDayElement] = new Array();
-
-    //console.log("Add day : "+countDayDisplay);
-    countItemInDropArea = 0;
-    countDay++;
-    countDayDisplay++;
-    countDayElement++;
-
+    alertify.success("เพิ่มวันสำเร็จ!");
+    window.setTimeout(updateAllPackage, 500);
   }
-
-
-  //Close button
-  $(".packet_item a.close").click(function() {
-    $(this).parents("packet_item .connected.no1 li").fadeOut(function () {
-      $(this).prependTo(".connected.no2");
-    });
-    alert("Close all");
-    deleteDate();
-  });
 
   $(document).on("click", ".packet_item a.close", function (e) {
     e.preventDefault();
+    var isInList = false;
     $(this).closest(".packet_item").fadeOut(function () {
+      //console.log($(this));
+      $(this).find(".no1 li").fadeOut(function () {
+        isInList = false;
+        //console.log($(this));
+        $(this).find("input").each(function(index, item) {
+          //console.log(item);
+          packageid = $(item).attr('packageid');
+        });
+        $("#tabs1 .connected.no2").find("li").each(function(index, no2Item) {
+          $(no2Item).find("input").each(function(index, inputItem) {
+            if($(inputItem).attr('packageid') == packageid){
+              isInList = true;
+            }
+          });
+        });
+        if(!isInList){
+          $(this).prependTo("#tabs1 .connected.no2");
+          $(this).fadeIn("slow");
+        }else{
+          $(this).remove();
+        }
+        $(".packet_item").find("li").each(function(index, inputItem) {
+          if($(inputItem).find('input').attr('packageid') == packageid){
+            $(inputItem).fadeOut("slow", function() {
+              $(this).remove();
+            });
+          }
+        });
+      });
       $(this).remove();
     });
-
     deleteDate();
   });
 
   $(document).on("click", ".connected li a.delete", function (e) {
     e.preventDefault();
-
+    var isInList = false;
     $(this).closest(".connected li").fadeOut(function () {
-      $(this).prependTo(".connected.no2");
-      $(this).fadeIn("slow");
+      isInList = false;
+      $(this).find("input").each(function(index, item) {
+        packageid = $(item).attr('packageid');
+      });
+      $("#tabs1 .connected.no2").find("li").each(function(index, no2Item) {
+        $(no2Item).find("input").each(function(index, inputItem) {
+          if($(inputItem).attr('packageid') == packageid){
+            isInList = true;
+          }
+        });
+      });
+      //console.log(isInList);
+      if(!isInList){
+        $(this).prependTo("#tabs1 .connected.no2");
+        $(this).fadeIn("slow");
+      }else{
+        $(this).remove();
+      }
+      $(".packet_item").find("li").each(function(index, inputItem) {
+        if($(inputItem).find('input').attr('packageid') == packageid){
+          $(inputItem).fadeOut("slow", function() {
+            $(this).remove();
+          });
+        }
+      });
     });
-
     var packageid = $(this).attr('packageid');
-
-
     deletePackageItem();
-    //findArray(packageid, customPackageArray);
-
   });
 
   function deletePakckageFromDisplay(thisObj){
@@ -1573,177 +1315,171 @@
   }
 
   function deletePackageItem(){
-
-
-
-    if(countItemInDropArea > 0){
-      countItemInDropArea--;
-
-      //console.log("delete package : ["+countDayElement+","+countItemInDropArea+"]");
-      //console.log("delete package value : "+customPackageObject.day[countDayElement][countItemInDropArea]);
-      delete customPackageObject.day[countDayElement][countItemInDropArea];
-      //console.log("after delete package value : "+customPackageObject.day[countDayElement][countItemInDropArea]);
-
-    }else if(countItemInDropArea == 0){
-      delete customPackageObject.day[countDayElement][0];
-      countItemInDropArea = 0;
-    }
-
-
-    summaryDisplay();
+    window.setTimeout(updateAllPackage, 500);
   }
 
 
   function deleteDate(){
+    window.setTimeout(updateAllPackage, 500);
+  }
 
-    //console.log("delete day : "+countDayDisplay);
-    //console.log("delete day value : "+customPackageObject.day[countDayElement]);
-    delete customPackageObject.day[countDayElement][countItemInDropArea];
-    delete customPackageObject.day[countDayElement];
-    //console.log("after delete day value : "+customPackageObject.day[countDayElement]);
-
-    countDay--;
-    countDayDisplay--;
-    countDayElement--;
+  function updateAllPackage(){
     summaryDisplay();
-  }
-/*
-  function findArray(thing, theArray) {
-      var results, col, row, subArray;
-
-      results = []; // Empty array
-      for (row = 0; row < theArray.length; ++row) {
-          subArray = theArray[row];
-          for (col = 0; col < subArray.length; ++col) {
-              value = subArray[col];
-              if (value == thing) { // or whatever your criterion
-                  //results.push({row: row, col: col});
-                  console.log("delete("+row+":"+col+"="+packageArray[row][col]+")");
-                  customPackageArray[row][col] = 0;
-              }
-          }
-      }
-
-      //console.log(packageArray[0][0]);
-      //return results;
+    updateDate();
+    updatePackgaeDate();
+    updateDayOptions();
   }
 
-  */
+  function checkDayLimit(){
 
+  }
 
+  function updateDayOptions(){
+    console.log($(".packet_item").length);
+    var package_count = $(".packet_item").length;
+    $("#day_tour").val(package_count);
+    $("span.custom-text:eq(0)").html(package_count);
+  }
 
-  var summaryAdultPrice = 0;
-  var summaryChildPrice = 0;
   function summaryDisplay(){
-
-    for (var i = 0; i < customPackageObject.day.length; i++) {
-      for (var j = 0; j < customPackageObject.day[i].length; j++) {
-        //console.log("length 2D ["+i+","+j+"]: "+customPackageObject.realday[i][j]);
-
-
-        if(customPackageObject.realday[i][j] == 2 || customPackageObject.realday[i][j] == 3){
-
-          if(i==countDayElement){
-            summaryAdultPrice += parseInt(customPackageObject.adultPrice[i][j]);
-            summaryChildPrice += parseInt(customPackageObject.childPrice[i][j]);
-          }
-
-        }else if(customPackageObject.realday[i][j] == 1 ){
-          if(i==countDayElement){
-            summaryAdultPrice += parseInt(customPackageObject.adultPrice[i][j]);
-            summaryChildPrice += parseInt(customPackageObject.childPrice[i][j]);
-          }
+    var summaryAdultPrice = 0;
+    var summaryChildPrice = 0;
+    var packagePrice = new Array();
+    //console.dir(packagePrice);
+    $(".packet_item").find("input.item_property").each(function(index, item) {
+      var isInArray = false;
+      $.each(packagePrice, function(index, value) {
+        if(value["id"] == $(item).attr('packageid')){
+          isInArray = true;
         }
-
+      });
+      if(isInArray != true){
+        packagePrice.push(priceObject($(item).attr('packageid'),$(item).attr('adultprice'),$(item).attr('childprice')));
       }
-    }
+    });
+    $.each(packagePrice, function(index, value) {
+      summaryAdultPrice += parseFloat(value.adultprice);
+      summaryChildPrice += parseFloat(value.childprice);
+    });
 
-    console.log(i+":"+j);
-    if(customPackageObject.realday[i-1][0] == 0.5){
-      console.log(customPackageObject.adultPrice[i-1][0]);
-      if((typeof customPackageObject.adultPrice[i-1][0] == 'undefined') ){
-        summaryAdultPrice += parseInt(customPackageObject.adultPrice[i-1][0]);
-        summaryChildPrice += parseInt(customPackageObject.childPrice[i-1][0]);
-      }else{
-        summaryAdultPrice += parseInt(customPackageObject.adultPrice[i-1][0]);
-        summaryChildPrice += parseInt(customPackageObject.childPrice[i-1][0]);
-      }
 
-    }
-
-    //
-    console.log("######## Summary Data ########");
-    var summaryDay = parseInt(countDayElement)+1;
-    var summaryNight = countDayElement;
-    console.log("Summary day : "+ summaryDay);
-    console.log("Summary night : "+ summaryNight);
-    console.log("Summary adult price : "+summaryAdultPrice);
-    console.log("Summary child price : "+summaryChildPrice);
-
-    $("#summary_day").text(summaryDay);
-    $("#summary_night").text(summaryNight);
+    $("#summary_day").text($(".packet_item").length);
+    $("#summary_night").text(($(".packet_item").length-1));
 
     $("#summary_adult_price").text(addCommas(summaryAdultPrice));
     $("#summary_child_price").text(addCommas(summaryChildPrice));
-
-
-
-
   }
 
-function addCommas(nStr){
-  nStr += '';
-  x = nStr.split('.');
-  x1 = x[0];
-  x2 = x.length > 1 ? '.' + x[1] : '';
-  var rgx = /(\d+)(\d{3})/;
-  while (rgx.test(x1)) {
-    x1 = x1.replace(rgx, '$1' + ',' + '$2');
+  function priceObject(id,adultprice,childprice){
+    return {
+      id:id,
+      adultprice:adultprice,
+      childprice:childprice
+    }
   }
-  return x1 + x2;
-}
-</script>
 
-
-<!-- -->
-
-<script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/selectik-master/js/jquery.mousewheel.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/selectik-master/js/jquery.selectik.js'); ?>"></script>
-<script>
-  $(document).ready(function() {
-      // attach the plugin to all selects
-      $('.search_package .selects select').selectik({maxItems: 8});
-      $('.date_tour .selects select').selectik({maxItems: 6});
-
-  });
-</script>
-
-<script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/jquery.easytabs.min.js'); ?>"></script>
-<script>
-  // Tab
-  $(document).ready(function() {
-    $('.tabs').easytabs({
-      animate : true,
-      updateHash : false,
-      animationSpeed :'normal',
-      defaultTab: "li:last-child"
+  function updateDate(){
+    $(".packet_item").find("div.sticker_date").each(function(index, item) {
+      //console.log(index);
+      $(item).html("วันที่ "+(index+1));
     });
-  });
+  }
 
-</script>
-
-<script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/alertify.js'); ?>"></script>
-<script>
-  $(".add").click(function() {
-    alertify.set({ delay: 2000 });
-    alertify.prompt("เลือกวันที", function (e, str) {
-        if (e) {
-          alertify.success("สำเร็จ " + str);
-        } else {
-          alertify.error("ยกเลิก");
-        }
+  function updatePackgaeDate(){
+    $(".packet_item").each(function(packet_item_index, packet_item) {
+      $(packet_item).append(function(){
+        setDragAndDropDataForExternalFile();
+        setDateDataForExternalFile();
       });
-      return false;
+
+      $(packet_item).find("li").each(function(list_index, list_item) {
+        //console.log(list_item);
+      });
+    });
+  }
+
+  function updateTab(){
+    //Request
+    var model = "tour";
+    var firsttag_id = $("#firsttag_tour").val();
+    var secondtag_id = $("#secondtag_tour").val();
+    var thirdtag_id = 0;
+    $('#thirdtag_tour :checkbox:checked').each(function() {
+      thirdtag_id += $(this).val()+",";
+    });
+
+    //Response
+    var responseTag = tag_filter(model, firsttag_id, secondtag_id, thirdtag_id);
+    responseTag.done(function(data) {
+      $('#thirdtag_tour').hide().html(data).fadeIn("slow");
+    });
+
+    var responseData = data_filter(model, firsttag_id, secondtag_id, thirdtag_id);
+
+    $('#data').html("<div style=\"text-align:center;\"><img src=<?php echo Util::ThemePath().'/images/ajax-loader.gif'; ?> /></div>");
+    responseData.done(function(data) {
+      $('#data').hide().html(data).fadeIn("slow");
+
+      $("#data").append(function(){
+          setDragAndDropDataForExternalFile();
+          setDateDataForExternalFile();
+      });
+    });
+
+  }
+
+  function addCommas(nStr){
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+      x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+  }
+
+  $(document).ready(function() {
+    // attach the plugin to all selects
+    $('.search_package .selects select').selectik({maxItems: 8});
+    $('.date_tour .selects select').selectik({maxItems: 6});
+
+    $(".add").click(function() {
+      alertify.set({ delay: 2000 });
+      alertify.prompt("เลือกวันที", function (e, str) {
+          if (e) {
+            alertify.success("สำเร็จ " + str);
+          } else {
+            alertify.error("ยกเลิก");
+          }
+        });
+        return false;
+    });
+
+    $("#day_tour").change(function() {
+      var day_tour = $("#day_tour option:selected").val();
+      var packet_item = $(".packet_item").length;
+      var deleted = 0;
+      if(packet_item < day_tour){
+        for (var i = 0; i < (day_tour - packet_item); i++) {
+          addDate();
+        };
+      }else if(packet_item > day_tour){
+        $(".packet_item").each(function(index, item) {
+          if(($(".packet_item").length-deleted) > day_tour){
+            if($(this).find("li").length == 0){
+              $(this).fadeOut("slow",function(){
+                $(this).remove();
+              });
+              deleted = deleted+1;
+            }
+          }
+        });
+      }
+      window.setTimeout(updateAllPackage, 1000);
+    });
+
   });
 </script>
 

@@ -35,7 +35,7 @@ PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::Theme
 PageUtil::addVar("javascript",'<script type="text/javascript">
 //Convert divs to queue widgets when the DOM is ready
 $(document).ready(function() {
-  
+
   updateImages();
   function updateImages(){
             $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:3 },
@@ -49,12 +49,12 @@ $(document).ready(function() {
               $("#side_bar_block_image img").click(function() {
                 $(this).addImg();
               });
-              
+
               $("#side_bar_block_image a").click(function() {
                 //$(this).delImg();
                 //console.log($(this).prop("href"));
                 $.post($(this).prop("href"), {},
-                  function(data) { 
+                  function(data) {
                     //console.log(data);
                     var data = jQuery.parseJSON(data);
                     //console.log(data);
@@ -64,18 +64,18 @@ $(document).ready(function() {
                   }
                 );
                 return false;
-                
+
               });
-              
+
             });
   }
-  
+
   (function($){
       $.fn.addImg = function(){
           tinyMCE.execCommand(\'mceInsertContent\',false,\'<img src="\'+this.attr(\'src\')+\'"/>\');
       };
   })(jQuery);
-  
+
   //Uploader Control
   $("#btnShow").css("display", "block");
   $("#btnHide").css("display", "none");
@@ -85,15 +85,15 @@ $(document).ready(function() {
     $("#btnShow").css("display", "block");
     $("#btnHide").css("display", "none");
   });
-  
+
   $("#btnShow").click(function() {
     $("#uploader").show("slow");
     $("#btnShow").css("display", "none");
     $("#btnHide").css("display", "block");
     $("#btnHide").addClass("hide-button");
   });
-  
-  
+
+
   $("#uploader").pluploadQueue({
     // General settings
     runtimes : \'html5\',
@@ -101,8 +101,8 @@ $(document).ready(function() {
     max_file_size : \'10mb\',
     chunk_size : \'1mb\',
     unique_names : true,
-    
-    
+
+
     // Resize images on clientside if we can
     //resize : {width : 320, height : 240, quality : 90},
 
@@ -117,7 +117,7 @@ $(document).ready(function() {
 
     // Silverlight settings
     silverlight_xap_url : \'/plupload/js/plupload.silverlight.xap\',
-    
+
     init : {
       FilesAdded: function(up, files) {
         //autoSave();
@@ -128,7 +128,7 @@ $(document).ready(function() {
         // Called when the state of the queue is changed
         //log(\'[StateChanged]\', up.state == plupload.STARTED ? "STARTED" : "STOPPED");
         var uploader = $(\'#uploader\').pluploadQueue();
-        
+
         if(up.state == plupload.STOPPED){
           setTimeout(function() {
                 $( "#uploader" ).hide(\'slow\').delay(500).show(\'slow\');
@@ -139,16 +139,16 @@ $(document).ready(function() {
                 $(".plupload_upload_status").css("display", "none");
                 uploader.refresh();
           }, 100 );
-          
+
         }
       },
-      
+
       FileUploaded: function(up, file, info) {
         // Called when a file has finished uploading
         //log(\'[FileUploaded] File:\', file, "Info:", info);
         console.log(info);
         plupload.each(info, function(value, key) {
-       
+
           if(key == "response"){
             var value = jQuery.parseJSON(value);
             if(value.result == "TRUE"){
@@ -156,18 +156,18 @@ $(document).ready(function() {
             }
           }
         });
-        
-       
+
+
         //$( "#side_bar_block_image" ).delay(100).fadeIn(1000);
-        
+
       }
     }
   });
-    
-    
+
+
 });
 
-  
+
 </script>');
 ?>
 
@@ -191,7 +191,7 @@ $(document).ready(function() {
 		$('#end_time2').timepicker({
 			hourGrid: 4,
 			minuteGrid: 10
-		});		
+		});
 
 		$('#start_time3').timepicker({
 			hourGrid: 4,
@@ -201,7 +201,7 @@ $(document).ready(function() {
 		$('#end_time3').timepicker({
 			hourGrid: 4,
 			minuteGrid: 10
-		});	
+		});
 
 		/*
 		$('#start_date').datepicker({
@@ -210,7 +210,7 @@ $(document).ready(function() {
 
 		$('#end_date').datepicker({
 			dateFormat: "yy-mm-dd"
-		});	
+		});
 		*/
 
 	    tinyMCE.init({
@@ -233,17 +233,17 @@ $(document).ready(function() {
 	        autoresize_not_availible_height: 10,
 	        autoresize_on_init: true,
 	        autoresize_hide_scrollbars: false
-	    });	
-    		
-	});		 
+	    });
+
+	});
 </script>
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
-      var geocoder = new google.maps.Geocoder();    
+      var geocoder = new google.maps.Geocoder();
       var markersArray = [];
-      var marker;    
-      
+      var marker;
+
       function geocodePosition(pos) {
         geocoder.geocode({
           latLng: pos
@@ -273,7 +273,7 @@ $(document).ready(function() {
       }
 
       function initialize() {
-        
+
         var latLng = new google.maps.LatLng('7.893989','98.407288');
 
         var map = new google.maps.Map(document.getElementById('mapCanvas'), {
@@ -282,68 +282,68 @@ $(document).ready(function() {
           center: latLng,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
-        
-        
+
+
         marker = new google.maps.Marker({
           position: latLng,
           title: '',
           map: map,
           draggable: false
         });
-        
-        
-        markersArray.push(marker); 
+
+
+        markersArray.push(marker);
         google.maps.event.addListener(map, 'click', function(e) {
           placeMarker(e.latLng, map);
         });
-        
+
         // Update current position info.
         updateMarkerPosition(latLng);
         geocodePosition(latLng);
-        
- 
+
+
       }
-      
+
       function placeMarker(position, map) {
-      
+
         //alert(position);
         //Clean marker point
         clearOverlays();
-        
+
         //Make new marker object
         marker = new google.maps.Marker({
           position: position,
           map: map
         });
-        
+
         //Add marker to array
-        markersArray.push(marker); 
-        
-        //Write marker to map       
+        markersArray.push(marker);
+
+        //Write marker to map
         map.panTo(position);
-        
-        updateMarkerAddress('Clicking...'); 
-        
-        updateMarkerPosition(marker.getPosition()); 
-        
+
+        updateMarkerAddress('Clicking...');
+
+        updateMarkerPosition(marker.getPosition());
+
         geocodePosition(marker.getPosition());
       }
-      
+
       function clearOverlays() {
         if (markersArray) {
           for (i in markersArray) {
             markersArray[i].setMap(null);
           }
         }
-      }        
+      }
 
       // Onload handler to fire off the app.
       google.maps.event.addDomListener(window, 'load', initialize);
-      
+
 </script>
 
-	
-<?php echo form_open(base_url("admin/tour/create"),'enctype="multipart/form-data"');?>	
+
+<?php echo form_open(base_url("admin/tour/create"),'enctype="multipart/form-data"');?>
 <input type="hidden"  id="id"  name="fakeid"  value="<?php echo $fakeId;?>" />
 <div class="container_12">
 
@@ -351,12 +351,12 @@ $(document).ready(function() {
 	<section class="grid_8">
 		<h2 class="section_heading">
 			<span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
-				Add Tour Information 
+				Add Tour Information
 				[ <a href="<?php echo base_url("admin/tour");?>">list</a> ]
-			</span>			
+			</span>
 		</h2>
-		<br>	
-			<!--  Start Tour information --> 
+		<br>
+			<!--  Start Tour information -->
 
       <script type="text/javascript">
       $(function(){
@@ -365,9 +365,9 @@ $(document).ready(function() {
           window.location='http://'+this.value+'.uastravel.com/admin/tour/create';
         });
       });
-      </script>      
+      </script>
       <div class="half" id="lang_select">
-        <label>language :</label> 
+        <label>language :</label>
         <select id="lang"  name="lang">
 
         <?php
@@ -385,7 +385,7 @@ $(document).ready(function() {
         ?>
         </select>
       </div>
-      <div class="clearfix"></div>		
+      <div class="clearfix"></div>
 			<div class="half">
 				<label>Tour Name :</label> <?php echo form_error('name', '<font color="red">', '</font>'); ?>
 				<input type="text" name="name" id="name" value="<?php echo set_value('name');?>">
@@ -399,7 +399,7 @@ $(document).ready(function() {
 			<label>Short Description : </label> <?php echo form_error('short_description', '<font color="red">', '</font>'); ?>
 				<input type="text" name="short_description" id="short_description" value="<?php echo set_value('short_description');?>">
 			<div class="clearfix"></div><br>
-			
+
 			<label>Program & Itinerary : </label> <?php echo form_error('detail', '<font color="red">', '</font>'); ?>
 			<textarea cols="30"  class="mceEditor"  rows="10" name="detail"><?php echo set_value('detail');?></textarea>
 			<div class="clearfix"></div><br>
@@ -409,7 +409,7 @@ $(document).ready(function() {
 
 			<div class="clearfix"></div><br>
 
-			<label>Tour Remark : </label>	
+			<label>Tour Remark : </label>
 			<textarea cols="30"  class="mceEditor"  rows="10" name="remark"><?php echo set_value('remark');?></textarea>
 			<div class="clearfix"></div>
 <br>
@@ -422,19 +422,19 @@ $(document).ready(function() {
     </script>
       <h2 class="section_heading" >
         <span style="margin: 5px 0px 0px 0px; font: 16px Arial, sans-serif;">
-          Agency Information 
+          Agency Information
           <!-- input type="search" id="query_agencyname" style="width:30%;" disabled/ -->
           <select id="query_agencyname" style="margin: 5px 0px 0px 0px; font: 14px Arial, sans-serif;">
-          <?php 
+          <?php
             foreach ($agency as $key => $value) {
               # code...
           ?>
             <option value="<?php echo $value->id;?>"><?php echo $value->name;?></option>
           <?php
             }
-          ?>  
+          ?>
           </select>
-          <img src="<?php echo base_url("themes/Travel/images/add.png"); ?>" valign="middle"  id="add_agency"/>       
+          <img src="<?php echo base_url("themes/Travel/images/add.png"); ?>" valign="middle"  id="add_agency"/>
           <input type="hidden" id="hidden_agency_id" />
         </span>
       </h2>
@@ -445,7 +445,7 @@ $(document).ready(function() {
     </div>
 
   <!-- Agency End -->
-  </section>  
+  </section>
 
 	<!-- Start tag -->
 	<section class="simple_sidebar grid_4">
@@ -455,37 +455,37 @@ $(document).ready(function() {
       //Rewrite tag value
       $(document).ready(function(){
         $("#save").live('click', function() {
-          $("#tags").val($("#jquerytag").val());          
+          $("#tags").val($("#jquerytag").val());
         });
       });
-    </script>          
+    </script>
     <input type="hidden"id="tags" name="tags" value="">
 		<br>
 		<span id="show_all_result">
 			<?php
-				//print_r($tag); 
+				//print_r($tag);
 
 			if(is_array($tag)){
 				$count = 1;
 				foreach ($tag as $key => $value) {
 					# code...
 					if($count == count($tag)){
-					?>	
+					?>
 						<font color='6182E6'>
-							<span 	style="cursor:pointer;" 
+							<span 	style="cursor:pointer;"
 									onClick="this.style.color='red'"
 	   								id='addtag<?php echo $count; ?>'
 	   						><?php echo $value->name; ?></span>
 	   					</font>
-					<?php						
-					}else{					
-					?>	
-						<font color='6182E6'><span 	style="cursor:pointer; " 
+					<?php
+					}else{
+					?>
+						<font color='6182E6'><span 	style="cursor:pointer; "
 									onClick="this.style.color='red'"
 	   								id='addtag<?php echo $count; ?>'
 	   						><?php echo $value->name; ?></span>
-	   					</font>, 					
-					<?php	
+	   					</font>,
+					<?php
 					}
 
 					$count++;
@@ -495,23 +495,24 @@ $(document).ready(function() {
 		</span>
 		<script type="text/javascript">
 			var validate = "";
-			//Function tag 
+			//Function tag
 			$('#textarea')
 				.textext({
 					plugins : 'tags autocomplete'
 				})
 				.bind('getSuggestions', function(e, data)
 				{
+
 					//Get tag data
 					if(data.query.length == 2){
 						var list = tagSearch(data.query);
 
 						var textext = $(e.target).textext()[0];
 						var query = (data ? data.query : '') || '';
-
+            query = $.trim(query);
 						validate = textext.itemManager().filter(list, query)
-					
-						//Show suggestion list 
+
+						//Show suggestion list
 						$(this).trigger(
 							'setSuggestions',
 							{ result : validate }
@@ -521,10 +522,10 @@ $(document).ready(function() {
 
 						var textext = $(e.target).textext()[0];
 						var query = (data ? data.query : '') || '';
-
+            query = $.trim(query);
 						validate = textext.itemManager().filter(list, query)
-					
-						//Show suggestion list 
+
+						//Show suggestion list
 						$(this).trigger(
 							'setSuggestions',
 							{ result : validate }
@@ -542,26 +543,26 @@ $(document).ready(function() {
 
 			function tagSearch(str) {
 
-				var url ="<?php echo base_url('/tag/jssearch');?>"+"/"+str;
-				var response = $.ajax({ type: "GET",   
-				                        url: url,   
+        var url ="<?php echo base_url('/tag/jssearch');?>"+"/"+$.trim(str);
+				var response = $.ajax({ type: "GET",
+				                        url: url,
 				                        async: false
 				                      }).responseText;
 
 				var list = response.split(/,/);
 
 				return list;
-			}				
+			}
 		</script>
 
 		<script type="text/javascript">
-		//Function display tag 
+		//Function display tag
 		$("#show_all_result").hide();
 		$("#show_all").click(function () {
 			$("#show_all_result").toggle("slow");
-		}); 
+		});
 
-		</script>		
+		</script>
 		<?php
 			if(is_array($tag)){
 				$count = 1;
@@ -573,17 +574,17 @@ $(document).ready(function() {
 							//alert($('#addtag<?php echo $count; ?>').text());
 					        $('#textarea').textext()[0].tags().addTags([ $('#addtag<?php echo $count; ?>').text() ]);
 					    });
-					</script>	
-				<?php			
+					</script>
+				<?php
 					$count++;
 				}
 
 			}
 		?>
-	</section>	
+	</section>
 	<!-- End Sidebar Tag -->
-  
-  
+
+
   <!-- Start Images -->
   <section class="simple_sidebar grid_4">
 		<label>{_ location_lang_image_manager}</label>
@@ -596,10 +597,10 @@ $(document).ready(function() {
         <span id="btnShow"  class="upload-button" onClick="return(false);">Show</span>
 			<div class="clearfix"></div>
 	</section>
-  
+
   <section class="simple_sidebar grid_4">
 		<label>{_ location_lang_image_manager}</label>
-			
+
       <p>First Image (Minimum width: 300px)</p>
       <?php
         echo form_upload('first_image', '', 'class="form_input"');
@@ -616,7 +617,7 @@ $(document).ready(function() {
 	</section>
 	<!-- End Images -->
 
-  
+
 	<!-- Sidebar start period-->
 	<section class="simple_sidebar grid_4">
 		<label>Tour Period</label><br>
@@ -639,7 +640,7 @@ $(document).ready(function() {
 				                );
 				echo form_dropdown('start_month', $options);
 			?>
-		</div>	
+		</div>
 
 		<div class="half last" style="width:120px;">
 			<label>End Month :</label><br>
@@ -660,7 +661,7 @@ $(document).ready(function() {
 				                );
 				echo form_dropdown('end_month', $options);
 			?>
-		</div>					
+		</div>
 		<div class="clearfix"></div>
 	</section>
 	<!-- Sidebar end period-->
@@ -672,37 +673,37 @@ $(document).ready(function() {
 			<label>Start time[1] :</label><br>
 			<?php echo form_error('start_time1', '<font color="red">', '</font>'); ?>
 			<input type="text" name="start_time1" id="start_time1" value="<?php echo set_value('start_time1');?>">
-		</div>	
+		</div>
 		<div class="half last" style="width:120px;">
 			<label>End time[1] :</label><br>
 			<?php echo form_error('end_time1', '<font color="red">', '</font>'); ?>
 			<input type="text" name="end_time1" id="end_time1" value="<?php echo set_value('end_time1');?>">
-		</div>					
-		<div class="clearfix"></div>	
+		</div>
+		<div class="clearfix"></div>
 
 		<div class="half" style="width:120px;">
 			<label>Start time[2] :</label><br>
 			<?php echo form_error('start_time2', '<font color="red">', '</font>'); ?>
 			<input type="text" name="start_time2" id="start_time2" value="<?php echo set_value('start_time2');?>">
-		</div>	
+		</div>
 		<div class="half last" style="width:120px;">
 			<label>End time[2] :</label><br>
 			<?php echo form_error('end_time2', '<font color="red">', '</font>'); ?>
 			<input type="text" name="end_time2" id="end_time2" value="<?php echo set_value('end_time2');?>">
-		</div>					
-		<div class="clearfix"></div>	
+		</div>
+		<div class="clearfix"></div>
 
 		<div class="half" style="width:120px;">
 			<label>Start time[3] :</label><br>
 			<?php echo form_error('start_time3', '<font color="red">', '</font>'); ?>
 			<input type="text" name="start_time3" id="start_time3" value="<?php echo set_value('start_time3');?>">
-		</div>	
+		</div>
 		<div class="half last" style="width:120px;">
 			<label>End time[3] :</label><br>
 			<?php echo form_error('end_time3', '<font color="red">', '</font>'); ?>
 			<input type="text" name="end_time3" id="end_time3" value="<?php echo set_value('end_time3');?>">
-		</div>					
-		<div class="clearfix"></div>		
+		</div>
+		<div class="clearfix"></div>
 	</section>
 	<!-- Sidebar end time period-->
 
@@ -715,17 +716,17 @@ $(document).ready(function() {
         Latitude : <input value="<?php echo set_value('latitude');?>" id="latitude" name="latitude">
         <br />
         Address : <input value="" id="address" name="address">
-	</section>	
+	</section>
 	<!-- End map -->
 
 </div>
   <section class="grid_12">
     <input type="submit" value="Submit" class="auto_width" id="save">
-  </section>  
+  </section>
 
 
 
-<?php echo form_close();?>	
+<?php echo form_close();?>
 
 
 <script type="text/javascript">
@@ -743,7 +744,7 @@ $(document).ready(function() {
 			alert("delete : "+agency_id);
 
 			$("#agency_price_"+agency_id).remove();
-			delete agencies[agency_id];			
+			delete agencies[agency_id];
 
 		}else{
 			//alert("add");
@@ -757,7 +758,7 @@ $(document).ready(function() {
       alert("delete : "+price_element);
 
       $("#price_"+price_element).remove();
-      delete price[price_element]; 
+      delete price[price_element];
     }else{
       //alert("add");
     }
@@ -793,10 +794,10 @@ $(document).ready(function() {
         var html = agencyPriceForm(num, agency_id, agency_name);
         num++;
         $("#add_agency_area").append(html);
-      
+
         $("#add_agency_area").append(function(){
           deleteRow();
-        });           
+        });
         $("#query_agencyname").val("");
         $("#query_agencyname").focus();
         $("#add_loading").html("");
@@ -813,8 +814,8 @@ $(document).ready(function() {
     }
 
 
-  }); 
-		
+  });
+
 	function agencyPriceForm(num, agency_id, agency_name){
 
     var agency_form = "<br>";
@@ -826,60 +827,60 @@ $(document).ready(function() {
     agency_form += "      </span>";
     agency_form += "      <span style='float:left; margin-left:10px; font: 20px Arial, sans-serif; width:10%'>";
     agency_form += "         <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
-    agency_form += "            valign='middle'  "; 
+    agency_form += "            valign='middle'  ";
     agency_form += "            id='delete_agency'  ";
     agency_form += "            onClick='deleteRow(\"delete\", "+agency_id+");'  ";
-    agency_form += "      />"; 
+    agency_form += "      />";
     agency_form += "      </span>";
     agency_form += "      <span style='margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;'>";
     agency_form += "        [เพิ่มราคา <img src='<?php echo base_url('themes/Travel/images/add.png'); ?>'";
-    agency_form += "            valign='middle'  "; 
+    agency_form += "            valign='middle'  ";
     agency_form += "            id='add_price'  ";
     agency_form += "            onClick='addPrice(\"add\", "+agency_id+");'  ";
-    agency_form += "      />]"; 
-    agency_form += "      </span>";    
+    agency_form += "      />]";
+    agency_form += "      </span>";
     agency_form += "    </div>";
-    agency_form += "    <div class='clearfix'></div>"; 
+    agency_form += "    <div class='clearfix'></div>";
 
     agency_form += "<br>";
     agency_form += "  <div id='price_"+agency_id+"_0'>";
     agency_form += "    <div class='half'>";
     agency_form += "      <label>Price name :</label>";
     agency_form += "      <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
-    agency_form += "      valign='top'  "; 
+    agency_form += "      valign='top'  ";
     agency_form += "      id='delete_price'  ";
     agency_form += "      onClick='deletePriceRow(\"delete\", \""+agency_id+"_0\");'  ";
-    agency_form += "      />  "; 
+    agency_form += "      />  ";
     agency_form += "      <br>";
     agency_form += "      <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][name]' value=''>";
     agency_form += "    </div>";
-    agency_form += "    <div class='clearfix'></div>";    
+    agency_form += "    <div class='clearfix'></div>";
 
     agency_form += "    <div>";
-    agency_form += "      <div class='third'>";   
+    agency_form += "      <div class='third'>";
     agency_form += "        <label>Adult Sale :</label><br>";
     agency_form += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][sale_adult_price]' value=''>";
     agency_form += "      </div>";
-    agency_form += "      <div class='third'>";   
+    agency_form += "      <div class='third'>";
     agency_form += "        <label>Adult Net :</label><br>";
     agency_form += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][net_adult_price]' value=''>";
     agency_form += "      </div>";
-    agency_form += "      <div class='third last'>";   
+    agency_form += "      <div class='third last'>";
     agency_form += "        <label>Adult discount :</label><br>";
     agency_form += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][discount_adult_price]' value=''>";
     agency_form += "      </div>";
     agency_form += "    <div class='clearfix'></div>";
- 
+
     agency_form += "    <div>";
-    agency_form += "      <span class='third'>";   
+    agency_form += "      <span class='third'>";
     agency_form += "        <label>Child Sale :</label><br>";
     agency_form += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][sale_child_price]' value=''>";
     agency_form += "      </span>";
-    agency_form += "      <span class='third'>";   
+    agency_form += "      <span class='third'>";
     agency_form += "        <label>Child Net :</label><br>";
     agency_form += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][net_child_price]' value=''>";
     agency_form += "      </span>";
-    agency_form += "      <span class='third last'>";   
+    agency_form += "      <span class='third last'>";
     agency_form += "        <label>Child discount :</label><br>";
     agency_form += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][discount_child_price]' value=''>";
     agency_form += "      </span>";
@@ -888,11 +889,11 @@ $(document).ready(function() {
 
     agency_form += "  </div>";
 
-    agency_form += "  <br>"; 
+    agency_form += "  <br>";
     agency_form += "</div>";
     agency_form += " <span id='add_price_loading_"+agency_id+"'></span>";
-    agency_form += " <span  id='add_price_area_"+agency_id+"'></span>"; 
-    agency_form += " <div style='border-bottom: 1px dotted #ccc;'></div>";   
+    agency_form += " <span  id='add_price_area_"+agency_id+"'></span>";
+    agency_form += " <div style='border-bottom: 1px dotted #ccc;'></div>";
 
 		countExtendPriceJS = 1;
 
@@ -908,40 +909,40 @@ $(document).ready(function() {
     priceForm += "    <div class='half'>";
     priceForm += "      <label>Price name :</label>";
     priceForm += "      <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
-    priceForm += "      valign='top'  "; 
+    priceForm += "      valign='top'  ";
     priceForm += "      id='delete_price'  ";
     priceForm += "      onClick='deletePriceRow(\"delete\", \""+agency_id+"_"+countExtendPriceJS+"\");'  ";
-    priceForm += "      />  "; 
+    priceForm += "      />  ";
     priceForm += "      <br>";
     priceForm += "      <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][name]' value=''>";
     priceForm += "    </div>";
-    priceForm += "    <div class='clearfix'></div>";  
+    priceForm += "    <div class='clearfix'></div>";
 
     priceForm += "    <div>";
-    priceForm += "      <div class='third'>";   
+    priceForm += "      <div class='third'>";
     priceForm += "        <label>Adult Sale :</label><br>";
     priceForm += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][sale_adult_price]' value=''>";
     priceForm += "      </div>";
-    priceForm += "      <div class='third'>";   
+    priceForm += "      <div class='third'>";
     priceForm += "        <label>Adult Net :</label><br>";
     priceForm += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][net_adult_price]' value=''>";
     priceForm += "      </div>";
-    priceForm += "      <div class='third last'>";   
+    priceForm += "      <div class='third last'>";
     priceForm += "        <label>Adult discount :</label><br>";
     priceForm += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][discount_adult_price]' value=''>";
     priceForm += "      </div>";
     priceForm += "    <div class='clearfix'></div>";
 
     priceForm += "    <div>";
-    priceForm += "      <span class='third'>";   
+    priceForm += "      <span class='third'>";
     priceForm += "        <label>Child Sale :</label><br>";
     priceForm += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][sale_child_price]' value=''>";
     priceForm += "      </span>";
-    priceForm += "      <span class='third'>";   
+    priceForm += "      <span class='third'>";
     priceForm += "        <label>Child Net :</label><br>";
     priceForm += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][net_child_price]' value=''>";
     priceForm += "      </span>";
-    priceForm += "      <span class='third last'>";   
+    priceForm += "      <span class='third last'>";
     priceForm += "        <label>Child discount :</label><br>";
     priceForm += "        <input type='text' name='price["+agency_id+"][0]["+countExtendPriceJS+"][discount_child_price]' value=''>";
     priceForm += "      </span>";
@@ -955,7 +956,7 @@ $(document).ready(function() {
   }
 
 
-</script>	
+</script>
 
 
-		
+

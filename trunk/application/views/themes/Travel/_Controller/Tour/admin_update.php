@@ -978,7 +978,7 @@ $(document).ready(function() {
 
             var textext = $(e.target).textext()[0];
             var query = (data ? data.query : '') || '';
-
+            query = $.trim(query);
             validate = textext.itemManager().filter(list, query)
 
             //Show suggestion list
@@ -991,7 +991,7 @@ $(document).ready(function() {
 
             var textext = $(e.target).textext()[0];
             var query = (data ? data.query : '') || '';
-
+            query = $.trim(query);
             validate = textext.itemManager().filter(list, query)
 
             //Show suggestion list
@@ -1014,7 +1014,7 @@ $(document).ready(function() {
 
       function tagSearch(str) {
 
-        var url ="<?php echo base_url('/tag/jssearch');?>"+"/"+str;
+        var url ="<?php echo base_url('/tag/jssearch');?>"+"/"+$.trim(str);
         var response = $.ajax({ type: "GET",
                                 url: url,
                                 async: false

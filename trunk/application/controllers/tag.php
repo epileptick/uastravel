@@ -347,7 +347,7 @@ class Tag extends MY_Controller {
   function jsonsearch($keyword=false){
     //implement code here
 
-    $args["tag_name"] = $keyword;
+    $args["tag_name"] = trim($keyword);
     # JSON-encode the response
     $data["tag"] = json_encode($this->tagModel->searchRecord($args));
     $this->_fetch('user_json', $data, false, true);
@@ -357,7 +357,7 @@ class Tag extends MY_Controller {
   function jssearch($keyword=false){
 
     //print_r($keyword);
-    $tag["tag_name"] = $keyword;
+    $tag["tag_name"] = trim($keyword);
     $data["tag"] = $this->tagModel->searchRecord($tag);
     $this->_fetch('user_jsarray', $data, false, true);
   }

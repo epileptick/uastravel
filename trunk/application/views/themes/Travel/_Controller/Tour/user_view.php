@@ -191,8 +191,11 @@
             <div class="eight columns">
               <h3 class="title_tour" id="detail">(<?php echo $tour[0]["code"];?>) <?php echo $tour[0]["name"];?>
               <?php
+                $user_data = $this->session->userdata("user_data");
                 if($this->session->userdata("logged_in")){
-                  echo "[ <a href=\"".base_url("admin/tour/create/".$tour[0]["tour_id"])."\" target=\"_blank\">Edit</a> ]";
+                  if($user_data["group"] == 1){
+                    echo "[ <a href=\"".base_url("admin/tour/create/".$tour[0]["tour_id"])."\" target=\"_blank\">Edit</a> ]";
+                  }
                 }
               ?></h3>
             </div>

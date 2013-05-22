@@ -9,13 +9,13 @@
         <?php echo $value['name'];?>
         <input type="checkbox" class="hide" name="example1[]" value="<?php echo $value['tag_id'];?>">
       </span>
-  <?php                   
+  <?php
     }
   ?>
   </form>
 
 <?php
   }else{
-    echo "Not data";
+    echo "No data";
   }
-?>  
+?>

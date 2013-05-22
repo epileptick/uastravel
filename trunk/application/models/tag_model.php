@@ -316,9 +316,10 @@ class Tag_model extends MY_Model {
   function searchRecord($args=false){
 
     if($args){
-      $this->load->model("Tag_translate_model","tagTranslateModel");
+      $this->load->model("tag_translate_model","tagTranslateModel");
       $this->db->order_by('CONVERT( tagt_name USING tis620 ) ASC');
-      $result = $this->tagTranslateModel->get(array("like"=>$args));
+      $this->db->like('tagt_name', $args["tag_name"]);
+      $result = $this->tagTranslateModel->get();
 
       $newResult = array();
       if(!empty($result) AND count($result) > 0){

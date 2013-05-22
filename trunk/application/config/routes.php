@@ -48,13 +48,7 @@ $route['404_override'] = '';
 $route['^(en|th|de|fr|nl)$'] = $route['default_controller'];
 
 
-
-$route['(:any)'.'_tests'] = '$1'.'_tests';
-
-
 ////////// Urls start
-
-
 //Carrent
 $route['carrent/(:any)'] = 'carrent/user_index/$1';
 $route["carrent"] = 'carrent/user_index';
@@ -106,9 +100,6 @@ $route[LangUtil::line("url_lang_tour").'/search'] = 'tour/user_search';
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
 $route[LangUtil::line("url_lang_tour")."/(:any)"] = 'tour/user_index';
 $route[LangUtil::line("url_lang_tour")] = 'tour/user_index';
-
-
-
 
 
 //Custom Tour user
