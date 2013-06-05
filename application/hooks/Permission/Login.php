@@ -9,9 +9,18 @@ class Login {
   }
 
   public function checkLogin(){
+    $this->CI->load->library('facebook', array(
+      'appId'     =>  $this->CI->config->item('appId'),
+      'secret'    => $this->CI->config->item('secret'),
+      'cookie' => true,
+      'fileUpload' => true
+    ));
     $user_data = $this->CI->session->userdata("user_data");
+    if(empty($user_data["fbid"])){
+      $this->session->sess_destroy();
+    }
     if($this->CI->uri->segment(1) == "admin"){
-      if($user_data["group"] != 1){
+      if(!empty($user_data["group"]) AND ($user_data["group"] != 1)){
         show_404();
       }
     }

@@ -34,10 +34,10 @@
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <link rel="canonical" href="<?php echo $caconical;?>">
 </head>
 
 <?php
-
   if(!empty($tour[0]["background_image"])){
 ?>
     <body style="background: #ededed url(<?php echo $tour[0]["background_image"];?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->

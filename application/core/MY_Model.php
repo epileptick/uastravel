@@ -330,6 +330,9 @@ class MY_Model extends CI_Model {
         if($this->_getColumn("lu_date")){
           $set[$this->_getColumn("lu_date")] = date( 'Y-m-d H:i:s');
         }
+        if($this->_getColumn("lu_uid")){
+          $set[$this->_getColumn("lu_uid")] = CIUser::getInfo()->getAttr('id');
+        }
 
         $result = $this->db->update($this->_table,$set);
 
@@ -358,6 +361,13 @@ class MY_Model extends CI_Model {
       }
       if($this->_getColumn("lu_date")){
         $this->db->set($this->_getColumn("lu_date"), date( 'Y-m-d H:i:s'));
+      }
+      if($this->_getColumn("cr_uid")){
+
+        $this->db->set($this->_getColumn("cr_uid"), CIUser::getInfo()->getAttr('id'));
+      }
+      if($this->_getColumn("lu_uid")){
+        $this->db->set($this->_getColumn("lu_uid"), CIUser::getInfo()->getAttr('id'));
       }
       $result = $this->db->insert($this->_table);
       $objData = $this->db->insert_id();
@@ -533,5 +543,6 @@ class MY_Model extends CI_Model {
     }
     return $result;
   }
+
 }
 ?>

@@ -23,7 +23,7 @@
   <title><?php echo $this->lang->line("global_lang_main_title");?> - U As Travel</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="สถานที่ท่องเที่ยว และทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยว  และแพคเกจทัวร์ราคาพิเศษ" />
+  <meta name="description" content="<?php echo $this->lang->line("global_lang_main_description");?>" />
   <meta name="keywords" content="" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -38,6 +38,7 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link rel="canonical" href="<?php echo base_url();?>">
   </head>
   <body>
     <div class="container-fluid">

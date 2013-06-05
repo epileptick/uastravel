@@ -36,7 +36,13 @@ $lang['global_lang_main_title'] = "ท่องเที่ยวไปในส
 $lang['global_lang_main_title_province_1'] = "ท่องเที่ยวไปในสถานที่ท่องเที่ยวจังหวัด";
 $lang['global_lang_main_title_province_2'] = "ด้วยแพคเกจทัวร์ราคาพิเศษ";
 
-$lang['global_lang_tour_title'] = "แพคเกจทัวร์สำหรับ";
+
+$lang['global_lang_main_description'] = "สถานที่ท่องเที่ยว และทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยว  และแพคเกจทัวร์ราคาพิเศษ";
+
+$lang['global_lang_tour_title'] = "แพคเกจทัวร์";
+
+$lang['facebook_message_for_publishing'] = " เราจัดทัวร์นี้เองเลยนะ เป็นโปรแกรมเที่ยวที่เราอยากไปเที่ยวมากๆ ใครมีไอเดียเก๋ๆ ลองจัดโปรแกรมเที่ยวได้ที่เว็บไซต์เลยจ้า";
+$lang['facebook_message_for_publishing_lead'] = "ไปจัดแพ็คเกจทัวร์มา ";
 
 
 ?>

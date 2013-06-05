@@ -28,10 +28,13 @@ $lang['global_lang_views'] = "Views";
 $lang['global_lang_comments'] = "Comments";
 
 
-$lang['global_lang_main_title'] = "Travel to amazing place with our best price tour packages.";
+$lang['global_lang_main_title'] = "Travel to amazing place with our best packages and good service.";
 $lang['global_lang_main_title_province_1'] = "Travel to amazing place in ";
 $lang['global_lang_main_title_province_2'] = "with best price.";
 
-$lang['global_lang_tour_title'] = "Tour packages for ";
+//$lang['global_lang_main_description'] = "สถานที่ท่องเที่ยว และทัวร์ยอดนิยมในประเทศไทย รวมบทความและรูปภาพของสถานที่ท่องเที่ยว  และแพคเกจทัวร์ราคาพิเศษ";
+$lang['global_lang_main_description'] = "Traveling in Thailand with popular packages, reasonable price. There are many attraction detail on our site and you'll save your time with our suggestion for the best place to relax in Thailand.";
+
+$lang['global_lang_tour_title'] = "Tour packages ";
 
 ?>

@@ -87,8 +87,8 @@ $('form').submit(function() {
    <script type="text/javascript">
   window.fbAsyncInit = function() {
      FB.init({ 
-       appId:'<?php echo $this->config->item('appId'); ?>', cookie:true, 
-       status:true, xfbml:true,oauth : true 
+       appId:'<?php echo $this->config->item('appId'); ?>', cookie:true,
+       status:true, xfbml:true,oauth : true
      });
    };
    (function(d){
