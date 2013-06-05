@@ -49,7 +49,7 @@
     });
   });
 </script>
-
+<link rel="canonical" href="<?php echo $caconical;?>">
   </head>
   <body>
     <div class="container-fluid">

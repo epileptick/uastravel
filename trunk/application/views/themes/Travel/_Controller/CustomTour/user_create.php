@@ -1328,10 +1328,15 @@
     updateDate();
     updatePackgaeDate();
     updateDayOptions();
+    updatePackageInput();
   }
 
-  function checkDayLimit(){
-
+  function updatePackageInput(){
+    $(".packet_item").each(function(index, item) {
+      $(item).find("input").each(function(liIndex,liItem){
+        $(liItem).attr("name","packagedata["+index+"][]");
+      });
+    });
   }
 
   function updateDayOptions(){
@@ -1479,7 +1484,6 @@
       }
       window.setTimeout(updateAllPackage, 1000);
     });
-
   });
 </script>
 

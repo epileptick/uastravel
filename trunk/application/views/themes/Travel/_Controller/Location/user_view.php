@@ -92,8 +92,9 @@ if (count($matches)>1){
       //You get the idea
   }
 }
-?>
 
+?>
+<link rel="canonical" href="<?php echo $caconical?>">
 </head>
 <?php
 if(!empty($location['background_image'])){

@@ -378,7 +378,7 @@ class Tour extends MY_Controller {
       $data["tour"] =  $this->_shuffle_assoc($tour);
     }
 
-    //print_r($data); exit;
+    $data["caconical"] = base_url($this->lang->line("url_lang_tour"));
 
     if(!empty($query["offset"])){
       if($query["offset"]>0){
@@ -430,6 +430,8 @@ class Tour extends MY_Controller {
       $data["tour"] = false;
     }
 
+    $data["caconical"] = base_url($this->lang->line("url_lang_tour")."/".trim($tag));
+
     if(!empty($query["offset"])){
       if($query["offset"]>0){
         $this->_fetch('user_listnextpage', $data, false, true);
@@ -474,7 +476,7 @@ class Tour extends MY_Controller {
       $data["tour"] = false;
     }
 
-    //print_r($data); exit;
+    $data["caconical"] = base_url($this->lang->line("url_lang_tour")."/".trim($tag)."/".trim($type));
 
     if(!empty($query["offset"])){
       if($query["offset"]>0){
@@ -529,6 +531,8 @@ class Tour extends MY_Controller {
     }else{
       $data["tour"] = false;
     }
+
+    $data["caconical"] = base_url($this->lang->line("url_lang_tour")."/".trim($tag)."/".trim($type)."/".trim($subtype));
 
     if(!empty($query["offset"])){
       if($query["offset"]>0){
@@ -662,6 +666,8 @@ class Tour extends MY_Controller {
       //Images
       $this->load->model("images_model", "imagesModel");
       $data["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$id,'table_id'=>2)));
+
+      $data["caconical"] = base_url($this->lang->line("url_lang_tour")."/".trim($data["tour"][0]["url"])."-".trim($data["tour"][0]["tour_id"]));
 
       if(!empty($data)){
         //Return

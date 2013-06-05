@@ -59,19 +59,17 @@ class User extends MY_Controller {
   }
 
   function fblogin(){
-
-    $this->load->library('facebook', array(
-    'appId'     =>  $this->config->item('appId'),
-    'secret'    => $this->config->item('secret'),
-    ));
-
     $user = $this->facebook->getUser();
     if($user){
         try{
+            $this->facebook->setFileUploadSupport(true);
+            $this->facebook->setExtendedAccessToken();
+            $access_token = $this->facebook->getAccessToken();
+            $this->session->set_userdata("access_token",$access_token);
             $user_profile = $this->facebook->api('/me');
-            //var_dump($user_profile);exit;
+
             $user_profile["forceAdd"] = FALSE;
-            if(!$getResult = $this->userModel->get($user_profile["id"])){
+            if(!$getResult = $this->userModel->get(array("fbid"=>$user_profile["id"]))){
               $randPassword = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') , 0 , 8 );
               $user_profile["password"] = md5(md5($randPassword));
               $user_profile["forceAdd"] = TRUE;
@@ -90,8 +88,7 @@ class User extends MY_Controller {
               $user_profile["status"] = $user_profile["verified"];
               $user_profile["group"] = 3;
 
-              $this->userModel->add($user_profile);
-              $addResult = $this->userModel->get($user_profile["id"]);
+              $addResult = $this->userModel->get($this->userModel->add($user_profile));
               if($addResult){
                 if($user_profile["forceAdd"]){
                   $this->load->library('email');
@@ -107,7 +104,7 @@ class User extends MY_Controller {
 
             }
             if(empty($addResult)){
-              $addResult = $this->userModel->get($user_profile["id"]);
+              $addResult = $this->userModel->get(array("fbid"=>$user_profile["id"]));
             }
             unset($addResult[0]["password"]);
             $this->session->set_userdata("user_data",$addResult[0]);
@@ -117,7 +114,13 @@ class User extends MY_Controller {
             $user = NULL;
         }
     }
-    redirect(base_url(),"refresh");
+    $forword = $this->session->userdata("forword");
+    if(!empty($forword)){
+      $this->session->unset_userdata("forword");
+      redirect($forword,"refresh");
+    }else{
+      redirect(base_url(),"refresh");
+    }
   }
 
 

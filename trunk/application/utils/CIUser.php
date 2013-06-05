@@ -38,8 +38,8 @@ class CIUserAttibutes {
         if(!$logged_in){
           $this->_user_id = 0;
         }else{
-          $userdata = $this->CI->session->userdata("userdata");
-          $this->_user_id = $userdata['uid'];
+          $userdata = $this->CI->session->userdata("user_data");
+          $this->_user_id = $userdata['id'];
         }
       }else{
         $this->_user_id = $user_id;
@@ -48,23 +48,27 @@ class CIUserAttibutes {
       if($this->_user_id != 0){
         //Load Model
         $this->CI->load->model("user_model");
-        $this->_user_info = $this->CI->user_model->getUserInfo($this->_user_id);
+
+        $this->_user_info = $this->CI->user_model->get($this->_user_id);
       }
 
     }
 
     public function getAttrs()
     {
-        if (is_array($this->_user_info)) {
-            return $this->_user_info;
+        if (is_array($this->_user_info[0])) {
+            return $this->_user_info[0];
         }
         return;
     }
 
     public function getAttr($attr)
     {
-        if (array_key_exists($attr, $this->_user_info)) {
-            return $this->_user_info[$attr];
+        if(empty($attr) OR empty($this->_user_info[0])){
+          return;
+        }
+        if (array_key_exists($attr, $this->_user_info[0])) {
+            return $this->_user_info[0][$attr];
         }
         return;
     }

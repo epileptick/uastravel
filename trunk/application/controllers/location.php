@@ -254,6 +254,8 @@ class Location extends MY_Controller {
       $data["location"] = false;
     }
 
+    $data["caconical"] = base_url($this->lang->line("url_lang_location"));
+
     if(!empty($query["offset"])){
       if($query["offset"]>0){
         $this->_fetch('user_listnextpage', $data, false, true);
@@ -305,6 +307,7 @@ class Location extends MY_Controller {
       $data["location"] = false;
     }
 
+    $data["caconical"] = base_url($this->lang->line("url_lang_location")."/".$tag);
 
     if(!empty($query["offset"])){
       if($query["offset"]>0){
@@ -580,6 +583,8 @@ class Location extends MY_Controller {
       //Tag
       $location["where"]["location_id"] = $id;
       $locationData["tag"] = $this->tagLocationModel->getTagLocationList($location);
+
+      $locationData["caconical"] = base_url($this->lang->line("url_lang_location")."/".trim($locationData["location"]["url"])."-".trim($locationData["location"]["loc_id"]));
 
       if(!empty($locationData)){
         $this->_fetch("user_view", $locationData, FALSE, TRUE);

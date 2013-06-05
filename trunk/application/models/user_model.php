@@ -6,6 +6,7 @@ class User_model extends MY_Model {
     $this->_prefix = "usr";
     $this->_column = array(
                      'id'          => 'usr_id',
+                     'fbid'        => 'usr_fbid',
                      'username'    => 'usr_username',
                      'password'    => 'usr_password',
                      'status'      => 'usr_status',
@@ -19,7 +20,6 @@ class User_model extends MY_Model {
                      'location'    => 'usr_location',
                      'birthday'    => 'usr_birthday'
     );
-
   }
 
   function getUserInfo($userId){
@@ -31,7 +31,7 @@ class User_model extends MY_Model {
     if ($query->num_rows() > 0)
     {
       foreach($query->result() as $key=>$value){
-        $result = Utils::objectToArray($value);
+        $result = Util::objectToArray($value);
       }
       return $result;
     }else{
@@ -95,7 +95,5 @@ class User_model extends MY_Model {
       return FALSE;
     }
   }
-
-
 }
 ?>

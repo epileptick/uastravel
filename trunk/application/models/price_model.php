@@ -26,9 +26,6 @@ class Price_model extends MY_Model {
   }
  
   function mapField($result){
-    
-
-
     foreach ($result as $key => $value) {
       $data = new stdClass();
 

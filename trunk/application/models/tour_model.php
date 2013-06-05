@@ -48,13 +48,6 @@ class Tour_model extends MY_Model {
   }
 
   function get($options = ""){
-    if(is_numeric($options)){
-      $this->load->model("tour_translate_model","tourTranslateModel");
-      $where = array("where"=>array("tour_id"=>$options,"lang"=>$this->lang->lang()));
-      if($this->tagTranslateModel->count_rows($where)){
-        $this->db->where($this->_join_column["lang"],$this->lang->lang());
-      }
-    }
     $this->db->join("ci_tour_translate","ci_tour_translate.tout_tour_id = ci_tour.tou_id");
     $mainTable = parent::get($options);
     if(empty($mainTable) AND !empty($options["lang"])){

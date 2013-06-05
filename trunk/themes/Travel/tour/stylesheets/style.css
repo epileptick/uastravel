@@ -1831,8 +1831,7 @@ p.totol_price{
 }
 
 .package_tour .list_packet{
-	float: left;
-	width: 32%;
+	width: 31%;
 	margin: 0 10px 0 0;
 }
 .package_tour .list_hotel{
