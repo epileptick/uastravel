@@ -608,7 +608,7 @@ class Tour extends MY_Controller {
         }
         
 
-        $data["main_menu"]= Menu::main_menu();
+        
 
         //Related Tour
         $query["tour_id"] = $id;
@@ -671,7 +671,7 @@ class Tour extends MY_Controller {
 
       if(!empty($data)){
         //Return
-        $this->_fetch('user_view', $data, false, true);
+        $this->_fetch('user_view',$data, false, true);
       }else{
         show_404();
       }

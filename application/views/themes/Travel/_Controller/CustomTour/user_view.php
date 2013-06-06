@@ -43,26 +43,7 @@
   <div class="overly-bg"></div>
   <div id="wrapper">
     <!-- Menu -->
-    <div class="row">
-      <div class="twelve columns">
-        <nav class="top-bar">
-          <ul>
-            <li class="name"><a href=""> <img src="<?php echo base_url('themes/Travel/tour/images/logo.png');?>"></a></li>
-            <li class="toggle-topbar"><a href="#"></a></li>
-          </ul>
-          <section>
-            <ul class="right">
-              <li><a href="http://uastravel.com/demo/">หน้าแรก</a></li>
-              <li><a class="active" href="#">แหล่งท่องเที่ยว</a></li>
-              <li><a href="#">แพ๊คเกจทัวร์</a></li>
-              <li><a href="#">เกี่ยวกับเรา</a></li>
-              <li><a href="#">ติดต่อเรา</a></li>
-              <li><a href="#">โปรโมชั่น</a></li>
-            </ul>
-          </section>
-        </nav>
-      </div>
-    </div>
+    {_widget menu}
     <!-- End Menu -->
 
     <!-- Title -->
@@ -169,16 +150,42 @@
             </div>
           </div>
           <!-- End Title -->
+          </div>
+      </div>
+    </div>
 
           <?php
             foreach ($packageTour as $day => $dayValue):
           ?>
-
+    <div class="row">
+      <div class="twelve columns">
+        <div class="box_white_in_columns package_tour">
           <!-- BEGIN Row Package-->
           <div class="row">
             <div class="twelve columns">
               <h3><span>วันที่ <?php echo ++$day;?> </span></h3>
-              <div style="text-align: center;float: left;">
+              <div class="row">
+                <div class="eight columns">
+                  <div class="box_white_in_columns article_packagetour">
+              <?php
+                foreach ($dayValue as $count => $item):
+              ?>
+              
+                    <?php echo $item["short_description"] ?>
+                    <?php
+                      if(count($dayValue)>1 and $count == 0){
+                        echo " และ ";
+                      }
+                    ?>
+              
+              <?php
+                endforeach;
+              ?>
+                  </div>
+                </div>
+              </div>
+
+              <div style="text-align: center;float: left; margin-bottom:10px;">
               <?php
                 foreach ($dayValue as $count => $item):
               ?>
@@ -196,7 +203,6 @@
                         </div>
                       </div>
                       <div class="three columns time_package">
-                        
                       </div>
                     </div>
                     <div class="border"></div>
@@ -206,12 +212,13 @@
                     <div class="price"><span><?php echo Util::money_format('%!.00i', $item["price"]["sale_adult_price"]);?> B</span></div>
                   </div>
                 </div>
+
               </div>
               <!-- END List Package-->
               <?php
                 endforeach;
               ?>
-            
+
               <!-- BEGIN List Package-->
               <div class="list_packet list_hotel">
                 <div class="ribbon_hotel"></div>
@@ -239,18 +246,18 @@
                 </div>
               </div>
               <!-- END List Package-->
-</div>
-            </div>
           </div>
+        </div>
+      </div>
+    </div>
+
           <!-- END Row Package -->
-          <br/><br/>        
+
           <?php
             endforeach;
           ?>
 
-        </div><!-- End box_white_in_columns-->
-      </div>
-    </div>
+<br/><br/>
     <div class="row">
       <div class="twelve columns">
         <div class="footer_tour">
@@ -267,32 +274,42 @@
               <div class="twelve columns">
                 <h4>รายละเอียดทัวร์</h4>
                 <dl>
-                  <dt>วันที่ 1</dt>
-                    <dd>09.00 - 11.00 น. ออกทัวร์       
-                      <span>ราคาผู้ใหญ่  2,000 บาท</span>
-                    </dd>
-                    <dd>11.00 - 12.00 น. นอนพักผ่อน
-                      <span>ราคาเด็ก      1,000 บาท </span>
-                    </dd>
+                  <?php
+                    $lastItemID = 0;
+                    $adultTotalPrice = 0;
+                    $childTotalPrice = 0;
+                    foreach ($packageTour as $day => $dayValue):
 
-                  <dt>วันที่ 2</dt>
-                    <dd>09.00 - 11.00 น. ออกทัวร์       
-                      <span>ราคาผู้ใหญ่  2,000 บาท</span>
-                    </dd>
-                    <dd>11.00 - 12.00 น. นอนพักผ่อน
-                      <span>ราคาเด็ก      1,000 บาท </span>
-                    </dd>
-                  <dt>วันที่ 3</dt>
-                    <dd>09.00 - 11.00 น. ออกทัวร์       
-                      <span>ราคาผู้ใหญ่  2,000 บาท</span>
-                    </dd>
-                    <dd>11.00 - 12.00 น. นอนพักผ่อน
-                      <span>ราคาเด็ก      1,000 บาท </span>
-                    </dd>
+                  ?>
+                  <div class="row">
+                  <dt>วันที่ <?php echo ++$day; ?></dt>
+                  <?php
+                      foreach ($dayValue as $count => $item):
+                        if($lastItemID != $item["tour_id"]){
+                          $adultTotalPrice += $item["price"]["sale_adult_price"];
+                          $childTotalPrice += $item["price"]["sale_child_price"];
+                        }
+                  ?>
+                    <div class="twelve columns">
+                      <dd><?php echo $item["name"];?>
+                        <span>ราคาผู้ใหญ่  <?php if($lastItemID != $item["tour_id"]){echo Util::money_format('%!.00i', $item["price"]["sale_adult_price"]);}else{echo "-";}?> B </span>
+                      </dd>
+                      <dd>
+                        <span>ราคาเด็ก      <?php if($lastItemID != $item["tour_id"]){echo Util::money_format('%!.00i', $item["price"]["sale_child_price"]);}else{echo "-";}?> B </span>
+                      </dd>
+                    </div>
+                  <?php
+                    $lastItemID = $item["tour_id"];
+                    endforeach;
+                  ?>
+                    </div>
+                  <?php
+                      endforeach;
+                  ?>
                 </dl>
                 <p class="totol_price2">
-                  ราคารวม  ผู้ใหญ่  2,500 บาท<br/>
-                  ราคารวม  เด็ก      1,500 บาท
+                  ราคารวม  ผู้ใหญ่  <?php echo $adultTotalPrice;?> บาท<br/>
+                  ราคารวม  เด็ก      <?php echo $childTotalPrice;?> บาท
                 </p>
               </div>
             </div>
