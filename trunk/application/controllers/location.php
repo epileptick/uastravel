@@ -559,7 +559,7 @@ class Location extends MY_Controller {
         $locationData["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$id,'table_id'=>1)));
         $locationData["location"] = $locationData["location"][0];
       }
-      $locationData["main_menu"]= Menu::main_menu();
+      
 
 
       //Related Tour in Location

@@ -2,8 +2,8 @@
 class MY_Parser extends CI_Parser {
 
     const LANG_REPLACE_REGEXP = '!\{_\s*(?<key>[^\}]+)\}!';
-    const LANG_INCLUDE_REGEXP = '!\{_include\s*(?<key>[^\}]+)\}!';
-    const LANG_BLOCK_REGEXP = '!\{_block\s*(?<key>[^\}]+)\}!';
+    const INCLUDE_REPLACE_REGEXP = '!\{_include\s*(?<key>[^\}]+)\}!';
+    const WIDGET_REPLACE_REGEXP = '!\{_widget\s*(?<key>[^\}]+)\}!';
     static $CI = null;
     private $_data = "";
 
@@ -19,28 +19,28 @@ class MY_Parser extends CI_Parser {
         $data['jspath'] = base_url("/themes/".$themeName."/js");
         $data['themepath'] = base_url("/themes/".$themeName);
 
-        $data['maincontent'] = $this->CI->load->view("themes/".$themeName."/_Controller/".$template, $data, TRUE);
+
+        $data['maincontent'] = $this->CI->load->view("themes/".$themeName."/".$template, $data, TRUE);
         if(!$piece){
           $template = $this->CI->load->view("themes/".$themeName."/master.php", $data, TRUE);
         }else{
           $template = $data['maincontent'];
         }
 
-
-
         $template = $this->replace_include_keys($template);
-        $template = $this->replace_block_keys($template);
+        $template = $this->replace_widget_keys($template);
         $template = $this->replace_lang_keys($template);
 
-
         if(count(PageUtil::getVar("title"))>0){
-          preg_match("#\<title\>(.*)\<\/title\>#i",$template,$matches);
-          $originalTitle = $matches[1];
-          $newTitle = $originalTitle." -";
-          foreach(PageUtil::getVar("title") AS $title){
-            $newTitle .= " ".$title;
+          if(preg_match("#\<title\>(.*)\<\/title\>#i",$template,$matches)){
+            $originalTitle = $matches[1];
+            $newTitle = $originalTitle." -";
+            foreach(PageUtil::getVar("title") AS $title){
+              $newTitle .= " ".$title;
+            }
+            $template = str_replace($originalTitle,$newTitle,$template);
           }
-          $template = str_replace($originalTitle,$newTitle,$template);
+
         }
 
         if(count(PageUtil::getVar("keywords"))>0){
@@ -87,11 +87,11 @@ class MY_Parser extends CI_Parser {
     }
 
     protected function replace_include_keys($template) {
-        return preg_replace_callback(self::LANG_INCLUDE_REGEXP, array($this, 'replace_include_key'), $template);
+        return preg_replace_callback(self::INCLUDE_REPLACE_REGEXP, array($this, 'replace_include_key'), $template);
     }
 
-    protected function replace_block_keys($template) {
-        return preg_replace_callback(self::LANG_BLOCK_REGEXP, array($this, 'replace_block_key'), $template);
+    protected function replace_widget_keys($template) {
+        return preg_replace_callback(self::WIDGET_REPLACE_REGEXP, array($this, 'replace_widget_key'), $template);
     }
 
     protected function replace_lang_key($key) {
@@ -107,12 +107,17 @@ class MY_Parser extends CI_Parser {
       return  $this->_parse($template,  $this->_data, TRUE);
     }
 
-    protected function replace_block_key($key) {
-      $themeName = Config::getConfig('theme_name');
-      $template = $this->CI->load->view("themes/".$themeName."/_Blocks/".$key["1"].".php", $this->_data, TRUE);
-      $template = $this->replace_lang_keys($template);
+    protected function replace_widget_key($key) {
+      if(file_exists(APPPATH."widgets/".strtolower($key["1"])."_widget.php")){
+        require_once(APPPATH."widgets/".strtolower($key["1"])."_widget.php");
 
-      return  $this->_parse($template,  $this->_data, TRUE);
+        $class = strtolower($key["1"])."_widget";
+        $WIDGET = new $class;
+
+        return  $WIDGET->run();
+      }else{
+        return;
+      }
     }
 
     function _parse($template, $data, $return = FALSE)
