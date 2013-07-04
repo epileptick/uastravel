@@ -17,7 +17,7 @@ class Login {
     ));
     $user_data = $this->CI->session->userdata("user_data");
     if(empty($user_data["fbid"])){
-      $this->session->sess_destroy();
+      $this->CI->session->sess_destroy();
     }
     if($this->CI->uri->segment(1) == "admin"){
       if(!empty($user_data["group"]) AND ($user_data["group"] != 1)){

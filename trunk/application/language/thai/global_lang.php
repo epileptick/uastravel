@@ -13,7 +13,16 @@ $lang['global_lang_fax'] = "แฟกซ์";
 $lang['global_lang_e_mail'] = "อีเมลล์";
 $lang['global_lang_map'] = "แผนที่";
 $lang['global_lang_comment'] = "แสดงความคิดเห็น";
-$lang['global_lang_location'] = "สถานที่ท่องเที่ยว";
+
+$lang['global_lang_location'] = "เที่ยวไทย";
+$lang['global_lang_travel'] = "เที่ยว";
+$lang['global_lang_travel_in'] = "เที่ยว";
+$lang['global_lang_travel_phuket'] = "เที่ยวภูเก็ต";
+$lang['global_lang_travel_phangnga'] = "เที่ยวพังงา";
+$lang['global_lang_travel_krabi'] = "เที่ยวกระบี่";
+
+$lang['global_lang_tourthai'] = "ทัวร์ไทย";
+
 $lang['global_lang_tour_packages'] = "แพคเกจทัวร์";
 $lang['global_lang_hotel'] = "โรงแรม";
 $lang['global_lang_tour'] = "ทัวร์";
@@ -43,6 +52,9 @@ $lang['global_lang_tour_title'] = "แพคเกจทัวร์";
 
 $lang['facebook_message_for_publishing'] = " เราจัดทัวร์นี้เองเลยนะ เป็นโปรแกรมเที่ยวที่เราอยากไปเที่ยวมากๆ ใครมีไอเดียเก๋ๆ ลองจัดโปรแกรมเที่ยวได้ที่เว็บไซต์เลยจ้า";
 $lang['facebook_message_for_publishing_lead'] = "ไปจัดแพ็คเกจทัวร์มา ";
+
+
+$lang['global_lang_article_type'] = "บทความสำหรับ";
 
 
 ?>

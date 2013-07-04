@@ -200,6 +200,19 @@ $route['admin/user/create/(:num)'] = 'user/admin_create/$1';
 $route['admin/group'] = 'group/admin_index';
 $route['admin/group/create'] = 'group/admin_create';
 
+$route['admin/translate'] = 'translate/index';
+$route['admin/translate/tag'] = 'translate/tag';
+
+
+//Article
+
+$route['admin/article'] = 'article/admin_index';
+$route['admin/article/setdisplay'] = 'article/admin_setdisplay';
+$route['admin/article/create'] = 'article/admin_create';
+$route['admin/article/create/(:any)'] = 'article/admin_create/$1';
+$route['admin/article/ajax_delete'] = 'article/ajax_delete';
+$route['admin/article/delete/(:any)'] = 'article/admin_delete/$1';
+
 //Home
 $route['admin'] = 'home/admin_list';
 $route['(:any)'] = 'home/index';

@@ -1,0 +1,24 @@
+	input {
+		display: inline-block;
+		width: 300px;
+		padding: 2px;
+		font-size: 16px;
+		height: 30px;
+	}
+	label {
+		font-size: 16px;
+		width: 150px;
+	}
+
+	.section_heading {
+		height: 45px;
+		background-color: #f2f2f2;
+		line-height: 45px;
+		font-size: 13px;
+		font-weight: bold;
+		color: #666;
+		display: block;
+		border-bottom: 1px solid #dfdfdf;
+		padding: 0 20px;
+		margin-bottom: 10px;
+	}

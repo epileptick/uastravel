@@ -11,7 +11,16 @@ $lang['global_lang_fax'] = "Fax";
 $lang['global_lang_e_mail'] = "E-Mail";
 $lang['global_lang_map'] = "Map";
 $lang['global_lang_comment'] = "Comment";
-$lang['global_lang_location'] = "Travel";
+
+$lang['global_lang_location'] = "Thailand Travel";
+$lang['global_lang_travel_in'] = "Travel ";
+$lang['global_lang_travel_in'] = "Travel in ";
+$lang['global_lang_travel_phuket'] = "Travel in Phuket";
+$lang['global_lang_travel_phangnga'] = "Travel in Phangnga";
+$lang['global_lang_travel_krabi'] = "Travel in Krabi";
+
+$lang['global_lang_tourthai'] = "Thailand Tour";
+
 $lang['global_lang_tour_packages'] = "Tour Packages";
 $lang['global_lang_hotel'] = "Hotel";
 $lang['global_lang_tour'] = "Tour";
@@ -36,5 +45,7 @@ $lang['global_lang_main_title_province_2'] = "with best price.";
 $lang['global_lang_main_description'] = "Traveling in Thailand with popular packages, reasonable price. There are many attraction detail on our site and you'll save your time with our suggestion for the best place to relax in Thailand.";
 
 $lang['global_lang_tour_title'] = "Tour packages ";
+
+$lang['global_lang_article_type'] = "Article for ?";
 
 ?>

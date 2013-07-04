@@ -1,0 +1,16 @@
+.box-recaptcha {
+	padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    padding-right: 10px !important;
+}
+.recaptchatable {
+    float: right;
+}
+.recaptchatable input[type="text"] {
+	border: 1px solid rgb(182, 182, 182) !important;
+	height: 30px !important;
+	margin-top: 5px !important;
+}
+.recaptchatable #recaptcha_image {
+	height: 60px !important;
+}

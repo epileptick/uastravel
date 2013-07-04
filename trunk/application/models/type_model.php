@@ -107,45 +107,5 @@ class Type_model extends MY_Model {
     }    
 
   }
-
-
-  function addRecord($data=false){
-
-    if($data){
-      //Set data
-      foreach($data AS $columnName=>$columnValue){
-        if(array_key_exists($columnName, $this->_column)){
-          $this->db->set($this->_column[$columnName], $columnValue); 
-        }
-      }
-      $result = $this->db->insert($this->_table);
-    }
-    
-    return ;
-  }
-  
-
-  function updateRecord($data=false){
-    if($data){
-      //Set data
-      foreach($data AS $columnName=>$columnValue){
-        if(array_key_exists($columnName, $this->_column)){
-          $this->db->set($this->_column[$columnName], $columnValue); 
-        }
-      }
-      $query = $this->db->where("typ_id", $data["id"]);
-      $query = $this->db->update("ci_type");
-    }
-    
-    return ;
-  }
-
-  function deleteRecord($id){
-    if($id){
-      $this->db->where("typ_id", $id);
-      $this->db->delete("ci_type");
-    }    
-
-  }
 }
 ?>

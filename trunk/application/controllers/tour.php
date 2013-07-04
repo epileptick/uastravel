@@ -342,53 +342,32 @@ class Tour extends MY_Controller {
   }
 
   function user_list($page=0){
-
-    //echo "Call user_list()"; exit;
-
     $data = $this->_tour_menu();
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
     }
-    $data["main_menu"]= Menu::main_menu();
 
-    //////////////////////////////////////////////////////
-    // List all
-    // algorithm : localhost/uastravel/tour/page
-    // example : localhost/uastravel/tour/
-    //           localhost/uastravel/tour/2
-    //           localhost/uastravel/tour/3
-    //////////////////////////////////////////////////////
+    $this->load->model("article_model","articleModel");
+    $where["where"]["tag_id"] = 0;
+    $where["where"]["type"] = 2;
+    $where["limit"] = 1 ;
+    $articleResult = $this->articleModel->get($where);
+    $this->_assign("article",$articleResult[0]);
+    unset($where);
+
+
     //Filter all
     $query["tag_id"] = $query["menu"];
     $query["join"] = true;
     $query["in"] = true;
-    $query["per_page"] = $this->per_page;
-    $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;
-
-    //Send tag for get data
-    //$data["tour"] = $this->_tour_list($query);
 
     //Get tour
     $this->load->model("tagtour_model", "tagTourModel");
     $tour = $this->tagTourModel->getRecordFirstpage($query);
-
-    //print_r($this->_shuffle_assoc($tour)); exit;
-
-    if(!empty($tour)){
-      $data["tour"] =  $this->_shuffle_assoc($tour);
-    }
-
+    $this->_assign("tour",$tour);
     $data["caconical"] = base_url($this->lang->line("url_lang_tour"));
 
-    if(!empty($query["offset"])){
-      if($query["offset"]>0){
-        $this->_fetch('user_listnextpage', $data, false, true);
-      }else{
-        //print_r($data);
-        $this->_fetch('user_list', $data, false, true);
-      }
-    }else{
-      
+    if(!empty($data)){
       $this->_fetch('user_list', $data, false, true);
     }
 
@@ -408,7 +387,7 @@ class Tour extends MY_Controller {
       $query["menu"][] = $valueTag->tag_id;
     }
 
-    $data["main_menu"]= Menu::main_menu();
+
 
     //print_r($data); exit;
     $argTag["url"] = $tag;
@@ -419,8 +398,6 @@ class Tour extends MY_Controller {
     if(!empty($tagQuery)){
       $query["tag_id"] = $tagQuery[0]["id"];
       $query["join"] = true;
-      $query["per_page"] = $this->per_page;
-      $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;
 
       //Get tour by tag
       $this->load->model("tagtour_model", "tagTourModel");
@@ -430,18 +407,29 @@ class Tour extends MY_Controller {
       $data["tour"] = false;
     }
 
+    $this->load->model("article_model","articleModel");
+    $where["where"]["tag_id"] = $tagQuery[0]["id"];
+    $where["where"]["type"] = 2;
+    $where["limit"] = 1 ;
+    $articleResult = $this->articleModel->get($where);
+    unset($where);
+    if(!empty($articleResult)){
+      $this->_assign("article",$articleResult[0]);
+    }else{
+      $where["where"]["tag_id"] = 0;
+      $where["where"]["type"] = 2;
+      $where["limit"] = 1 ;
+      $articleResult = $this->articleModel->get($where);
+      $this->_assign("article",$articleResult[0]);
+    }
+    unset($where);
+
     $data["caconical"] = base_url($this->lang->line("url_lang_tour")."/".trim($tag));
 
-    if(!empty($query["offset"])){
-      if($query["offset"]>0){
-        $this->_fetch('user_listnextpage', $data, false, true);
-      }else{
-        //print_r($data);
-        $this->_fetch('user_list', $data, false, true);
-      }
-    }else{
+    if(!empty($data)){
       $this->_fetch('user_list', $data, false, true);
     }
+
   }
 
   function user_listbytype($tag=false, $type=false, $page=0){
@@ -477,6 +465,12 @@ class Tour extends MY_Controller {
     }
 
     $data["caconical"] = base_url($this->lang->line("url_lang_tour")."/".trim($tag)."/".trim($type));
+
+    if($this->input->get("ajax")){
+      $data = "Ajax:".$tag;
+      echo $data;
+      exit;
+    }
 
     if(!empty($query["offset"])){
       if($query["offset"]>0){
@@ -533,6 +527,12 @@ class Tour extends MY_Controller {
     }
 
     $data["caconical"] = base_url($this->lang->line("url_lang_tour")."/".trim($tag)."/".trim($type)."/".trim($subtype));
+
+    if($this->input->get("ajax")){
+      $data = "Ajax:".$tag;
+      echo $data;
+      exit;
+    }
 
     if(!empty($query["offset"])){
       if($query["offset"]>0){
@@ -606,9 +606,6 @@ class Tour extends MY_Controller {
         foreach ($data["tag"] as $key => $value) {
           $query["menu"][] = $value["tag_id"];
         }
-        
-
-        
 
         //Related Tour
         $query["tour_id"] = $id;
@@ -619,19 +616,15 @@ class Tour extends MY_Controller {
         $query["offset"] = 0;
         $data["related"] = $this->tagTourModel->getRecordRelated($query);
 
-
         //print_r($related); exit;
       }
-
 
       //Price
       $this->load->model("price_model", "priceModel");
       $priceQuery = $this->priceModel->getRecord($agencytour);
       //print_r($priceQuery); exit;
       if(!empty($priceQuery)){
-
-
-          //Min price
+        //Min price
         $minSalePrice = 9999999;
         $minSalePriceID = 0;
         $data["firstpage_price"] = 0;
@@ -651,17 +644,13 @@ class Tour extends MY_Controller {
           }
         }
 
-
         //Price selection
         foreach ($priceQuery as $key => $value) {
           if($value->agency_id == $minSalePriceID){
             $data["price"][] = $value;
           }
         }
-
-
       }//End price
-
 
       //Images
       $this->load->model("images_model", "imagesModel");
@@ -669,13 +658,25 @@ class Tour extends MY_Controller {
 
       $data["caconical"] = base_url($this->lang->line("url_lang_tour")."/".trim($data["tour"][0]["url"])."-".trim($data["tour"][0]["tour_id"]));
 
+
+      //Get tour by tag
+      $this->load->model("tagtour_model", "tagTourModel");
+      $this->_assign("tourRelated",$this->tagTourModel->getRecordByTag());
+
       if(!empty($data)){
-        //Return
-        $this->_fetch('user_view',$data, false, true);
+        if($this->input->get("ajax")){
+          $ajaxReturn["imagesRedered"] = $this->_fetch("ajax_images", $data, TRUE, TRUE);
+
+          $ajaxReturn["bodyRedered"] = $this->_fetch("ajax_body", $data, TRUE, TRUE);
+          $ajaxReturn["data"] = $data["tour"][0];
+
+          echo json_encode($ajaxReturn);exit;
+        }else{
+          $this->_fetch('user_view',$data, false, true);
+        }
       }else{
         show_404();
       }
-
     }else{
       show_404();
     }
@@ -685,12 +686,8 @@ class Tour extends MY_Controller {
 
 
   function user_inquiry($args){
-
-
     if($args["id"]){
-
       //Tour
-
       $tour["id"] = $args["id"];
       $tagtour["tour_id"] = $args["id"];
       $agencytour["tour_id"] = $args["id"];

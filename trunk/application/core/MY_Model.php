@@ -371,6 +371,9 @@ class MY_Model extends CI_Model {
       }
       $result = $this->db->insert($this->_table);
       $objData = $this->db->insert_id();
+      if($this->db->insert_id() === 0 AND $result){
+        $objData = $options[$this->_pk];
+      }
     }
 
     if($result){
