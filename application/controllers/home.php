@@ -5,7 +5,6 @@ class Home extends MY_Controller {
     parent::__construct();
   }
 
-
   function index(){
     //Default function for call read method
 
@@ -16,7 +15,6 @@ class Home extends MY_Controller {
     }else{
       $index = 0;
     }
-
 
     $page = $this->uri->segment($index+1);//5;
     $this->user_list(false, $page);
@@ -31,7 +29,6 @@ class Home extends MY_Controller {
 
       $count = 0;
       foreach ($tagtypeQuery as $key => $value) {
-        
         $menu[$count] = new stdClass();
         $menu[$count]->tag_id = $value["tag_id"];
         $menu[$count]->name = $value["name"];
@@ -52,9 +49,7 @@ class Home extends MY_Controller {
 
         $count++;
       }
-      
       return $menu;
-      //print_r($menu);  exit;
   }
 
   function _shuffle_assoc($list) {
@@ -70,11 +65,34 @@ class Home extends MY_Controller {
   }
 
   function _home_list($query){
-
     if(!empty($query)){
       $this->load->model("tagtour_model", "tagTourModel");
       //Tour
       $tour = $this->tagTourModel->getRecordHome($query);
+
+      foreach($tour as $key=>$value){
+        if($value["type"] == "banner"){
+          $promotedTour[] = $value;
+          unset($tour[$key]);
+        }
+      }
+      $i=0;
+      foreach($tour as $key=>$value){
+        if($value["type"] == "normal" AND $i < 4 ){
+          $normalTour[] = $value;
+          unset($tour[$key]);
+          ++$i;
+        }
+      }
+      unset($tour);
+
+
+      if(!empty($promotedTour)){
+        $tour["promotedTour"] = $promotedTour;
+      }
+      if(!empty($normalTour)){
+        $tour = $normalTour;
+      }
 
       //Location
       $this->load->model("taglocation_model", "tagLocationModel");
@@ -88,7 +106,6 @@ class Home extends MY_Controller {
       $home = $location;
     }
 
-
     //print_r($this->_shuffle_assoc($home)); exit;
     if(!empty($home)){
       //return $this->_shuffle_assoc($home);
@@ -98,14 +115,21 @@ class Home extends MY_Controller {
     }
   }
 
-
   function user_list($tag=false, $page=0){
+
+
+    $this->load->model("article_model","articleModel");
+    $where["where"]["tag_id"] = 0;
+    $where["where"]["type"] = 0;
+    $where["limit"] = 1 ;
+    $articleResult = $this->articleModel->get($where);
+
+    $this->_assign("article",$articleResult[0]);
 
     $per_page = 20;
 
     $data["menu"]= $this->_home_menu($tag);
     $data["main_menu"]= Menu::main_menu();
-
 
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
@@ -146,13 +170,13 @@ class Home extends MY_Controller {
       $query["per_page"] = $per_page;
       $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;
 
-
       //Tour
       $data["home"] = $this->_home_list($query);
+      //var_dump($data["home"]);exit;
     }
-        //print_r($data); exit;
+    //print_r($data); exit;
     //print_r($query); exit;
-
+    
     if(!empty($query["offset"])){
       if($query["offset"]>0 ){
         $this->_fetch('user_listnextpage', $data, false, true);
@@ -165,7 +189,6 @@ class Home extends MY_Controller {
       //var_dump($data);
       $this->_fetch('user_list', $data, false, true);
     }
-
   }
 
   function admin_list(){

@@ -1,0 +1,104 @@
+.grid_item a .img{
+    width: 40px;
+    height: 40px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.grid_item > a{
+    overflow: hidden;
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: #000 !important;
+    
+}
+.grid_item a .img:hover{
+    opacity:0.4;
+    cursor:pointer;
+    -webkit-transform: scale(1.25) rotate(-7deg);
+    -moz-transform: scale(1.25) rotate(-7deg);
+    -ms-transform: scale(1.25) rotate(-7deg);
+    -o-transform: scale(1.25) rotate(-7deg);
+    transform: scale(1.25) rotate(-7deg);
+}
+
+.fan_box .connections_grid .grid_item .name{
+    display:none;
+}
+.fan_box .connections_grid .grid_item{
+    padding: 0px 5px 5px 0px !important;
+    width:40px !important;
+    height:40px !important;
+}
+.connect_top > a{
+    display:none !important;
+       
+    
+}
+.fan_box .full_widget .connect_top{
+    position: absolute;
+    bottom:25px;
+    left:-5px;
+    color:#B8A679;
+}
+
+.name_block{
+        display:none !important;
+}
+.fan_box .full_widget{
+    border:none !important;
+    background: none !important;
+}
+.fan_box .full_widget .connect_top{
+    background: none !important;
+}
+.fan_box .connect_top{
+    padding:0 !important;
+}
+.fan_box .connections {
+border:none !important;
+padding: 0px !important;
+min-height: 1px !important;
+}
+.total_plus, .total{
+    color:#b8a679;
+}
+.connect_widget .like_button_no_like .piece, .connect_widget .like_button_no_like{
+    background:none !important;
+    border: none !important;
+}
+.connect_widget_like_button .liketext{
+    background-position: -1px -18px !important;
+    color:#B8A679 !important;
+    text-indent:5px;
+    -webkit-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+    
+}
+.connect_widget .like_button_like, .connect_widget .like_button_like .piece{
+    background:none !important;
+    border: none !important;
+}
+.connect_widget .connect_widget_text{
+    display:none;
+}
+.fan_box .connect_action{
+    padding:0px !important;
+}
+.connect_widget_like_button .liketext:hover{
+    background-position: -1px -3px !important;
+}
+.corner{
+    display: none !important;
+}

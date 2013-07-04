@@ -136,7 +136,7 @@
           <div class="main">
             <div class="content">
               {_include user_tab}
-              {_block modal_login}
+              {_include modal_login}
               <div class="row-fluid">
                 <div class="navbar">
                     <div class="navbar-inner">

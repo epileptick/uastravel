@@ -7,10 +7,14 @@ class Tag extends MY_Controller {
 
 
   function _index($where=""){
+    $this->load->model("tagtour_model","tagtourModel");
+    $this->load->model("taglocation_model","taglocationModel");
+    $this->load->model("taghotel_model","taghotelModel");
 
-    $tagData = $this->tagModel->get();
+    $tagData = $this->tagModel->get(array("order"=>'CONVERT( tagt_name USING tis620 ) ASC'));
     foreach ($tagData as $tagKey => $tagValue) {
       $getTagWhere["where"]["tag_id"] = $tagValue["tag_id"];
+
       $getTagData = $this->tagModel->get($getTagWhere);
       foreach ($getTagData as $getTagDataKey => $getTagDataValue) {
         $result["tag"][$getTagDataValue["tag_id"]] = $getTagDataValue;
@@ -21,18 +25,26 @@ class Tag extends MY_Controller {
         foreach ($this->config->item("language_list") as $langKey => $langValue) {
           $result["tag"][$getTagDataValue["tag_id"]][$langKey] = $this->_searchTagInArray($getTagDataValue["tag_id"],$langKey,$getTagData);
         }
+
       }
-
+      $result["tag"][$getTagDataValue["tag_id"]]["tour_used"] = $this->tagtourModel->get(array("where"=>array("tag_id"=>$getTagDataValue["tag_id"])));
+      $result["tag"][$getTagDataValue["tag_id"]]["location_used"] = $this->taglocationModel->get(array("where"=>array("tag_id"=>$getTagDataValue["tag_id"])));
+      $result["tag"][$getTagDataValue["tag_id"]]["hotel_used"] = $this->taghotelModel->get(array("where"=>array("tag_id"=>$getTagDataValue["tag_id"])));
+      $result["tag"][$getTagDataValue["tag_id"]]["used"] = 0;
+      if(!empty($result["tag"][$getTagDataValue["tag_id"]]["tour_used"])){
+        $result["tag"][$getTagDataValue["tag_id"]]["used"] += count($result["tag"][$getTagDataValue["tag_id"]]["tour_used"]);
+      }
+      if(!empty($result["tag"][$getTagDataValue["tag_id"]]["location_used"])){
+        $result["tag"][$getTagDataValue["tag_id"]]["used"] += count($result["tag"][$getTagDataValue["tag_id"]]["location_used"]);
+      }
+      if(!empty($result["tag"][$getTagDataValue["tag_id"]]["hotel_used"])){
+        $result["tag"][$getTagDataValue["tag_id"]]["used"] += count($result["tag"][$getTagDataValue["tag_id"]]["hotel_used"]);
+      }
     }
-
     return $result;
   }
 
-
-
-
   function admin_index(){
-
     $this->load->model("type_model", "typeModel");
     $this->load->model("tagtype_model", "tagTypeModel");
     $result["typeData"] = array_reverse($this->typeModel->get());
@@ -277,10 +289,12 @@ class Tag extends MY_Controller {
 
         foreach($tagTypeData AS $tagTypeDataKey=>$tagTypeDataValue){
           if(($resultSearch = array_search($tagTypeDataValue["tag_id"],$post["tag"]["id"])) === FALSE){
+
             $deleteTagType["where"]["tag_id"] = $tagTypeDataValue["tag_id"];
             $deleteTagType["where"]["type_id"] = $tagTypeDataValue["type_id"];
             $deleteTagType["where"]["parent_id"] = $tagTypeDataValue["parent_id"];
             $this->tagTypeModel->delete($deleteTagType);
+
             if(isset($post["order"][$tagTypeDataValue["tag_id"]])){
               unset($post["order"][$tagTypeDataValue["tag_id"]]);
             }

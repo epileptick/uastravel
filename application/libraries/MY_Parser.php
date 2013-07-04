@@ -1,9 +1,9 @@
 <?php
 class MY_Parser extends CI_Parser {
 
-    const LANG_REPLACE_REGEXP = '!\{_\s*(?<key>[^\}]+)\}!';
-    const INCLUDE_REPLACE_REGEXP = '!\{_include\s*(?<key>[^\}]+)\}!';
-    const WIDGET_REPLACE_REGEXP = '!\{_widget\s*(?<key>[^\}]+)\}!';
+    const LANG_REPLACE_REGEXP     = '!\{_\s*(?<key>[^\}]+)\}!';
+    const INCLUDE_REPLACE_REGEXP  = '!\{_include\s*(?<key>[^\}]+)\}!';
+    const WIDGET_REPLACE_REGEXP   = '!\{_widget\s*(?<key>[^\}]+)\}!';
     static $CI = null;
     private $_data = "";
 
@@ -14,10 +14,10 @@ class MY_Parser extends CI_Parser {
         $this->CI = get_instance();
         $this->_data = $data;
         //prepare data
-        $data['imagepath'] = base_url("/themes/".$themeName."/images");
-        $data['stylepath'] = base_url("/themes/".$themeName."/style");
-        $data['jspath'] = base_url("/themes/".$themeName."/js");
-        $data['themepath'] = base_url("/themes/".$themeName);
+        $data['imagepath']  = base_url("/themes/".$themeName."/images");
+        $data['stylepath']  = base_url("/themes/".$themeName."/style");
+        $data['jspath']     = base_url("/themes/".$themeName."/js");
+        $data['themepath']  = base_url("/themes/".$themeName);
 
 
         $data['maincontent'] = $this->CI->load->view("themes/".$themeName."/".$template, $data, TRUE);
@@ -40,7 +40,6 @@ class MY_Parser extends CI_Parser {
             }
             $template = str_replace($originalTitle,$newTitle,$template);
           }
-
         }
 
         if(count(PageUtil::getVar("keywords"))>0){

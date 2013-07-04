@@ -155,6 +155,15 @@ class Util {
 	    }
 	    return $format;
 	}
+
+
+	function getTag($id = NULL){
+		$CI =& get_instance();
+		$CI->load->model("tag_model","tagModel");
+		$result = $CI->tagModel->get($id);
+
+		return $result[0]["name"];
+	}
 }
 
 ?>

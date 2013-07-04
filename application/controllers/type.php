@@ -45,16 +45,20 @@ class Type extends MY_Controller {
       $result["tagTypeData"] = $this->tagTypeModel->getTagTypeList($whereTagType);
       $result["tagData"] = $this->tagModel->getTagList();
 
-      foreach ($result["tagTypeData"] as $key => $value) {
-        $arrayIndex[$key] = $value["index"];
-        $arrayToSort[$key] = $value;
+      if(!empty($result["tagTypeData"])){
+        foreach ($result["tagTypeData"] as $key => $value) {
+          $arrayIndex[$key] = $value["index"];
+          $arrayToSort[$key] = $value;
+        }
+        unset($result["tagTypeData"]);
+        asort($arrayIndex);
+        
+        foreach ($arrayIndex as $key => $value) {
+          $result["tagTypeData"][$key] = $arrayToSort[$key];
+          $result["tagTypeData"][$key]["index"] = $value;
+        }
       }
-      unset($result["tagTypeData"]);
-      asort($arrayIndex);
-      foreach ($arrayIndex as $key => $value) {
-        $result["tagTypeData"][$key] = $arrayToSort[$key];
-        $result["tagTypeData"][$key]["index"] = $value;
-      }
+
 
 
       $this->_fetch("admin_create",$result);

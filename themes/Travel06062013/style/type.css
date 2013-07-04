@@ -1,0 +1,75 @@
+#ck-button {
+	display: inline-block;
+	height: auto;
+}
+
+#ck-button label {
+	display: inline-block;
+	border:1px solid #dfdfdf;
+	float: left;
+	margin: 5px;
+	font-size: 14px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	padding: 10px;
+	text-shadow: none;
+
+}
+#ck-button label:hover {
+	background-color: rgb(133, 194, 2);
+	color: #FFF;
+}
+#ck-button span {
+	border:none;
+	padding: 0px;
+}
+#ck-button input[type="checkbox"] {
+	display: none;
+}
+input[type="checkbox"]:checked+label {
+	background-color: rgb(133, 194, 2);
+	color: #FFF;
+}
+
+.form-field {
+	height: 30px !important;
+}
+.form-field input[type="text"] {
+	-moz-box-shadow: inset 0px 0px 01px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0px 0px 01px rgba(0,0,0,0.5);
+	box-shadow: inset 0px 0px 01px rgba(0,0,0,0.5);
+}
+.form-field label {
+	width: 150px;
+}
+.form-container {
+	padding:5px;
+	height: auto !important;
+}
+.button {
+	width: auto !important;
+	padding: 5px !important;
+}
+
+ul li {
+	height: 15px !important;
+	font-size: 16px;
+}
+li span {
+	float: right !important;
+	font-size: 12px;
+}
+input[type="text"].order {
+	display: inline-block;
+	float: left;
+	height: 20px;
+	width: 35px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 5px;
+	-moz-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+	text-align: center;
+	font-size: 16px;
+}

@@ -15,9 +15,39 @@ class TagTour_model extends MY_Model {
 
     $this->_join_column = array(
                      'tag_id'            => 'tagt_tag_id',
-                     'lang'              => 'tagt_lang',
-                     'name'              => 'tagt_name',
-                     'url'               => 'tagt_url'
+                     'tagt_lang'              => 'tagt_lang',
+                     'tagt_name'              => 'tagt_name',
+                     'tagt_url'               => 'tagt_url',
+                     'tout_lang'              => 'tout_lang',
+                     'tout_url'               => 'tout_url',
+                     'tout_name'              => 'tout_name',
+                     'short_description' => 'tout_short_description',
+                     'description'       => 'tout_description',
+                     'detail'            => 'tout_detail',
+                     'included'          => 'tout_included',
+                     'remark'            => 'tout_remark',
+                     'cr_date'           => 'tout_cr_date',
+                     'cr_uid'            => 'tout_cr_uid',
+                     'lu_date'           => 'tout_lu_date',
+                     'lu_uid'            => 'tout_lu_uid',
+                     'code'              => 'tou_code',
+                     'amount_time'       => 'tou_amount_time',
+                     'start_date'        => 'tou_start_date',
+                     'end_date'          => 'tou_end_date',
+                     'start_month'       => 'tou_start_month',
+                     'end_month'         => 'tou_end_month',
+                     'start_time1'       => 'tou_start_time1',
+                     'end_time1'         => 'tou_end_time1',
+                     'start_time2'       => 'tou_start_time2',
+                     'end_time2'         => 'tou_end_time2',
+                     'start_time3'       => 'tou_start_time3',
+                     'end_time3'         => 'tou_end_time3',
+                     'longitude'         => 'tou_longitude',
+                     'latitude'          => 'tou_latitude',
+                     'first_image'       => 'tou_first_image',
+                     'display'           => 'tou_display',
+                     'background_image'  => 'tou_background_image',
+                     'banner_image'      => 'tou_banner_image',
     );
   }
 
@@ -30,7 +60,14 @@ class TagTour_model extends MY_Model {
         $this->db->where($this->_join_column["lang"],$this->lang->lang());
       }
     }
-    $this->db->join("ci_tag_translate","ci_tag_translate.tagt_tag_id = ci_tagtour.tat_tag_id");
+
+    if(!empty($options["join_tour"]) AND $options["join_tour"] == TRUE){
+      $this->db->join("ci_tour_translate","ci_tour_translate.tout_tour_id = ci_tagtour.tat_tour_id");
+      $this->db->join("ci_tour","ci_tour.tou_id = ci_tagtour.tat_tour_id");
+    }
+    if(empty($options["join_tag"]) OR $options["join_tag"] != false){
+      $this->db->join("ci_tag_translate","ci_tag_translate.tagt_tag_id = ci_tagtour.tat_tag_id");
+    }
     $mainTable = parent::get($options);
     if(empty($mainTable) AND !empty($options["lang"])){
       unset($options["lang"]);
@@ -40,9 +77,9 @@ class TagTour_model extends MY_Model {
   }
 
   function getTagTourList($options = NULL){
-    $options["where"]["lang"] = $this->lang->lang();
+    $options["where"]["tagt_lang"] = $this->lang->lang();
     $result = $this->get($options);
-    unset($options["where"]["lang"]);
+    unset($options["where"]["tagt_lang"]);
     $resultAll = $this->get($options);
 
     if(empty($result)){
@@ -101,76 +138,43 @@ class TagTour_model extends MY_Model {
 
   function getRecordFirstpage($args=false){
 
-     //Get distinct tour_id from ci_tagtour
-      $this->db->select('tat_tour_id');
-      $this->db->distinct("tat_tour_id");
-      $this->db->where_in('tat_tag_id', $args["menu"]);
-      //$this->db->where('tat_tag_id', $args["tag_id"]);
-      $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');
-      $this->db->order_by('tat_tour_id DESC');
-      if($args["per_page"] > -1 && $args["offset"] > -1){
-        $this->db->limit($args["per_page"], $args["offset"]);
-      }
-      $tour = $this->db->get('ci_tagtour')->result();
 
+    //Get tour data
+    $tourWhere["where_in"]["tag_id"] = $args["menu"];
+    $tourWhere["where"]["tout_lang"] = $this->lang->lang();
+    $tourWhere["group"] = parent::getColumn("tour_id");
+    $tourWhere["join_tour"] = true;
+    $tourWhere["join_tag"] = false;
+    $tour = $this->get($tourWhere);
 
       //print_r($tour); exit;
       $count = 0;
       foreach ($tour as $key => $value) {
-
-        //Get tour data
-        unset($this->db);
-        //$this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-        $this->db->where('tou_id', $value->tat_tour_id);
-        $this->db->where('tou_display', 1);
-        $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
-        $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
-        $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');
-        $tourBuffer = $this->db->get('ci_tour')->result();
-
-
-
-        if(!empty($tourBuffer)){
-          $result[$count]["tour"] = $tourBuffer[0];
+          $result[$key]["tour"] = $value;
 
           //Get tag data
-          $argsTag["where"]['tour_id'] = $value->tat_tour_id;
+          $argsTag["where"]['tour_id'] = $value["tour_id"];
           $argsTag["where_in"]['tag_id'] = $args["menu"];
-          $result[$count]["tag"] = $this->getTagTourList($argsTag);
+          $argsTag["join_tag"] = true;
+          $result[$key]["tag"] = $this->getTagTourList($argsTag);
 
           //Get price data
           unset($this->db);
-          $this->db->where('pri_tour_id', $value->tat_tour_id);
+          $this->db->where('pri_tour_id', $value["tour_id"]);
           $priceTour = $this->db->get('ci_price')->result();
 
           if(!empty($priceTour)){
-
-            /*
-            $maxAgencyPrice = 0;
-            foreach ($priceTour as $key => $value) {
-              # code...
-              if($value->pri_sale_adult_price > $maxAgencyPrice){
-                $result[$count]["price"] = $value;
-                $maxAgencyPrice = $value->pri_sale_adult_price;
-              }
-            }
-
-            */
-
-
-
-
             //Min price
             $minSalePrice = 9999999;
             foreach ($priceTour as $key => $value) {
               # code...
               if($value->pri_show_firstpage == 1){
                 $minSalePrice = $value->pri_sale_adult_price;
-                $result[$count]["price"] = $value;
+                $result[$key]["price"] = $value;
                 break;
               }else{
                 if($value->pri_sale_adult_price < $minSalePrice){
-                  $result[$count]["price"] = $value;
+                  $result[$key]["price"] = $value;
                   $minSalePrice = $value->pri_sale_adult_price;
                 }
               }
@@ -178,9 +182,7 @@ class TagTour_model extends MY_Model {
           }
 
           $count++;
-        }
       }
-      //print_r($result); exit;
 
       if(!empty($result)){
         return $result;
@@ -192,121 +194,56 @@ class TagTour_model extends MY_Model {
 
   function getRecordByTag($args=false){
 
-   //Get distinct tour_id from ci_tagtour
-    $this->db->select('tat_tour_id');
-    $this->db->distinct("tat_tour_id");
-    $this->db->where('tat_tag_id', $args["tag_id"]);
-    $this->db->join('ci_tour', 'ci_tour.tou_id = ci_tagtour.tat_tour_id');
-    $this->db->order_by('tat_tour_id DESC');
-    if($args["per_page"] > -1 && $args["offset"] > -1){
-      $this->db->limit($args["per_page"], $args["offset"]);
-    }
-    $tour = $this->db->get('ci_tagtour')->result();
+    //Get tour data
+    $tourWhere["where"]["tag_id"] = $args["tag_id"];
+    $tourWhere["where"]["tout_lang"] = $this->lang->lang();
+    $tourWhere["group"] = parent::getColumn("tour_id");
+    $tourWhere["join_tour"] = true;
+    $tourWhere["join_tag"] = false;
+    $tour = $this->get($tourWhere);
 
+      //print_r($tour); exit;
+      $count = 0;
+      foreach ($tour as $key => $value) {
+          $result[$key]["tour"] = $value;
 
-    $count = 0;
-    foreach ($tour as $key => $value) {
+          //Get tag data
+          $argsTag["where"]['tour_id'] = $value["tour_id"];
+          $argsTag["where_in"]['tag_id'] = $args["menu"];
+          $argsTag["join_tag"] = true;
+          $result[$key]["tag"] = $this->getTagTourList($argsTag);
 
-      //Get tour data
-      unset($this->db);
-      //$this->db->select('tou_id, tou_name, tou_code, tou_url, tou_first_image, tou_banner_image');
-      $this->db->where('tou_id', $value->tat_tour_id);
-      $this->db->where('tou_display', 1);
-      $this->db->where('ci_tour_translate.tout_lang', $this->lang->lang());
-      $this->db->join('ci_tour_translate', 'ci_tour_translate.tout_tour_id = ci_tour.tou_id');
-      $this->db->order_by('CONVERT( tout_name USING tis620 ) ASC');
-      $tourBuffer = $this->db->get('ci_tour')->result();
+          //Get price data
+          unset($this->db);
+          $this->db->where('pri_tour_id', $value["tour_id"]);
+          $priceTour = $this->db->get('ci_price')->result();
 
-
-
-      if(!empty($tourBuffer)){
-
-        $result[$count]["tour"] = $tourBuffer[0];
-
-        //Get tag data
-        $argsTag["where"]['tour_id'] = $value->tat_tour_id;
-        $argsTag["where_in"]['tag_id'] = $args["menu"];
-        $result[$count]["tag"] = $this->getTagTourList($argsTag);
-
-        //Get price data
-        unset($this->db);
-        $this->db->where('pri_tour_id', $value->tat_tour_id);
-        //$this->db->where('pri_tour_id', 128);
-        $this->db->order_by('pri_agency_id ASC');
-        $priceTour = $this->db->get('ci_price')->result();
-        //print_r($priceTour);
-
-        if(!empty($priceTour)){
-
-          //Group agency
-          $agencyArray = array();
-          $countagencyArray = array();
-          foreach ($priceTour as $key => $value) {
-            if (isset($agencyArray[$value->pri_agency_id])){
-              $countagencyArray[$value->pri_agency_id]++;
-              $agencyArray[$value->pri_agency_id][] = $value;
-            }else{
-              $countagencyArray[$value->pri_agency_id] = 1;
-              $agencyArray[$value->pri_agency_id][] = $value;
-            }
-          }
-
-          //Find low price in agency
-          $agencyLowPriceArray = array();
-          foreach ($agencyArray as $keyAgency => $valueAgency) {
-            $agencyLowPrice = $valueAgency[0]->pri_sale_adult_price;
-            foreach ($valueAgency as $key => $value) {
-              if($value->pri_sale_adult_price <= $agencyLowPrice){
-                $agencyLowPriceArray[$keyAgency] = $value;
-              }
-            }
-          }
-
-          /*
-          //Find max price for display
-          $maxAgencyPrice = 0;
-          foreach ($agencyLowPriceArray as $key => $value) {
-            # code...
-            if($value->pri_sale_adult_price > $maxAgencyPrice){
-              $result[$count]["price"] = $value;
-              $maxAgencyPrice = $value->pri_sale_adult_price;
-            }
-          }
-          */
-
-          //Min price
-          $minSalePrice = 9999999;
-          foreach ($priceTour as $key => $value) {
-            # code...
-            if($value->pri_show_firstpage == 1){
-              $minSalePrice = $value->pri_sale_adult_price;
-              $result[$count]["price"] = $value;
-              break;
-            }else{
-              if($value->pri_sale_adult_price < $minSalePrice){
-                $result[$count]["price"] = $value;
+          if(!empty($priceTour)){
+            //Min price
+            $minSalePrice = 9999999;
+            foreach ($priceTour as $key => $value) {
+              # code...
+              if($value->pri_show_firstpage == 1){
                 $minSalePrice = $value->pri_sale_adult_price;
+                $result[$key]["price"] = $value;
+                break;
+              }else{
+                if($value->pri_sale_adult_price < $minSalePrice){
+                  $result[$key]["price"] = $value;
+                  $minSalePrice = $value->pri_sale_adult_price;
+                }
               }
             }
           }
 
-        }
-
-        $count++;
+          $count++;
       }
 
-    }
-
-
-    //print_r($result); exit;
-
-    //print_r($result); exit;
-
-    if(!empty($result)){
-      return $result;
-    }else{
-      return false;
-    }
+      if(!empty($result)){
+        return $result;
+      }else{
+        return false;
+      }
   }
 
 

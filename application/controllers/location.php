@@ -227,79 +227,93 @@ class Location extends MY_Controller {
 
 
   function user_list($page=0){
-
     $per_page = 20;
     $data["menu"]= $this->_location_menu();
 
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
     }
-    $data["main_menu"]= Menu::main_menu();
+
+    $this->load->model("article_model","articleModel");
+    $where["where"]["tag_id"] = 0;
+    $where["where"]["type"] = 1;
+    $where["limit"] = 1 ;
+    $articleResult = $this->articleModel->get($where);
+    $this->_assign("article",$articleResult[0]);
+    unset($where);
 
     //Filter all
     $query["tag_id"] = $query["menu"];
     $query["join"] = true;
     $query["in"] = true;
-    $query["per_page"] = $per_page;
-    $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;
-
-
 
     $this->load->model("taglocation_model", "taglocationModel");
     $location = $this->taglocationModel->getRecordFirstpage($query);
 
     if(!empty($location)){
-      $data["location"] =  $this->_shuffle_assoc($location);
+      $data["location"] =  $location;
     }else{
       $data["location"] = false;
     }
 
     $data["caconical"] = base_url($this->lang->line("url_lang_location"));
 
-    if(!empty($query["offset"])){
-      if($query["offset"]>0){
-        $this->_fetch('user_listnextpage', $data, false, true);
-      }else{
-        //print_r($data);
-        $this->_fetch('user_list', $data, false, true);
-      }
-
-    }else{
-        //print_r($data);
+    if(!empty($data)){
         $this->_fetch('user_list', $data, false, true);
     }
 
   }
 
-
-
   function user_listbytag($tag=false, $page=0){
 
-    $per_page = 20;
     $data["menu"] = $this->_location_menu($tag);
 
     foreach ($data["menu"] as $key => $valueTag) {
       $query["menu"][] = $valueTag->tag_id;
     }
-    $data["main_menu"]= Menu::main_menu();
 
     $argTag["url"] = $tag;
     $tagQuery = $this->tagModel->get($argTag);
 
+    $this->load->model("article_model","articleModel");
+    $where["where"]["tag_id"] = $tagQuery[0]["id"];
+    $where["where"]["type"] = 1;
+    $where["limit"] = 1 ;
+    $articleResult = $this->articleModel->get($where);
+    $this->_assign("article",$articleResult[0]);
+    unset($where);
+    if(!empty($articleResult)){
+      $this->_assign("article",$articleResult[0]);
+    }else{
+      $where["where"]["tag_id"] = 0;
+      $where["where"]["type"] = 1;
+      $where["limit"] = 1 ;
+      $articleResult = $this->articleModel->get($where);
+      $this->_assign("article",$articleResult[0]);
+      unset($where);
+    }
+
+
+    if(!empty($articleResult[0]["id"])){
+      $this->load->model("images_model","imagesModel");
+      $where["where"]["parent_id"] = $articleResult[0]["id"];
+      $where["where"]["table_id"] = 3;
+      $imagesResult = $this->imagesModel->get($where);
+      $this->_assign("images",$imagesResult);
+    }
 
     //print_r($tagQuery); exit;
     if(!empty($tagQuery)){
       $query["tag_id"] = $tagQuery[0]["id"];
       $query["join"] = true;
-      $query["per_page"] = $per_page;
-      $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;
 
       //Tour
       $this->load->model("taglocation_model", "taglocationModel");
-      $location = $this->taglocationModel->getRecordByTag($query);
+      $location = $this->taglocationModel->getRecordFirstpage($query);
 
       if(!empty($location)){
-        $data["location"] =  $this->_shuffle_assoc($location);
+        //$data["location"] =  $this->_shuffle_assoc($location);
+        $data["location"] =  $location;
       }else{
         $data["location"] = false;
       }
@@ -473,11 +487,8 @@ class Location extends MY_Controller {
           $_bannerImg = $this->upload->data();
           $imgData["banner_image"] = base_url("/".$dir."/".$_bannerImg["file_name"]);
         }
-
         $imgData["id"] = $postData;
-
         $this->locationModel->updateRecord($imgData);
-
       }
 
 
@@ -548,9 +559,11 @@ class Location extends MY_Controller {
       $this->load->model("tag_model", "tagModel");
       $this->load->model("images_model", "imagesModel");
       $this->load->model("taglocation_model", "tagLocationModel");
+      $this->load->model("type_model", "typeModel");
+      $this->load->model("tagtype_model", "tagTypeModel");
 
       $locationData["location"] = $this->locationModel->get($id);
-      if(!$locationData["location"]){
+      if(empty($locationData["location"])){
         show_404();
       }
       if(count($locationData["location"]) < 1){
@@ -559,8 +572,6 @@ class Location extends MY_Controller {
         $locationData["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$id,'table_id'=>1)));
         $locationData["location"] = $locationData["location"][0];
       }
-      
-
 
       //Related Tour in Location
       $query["tag_url"] = $tag;
@@ -569,11 +580,8 @@ class Location extends MY_Controller {
       $query["offset"] = 0;
       $locationData["related"] = $this->locationModel->getRecordRelated($query);
 
-      //print_r($locationData["related"]) ; exit;
-
 
       //Prepare for three column
-      //var_dump($locationData["location"]['body']);
       if(preg_match("#<blockquote>(.*)</blockquote>#smiU", $locationData["location"]['body'],$matches)){
         $locationData["location"]['body'] = str_replace($matches[0], '', $locationData["location"]['body']);
         $locationData["location"]['subtitle'] = strip_tags($matches[1]);
@@ -584,21 +592,60 @@ class Location extends MY_Controller {
       $location["where"]["location_id"] = $id;
       $locationData["tag"] = $this->tagLocationModel->getTagLocationList($location);
 
+      $typeProvinceId = $this->typeModel->get(array("where"=>array("name"=>"province")));
+      $tagProvinceList = $this->tagTypeModel->getTagTypeList(array("where"=>array("type_id"=>$typeProvinceId[0]["id"],"parent_id"=>0),"order"=>"index ASC"));
+
+      $this->_assign("allProvince",$tagProvinceList);
+
+      foreach ($locationData["tag"] as $tagKey => $tagValue) {
+        foreach ($tagProvinceList as $pKey => $pValue) {
+          if($tagValue["tag_id"] == $pValue["tag_id"]){
+            $tagProvinceID = $tagValue;
+            break;
+          }
+        }
+        if(!empty($tagProvinceID)){
+          break;
+        }
+      }
+
+      if(!empty($tagProvinceID)){
+
+        $this->_assign("currentProvince",$tagProvinceID);
+
+        $relatedSearch["tag_id"] = $tagProvinceID["tag_id"];
+        //Related Location
+        $locationRelated = $this->tagLocationModel->getRecordByTag($relatedSearch);
+
+        if(!empty($locationRelated)){
+          //$data["location"] =  $this->_shuffle_assoc($location);
+          $this->_assign("locationRelated",$locationRelated);
+        }else{
+          $this->_assign("locationRelated",false);
+        }
+      }else{
+        $this->_assign("locationRelated",false);
+      }
+
       $locationData["caconical"] = base_url($this->lang->line("url_lang_location")."/".trim($locationData["location"]["url"])."-".trim($locationData["location"]["loc_id"]));
 
       if(!empty($locationData)){
-        $this->_fetch("user_view", $locationData, FALSE, TRUE);
+        if($this->input->get("ajax")){
+          $ajaxReturn["imagesRedered"] = $this->_fetch("ajax_images", $locationData, TRUE, TRUE);
+
+          $ajaxReturn["bodyRedered"] = $this->_fetch("ajax_body", $locationData, TRUE, TRUE);
+          $ajaxReturn["data"] = $locationData;
+
+          echo json_encode($ajaxReturn);exit;
+        }else{
+          $this->_fetch("user_view", $locationData, FALSE, TRUE);
+        }
       }else{
         show_404();
       }
 
 
     }
-  }
-
-  function update(){
-    //implement code here
-
   }
 
   function admin_delete($id=NULL){
@@ -619,8 +666,6 @@ class Location extends MY_Controller {
     }
     return "TRUE";
   }
-
-
 
   function _search($render="user_list"){
     //Get argument from post page

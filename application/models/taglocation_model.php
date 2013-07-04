@@ -14,9 +14,21 @@ class TagLocation_model extends MY_Model {
     );
     $this->_join_column = array(
                      'tag_id'            => 'tagt_tag_id',
-                     'lang'              => 'tagt_lang',
+                     'tagt_lang'              => 'tagt_lang',
                      'name'              => 'tagt_name',
-                     'url'               => 'tagt_url'
+                     'url'               => 'tagt_url',
+                     'display'          => 'loc_display',
+                     'longitude'        => 'loc_longitude',
+                     'latitude'         => 'loc_latitude',
+                     'first_image'      => 'loc_first_image',
+                     'background_image' => 'loc_background_image',
+                     'banner_image'     => 'loc_banner_image',
+                     'title'            => 'loct_title',
+                     'body'             => 'loct_body',
+                     'suggestion'       => 'loct_suggestion',
+                     'route'            => 'loct_route',
+                     'loct_lang'        => 'loct_lang',
+                     'loct_url'         => 'loct_url'
     );
 
   }
@@ -30,6 +42,12 @@ class TagLocation_model extends MY_Model {
       }
     }
     $this->db->join("ci_tag_translate","ci_tag_translate.tagt_tag_id = ci_taglocation.tal_tag_id");
+
+    if(!empty($options["join_location"]) AND $options["join_location"] == TRUE){
+      $this->db->join("ci_location","ci_location.loc_id = ci_taglocation.tal_location_id");
+      $this->db->join("ci_location_translate","ci_location_translate.loct_loc_id = ci_taglocation.tal_location_id");
+    }
+
     $mainTable = parent::get($options);
     if(empty($mainTable) AND !empty($options["lang"])){
       unset($options["lang"]);
@@ -39,9 +57,9 @@ class TagLocation_model extends MY_Model {
   }
 
   function getTagLocationList($options = NULL){
-    $options["where"]["lang"] = $this->lang->lang();
+    $options["where"]["tagt_lang"] = $this->lang->lang();
     $result = $this->get($options);
-    unset($options["where"]["lang"]);
+    unset($options["where"]["tagt_lang"]);
     $resultAll = $this->get($options);
 
     if(empty($result)){
@@ -77,42 +95,24 @@ class TagLocation_model extends MY_Model {
 
     return $newResult;
   }
-
-
-
-
   function getRecordFirstpage($args=false){
 
-    //Get distinct location_id from ci_location
-    $this->db->select('tal_location_id');
-    $this->db->distinct("tal_location_id");
-    $this->db->where_in('tal_tag_id', $args["tag_id"]);
-    $this->db->join('ci_location', 'ci_location.loc_id = ci_taglocation.tal_location_id');
-    $this->db->order_by('tal_location_id DESC');
-    if($args["per_page"] > -1 && $args["offset"] > -1){
-      $this->db->limit($args["per_page"], $args["offset"]);
-    }
-    $location = $this->db->get('ci_taglocation')->result();
+    //Get tour data
+    $locationWhere["where_in"]["tag_id"] = $args["tag_id"];
+    $locationWhere["where"]["loct_lang"] = $this->lang->lang();
+    $locationWhere["group"] = parent::getColumn("location_id");
+    $locationWhere["join_location"] = true;
+    $locationBuffer = $this->get($locationWhere);
 
-    //print_r($location); exit;
-    $count = 0;
-    $this->load->model("location_model","locationModel");
-    foreach ($location as $key => $value) {
+    if(!empty($locationBuffer)){
+      foreach($locationBuffer AS $key=>$value){
+          $result[$key]["location"] = $value;
 
-      //Get tour data
-      $locationWhere["where"]["loc_id"] = $value->tal_location_id;
-      $locationWhere["where"]["lang"] = $this->lang->lang();
-      $locationBuffer = $this->locationModel->get($locationWhere);
+          //Get tag data
+          $argsTag["where"]['location_id'] = $value["location_id"];
+          $argsTag["where_in"]['tag_id'] = $args["menu"];
+          $result[$key]["tag"] = $this->getTagLocationList($argsTag);
 
-      if(!empty($locationBuffer)){
-        $result[$count]["location"] = $locationBuffer[0];
-
-        //Get tag data
-        $argsTag["where"]['location_id'] = $value->tal_location_id;
-        $argsTag["where_in"]['tag_id'] = $args["menu"];
-        $result[$count]["tag"] = $this->getTagLocationList($argsTag);
-
-        $count++;
       }
     }
 
@@ -125,35 +125,22 @@ class TagLocation_model extends MY_Model {
 
   function getRecordByTag($args=false){
 
-      //Get distinct location_id from ci_location
-      $this->db->select('tal_location_id');
-      $this->db->distinct("tal_location_id");
-      $this->db->where('tal_tag_id', $args["tag_id"]);
-      $this->db->join('ci_location', 'ci_location.loc_id = ci_taglocation.tal_location_id');
-      $this->db->order_by('tal_location_id DESC');
-      if($args["per_page"] > -1 && $args["offset"] > -1){
-        $this->db->limit($args["per_page"], $args["offset"]);
-      }
-      $location = $this->db->get('ci_taglocation')->result();
+      //Get tour data
+      $locationWhere["where"]["tag_id"] = $args["tag_id"];
+      $locationWhere["where"]["loct_lang"] = $this->lang->lang();
+      $locationWhere["join_location"] = true;
+      $locationWhere["group"] = parent::getColumn("location_id");
+      $locationBuffer = $this->get($locationWhere);
 
-      $count = 0;
-      foreach ($location as $key => $value) {
-
-        //Get tour data
-        $locationWhere["where"]["loc_id"] = $value->tal_location_id;
-        $locationWhere["where"]["lang"] = $this->lang->lang();
-        $locationBuffer = $this->locationModel->get($locationWhere);
-
-        if(!empty($locationBuffer)){
-          $result[$count]["location"] = $locationBuffer[0];
+      foreach($locationBuffer AS $key=>$value){
+          $result[$key]["location"] = $value;
 
           //Get tag data
-          $argsTag["where"]['location_id'] = $value->tal_location_id;
-          $argsTag["where_in"]['tag_id'] = $args["menu"];
-          $result[$count]["tag"] = $this->getTagLocationList($argsTag);
-
-          $count++;
-        }
+          $argsTag["where"]['location_id'] = $value["location_id"];
+          if(!empty($args["menu"])){
+            $argsTag["where_in"]['tag_id'] = $args["menu"];
+          }
+          $result[$key]["tag"] = $this->getTagLocationList($argsTag);
       }
 
       if(!empty($result)){
