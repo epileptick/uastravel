@@ -15,7 +15,6 @@ $(document).ready(function() {
   );
   $("input:checkbox, li").click(
     function () {
-    	
       var checkBoxes = $(this).find("input:checkbox");
       checkBoxes.prop("checked", !checkBoxes.prop("checked"));
       if(checkBoxes.prop("checked")){
@@ -25,7 +24,6 @@ $(document).ready(function() {
       }
     }
   );
-  
   $("input:checkbox").click(
     function () {
       $(this).prop("checked", !$(this).prop("checked"));

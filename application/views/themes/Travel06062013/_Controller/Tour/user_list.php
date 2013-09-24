@@ -4,7 +4,13 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <title></title>
+  <title><?php
+                if(!empty($article["title"])){
+                  echo $article["title"];
+                }else{
+                  echo $this->lang->line("global_lang_location");
+                }
+              ?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
   <meta name="description" content="" />
@@ -20,7 +26,7 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
   <?php
-PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
+    PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
   ?>
 
 
@@ -32,12 +38,12 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
   if(!empty($caconical)):
   ?>
   <link rel="canonical" href="<?php echo $caconical;?>">
-  <?php 
+  <?php
   endif;
   ?>
 </head>
 
-  <body style="background: #ededed url(<?php echo $imagepath.'/bg'.rand(2,5).'.jpg';?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
+  <body style="background: #ededed url(<?php echo $imagepath.'/bg5.jpg';?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
     {_include user_tab}
 
   <div class="overly-bg"></div>
@@ -46,7 +52,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
 
 
     <!-- Title -->
-    <div class="row">
+    <div class="row hidden_row">
       <div class="twelve columns">
         <a href="" class="arrow previous tooltip_nw" title=""></a>
         <h1 class="title">
@@ -68,10 +74,10 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
 
 
     <!-- Gallery -->
+    <div class="row" id="gallery_row">
     <?php
     if(!empty($images)):
     ?>
-    <div class="row" id="gallery_row">
       <section class="gallery_pc">
         <div class="eight columns">
           <div id="gallery" class="content">
@@ -127,101 +133,61 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
           ?>
         </ul>
       </section>
-    </div>
     <?php
       endif;
     ?>
+    </div>
     <!-- End Gallery -->
 
     <!-- Tour Information -->
     <div class="row">
       <div class="twelve columns ">
+        <div class="breadcrumb">
+          <span><?php echo $this->lang->line("global_lang_home");?>
+            <?php
+            foreach ($this->uri->segment_array() as $key => $segment) {
+              echo " / ".$segment;
+            }
+            ?>
+          </span>
+        </div>
         <div class="white_box">
           <div class="left_columns">
-              <ul class="side_bar">
-                <li><a href="<?php echo base_url();?>"><?php echo $this->lang->line("global_lang_home");?></a></li>
-                <li><a class="active" href="<?php echo base_url($this->lang->line("url_lang_tour")."/".$this->uri->segment(2));?>">
-                <?php
-                if($this->uri->segment(2)){
-                  echo $this->lang->line("global_lang_tour").$this->uri->segment(2);
-                }else{
-                  echo $this->lang->line("global_lang_tourthai");
-                }
-                ?>
-                </a>
-
-                      <?php
-
-                      if(!empty($tour)){
-                        foreach ($tour as $key => $value) {
-                          if(!empty($value["tour"])){
-                        ?>
-                          <li>
-
-                            <a class="ajax-click" href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value["tour"]["tout_url"].'-'.$value["tour"]["tour_id"]);?>">
-                            <?php
-                              if($value["tour"]["first_image"]){
-                            ?>
-                              <img style="width:30px;height:30px;" src="<?php echo $value["tour"]["first_image"];?>">
-                            <?php
-                              }else{
-                            ?>
-                              <img style="width:30px;height:30px;" src="<?php echo $imagepath;?>/camera_icon.jpg">
-                            <?php
-                              }
-                            ?>
-                              <?php echo $value["tour"]["tout_name"]; ?>
-                            </a></li>
-                        <?php 
-                          }
-                        }
-                      }
-                      ?>
-
-                </li>
+              <ul class="side_bar" id="mainmenu">
+                {_include main_menu}
               </ul>
 
-            <script type="text/javascript">
-              var loading = false;
-              $(".side_bar a.ajax-click").click(function(){
-                if(!loading){
-                  $(".right_columns").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
-                  $("#gallery_row").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
-                  $("#gallery_row").css("height","448px")
-                  link = $(this).attr("href")+"?ajax=true";
-                  linkRedirect = $(this).attr("href");
-                  $(".side_bar a").removeClass("active");
-                  $(this).addClass("active");
-                  jqxhr = $.get(link);
-                  loading = true;
-                  jqxhr.success(function(data) {
-                                  loading = false;
-                                  var json = jQuery.parseJSON(data);
-                                  //console.log(json);
-                                  $(".right_columns").hide().html(json.bodyRedered).fadeIn(300);
-                                  $("#gallery_row").hide().html(json.imagesRedered).fadeIn(300).css("height","");
-                                  $("a#title").html(json.data.name);
-                                  $("span.subtitle").html(json.data.short_description);
-                                  if(json.data.background_image){
-                                    $("body").css('background-image',"url("+json.data.background_image+")");
-                                  }
-                                  initialize(json.data.latitude, json.data.longitude);
-                                  processAjaxData(json.data.name, json, $(".left_columns").html(), linkRedirect);
-                                });
-                }else{
-                  $(".right_columns").hide().html("<p style=\"width:100px; height:18px; margin:auto; margin-top: 50%; display: block;\">We're loading...</p><br /><img style=\"width:48px; height:48px; margin:auto; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
-                }
-                return false;
-              });
-            </script>
             
+
           </div>
           <div class="right_columns">
             <?php
               if(!empty($article)){
             ?>
             <h2><?php echo $article["title"];?></h2>
-              <?php echo $article["body"];?>
+              <div class="row">
+                <div class="four columns">
+                  <?php
+                  if(! empty($article['body_column'][0])){
+                    echo $article['body_column'][0];
+                  }
+                  ?>
+                </div>
+                <div class="four columns">
+                  <?php
+                  if(! empty($article['body_column'][1])){
+                    echo $article['body_column'][1];
+                  }
+                  ?>
+                </div>
+                <div class="four columns">
+                  <?php
+                  if(! empty($article['body_column'][2])){
+                    echo $article['body_column'][2];
+                  }
+                  ?>
+                </div>
+              </div>
             <?php
             }
             ?>
@@ -231,42 +197,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
     </div>
     <!-- End Tour Information -->
 
-    <!-- Tour Information -->
-    <div class="row">
-      <div class="twelve columns">
-        <div class="box_white_in_columns">
-          <div class="button_like">
-            <h3>Uastravel.com Fanpage</h3>
-            <div class="fb-like" data-href="https://www.facebook.com/UasTravelThailand" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="verdana"></div>
-          </div>
-          <div id="fb-root"></div>
-          <script>(function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0];
-              if (d.getElementById(id)) return;
-              js = d.createElement(s); js.id = id;
-              js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=<?php echo $this->config->item('appId'); ?>";
-              fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-          </script>
-          <div class="facebookOuter">
-           <div class="facebookInner">
-            <div 
-              class="fb-like-box" 
-              data-width="960" 
-              data-height="335" 
-              data-href="https://www.facebook.com/UasTravelThailand" 
-              data-border-color="#fff" 
-              data-show-faces="true" 
-              data-stream="false" 
-              data-header="false"
-            >
-            </div>          
-           </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End Tour Information -->
+    {_include facebook_fanpage}
 
     <footer>
       <div class="row">
@@ -303,16 +234,16 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
   <script src="<?php echo $jspath.'/modernizr.foundation.js';?>"></script>
   <script src="<?php echo $jspath.'/app.js';?>"></script>
   <!-- Gallery -->
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/gallery/js/jquery.galleriffic.js');?>"></script>
-
+  
+  <!-- Gallery -->
+  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery/js/jquery.galleriffic.js';?>"></script>
   <!-- Gallery Mobile -->
-  <link href="<?php echo base_url('themes/Travel/tour/javascripts/gallery_mobie/photoswipe.css');?>" type="text/css" rel="stylesheet"/>
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/gallery_mobie/lib/klass.min.js');?>"></script>
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/gallery_mobie/code.photoswipe-3.0.5.min.js');?>"></script>
-
-
+  <link href="<?php echo $themepath.'/js/gallery_mobie/photoswipe.css';?>" type="text/css" rel="stylesheet"/>
+  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery_mobie/lib/klass.min.js';?>"></script>
+  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery_mobie/code.photoswipe-3.0.5.min.js';?>"></script>
   <!--Hover effect-->
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/DirectionAwareHoverEffect/js/jquery.hoverdir.js');?>"></script>
+  <script type="text/javascript" src="<?php echo $themepath.'/js/DirectionAwareHoverEffect/js/jquery.hoverdir.js';?>"></script>
+
   <!-- We only want the thunbnails to display when javascript is disabled -->
   <script type="text/javascript">
     document.write('<style>.noscript { display: none; }</style>');
@@ -383,41 +314,31 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                 this.fadeTo('fast', 1.0);
               }
             });
-            (function(window, PhotoSwipe){
-
-              document.addEventListener('DOMContentLoaded', function(){
-
-                var
-                  options = {},
-                  instance = PhotoSwipe.attach( window.document.querySelectorAll('#gallery_mobile a'), options );
-
-              }, false);
-
-
-            }(window, window.Code.PhotoSwipe));
+            $(document).ready(function(){ var myPhotoSwipe = $("#gallery_mobile a").photoSwipe({ enableMouseWheel: false , enableKeyboard: false }); });
             $('.thumbs > li a').hoverdir();
           };
       })(jQuery);
-      function initialize(latitude, longitude) {
-                            var latLng = new google.maps.LatLng(latitude,longitude);
-                            var map = new google.maps.Map(document.getElementById('mapCanvas'), {
-                              scrollwheel: false,
-                              zoom: 13,
-                              center: latLng,
-                              disableDefaultUI:false,
-                              streetViewControl:true,
-                              mapTypeId: google.maps.MapTypeId.ROADMAP
-                            });
 
-                            marker = new google.maps.Marker({
-                              position: latLng,
-                              title: '',
-                              map: map,
-                              draggable: false
-                            });
-                          }
   </script>
   <script type="text/javascript">
+      function initialize(latitude, longitude) {
+        var latLng = new google.maps.LatLng(latitude,longitude);
+        var map = new google.maps.Map(document.getElementById('mapCanvas'), {
+          scrollwheel: false,
+          zoom: 13,
+          center: latLng,
+          disableDefaultUI:false,
+          streetViewControl:true,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        marker = new google.maps.Marker({
+          position: latLng,
+          title: '',
+          map: map,
+          draggable: false
+        });
+      }
       jQuery(document).ready(function($) {
         $().GalleryRefresh();
       });

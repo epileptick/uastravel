@@ -398,8 +398,7 @@
 
                     <label style="float:right;">
                       <b>
-                      <?php echo number_format($total_price, 0);?>
-
+                        <?php echo number_format($total_price, 0);?>
                       </b>
                   </label>
                  </div>

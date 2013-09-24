@@ -11,23 +11,24 @@
 
 </style>
 <head>
-  <title><?php echo $booking[0]->toc_code."(".$booking[0]->toc_tour_name.")";?></title>
+  <title>ของมูลการจอง <?php echo $booking[0]["code"]." (".$booking[0]["tour_name"].")";?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="จอง<?php echo $booking[0]->toc_tour_name.'('.$booking[0]->toc_tour_code.')';?>" />
+  <meta name="description" content="จอง<?php echo $booking[0]["tour_name"].'('.$booking[0]["tour_code"].')';?>" />
   <meta name="keywords" content="" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
-  <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/foundation.css');?>">
-  <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/style.css');?>">
-  <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/app.css');?>">
-  <script src="<?php echo base_url('themes/Travel/tour/javascripts/modernizr.foundation.js');?>"></script>
+  <link rel="stylesheet" href="<?php echo $stylepath.'/foundation.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/userstyle.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/app.css';?>">
+  <script src="<?php echo $jspath.'/modernizr.foundation.js';?>"></script>
   <!--[if lt IE 9]>
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-
+</head>
+<body style="background: #ededed url(<?php echo $imagepath.'/bg5.jpg';?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
   <!-- Menu -->
   <div class="overly-bg"></div>
 
@@ -35,37 +36,8 @@
   <!-- Wrapper -->
   <div id="wrapper">
 
-    <!-- Menu -->
-    <!--
-    <div class="row">
-      <div class="twelve columns">
-        <nav class="top-bar">
-          <ul>
-            <li class="name">
-              <a href="<?php echo base_url();?>">
-                <img src="<?php echo base_url('themes/Travel/tour/images/logo.png');?>">
-              </a>
-            </li>
-            <li class="toggle-topbar"><a href="#"></a></li>
-          </ul>
-          <section>
-            <ul class="right">
-              <li><a href="<?php echo base_url();?>">หน้าแรก</a></li>
-              <li><a href="<?php echo base_url('location');?>">แหล่งท่องเที่ยว</a></li>
-              <li><a class="active" href="<?php echo base_url('tour');?>">แพ๊คเกจทัวร์</a></li>
-              <li><a href="#">โปรโมชั่น</a></li>
-                <li><a href="<?php echo base_url('location/ติดต่อเรา-119');?>">ติดต่อเรา</a></li>
-            </ul>
-          </section>
-        </nav>
-      </div>
-    </div>
-   <br>
-  -->
-  <!-- End Menu -->
-
   <!-- Content -->
-  <div class="row" style="border-style:solid; border-width:1px;height:1005px;">
+  <div class="row" style="border-style:solid; border-width:1px;height:1005px;background: #FFF;margin-top: 10px;">
     <div class="twelve columns">
       <div class="box_white_in_columns article_tour">
 
@@ -77,16 +49,17 @@
                 <div class="twelve columns">
                     <div class="five columns" style="margin-top:-10px">
                       <br/>
-                        <img src="<?php echo base_url('themes/Travel/tour/images/logo_booking600.jpg');?>">
-                         <h4 style="margin-top:0px; margin-bottom:0px">   www.uastravel.com </h4>
+                        <img src="<?php echo $imagepath.'/logo_booking600.jpg';?>">
+                         <h4 style="margin-top:0px; margin-bottom:0px">   ทัวร์เที่ยวไทย.com </h4>
                     </div>
                     <div class="six columns" style="margin-top:-7px">
                       <center style="font-size:140%; !important;" >
                       <br/>
                       หจก.ยู แอส ทราเวล / U As Travel.Ltd.,Part.<br/>
                       80/86 ม.3 ต.รัษฎา อ.เมือง ภูเก็ต 83000<br/>
-                      โทร : 076-331280, 082-8121146 แฟกซ์ : 076-331273<br/>
+                      โทร : 076-331-280, 082-812-1146 แฟกซ์ : 076-331-273<br/>
                       Email : info@uastravel.com
+                      Website: ทัวร์เที่ยวไทย.com
                       </center>
                     </div>
 
@@ -108,7 +81,7 @@
                 <div class="twelve columns" >
                   <div class="four columns" >
                   </div>
-                  <div class="five columns" style="margin-bottom:-2px; font-size:350%; margin-top:-12px;">
+                  <div class="five columns" style="margin-bottom:-2px; font-size:350%; height: 66px;">
                       <strong>Tour</strong> <strong style="color:#FE5214;">Booking</strong>
 
                   </div>
@@ -151,7 +124,7 @@
                 </div>
                 <div class="six columns">
                 <h5>
-                 <?php echo $booking[0]->toc_code;?>
+                 <?php echo $booking[0]["code"];?>
                 </h5>
                 </div>
               </div>
@@ -168,7 +141,7 @@
                 </div>
                 <div class="six columns">
                 <h5>
-                 <?php echo $booking[0]->toc_tour_name;?>
+                 <?php echo $booking[0]["tour_name"];?>
                 </h5>
                 </div>
               </div>
@@ -185,25 +158,7 @@
                 </div>
                 <div class="six columns">
                 <h5>
-                 <?php echo $booking[0]->toc_firstname;?> <?php echo $booking[0]->toc_lastname;?>
-                </h5>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="row">
-              <div class="twelve columns">
-                <div class="six columns">
-
-                <h5>
-                    Nationality : <br>
-                    สัญชาติ :
-                </h5>
-                </div>
-                <div class="six columns">
-                <h5>
-                 <?php echo $booking[0]->toc_nationality;?>
+                 <?php echo $booking[0]["firstname"];?> <?php echo $booking[0]["lastname"];?>
                 </h5>
                 </div>
               </div>
@@ -220,10 +175,10 @@
                 </div>
                 <div class="six columns">
                 <h5>
-                 <?php echo $booking[0]->toc_address;?>,
-                 <?php echo $booking[0]->toc_city;?>,
-                 <?php echo $booking[0]->toc_province;?>,
-                 <?php echo $booking[0]->toc_zipcode;?>
+                 <?php echo $booking[0]["address"];?>,
+                 <?php echo $booking[0]["city"];?>,
+                 <?php echo $booking[0]["province"];?>,
+                 <?php echo $booking[0]["zipcode"];?>
                 </h5>
                 </div>
               </div>
@@ -241,7 +196,7 @@
                 </div>
                 <div class="six columns">
                 <h5>
-                 <?php echo $booking[0]->toc_telephone;?>
+                 <?php echo $booking[0]["telephone"];?>
                 </h5>
                 </div>
               </div>
@@ -259,7 +214,7 @@
                 </div>
                 <div class="six columns">
                 <h5>
-                 <?php echo $booking[0]->toc_email;?>
+                 <?php echo $booking[0]["email"];?>
                 </h5>
                 </div>
               </div>
@@ -279,7 +234,7 @@
 
                   <h5>
                    <?php
-                      $dateExplode = explode("-", $booking[0]->toc_tranfer_date);
+                      $dateExplode = explode("-", $booking[0]["tranfer_date"]);
                       $tranfer_date = $dateExplode[2]."/".$dateExplode[1]."/".$dateExplode[0];
                       echo $tranfer_date;
                    ?>
@@ -301,8 +256,8 @@
 
                   <h5>
                    <?php
-                    if(!empty($booking[0]->toc_hotel_name)){
-                      echo $booking[0]->toc_hotel_name;
+                    if(!empty($booking[0]["hotel_name"])){
+                      echo $booking[0]["hotel_name"];
                     }else{
                       echo "-";
                     }
@@ -323,8 +278,8 @@
                 <div class="six columns">
                 <h5>
                  <?php
-                  if($booking[0]->toc_room_number != 0){
-                    echo $booking[0]->toc_room_number;
+                  if($booking[0]["room_number"] != 0){
+                    echo $booking[0]["room_number"];
                   }else{
                     echo "-";
                   }
@@ -345,7 +300,7 @@
                 </div>
                 <div class="six columns">
                 <h5>
-                 <?php echo $booking[0]->toc_request;?>
+                 <?php echo $booking[0]["request"];?>
                 </h5>
                 </div>
               </div>
@@ -375,7 +330,7 @@
                 </div>
                 <div class="six columns">
                 <h5>
-                 <?php echo $booking[0]->toc_adult_amount_passenger;?>
+                 <?php echo $booking[0]["adult_amount_passenger"];?>
                 </h5>
                 </div>
               </div>
@@ -392,7 +347,7 @@
                 </div>
                 <div class="six columns">
                 <h5>
-                 <?php echo $booking[0]->toc_child_amount_passenger;?>
+                 <?php echo $booking[0]["child_amount_passenger"];?>
                 </h5>
                 </div>
               </div>
@@ -408,7 +363,7 @@
                 </div>
                 <div class="six columns">
                 <h5>
-                 <?php echo $booking[0]->toc_infant_amount_passenger;?>
+                 <?php echo $booking[0]["infant_amount_passenger"];?>
                 </h5>
                 </div>
               </div>
@@ -436,7 +391,7 @@
             </div>
 
             <?php
-              foreach ($booking[0]->price as $key => $value) {
+              foreach ($booking[0]["price"] as $key => $value) {
             ?>
 
               <div class="row">
@@ -445,12 +400,12 @@
 
                   <h5>
                       Name of Price : <br>
-                      ชื่อราคา :
+                      ชื่อแพคเกจ :
                   </h5>
                   </div>
                   <div class="seven columns">
                   <h5>
-                   <?php echo $value->tob_price_name;?>
+                   <?php echo $value["price_name"];?>
                   </h5>
                   </div>
                 </div>
@@ -469,76 +424,18 @@
                   <h5>
 
                   <?php
-                    $adult_sale = $value->tob_total_adult_price;
-                    $amount_adult = $value->tob_adult_amount_booking;
+                    $adult_sale = $value["total_adult_price"];
+                    $amount_adult = $value["adult_amount_booking"];
                     $total_price_adult = $adult_sale / $amount_adult;
                   ?>
 
-                   <?php echo number_format($value->tob_total_adult_price, 0);?> บาท
-                   (<?php echo number_format($total_price_adult, 0);?> x <?php echo $value->tob_adult_amount_booking;?>)
+                   <?php echo number_format($value["total_adult_price"], 0);?> บาท
+                   (<?php echo number_format($total_price_adult, 0);?> x <?php echo $value["adult_amount_booking"];?>)
 
                   </h5>
                   </div>
                 </div>
               </div>
-
-            <!--
-              <div class="row">
-                <div class="twelve columns">
-                  <div class="five columns">
-
-                  <h5>
-                      test price adult : <br>
-                      ทดลองราคาผู้ใหญ่ :
-                  </h5>
-                  </div>
-                  <div class="seven columns">
-                  <h5>
-
-                 <?php
-                   $total_a_price = $value->tob_discount_adult_price * $value->tob_adult_amount_booking;
-                   $g_a_total_price = $value->tob_total_adult_price - $total_a_price;
-                   $g_total_adult_price = $value->tob_total_adult_price - $g_a_total_price;
-                   // $grand_total_price += $total_price;
-                  ?>
-
-                      <b>
-                        <?php echo number_format($g_a_total_price, 0);?>
-                      </b>
-
-                  </h5>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="row">
-                <div class="twelve columns">
-                  <div class="five columns">
-
-                  <h5>
-                      test price child : <br>
-                      ทดลองราคาเด็ก :
-                  </h5>
-                  </div>
-                  <div class="seven columns">
-                  <h5>
-
-                 <?php
-                   $total_discount_child_price = $value->tob_discount_child_price * $value->tob_child_amount_booking;
-                   $g_total_price = $value->tob_total_child_price - $total_discount_child_price;
-                   $g_total_child_price = $value->tob_total_child_price - $g_total_price;
-                   // $grand_total_price += $total_price;
-                  ?>
-
-                      <b>
-                        <?php echo number_format($g_total_price, 0);?>
-                      </b>
-
-                  </h5>
-                  </div>
-                </div>
-              </div> -->
 
               <div class="row">
                 <div class="twelve columns">
@@ -553,13 +450,13 @@
                   <h5>
 
                   <?php
-                    if($value->tob_child_amount_booking > 0){
-                      $child_sale = $value->tob_total_child_price;
-                      $amount_child = $value->tob_child_amount_booking;
+                    if($value["child_amount_booking"] > 0){
+                      $child_sale = $value["total_child_price"];
+                      $amount_child = $value["child_amount_booking"];
                       $total_price_child = $child_sale / $amount_child;
 
-                     echo number_format($value->tob_total_child_price, 0)."บาท";
-                     echo "(".number_format($total_price_child, 0)."x".$value->tob_child_amount_booking.")";
+                     echo number_format($value["total_child_price"], 0)." บาท";
+                     echo " ( ".number_format($total_price_child, 0)." x ".$value["child_amount_booking"]." )";
                     }else{
 
                      echo "-";
@@ -589,11 +486,11 @@
                   </div>
                   <div class="five columns">
                     <h5 style="color:red; font-size:200%; margin-top:10px !important;" >
-                      <?php echo number_format($booking[0]->toc_grand_total_price, 0);?> บาท
+                      <?php echo number_format($booking[0]["grand_total_price"], 0);?> บาท
                     </h5>
                   </div>
                   <div class="two columns" style="border-style:solid; margin-top:10px; border-width:0px;">
-                   <input type="image" src="<?php echo base_url('themes/Travel/images/button_print.jpg');?>" onClick="window.print()" >
+                   <input type="image" src="<?php echo $imagepath.'/button_print.jpg';?>" onClick="window.print()" >
                   </div>
                 </div>
               </div>
@@ -656,7 +553,7 @@
 
 </div>
 
-<div class="row" style="border-style:solid; border-width:1px;margin-top:20px;height:1005px;">
+<div class="row" style="border-style:solid; border-width:1px;margin-top:20px;height:1005px;background: #FFF;">
   <!-- Header -->
         <div class="row">
           <div class="twelve columns" >
@@ -665,8 +562,8 @@
                 <div class="twelve columns">
                     <div class="five columns" style="margin-top:-10px">
                       <br/>
-                        <img src="<?php echo base_url('themes/Travel/tour/images/logo_booking600.jpg');?>">
-                         <h4 style="margin-top:0px; margin-bottom:0px">   www.uastravel.com </h4>
+                        <img src="<?php echo $imagepath.'/logo_booking600.jpg';?>">
+                        <h4 style="margin-top:0px; margin-bottom:0px">   ทัวร์เที่ยวไทย.com </h4>
                     </div>
                     <div class="six columns" style="margin-top:-7px">
                       <center style="font-size:140%; !important;" >
@@ -675,6 +572,7 @@
                       80/86 ม.3 ต.รัษฎา อ.เมือง ภูเก็ต 83000<br/>
                       โทร : 076-331280, 082-8121146 แฟกซ์ : 076-331273<br/>
                       Email : info@uastravel.com
+                      Website: ทัวร์เที่ยวไทย.com
                       </center>
                     </div>
 

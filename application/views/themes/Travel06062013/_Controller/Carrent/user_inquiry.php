@@ -1,10 +1,3 @@
-<?php
-  if(!empty($error)){
-    print_r($error);
-  }
-
-?>
-
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -394,9 +387,9 @@
           <div class="price_booking" style="background:none; padding:0px 0px 0px 0px; margin:0px; border: none !important;"> 
             <div class="twelve columns box-recaptcha">
               <script type="text/javascript">
-               var RecaptchaOptions = {
+                var RecaptchaOptions = {
                   theme : 'clean'
-               };
+                };
               </script>
               <?php echo $recaptcha_html;?>
               <div class="clearfix"></div>

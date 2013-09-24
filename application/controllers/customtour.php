@@ -287,7 +287,7 @@ class CustomTour extends MY_Controller {
     }
 
 
-    //print_r($data["hotels"]); exit;
+    //var_dump($data); exit;
 
     $this->_fetch('user_create', $data, false, true);
 

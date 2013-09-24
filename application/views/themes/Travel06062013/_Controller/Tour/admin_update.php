@@ -3,28 +3,17 @@
 /////////////////////
 //Start Datepicker
 ////////////////////
-
-//Datepicker CSS
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" media="all" type="text/css"  href="http://code.jquery.com/ui/1.8.23/themes/smoothness/jquery-ui.css">');
 
-PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("themes/Travel/js/datepicker/jquery-ui-timepicker-addon.css").'">');
+PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.$themepath.'/js/datepicker/jquery-ui-timepicker-addon.css'.'">');
 
 //Datepicker JQuery
 PageUtil::addVar("javascript", '<script type="text/javascript" src="http://code.jquery.com/ui/1.8.24/jquery-ui.min.js"></script>');
-PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/datepicker/jquery-ui-timepicker-addon.js").'"></script>');
-PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/datepicker/jquery-ui-sliderAccess.js").'"></script>');
-
-/////////////////////
-//End Datepicker
-////////////////////
-
-
-
+PageUtil::addVar("javascript", '<script type="text/javascript" src="'.$themepath.'/js/datepicker/jquery-ui-timepicker-addon.js'.'"></script>');
+PageUtil::addVar("javascript", '<script type="text/javascript" src="'.$themepath.'/js/datepicker/jquery-ui-sliderAccess.js'.'"></script>');
 
 //Autosuggest && Autocomplete
-PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/autocomplete/autocomplete.js").'"></script>');
-
-
+PageUtil::addVar("javascript", '<script type="text/javascript" src="'.$themepath.'/js/autocomplete/autocomplete.js'.'"></script>');
 
 
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().'/style/tour.css">');
@@ -359,7 +348,7 @@ $(document).ready(function() {
 
   <!-- Form -->
   <?php echo form_open(base_url("admin/tour/update"),'enctype="multipart/form-data"');?>
-  <section class="grid_8">
+  <section class="grid_9">
     <h2 class="section_heading">
       <span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
         Add Tour Information
@@ -370,20 +359,20 @@ $(document).ready(function() {
   <br>
     <input type="hidden" name="id" id="id" value="<?php echo $tour[0]->id;?>">
     <!--  Start Tour information -->
-
       <script type="text/javascript">
       $(function(){
         $("#lang").change(function(){
-
-          var id = $("#id").val();
-          window.location='http://'+this.value+'.uastravel.com/admin/tour/create/'+id;
+          if($(this).val() == "en"){
+            window.location='http://packagethailandtour.com/admin/tour/create'+$("#id").val();
+          }else if($(this).val() == "th"){
+            window.location='http://ทัวร์เที่ยวไทย.com/admin/tour/create'+$("#id").val();
+          }
         });
       });
       </script>
-      <div class="half" id="lang_select">
-        <label>language :</label>
-        <select id="lang"  name="lang">
-
+      <div class="row" id="lang_select">
+        <label>ภาษา :</label>
+        <select id="lang"  name="lang"> 
         <?php
           if($this->lang->lang() == "en"){
         ?>
@@ -399,31 +388,38 @@ $(document).ready(function() {
         ?>
         </select>
       </div>
-    <div class="half">
-      <label>Tour Name :</label> <?php echo form_error('name', '<font color="red">', '</font>'); ?>
+    <div class="row">
+      <label>Tour Name : (สำหรับแสดงเป็น Title)</label> <?php echo form_error('name', '<font color="red">', '</font>'); ?>
       <input type="text" name="name" value="<?php echo !empty($tour[0]->name)?$tour[0]->name:'';?>">
     </div>
     <div class="clearfix"></div>
 
-    <label>Tour Description : </label> <?php echo form_error('description', '<font color="red">', '</font>'); ?>
-      <textarea cols="30"  class="mceEditor"  rows="150" name="description"><?php echo !empty($tour[0]->description)?$tour[0]->description:'';?></textarea>
-    <div class="clearfix"></div><br>
+    <div class="row">
+      <label>Short name : (สำหรับแสดงที่เมนู)</label> <?php echo form_error('short_name', '<font color="red">', '</font>'); ?>
+      <input type="text" name="short_name" value="<?php echo !empty($tour[0]->short_name)?$tour[0]->short_name:'';?>">
+    </div>
+    <div class="clearfix"></div>
 
     <label>Short Description : </label> <?php echo form_error('short_description', '<font color="red">', '</font>'); ?>
       <input type="text" name="short_description" value="<?php echo !empty($tour[0]->short_description)?$tour[0]->short_description:'';?>">
-    <div class="clearfix"></div><br>
+    <div class="clearfix"></div>
+
+    <label>Tour Description : </label> <?php echo form_error('description', '<font color="red">', '</font>'); ?>
+      <textarea cols="30"  class="mceEditor"  rows="150" name="description"><?php echo !empty($tour[0]->description)?$tour[0]->description:'';?></textarea>
+    <div class="clearfix"></div><BR />
+
 
     <label>Program & Itinerary : </label> <?php echo form_error('detail', '<font color="red">', '</font>'); ?>
       <textarea cols="30"  class="mceEditor" rows="10" name="detail"><?php echo !empty($tour[0]->detail)?$tour[0]->detail:'';?></textarea>
-    <div class="clearfix"></div>
+    <div class="clearfix"></div> <BR />
 
     <label>Tour included : </label> <?php echo form_error('included', '<font color="red">', '</font>'); ?>
       <textarea cols="30"  class="mceEditor" rows="10" name="included"><?php echo !empty($tour[0]->included)?$tour[0]->included:'';?></textarea>
-    <div class="clearfix"></div>
+    <div class="clearfix"></div> <BR />
 
     <label>Tour Remark : </label>
       <textarea cols="30"  class="mceEditor" rows="10" name="remark"><?php echo !empty($tour[0]->remark)?$tour[0]->remark:'';?></textarea>
-    <div class="clearfix"></div>
+    <div class="clearfix"></div> <BR />
     <br>
 
 
@@ -446,7 +442,7 @@ $(document).ready(function() {
             }
           ?>
           </select>
-          <img src="<?php echo base_url("themes/Travel/images/add.png"); ?>" valign="middle"  id="add_agency"/>
+          <img src="<?php echo $themepath.'/images/add.png'; ?>" valign="middle"  id="add_agency"/>
           <input type="hidden" id="hidden_agency_id" />
         </span>
       </h2>
@@ -476,14 +472,14 @@ $(document).ready(function() {
             </span>
             <span style='float:left; margin-left:10px; font: 20px Arial, sans-serif;'>
 
-            <img src="<?php echo base_url("themes/Travel/images/remove.png"); ?>"
+            <img src="<?php echo $themepath.'/images/remove.png'; ?>"
             valign="middle"
             id="delete_agency"
             onClick='deleteRow("delete", <?php echo $valueAgency["agency_id"];?>)'
             />
 
             <span style='margin: 20px 0px 0px 0px; font: 16px Arial, sans-serif;'>
-              [เพิ่มราคา <img src='<?php echo base_url('themes/Travel/images/add.png'); ?>'
+              [เพิ่มราคา <img src='<?php echo $themepath.'/images/add.png'; ?>'
                               valign='middle'
                               id='add_price'
                               onClick='addPrice("add", "<?php echo $valueAgency['agency_id'];?>");'
@@ -540,7 +536,7 @@ $(document).ready(function() {
                 if($value->show_firstpage == 0){
                 ?>
 
-                  <img src="<?php echo base_url('themes/Travel/images/enable.png');?>"
+                  <img src="<?php echo $themepath.'/images/enable.png';?>"
                       valign="top"
                       id="display"
                       class="display_show"
@@ -549,7 +545,7 @@ $(document).ready(function() {
                       idname="display_show_<?php echo $value->id;?>"
                       style="display:none;"
                   >
-                  <img src="<?php echo base_url('themes/Travel/images/disable.png');?>"
+                  <img src="<?php echo $themepath.'/images/disable.png';?>"
                       valign="top"
                       id="display"
                       class="display_hide"
@@ -560,7 +556,7 @@ $(document).ready(function() {
                 <?php
                 }else if($value->show_firstpage== 1){
                 ?>
-                  <img src="<?php echo base_url('themes/Travel/images/enable.png');?>"
+                  <img src="<?php echo $themepath.'/images/enable.png';?>"
                       valign="top"
                       id="display"
                       class="display_show"
@@ -568,7 +564,7 @@ $(document).ready(function() {
                       idval="<?php echo $value->id;?>"
                       idname="display_show_<?php $value->id;?>"
                   >
-                  <img src="<?php echo base_url('themes/Travel/images/disable.png');?>"
+                  <img src="<?php echo $themepath.'/images/disable.png';?>"
                       valign="top"
                       id="display"
                       class="display_hide"
@@ -584,7 +580,7 @@ $(document).ready(function() {
                 &nbsp;&nbsp;| &nbsp;&nbsp;
                 <label>Price Name :</label>
                 <img
-                  src="http://uastravel.com/themes/Travel/images/remove.png"
+                  src="<?php echo $themepath.'/images/remove.png';?>"
                   valign="top"
                   id="delete_price"
                   onclick="deletePriceRow('delete','<?php echo $value->agency_id;?>_<?php echo $countExtendPriceJS;?>');"
@@ -678,7 +674,7 @@ $(document).ready(function() {
 
 
             //Loading...
-            var path = '<?php echo base_url("themes/Travel/images/loading_agency.gif"); ?>';
+            var path = '<?php echo $themepath."/images/loading_agency.gif"; ?>';
             var loading = "<img src='"+path+"'>";
             $("#add_loading").html(loading);
 
@@ -758,14 +754,14 @@ $(document).ready(function() {
     agency_form += "        <input type='hidden' name='agency_tour["+element+"][agency_id]' value='"+agency_id+"'>";
     agency_form += "      </span>";
     agency_form += "      <span style='float:left; margin-left:10px; font: 20px Arial, sans-serif; width:10%'>";
-    agency_form += "         <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
+    agency_form += "         <img src='<?php echo $themepath.'/images/remove.png'; ?>'";
     agency_form += "            valign='middle'  ";
     agency_form += "            id='delete_agency'  ";
     agency_form += "            onClick='deleteRow(\"delete\", "+agency_id+");'  ";
     agency_form += "      />";
     agency_form += "      </span>";
     agency_form += "      <span style='margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;'>";
-    agency_form += "        [เพิ่มราคา <img src='<?php echo base_url('themes/Travel/images/add.png'); ?>'";
+    agency_form += "        [เพิ่มราคา <img src='<?php echo $themepath.'/images/add.png'; ?>'";
     agency_form += "            valign='middle'  ";
     agency_form += "            id='add_price'  ";
     agency_form += "            onClick='addPrice(\"add\", "+agency_id+");'  ";
@@ -778,7 +774,7 @@ $(document).ready(function() {
     agency_form += "  <div id='price_"+agency_id+"_"+element+"'>";
     agency_form += "    <div class='half'>";
     agency_form += "      <label>Price name :</label>";
-    agency_form += "      <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
+    agency_form += "      <img src='<?php echo $themepath.'/images/remove.png'; ?>'";
     agency_form += "      valign='top'  ";
     agency_form += "      id='delete_price'  ";
     agency_form += "      onClick='deletePriceRow(\"delete\", \""+agency_id+"_"+element+"\");'  ";
@@ -840,7 +836,7 @@ $(document).ready(function() {
         priceForm += "<div id='price_"+agency_id+"_"+countExtendPriceJS+"'>";
         priceForm += "    <div class='half'>";
         priceForm += "      <label>Price name :</label>";
-        priceForm += "      <img src='<?php echo base_url('themes/Travel/images/remove.png'); ?>'";
+        priceForm += "      <img src='<?php echo $themepath.'/images/remove.png'; ?>'";
         priceForm += "      valign='top'  ";
         priceForm += "      id='delete_price'  ";
         priceForm += "      onClick='deletePriceRow(\"delete\", \""+agency_id+"_"+countExtendPriceJS+"\");'  ";
@@ -960,8 +956,8 @@ $(document).ready(function() {
             ,tagsItems : [  <?php
                       foreach ($tag_query as $key => $value) {
                         # code...
-                        if(!empty($value["name"])){
-                          echo "'".$value["name"]."',";
+                        if(!empty($value["tagt_name"])){
+                          echo "'".$value["tagt_name"]."',";
                         }
                       }
                     ?>
@@ -1014,14 +1010,13 @@ $(document).ready(function() {
 
       function tagSearch(str) {
 
-        var url ="<?php echo base_url('/tag/jssearch');?>"+"/"+$.trim(str);
+        var url ="<?php echo base_url('/tag/jsonsearch');?>"+"/"+$.trim(str);
         var response = $.ajax({ type: "GET",
                                 url: url,
                                 async: false
                               }).responseText;
 
-        var list = response.split(/,/);
-
+        var list = jQuery.parseJSON(response);
         return list;
       }
 

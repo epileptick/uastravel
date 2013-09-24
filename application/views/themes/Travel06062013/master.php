@@ -13,7 +13,7 @@
 	<!-- Load CSS -->
 	<link rel="stylesheet" href="<?=$stylepath?>/style.css">
 	<link rel="stylesheet" href="<?=$themepath?>/fancybox/jquery.fancybox-1.3.4.css">
-	<link rel="stylesheet" href="<?=$stylepath?>/smoothness/jquery-ui-1.8.16.custom.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
   
 
 	<!-- Page icon -->
@@ -25,10 +25,9 @@
 	<!-- Load JavaScript -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="<?=$jspath?>/libs/jquery-1.6.2.min.js"><\/script>')</script>
-	<script src="<?=$jspath?>/libs/jquery-ui-1.8.16.custom.min.js"></script>
 	<script src="<?=$jspath?>/script.js"></script>
 	<script src="<?=$themepath?>/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-  
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
   <!-- Load TinyMCE -->
   <script type="text/javascript" src="<?=$jspath?>/tiny_mce/tiny_mce.js"></script>
 </head>

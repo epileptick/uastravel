@@ -3,6 +3,32 @@ class TourBooking_model extends MY_Model {
 
   function __construct(){
     parent::__construct();
+    $this->_prefix = "tob";
+    $this->_column = array(
+                     'id'                    => $this->_prefix.'_id',
+                     'agency_id'             => $this->_prefix.'_agency_id',
+                     'tour_id'               => $this->_prefix.'_tour_id',
+                     'price_id'              => $this->_prefix.'_price_id',
+                     'price_name'            => $this->_prefix.'_price_name',
+                     'tourcustomer_id'       => $this->_prefix.'_tourcustomer_id',
+                     'sale_adult_price'      => $this->_prefix.'_sale_adult_price',
+                     'discount_adult_price'  => $this->_prefix.'_discount_adult_price',
+                     'sale_infant_price'     => $this->_prefix.'_sale_infant_price',
+                     'discount_infant_price' => $this->_prefix.'_discount_infant_price',
+                     'sale_child_price'      => $this->_prefix.'_sale_child_price',
+                     'discount_child_price'  => $this->_prefix.'_discount_child_price',
+                     'adult_amount_booking'  => $this->_prefix.'_adult_amount_booking',
+                     'child_amount_booking'  => $this->_prefix.'_child_amount_booking',
+                     'infant_amount_booking'  => $this->_prefix.'_child_amount_booking',
+                     'total_adult_price'     => $this->_prefix.'_total_adult_price',
+                     'total_child_price'     => $this->_prefix.'_total_child_price',
+                     'total_infant_price'    => $this->_prefix.'_total_infant_price',
+                     'total_price'           => $this->_prefix.'_total_price',
+                     'cr_date'               => $this->_prefix.'_cr_date',
+                     'cr_uid'                => $this->_prefix.'_cr_uid',
+                     'lu_date'               => $this->_prefix.'_lu_date',
+                     'lu_uid'                => $this->_prefix.'_lu_uid'
+    );
   }
 
 

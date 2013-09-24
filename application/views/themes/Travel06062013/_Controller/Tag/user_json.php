@@ -1,4 +1,4 @@
 <?php
     # Return the response
-    echo $tag;
+    echo json_encode($tag);
 ?>

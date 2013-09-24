@@ -2,32 +2,42 @@
 class Pricehotel_model extends MY_Model {
   function __construct(){
     parent::__construct();
-    $this->_prefix = "pri";
-    $this->_column = array(  
+    $this->_prefix = "prh";
+    $this->_column = array(
                      'id'                    => 'prh_id',
                      'agency_id'             => 'prh_agency_id',
                      'hotel_id'              => 'prh_hotel_id',
-                     'sale_room_price'      => 'prh_sale_room_price',
-                     'net_room_price'       => 'prh_net_room_price',
-                     'discount_room_price'  => 'prh_discount_room_price',
-                     'sale_child_price'      => 'prh_sale_child_price',
-                     'net_child_price'       => 'prh_net_child_price',
-                     'discount_child_price'  => 'prh_discount_child_price'
+                     'sale_room_price'       => 'prh_sale_room_price',
+                     'net_room_price'        => 'prh_net_room_price',
+                     'discount_room_price'   => 'prh_discount_room_price'
     );
 
+    $this->_join_column = array(
+                     'id'                    => 'prht_id',
+                     'lang'                  => 'prht_lang',
+                     'price_id'              => 'prht_price_id',
+                     'name'                  => 'prht_name'
+    );
 
     $this->_joincolumn = array(
                      'id'                    => 'prht_id',
                      'lang'                  => 'prht_lang',
                      'price_id'              => 'prht_price_id',
                      'name'                  => 'prht_name'
-    ); 
+    );
   }
- 
+
+  function get($options=""){
+    $this->db->join("ci_pricehotel_translate","ci_pricehotel_translate.prht_price_id = ci_pricehotel.prh_id");
+    $mainTable = parent::get($options);
+    if(empty($mainTable) AND !empty($options["lang"])){
+      unset($options["lang"]);
+      $mainTable =  $this->get($options);
+    }
+    return $mainTable;
+  }
+
   function mapField($result){
-    
-
-
     foreach ($result as $key => $value) {
       $data = new stdClass();
 

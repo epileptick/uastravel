@@ -3,13 +3,13 @@
   post
 */
 #add_form {
-
   float:left;
   border-right: 1px solid #DBDBDB;
+  width: 672px;
 }
 
 #add_form_right {
-  width: 299px;
+  width: 265px;
   float: right;
   background-color: #FAFAFA;
 }
@@ -196,15 +196,17 @@ a.blogg-button:link, a.blogg-button:visited {
   vertical-align: middle;
   position: relative;
 }
+
 .blogg-button .blogg-button-image {
   vertical-align: middle;
 }
+
 .blogg-menu-button .blogg-disclosureindicator::before {
   content: url('../images/down_arrow.png');
 }
 
 #wrapper-editor {
-  width:630px;
+  width: 672px;
   background-color:#f3f3f3;
   padding-top:20px;
   padding-bottom:20px;
@@ -215,25 +217,25 @@ a.blogg-button:link, a.blogg-button:visited {
   box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.10);
 
 }
+
 #editor {
-  width:580px;
+  width: 662px;
   margin-left:auto;
   margin-right:auto;
   background-color:#f3f3f3;
   min-height:500px;
   position:relative;
-  
+
 }
 
-
 .mceExternalToolbar {
-    position: absolute !important ;
-    top: -126px !important ;
-    left:-25px;
-    width:630px !important ;
-    background:#f0f0ee !important ;
-    display:block !important;
-    border: none !important ;
+  position: absolute !important;
+  top: -126px !important;
+  left: -5px;
+  background: #f0f0ee !important;
+  display: block !important;
+  border: none !important;
+  width: 672px !important;
 }
 #example1_pdw_toggle.mceButtonActive img {
    -webkit-transform: rotate(180deg); /* Safari/Chrome */
@@ -242,7 +244,7 @@ a.blogg-button:link, a.blogg-button:visited {
 }
 
 #editorPanel {
-  width: 630px;
+  width: 672px;
   border-top: 1px solid #c1c1c1;
   margin-bottom: 10px;
   height: 90px;
@@ -277,11 +279,10 @@ side bar
 }
 
 .side_bar_block {
-  padding:5px;
-  border-bottom:1px solid #c0dcc0;
-  float:left;
-  clear:both;
-  width: 300px;
+  border-bottom: 1px solid #c0dcc0;
+  float: left;
+  clear: both;
+  width: 260px;
 }
 
 #side_bar_block_image img {
@@ -343,7 +344,7 @@ Upload Override
 #uploader {
   height:auto;
   display:block;
-  width: 290px !important;
+  width: 205px !important;
 }
 .plupload_wrapper, .plupload_button {
   font-size: 8px !important;
@@ -375,7 +376,7 @@ span.upload-button:hover {
 span.upload-button {
   cursor:pointer;
   border-top: 1px solid #A7A7A7;
-  width: 300px !important;
+  width: 205px  !important;
   display:block;
   text-align:center;
   background: url("../images/tag.png") center -10px no-repeat;

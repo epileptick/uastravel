@@ -44,7 +44,7 @@ class Hotel_model extends MY_Model {
         $this->db->where($this->_join_column["lang"],$this->lang->lang());
       }
     }
-    $this->db->join("ci_location_translate","ci_location_translate.loct_loc_id = ci_location.loc_id");
+    $this->db->join("ci_hotel_translate","ci_hotel_translate.hott_hotel_id = ci_hotel.hot_id");
     $mainTable = parent::get($options);
 
     return $mainTable;

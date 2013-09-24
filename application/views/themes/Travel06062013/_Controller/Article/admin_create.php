@@ -1,5 +1,6 @@
 <?php
 PageUtil::addVar("title",$this->lang->line("location_lang_add_post"));
+
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.Util::ThemePath().'/style/form.css">');
 PageUtil::addVar("stylesheet",'<style type="text/css">@import url('.Util::ThemePath().'/js/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css);</style>');
 PageUtil::addVar("javascript",'<script type="text/javascript" src="http://bp.yahooapis.com/2.4.21/browserplus-min.js"></script>');
@@ -7,6 +8,7 @@ PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::Theme
 PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::ThemePath().'/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>');
 //Autosuggest && Autocomplete
 PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/autocomplete/autocomplete.js").'"></script>');
+
 PageUtil::addVar("javascript",'<script type="text/javascript">
 // Convert divs to queue widgets when the DOM is ready
 $(document).ready(function() {
@@ -18,6 +20,7 @@ $(document).ready(function() {
       },
       5000
     );
+    $("#save").prop("disabled", true);
     if($("#id").val()!=0){
       $.post(\''.base_url('admin/article/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.get("txtBody").getContent(),tag_id:$("#tag_id").val(), ajax: 1, force: 1, lang: $("#lang").val() },successHandler);
     }else if($("#id").val()==0){
@@ -26,7 +29,7 @@ $(document).ready(function() {
   }
   updateImages();
   function updateImages(){
-            $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:3 },
+            $.post("'.base_url("/images/ajax_list").'", { parent_id: $("#id").val(),table_id:4 },
             function(data) {
 
               $("#side_bar_block_image").hide().html(data).fadeIn(300);
@@ -112,7 +115,7 @@ $(document).ready(function() {
         theme_advanced_toolbar_align : "left",
         theme_advanced_statusbar_location : "bottom",
         theme_advanced_resizing : false,
-        theme_advanced_source_editor_width: 630,
+        theme_advanced_source_editor_width: 712,
         autoresize_min_height: 500,
         autoresize_not_availible_height: 10,
         autoresize_on_init: true,
@@ -121,13 +124,14 @@ $(document).ready(function() {
 
 
   function successHandler(data){
-    console.log(data);
+    //console.log(data);
     var json = jQuery.parseJSON(data);
     $("#id").val(json.id);
     $("#status").html(json.status).show("slow");
     $("#span_status").show("slow").delay(3000).hide("slow");
     var $uploader = $("#uploader").pluploadQueue();
-    $uploader.settings.multipart_params = {parent_id: $(\'#id\').val(), table_id:3};
+    $uploader.settings.multipart_params = {parent_id: $(\'#id\').val(), table_id:4};
+    $("#save").prop("disabled", false);
   }
 
   $("#uploader").pluploadQueue({
@@ -298,6 +302,7 @@ if(count($base_url) > 2){
             <option value="0" <?php if(empty($post[0]['type']))echo "selected";?>>สำหรับหน้าแรก</option>
             <option value="1" <?php if(!empty($post[0]['type']) AND $post[0]['type'] == 1)echo "selected";?>>สำหรับสถานที่ท่องเที่ยว</option>
             <option value="2" <?php if(!empty($post[0]['type']) AND $post[0]['type'] == 2)echo "selected";?>>สำหรับทัวร์</option>
+            <option value="3" <?php if(!empty($post[0]['type']) AND $post[0]['type'] == 3)echo "selected";?>>สำหรับโรงแรม</option>
 
       </select>
       </div>
@@ -309,6 +314,25 @@ if(count($base_url) > 2){
 <?php
         foreach ($tag as $key => $value) {
           if($post[0]['tag_id'] == $value["tag_id"]){
+?>
+            <option value="<?php echo $value["tag_id"]; ?>" selected><?php echo $value["name"]; ?></option>
+<?php
+          }else{
+?>
+            <option value="<?php echo $value["tag_id"]; ?>"><?php echo $value["name"]; ?></option>
+<?php
+          }
+        }
+?>
+      </select>
+      </div>
+      <div class="side_bar_block">
+        <h3 class="location">{_ global_lang_province}</h3>
+        <select name="province_id">
+            <option value="0" selected>ไม่ระบุ</option>
+<?php
+        foreach ($tagProvince as $key => $value) {
+          if($post[0]['province_id'] == $value["tag_id"]){
 ?>
             <option value="<?php echo $value["tag_id"]; ?>" selected><?php echo $value["name"]; ?></option>
 <?php

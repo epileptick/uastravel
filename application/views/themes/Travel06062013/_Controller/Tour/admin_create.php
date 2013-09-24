@@ -13,16 +13,16 @@ $fakeId = rand(100000,999999);
 //Datepicker CSS
 PageUtil::addVar("stylesheet",'<link rel="stylesheet" media="all" type="text/css"  href="http://code.jquery.com/ui/1.8.23/themes/smoothness/jquery-ui.css">');
 
-PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.base_url("themes/Travel/js/datepicker/jquery-ui-timepicker-addon.css").'">');
+PageUtil::addVar("stylesheet",'<link rel="stylesheet" href="'.$themepath.'/js/datepicker/jquery-ui-timepicker-addon.css'.'">');
 
 //Datepicker JQuery
 PageUtil::addVar("javascript", '<script type="text/javascript" src="http://code.jquery.com/ui/1.8.24/jquery-ui.min.js"></script>');
-PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/datepicker/jquery-ui-timepicker-addon.js").'"></script>');
-PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/datepicker/jquery-ui-sliderAccess.js").'"></script>');
+PageUtil::addVar("javascript", '<script type="text/javascript" src="'.$themepath.'/js/datepicker/jquery-ui-timepicker-addon.js'.'"></script>');
+PageUtil::addVar("javascript", '<script type="text/javascript" src="'.$themepath.'/js/datepicker/jquery-ui-sliderAccess.js'.'"></script>');
 
 
 //Autosuggest && Autocomplete
-PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/autocomplete/autocomplete.js").'"></script>');
+PageUtil::addVar("javascript", '<script type="text/javascript" src="'.$themepath.'/js/autocomplete/autocomplete.js'.'"></script>');
 
 /////////////////////
 //End Datepicker
@@ -172,70 +172,70 @@ $(document).ready(function() {
 ?>
 
 <script>
-	$(document).ready(function(){
-		$('#start_time1').timepicker({
-			hourGrid: 4,
-			minuteGrid: 10
-		});
+  $(document).ready(function(){
+    $('#start_time1').timepicker({
+      hourGrid: 4,
+      minuteGrid: 10
+    });
 
-		$('#end_time1').timepicker({
-			hourGrid: 4,
-			minuteGrid: 10
-		});
+    $('#end_time1').timepicker({
+      hourGrid: 4,
+      minuteGrid: 10
+    });
 
-		$('#start_time2').timepicker({
-			hourGrid: 4,
-			minuteGrid: 10
-		});
+    $('#start_time2').timepicker({
+      hourGrid: 4,
+      minuteGrid: 10
+    });
 
-		$('#end_time2').timepicker({
-			hourGrid: 4,
-			minuteGrid: 10
-		});
+    $('#end_time2').timepicker({
+      hourGrid: 4,
+      minuteGrid: 10
+    });
 
-		$('#start_time3').timepicker({
-			hourGrid: 4,
-			minuteGrid: 10
-		});
+    $('#start_time3').timepicker({
+      hourGrid: 4,
+      minuteGrid: 10
+    });
 
-		$('#end_time3').timepicker({
-			hourGrid: 4,
-			minuteGrid: 10
-		});
+    $('#end_time3').timepicker({
+      hourGrid: 4,
+      minuteGrid: 10
+    });
 
-		/*
-		$('#start_date').datepicker({
-			dateFormat: "yy-mm-dd"
-		});
+    /*
+    $('#start_date').datepicker({
+      dateFormat: "yy-mm-dd"
+    });
 
-		$('#end_date').datepicker({
-			dateFormat: "yy-mm-dd"
-		});
-		*/
+    $('#end_date').datepicker({
+      dateFormat: "yy-mm-dd"
+    });
+    */
 
-	    tinyMCE.init({
-	        mode : "specific_textareas",
-	        editor_selector : "mceEditor",
-	        width: "100%",
-	        theme : "advanced",
-	        plugins : "youtube, inlinepopups,autoresize,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
-	        //theme_advanced_buttons1 : "justifyleft,justifycenter,justifyright,justifyfull",
-	        //theme_advanced_buttons2: ",tablecontrols,|,images,youtube,|,bold,italic,underline,strikethrough,|,undo,redo,|,cut,copy,paste,|,code",
-	        theme_advanced_buttons1 : "fullscreen,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
-	        theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-	        theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr",
-	        theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreakcut,|,copy,paste,pastetext,pasteword,|,image,youtube,|",
-	        theme_advanced_toolbar_align : "left",
-	        theme_advanced_statusbar_location : "bottom",
-	        theme_advanced_resizing : false,
-	        theme_advanced_source_editor_width: 630,
-	        autoresize_min_height: 200,
-	        autoresize_not_availible_height: 10,
-	        autoresize_on_init: true,
-	        autoresize_hide_scrollbars: false
-	    });
+      tinyMCE.init({
+          mode : "specific_textareas",
+          editor_selector : "mceEditor",
+          width: "100%",
+          theme : "advanced",
+          plugins : "youtube, inlinepopups,autoresize,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+          //theme_advanced_buttons1 : "justifyleft,justifycenter,justifyright,justifyfull",
+          //theme_advanced_buttons2: ",tablecontrols,|,images,youtube,|,bold,italic,underline,strikethrough,|,undo,redo,|,cut,copy,paste,|,code",
+          theme_advanced_buttons1 : "fullscreen,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+          theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+          theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr",
+          theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreakcut,|,copy,paste,pastetext,pasteword,|,image,youtube,|",
+          theme_advanced_toolbar_align : "left",
+          theme_advanced_statusbar_location : "bottom",
+          theme_advanced_resizing : false,
+          theme_advanced_source_editor_width: 630,
+          autoresize_min_height: 200,
+          autoresize_not_availible_height: 10,
+          autoresize_on_init: true,
+          autoresize_hide_scrollbars: false
+      });
 
-	});
+  });
 </script>
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
@@ -347,29 +347,31 @@ $(document).ready(function() {
 <input type="hidden"  id="id"  name="fakeid"  value="<?php echo $fakeId;?>" />
 <div class="container_12">
 
-	<!-- Filter -->
-	<section class="grid_8">
-		<h2 class="section_heading">
-			<span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
-				Add Tour Information
-				[ <a href="<?php echo base_url("admin/tour");?>">list</a> ]
-			</span>
-		</h2>
-		<br>
-			<!--  Start Tour information -->
+  <!-- Filter -->
+  <section class="grid_9">
+    <h2 class="section_heading">
+      <span style="margin: 5px 0px 0px 0px; font: 20px Arial, sans-serif;">
+        Add Tour Information
+        [ <a href="<?php echo base_url("admin/tour");?>">list</a> ]
+      </span>
+    </h2>
+    <br>
 
+      <!--  Start Tour information -->
       <script type="text/javascript">
       $(function(){
         $("#lang").change(function(){
-
-          window.location='http://'+this.value+'.uastravel.com/admin/tour/create';
+          if($(this).val() == "en"){
+            window.location='http://packagethailandtour.com/admin/tour/create';
+          }else if($(this).val() == "th"){
+            window.location='http://ทัวร์เที่ยวไทย.com/admin/tour/create';
+          }
         });
       });
       </script>
-      <div class="half" id="lang_select">
-        <label>language :</label>
-        <select id="lang"  name="lang">
-
+      <div class="row" id="lang_select">
+        <label>ภาษา :</label>
+        <select id="lang"  name="lang"> 
         <?php
           if($this->lang->lang() == "en"){
         ?>
@@ -386,32 +388,39 @@ $(document).ready(function() {
         </select>
       </div>
       <div class="clearfix"></div>
-			<div class="half">
-				<label>Tour Name :</label> <?php echo form_error('name', '<font color="red">', '</font>'); ?>
-				<input type="text" name="name" id="name" value="<?php echo set_value('name');?>">
-			</div>
-			<div class="clearfix"></div>
+      <div class="row">
+        <label>Tour Name :</label> <?php echo form_error('name', '<font color="red">', '</font>'); ?>
+        <input type="text" name="name" id="name" value="<?php echo set_value('name');?>">
+      </div>
+      <div class="clearfix"></div>
 
-			<label>Tour Description : </label> <?php echo form_error('description', '<font color="red">', '</font>'); ?>
-			<textarea  class="mceEditor" cols="30" rows="10" name="description"><?php echo set_value('description');?></textarea>
-			<div class="clearfix"></div><br>
+      <div class="row">
+        <label>Short name : (สำหรับแสดงที่เมนู)</label> <?php echo form_error('short_name', '<font color="red">', '</font>'); ?>
+        <input type="text" name="short_name" value="<?php echo !empty($tour[0]->short_name)?$tour[0]->short_name:'';?>">
+      </div>
+      <div class="clearfix"></div>
 
-			<label>Short Description : </label> <?php echo form_error('short_description', '<font color="red">', '</font>'); ?>
-				<input type="text" name="short_description" id="short_description" value="<?php echo set_value('short_description');?>">
-			<div class="clearfix"></div><br>
+      <label>Short Description : </label> <?php echo form_error('short_description', '<font color="red">', '</font>'); ?>
+        <input type="text" name="short_description" id="short_description" value="<?php echo set_value('short_description');?>">
+      <div class="clearfix"></div>
 
-			<label>Program & Itinerary : </label> <?php echo form_error('detail', '<font color="red">', '</font>'); ?>
-			<textarea cols="30"  class="mceEditor"  rows="10" name="detail"><?php echo set_value('detail');?></textarea>
-			<div class="clearfix"></div><br>
+      <label>Tour Description : </label> <?php echo form_error('description', '<font color="red">', '</font>'); ?>
+      <textarea  class="mceEditor" cols="30" rows="10" name="description"><?php echo set_value('description');?></textarea>
+      <div class="clearfix"></div><br>
 
-			<label>Tour included : </label>	<?php echo form_error('included', '<font color="red">', '</font>'); ?>
-			<textarea cols="30"  class="mceEditor"  rows="10" name="included"><?php echo set_value('included');?></textarea>
 
-			<div class="clearfix"></div><br>
+      <label>Program & Itinerary : </label> <?php echo form_error('detail', '<font color="red">', '</font>'); ?>
+      <textarea cols="30"  class="mceEditor"  rows="10" name="detail"><?php echo set_value('detail');?></textarea>
+      <div class="clearfix"></div><br>
 
-			<label>Tour Remark : </label>
-			<textarea cols="30"  class="mceEditor"  rows="10" name="remark"><?php echo set_value('remark');?></textarea>
-			<div class="clearfix"></div>
+      <label>Tour included : </label> <?php echo form_error('included', '<font color="red">', '</font>'); ?>
+      <textarea cols="30"  class="mceEditor"  rows="10" name="included"><?php echo set_value('included');?></textarea>
+
+      <div class="clearfix"></div><br>
+
+      <label>Tour Remark : </label>
+      <textarea cols="30"  class="mceEditor"  rows="10" name="remark"><?php echo set_value('remark');?></textarea>
+      <div class="clearfix"></div>
 <br>
 
 
@@ -439,18 +448,18 @@ $(document).ready(function() {
         </span>
       </h2>
       <br>
-		<div id="add_agency_area">
-		</div>
+    <div id="add_agency_area">
+    </div>
     <div id="add_price_area">
     </div>
 
   <!-- Agency End -->
   </section>
 
-	<!-- Start tag -->
-	<section class="simple_sidebar grid_4">
-		<label>Tag</label><label style="position:absolute;right:240px;"><span style="cursor:pointer;"  id="show_all">show all</span></label>
-		<textarea id="textarea" class="example" rows="1" style="width: 250px;"></textarea>
+  <!-- Start tag -->
+  <section class="simple_sidebar grid_4">
+    <label>Tag</label><label style="position:absolute;right:240px;"><span style="cursor:pointer;"  id="show_all">show all</span></label>
+    <textarea id="textarea" class="example" rows="1" style="width: 250px;"></textarea>
     <script>
       //Rewrite tag value
       $(document).ready(function(){
@@ -460,134 +469,133 @@ $(document).ready(function() {
       });
     </script>
     <input type="hidden"id="tags" name="tags" value="">
-		<br>
-		<span id="show_all_result">
-			<?php
-				//print_r($tag);
+    <br>
+    <span id="show_all_result">
+      <?php
+        //print_r($tag);
 
-			if(is_array($tag)){
-				$count = 1;
-				foreach ($tag as $key => $value) {
-					# code...
-					if($count == count($tag)){
-					?>
-						<font color='6182E6'>
-							<span 	style="cursor:pointer;"
-									onClick="this.style.color='red'"
-	   								id='addtag<?php echo $count; ?>'
-	   						><?php echo $value->name; ?></span>
-	   					</font>
-					<?php
-					}else{
-					?>
-						<font color='6182E6'><span 	style="cursor:pointer; "
-									onClick="this.style.color='red'"
-	   								id='addtag<?php echo $count; ?>'
-	   						><?php echo $value->name; ?></span>
-	   					</font>,
-					<?php
-					}
+      if(is_array($tag)){
+        $count = 1;
+        foreach ($tag as $key => $value) {
+          # code...
+          if($count == count($tag)){
+          ?>
+            <font color='6182E6'>
+              <span   style="cursor:pointer;"
+                  onClick="this.style.color='red'"
+                    id='addtag<?php echo $count; ?>'
+                ><?php echo $value->name; ?></span>
+              </font>
+          <?php
+          }else{
+          ?>
+            <font color='6182E6'><span  style="cursor:pointer; "
+                  onClick="this.style.color='red'"
+                    id='addtag<?php echo $count; ?>'
+                ><?php echo $value->name; ?></span>
+              </font>,
+          <?php
+          }
 
-					$count++;
-				}
-			}
-			?>
-		</span>
-		<script type="text/javascript">
-			var validate = "";
-			//Function tag
-			$('#textarea')
-				.textext({
-					plugins : 'tags autocomplete'
-				})
-				.bind('getSuggestions', function(e, data)
-				{
+          $count++;
+        }
+      }
+      ?>
+    </span>
+    <script type="text/javascript">
+      var validate = "";
+      //Function tag
+      $('#textarea')
+        .textext({
+          plugins : 'tags autocomplete'
+        })
+        .bind('getSuggestions', function(e, data)
+        {
 
-					//Get tag data
-					if(data.query.length == 2){
-						var list = tagSearch(data.query);
+          //Get tag data
+          if(data.query.length == 2){
+            var list = tagSearch(data.query);
 
-						var textext = $(e.target).textext()[0];
-						var query = (data ? data.query : '') || '';
+            var textext = $(e.target).textext()[0];
+            var query = (data ? data.query : '') || '';
             query = $.trim(query);
-						validate = textext.itemManager().filter(list, query)
+            validate = textext.itemManager().filter(list, query)
 
-						//Show suggestion list
-						$(this).trigger(
-							'setSuggestions',
-							{ result : validate }
-						);
-					}else if( validate.length > 0){
-						var list = tagSearch(data.query);
+            //Show suggestion list
+            $(this).trigger(
+              'setSuggestions',
+              { result : validate }
+            );
+          }else if( validate.length > 0){
+            var list = tagSearch(data.query);
 
-						var textext = $(e.target).textext()[0];
-						var query = (data ? data.query : '') || '';
+            var textext = $(e.target).textext()[0];
+            var query = (data ? data.query : '') || '';
             query = $.trim(query);
-						validate = textext.itemManager().filter(list, query)
+            validate = textext.itemManager().filter(list, query)
 
-						//Show suggestion list
-						$(this).trigger(
-							'setSuggestions',
-							{ result : validate }
-						);
+            //Show suggestion list
+            $(this).trigger(
+              'setSuggestions',
+              { result : validate }
+            );
 
-					}
-				})
-				.bind('tagClick', function(e, tag, value, callback)
-		        {
-		            var newValue = window.prompt('New value', value);
+          }
+        })
+        .bind('tagClick', function(e, tag, value, callback)
+            {
+                var newValue = window.prompt('New value', value);
 
-		            if(newValue)
-		                callback(newValue);
-		        });
+                if(newValue)
+                    callback(newValue);
+            });
 
-			function tagSearch(str) {
+      function tagSearch(str) {
 
-        var url ="<?php echo base_url('/tag/jssearch');?>"+"/"+$.trim(str);
-				var response = $.ajax({ type: "GET",
-				                        url: url,
-				                        async: false
-				                      }).responseText;
+        var url ="<?php echo base_url('/tag/jsonsearch');?>"+"/"+$.trim(str);
+        var response = $.ajax({ type: "GET",
+                                url: url,
+                                async: false
+                              }).responseText;
 
-				var list = response.split(/,/);
+        var list = jQuery.parseJSON(response);
+        return list;
+      }
+    </script>
 
-				return list;
-			}
-		</script>
+    <script type="text/javascript">
+    //Function display tag
+    $("#show_all_result").hide();
+    $("#show_all").click(function () {
+      $("#show_all_result").toggle("slow");
+    });
 
-		<script type="text/javascript">
-		//Function display tag
-		$("#show_all_result").hide();
-		$("#show_all").click(function () {
-			$("#show_all_result").toggle("slow");
-		});
+    </script>
+    <?php
+      if(is_array($tag)){
+        $count = 1;
+        foreach ($tag as $key => $value) {
+          # code...
+        ?>
+          <script type="text/javascript">
+            $('#addtag<?php echo $count; ?>').bind('click', function(e){
+              //alert($('#addtag<?php echo $count; ?>').text());
+                  $('#textarea').textext()[0].tags().addTags([ $('#addtag<?php echo $count; ?>').text() ]);
+              });
+          </script>
+        <?php
+          $count++;
+        }
 
-		</script>
-		<?php
-			if(is_array($tag)){
-				$count = 1;
-				foreach ($tag as $key => $value) {
-					# code...
-				?>
-					<script type="text/javascript">
-						$('#addtag<?php echo $count; ?>').bind('click', function(e){
-							//alert($('#addtag<?php echo $count; ?>').text());
-					        $('#textarea').textext()[0].tags().addTags([ $('#addtag<?php echo $count; ?>').text() ]);
-					    });
-					</script>
-				<?php
-					$count++;
-				}
-
-			}
-		?>
-	</section>
-	<!-- End Sidebar Tag -->
+      }
+    ?>
+  </section>
+  <!-- End Sidebar Tag -->
 
 
   <!-- Start Images -->
   <section class="simple_sidebar grid_4">
-		<label>{_ location_lang_image_manager}</label>
+    <label>{_ location_lang_image_manager}</label>
         <div id="side_bar_block_image">
         </div>
         <div id="uploader">
@@ -595,11 +603,11 @@ $(document).ready(function() {
         </div>
         <span id="btnHide"  class="upload-button" onClick="return(false);"></span>
         <span id="btnShow"  class="upload-button" onClick="return(false);">Show</span>
-			<div class="clearfix"></div>
-	</section>
+      <div class="clearfix"></div>
+  </section>
 
   <section class="simple_sidebar grid_4">
-		<label>{_ location_lang_image_manager}</label>
+    <label>{_ location_lang_image_manager}</label>
 
       <p>First Image (Minimum width: 300px)</p>
       <?php
@@ -614,101 +622,101 @@ $(document).ready(function() {
         echo form_upload('banner_image', '', 'class="form_input"');
       ?>
       <div class="clearfix"></div>
-	</section>
-	<!-- End Images -->
+  </section>
+  <!-- End Images -->
 
 
-	<!-- Sidebar start period-->
-	<section class="simple_sidebar grid_4">
-		<label>Tour Period</label><br>
-		<div class="half" style="width:120px;">
-			<label>Start Month :</label><br>
-			<?php
-				$options = array(
-				                  '1'  => 'มกราคม',
-				                  '2'  => 'กุมภาพันธ์',
-				                  '3'  => 'มีนาคม',
-				                  '4'  => 'เมษายน',
-				                  '5'  => 'พฤษภาคม',
-				                  '6'  => 'มิถุยายน',
-				                  '7'  => 'กรกฎาคม',
-				                  '8'  => 'สิงหาคม',
-				                  '9'  => 'กันยายน',
-				                  '10' => 'ตุลาคม',
-				                  '11' => 'พฤศจิกายน',
-				                  '12' => 'ธันวาคม',
-				                );
-				echo form_dropdown('start_month', $options);
-			?>
-		</div>
+  <!-- Sidebar start period-->
+  <section class="simple_sidebar grid_4">
+    <label>Tour Period</label><br>
+    <div class="half" style="width:120px;">
+      <label>Start Month :</label><br>
+      <?php
+        $options = array(
+                          '1'  => 'มกราคม',
+                          '2'  => 'กุมภาพันธ์',
+                          '3'  => 'มีนาคม',
+                          '4'  => 'เมษายน',
+                          '5'  => 'พฤษภาคม',
+                          '6'  => 'มิถุยายน',
+                          '7'  => 'กรกฎาคม',
+                          '8'  => 'สิงหาคม',
+                          '9'  => 'กันยายน',
+                          '10' => 'ตุลาคม',
+                          '11' => 'พฤศจิกายน',
+                          '12' => 'ธันวาคม',
+                        );
+        echo form_dropdown('start_month', $options);
+      ?>
+    </div>
 
-		<div class="half last" style="width:120px;">
-			<label>End Month :</label><br>
-			<?php
-				$options = array(
-				                  '1'  => 'มกราคม',
-				                  '2'  => 'กุมภาพันธ์',
-				                  '3'  => 'มีนาคม',
-				                  '4'  => 'เมษายน',
-				                  '5'  => 'พฤษภาคม',
-				                  '6'  => 'มิถุยายน',
-				                  '7'  => 'กรกฎาคม',
-				                  '8'  => 'สิงหาคม',
-				                  '9'  => 'กันยายน',
-				                  '10' => 'ตุลาคม',
-				                  '11' => 'พฤศจิกายน',
-				                  '12' => 'ธันวาคม',
-				                );
-				echo form_dropdown('end_month', $options);
-			?>
-		</div>
-		<div class="clearfix"></div>
-	</section>
-	<!-- Sidebar end period-->
+    <div class="half last" style="width:120px;">
+      <label>End Month :</label><br>
+      <?php
+        $options = array(
+                          '1'  => 'มกราคม',
+                          '2'  => 'กุมภาพันธ์',
+                          '3'  => 'มีนาคม',
+                          '4'  => 'เมษายน',
+                          '5'  => 'พฤษภาคม',
+                          '6'  => 'มิถุยายน',
+                          '7'  => 'กรกฎาคม',
+                          '8'  => 'สิงหาคม',
+                          '9'  => 'กันยายน',
+                          '10' => 'ตุลาคม',
+                          '11' => 'พฤศจิกายน',
+                          '12' => 'ธันวาคม',
+                        );
+        echo form_dropdown('end_month', $options);
+      ?>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+  <!-- Sidebar end period-->
 
-	<!-- Sidebar start time period-->
-	<section class="simple_sidebar grid_4">
-		<label>Time Period</label><br>
-		<div class="half" style="width:120px;">
-			<label>Start time[1] :</label><br>
-			<?php echo form_error('start_time1', '<font color="red">', '</font>'); ?>
-			<input type="text" name="start_time1" id="start_time1" value="<?php echo set_value('start_time1');?>">
-		</div>
-		<div class="half last" style="width:120px;">
-			<label>End time[1] :</label><br>
-			<?php echo form_error('end_time1', '<font color="red">', '</font>'); ?>
-			<input type="text" name="end_time1" id="end_time1" value="<?php echo set_value('end_time1');?>">
-		</div>
-		<div class="clearfix"></div>
+  <!-- Sidebar start time period-->
+  <section class="simple_sidebar grid_4">
+    <label>Time Period</label><br>
+    <div class="half" style="width:120px;">
+      <label>Start time[1] :</label><br>
+      <?php echo form_error('start_time1', '<font color="red">', '</font>'); ?>
+      <input type="text" name="start_time1" id="start_time1" value="<?php echo set_value('start_time1');?>">
+    </div>
+    <div class="half last" style="width:120px;">
+      <label>End time[1] :</label><br>
+      <?php echo form_error('end_time1', '<font color="red">', '</font>'); ?>
+      <input type="text" name="end_time1" id="end_time1" value="<?php echo set_value('end_time1');?>">
+    </div>
+    <div class="clearfix"></div>
 
-		<div class="half" style="width:120px;">
-			<label>Start time[2] :</label><br>
-			<?php echo form_error('start_time2', '<font color="red">', '</font>'); ?>
-			<input type="text" name="start_time2" id="start_time2" value="<?php echo set_value('start_time2');?>">
-		</div>
-		<div class="half last" style="width:120px;">
-			<label>End time[2] :</label><br>
-			<?php echo form_error('end_time2', '<font color="red">', '</font>'); ?>
-			<input type="text" name="end_time2" id="end_time2" value="<?php echo set_value('end_time2');?>">
-		</div>
-		<div class="clearfix"></div>
+    <div class="half" style="width:120px;">
+      <label>Start time[2] :</label><br>
+      <?php echo form_error('start_time2', '<font color="red">', '</font>'); ?>
+      <input type="text" name="start_time2" id="start_time2" value="<?php echo set_value('start_time2');?>">
+    </div>
+    <div class="half last" style="width:120px;">
+      <label>End time[2] :</label><br>
+      <?php echo form_error('end_time2', '<font color="red">', '</font>'); ?>
+      <input type="text" name="end_time2" id="end_time2" value="<?php echo set_value('end_time2');?>">
+    </div>
+    <div class="clearfix"></div>
 
-		<div class="half" style="width:120px;">
-			<label>Start time[3] :</label><br>
-			<?php echo form_error('start_time3', '<font color="red">', '</font>'); ?>
-			<input type="text" name="start_time3" id="start_time3" value="<?php echo set_value('start_time3');?>">
-		</div>
-		<div class="half last" style="width:120px;">
-			<label>End time[3] :</label><br>
-			<?php echo form_error('end_time3', '<font color="red">', '</font>'); ?>
-			<input type="text" name="end_time3" id="end_time3" value="<?php echo set_value('end_time3');?>">
-		</div>
-		<div class="clearfix"></div>
-	</section>
-	<!-- Sidebar end time period-->
+    <div class="half" style="width:120px;">
+      <label>Start time[3] :</label><br>
+      <?php echo form_error('start_time3', '<font color="red">', '</font>'); ?>
+      <input type="text" name="start_time3" id="start_time3" value="<?php echo set_value('start_time3');?>">
+    </div>
+    <div class="half last" style="width:120px;">
+      <label>End time[3] :</label><br>
+      <?php echo form_error('end_time3', '<font color="red">', '</font>'); ?>
+      <input type="text" name="end_time3" id="end_time3" value="<?php echo set_value('end_time3');?>">
+    </div>
+    <div class="clearfix"></div>
+  </section>
+  <!-- Sidebar end time period-->
 
-	<!-- Start map -->
-	<section class="simple_sidebar grid_4">
+  <!-- Start map -->
+  <section class="simple_sidebar grid_4">
         <h3 class="">{_ location_lang_location}</h3>
         <div id="mapCanvas" style="height:300px;"></div>
         Longitude : <input value="<?php echo set_value('longitude');?>" id="longitude" name="longitude">
@@ -716,8 +724,8 @@ $(document).ready(function() {
         Latitude : <input value="<?php echo set_value('latitude');?>" id="latitude" name="latitude">
         <br />
         Address : <input value="" id="address" name="address">
-	</section>
-	<!-- End map -->
+  </section>
+  <!-- End map -->
 
 </div>
   <section class="grid_12">
@@ -738,19 +746,19 @@ $(document).ready(function() {
   var num = 1;
   var agencies = new Array();
 
-	function deleteRow(event, agency_id){
+  function deleteRow(event, agency_id){
 
-		if(event == "delete"){
-			alert("delete : "+agency_id);
+    if(event == "delete"){
+      alert("delete : "+agency_id);
 
-			$("#agency_price_"+agency_id).remove();
-			delete agencies[agency_id];
+      $("#agency_price_"+agency_id).remove();
+      delete agencies[agency_id];
 
-		}else{
-			//alert("add");
-		}
-		return false;
-	}
+    }else{
+      //alert("add");
+    }
+    return false;
+  }
 
   function deletePriceRow(event, price_element){
 
@@ -816,7 +824,7 @@ $(document).ready(function() {
 
   });
 
-	function agencyPriceForm(num, agency_id, agency_name){
+  function agencyPriceForm(num, agency_id, agency_name){
 
     var agency_form = "<br>";
     agency_form += "<div id='agency_price_"+agency_id+"'>";
@@ -895,10 +903,10 @@ $(document).ready(function() {
     agency_form += " <span  id='add_price_area_"+agency_id+"'></span>";
     agency_form += " <div style='border-bottom: 1px dotted #ccc;'></div>";
 
-		countExtendPriceJS = 1;
+    countExtendPriceJS = 1;
 
-		return agency_form;
-	}
+    return agency_form;
+  }
 
 
 

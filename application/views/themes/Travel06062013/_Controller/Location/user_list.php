@@ -23,8 +23,8 @@
   <link rel="stylesheet" href="<?php echo $stylepath.'/foundation.css';?>">
   <link rel="stylesheet" href="<?php echo $stylepath.'/userstyle.css';?>">
   <link rel="stylesheet" href="<?php echo $stylepath.'/app.css';?>">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
   <?php
 PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
   ?>
@@ -41,9 +41,10 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
   <?php 
   endif;
   ?>
+
 </head>
 
-  <body style="background: #ededed url(<?php echo $imagepath.'/bg'.rand(2,5).'.jpg';?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
+  <body style="background: #ededed url(<?php echo $imagepath.'/bg5.jpg';?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
     {_include user_tab}
 
   <div class="overly-bg"></div>
@@ -74,10 +75,10 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
 
 
     <!-- Gallery -->
+    <div class="row" id="gallery_row">
     <?php
     if(!empty($images)):
     ?>
-    <div class="row" id="gallery_row">
       <section class="gallery_pc">
         <div class="eight columns">
           <div id="gallery" class="content">
@@ -133,10 +134,10 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
           ?>
         </ul>
       </section>
-    </div>
     <?php
       endif;
     ?>
+    </div>
     <!-- End Gallery -->
 
     <!-- Tour Information -->
@@ -144,92 +145,115 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
       <div class="twelve columns ">
         <div class="white_box">
           <div class="left_columns">
-              <ul class="side_bar">
-                <li><a href="<?php echo base_url();?>"><?php echo $this->lang->line("global_lang_home");?></a></li>
-                <li><a href="<?php echo base_url($this->lang->line("url_lang_location"));?>"><?php echo $this->lang->line("global_lang_location"); ?></a>
-                  <ul class="sub-menu">
-                    <li><a href="<?php echo base_url($this->lang->line("url_lang_location"));?>/<?php echo Util::getTag(57);?>" ><?php echo $this->lang->line("global_lang_travel_in"); ?><?php echo Util::getTag(57);?></a></li>
-                    <li><a href="<?php echo base_url($this->lang->line("url_lang_location"));?>/<?php echo Util::getTag(56);?>" ><?php echo $this->lang->line("global_lang_travel_in"); ?><?php echo Util::getTag(56);?></a></li>
-                    <li><a href="<?php echo base_url($this->lang->line("url_lang_location"));?>/<?php echo Util::getTag(58);?>" ><?php echo $this->lang->line("global_lang_travel_in"); ?><?php echo Util::getTag(58);?></a></li>
-                  </ul>
-                </li>
-                <li><a class="active" href="<?php echo base_url($this->lang->line("url_lang_location"));?>/<?php echo $this->uri->segment(2);?>" >
+              <ul class="side_bar" id="mainmenu">
+                {_include main_menu}
                 <?php
-                if($this->uri->segment(2)){
-                  echo $this->lang->line("global_lang_travel").$this->uri->segment(2);
-                }else{
-                  echo $this->lang->line("global_lang_location");
-                }
-                ?>
-                </a>
+                  if(!empty($tour)){
+                    foreach ($tour as $key => $value) {
+                      if(!empty($value["tour"])){
+                    ?>
+                      <li>
 
-                      <?php
-                      if(!empty($location))
-                      foreach ($location as $key => $value) {
-                      ?>
-                        <li>
-
-                          <a class="ajax-click" href="<?php echo base_url($this->lang->line("url_lang_location").'/'.$value['location']["loct_url"].'-'.$value['location']["location_id"]);?>">
-                          <?php
-                            if($value['location']["first_image"]){
-                          ?>
-                            <img style="width:30px;height:30px;" src="<?php echo $value['location']["first_image"];?>">
-                          <?php
-                            }else{
-                          ?>
-                            <img style="width:30px;height:30px;" src="<?php echo $imagepath;?>/camera_icon.jpg">
-                          <?php
-                            }
-                          ?>
-                            <?php echo $value['location']["title"]; ?>
-                          </a></li>
-                      <?php 
+                        <a class="ajax-click" href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value["tour"]["tout_url"].'-'.$value["tour"]["tour_id"]);?>">
+                        <?php
+                          if($value["tour"]["first_image"]){
+                        ?>
+                          <img style="width:30px;height:30px;margin-top:-4px;" src="<?php echo $value["tour"]["first_image"];?>">
+                        <?php
+                          }else{
+                        ?>
+                          <img style="width:30px;height:30px;margin-top:-4px;" src="<?php echo $imagepath;?>/camera_icon.jpg">
+                        <?php
+                          }
+                        ?>
+                          <?php echo $value["tour"]["tout_name"]; ?>
+                        </a></li>
+                    <?php
                       }
-                      ?>
-
+                    }
+                  }
+                
+                ?>
                 </li>
               </ul>
 
-            <script type="text/javascript">
-              var loading = false;
-              $(".side_bar a.ajax-click").click(function(){
-                if(!loading){
-                  $(".right_columns").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
-                  $("#gallery_row").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
-                  $("#gallery_row").css("height","448px")
-                  link = $(this).attr("href")+"?ajax=true";
-                  linkRedirect = $(this).attr("href");
-                  $(".side_bar a").removeClass("active");
-                  $(this).addClass("active");
-                  jqxhr = $.get(link);
-                  loading = true;
-                  jqxhr.success(function(data) {
-                                  loading = false;
-                                  var json = jQuery.parseJSON(data);
-                                  $(".right_columns").hide().html(json.bodyRedered).fadeIn(300);
-                                  $("#gallery_row").hide().html(json.imagesRedered).fadeIn(300).css("height","");
-                                  $("a#title").html(json.data.location.title);
-                                  $("span.subtitle").html(json.data.location.subtitle);
-                                  if(json.data.location.background_image){
-                                    $("body").css('background-image',"url("+json.data.location.background_image+")");
-                                  }
-                                  initialize(json.data.location.latitude, json.data.location.longitude);
-                                  processAjaxData(json.data.location.title, json, $(".left_columns").html(), linkRedirect);
-                                });
-                }else{
-                  $(".right_columns").hide().html("<p style=\"width:100px; height:18px; margin:auto; margin-top: 50%; display: block;\">We're loading...</p><br /><img style=\"width:48px; height:48px; margin:auto; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
-                }
-                return false;
-              });
-            </script>
-            
+              <script type="text/javascript">
+                var loading = false;
+                $(".side_bar a.ajax-click").click(function(){
+                  if(!loading){
+                    $(".right_columns").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
+                    $("#gallery_row").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
+                    $("#gallery_row").css("height","448px")
+                    link = $(this).attr("href")+"?ajax=true";
+                    linkRedirect = $(this).attr("href");
+                    $(".side_bar a").removeClass("active");
+                    $(this).addClass("active");
+                    jqxhr = $.get(link);
+                    loading = true;
+                    jqxhr.success(function(data) {
+                                    loading = false;
+                                    var json = jQuery.parseJSON(data);
+                                    $(".right_columns").hide().html(json.bodyRedered).fadeIn(300);
+                                    $("#gallery_row").hide().html(json.imagesRedered).fadeIn(300).css("height","");
+                                    $("a#title").html(json.data.location.short_title);
+                                    $("span.subtitle").html(json.data.location.subtitle);
+                                    if(json.data.location.background_image){
+                                      $("body").css('background-image',"url("+json.data.location.background_image+")");
+                                    }
+                                    initialize(json.data.location.latitude, json.data.location.longitude);
+                                    processAjaxData(json.data.location.title, json, $(".left_columns").html(), linkRedirect);
+                                  });
+                  }else{
+                    $(".right_columns").hide().html("<p style=\"width:100px; height:18px; margin:auto; margin-top: 50%; display: block;\">We're loading...</p><br /><img style=\"width:48px; height:48px; margin:auto; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
+                  }
+                  return false;
+                });
+
+                $('#mainmenu li a').click(function () {
+                  var count = $(this).parent().children('ul').length;
+                  if(count > 0){
+                    $(this).parent().children('ul').toggle(200);
+                    $(this).children('img').toggleClass("rotate");
+                    return false;
+                  }
+                });
+                $('ul.sub-menu').each(function (item) {
+                  if($(this).attr("active") == "false"){
+                    $(this).toggle(200);
+                  }else{
+                    $(this).parent().find('img:first').addClass("rotate");
+                  }
+                });
+              </script>
           </div>
           <div class="right_columns">
             <?php
               if(!empty($article)){
             ?>
             <h2><?php echo $article["title"];?></h2>
-              <?php echo $article["body"];?>
+              <div class="row">
+                <div class="four columns">
+                  <?php
+                  if(! empty($article['body_column'][0])){
+                    echo $article['body_column'][0];
+                  }
+                  ?>
+                </div>
+                <div class="four columns">
+                  <?php
+                  if(! empty($article['body_column'][1])){
+                    echo $article['body_column'][1];
+                  }
+                  ?>
+                </div>
+                <div class="four columns">
+                  <?php
+                  if(! empty($article['body_column'][2])){
+                    echo $article['body_column'][2];
+                  }
+                  ?>
+                </div>
+              </div>
             <?php
             }
             ?>
@@ -240,42 +264,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
     <!-- End Tour Information -->
 
 
-    <!-- Tour Information -->
-    <div class="row">
-      <div class="twelve columns">
-        <div class="box_white_in_columns">
-          <div class="button_like">
-            <h3>Uastravel.com Fanpage</h3>
-            <div class="fb-like" data-href="https://www.facebook.com/UasTravelThailand" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="verdana"></div>
-          </div>
-          <div id="fb-root"></div>
-          <script>(function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0];
-              if (d.getElementById(id)) return;
-              js = d.createElement(s); js.id = id;
-              js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=<?php echo $this->config->item('appId'); ?>";
-              fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-          </script>
-          <div class="facebookOuter">
-           <div class="facebookInner">
-            <div 
-              class="fb-like-box" 
-              data-width="960" 
-              data-height="335" 
-              data-href="https://www.facebook.com/UasTravelThailand" 
-              data-border-color="#fff" 
-              data-show-faces="true" 
-              data-stream="false" 
-              data-header="false"
-            >
-            </div>          
-           </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End Tour Information -->
+    {_include facebook_fanpage}
 
     <footer>
       <div class="row">
@@ -311,17 +300,16 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
   <script src="<?php echo $jspath.'/jquery.foundation.navigation.js';?>"></script>
   <script src="<?php echo $jspath.'/modernizr.foundation.js';?>"></script>
   <script src="<?php echo $jspath.'/app.js';?>"></script>
+  
   <!-- Gallery -->
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/gallery/js/jquery.galleriffic.js');?>"></script>
-
+  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery/js/jquery.galleriffic.js';?>"></script>
   <!-- Gallery Mobile -->
-  <link href="<?php echo base_url('themes/Travel/tour/javascripts/gallery_mobie/photoswipe.css');?>" type="text/css" rel="stylesheet"/>
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/gallery_mobie/lib/klass.min.js');?>"></script>
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/gallery_mobie/code.photoswipe-3.0.5.min.js');?>"></script>
-
-
+  <link href="<?php echo $themepath.'/js/gallery_mobie/photoswipe.css';?>" type="text/css" rel="stylesheet"/>
+  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery_mobie/lib/klass.min.js';?>"></script>
+  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery_mobie/code.photoswipe-3.0.5.min.js';?>"></script>
   <!--Hover effect-->
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/DirectionAwareHoverEffect/js/jquery.hoverdir.js');?>"></script>
+  <script type="text/javascript" src="<?php echo $themepath.'/js/DirectionAwareHoverEffect/js/jquery.hoverdir.js';?>"></script>
+
   <!-- We only want the thunbnails to display when javascript is disabled -->
   <script type="text/javascript">
     document.write('<style>.noscript { display: none; }</style>');

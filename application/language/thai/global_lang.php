@@ -1,4 +1,8 @@
 <?php
+$lang['global_lang_home_desc'] = "ทัวร์เที่ยวไทย";
+
+$lang['global_lang_money_sign'] = "บาท";
+
 $lang['global_lang_select_all'] = "เลือกทั้งหมด";
 $lang['global_lang_unselect_all'] = "ยกเลิกทั้งหมด";
 $lang['global_lang_delete'] = "ลบ";
@@ -14,7 +18,8 @@ $lang['global_lang_e_mail'] = "อีเมลล์";
 $lang['global_lang_map'] = "แผนที่";
 $lang['global_lang_comment'] = "แสดงความคิดเห็น";
 
-$lang['global_lang_location'] = "เที่ยวไทย";
+$lang['global_lang_location'] = "ข้อมูลสถานที่ท่องเที่ยวไทย";
+$lang['global_lang_travel_location'] = "สถานที่ท่องเที่ยว";
 $lang['global_lang_travel'] = "เที่ยว";
 $lang['global_lang_travel_in'] = "เที่ยว";
 $lang['global_lang_travel_phuket'] = "เที่ยวภูเก็ต";
@@ -56,5 +61,27 @@ $lang['facebook_message_for_publishing_lead'] = "ไปจัดแพ็คเ�
 
 $lang['global_lang_article_type'] = "บทความสำหรับ";
 
+$lang["global_lang_data_not_found"] = "ยังไม่มีข้อมูล";
+
+
+//Booking page
+$lang["global_lang_booking"] = "จองทัวร์";
+
+$lang["global_lang_your_detail"] = "รายละเอียดของคุณ";
+$lang["global_lang_firstname"] = "ชื่อ";
+$lang["global_lang_lastname"] = "นามสกุล";
+$lang["global_lang_adress"] = "ที่อยู่";
+$lang["global_lang_city"] = "อำเภอ";
+$lang["global_lang_province"] = "จังหวัด";
+$lang["global_lang_country"] = "ประเทศ";
+$lang["global_lang_zipcode"] = "รหัสไปรษณีย์";
+$lang["global_lang_phonenumber"] = "เบอร์โทรศัพท์";
+$lang["global_lang_email"] = "อีเมล์";
+$lang["global_lang_nationality"] = "สัญชาติ";
+$lang["global_lang_grand_total_price"] = "รวมราคาทั้งหมด";
+
+$lang["global_lang_accommodation"] = "รายละเอียดที่พักของคุณ";
+$lang["global_lang_hotel_name"] = "ชื่อโรงแรม";
+$lang["global_lang_hotel_room_number"] = "หมายเลขห้องพัก";
 
 ?>

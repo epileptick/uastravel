@@ -298,6 +298,7 @@ class MY_Model extends CI_Model {
     if(is_null($options)){
       return FALSE;
     }
+    $user_data = $this->session->userdata("user_data");
     //Set data
     foreach($options AS $columnName=>$columnValue){
       if(array_key_exists($columnName, $this->_column)){
@@ -331,7 +332,7 @@ class MY_Model extends CI_Model {
           $set[$this->_getColumn("lu_date")] = date( 'Y-m-d H:i:s');
         }
         if($this->_getColumn("lu_uid")){
-          $set[$this->_getColumn("lu_uid")] = CIUser::getInfo()->getAttr('id');
+          $set[$this->_getColumn("lu_uid")] = $user_data["id"];
         }
 
         $result = $this->db->update($this->_table,$set);
@@ -364,10 +365,10 @@ class MY_Model extends CI_Model {
       }
       if($this->_getColumn("cr_uid")){
 
-        $this->db->set($this->_getColumn("cr_uid"), CIUser::getInfo()->getAttr('id'));
+        $this->db->set($this->_getColumn("cr_uid"), $user_data["id"]);
       }
       if($this->_getColumn("lu_uid")){
-        $this->db->set($this->_getColumn("lu_uid"), CIUser::getInfo()->getAttr('id'));
+        $this->db->set($this->_getColumn("lu_uid"), $user_data["id"]);
       }
       $result = $this->db->insert($this->_table);
       $objData = $this->db->insert_id();
@@ -520,7 +521,9 @@ class MY_Model extends CI_Model {
         $data = array();
         if(is_array($_column)){
           foreach($_column AS $kColumn=>$vColumn){
-            $data[$kColumn] = $value[$vColumn];
+            if(isset($value[$vColumn])){
+              $data[$kColumn] = $value[$vColumn];
+            }
           }
           if(!isset($field) AND empty($field)){
             foreach($this->_join_column AS $kjColumn=>$vjColumn){

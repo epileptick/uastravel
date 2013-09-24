@@ -50,25 +50,30 @@ class Article extends MY_Controller {
 	    }
   	}else{
   		if(!empty($id)){
-  			$postData = $this->articleModel->get($id);
+        $where["where"]["id"] = $id;
+        $where["where"]["lang"] = $this->lang->lang();
 
-        if(!$postData){
-          redirect(base_url("admin/article"));
-          die;
+  			$postData = $this->articleModel->get($where);
+        if(empty($postData)){
+          $postData[0]["id"] = $id;
         }
+        unset($where);
         $this->_assign("post", $postData);
   		}
   		$this->load->model("tagtype_model","tagTypeModel");
   		$this->load->model("type_model","typeModel");
-      $where["where_in"]["name"][] = "province";
   		$where["where_in"]["name"][] = "main_menu";
   		$type = $this->typeModel->get($where);
-      $whereTagType["where_in"]["type_id"][] = $type[0]["id"];
-      $whereTagType["where_in"]["type_id"][] = $type[1]["id"];
-  		$whereTagType["order"] = "type_id DESC";
+      $whereTagType["where_in"]["type_id"] = $type[0]["id"];
+      $whereTagType["where_not_in"]["parent_id"] = 0;
+      $whereTagType["group"] = "tag_id";
+  		$whereTagType["order"] = "index DESC";
   		$result = $this->tagTypeModel->getTagTypeList($whereTagType);
-
-  		$this->_assign("tag", $result);
+      unset($whereTagType["where_not_in"]);
+      $whereTagType["where_in"]["parent_id"] = 0;
+      $resultProvince = $this->tagTypeModel->getTagTypeList($whereTagType);
+      $this->_assign("tag", $result);
+  		$this->_assign("tagProvince", $resultProvince);
   		$this->_fetch("admin_create");
   	}
   }
@@ -78,11 +83,11 @@ class Article extends MY_Controller {
 
     $config['per_page'] = 15;
 
-    $config['prev_link'] = '<img class="blogg-button-image" alt="โพสต์ใหม่" src="/themes/Travel/images/left_arrow.png">';
+    $config['prev_link'] = '<img class="blogg-button-image" alt="โพสต์ใหม่" src="/themes/'.$this->config->item("theme_name").'/images/left_arrow.png">';
     $config['prev_tag_open'] = '<button class="blogg-button blogg-collapse-right" title="โพสต์ใหม่" disabled="" tabindex="0">';
     $config['prev_tag_close'] = '</button>';
 
-    $config['next_link'] = '<img class="blogg-button-image" alt="โพสต์เก่า" src="/themes/Travel/images/right_arrow.png">';
+    $config['next_link'] = '<img class="blogg-button-image" alt="โพสต์เก่า" src="/themes/'.$this->config->item("theme_name").'/images/right_arrow.png">';
     $config['next_tag_open'] = '<button class="blogg-button blogg-button-page blogg-collapse-left" title="โพสต์เก่า"  tabindex="0">';
     $config['next_tag_close'] = '</button>';
 
@@ -96,10 +101,11 @@ class Article extends MY_Controller {
     $segment_array = $this->uri->segment_array();
     $segment_count = $this->uri->total_segments();
 
+    $where["where"]["lang"] = $this->lang->lang();
 
     $this->load->library('pagination');
     $config['base_url'] = site_url(join("/",$segment_array));
-    $config['total_rows'] = $this->articleModel->count_rows();
+    $config['total_rows'] = $this->articleModel->count_rows($where);
 
     $result['total_rows'] = $config['total_rows'];
 
@@ -122,7 +128,9 @@ class Article extends MY_Controller {
 
     $config['base_url'] = site_url(join("/",$segment_array));
     $config['uri_segment'] = count($segment_array)+1;
-    $result["article"] = $this->articleModel->get();
+    
+    $result["article"] = $this->articleModel->get($where);
+
     if((count($result['article'])+1)>$result['start_offset']){
       $result['end_offset'] = count($result['article']);
     }

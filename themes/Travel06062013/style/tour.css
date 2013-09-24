@@ -126,3 +126,33 @@ span.hide-button {
   box-shadow: inset 0px 0px 1px rgba(0, 0, 0, 0.5);
   -moz-border-radius: 3px;
 }
+
+.table-price table {
+  border:none;
+}
+.table-price th, .table-price th p {
+  font-size: 20px;
+  font-weight: bold !important;
+}
+
+.table-price h3 {
+  margin-top: 0px;
+}
+
+.table-price p {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+
+.grand_total_price {
+  font-size: 30px;
+  float: right;
+  margin-right: 10px;
+  border-bottom: 1px double #C1C1C1;
+}
+.grand_total_price .total_number {
+  color: #FE5214;
+  font-size: 36px;
+  font-weight: bold !important;
+  border-bottom: 1px double #C1C1C1;
+}

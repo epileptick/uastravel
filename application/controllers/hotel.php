@@ -344,105 +344,101 @@ class Hotel extends MY_Controller {
   }
 
   function user_list($page=0){
-
-    //echo "Call user_list()"; exit;
-
-    $data = $this->_hotel_menu();
-
-    foreach ($data["menu"] as $key => $valueTag) {
-      $query["menu"][] = $valueTag->tag_id;
+    $this->load->model("article_model","articleModel");
+    $where["where"]["tag_id"] = 0;
+    $where["where"]["display"] = 1;
+    $where["where"]["type"] = 3;
+    $where["where"]["lang"] = $this->lang->lang();
+    $where["limit"] = 1 ;
+    $articleResult = $this->articleModel->get($where);
+    if(!empty($articleResult)){
+      $articleResult[0]["body_column"] =  explode("<hr />",preg_replace("/<p[^>]*>[\s|&nbsp;]*<\/p>/", '', $articleResult[0]["body"]));
     }
-    $data["main_menu"]= Menu::main_menu();
+    $this->_assign("article",$articleResult[0]);
+    unset($where);
 
-    //////////////////////////////////////////////////////
-    // List all
-    // algorithm : localhost/uastravel/hotel/page
-    // example : localhost/uastravel/hotel/
-    //           localhost/uastravel/hotel/2
-    //           localhost/uastravel/hotel/3
-    //////////////////////////////////////////////////////
-    //Filter all
-    $query["tag_id"] = $query["menu"];
-    $query["join"] = true;
-    $query["in"] = true;
-    $query["per_page"] = $this->per_page;
-    $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;
-
-    //Send tag for get data
-    //$data["hotel"] = $this->_hotel_list($query);
+    if(!empty($articleResult[0]["id"])){
+      $this->load->model("images_model","imagesModel");
+      $where["where"]["parent_id"] = $articleResult[0]["id"];
+      $where["where"]["table_id"] = 4;
+      $imagesResult = $this->imagesModel->get($where);
+      $this->_assign("images",$imagesResult);
+    }
+    unset($where);
 
     //Get hotel
     $this->load->model("taghotel_model", "taghotelModel");
-    $hotel = $this->taghotelModel->getRecordFirstpage($query);
+    $hotels = $this->taghotelModel->getRecordFirstpage();
 
-    //print_r($this->_shuffle_assoc($hotel)); exit;
+    $this->_assign("hotels",$hotels);
 
-    if(!empty($hotel)){
-      $data["hotel"] =  $this->_shuffle_assoc($hotel);
-    }
+    $this->load->model("type_model", "typeModel");
+    $this->load->model("tagtype_model", "tagTypeModel");
+    $typeProvinceId = $this->typeModel->get(array("where"=>array("name"=>"province")));
+    $tagProvinceList = $this->tagTypeModel->getTagTypeList(array("where"=>array("type_id"=>$typeProvinceId[0]["id"],"parent_id"=>0),"order"=>"index ASC"));
 
-    $data["caconical"] = base_url($this->lang->line("url_lang_hotel"));
+    $this->_assign("allProvince",$tagProvinceList);
+    $this->_assign("caconical",base_url($this->lang->line("url_lang_hotel")));
+    $this->_assign("main_menu",Menu::main_menu());
 
-    if(!empty($query["offset"])){
-      if($query["offset"]>0){
-        $this->_fetch('user_listnextpage', $data, false, true);
-      }else{
-        //print_r($data);
-        $this->_fetch('user_list', $data, false, true);
-      }
-    }else{
-      $this->_fetch('user_list', $data, false, true);
-    }
+    $this->_fetch('user_list',"",FALSE,TRUE);
 
   }
 
   function user_listbytag($tag=false, $page=0){
 
-    //echo "Call user_listbytag()"; exit;
-
-    //Check menu is active
-    if(empty($tag)){
-      $data= $this->_hotel_menu();
-    }else{
-      $data= $this->_hotel_menu($tag);
-    }
-    foreach ($data["menu"] as $key => $valueTag) {
-      $query["menu"][] = $valueTag->tag_id;
-    }
-    $data["main_menu"]= Menu::main_menu();
-
-    //print_r($data); exit;
-    $argTag["where"]["url"] = $tag;
+    $argTag["url"] = $tag;
     $this->load->model("tag_model", "tagModel");
     $tagQuery = $this->tagModel->get($argTag);
 
-      //print_r($tagQuery); exit;
-    if(!empty($tagQuery)){
-      $query["tag_id"] = $tagQuery[0]["tag_id"];
-      $query["join"] = true;
-      $query["per_page"] = $this->per_page;
-      $query["offset"] = ($page>0)?($page-1)*$query["per_page"]:0;
-
-      //Get hotel by tag
-      $this->load->model("taghotel_model", "taghotelModel");
-      $data["hotel"] = $this->taghotelModel->getRecordByTag($query);
-      //$data["hotel"] = $this->_hotel_list($query);
-    }else{
-      $data["hotel"] = false;
-    }
-
-    $data["caconical"] = base_url($this->lang->line("url_lang_hotel")."/".trim($tag));
-
-    if(!empty($query["offset"])){
-      if($query["offset"]>0){
-        $this->_fetch('user_listnextpage', $data, false, true);
-      }else{
-        //print_r($data);
-        $this->_fetch('user_list', $data, false, true);
+    $this->load->model("article_model","articleModel");
+    $where["where"]["tag_id"] = $tagQuery[0]["id"];
+    $where["where"]["display"] = 1;
+    $where["where"]["type"] = 3;
+    $where["where"]["lang"] = $this->lang->lang();
+    $where["limit"] = 1 ;
+    $articleResult = $this->articleModel->get($where);
+    unset($where);
+    if(!empty($articleResult)){
+      if(!empty($articleResult)){
+        $articleResult[0]["body_column"] =  explode("<hr />",preg_replace("/<p[^>]*>[\s|&nbsp;]*<\/p>/", '', $articleResult[0]["body"]));
       }
+      $this->_assign("article",$articleResult[0]);
     }else{
-      $this->_fetch('user_list', $data, false, true);
+      $where["where"]["tag_id"] = 0;
+      $where["where"]["display"] = 1;
+      $where["where"]["type"] = 3;
+      $where["where"]["lang"] = $this->lang->lang();
+      $where["limit"] = 1 ;
+      $articleResult = $this->articleModel->get($where);
+      if(!empty($articleResult)){
+        $articleResult[0]["body_column"] =  explode("<hr />",preg_replace("/<p[^>]*>[\s|&nbsp;]*<\/p>/", '', $articleResult[0]["body"]));
+      }
+      $this->_assign("article",$articleResult[0]);
     }
+    unset($where);
+
+    //Get hotel
+    $this->load->model("taghotel_model", "taghotelModel");
+    if(!empty($tagQuery)){
+      $query["tag_id"] = $tagQuery[0]["id"];
+      $hotels = $this->taghotelModel->getRecordByTag($query);
+    }else{
+      $hotels = false;
+    }
+
+    $this->_assign("hotels",$hotels);
+
+    $this->load->model("type_model", "typeModel");
+    $this->load->model("tagtype_model", "tagTypeModel");
+    $typeProvinceId = $this->typeModel->get(array("where"=>array("name"=>"province")));
+    $tagProvinceList = $this->tagTypeModel->getTagTypeList(array("where"=>array("type_id"=>$typeProvinceId[0]["id"],"parent_id"=>0),"order"=>"index ASC"));
+
+    $this->_assign("allProvince",$tagProvinceList);
+    $this->_assign("caconical",base_url($this->lang->line("url_lang_hotel")));
+    $this->_assign("main_menu",Menu::main_menu());
+
+    $this->_fetch('user_list',"",FALSE,TRUE);
   }
 
   function user_listbytype($tag=false, $type=false, $page=0){
@@ -583,21 +579,17 @@ class Hotel extends MY_Controller {
   function user_view($id=false){
 
     if($id){
+      $this->load->model("type_model", "typeModel");
+      $this->load->model("tagtype_model", "tagTypeModel");
       //Hotel
-      $hotel["id"] = $id;
+      $whereHotel["where"]["id"] = $id;
+      $whereHotel["where"]["lang"] = $this->lang->lang();
       $taghotel["hotel_id"] = $id;
-      $agencyhotel["hotel_id"] = $id;
-      $agencyhotel["event"] = "display";
       $extendprice["prh_hotel_id"] = $id;
-      $data["hotel"] = $this->hotelModel->getRecord($hotel);
+      $data["hotel"] = $this->hotelModel->get($whereHotel);
 
       //Check has hotel
       if(count($data["hotel"]) < 1  || empty($data["hotel"])){
-        show_404();
-      }
-
-      //Check translate
-      if(empty($data["hotel"][0]->name)){
         show_404();
       }
 
@@ -612,7 +604,11 @@ class Hotel extends MY_Controller {
         foreach ($data["tag"] as $key => $value) {
           $query["menu"][] = $value["tag_id"];
         }
-        $data["main_menu"]= Menu::main_menu();
+
+        $typeProvinceId = $this->typeModel->get(array("where"=>array("name"=>"province")));
+        $tagProvinceList = $this->tagTypeModel->getTagTypeList(array("where"=>array("type_id"=>$typeProvinceId[0]["id"],"parent_id"=>0),"order"=>"index ASC"));
+        $this->_assign("allProvince",$tagProvinceList);
+        $this->_assign("main_menu",Menu::main_menu());
 
         //Related Hotel
         $query["hotel_id"] = $id;
@@ -625,32 +621,30 @@ class Hotel extends MY_Controller {
 
       }
 
+      //Price
       $this->load->model("pricehotel_model", "pricehotelModel");
-      $priceQuery = $this->pricehotelModel->getRecord($agencyhotel);
+      $priceWhere["where"]["hotel_id"] = $id;
+      $priceWhere["where"]["lang"] = $this->lang->lang();
+      $priceWhere["order"] = "id ASC";
+      $priceQuery = $this->pricehotelModel->get($priceWhere);
 
-      //print_r($priceQuery); exit;
       if(!empty($priceQuery)){
-
         //Min price
         $minSalePrice = 9999999;
         $minSalePriceID = 0;
         foreach ($priceQuery as $key => $value) {
-          # code...
-          if($value->sale_room_price < $minSalePrice){
-            //$result[$count]["price"] = $value;
-            $minSalePriceID  = $value->agency_id;
-            $minSalePrice = $value->sale_room_price;
+          if($value["sale_room_price"] < $minSalePrice){
+            $minSalePriceID  = $value["agency_id"];
+            $minSalePrice = $value["sale_room_price"];
           }
         }
 
         //Price selection
         foreach ($priceQuery as $key => $value) {
-          if($value->agency_id == $minSalePriceID){
+          if($value["agency_id"] == $minSalePriceID){
             $data["price"][] = $value;
           }
         }
-
-
       }//End price
 
       //Images
@@ -658,11 +652,19 @@ class Hotel extends MY_Controller {
       $data["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$id,'table_id'=>3)));
       //print_r($data["images"]);exit;
 
-      $data["caconical"] = base_url($this->lang->line("url_lang_hotel")."/".trim($data["hotel"][0]->url)."-".trim($data["hotel"][0]->hotel_id));
+      $data["caconical"] = base_url($this->lang->line("url_lang_hotel")."/".trim($data["hotel"][0]["url"])."-".trim($data["hotel"][0]["hotel_id"]));
 
       if(!empty($data)){
-        //Return
-        $this->_fetch('user_view', $data, false, true);
+        if($this->input->get("ajax")){
+          $ajaxReturn["imagesRedered"] = $this->_fetch("ajax_images", $data, TRUE, TRUE);
+
+          $ajaxReturn["bodyRedered"] = $this->_fetch("ajax_body", $data, TRUE, TRUE);
+          $ajaxReturn["data"] = $data["hotel"][0];
+
+          echo json_encode($ajaxReturn);exit;
+        }else{
+          $this->_fetch('user_view',$data, false, true);
+        }
       }else{
         show_404();
       }

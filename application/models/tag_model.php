@@ -234,8 +234,7 @@ class Tag_model extends MY_Model {
 
 
   function addMultipleRecord($args=false){
-   //Check duplicate tag data
-
+    //Check duplicate tag data
     if($args){
       //$tagNew = array();
       $count = 0;
@@ -299,13 +298,10 @@ class Tag_model extends MY_Model {
 
     //print_r($args); exit;
     if(isset($tags)){
-
       $args["tags"] = array_unique(json_decode($tags));
-
       //Load tag_model
       $args["field"] = "tag_id, tag_name";
       $tagArray =  $this->addMultipleRecord($args);
-
       return $tagArray;
     }else{
       return false;
