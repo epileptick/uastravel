@@ -146,7 +146,7 @@ function selectAll(){
             <?php
             if($value['display'] == 0){
             ?>
-              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>"
+              <img src="<?php echo $themepath.'/images/enable.png';?>"
                   valign="top"
                   id="display"
                   class="display_show"
@@ -155,7 +155,7 @@ function selectAll(){
                   idname="display_show_<?php echo $value['id'];?>"
                   style="display:none;"
               >
-              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>"
+              <img src="<?php echo $themepath.'/images/disable.png';?>"
                   valign="top"
                   id="display"
                   class="display_hide"
@@ -166,7 +166,7 @@ function selectAll(){
             <?php
             }else if($value['display'] == 1){
             ?>
-              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>"
+              <img src="<?php echo $themepath.'/images/enable.png';?>"
                   valign="top"
                   id="display"
                   class="display_show"
@@ -174,7 +174,7 @@ function selectAll(){
                   idval="<?php echo $value['id'];?>"
                   idname="display_show_<?php echo $value['id'];?>"
               >
-              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>"
+              <img src="<?php echo $themepath.'/images/disable.png';?>"
                   valign="top"
                   id="display"
                   class="display_hide"

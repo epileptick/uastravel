@@ -4,11 +4,10 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <title><?php echo $tour[0]["name"]; ?></title>
+  <title></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
   <meta name="description" content="" />
-  <meta name="keywords" content="" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <!-- Set the viewport width to device width for mobile -->
@@ -32,12 +31,12 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
   if(!empty($caconical)):
   ?>
   <link rel="canonical" href="<?php echo $caconical;?>">
-  <?php 
+  <?php
   endif;
   ?>
 </head>
 
-  <body style="background: #ededed url(<?php echo $imagepath.'/bg'.rand(2,5).'.jpg';?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
+  <body style="background: #ededed url(<?php echo $imagepath.'/bg5.jpg';?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
     {_include user_tab}
 
   <div class="overly-bg"></div>
@@ -138,92 +137,21 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
       <div class="twelve columns ">
         <div class="white_box">
           <div class="left_columns">
-              <ul class="side_bar">
-                <li><a href="<?php echo base_url();?>"><?php echo $this->lang->line("global_lang_home");?></a></li>
-                <li><a class="active" href="<?php echo base_url($this->lang->line("url_lang_tour")."/".$this->uri->segment(2));?>">
-                <?php
-                if($this->uri->segment(2)){
-                  echo $this->lang->line("global_lang_tour").$this->uri->segment(2);
-                }else{
-                  echo $this->lang->line("global_lang_tourthai");
-                }
-                ?>
-                </a>
-
-                      <?php
-
-                      if(!empty($tourRelated)){
-                        foreach ($tourRelated as $key => $value) {
-                          if(!empty($value["tour"])){
-                        ?>
-                          <li>
-
-                            <a class="ajax-click" href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value["tour"]["tout_url"].'-'.$value["tour"]["tour_id"]);?>">
-                            <?php
-                              if($value["tour"]["first_image"]){
-                            ?>
-                              <img style="width:30px;height:30px;" src="<?php echo $value["tour"]["first_image"];?>">
-                            <?php
-                              }else{
-                            ?>
-                              <img style="width:30px;height:30px;" src="<?php echo $imagepath;?>/camera_icon.jpg">
-                            <?php
-                              }
-                            ?>
-                              <?php echo $value["tour"]["tout_name"]; ?>
-                            </a></li>
-                        <?php 
-                          }
-                        }
-                      }
-                      ?>
-
-                </li>
+              <ul class="side_bar" id="mainmenu">
+                {_include main_menu}
               </ul>
 
-            <script type="text/javascript">
-              var loading = false;
-              $(".side_bar a.ajax-click").click(function(){
-                if(!loading){
-                  $(".right_columns").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
-                  $("#gallery_row").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
-                  $("#gallery_row").css("height","448px")
-                  link = $(this).attr("href")+"?ajax=true";
-                  linkRedirect = $(this).attr("href");
-                  $(".side_bar a").removeClass("active");
-                  $(this).addClass("active");
-                  jqxhr = $.get(link);
-                  loading = true;
-                  jqxhr.success(function(data) {
-                                  loading = false;
-                                  var json = jQuery.parseJSON(data);
-                                  //console.log(json);
-                                  $(".right_columns").hide().html(json.bodyRedered).fadeIn(300);
-                                  $("#gallery_row").hide().html(json.imagesRedered).fadeIn(300).css("height","");
-                                  $("a#title").html(json.data.name);
-                                  $("span.subtitle").html(json.data.short_description);
-                                  if(json.data.background_image){
-                                    $("body").css('background-image',"url("+json.data.background_image+")");
-                                  }
-                                  initialize(json.data.latitude, json.data.longitude);
-                                  processAjaxData(json.data.name, json, $(".left_columns").html(), linkRedirect);
-                                });
-                }else{
-                  $(".right_columns").hide().html("<p style=\"width:100px; height:18px; margin:auto; margin-top: 50%; display: block;\">We're loading...</p><br /><img style=\"width:48px; height:48px; margin:auto; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
-                }
-                return false;
-              });
-            </script>
+            
             
           </div>
           <div class="right_columns">
             <!-- Tour Information -->
             <div class="row">
-              <div class="twlve columns">
-                <div class="box_white_in_columns article_tour">
+              <div class="twelve columns">
+                <div class="article_tour">
                   <!-- Title -->
                   <div class="row">
-                    <div class="eight columns">
+                    <div class="twelve columns">
                       <h3 class="title_tour" id="detail">(<?php echo $tour[0]["code"];?>) <?php echo $tour[0]["name"];?>
                       <?php
                         $user_data = $this->session->userdata("user_data");
@@ -254,17 +182,9 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                   <h3 style="padding:4px 4px 8px 4px; border:2px solid; border-color:#FAA20A; background-color:#FAA20A; color:#FFF; text-shadow: none !important;">
                     <?php echo $this->lang->line("tour_lang_program_and_itinerary");?>
                   </h3>
-                  <!--
-                  <p><span class="color_blue">ช่วงเช้า: </span> รถรับท่านจากโรงแรมที่พักในจังหวัดภูเก็ต หรือ เขาหลัก มุ่งหน้าสู่ท่าเรือคุระบุรี จังหวัดพังงา ออกเดินทางจากท่าเรือ สู่อุทยานฯ หมู่เกาะสุรินทร์ ด้วยเรือสปีดโบ๊ทขนาดใหญ่ เดินทามาถึงอุทยานแห่งชาติ หมู่เกาะสุรินทร์  ดำน้ำดูปะการังบริเวณ อ่าวแม่ยาย และ อ่าวเต่า สนุกสนานกับการเล่นน้ำ ดำน้ำชมปะการัง หรือพักผ่อนตามอัธยาศัย</p>
-                  <p><span class="color_blue">เที่ยง:</span> รับประทานอาหารกลางวัน ณ ที่ทำการอุทยานแห่งชาติหมู่เกาะสุรินทร์</p>
-                  <p><span class="color_blue">ช่วงบ่าย:</span> ออกเดินทางต่อไปดำน้ำดูปะการังบริเวณ อ่าวผักกาด และ เกาะตอรินลา</p>
-                  <p>ได้เวลาพอสมควร ออกเดินทางกลับจากอุทยานแห่งชาติหมู่เกาะสุรินทร์ สู่ท่าเรือ คุระบุรี จังหวัดพังงา เดินทางกลับสู่ที่พัก ประมาณ 1 ทุ่ม  ส่งท่านถึงที่โรงแรมที่พักในจังหวัดภูเก็ต</p>
-                  -->
                   <p>
                     <?php echo $tour[0]["detail"];?>
                   </p>
-
-
 
                   <?php
                     if(!empty($tour[0]["included"]) && !empty($tour[0]["remark"])){
@@ -343,27 +263,20 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                   <?php
                   }
                   ?>
-
-
-              <form name="input"
-                    action="<?php echo base_url($this->lang->line("url_lang_tour").'/inquiry');?>"
-                    method="post"
-              >
-                <!-- price -->
+              <form name="form" action="<?php echo base_url($this->lang->line("url_lang_tour").'/inquiry');?>" method="post">
                 <?php
                   if(!empty($price)){
                 ?>
                 <div class="row">
-
                   <h3><?php echo $this->lang->line("tour_lang_tour_price"); ?></h3>
-                  <table class="twelve">
+                  <table class="twelve booking_price">
                     <thead>
                       <tr>
-                        <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_list"); ?></th>
-                        <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_adult_price"); ?></th>
-                        <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_amount"); ?></th>
-                        <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_child_price"); ?></th>
-                        <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_amount"); ?></th>
+                        <th class="five"><?php echo $this->lang->line("tour_lang_tour_list"); ?></th>
+                        <th class="two"><?php echo $this->lang->line("tour_lang_tour_adult_price"); ?></th>
+                        <th class="one"><?php echo $this->lang->line("tour_lang_tour_amount"); ?></th>
+                        <th class="two"><?php echo $this->lang->line("tour_lang_tour_child_price"); ?></th>
+                        <th class="one"><?php echo $this->lang->line("tour_lang_tour_amount"); ?></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -375,42 +288,42 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                     ?>
 
                       <tr>
-                        <td style="font-size:18px !important;">
+                        <td >
                           <?php
-                            if($value->show_firstpage == 1 && $firstpage_price == 1){
+                            if($value["show_firstpage"] == 1 && $firstpage_price == 1){
                           ?>
-                              <label for="checkbox_<?php echo $value->id;?>">
+                              <label for="checkbox_<?php echo $value["price_id"];?>">
                                 <input name="price_id[]"
                                         type="checkbox"
-                                        id="radio_<?php echo $value->id;?>"
-                                        value="<?php echo $value->id;?>"
+                                        id="checkbox_<?php echo $value["price_id"];?>"
+                                        value="<?php echo $value["price_id"];?>"
                                         CHECKED
                                 >
-                                <?php echo (!empty($value->name)?$value->name:"");?>
+                                <?php echo (!empty($value["name"])? $value["name"] : "");?>
                               </label>
                           <?php
                             }else if($countPrice == 0 && $firstpage_price == 0){
                           ?>
-                              <label for="checkbox_<?php echo $value->id;?>">
+                              <label for="checkbox_<?php echo $value["price_id"];?>">
                                 <input name="price_id[]"
                                         type="checkbox"
-                                        id="radio_<?php echo $value->id;?>"
-                                        value="<?php echo $value->id;?>"
+                                        id="checkbox_<?php echo $value["price_id"];?>"
+                                        value="<?php echo $value["price_id"];?>"
                                         CHECKED
                                 >
-                                <?php echo (!empty($value->name)?$value->name:"");?>
+                                <?php echo (!empty($value["name"])?$value["name"] : "");?>
                               </label>
                           <?php
 
                             }else{
                           ?>
-                            <label for="checkbox_<?php echo $value->id;?>">
+                            <label for="checkbox_<?php echo $value["price_id"];?>">
                               <input name="price_id[]"
                                       type="checkbox"
-                                      id="radio_<?php echo $value->id;?>"
-                                      value="<?php echo $value->id;?>"
+                                      id="checkbox_<?php echo $value["price_id"];?>"
+                                      value="<?php echo $value["price_id"];?>"
                               >
-                              <?php echo (!empty($value->name)?$value->name:"");?>
+                              <?php echo (!empty($value["name"])?$value["name"]:"");?>
                             </label>
                           <?php
                             } //End
@@ -418,108 +331,87 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                         </td>
 
 
-                        <td style="font-size:18px !important;">
+                        <td >
 
                             <?php
 
-                                if($value->discount_adult_price>0){
+                                if($value["discount_adult_price"]>0){
                             ?>
 
-                                 <center><label><strike><?php echo number_format($value->sale_adult_price, 0);?></strike>
-                                <?php echo number_format($value->discount_adult_price, 0);?></label></center>
+                                 <center><label><strike><?php echo number_format($value["sale_adult_price"], 0);?></strike>
+                                <?php echo number_format($value["discount_adult_price"], 0);?></label></center>
 
                               <?php
                             }else{
                               ?>
-                                <center><label><?php echo number_format($value->sale_adult_price, 0);?></label></center>
+                                <center><label><?php echo number_format($value["sale_adult_price"], 0);?></label></center>
 
                             <?php
                                 }
                              ?>
-
-
                         </td>
 
-                        <td style="font-size:18px !important;">
-
-
+                        <td >
                           <?php
-                            if($value->show_firstpage == 1 && $firstpage_price == 1){
+                            if($value["show_firstpage"] == 1 && $firstpage_price == 1){
                           ?>
-
-                              <input name="adult_amount_booking[<?php echo $value->id;?>]"
+                              <input name="adult_amount_booking[<?php echo $value["price_id"];?>]"
                                       type="text"
-                                      id="amount_adult_<?php echo $value->id;?>"
-                                      style="height: 20px !important; width: 30px !important;"
-                                      value="1"
-                              >
-
+                                      id="amount_adult_<?php echo $value["price_id"];?>"
+                                      class="twelve text-center"
+                                      value="1">
                           <?php
                             }else if($countPrice == 0 && $firstpage_price == 0){
                           ?>
-                              <input name="adult_amount_booking[<?php echo $value->id;?>]"
+                              <input name="adult_amount_booking[<?php echo $value["price_id"];?>]"
                                       type="text"
-                                      id="amount_adult_<?php echo $value->id;?>"
-                                      style="height: 20px !important; width: 30px !important;"
-                                      value="1"
-                              >
+                                      id="amount_adult_<?php echo $value["price_id"];?>"
+                                      class="twelve text-center"
+                                      value="1">
                           <?php
-
                             }else{
                           ?>
-                              <input name="adult_amount_booking[<?php echo $value->id;?>]"
+                              <input name="adult_amount_booking[<?php echo $value["price_id"];?>]"
                                       type="text"
-                                      id="amount_adult_<?php echo $value->id;?>"
-                                      style="height: 20px !important; width: 30px !important;"
-                                      value="0"
-                              >
+                                      id="amount_adult_<?php echo $value["price_id"];?>"
+                                      class="twelve text-center"
+                                      value="0">
                           <?php
                               }
                            ?>
                         </td>
-
-                        <td style="font-size:18px !important;">
-
+                        <td >
                             <?php
-
-                                if($value->discount_child_price>0){
+                                if($value["discount_child_price"]>0){
                             ?>
-
-                                 <center><label><strike><?php echo number_format($value->sale_child_price, 0);?></strike>
-                                <?php echo number_format($value->discount_child_price, 0);?></label></center>
-
+                                 <center><label><strike><?php echo number_format($value["sale_child_price"], 0);?></strike>
+                                <?php echo number_format($value["discount_child_price"], 0);?></label></center>
                               <?php
                             }else{
                               ?>
-                                <center><label><?php echo number_format($value->sale_child_price, 0);?></label></center>
-
+                                <center><label><?php echo number_format($value["sale_child_price"], 0);?></label></center>
                             <?php
                                 }
                              ?>
-
                         </td>
 
-
-                        <td style="font-size:18px !important;">
-                          <input name="child_amount_booking[<?php echo $value->id;?>]"
+                        <td >
+                          <input name="child_amount_booking[<?php echo $value["price_id"];?>]"
                                   type="text"
-                                  id="amount_child_<?php echo $value->id;?>"
-                                  style="height: 20px !important; width: 30px !important;"
-
+                                  id="amount_child_<?php echo $value["price_id"];?>"
+                                  class="twelve text-center"
+                                  value="0"
                           >
-
                         </td>
                       </tr>
                     <?php
                       $countPrice++;
                     }
                     ?>
-
-
                       <tr>
                         <td class="price_booking" colspan="5">
                             <input type="hidden" name="id" value="<?php echo $tour[0]["tour_id"];?>"></input>
-                            <input class="button small  booking"  type="submit" value="<?php echo $this->lang->line("tour_lang_tour_booking");?>">
+                            <input class="btn btn-primary float-right"  type="submit" value="<?php echo $this->lang->line("tour_lang_tour_booking");?>">
                         </td>
                       </tr>
                     </tbody>
@@ -549,7 +441,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                         if(!empty($tag)){
 
                           foreach ($tag as $key => $value) {
-                            if(!empty($value["tagt_url"]) &&  $value["id"] != 1){
+                            if(!empty($value["tagt_url"]) &&  $value["tag_id"] != 1){
                       ?>
                             <li><a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value["tagt_url"]);?>"><?php echo $value["tagt_name"]; ?></a></li>
                       <?php
@@ -593,9 +485,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                                   center: latLng,
                                   mapTypeId: google.maps.MapTypeId.ROADMAP
                                 };
-                                map = new google.maps.Map(document.getElementById('map_canvas'),
-                                    myOptions);
-
+                                map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
                                 marker = new google.maps.Marker({
                                   position: latLng,
                                   title: '<?php echo $tour[0]["name"];?>',
@@ -629,7 +519,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                         </div>
                         <div class="twelve columns">
                           <div class="row">
-                            <div class="nine columns">
+                            <div class="twelve columns">
                               <div class="title_tour">
                                 <h4>
                                   <a href="<?php echo $value["tour"]->tout_url."-".$value["tour"]->tou_id; ?>">
@@ -637,14 +527,6 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                                   </a>
                                 </h4>
                               </div>
-                            </div>
-                            <div class="three columns">
-                              <div class="rating one_star" style="display:none"></div>
-                              <div class="rating two_star" style="display:none"></div>
-                              <div class="rating three_star"></div>
-                              <div class="rating four_star" style="display:none"></div>
-                              <div class="rating five_star"style="display:none"></div>
-                              <div class="clearfix"></div>
                             </div>
                           </div>
                           <div class="border"></div>
@@ -723,42 +605,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
     </div>
     <!-- End Tour Information -->
 
-    <!-- Tour Information -->
-    <div class="row">
-      <div class="twelve columns">
-        <div class="box_white_in_columns">
-          <div class="button_like">
-            <h3>Uastravel.com Fanpage</h3>
-            <div class="fb-like" data-href="https://www.facebook.com/UasTravelThailand" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="verdana"></div>
-          </div>
-          <div id="fb-root"></div>
-          <script>(function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0];
-              if (d.getElementById(id)) return;
-              js = d.createElement(s); js.id = id;
-              js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=<?php echo $this->config->item('appId'); ?>";
-              fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-          </script>
-          <div class="facebookOuter">
-           <div class="facebookInner">
-            <div 
-              class="fb-like-box" 
-              data-width="960" 
-              data-height="335" 
-              data-href="https://www.facebook.com/UasTravelThailand" 
-              data-border-color="#fff" 
-              data-show-faces="true" 
-              data-stream="false" 
-              data-header="false"
-            >
-            </div>          
-           </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End Tour Information -->
+    {_include facebook_fanpage}
 
     <footer>
       <div class="row">
@@ -794,17 +641,16 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
   <script src="<?php echo $jspath.'/jquery.foundation.navigation.js';?>"></script>
   <script src="<?php echo $jspath.'/modernizr.foundation.js';?>"></script>
   <script src="<?php echo $jspath.'/app.js';?>"></script>
+  
   <!-- Gallery -->
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/gallery/js/jquery.galleriffic.js');?>"></script>
-
+  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery/js/jquery.galleriffic.js';?>"></script>
   <!-- Gallery Mobile -->
-  <link href="<?php echo base_url('themes/Travel/tour/javascripts/gallery_mobie/photoswipe.css');?>" type="text/css" rel="stylesheet"/>
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/gallery_mobie/lib/klass.min.js');?>"></script>
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/gallery_mobie/code.photoswipe-3.0.5.min.js');?>"></script>
-
-
+  <link href="<?php echo $themepath.'/js/gallery_mobie/photoswipe.css';?>" type="text/css" rel="stylesheet"/>
+  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery_mobie/lib/klass.min.js';?>"></script>
+  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery_mobie/code.photoswipe-3.0.5.min.js';?>"></script>
   <!--Hover effect-->
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/DirectionAwareHoverEffect/js/jquery.hoverdir.js');?>"></script>
+  <script type="text/javascript" src="<?php echo $themepath.'/js/DirectionAwareHoverEffect/js/jquery.hoverdir.js';?>"></script>
+
   <!-- We only want the thunbnails to display when javascript is disabled -->
   <script type="text/javascript">
     document.write('<style>.noscript { display: none; }</style>');
@@ -832,7 +678,6 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
           $.fn.GalleryRefresh = function(){
             // We only want these styles applied when javascript is enabled
             $('div.content').css('display', 'block');
-            console.log($("div.right_columns").css("height"));
             if($("div.right_columns").outerHeight(true) > $(".side_bar").height()){
               $(".left_columns").height(($("div.right_columns").outerHeight(true)+100));
             }

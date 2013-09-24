@@ -12,23 +12,25 @@ class TagLocation_model extends MY_Model {
                      'lu_date'           => 'tal_lu_date',
                      'lu_uid'            => 'tal_lu_uid'
     );
+
     $this->_join_column = array(
                      'tag_id'            => 'tagt_tag_id',
-                     'tagt_lang'              => 'tagt_lang',
+                     'tagt_lang'         => 'tagt_lang',
                      'name'              => 'tagt_name',
                      'url'               => 'tagt_url',
-                     'display'          => 'loc_display',
-                     'longitude'        => 'loc_longitude',
-                     'latitude'         => 'loc_latitude',
-                     'first_image'      => 'loc_first_image',
-                     'background_image' => 'loc_background_image',
-                     'banner_image'     => 'loc_banner_image',
-                     'title'            => 'loct_title',
-                     'body'             => 'loct_body',
-                     'suggestion'       => 'loct_suggestion',
-                     'route'            => 'loct_route',
-                     'loct_lang'        => 'loct_lang',
-                     'loct_url'         => 'loct_url'
+                     'display'           => 'loc_display',
+                     'longitude'         => 'loc_longitude',
+                     'latitude'          => 'loc_latitude',
+                     'first_image'       => 'loc_first_image',
+                     'background_image'  => 'loc_background_image',
+                     'banner_image'      => 'loc_banner_image',
+                     'title'             => 'loct_title',
+                     'short_title'       => 'loct_short_title',
+                     'body'              => 'loct_body',
+                     'suggestion'        => 'loct_suggestion',
+                     'route'             => 'loct_route',
+                     'loct_lang'         => 'loct_lang',
+                     'loct_url'          => 'loct_url'
     );
 
   }

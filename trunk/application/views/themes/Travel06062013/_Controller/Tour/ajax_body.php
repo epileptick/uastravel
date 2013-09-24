@@ -4,7 +4,7 @@
         <div class="box_white_in_columns article_tour">
           <!-- Title -->
           <div class="row">
-            <div class="eight columns">
+            <div class="twelve columns">
               <h3 class="title_tour" id="detail">(<?php echo $tour[0]["code"];?>) <?php echo $tour[0]["name"];?>
               <?php
                 $user_data = $this->session->userdata("user_data");
@@ -41,11 +41,7 @@
           <p><span class="color_blue">ช่วงบ่าย:</span> ออกเดินทางต่อไปดำน้ำดูปะการังบริเวณ อ่าวผักกาด และ เกาะตอรินลา</p>
           <p>ได้เวลาพอสมควร ออกเดินทางกลับจากอุทยานแห่งชาติหมู่เกาะสุรินทร์ สู่ท่าเรือ คุระบุรี จังหวัดพังงา เดินทางกลับสู่ที่พัก ประมาณ 1 ทุ่ม  ส่งท่านถึงที่โรงแรมที่พักในจังหวัดภูเก็ต</p>
           -->
-          <p>
-            <?php echo $tour[0]["detail"];?>
-          </p>
-
-
+          <p> <?php echo $tour[0]["detail"];?> </p>
 
           <?php
             if(!empty($tour[0]["included"]) && !empty($tour[0]["remark"])){
@@ -53,16 +49,7 @@
             <div class="row">
               <div class="five columns">
                 <h3 style="color:#0000;"><?php echo $this->lang->line("tour_lang_tour_includes");?></h3>
-                <!--
-                <ul class="disc">
-                  <li>รถรับส่งโรงแรม-ท่าเรือ-โรงแรม</li>
-                  <li>ค่าเรือเดินทาง</li>
-                  <li>อุปกรณ์ดำผิวน้ำและเสื้อชูชีพ</li>
-                  <li>อาหารกลางวัน </li>
-                  <li>มัคคุเทศก์ </li>
-                  <li>ประกันภัย </li>
-                </ul>
-                -->
+
                 <p>
                   <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
                     <?php echo (!empty($tour[0]["included"])?$tour[0]["included"]:"");?>
@@ -77,12 +64,7 @@
                     <?php echo $tour[0]["remark"];?>
                   </div>
                 </p>
-                <!--
-                <ul class="disc">
-                  <li>โปรแกรมทัวร์อาจเปลี่ยนแปลงได้ตามความเหมาะสมขึ้นอยู่กับสภาพภูมิอากาศ</li>
-                  <li>เกาะตาชัยเปิดให้เข้าสัมผัสความงามตั้งแต่เดือนพ.ย.-เม.ย. ของทุกปี</li>
-                </ul>
-                -->
+
               </div>
             </div>
           <?php
@@ -104,16 +86,6 @@
             <div class="row">
               <div class="five columns">
                 <h3><?php echo $this->lang->line("tour_lang_tour_remark");?></h3>
-                  <!--
-                <ul class="disc">
-                  <li>รถรับส่งโรงแรม-ท่าเรือ-โรงแรม</li>
-                  <li>ค่าเรือเดินทาง</li>
-                  <li>อุปกรณ์ดำผิวน้ำและเสื้อชูชีพ</li>
-                  <li>อาหารกลางวัน </li>
-                  <li>มัคคุเทศก์ </li>
-                  <li>ประกันภัย </li>
-                </ul>
-                -->
                 <p>
                   <div style="padding:4px; border-left:2px solid; border-color:#FFC000;">
                     <?php echo (!empty($tour[0]["included"])?$tour[0]["remark"]:"");?>
@@ -125,192 +97,162 @@
           }
           ?>
 
-
-      <form name="input"
-            action="<?php echo base_url($this->lang->line("url_lang_tour").'/inquiry');?>"
-            method="post"
-      >
-        <!-- price -->
-        <?php
-          if(!empty($price)){
-        ?>
-        <div class="row">
-
-          <h3><?php echo $this->lang->line("tour_lang_tour_price"); ?></h3>
-          <table class="twelve">
-            <thead>
-              <tr>
-                <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_list"); ?></th>
-                <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_adult_price"); ?></th>
-                <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_amount"); ?></th>
-                <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_child_price"); ?></th>
-                <th style="font-size:18px !important;"><?php echo $this->lang->line("tour_lang_tour_amount"); ?></th>
-              </tr>
-            </thead>
-            <tbody>
-            <?php
-
-            //print_r($price); exit;
-            $countPrice =0;
-            foreach ($price as $key => $value) {
-            ?>
-
-              <tr>
-                <td style="font-size:18px !important;">
-                  <?php
-                    if($value->show_firstpage == 1 && $firstpage_price == 1){
-                  ?>
-                      <label for="checkbox_<?php echo $value->id;?>">
-                        <input name="price_id[]"
-                                type="checkbox"
-                                id="radio_<?php echo $value->id;?>"
-                                value="<?php echo $value->id;?>"
-                                CHECKED
-                        >
-                        <?php echo (!empty($value->name)?$value->name:"");?>
-                      </label>
-                  <?php
-                    }else if($countPrice == 0 && $firstpage_price == 0){
-                  ?>
-                      <label for="checkbox_<?php echo $value->id;?>">
-                        <input name="price_id[]"
-                                type="checkbox"
-                                id="radio_<?php echo $value->id;?>"
-                                value="<?php echo $value->id;?>"
-                                CHECKED
-                        >
-                        <?php echo (!empty($value->name)?$value->name:"");?>
-                      </label>
-                  <?php
-
-                    }else{
-                  ?>
-                    <label for="checkbox_<?php echo $value->id;?>">
-                      <input name="price_id[]"
-                              type="checkbox"
-                              id="radio_<?php echo $value->id;?>"
-                              value="<?php echo $value->id;?>"
-                      >
-                      <?php echo (!empty($value->name)?$value->name:"");?>
-                    </label>
-                  <?php
-                    } //End
-                  ?>
-                </td>
-
-
-                <td style="font-size:18px !important;">
-
+              <form name="form" action="<?php echo base_url($this->lang->line("url_lang_tour").'/inquiry');?>" method="post">
+                <?php
+                  if(!empty($price)){
+                ?>
+                <div class="row">
+                  <h3><?php echo $this->lang->line("tour_lang_tour_price"); ?></h3>
+                  <table class="twelve">
+                    <thead>
+                      <tr>
+                        <th class="five"><?php echo $this->lang->line("tour_lang_tour_list"); ?></th>
+                        <th class="two"><?php echo $this->lang->line("tour_lang_tour_adult_price"); ?></th>
+                        <th class="one"><?php echo $this->lang->line("tour_lang_tour_amount"); ?></th>
+                        <th class="two"><?php echo $this->lang->line("tour_lang_tour_child_price"); ?></th>
+                        <th class="one"><?php echo $this->lang->line("tour_lang_tour_amount"); ?></th>
+                      </tr>
+                    </thead>
+                    <tbody>
                     <?php
-
-                        if($value->discount_adult_price>0){
+                    $countPrice =0;
+                    foreach ($price as $key => $value) {
                     ?>
+                      <tr>
+                        <td >
+                          <?php
+                            if($value["show_firstpage"] == 1 && $firstpage_price == 1){
+                          ?>
+                              <label for="checkbox_<?php echo $value["price_id"];?>">
+                                <input name="price_id[]"
+                                        type="checkbox"
+                                        id="checkbox_<?php echo $value["price_id"];?>"
+                                        value="<?php echo $value["price_id"];?>"
+                                        CHECKED
+                                >
+                                <?php echo (!empty($value["name"])? $value["name"] :"");?>
+                              </label>
+                          <?php
+                            }else if($countPrice == 0 && $firstpage_price == 0){
+                          ?>
+                              <label for="checkbox_<?php echo $value["price_id"];?>">
+                                <input name="price_id[]"
+                                        type="checkbox"
+                                        id="checkbox_<?php echo $value["price_id"];?>"
+                                        value="<?php echo $value["price_id"];?>"
+                                        CHECKED
+                                >
+                                <?php echo (!empty($value["name"])?$value["name"]:"");?>
+                              </label>
+                          <?php
 
-                         <center><label><strike><?php echo number_format($value->sale_adult_price, 0);?></strike>
-                        <?php echo number_format($value->discount_adult_price, 0);?></label></center>
+                            }else{
+                          ?>
+                            <label for="checkbox_<?php echo $value["price_id"];?>">
+                              <input name="price_id[]"
+                                      type="checkbox"
+                                      id="checkbox_<?php echo $value["price_id"];?>"
+                                      value="<?php echo $value["price_id"];?>"
+                              >
+                              <?php echo (!empty($value["name"])?$value["name"]:"");?>
+                            </label>
+                          <?php
+                            } //End
+                          ?>
+                        </td>
 
-                      <?php
-                    }else{
-                      ?>
-                        <center><label><?php echo number_format($value->sale_adult_price, 0);?></label></center>
 
+                        <td >
+
+                            <?php
+
+                                if($value["discount_adult_price"]>0){
+                            ?>
+
+                                 <center><label><strike><?php echo number_format($value["sale_adult_price"], 0);?></strike>
+                                <?php echo number_format($value["discount_adult_price"], 0);?></label></center>
+
+                              <?php
+                            }else{
+                              ?>
+                                <center><label><?php echo number_format($value["sale_adult_price"], 0);?></label></center>
+
+                            <?php
+                                }
+                             ?>
+                        </td>
+
+                        <td >
+                          <?php
+                            if($value["show_firstpage"] == 1 && $firstpage_price == 1){
+                          ?>
+                              <input name="adult_amount_booking[<?php echo $value["price_id"];?>]"
+                                      type="text"
+                                      id="amount_adult_<?php echo $value["price_id"];?>"
+                                      class="twelve text-center"
+                                      value="1">
+                          <?php
+                            }else if($countPrice == 0 && $firstpage_price == 0){
+                          ?>
+                              <input name="adult_amount_booking[<?php echo $value["price_id"];?>]"
+                                      type="text"
+                                      id="amount_adult_<?php echo $value["price_id"];?>"
+                                      class="twelve text-center"
+                                      value="1">
+                          <?php
+                            }else{
+                          ?>
+                              <input name="adult_amount_booking[<?php echo $value["price_id"];?>]"
+                                      type="text"
+                                      id="amount_adult_<?php echo $value["price_id"];?>"
+                                      class="twelve text-center"
+                                      value="0">
+                          <?php
+                              }
+                           ?>
+                        </td>
+                        <td >
+                            <?php
+                                if($value["discount_child_price"]>0){
+                            ?>
+                                 <center><label><strike><?php echo number_format($value["sale_child_price"], 0);?></strike>
+                                <?php echo number_format($value["discount_child_price"], 0);?></label></center>
+                              <?php
+                            }else{
+                              ?>
+                                <center><label><?php echo number_format($value["sale_child_price"], 0);?></label></center>
+                            <?php
+                                }
+                             ?>
+                        </td>
+
+                        <td >
+                          <input name="child_amount_booking[<?php echo $value["price_id"];?>]"
+                                  type="text"
+                                  id="amount_child_<?php echo $value["price_id"];?>"
+                                  class="twelve text-center"
+                                  value="0"
+                          >
+                        </td>
+                      </tr>
                     <?php
-                        }
-                     ?>
-
-
-                </td>
-
-                <td style="font-size:18px !important;">
-
-
-                  <?php
-                    if($value->show_firstpage == 1 && $firstpage_price == 1){
-                  ?>
-
-                      <input name="adult_amount_booking[<?php echo $value->id;?>]"
-                              type="text"
-                              id="amount_adult_<?php echo $value->id;?>"
-                              style="height: 20px !important; width: 30px !important;"
-                              value="1"
-                      >
-
-                  <?php
-                    }else if($countPrice == 0 && $firstpage_price == 0){
-                  ?>
-                      <input name="adult_amount_booking[<?php echo $value->id;?>]"
-                              type="text"
-                              id="amount_adult_<?php echo $value->id;?>"
-                              style="height: 20px !important; width: 30px !important;"
-                              value="1"
-                      >
-                  <?php
-
-                    }else{
-                  ?>
-                      <input name="adult_amount_booking[<?php echo $value->id;?>]"
-                              type="text"
-                              id="amount_adult_<?php echo $value->id;?>"
-                              style="height: 20px !important; width: 30px !important;"
-                              value="0"
-                      >
-                  <?php
-                      }
-                   ?>
-                </td>
-
-                <td style="font-size:18px !important;">
-
-                    <?php
-
-                        if($value->discount_child_price>0){
+                      $countPrice++;
+                    }
                     ?>
-
-                         <center><label><strike><?php echo number_format($value->sale_child_price, 0);?></strike>
-                        <?php echo number_format($value->discount_child_price, 0);?></label></center>
-
-                      <?php
-                    }else{
-                      ?>
-                        <center><label><?php echo number_format($value->sale_child_price, 0);?></label></center>
-
-                    <?php
-                        }
-                     ?>
-
-                </td>
-
-
-                <td style="font-size:18px !important;">
-                  <input name="child_amount_booking[<?php echo $value->id;?>]"
-                          type="text"
-                          id="amount_child_<?php echo $value->id;?>"
-                          style="height: 20px !important; width: 30px !important;"
-
-                  >
-
-                </td>
-              </tr>
-            <?php
-              $countPrice++;
-            }
-            ?>
-
-
-              <tr>
-                <td class="price_booking" colspan="5">
-                    <input type="hidden" name="id" value="<?php echo $tour[0]["tour_id"];?>"></input>
-                    <input class="button small  booking"  type="submit" value="<?php echo $this->lang->line("tour_lang_tour_booking");?>">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <?php
-          }
-        ?>
-        <!-- End price -->
-      </form>
+                      <tr>
+                        <td class="price_booking" colspan="5">
+                            <input type="hidden" name="id" value="<?php echo $tour[0]["tour_id"];?>"></input>
+                            <input class="btn btn-primary float-right"  type="submit" value="<?php echo $this->lang->line("tour_lang_tour_booking");?>">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <?php
+                  }
+                ?>
+                <!-- End price -->
+              </form>
         <!-- Start contact -->
         <div class="row">
          <div class="twelve columns">
@@ -330,7 +272,7 @@
                 if(!empty($tag)){
 
                   foreach ($tag as $key => $value) {
-                    if(!empty($value["tagt_url"]) &&  $value["id"] != 1){
+                    if(!empty($value["tagt_url"]) &&  $value["tag_id"] != 1){
               ?>
                     <li><a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value["tagt_url"]);?>"><?php echo $value["tagt_name"]; ?></a></li>
               <?php
@@ -410,7 +352,7 @@
                 </div>
                 <div class="twelve columns">
                   <div class="row">
-                    <div class="nine columns">
+                    <div class="twelve columns">
                       <div class="title_tour">
                         <h4>
                           <a href="<?php echo $value["tour"]->tout_url."-".$value["tour"]->tou_id; ?>">
@@ -418,14 +360,6 @@
                           </a>
                         </h4>
                       </div>
-                    </div>
-                    <div class="three columns">
-                      <div class="rating one_star" style="display:none"></div>
-                      <div class="rating two_star" style="display:none"></div>
-                      <div class="rating three_star"></div>
-                      <div class="rating four_star" style="display:none"></div>
-                      <div class="rating five_star"style="display:none"></div>
-                      <div class="clearfix"></div>
                     </div>
                   </div>
                   <div class="border"></div>

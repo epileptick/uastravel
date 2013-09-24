@@ -6,7 +6,7 @@ PageUtil::addVar("javascript",'<script type="text/javascript" src="http://bp.yah
 PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::ThemePath().'/js/plupload/plupload.full.js"></script>');
 PageUtil::addVar("javascript",'<script type="text/javascript" src="'.Util::ThemePath().'/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>');
 //Autosuggest && Autocomplete
-PageUtil::addVar("javascript", '<script type="text/javascript" src="'.base_url("themes/Travel/js/autocomplete/autocomplete.js").'"></script>');
+PageUtil::addVar("javascript", '<script type="text/javascript" src="'.$themepath.'/js/autocomplete/autocomplete.js"></script>');
 PageUtil::addVar("javascript",'<script type="text/javascript">
 // Convert divs to queue widgets when the DOM is ready
 $(document).ready(function() {
@@ -18,13 +18,14 @@ $(document).ready(function() {
       },
       5000
     );
+    $("#save").prop("disabled", true);
     //console.log(tinyMCE.get("txtBody").getContent());
     //console.log(tinyMCE.get("txtSuggestion").getContent());
     //console.log(tinyMCE.get("txtRoute").getContent());
     if($("#id").val()!=0){
-      $.post(\''.base_url('admin/location/create/').'\',{id: $("#id").val(),title: $("#title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1, lang: $("#lang").val() },successHandler);
+      $.post(\''.base_url('admin/location/create/').'\',{id: $("#id").val(),title: $("#title").val(), short_title: $("#short_title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1, lang: $("#lang").val() },successHandler);
     }else if($("#id").val()==0){
-      $.post(\''.base_url('admin/location/create/').'\',{title: $("#title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1, lang: $("#lang").val() },successHandler);
+      $.post(\''.base_url('admin/location/create/').'\',{title: $("#title").val(), short_title: $("#short_title").val(), body:tinyMCE.get("txtBody").getContent(),suggestion:tinyMCE.get("txtSuggestion").getContent(),route:tinyMCE.get("txtRoute").getContent(), longitude: $("#longitude").val(), latitude: $("#latitude").val(), ajax: 1, force: 1, lang: $("#lang").val() },successHandler);
     }
   }
   updateImages();
@@ -54,12 +55,9 @@ $(document).ready(function() {
                   }
                 );
                 return false;
-
               });
-
       }
     );
-
   }
 
   (function($){
@@ -67,8 +65,6 @@ $(document).ready(function() {
           tinyMCE.execCommand(\'mceInsertContent\',false,\'<img src="\'+this.attr(\'src\')+\'"/>\');
       };
   })(jQuery);
-
-
 
   //Uploader Control
   $("#btnShow").css("display", "block");
@@ -154,6 +150,7 @@ $(document).ready(function() {
     $("#span_status").show("slow").delay(3000).hide("slow");
     var $uploader = $("#uploader").pluploadQueue();
     $uploader.settings.multipart_params = {parent_id: $(\'#id\').val(), table_id:1};
+    $("#save").prop("disabled", false);
   }
   $("#uploader").pluploadQueue({
     // General settings
@@ -364,16 +361,17 @@ PageUtil::addVar("javascript",'
       <script type="text/javascript">
       $(function(){
         $("#lang").change(function(){
-
-          var id = $("#id").val();
-          window.location='http://'+this.value+'.uastravel.com/admin/location/create/'+id;
+          if($(this).val() == "en"){
+            window.location='http://packagethailandtour.com/admin/tour/create'+$("#id").val();
+          }else if($(this).val() == "th"){
+            window.location='http://ทัวร์เที่ยวไทย.com/admin/tour/create'+$("#id").val();
+          }
         });
       });
       </script>
-      <div class="half" id="lang_select">
-        <label>language :</label> 
-        <select id="lang"  name="lang">
-
+      <div class="row" id="lang_select">
+        <label>ภาษา :</label>
+        <select id="lang"  name="lang"> 
         <?php
           if($this->lang->lang() == "en"){
         ?>
@@ -403,6 +401,13 @@ PageUtil::addVar("javascript",'
       <button class="blogg-button" tabindex="0" onClick="history.go(-1)">ปิด</button>
     </span>
   </div>
+
+  <div class="topHolder">
+    <span class="GM1BAGKBGJB blogg-title">Short title</span>
+    <span class="GM1BAGKBJJB blogg-title">·</span>
+    <input type="text" name="short_title" value="<?php echo !empty($post[0]['short_title']) ? $post[0]['short_title']:'';?>" id="short_title" class="GM1BAGKBHEC titleField textField GM1BAGKBGEC" dir="ltr" title="ชื่อ" size="60">
+  </div>
+
   <div id="editorPanel"></div>
     <div id="wrapper-editor">
       <div id="editor">
@@ -510,7 +515,7 @@ PageUtil::addVar("javascript",'
           plugins : 'tags autocomplete'
           <?php
             //Check has tag data
-            if(isset($tag_query)){
+            if(!empty($tag_query)){
           ?>
 
             ,tagsItems : [  <?php
@@ -567,14 +572,13 @@ PageUtil::addVar("javascript",'
 
       function tagSearch(str) {
 
-        var url ="<?php echo base_url('/tag/jssearch');?>/"+str;
+        var url ="<?php echo base_url('/tag/jsonsearch');?>"+"/"+$.trim(str);
         var response = $.ajax({ type: "GET",
                                 url: url,
                                 async: false
                               }).responseText;
 
-        var list = response.split(/,/);
-
+        var list = jQuery.parseJSON(response);
         return list;
       }
 

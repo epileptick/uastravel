@@ -1,561 +1,421 @@
 <!DOCTYPE html>
-<!--[if IE ]>    <html class="no-js ie-all" lang="en"> <![endif]-->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-
-<?php
-  //Check class
-  if($this->uri->segment(1) == $this->lang->line("url_lang_hotel")){
-    $index = 1;
-    //echo $index;
-  }else if($this->uri->segment(2) == $this->lang->line("url_lang_hotel")){
-    $index = 2;
-    //echo $index;
-  }
-
-  $maintag = str_replace("-", " ",$this->uri->segment(1+$index));
-
-  //Title
-  $title1 = str_replace("-", " ",$this->uri->segment(1+$index)).str_replace("-", " ",$this->uri->segment(2+$index));
-  $title2 = $this->uri->segment(2+$index);
-
-?>
-
-  <title><?php echo "จองโรงแรม".$maintag." - U As Travel" ;?></title>
+  <title><?php
+                if(!empty($article["title"])){
+                  echo $article["title"];
+                }else{
+                  echo $this->lang->line("global_lang_location");
+                }
+              ?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="โรงแรมยอดนิยมในประเทศไทย รวมบทความและรูปภาพของโรงแรม ราคาพิเศษ" />
+  <meta name="description" content="" />
   <meta name="keywords" content="" />
-  <meta name="author" content="">
 
-  <!-- Le styles -->
-  <link href="<?php echo base_url('themes/Travel/tour/bootstrap/css/bootstrap.css');?>" rel="stylesheet">
-  <link href="<?php echo base_url('themes/Travel/tour/bootstrap/css/bootstrap-responsive.css');?>" rel="stylesheet">
-  <link href="<?php echo base_url('themes/Travel/tour/stylesheets/main.css');?>" rel="stylesheet">
-  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+  <link rel="stylesheet" href="<?php echo $themepath.'/bootstrap/css/bootstrap.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/foundation.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/userstyle.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/app.css';?>">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <?php
+    PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
+  ?>
+
+
   <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-
-  <!-- Search selection -->
-  <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-
-      $("#selectsearch").change(function() {
-        var action = $(this).val() == "<?php echo $this->lang->line("url_lang_location"); ?>" ? "<?php echo $this->lang->line("url_lang_location"); ?>" : "<?php echo $this->lang->line("url_lang_tour"); ?>";
-        var url = "<?php echo base_url(); ?>"+action+"/search/";
-        $("#search-form").attr("action", url);
-      });
-    });
-  </script>
+  <?php
+  if(!empty($caconical)):
+  ?>
   <link rel="canonical" href="<?php echo $caconical;?>">
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span12">
-          <div class="sidebar" style="display:none;">
-            <header class="header">
-              <a class="logo"> <img src="<?php echo base_url('themes/Travel/tour/images/logo_home.png');?>"></a>
-              <div class="address">
-                <p class="copyright"><?php echo $this->lang->line("global_lang_license_number");?> 34/00974</p>
-                <p>
-                  <a href="<?php echo $this->lang->switch_uri("en");?>">
-                    <img src="<?php echo base_url('themes/Travel/images/flags/us.png');?>" border="0" />
-                  </a>
-                  <a href="<?php echo $this->lang->switch_uri("th");?>">
-                  <img src="<?php echo base_url('themes/Travel/images/flags/th.png');?>" border="0" />
-                  </a>
-                </p>
-                <!--<p class="copyright">Copyright © Uastravel.com</p>-->
-              </div>
-            </header>
-            <div class="line"></div>
-            <nav>
-              <ul class="accordion">
-                <li><a href="<?php echo base_url();?>"><?php echo $this->lang->line("global_lang_home");?></a></li>
-                <li><a href="<?php echo base_url($this->lang->line("url_lang_location"));?>"><?php echo $this->lang->line("global_lang_location"); ?></a></li>
-                <?php
-                  if(!empty($main_menu)){
-                    foreach ($main_menu as $main_menuKey => $main_menuValue) {
-                      echo "<li>";
-                      $span = "";
-                      if(!empty($main_menuValue["child"])){
-                        $span = "<span class=\"arrow_menu\"></span>";
-                        echo "<a>$main_menuValue[name] $span</a>";
-                      }else{
-                        $mainURL = base_url($this->lang->line("url_lang_tour").'/'.$main_menuValue["url"]);
-                        echo "<a href=\"$mainURL\">$main_menuValue[name]</a>";
-                      }
-                      if(!empty($main_menuValue["child"])){
-                        echo "<ul class=\"sub-menu\">";
-                        foreach ($main_menuValue["child"] as $childKey => $childValue) {
-                          echo "<li>";
-                          $childURL = base_url($this->lang->line("url_lang_tour").'/'.$childValue["url"]);
-                          echo "<a href=\"$childURL\">$childValue[name]</a>";
-                          echo "</li>";
-                        }
-                        echo "</ul>";
-                      }
-                      echo "</li>";
-                    }
-                  }
-                ?>
-                <li><a class="active" href="<?php echo base_url($this->lang->line("url_lang_hotel"));?>"><?php echo $this->lang->line("global_lang_hotel"); ?></a></li>
-                <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/'.Util::url_title($this->lang->line("global_lang_contact_us")).'-119');?>"><?php echo $this->lang->line("global_lang_contact_us");?></a></li>
-              </ul><!-- End accordion -->
-            </nav>
-            <div class="social">
-              <a href="" class="twitter icon">twitter</a>
-              <a href="https://www.facebook.com/UasTravelThailand" target="_blank" class="facebook icon">facebook</a>
-              <a href="" class="youtube icon">youtube</a>
-              <a href="" class="google_plus icon">google_plus</a>
-            </div>
-            <div class="clearfix"></div>
-            <div class="fan_page">
-              <div class="inner">
-                <div id="fb-root"></div>
-                <script>(function(d, s, id) {
-                  var js, fjs = d.getElementsByTagName(s)[0];
-                  if (d.getElementById(id)) return;
-                  js = d.createElement(s); js.id = id;
-                  js.src = "//connect.facebook.net/th_TH/all.js#xfbml=1&appId=357467797616103";
-                  fjs.parentNode.insertBefore(js, fjs);
-                }(document, 'script', 'facebook-jssdk'));
-                </script>
-                <div class="fb-like-box" data-href="https://www.facebook.com/UasTravelThailand" data-width="200" data-height="280" data-show-faces="true" data-colorscheme="dark" data-stream="false" data-border-color="transparent" data-header="false"></div>
-              </div>
-            </div>
-            <div class="button_like">
-              <div class="fb-like" data-href="https://www.facebook.com/UasTravelThailand" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="verdana"></div>
-            </div>
-          <div class="footer_menu"></div>
-          <div class="shadow"></div>
-          </div><!--/sidebar-->
-          <div class="main">
-            <div class="content">
-              {_include user_tab}
-              {_include modal_login}
-              <!-- Start first menu -->
-              <div class="row-fluid">
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <div id="options">
-                          <ul class="option-set nav" >
-                          <span class="brand"><?php echo $this->lang->line("global_lang_province");?> :</span>
-                            <?php
-                            if($menu_selectall == true){
-                            ?>
-                              <li>
-                                <a href="<?php echo base_url($this->lang->line("url_lang_hotel").'/'.$this->uri->segment(2));?>"
-                                  class="selected"
-                                  title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
-                                >
-                                  <?php echo $this->lang->line("global_lang_all");?>
-                                </a>
-                              </li>
-                            <?php
-                            }else{
-                            ?>
-                              <li>
-                                <a href="<?php echo base_url('hotel/'.$this->uri->segment(2));?>"
-                                  title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
-                                >
-                                  <?php echo $this->lang->line("global_lang_all");?>
-                                </a>
-                              </li>
-                            <?php
-                            }
-                            ?>
+  <?php
+  endif;
+  ?>
+</head>
+
+  <body style="background: #ededed url(<?php echo $imagepath.'/bg5.jpg';?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
+    {_include user_tab}
+
+  <div class="overly-bg"></div>
+  <div id="wrapper">
+    {_widget menu}
 
 
-                            <?php
-                               //Main menu
-                              $uri1 = "";
-                              if($this->uri->segment(2)){
-                                $uri1 = $this->uri->segment(2)."/";
-                              }
-
-
-                              $uri2 = "";
-                              if($this->uri->segment(3)){
-                                $uri2 = $this->uri->segment(3)."/";
-                              }
-
-
-                              //Check menu link
-                              $isMenu = false;
-                              foreach ($menu as $key => $value) {
-                                if($value->url == $this->uri->segment(3)){
-                                  $isMenu = true;
-                                }
-                              }
-
-                              foreach ($menu as $key => $value) {
-                                if($isMenu){
-                                  $link = base_url($this->lang->line("url_lang_hotel").'/'.$uri1.$value->url);
-                                }else{
-                                  $link = base_url($this->lang->line("url_lang_hotel").'/'.$uri1.$value->url."/".$uri2);
-                                }
-                            ?>
-                              <li>
-                                <a href="<?php echo $link?>"
-                                  <?php
-                                    if($value->select == 1){
-                                      echo "class='selected'";
-                                    }else{
-                                      echo "";
-                                    }
-                                  ?>
-                                  title="<?php echo $value->name." ". str_replace("-", " ", $this->uri->segment(2));?>"
-                                >
-                                  <?php echo $value->name; ?>
-                                </a>
-                              </li>
-                            <?php
-                              }
-                            ?>
-                          </ul>
-                        </div>
-                        <form name="input" action="hotel/search" method="post" class="navbar-form pull-right form_search" id="search-form">
-                          <select name="select" id="selectsearch">
-                            <option value="<?php echo $this->lang->line("url_lang_tour"); ?>"><?php echo $this->lang->line("tour_lang_packages_tour"); ?></option>
-                            <option value="<?php echo $this->lang->line("url_lang_location"); ?>"><?php echo $this->lang->line("global_lang_location"); ?></option>
-                          </select>
-                          <div class="input_search">
-                            <input type="text" name="search" class="text_search"
-                                   value="<?php echo (!empty($search))?$search:"";?>"
-                            >
-                            <input type="submit" value="ค้นหา" class="button_search">
-                          </div>
-                        </form>
-                    </div>
-                  </div>
-              </div>
-              <!-- End first menu -->
-
-              <!-- Start sub menu -->
+    <!-- Title -->
+    <div class="row">
+      <div class="twelve columns">
+        <a href="" class="arrow previous tooltip_nw" title=""></a>
+        <h1 class="title">
+            <a href="#detail" id="title">
               <?php
-              if(!empty($submenu)){
-
-                //Check submenu link
-                $isSubMenu = false;
-                foreach ($submenu as $key => $value) {
-                  if($value->url == $this->uri->segment(3)){
-                    $isSubMenu = true;
-                  }
+                if(!empty($article["title"])){
+                  echo $article["title"];
+                }else{
+                  echo $this->lang->line("global_lang_location");
                 }
               ?>
-              <div class="row-fluid">
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <div id="options">
-                          <ul class="option-set nav" >
-                            <span class="brand">หมวดหมู่ :</span>
-                            <?php
+            <img src="<?php echo $imagepath.'/anchor.png';?>" width="1px" height="1px" align="absmiddle"/></a>
+          <span class="subtitle"></span>
+        </h1>
+        <a href="" class="arrow next south" title=""></a>
+      </div>
+    </div>
+    <!-- End Title -->
 
-                            if($isMenu){
-                              $link = base_url('hotel/'.$uri1.$uri2);
-                            }else{
-                              $link = base_url('hotel/'.$uri1);
-                            }
 
-                            if($submenu_selectall == true){
-                            ?>
-                              <li>
-                                <a href="<?php echo $link;?>" class="selected"
-                                  title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
-                                >
-                                <?php echo $this->lang->line("global_lang_all");?>
-                                </a>
-                              </li>
-                            <?php
-                            }else{
-                            ?>
-                              <li>
-                                <a href="<?php echo $link;?>"
-                                  title="<?php echo  str_replace("-", " ", $this->uri->segment(2));?>"
-                                >
-                                <?php echo $this->lang->line("global_lang_all");?>
-                                </a>
-                              </li>
-                            <?php
-                            }
-
-                            foreach ($submenu as $key => $value) {
-                              if($isSubMenu){
-                                  $link = base_url($this->lang->line("url_lang_hotel").'/'.$uri1.$value->url);
-                              }else{
-                                $link = base_url($this->lang->line("url_lang_hotel").'/'.$uri1.$uri2.$value->url);
-                              }
-                            ?>
-                              <li>
-                                <a href="<?php echo $link?>"
-                                  <?php
-                                    if($value->select == 1){
-                                      echo "class='selected'";
-                                    }else{
-                                      echo "";
-                                    }
-                                  ?>
-                                  title="<?php echo str_replace("-", " ", $this->uri->segment(2))." ".$value->name;?>"
-                                >
-                                  <?php echo $value->name; ?>
-                                </a>
-                              </li>
-                            <?php
-                              }
-                            ?>
-                          </ul>
-                        </div>
-                    </div>
-
-                  </div>
-              </div>
+    <!-- Gallery -->
+    <div class="row" id="gallery_row">
+    <?php
+    if(!empty($images)):
+    ?>
+      <section class="gallery_pc">
+        <div class="eight columns">
+          <div id="gallery" class="content">
+            <div id="controls" class="controls"></div>
+            <div class="slideshow-container">
+              <div id="loading" class="loader"></div>
+              <div id="slideshow" class="slideshow"></div>
+            </div>
+            <div id="caption" class="caption-container"></div>
+          </div>
+        </div>
+        <div class="four columns">
+          <div id="thumbs" class="navigation">
+            <ul class="thumbs noscript">
+              <?php
+                //print_r($images); exit;
+              if(!empty($images)){
+                foreach ($images as $key => $value) {
+              ?>
+              <li>
+                <a class="thumb"  href="<?php echo $value['url'];?>" >
+                  <img src="<?php echo $value['url'];?>" alt="<?php echo $article["title"];?>" />
+                  <div><span></span></div>
+                </a>
+                <div class="captions">
+                  <div class="image-title"><?php echo $article["title"];?></div>
+                  <div class="image-desc"></div>
+                </div>
+              </li>
               <?php
                 }
+              }
               ?>
-              <!-- End sub menu -->
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="gallery_mobile">
+        <ul id="gallery_mobile">
+          <?php
+            //print_r($images); exit;
+          if(!empty($images)){
+            foreach ($images as $key => $value) {
+          ?>
+            <li>
+              <a href="<?php echo $value['url'];?>">
+                <img src="<?php echo $value['url'];?>" alt="<?php echo $article["title"];?>" />
+              </a>
+            </li>
+          <?php
+            }
+          }
+          ?>
+        </ul>
+      </section>
+    <?php
+      endif;
+    ?>
+    </div>
+    <!-- End Gallery -->
 
+    <!-- Tour Information -->
+    <div class="row">
+      <div class="twelve columns ">
+        <div class="white_box">
+          <div class="left_columns">
+              <ul class="side_bar" id="mainmenu">
+                {_include main_menu}
+              </ul>
+
+            <script type="text/javascript">
+              var loading = false;
+              $(".side_bar a.ajax-click").click(function(){
+                if(!loading){
+                  $(".right_columns").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
+                  $("#gallery_row").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
+                  $("#gallery_row").css("height","448px")
+                  link = $(this).attr("href")+"?ajax=true";
+                  linkRedirect = $(this).attr("href");
+                  $(".side_bar a").removeClass("active");
+                  $(this).addClass("active");
+                  jqxhr = $.get(link);
+                  loading = true;
+                  jqxhr.success(function(data) {
+                                  loading = false;
+                                  var json = jQuery.parseJSON(data);
+                                  //console.log(json);
+                                  $(".right_columns").hide().html(json.bodyRedered).fadeIn(300);
+                                  $("#gallery_row").hide().html(json.imagesRedered).fadeIn(300).css("height","");
+                                  $("a#title").html(json.data.name);
+                                  $("span.subtitle").html(json.data.short_description);
+                                  if(json.data.background_image){
+                                    $("body").css('background-image',"url("+json.data.background_image+")");
+                                  }
+                                  initialize(json.data.latitude, json.data.longitude);
+                                  processAjaxData(json.data.name, json, $(".left_columns").html(), linkRedirect);
+                                });
+                }else{
+                  $(".right_columns").hide().html("<p style=\"width:100px; height:18px; margin:auto; margin-top: 50%; display: block;\">We're loading...</p><br /><img style=\"width:48px; height:48px; margin:auto; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
+                }
+                return false;
+              });
+
+              $('#mainmenu li a').click(function () {
+                var count = $(this).parent().children('ul').length;
+                if(count > 0){
+                  $(this).parent().children('ul').toggle(200);
+                  $(this).children('img').toggleClass("rotate");
+                  return false;
+                }
+              });
+              $('ul.sub-menu').each(function (item) {
+                if($(this).attr("active") == "false"){
+                  $(this).toggle(200);
+                }else{
+                  $(this).parent().find('img:first').addClass("rotate");
+                }
+              });
+            </script>
+
+          </div>
+          <div class="right_columns">
             <?php
-            if(!empty($hotel)){
+              if(!empty($article)){
             ?>
-              <div class="row-fluid">
-                <div class="span12">
-                  <div id="attractions" style="display:none;" class="clickable variable-sizes">
-                      <?php
-                        //print_r($hotel); exit;
-                        //echo $this->pagination->create_links();
-                        //echo "<br><br><br><br>";
-                          foreach ($hotel as $key => $value) {
-                        ?>
-                          <div class="list_attractions" data-category="transition">
-                            <?php
-                                if(!empty($value["price"]->prh_sale_room_price)){
-                            ?>
-                              <div class="sticker_status">
-                                <div class="sticker price">
-                                  <?php
-                                    //$sale_price = $value["price"]->prh_sale_adult_price - $value["price"]->prh_discount_adult_price;
-                                    echo number_format($value["price"]->prh_sale_room_price, 0);
-                                  ?>
-                                  <?php echo $this->lang->line("global_lang_baht");?>
-                                </div>
-                              </div>
-                            <?php
-                                }
-                            ?>
-                            <a href="<?php echo base_url($this->lang->line("url_lang_hotel").'/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>"
-                              target="_blank"
-                              title="<?php echo $value['hotel']->hott_name;?>"
-                            >
-                              <?php
-                                if($value['hotel']->hot_first_image){
-                              ?>
-                                  <img src="<?php echo $value['hotel']->hot_first_image;?>">
-                              <?php
-                                }
-                              ?>
-                              <?php
-                                //print_r($value["price"]); exit;
-                                if(!empty($value["price"]->prh_discount_room_price )){
-
-                                  if($value["price"]->prh_discount_room_price > 0){
-                              ?>
-
-                                    <div class="promotion style2">
-                                      <!--<img src="<?php echo base_url('themes/Travel/tour/images/best_price_en.png');?>">-->
-                                      <img src="<?php echo base_url('themes/Travel/tour/images/best_price_th2.png');?>">
-                                      <p><?php echo $this->lang->line("global_lang_from");?>
-                                        <span>
-                                          <?php
-                                            echo number_format($value["price"]->prh_sale_room_price);
-                                          ?></span>  <?php echo $this->lang->line("global_lang_discount_to");?>
-                                        <span class="reduce_price">
-                                          <?php
-                                            echo number_format($value["price"]->prh_discount_room_price, 0);
-                                          ?>
-                                        </span> <?php echo $this->lang->line("global_lang_baht");?>
-                                        </p>
-                                    </div>
-
-                              <?php
-                                  }
-                                }
-                              ?>
-                            </a>
-                            <div class="row-fluid">
-                              <div class="span8">
-                                <h3>
-                                  <a href="<?php echo base_url($this->lang->line("url_lang_hotel").'/'.$value['hotel']->hott_url.'-'.$value['hotel']->hot_id);?>"
-                                    target="_blank"
-                                    title="<?php echo $value['hotel']->hott_name;?>"
-                                  >
-                                  <?php echo $value['hotel']->hott_name; ?>
-                                  </a>
-                                </h3>
-                              </div>
-                              <div class="span4">
-
-                                <?php
-                                  if($value['hotel']->hot_star == 2){
-                                ?>
-                                  <div class="rating two_star"></div>
-                                <?php
-                                  }else{
-                                ?>
-                                  <div class="rating two_star" style="display:none"></div>
-                                <?php
-                                  }
-                                ?>
-
-                                <?php
-                                  if($value['hotel']->hot_star == 3){
-                                ?>
-                                  <div class="rating three_star"></div>
-                                <?php
-                                  }else{
-                                ?>
-                                  <div class="rating three_star" style="display:none"></div>
-                                <?php
-                                  }
-                                ?>
-
-
-                                <?php
-                                  if($value['hotel']->hot_star == 4){
-                                ?>
-                                  <div class="rating four_star"></div>
-                                <?php
-                                  }else{
-                                ?>
-                                  <div class="rating four_star" style="display:none"></div>
-                                <?php
-                                  }
-                                ?>
-
-                                <?php
-                                  if($value['hotel']->hot_star == 5){
-                                ?>
-                                  <div class="rating five_star"></div>
-                                <?php
-                                  }else{
-                                ?>
-                                  <div class="rating five_star" style="display:none"></div>
-                                <?php
-                                  }
-                                ?>
-                              </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="border"></div>
-                            <div class="row-fluid">
-                              <div class="span7">
-                                <!-- img src="http://icons.iconarchive.com/icons/dapino/summer-holiday/24/palm-tree-icon.png" -->
-                                <!--<div class="icon hotel" rel="tooltip" title="แพ็กเก็จทัวร์"></div>-->
-                                <div class="icon view" rel="tooltip" title="จำนวนคนดู">1358</div>
-                                <div class="icon comment" rel="tooltip" title="จำนวนคอมเม้น">25</div>
-                              </div>
-                              <div class="span5">
-                                <span class="tag">
-                                  <?php
-                                    //print_r($value["tag"]); exit;
-                                    foreach ($value["tag"] as $keyTag => $valueTag) {
-                                  ?>
-                                  <a href="<?php echo base_url($this->lang->line("url_lang_hotel").'/'.$uri1.$valueTag["url"]);?>"
-                                      style="color: #0CACE1;"
-                                      title="<?php echo $valueTag["name"]." ".str_replace("-", " ", $this->uri->segment(2))." ".str_replace("-", " ", $this->uri->segment(3));?>"
-                                  >
-                                    <?php echo $valueTag["name"]; ?>
-                                  </a>
-                                  <?php
-                                    }
-                                  ?>
-                                </span>
-                                <span class="icon  tag_icon"></span>
-                              </div>
-                            </div>
-                          </div>
-
-                      <?php
-                          }//End loop hotel
-                      ?>
-
-
-
-                      <nav id="page_nav">
-                        <?php
-                          if(empty($search)){
-                        ?>
-                            <a href="<?php echo base_url(uri_string().'/2');?>"></a>
-
-                        <?php
-                          }
-                        ?>
-                      </nav>
-
-                  </div> <!-- #attractions -->
-                </div><!--/span12-->
+            <h2><?php echo $article["title"];?></h2>
+              <div class="row">
+                <div class="four columns">
+                  <?php
+                  if(! empty($article['body_column'][0])){
+                    echo $article['body_column'][0];
+                  }
+                  ?>
+                </div>
+                <div class="four columns">
+                  <?php
+                  if(! empty($article['body_column'][1])){
+                    echo $article['body_column'][1];
+                  }
+                  ?>
+                </div>
+                <div class="four columns">
+                  <?php
+                  if(! empty($article['body_column'][2])){
+                    echo $article['body_column'][2];
+                  }
+                  ?>
+                </div>
               </div>
-            <?php
-            }else{
-            ?>
-              <br><br><br><br><br>
-              <center>
-              <font size="28">
-                ไม่พบข้อมูลที่ท่านต้องการ
-              </font>
-              <center>
-
             <?php
             }
-            //End check hotel
             ?>
-
-            </div>
-          </div><!--/content-->
+          </div>
         </div>
-      </div><!--/row-->
-    </div><!--/.fluid-container-->
+      </div>
+    </div>
+    <!-- End Tour Information -->
+
+    {_include facebook_fanpage}
+
+    <footer>
+      <div class="row">
+        <div class="shadow"></div>
+        <div class="seven columns">
+          <nav>
+            <ul class="menu_footer">
+              <li><a href="">หน้าแรก</a></li>
+              <li><a href="">แพ็คเกจทัวร์</a></li>
+              <li><a href="">เกี่ยวกับเรา</a></li>
+              <li><a href="">ติดต่อเรา</a></li>
+              <li><a href="">โปรโมชั่น</a></li>
+            </ul>
+          </nav>
+          <div class="clearfix"></div>
+          <p>Copyright © Uastravel.com</p>
+        </div>
+        <div class="five columns">
+          <div class="address">
+            <p>Uastravel</p>
+            <p>uastravel@hotmail.com</p>
+            <p>80/86 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+  <script src="<?php echo $jspath.'/jquery.placeholder.js';?>"></script>
+  <script src="<?php echo $jspath.'/jquery.foundation.orbit.js';?>"></script>
+  <script src="<?php echo $themepath.'/bootstrap/js/bootstrap.js';?>"></script>
+  <script src="<?php echo $jspath.'/foundation.min.js';?>"></script>
+  <script src="<?php echo $jspath.'/jquery.foundation.navigation.js';?>"></script>
+  <script src="<?php echo $jspath.'/modernizr.foundation.js';?>"></script>
+  <script src="<?php echo $jspath.'/app.js';?>"></script>
+  <!-- Gallery -->
+  
+  <!-- Gallery -->
+  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery/js/jquery.galleriffic.js';?>"></script>
+  <!-- Gallery Mobile -->
+  <link href="<?php echo $themepath.'/js/gallery_mobie/photoswipe.css';?>" type="text/css" rel="stylesheet"/>
+  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery_mobie/lib/klass.min.js';?>"></script>
+  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery_mobie/code.photoswipe-3.0.5.min.js';?>"></script>
+  <!--Hover effect-->
+  <script type="text/javascript" src="<?php echo $themepath.'/js/DirectionAwareHoverEffect/js/jquery.hoverdir.js';?>"></script>
+
+  <!-- We only want the thunbnails to display when javascript is disabled -->
+  <script type="text/javascript">
+    document.write('<style>.noscript { display: none; }</style>');
+  </script>
+
+  <noscript>
+    <style>
+      .thumbs > li  a div {
+        top: 0px;
+        left: -100%;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        -ms-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+      }
+      .thumbs > li  a:hover div{
+        left: 0px;
+      }
+    </style>
+  </noscript>
+
+  <script type="text/javascript">
+      (function($){
+          $.fn.GalleryRefresh = function(){
+            // We only want these styles applied when javascript is enabled
+            $('div.content').css('display', 'block');
+            if($("div.right_columns").outerHeight(true) > $(".side_bar").height()){
+              $(".left_columns").height(($("div.right_columns").outerHeight(true)+100));
+            }
+            // Initially set opacity on thumbs and add
+            // additional styling for hover effect on thumbs
+            var onMouseOutOpacity = 1;
+            // Initialize Advanced Galleriffic Gallery
+            var gallery = $('#thumbs').galleriffic({
+              delay:                     2500,
+              numThumbs:                 15,
+              preloadAhead:              40,
+              enableTopPager:            false,
+              enableBottomPager:         false,
+              maxPagesToShow:            7,
+              imageContainerSel:         '#slideshow',
+              controlsContainerSel:      '#controls',
+              captionContainerSel:       '#caption',
+              loadingContainerSel:       '#loading',
+              renderSSControls:          false,
+              renderNavControls:         true,
+              playLinkText:              'Play Slideshow',
+              pauseLinkText:             'Pause Slideshow',
+              prevLinkText:              'รูปก่อนหน้า',
+              nextLinkText:              'รูปถัดไป',
+              nextPageLinkText:          'Next &rsaquo;',
+              prevPageLinkText:          '&lsaquo; Prev',
+              enableHistory:             false,
+              autoStart:                 false,
+              syncTransitions:           true,
+              defaultTransitionDuration: 900,
+              onSlideChange:             function(prevIndex, nextIndex) {
+                // 'this' refers to the gallery, which is an extension of $('#thumbs')
+                this.find('ul.thumbs').children()
+                  .eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
+                  .eq(nextIndex).fadeTo('fast', 0.67);
+              },
+              onPageTransitionOut:       function(callback) {
+                this.fadeTo('fast', 0.0, callback);
+              },
+              onPageTransitionIn:        function() {
+                this.fadeTo('fast', 1.0);
+              }
+            });
+            (function(window, PhotoSwipe){
+
+              document.addEventListener('DOMContentLoaded', function(){
+
+                var
+                  options = {},
+                  instance = PhotoSwipe.attach( window.document.querySelectorAll('#gallery_mobile a'), options );
+
+              }, false);
 
 
+            }(window, window.Code.PhotoSwipe));
+            $('.thumbs > li a').hoverdir();
+          };
+      })(jQuery);
+      function initialize(latitude, longitude) {
+                            var latLng = new google.maps.LatLng(latitude,longitude);
+                            var map = new google.maps.Map(document.getElementById('mapCanvas'), {
+                              scrollwheel: false,
+                              zoom: 13,
+                              center: latLng,
+                              disableDefaultUI:false,
+                              streetViewControl:true,
+                              mapTypeId: google.maps.MapTypeId.ROADMAP
+                            });
 
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/jquery.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-transition.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-alert.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-modal.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-dropdown.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-scrollspy.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-tab.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-tooltip.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-popover.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-button.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-collapse.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-carousel.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/bootstrap/js/bootstrap-typeahead.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/javascripts/function.js');?>"></script>
-
-    <!-- To top scrollbar  -->
-    <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/easing.js');?>" type="text/javascript"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/jquery.ui.totop.js');?>" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/css/ui.totop.css');?>" />
-
-    <!-- Isotope -->
-    <script src="<?php echo base_url('themes/Travel/tour/javascripts/isotope/jquery.isotope.min.js');?>"></script>
-    <script src="<?php echo base_url('themes/Travel/tour/javascripts/isotope/js/jquery.infinitescroll.min.js');?>"></script>
-
-    <!-- Full Screen -->
-    <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/Full-screen/jquery.fullscreen-min.js');?>"></script>
-
-
-    {_include tracker}
-  </body>
+                            marker = new google.maps.Marker({
+                              position: latLng,
+                              title: '',
+                              map: map,
+                              draggable: false
+                            });
+                          }
+  </script>
+  <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $().GalleryRefresh();
+      });
+      $(document).ajaxComplete(function(){
+          try{
+              FB.XFBML.parse();
+              $().GalleryRefresh();
+          }catch(ex){}
+      });
+      function processAjaxData(title, respond, left, urlPath){
+         document.title = title;
+         window.history.pushState({"respond":respond,"left":left,"pageTitle":title},"", urlPath);
+      }
+      window.onpopstate = function(e){
+                                      if(e.state){
+                                        console.dir(e.state);
+                                        //$("#wrapper").html(e.state.html)
+                                        document.title = e.state.pageTitle;
+                                        $(".right_columns").hide().html(e.state.respond.bodyRedered).fadeIn(300);
+                                        $(".left_columns").hide().html(e.state.left).fadeIn(300);
+                                        $("#gallery_row").hide().html(e.state.respond.imagesRedered).fadeIn(300).css("height","");
+                                        $("a#title").html(e.state.pageTitle);
+                                        initialize(e.state.respond.data.location.latitude, e.state.respond.data.location.longitude);
+                                        FB.XFBML.parse();
+                                        $().GalleryRefresh();
+                                      }
+                                    };
+  </script>
+{_include tracker}
+</body>
 </html>

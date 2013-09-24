@@ -160,6 +160,8 @@ $route['agency/phpsearch/(:any)'] = 'agency/phpsearch/$1'; //for Tag
 //Tag
 $route['admin/tag'] = 'tag/admin_index';
 $route['admin/tag/update'] = 'tag/admin_update';
+$route['admin/tag/move'] = 'tag/admin_move';
+$route['admin/tag/ajaxdelete'] = 'tag/admin_ajaxdelete';
 $route['admin/tag/delete/(:num)'] = 'tag/admin_delete/$1';
 $route['admin/tag/create'] = 'tag/admin_create';
 $route['admin/tag/create/(:num)'] = 'tag/admin_create/$1';
@@ -207,6 +209,7 @@ $route['admin/translate/tag'] = 'translate/tag';
 //Article
 
 $route['admin/article'] = 'article/admin_index';
+$route['admin/article/(:num)'] = 'article/admin_index/$1';
 $route['admin/article/setdisplay'] = 'article/admin_setdisplay';
 $route['admin/article/create'] = 'article/admin_create';
 $route['admin/article/create/(:any)'] = 'article/admin_create/$1';

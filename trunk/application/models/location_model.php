@@ -22,6 +22,7 @@ class Location_model extends MY_Model {
                      'loc_id'           => 'loct_loc_id',
                      'lang'             => 'loct_lang',
                      'title'            => 'loct_title',
+                     'short_title'      => 'loct_short_title',
                      'body'             => 'loct_body',
                      'suggestion'       => 'loct_suggestion',
                      'route'            => 'loct_route',

@@ -11,7 +11,7 @@ class Tag extends MY_Controller {
     $this->load->model("taglocation_model","taglocationModel");
     $this->load->model("taghotel_model","taghotelModel");
 
-    $tagData = $this->tagModel->get(array("order"=>'CONVERT( tagt_name USING tis620 ) ASC'));
+    $tagData = $this->tagModel->get(array("order"=>'CONVERT( tagt_name USING tis620 ) ASC',"where"=>array("lang"=>"th")));
     foreach ($tagData as $tagKey => $tagValue) {
       $getTagWhere["where"]["tag_id"] = $tagValue["tag_id"];
 
@@ -27,18 +27,28 @@ class Tag extends MY_Controller {
         }
 
       }
-      $result["tag"][$getTagDataValue["tag_id"]]["tour_used"] = $this->tagtourModel->get(array("where"=>array("tag_id"=>$getTagDataValue["tag_id"])));
-      $result["tag"][$getTagDataValue["tag_id"]]["location_used"] = $this->taglocationModel->get(array("where"=>array("tag_id"=>$getTagDataValue["tag_id"])));
-      $result["tag"][$getTagDataValue["tag_id"]]["hotel_used"] = $this->taghotelModel->get(array("where"=>array("tag_id"=>$getTagDataValue["tag_id"])));
+      $result["tag"][$getTagDataValue["tag_id"]]["tour_used_list"] = $this->tagtourModel->get(array("where"=>array("tag_id"=>$getTagDataValue["tag_id"]),"group"=>"tour_id"));
+      $result["tag"][$getTagDataValue["tag_id"]]["location_used_list"] = $this->taglocationModel->get(array("where"=>array("tag_id"=>$getTagDataValue["tag_id"]),"group"=>"location_id"));
+      $result["tag"][$getTagDataValue["tag_id"]]["hotel_used_list"] = $this->taghotelModel->get(array("where"=>array("tag_id"=>$getTagDataValue["tag_id"]),"group"=>"hotel_id"));
       $result["tag"][$getTagDataValue["tag_id"]]["used"] = 0;
-      if(!empty($result["tag"][$getTagDataValue["tag_id"]]["tour_used"])){
-        $result["tag"][$getTagDataValue["tag_id"]]["used"] += count($result["tag"][$getTagDataValue["tag_id"]]["tour_used"]);
+
+      if(!empty($result["tag"][$getTagDataValue["tag_id"]]["tour_used_list"])){
+        $result["tag"][$getTagDataValue["tag_id"]]["used"] += count($result["tag"][$getTagDataValue["tag_id"]]["tour_used_list"]);
+        $result["tag"][$getTagDataValue["tag_id"]]["tour_used"] = count($result["tag"][$getTagDataValue["tag_id"]]["tour_used_list"]);
+      }else{
+        $result["tag"][$getTagDataValue["tag_id"]]["tour_used"] = 0;
       }
-      if(!empty($result["tag"][$getTagDataValue["tag_id"]]["location_used"])){
-        $result["tag"][$getTagDataValue["tag_id"]]["used"] += count($result["tag"][$getTagDataValue["tag_id"]]["location_used"]);
+      if(!empty($result["tag"][$getTagDataValue["tag_id"]]["location_used_list"])){
+        $result["tag"][$getTagDataValue["tag_id"]]["used"] += count($result["tag"][$getTagDataValue["tag_id"]]["location_used_list"]);
+        $result["tag"][$getTagDataValue["tag_id"]]["location_used"] = count($result["tag"][$getTagDataValue["tag_id"]]["location_used_list"]);
+      }else{
+        $result["tag"][$getTagDataValue["tag_id"]]["location_used"] = 0;
       }
-      if(!empty($result["tag"][$getTagDataValue["tag_id"]]["hotel_used"])){
-        $result["tag"][$getTagDataValue["tag_id"]]["used"] += count($result["tag"][$getTagDataValue["tag_id"]]["hotel_used"]);
+      if(!empty($result["tag"][$getTagDataValue["tag_id"]]["hotel_used_list"])){
+        $result["tag"][$getTagDataValue["tag_id"]]["used"] += count($result["tag"][$getTagDataValue["tag_id"]]["hotel_used_list"]);
+        $result["tag"][$getTagDataValue["tag_id"]]["hotel_used"] = count($result["tag"][$getTagDataValue["tag_id"]]["hotel_used_list"]);
+      }else{
+        $result["tag"][$getTagDataValue["tag_id"]]["hotel_used"] = 0;
       }
     }
     return $result;
@@ -55,8 +65,8 @@ class Tag extends MY_Controller {
   }
 
   function admin_list(){
-    $result = array();
-
+    $result = array()
+;
     $config['per_page'] = 50;
 
     $config['prev_link'] = '<img class="blogg-button-image" alt="โพสต์ใหม่" src="/themes/Travel/images/left_arrow.png">';
@@ -92,7 +102,8 @@ class Tag extends MY_Controller {
                     'limit'=>'',
                     'returnObj'=>'',
                     'order'=>'CONVERT( tagt_name USING tis620 ) ASC',
-                    'where'=>''
+                    'where'=>array("lang"=>"th")
+
                   );
     }
 
@@ -363,8 +374,11 @@ class Tag extends MY_Controller {
 
     $args["tag_name"] = trim($keyword);
     # JSON-encode the response
-    $data["tag"] = json_encode($this->tagModel->searchRecord($args));
-    $this->_fetch('user_json', $data, false, true);
+    $data["tag"] = $this->tagModel->searchRecord($args);
+    foreach ($data["tag"] as $key => $value) {
+      $result["tag"][] = $value["name"];
+    }
+    $this->_fetch('user_json', $result, false, true);
   }
 
 
@@ -397,6 +411,139 @@ class Tag extends MY_Controller {
     return NULL;
   }
 
+  function admin_move(){
+    $post = $this->input->post();
+
+    $this->load->model("tagtour_model","tagtourModel");
+    $this->load->model("taglocation_model","taglocationModel");
+    $this->load->model("taghotel_model","taghotelModel");
+
+    $tour_used_list = $this->tagtourModel->get(array("where"=>array("tag_id"=>$post["tag_id"]),"group"=>"tour_id"));
+    $location_used_list = $this->taglocationModel->get(array("where"=>array("tag_id"=>$post["tag_id"]),"group"=>"location_id"));
+    $hotel_used_list = $this->taghotelModel->get(array("where"=>array("tag_id"=>$post["tag_id"]),"group"=>"hotel_id"));
+
+    if(!empty($tour_used_list)){
+      foreach($tour_used_list AS $tkey=>$tvalue){
+        $moveResult = null;
+        $moveResult = $this->tagtourModel->get(
+                                              array(
+                                                    "where" => array(
+                                                                      "tag_id" => $post["moveto"],
+                                                                      "tour_id" => $tvalue["tour_id"]
+                                                                    ),
+                                                    "group"=>"tour_id"
+                                                    ));
+        if(!$moveResult){
+          $this->tagtourModel->add(
+                                    array(
+                                          "where" => array(
+                                                            "tag_id" => $tvalue["tag_id"]
+                                                          ),
+                                          "set"   => array(
+                                                            "tag_id"=>$post["moveto"]
+                                                          )
+                                          )
+                                  );
+        }else{
+          $this->tagtourModel->delete(array("where"=>array("tag_id"=>$tvalue["tag_id"],"tour_id"=>$tvalue["tour_id"])));
+        }
+      }
+    }
+    if(!empty($location_used_list)){
+      foreach($location_used_list AS $lkey=>$lvalue){
+        $moveResult = null;
+        $moveResult = $this->taglocationModel->get(
+                                              array(
+                                                    "where" => array(
+                                                                      "tag_id" => $post["moveto"],
+                                                                      "location_id" => $lvalue["location_id"]
+                                                                    ),
+                                                    "group"=>"location_id"
+                                                    ));
+        if(!$moveResult){
+          $this->taglocationModel->add(
+                                    array(
+                                          "where" => array(
+                                                            "tag_id" => $lvalue["tag_id"]
+                                                          ),
+                                          "set"   => array(
+                                                            "tag_id"=>$post["moveto"]
+                                                          )
+                                          )
+                                  );
+        }else{
+          $this->taglocationModel->delete(array("where"=>array("tag_id"=>$lvalue["tag_id"],"location_id"=>$lvalue["location_id"])));
+        }
+      }
+    }
+    if(!empty($hotel_used_list)){
+      foreach($hotel_used_list AS $hkey=>$hvalue){
+        $moveResult = null;
+        $moveResult = $this->taghotelModel->get(
+                                              array(
+                                                    "where" => array(
+                                                                      "tag_id" => $post["moveto"],
+                                                                      "hotel_id" => $hvalue["hotel_id"]
+                                                                    ),
+                                                    "group"=>"hotel_id"
+                                                    ));
+        if(!$moveResult){
+          $this->taghotelModel->add(
+                                    array(
+                                          "where" => array(
+                                                            "tag_id" => $hvalue["tag_id"]
+                                                          ),
+                                          "set"   => array(
+                                                            "tag_id"=>$post["moveto"]
+                                                          )
+                                          )
+                                  );
+        }else{
+          $this->taghotelModel->delete(array("where"=>array("tag_id"=>$hvalue["tag_id"],"hotel_id"=>$hvalue["hotel_id"])));
+        }
+      }
+    }
+  }
+
+  function admin_ajaxdelete(){
+    $id = $this->input->post("tag_id");
+    //implement code here
+    if($id) {
+      $this->load->model("tagtour_model","tagtourModel");
+      $this->load->model("taglocation_model","taglocationModel");
+      $this->load->model("taghotel_model","taghotelModel");
+
+      $tour_used_list = $this->tagtourModel->get(array("where"=>array("tag_id"=>$id),"group"=>"tour_id"));
+      $location_used_list = $this->taglocationModel->get(array("where"=>array("tag_id"=>$id),"group"=>"location_id"));
+      $hotel_used_list = $this->taghotelModel->get(array("where"=>array("tag_id"=>$id),"group"=>"hotel_id"));
+
+      if(empty($tour_used_list) AND empty($location_used_list) AND empty($hotel_used_list)){
+        $deleteResult = $this->tagModel->delete($id);
+        if($deleteResult){
+          $this->load->model("tag_translate_model","tagtranslateModel");
+          $tagdelete = $this->tagtranslateModel->delete(array("where"=>array("tag_id"=>$id)));
+          if($tagdelete){
+            $return['message'] = "Successful.";
+            $return['code'] = "1";
+          }else{
+            $return['message'] = "Can't delete tag translate.";
+            $return['code'] = "0";
+          }
+        }else{
+          $return['message'] = "Can't delete tag.";
+          $return['code'] = "0";
+        }
+      }else{
+        $return['message'] = "There are some articles in this tag. Tag can't remove.";
+        $return['code'] = "0";
+      }
+    }else{
+      $return['message'] = "tag_id does not assigned.";
+      $return['code'] = "0";
+    }
+    echo json_encode($return);
+    die;
+  }
 }
 
 ?>

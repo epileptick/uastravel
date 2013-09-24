@@ -32,12 +32,20 @@ class MY_Parser extends CI_Parser {
         $template = $this->replace_lang_keys($template);
 
         if(count(PageUtil::getVar("title"))>0){
-          if(preg_match("#\<title\>(.*)\<\/title\>#i",$template,$matches)){
+          preg_match("#\<title\>(.*)\<\/title\>#i",$template,$matches);
+          if(!empty($matches[1])){
             $originalTitle = $matches[1];
             $newTitle = $originalTitle." -";
-            foreach(PageUtil::getVar("title") AS $title){
-              $newTitle .= " ".$title;
-            }
+          }else{
+            $originalTitle = "";
+            $newTitle = "";
+          }
+          foreach(PageUtil::getVar("title") AS $title){
+            $newTitle .= " ".$title;
+          }
+          if(empty($originalTitle)){
+            $template = str_replace("<title>".$originalTitle."</title>","<title>".trim($newTitle)."</title>",$template);
+          }else{
             $template = str_replace($originalTitle,$newTitle,$template);
           }
         }
@@ -54,13 +62,20 @@ class MY_Parser extends CI_Parser {
 
         if(count(PageUtil::getVar("description"))>0){
           preg_match("#\<meta name=\"description\" content=\"(.*)\" \/\>#i",$template,$matches);
-          $originalDescriptions = $matches[1];
-          $newDescriptions = $originalDescriptions;
-          foreach(PageUtil::getVar("description") AS $keyword){
-            $newDescriptions .= " ".$keyword;
+          if(!empty($matches[1])){
+            $originalDescriptions = $matches[1];
+          }else{
+            $originalDescriptions = "";
           }
-          $template = str_replace($originalDescriptions,$newDescriptions,$template);
-
+          $newDescriptions = $originalDescriptions;
+          foreach(PageUtil::getVar("description") AS $description){
+            $newDescriptions .= " ".$description;
+          }
+          if(empty($originalDescriptions)){
+            $template = str_replace("content=\"".$originalDescriptions."\"","content=\"".trim($newDescriptions)."\"",$template);
+          }else{
+            $template = str_replace($originalDescriptions,$newDescriptions,$template);
+          }
         }
 
         if(count(PageUtil::getVar("stylesheet"))>0||count(PageUtil::getVar("javascript"))>0){

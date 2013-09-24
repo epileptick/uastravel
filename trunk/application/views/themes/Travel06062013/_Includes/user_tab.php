@@ -22,7 +22,6 @@ PageUtil::addVar("javascript","<script type=\"text/javascript\">
             $('body').append('<div id=\"mask\"></div>');
             $('#mask').fadeIn(300);
 
-            console.log('Log: submit');
             $.post('".base_url("user/logout_ajax")."','', function(data) {
                 console.log('Data Loaded: ' + data);
                 //var obj = jQuery.parseJSON(data);
@@ -62,8 +61,6 @@ $('a.login-window').click(function() {
 
     //Getting the variable's value from a link
     var loginBox = $(this).attr('href');
-    //console.log(this);
-    //console.log(loginBox);
 
     //Fade in the Popup
     $(loginBox).fadeIn(300);
@@ -92,14 +89,12 @@ $('a.close, #mask').click(function() {
     return false;
 });
 
-$('form').submit(function() {
-    //console.log('Log: submit');
+$('#login_form').submit(function() {
     $('#alert').html('<img src=\"".Util::ThemePath()."/images/ajax-loader.gif\" border=\"0\">');
     $('#alert').show('300');
     $('#alert').css('display', 'block').delay(5000);
     $('#alert').css('text-align', 'center');
     $.post('".base_url("user/login_ajax")."', $('#login_form').serialize(),function(data) {
-        //console.log('Data Loaded: ' + data);
         //var obj = jQuery.parseJSON(data);
         var obj = data;
         if(obj.result == '0'){
@@ -194,12 +189,12 @@ $('form').submit(function() {
     if(($this->session->userdata("logged_in") == TRUE)):
     ?>
     <div class="user_message">
-      <img src="http://graph.facebook.com/<?php echo $user_data["username"];?>/picture" class="img-circle img-border" width="24" height="24"> Welcome back, <?php echo $user_data["name"];?>. (<?php echo $this->session->userdata("ip_address");?>)<span class="language_bar"><a href="<?php echo $this->lang->switch_uri("en");?>"><img src="<?php echo base_url('themes/Travel/images/flags/us.png');?>" border="0" /></a><a href="<?php echo $this->lang->switch_uri("th");?>"><img src="<?php echo base_url('themes/Travel/images/flags/th.png');?>" border="0" /></a></span><span class="user_logout"><a href="#logout-box" class="user_logout">Logout</a></span>
+      <img src="http://graph.facebook.com/<?php echo $user_data["username"];?>/picture" class="img-circle img-border" width="24" height="24"> Welcome back, <?php echo $user_data["name"];?>. (<?php echo $this->session->userdata("ip_address");?>)<span class="language_bar"><a href="<?php echo $this->lang->switch_uri("en");?>"><img src="<?php echo $themepath.'/images/flags/us.png';?>" border="0" /></a><a href="<?php echo $this->lang->switch_uri("th");?>"><img src="<?php echo $themepath.'/images/flags/th.png';?>" border="0" /></a></span><span class="user_logout"><a href="#logout-box" class="user_logout">Logout</a></span>
     </div>
     <?php
     else:
     ?>
-    <a href="#login-box" class="login-window user_login">Login / Sign In</a>
+    <a href="#login-box" class="login-window user_login">Login / Sign In</a><span class="language_bar"><a href="http://www.packagethailandtour.com/"><img src="<?php echo $themepath.'/images/flags/us.png';?>" border="0" /></a><a href="http://www.xn--o3caa7bbc1ad9fyb2h4b8byc.com/"><img src="<?php echo $themepath.'/images/flags/th.png';?>" border="0" /></a></span>
     <?php
     endif;
     ?>

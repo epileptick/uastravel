@@ -1,0 +1,201 @@
+.container {
+	display: block !important;
+	width: 910px !important;
+	margin: 0px auto !important;
+}
+
+#iview {
+	display: block !important;
+	width: 900px !important;
+	height: 500px !important;
+	background: #000 !important;
+	background: rgba(0, 0, 0, 0.7) !important;
+	padding: 5px !important;
+	border-radius: 5px !important;
+	position: relative !important;
+	-webkit-box-shadow: 0 38px 30px -18px rgba(0, 0, 0, 0.5) !important;
+	-moz-box-shadow: 0 38px 30px -18px rgba(0, 0, 0, 0.5) !important;
+	box-shadow: 0 38px 30px -18px rgba(0, 0, 0, 0.5) !important;
+	margin: 40px auto !important;
+}
+
+#iview .iviewSlider {
+	display: block !important;
+	width: 900px !important;
+	height: 500px !important;
+	overflow: hidden !important;
+	border-radius: 4px !important;
+}
+
+.iview-controlNav {
+	position: absolute !important;
+	bottom: 30px !important;
+	left: 347px !important;
+	height: 44px !important;
+}
+
+.iview-controlNav a {
+	text-indent: -9999px !important;
+}
+
+.iview-controlNav a.iview-controlPrevNav {
+	float: left !important;
+	width: 50px !important;
+	height: 44px !important;
+	background: url('../../img/slider-controls.png') no-repeat !important;
+}
+
+.iview-controlNav a.iview-controlNextNav {
+	float: left !important;
+	width: 50px !important;
+	height: 44px !important;
+	background: url('../../img/slider-controls.png') no-repeat -50px 0px !important;
+}
+
+.iview-controlNav div.iview-items {
+	float: left !important;
+	padding: 0px 10px 0px 10px !important;
+	height: 44px !important;
+	background: url('../../img/nav-bg.png') !important;
+}
+
+.iview-controlNav a.iview-control {
+	padding: 0px !important;
+	float: left !important;
+	width: 11px !important;
+	height: 12px !important;
+	background: url('../../img/bullets.png') no-repeat !important;
+	line-height: 0px !important;
+}
+
+.iview-controlNav a.iview-control.active {
+	background-position: 0px -12px !important;
+}
+
+.iview-caption {
+	background: url('../../img/caption-bg.png') !important;
+	color: #FFF !important;
+	border-radius: 3px !important;
+	padding: 10px 15px !important;
+	font-family: Verdana !important;
+	font-size: 12px !important;
+	text-shadow: #000 1px 1px 0px !important;
+}
+
+.iview-caption.caption1 {
+	font-size: 36px !important;
+	font-weight: bold !important;
+	height: 45px !important;
+}
+
+.iview-caption.caption2 {
+	background: #00b4ff !important;
+	font-size: 36px !important;
+	font-weight: bold !important;
+	text-shadow: none !important;
+}
+
+.iview-caption.caption3 {
+	background: #FFF !important;
+	color: #000 !important;
+	font-size: 26px !important;
+	text-shadow: none !important;
+}
+
+.iview-caption.caption4 {
+	font-size: 22px !important;
+	font-weight: bold !important;
+}
+
+.iview-caption.caption5 {
+	background: #c4302b !important;
+	box-shadow: rgba(0, 0, 0, 0.7) 10px 10px 15px 0px !important;
+	font-size: 20px !important;
+	font-weight: bold !important;
+	text-shadow: none !important;
+}
+
+.iview-caption.caption6 {
+	font-size: 18px !important;
+}
+
+.iview-caption.caption7 {
+	text-align: left !important;
+	font-size: 11px !important;
+	color: #888 !important;
+	border-radius: 0px !important;
+}
+
+.iview-caption.caption7 div {
+	line-height: 200% !important;
+}
+
+.iview-caption.caption7 h3 {
+	margin-bottom: 20px !important;
+	color: #FFF !important;
+}
+
+.iview-caption.blackcaption {
+	background: #000 !important;
+	box-shadow: rgba(0, 0, 0, 0.7) 10px 10px 15px 0px !important;
+	text-shadow: none !important;
+}
+
+#iview-preloader {
+	border: #666 1px solid !important;
+	width: 150px
+}
+
+#iview-preloader div {
+	background: #666 !important;
+}
+
+.iview-controlNav div.iview-items ul li {
+	padding: 0px !important;
+	float: left !important;
+	width: 11px !important;
+	height: 12px !important;
+	margin: 3px !important;
+	margin-top: 16px !important;
+	line-height: 0px !important;
+}
+
+#iview #iview-tooltip {
+	display: none !important;
+	position: absolute !important;
+	background: url('../../img/tooltip.png') no-repeat !important;
+	width: 124px !important;
+	height: 90px !important;
+	bottom: 30px !important;
+	left: -67px !important;
+	padding: 10px !important;
+	z-index: 100 !important;
+}
+
+#iview #iview-tooltip div.holder {
+	display: block !important;
+	width: 124px !important;
+	height: 84px !important;
+	overflow: hidden !important;
+	border-radius: 2px !important;
+}
+
+#iview #iview-tooltip div.holder div.container {
+	display: block !important;
+	width: 4000px !important;
+}
+
+#iview #iview-tooltip div.holder div.container div {
+	float: left !important;
+	display: block !important;
+	overflow: hidden !important;
+	width: 124px !important;
+	height: 84px !important;
+	left: -50% !important;
+	text-align: center !important;
+}
+
+#iview #iview-tooltip div.holder div.container div img {
+	height: 84px !important;
+	margin: 0 auto !important;
+}

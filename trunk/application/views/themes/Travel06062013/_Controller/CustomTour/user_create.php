@@ -259,8 +259,8 @@
                             <div class="list_packet">
                               <div class="row">
                                 <div class="twelve columns">
-                                  <a href="<?php echo base_url("tour/".$value["tour"]->tout_url."-".$value["tour"]->tou_id); ?>" target="_blank">
-                                    <img src="<?php echo $value["tour"]->tou_banner_image; ?>">
+                                  <a href="<?php echo base_url("tour/".$value["tour"]["tout_url"]."-".$value["tour"]["tour_id"]); ?>" target="_blank">
+                                    <img src="<?php echo $value["tour"]["banner_image"]; ?>">
                                   </a>
                                 </div>
                                 <div class="twelve columns">
@@ -268,7 +268,7 @@
                                     <div class="nine columns">
                                       <div class="title_tour">
                                         <h4>
-                                          <a href=""><?php echo $value['tour']->tout_name; ?></a>
+                                          <a href=""><?php echo $value['tour']["tout_name"]; ?></a>
                                           <?php
                                             if($tours["filter"]["defaulttag_id"] == 85){
                                               $day = 0.5;
@@ -284,10 +284,10 @@
                                                   type="hidden"
                                                   id="packagedata"
                                                   name="packagedata[]"
-                                                  value="<?php echo $value['tour']->tou_id; ?>"
+                                                  value="<?php echo $value['tour']["tour_id"]; ?>"
                                                   packagetype="tour"
-                                                  packageid="<?php echo $value['tour']->tou_id; ?>"
-                                                  title="<?php echo $value['tour']->tout_name; ?>"
+                                                  packageid="<?php echo $value['tour']["tour_id"]; ?>"
+                                                  title="<?php echo $value['tour']["tout_name"]; ?>"
                                                   adultprice="<?php echo $value['price']->pri_sale_adult_price; ?>"
                                                   childprice="<?php echo $value['price']->pri_sale_child_price; ?>"
                                                   discountadultprice="<?php echo $value['price']->pri_discount_adult_price; ?>"
@@ -312,13 +312,13 @@
                                     08.00 - 15.30
                                   </div>
                                   <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด">
-                                    <a href="#" data-reveal-id="myTourModal_<?php echo $value['tour']->tou_id; ?>">รายละเอียด</a>
+                                    <a href="#" data-reveal-id="myTourModal_<?php echo $value['tour']["tour_id"]; ?>">รายละเอียด</a>
                                   </div>
                                   <div class="price"><span><?php echo $value['price']->pri_sale_adult_price; ?> B</span></div>
                                 </div>
                               </div>
                             </div>
-                            <a class="delete tooltip_ne" title="ลบ" packageid="<?php echo $value['tour']->tou_id; ?>"></a>
+                            <a class="delete tooltip_ne" title="ลบ" packageid="<?php echo $value['tour']["tour_id"]; ?>"></a>
                             <a class="add tooltip_ne" title="เพิ่ม"></a>
                           </li>
 
@@ -900,8 +900,8 @@
       if(!empty($tours["tour"]))
       foreach ($tours["tour"] as $key => $value) {
     ?>
-      <div id="myTourModal_<?php echo $value['tour']->tou_id; ?>" class="reveal-modal [expand, xlarge, large, medium, small]">
-        <?php echo $value['tour']->tout_detail; ?>
+      <div id="myTourModal_<?php echo $value['tour']["tour_id"]; ?>" class="reveal-modal [expand, xlarge, large, medium, small]">
+        <?php echo $value['tour']["detail"]; ?>
         <a class="close-reveal-modal">&#215;</a>
       </div>
 

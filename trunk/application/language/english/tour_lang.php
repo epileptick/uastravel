@@ -8,6 +8,7 @@ $lang['tour_lang_tour_list'] = "List";
 $lang['tour_lang_tour_adult_price'] = "Adult Price (Baht)";
 $lang['tour_lang_tour_child_price'] = "Child Price (Baht)";
 $lang['tour_lang_tour_amount'] = "Amount";
+$lang['tour_lang_tour_total'] = "Total";
 $lang['tour_lang_tour_booking'] = "Booking";
 $lang['tour_lang_location'] = "Attractions";
 $lang['tour_lang_home'] = "Home";

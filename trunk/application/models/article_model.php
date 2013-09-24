@@ -8,6 +8,7 @@ class Article_model extends MY_Model {
                      'display'          => $this->_prefix.'_display',
                      'type'             => $this->_prefix.'_type', //1 = location, 2 = tour
                      'tag_id'           => $this->_prefix.'_tag_id',
+                     'province_id'           => $this->_prefix.'_province_id',
                      'cr_date'          => $this->_prefix.'_cr_date',
                      'cr_uid'           => $this->_prefix.'_cr_uid',
                      'lu_date'          => $this->_prefix.'_lu_date',

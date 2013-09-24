@@ -280,7 +280,7 @@ class="blogg-menu-popup">
             <?php
             if($value['tour']["display"] == 0){
             ?>
-              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>"
+              <img src="<?php echo $themepath.'/images/enable.png';?>"
                   valign="top"
                   id="display"
                   class="display_show"
@@ -289,7 +289,7 @@ class="blogg-menu-popup">
                   idname="display_show_<?php echo $value['tour']["tour_id"];?>"
                   style="display:none;"
               >
-              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>"
+              <img src="<?php echo $themepath.'/images/disable.png';?>"
                   valign="top"
                   id="display"
                   class="display_hide"
@@ -300,7 +300,7 @@ class="blogg-menu-popup">
             <?php
             }else if($value['tour']["display"] == 1){
             ?>
-              <img src="<?php echo base_url('themes/Travel/images/enable.png');?>"
+              <img src="<?php echo $themepath.'/images/enable.png';?>"
                   valign="top"
                   id="display"
                   class="display_show"
@@ -308,7 +308,7 @@ class="blogg-menu-popup">
                   idval="<?php echo $value['tour']["tour_id"];?>"
                   idname="display_show_<?php echo $value['tour']["tour_id"];?>"
               >
-              <img src="<?php echo base_url('themes/Travel/images/disable.png');?>"
+              <img src="<?php echo $themepath.'/images/disable.png';?>"
                   valign="top"
                   id="display"
                   class="display_hide"

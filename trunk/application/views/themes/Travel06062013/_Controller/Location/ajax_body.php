@@ -1,7 +1,7 @@
     <div class="row">
       <section class="article">
         <div class="row">
-          <div class="seven columns">
+          <div class="twelve columns">
             <h3 id="detail"><?php echo $location['title'];?>
               <?php
                 if($this->session->userdata("logged_in")){
@@ -48,7 +48,7 @@
                 if(!empty($tag)){
 
                   foreach ($tag as $key => $value) {
-                    if(!empty($value["url"]) &&  $value["id"] != 1){
+                    if(!empty($value["url"]) &&  $value["tag_id"] != 1){
               ?>
                       <li><a href="<?php echo base_url($this->lang->line("url_lang_location").'/'.$value["url"]);?>"><?php echo $value["name"]; ?></a></li>
               <?php

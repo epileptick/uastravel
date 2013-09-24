@@ -22,9 +22,33 @@ class Price_model extends MY_Model {
                      'lang'                  => 'prit_lang',
                      'price_id'              => 'prit_price_id',
                      'name'                  => 'prit_name'
+    );
+
+    $this->_join_column = array(
+                     'id'                    => 'prit_id',
+                     'lang'                  => 'prit_lang',
+                     'price_id'              => 'prit_price_id',
+                     'name'                  => 'prit_name'
     ); 
   }
  
+  function get($options=""){
+    if(is_numeric($options)){
+      $this->load->model("price_translate_model","priceTranslateModel");
+      $where = array("where"=>array("price_id"=>$options,"lang"=>$this->lang->lang()));
+      if($this->tagTranslateModel->count_rows($where)){
+        $this->db->where($this->_join_column["lang"],$this->lang->lang());
+      }
+    }
+    $this->db->join("ci_price_translate","ci_price_translate.prit_price_id = ci_price.pri_id");
+    $mainTable = parent::get($options);
+    if(empty($mainTable) AND !empty($options["lang"])){
+      unset($options["lang"]);
+      $mainTable =  $this->get($options);
+    }
+    return $mainTable;
+  }
+
   function mapField($result){
     foreach ($result as $key => $value) {
       $data = new stdClass();

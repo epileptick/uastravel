@@ -2,7 +2,7 @@
 SQLyog Ultimate v9.20 
 MySQL - 5.5.25a : Database - uastravel
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 

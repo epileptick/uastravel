@@ -1,4 +1,6 @@
 <?php
+$lang['global_lang_money_sign'] = "Baht";
+
 $lang['global_lang_select_all'] = "Select All";
 $lang['global_lang_unselect_all'] = "UnSelect All";
 $lang['global_lang_delete'] = "Delete";
@@ -47,5 +49,31 @@ $lang['global_lang_main_description'] = "Traveling in Thailand with popular pack
 $lang['global_lang_tour_title'] = "Tour packages ";
 
 $lang['global_lang_article_type'] = "Article for ?";
+
+$lang["global_lang_data_not_found"] = "Data not available";
+
+
+
+//Booking page
+$lang["global_lang_booking"] = "Booking";
+
+$lang["global_lang_your_detail"] = "Your Details";
+$lang["global_lang_firstname"] = "First name";
+$lang["global_lang_lastname"] = "Last name";
+$lang["global_lang_adress"] = "Adress";
+$lang["global_lang_city"] = "City";
+$lang["global_lang_province"] = "Province/State";
+$lang["global_lang_country"] = "Country";
+$lang["global_lang_zipcode"] = "Zipcode";
+$lang["global_lang_phonenumber"] = "Phone number";
+$lang["global_lang_email"] = "E-Mail";
+
+$lang["global_lang_nationality"] = "Nationality";
+
+$lang["global_lang_grand_total_price"] = "Total";
+
+$lang["global_lang_accommodation"] = "Your Accommodation.";
+$lang["global_lang_hotel_name"] = "Hotel Name";
+$lang["global_lang_hotel_room_number"] = "Room No.";
 
 ?>

@@ -16,6 +16,7 @@ class Login {
       'fileUpload' => true
     ));
     $user_data = $this->CI->session->userdata("user_data");
+
     if(empty($user_data["fbid"])){
       $this->CI->session->sess_destroy();
     }
