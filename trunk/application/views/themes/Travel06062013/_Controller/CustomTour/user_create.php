@@ -415,20 +415,18 @@
                                         <div class="nine columns">
                                           <div class="title_tour">
                                             <h4><a href=""><?php echo $value['hotel']->hott_name; ?></a></h4>
-
-
-                                          <input  type="hidden"
-                                                  id="packagedata"
-                                                  packagetype="hotel"
-                                                  packageid="<?php echo $value['hotel']->hott_id; ?>"
-                                                  title="<?php echo $value['hotel']->hott_name; ?>"
-                                                  adultprice="<?php echo $value['price']->prh_sale_room_price; ?>"
-                                                  childprice="<?php echo $value['price']->prh_sale_room_price; ?>"
-                                                  discountadultprice="<?php echo $value['price']->prh_discount_room_price; ?>"
-                                                  discountchildprice="<?php echo $value['price']->prh_discount_room_price; ?>"
-                                                  tag="<?php echo $hotels["filter"]["defaulttag"]; ?>"
-                                                  day="1"
-                                          />
+                                            <input  type="hidden"
+                                                    id="packagedata"
+                                                    packagetype="hotel"
+                                                    packageid="<?php echo $value['hotel']->hott_id; ?>"
+                                                    title="<?php echo $value['hotel']->hott_name; ?>"
+                                                    adultprice="<?php echo $value['price']->prh_sale_room_price; ?>"
+                                                    childprice="<?php echo $value['price']->prh_sale_room_price; ?>"
+                                                    discountadultprice="<?php echo $value['price']->prh_discount_room_price; ?>"
+                                                    discountchildprice="<?php echo $value['price']->prh_discount_room_price; ?>"
+                                                    tag="<?php echo $hotels["filter"]["defaulttag"]; ?>"
+                                                    day="1"
+                                            />
                                           </div>
                                         </div>
                                         <div class="three columns">

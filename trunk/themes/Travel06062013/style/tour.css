@@ -143,16 +143,3 @@ span.hide-button {
   font-size: 20px;
   margin-bottom: 0px;
 }
-
-.grand_total_price {
-  font-size: 30px;
-  float: right;
-  margin-right: 10px;
-  border-bottom: 1px double #C1C1C1;
-}
-.grand_total_price .total_number {
-  color: #FE5214;
-  font-size: 36px;
-  font-weight: bold !important;
-  border-bottom: 1px double #C1C1C1;
-}

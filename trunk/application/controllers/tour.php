@@ -8,7 +8,6 @@ class Tour extends MY_Controller {
     parent::__construct();
   }
 
-
   function user_index(){
 
     //Default function for call read method
@@ -721,7 +720,6 @@ class Tour extends MY_Controller {
 
       $this->_assign("allProvince",$tagProvinceList);
       $this->_assign("main_menu",Menu::main_menu());
-
       foreach ($data["tag"] as $tagKey => $tagValue) {
         foreach ($tagProvinceList as $pKey => $pValue) {
           if($tagValue["tag_id"] == $pValue["tag_id"]){
@@ -740,7 +738,7 @@ class Tour extends MY_Controller {
       $priceWhere["where"]["lang"] = $this->lang->lang();
       $priceWhere["order"] = "id ASC";
       $priceQuery = $this->priceModel->get($priceWhere);
-      
+
       if(!empty($priceQuery)){
         //Min price
         $minSalePrice = 9999999;
@@ -777,6 +775,12 @@ class Tour extends MY_Controller {
         PageUtil::addVar("title",$data["tour"][0]["short_name"]);
       }
 
+      if(!empty($data["tour"][0]["short_name"])){
+        $data["caconical"] = base_url($this->lang->line("url_lang_tour")."/".trim(Util::url_title($data["tour"][0]["short_name"]))."-".trim($data["tour"][0]["tour_id"]));
+      }else{
+        $data["caconical"] = base_url($this->lang->line("url_lang_tour")."/".trim(Util::url_title($data["tour"][0]["name"]))."-".trim($data["tour"][0]["tour_id"]));
+      }
+
       //Set Title and Description
       if(!empty($data["tour"][0]["short_description"])){
         PageUtil::addVar("description",$data["tour"][0]["short_description"]);
@@ -786,7 +790,8 @@ class Tour extends MY_Controller {
       $this->load->model("images_model", "imagesModel");
       $data["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$id,'table_id'=>2)));
 
-      $data["caconical"] = base_url($this->lang->line("url_lang_tour")."/".trim($data["tour"][0]["url"])."-".trim($data["tour"][0]["tour_id"]));
+      //$data["caconical"] = base_url($this->lang->line("url_lang_tour")."/".trim($data["tour"][0]["url"])."-".trim($data["tour"][0]["tour_id"]));
+      
 
 
       if(!empty($data)){
@@ -1445,8 +1450,6 @@ class Tour extends MY_Controller {
           }
         }
 
-
-
         //print_r($args["price"]); exit;
         if(!empty($args["price"])){
           $this->load->model("price_model","priceModel");
@@ -1708,7 +1711,6 @@ class Tour extends MY_Controller {
 
     }
 
-
     if(!empty($_FILES['background_image']["name"])){
       if(file_exists($dir."/".md5($TourID)."_background.jpg")){
         Util::rrmdir($dir."/".md5($TourID)."_background.jpg");
@@ -1740,4 +1742,5 @@ class Tour extends MY_Controller {
   }
 
 }
+
 ?>
