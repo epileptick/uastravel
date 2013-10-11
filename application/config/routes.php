@@ -103,6 +103,8 @@ $route[LangUtil::line("url_lang_tour")] = 'tour/user_index';
 
 
 //Custom Tour user
+$route["customtour/create/step1"] = 'customtour/user_create_step1';
+$route["customtour/create/step2"] = 'customtour/user_create_step2';
 $route["customtour/ajax/(:any)"] = 'customtour/ajax_index/$1';
 $route["customtour/publish/(:any)"] = 'customtour/user_publish/$1';
 //$route['customtour/(:any)-(:num)'] = 'customtour/user_view/$2';

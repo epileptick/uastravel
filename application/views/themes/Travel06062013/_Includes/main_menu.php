@@ -36,7 +36,7 @@
                               <?php
                                 }
                               ?>
-                                <?php echo ($value['location']["short_title"] ? $value['location']["short_title"] : $value['location']["title"]); ?>
+                                <?php echo (!empty($value['location']["short_title"]) ? $value['location']["short_title"] : $value['location']["title"]); ?>
                               </a></li>
                             <?php
                           }
@@ -123,7 +123,7 @@
                                     <?php
                                       }
                                     ?>
-                                      <?php echo $value["tour"]["tout_name"]; ?>
+                                      <?php echo (!empty($value['tour']["tout_short_name"]) ? $value['tour']["tout_short_name"] : $value['tour']["tout_name"]); ?>
                                     </a></li>
                                 <?php
                                   }

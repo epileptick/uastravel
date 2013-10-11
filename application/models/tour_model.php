@@ -187,7 +187,7 @@ class Tour_model extends MY_Model {
       foreach($data AS $columnJoinName=>$columnJoinValue){
         if(array_key_exists($columnJoinName, $this->_join_column)){
           //print_r($columnJoinName); exit;
-          if($columnJoinName == "name"){
+          if($columnJoinName == "short_name"){
             $this->db->set("tout_url", Util::url_title($columnJoinValue));
           }
           $this->db->set($this->_join_column[$columnJoinName], $columnJoinValue);
@@ -235,7 +235,7 @@ class Tour_model extends MY_Model {
         if(array_key_exists($columnJoinName, $this->_join_column)){
           //print_r($columnJoinName); exit;
           if($columnJoinName != "id"){
-            if($columnJoinName == "name"){
+            if($columnJoinName == "short_name"){
               $this->db->set("tout_url", Util::url_title($columnJoinValue));
             }
             $this->db->set($this->_join_column[$columnJoinName], $columnJoinValue);

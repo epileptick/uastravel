@@ -362,9 +362,9 @@ PageUtil::addVar("javascript",'
       $(function(){
         $("#lang").change(function(){
           if($(this).val() == "en"){
-            window.location='http://packagethailandtour.com/admin/tour/create'+$("#id").val();
+            window.location='http://packagethailandtour.com/admin/location/create/'+$("#id").val();
           }else if($(this).val() == "th"){
-            window.location='http://ทัวร์เที่ยวไทย.com/admin/tour/create'+$("#id").val();
+            window.location='http://ทัวร์เที่ยวไทย.com/admin/location/create/'+$("#id").val();
           }
         });
       });

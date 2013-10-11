@@ -157,7 +157,6 @@ class CustomTour extends MY_Controller {
 
         $argTour["menu"][0] = $args["firsttag_id"];
         $argTour["menu"][1] = $args["secondtag_id"];
-
         $count = 2;
         foreach($explode_thirdtag as $key => $value) {
           $argTour["menu"][$count] = $value;
@@ -175,6 +174,13 @@ class CustomTour extends MY_Controller {
     }
   }
 
+  function user_create_step1(){
+    $this->_fetch('user_create_step1' ,"",false, true);
+  }
+
+  function user_create_step2(){
+    $this->_fetch('user_create_step2' ,"",false, true);
+  }
 
   function user_create($id = false){
      //header('Content-Type: text/xml; charset=utf-8');
@@ -316,11 +322,13 @@ class CustomTour extends MY_Controller {
 
     if($addResult){
       $user_id = $this->facebook->getUser();
+      
 
       if($user_id){
         $this->_publish($addResult);
       }else{
         $this->session->set_userdata("forword",base_url("customtour/publish/".$addData["url"]));
+
         $params = array(
           'scope' => 'email,read_stream,publish_stream,user_birthday,user_location,user_work_history,user_hometown,user_photos,photo_upload,user_photo_video_tags',
           'fbconnect' => 1,
@@ -356,12 +364,13 @@ class CustomTour extends MY_Controller {
         $where["where"]["url"] = $input;
         $customTourResult = $this->customtourModel->get($where);
       }
+
       $tourPackage = unserialize($customTourResult[0]["tour_id"]);
       $rand_keys = array_rand($tourPackage, 1);
       $pickedTour = $tourPackage[$rand_keys][0];
 
       $tourResult = $this->tourModel->get($pickedTour);
-
+      $this->facebook->setFileUploadSupport(true);
       $this->facebook->api('/me/photos', 'POST', array(
                             'url' => $tourResult[0]["background_image"],
                             'message' => $this->lang->line("facebook_message_for_publishing_lead").$customTourResult[0]["package_name"].'

@@ -37,7 +37,7 @@ label{
 /* ---------------------------------------------------------------------- */
 h1, h2, h3, h4, h5, h6{
 	font-family: 'thaisanslite';
-	color: #4e4e4e;
+	color: #222222;
 	font-weight: normal;
 }
 h3#detail{
@@ -289,10 +289,10 @@ a.next:hover{
 	text-decoration: none;
 	color: #777;
 }
-div.content a:focus, div.content a:hover, div.content a:active {
+#gallery div.content a:focus, div.content a:hover, div.content a:active {
 	text-decoration: underline;
 }
-div.controls {
+#gallery div.controls {
 	margin-top: 5px;
 	height: 40px;
 	position: absolute;
@@ -300,26 +300,26 @@ div.controls {
 	right: 17px;
 	bottom: 12px;
 }
-div.controls a.next{
+#gallery div.controls a.next{
 	height: 40px;
 	width: 20px;
 	background: url(../images/arrow_gallery.png) -20px -80px no-repeat;
 }
-div.controls a.prev{
+#gallery div.controls a.prev{
 	height: 40px;
 	width: 20px;
 	background: url(../images/arrow_gallery.png) 0px -80px no-repeat;
 }
-div.controls a.next:hover{
+#gallery div.controls a.next:hover{
 	background: url(../images/arrow_gallery.png) -20px 0px no-repeat;
 }
-div.controls a.prev:hover{
+#gallery div.controls a.prev:hover{
 	background: url(../images/arrow_gallery.png) 0px 0px no-repeat;
 }
-div.controls a.play{
+#gallery div.controls a.play{
 	display: none;
 }
-div.controls a {
+#gallery div.controls a {
 	display: inline-block;
 	text-indent: -9999px;
 }
@@ -606,6 +606,7 @@ div.pagination span.ellipsis {
 	-webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 	      -moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.2);
 	        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+	        display: block;
 }
 .lt-ie9 .article{
 	border-radius: 2px;

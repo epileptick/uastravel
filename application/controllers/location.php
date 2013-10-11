@@ -634,15 +634,17 @@ class Location extends MY_Controller {
       $this->_assign("allProvince",$tagProvinceList);
       $this->_assign("main_menu",Menu::main_menu());
 
-      foreach ($locationData["tag"] as $tagKey => $tagValue) {
-        foreach ($tagProvinceList as $pKey => $pValue) {
-          if($tagValue["tag_id"] == $pValue["tag_id"]){
-            $tagProvinceID = $tagValue;
+      if(!empty($locationData["tag"])){
+        foreach ($locationData["tag"] as $tagKey => $tagValue) {
+          foreach ($tagProvinceList as $pKey => $pValue) {
+            if($tagValue["tag_id"] == $pValue["tag_id"]){
+              $tagProvinceID = $tagValue;
+              break;
+            }
+          }
+          if(!empty($tagProvinceID)){
             break;
           }
-        }
-        if(!empty($tagProvinceID)){
-          break;
         }
       }
 
@@ -658,7 +660,11 @@ class Location extends MY_Controller {
         PageUtil::addVar("description",$locationData["location"]["short_description"]);
       }
 
-      $locationData["caconical"] = base_url($this->lang->line("url_lang_location")."/".trim($locationData["location"]["url"])."-".trim($locationData["location"]["loc_id"]));
+      if(!empty($locationData["location"]["short_title"])){
+        $locationData["caconical"] = base_url($this->lang->line("url_lang_location")."/".trim(Util::url_title($locationData["location"]["short_title"]))."-".trim($locationData["location"]["loc_id"]));
+      }else{
+        $locationData["caconical"] = base_url($this->lang->line("url_lang_location")."/".trim($locationData["location"]["url"])."-".trim($locationData["location"]["loc_id"]));
+      }
 
       if(!empty($locationData)){
         if($this->input->get("ajax")){

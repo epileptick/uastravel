@@ -88,8 +88,8 @@ class Location_model extends MY_Model {
     }
 
     $options['lu_date'] = date("Y-m-d H:i:s");
-    if(!empty($options["title"])){
-      $string = $options["title"];
+    if(!empty($options["short_title"])){
+      $string = $options["short_title"];
       $string = preg_replace("`\[.*\]`U","",$string);
       $string = preg_replace('`&(amp;)?#?[a-z0-9]+;`i','-',$string);
       $string = str_replace('%', '-percent', $string);

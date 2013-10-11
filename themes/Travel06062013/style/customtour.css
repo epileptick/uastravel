@@ -2,3 +2,81 @@ h4,h5 {
 	margin-bottom: 0px;
 	margin-top: 0px;
 }
+
+.list_step_customtour {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.list_step_customtour li {
+  font-size: 30px;
+  line-height: 30px;
+}
+.customtour_step1 .page-header {
+  margin-bottom: 15px;
+  margin-top: 0px;
+  background-color: #B1B1B1;
+  background: url(../images/menu_bg.png) repeat-x #474747;
+  height: 42px;
+  line-height: 75px;
+  text-shadow: 0px 1px 1px black;
+  font-size: 13px;
+  border: 1px solid black;
+  padding-left: 15px;
+  -moz-border-top-left-radius: 2px;
+  -moz-border-top-right-radius: 2px;
+  -webkit-border-top-left-radius: 2px;
+  -webkit-border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.customtour_step1 .page-header h1 {
+  font-size: 26px;
+  margin-top: 5px;
+  color: #FFFFFF;
+}
+.customtour_step1 .alert-info h2, .customtour_step1 .alert-info p {
+  color: #3a87ad;
+}
+.customtour_step1 .btn-next {
+  font-size: 52px;
+  margin-bottom: 20px;
+}
+.customtour_step1 .btn-next img {
+  vertical-align: top;
+}
+
+
+.customtour_step1 .input-append .add-on, .input-prepend .add-on {
+  display: inline-block;
+  width: auto;
+  height: 32px;
+  min-width: 16px;
+  padding: 4px 5px;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 20px;
+  text-align: center;
+  text-shadow: 0 1px 0 #ffffff;
+  background-color: #eeeeee;
+  border: 1px solid #ccc;
+}
+
+.grand_total_price {
+  font-size: 30px;
+  float: right;
+  margin-right: 10px;
+  border-bottom: 1px double #C1C1C1;
+}
+.grand_total_price .total_number {
+  color: #FE5214;
+  font-size: 36px;
+  font-weight: bold !important;
+  border-bottom: 1px double #C1C1C1;
+}
+input[readonly]
+{
+    cursor: pointer;
+    background-color: #FFFFFF;
+}
