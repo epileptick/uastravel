@@ -113,7 +113,7 @@ $('#login_form').submit(function() {
 });</script>");
 ?>
 <div id="redirect-box" class="redirect-popup" style="text-align:center;">
-    <img src="<?php echo Util::ThemePath();?>/images/ajax-loader.gif" border="0">
+    <img src="<?php echo Util::ThemePath();?>/images/ajax-loader.gif" alt="Loading..." border="0">
 </div>
 <div id="login-box" class="login-popup">
 <a href="#" class="close"></a>
@@ -135,7 +135,7 @@ $('#login_form').submit(function() {
         </fieldset>
   </form>
   <hr />
-<img src="<?php echo Util::ThemePath(); ?>/images/login_with_facebook.png" border="0" id="facebook" style="cursor:pointer;display:block;margin-left:auto;margin-right:auto;">
+<img src="<?php echo Util::ThemePath(); ?>/images/login_with_facebook.png" border="0" id="facebook" style="cursor:pointer;display:block;margin-left:auto;margin-right:auto;" alt="login with facebook">
 <div id="fb-root"></div>
    <script type="text/javascript">
   window.fbAsyncInit = function() {
@@ -194,7 +194,7 @@ $('#login_form').submit(function() {
     <?php
     else:
     ?>
-    <a href="#login-box" class="login-window user_login">Login / Sign In</a><span class="language_bar"><a href="http://www.packagethailandtour.com/"><img src="<?php echo $themepath.'/images/flags/us.png';?>" border="0" /></a><a href="http://www.xn--o3caa7bbc1ad9fyb2h4b8byc.com/"><img src="<?php echo $themepath.'/images/flags/th.png';?>" border="0" /></a></span>
+    <a href="#login-box" class="login-window user_login">Login / Sign In</a><span class="language_bar"><a href="http://www.packagethailandtour.com/"><img src="<?php echo $themepath.'/images/flags/us.png';?>" border="0" alt="English" /></a><a href="http://www.xn--o3caa7bbc1ad9fyb2h4b8byc.com/"><img src="<?php echo $themepath.'/images/flags/th.png';?>" border="0" alt="Thai" /></a></span>
     <?php
     endif;
     ?>

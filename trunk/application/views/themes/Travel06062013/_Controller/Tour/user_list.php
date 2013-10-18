@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="<?php echo $this->lang->lang();?>"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="<?php echo $this->lang->lang();?>"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="<?php echo $this->lang->lang();?>"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="<?php echo $this->lang->lang();?>"> <!--<![endif]-->
 <head>
-  <title><?php
-                if(!empty($article["title"])){
-                  echo $article["title"];
-                }else{
-                  echo $this->lang->line("global_lang_location");
-                }
-              ?></title>
+  <title>
+    <?php
+      if(!empty($article["title"])){
+        echo $article["title"];
+      }else{
+        echo $this->lang->line("global_lang_location");
+      }
+    ?>
+  </title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
   <meta name="description" content="" />
@@ -28,8 +30,6 @@
   <?php
     PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
   ?>
-
-
   <!--[if lt IE 9]>
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -51,7 +51,7 @@
     {_widget menu}
 
 
-    <!-- Title -->
+    <!-- Title 
     <div class="row hidden_row">
       <div class="twelve columns">
         <a href="" class="arrow previous tooltip_nw" title=""></a>
@@ -70,7 +70,7 @@
         <a href="" class="arrow next south" title=""></a>
       </div>
     </div>
-    <!-- End Title -->
+     End Title -->
 
 
     <!-- Gallery -->
@@ -156,15 +156,12 @@
               <ul class="side_bar" id="mainmenu">
                 {_include main_menu}
               </ul>
-
-            
-
           </div>
           <div class="right_columns">
             <?php
               if(!empty($article)){
             ?>
-            <h2><?php echo $article["title"];?></h2>
+            <h1 class="head_title"><?php echo $article["title"];?></h1 class="head_title">
               <div class="row">
                 <div class="four columns">
                   <?php
@@ -265,108 +262,7 @@
       }
     </style>
   </noscript>
-
-  <script type="text/javascript">
-      (function($){
-          $.fn.GalleryRefresh = function(){
-            // We only want these styles applied when javascript is enabled
-            $('div.content').css('display', 'block');
-            if($("div.right_columns").outerHeight(true) > $(".side_bar").height()){
-              $(".left_columns").height(($("div.right_columns").outerHeight(true)+100));
-            }
-            // Initially set opacity on thumbs and add
-            // additional styling for hover effect on thumbs
-            var onMouseOutOpacity = 1;
-            // Initialize Advanced Galleriffic Gallery
-            var gallery = $('#thumbs').galleriffic({
-              delay:                     2500,
-              numThumbs:                 15,
-              preloadAhead:              40,
-              enableTopPager:            false,
-              enableBottomPager:         false,
-              maxPagesToShow:            7,
-              imageContainerSel:         '#slideshow',
-              controlsContainerSel:      '#controls',
-              captionContainerSel:       '#caption',
-              loadingContainerSel:       '#loading',
-              renderSSControls:          false,
-              renderNavControls:         true,
-              playLinkText:              'Play Slideshow',
-              pauseLinkText:             'Pause Slideshow',
-              prevLinkText:              'รูปก่อนหน้า',
-              nextLinkText:              'รูปถัดไป',
-              nextPageLinkText:          'Next &rsaquo;',
-              prevPageLinkText:          '&lsaquo; Prev',
-              enableHistory:             false,
-              autoStart:                 false,
-              syncTransitions:           true,
-              defaultTransitionDuration: 900,
-              onSlideChange:             function(prevIndex, nextIndex) {
-                // 'this' refers to the gallery, which is an extension of $('#thumbs')
-                this.find('ul.thumbs').children()
-                  .eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
-                  .eq(nextIndex).fadeTo('fast', 0.67);
-              },
-              onPageTransitionOut:       function(callback) {
-                this.fadeTo('fast', 0.0, callback);
-              },
-              onPageTransitionIn:        function() {
-                this.fadeTo('fast', 1.0);
-              }
-            });
-            $(document).ready(function(){ var myPhotoSwipe = $("#gallery_mobile a").photoSwipe({ enableMouseWheel: false , enableKeyboard: false }); });
-            $('.thumbs > li a').hoverdir();
-          };
-      })(jQuery);
-
-  </script>
-  <script type="text/javascript">
-      function initialize(latitude, longitude) {
-        var latLng = new google.maps.LatLng(latitude,longitude);
-        var map = new google.maps.Map(document.getElementById('mapCanvas'), {
-          scrollwheel: false,
-          zoom: 13,
-          center: latLng,
-          disableDefaultUI:false,
-          streetViewControl:true,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-
-        marker = new google.maps.Marker({
-          position: latLng,
-          title: '',
-          map: map,
-          draggable: false
-        });
-      }
-      jQuery(document).ready(function($) {
-        $().GalleryRefresh();
-      });
-      $(document).ajaxComplete(function(){
-          try{
-              FB.XFBML.parse();
-              $().GalleryRefresh();
-          }catch(ex){}
-      });
-      function processAjaxData(title, respond, left, urlPath){
-         document.title = title;
-         window.history.pushState({"respond":respond,"left":left,"pageTitle":title},"", urlPath);
-      }
-      window.onpopstate = function(e){
-                                      if(e.state){
-                                        console.dir(e.state);
-                                        //$("#wrapper").html(e.state.html)
-                                        document.title = e.state.pageTitle;
-                                        $(".right_columns").hide().html(e.state.respond.bodyRedered).fadeIn(300);
-                                        $(".left_columns").hide().html(e.state.left).fadeIn(300);
-                                        $("#gallery_row").hide().html(e.state.respond.imagesRedered).fadeIn(300).css("height","");
-                                        $("a#title").html(e.state.pageTitle);
-                                        initialize(e.state.respond.data.location.latitude, e.state.respond.data.location.longitude);
-                                        FB.XFBML.parse();
-                                        $().GalleryRefresh();
-                                      }
-                                    };
-  </script>
+  <script type="text/javascript" src="<?php echo $jspath.'/home.js';?>"></script>
 {_include tracker}
 </body>
 </html>

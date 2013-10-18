@@ -1,7 +1,7 @@
 @charset "utf-8";
 @import url('fonts/fonts.css');
 body{
-	font-size: 20px;
+	font-size:62.5%; 
 	font-family: 'thaisanslite';
 	color: #4E4E4E;
 }
@@ -2668,7 +2668,7 @@ form.signin input::-webkit-input-placeholder {
 }
 
 .facebookOuter {
-	width: 100%;
+	width: auto;
 	height: 230px;
 	overflow: hidden;
 	display: block;
@@ -2676,9 +2676,9 @@ form.signin input::-webkit-input-placeholder {
 }
 .facebookInner {
 	height: 315px;
-	width: 875px;
 	overflow: hidden;
 	margin: -100px 0 0 -1px;
+	width: 100%;
 }
 
 .button_like {
@@ -2733,6 +2733,7 @@ form.signin input::-webkit-input-placeholder {
 	padding-bottom: 5px;
 	padding-top: 3px;
 	border-radius: 3px;
+	margin-bottom: 10px;
 }
 
 .button_like a:hover {
@@ -2837,4 +2838,18 @@ form.signin input::-webkit-input-placeholder {
 .box-recaptcha {
 	margin-bottom: 10px;
 	float: right;
+}
+
+.right_columns .head_title {
+	font-size: 2.2em;
+	margin-top: -8px;
+	border-bottom: 1px #C7C7C7 dashed;
+	padding-bottom: 5px;
+
+}
+.breadcrumb {
+	background: rgba(0, 0, 0, 0.6) url(../images/menu_bg.png) repeat-x;
+	border-top: 0px solid rgba(0, 0, 0, 0.8);
+	border-left: 0px solid rgba(0, 0, 0, 0.8);
+	border-right: 0px solid rgba(0, 0, 0, 0.8);
 }

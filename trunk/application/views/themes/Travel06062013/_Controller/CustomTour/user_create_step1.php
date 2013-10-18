@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="<?php echo $themepath.'/bootstrap/css/bootstrap.css';?>">
   <link rel="stylesheet" href="<?php echo $stylepath.'/foundation.css';?>">
   <link rel="stylesheet" href="<?php echo $stylepath.'/userstyle.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/customtour.css';?>">
   <link rel="stylesheet" href="<?php echo $stylepath.'/app.css';?>">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>

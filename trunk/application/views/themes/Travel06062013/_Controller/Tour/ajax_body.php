@@ -5,7 +5,7 @@
           <!-- Title -->
           <div class="row">
             <div class="twelve columns">
-              <h3 class="title_tour" id="detail">(<?php echo $tour[0]["code"];?>) <?php echo $tour[0]["name"];?>
+              <h2 class="head_title" id="detail">(<?php echo $tour[0]["code"];?>) <?php echo $tour[0]["name"];?>
               <?php
                 $user_data = $this->session->userdata("user_data");
                 if($this->session->userdata("logged_in")){
@@ -13,7 +13,7 @@
                     echo "[ <a href=\"".base_url("admin/tour/create/".$tour[0]["tour_id"])."\" target=\"_blank\">Edit</a> ]";
                   }
                 }
-              ?></h3>
+              ?></h2>
             </div>
             <div class="four columns">
               <div class="social_network">
@@ -30,7 +30,6 @@
             </div>
           </div>
           <!-- End Title -->
-          <div class="border"></div>
           <p><?php echo $tour[0]["description"];?></p>
           <h3 style="padding:4px 4px 8px 4px; border:2px solid; border-color:#FAA20A; background-color:#FAA20A; color:#FFF; text-shadow: none !important;">
             <?php echo $this->lang->line("tour_lang_program_and_itinerary");?>

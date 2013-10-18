@@ -52,14 +52,25 @@ class MY_Parser extends CI_Parser {
 
         if(count(PageUtil::getVar("keywords"))>0){
           preg_match("#\<meta name=\"keywords\" content=\"(.*)\" \/\>#i",$template,$matches);
-          $originalKeywords = $matches[1];
-          $newKeywords = $originalKeywords;
-          foreach(PageUtil::getVar("keywords") AS $keyword){
-            $newKeywords .= ", ".$keyword;
+          if(!empty($matches[1])){
+            $originalKeywords = $matches[1];
+          }else{
+            $originalKeywords = "";
           }
-          $template = str_replace($originalKeywords,$newKeywords,$template);
+          
+          $newKeywords = PageUtil::getVar("keywords");
+          if(!empty($originalKeywords)){
+            $newKeywords[] = $originalKeywords;
+          }
+          $newKeywords = implode(", ", $newKeywords);
+          if(empty($originalKeywords)){
+            $template = str_replace("name=\"keywords\" content=\"".$originalKeywords."\"","name=\"keywords\" content=\"".trim($newKeywords)."\"",$template);
+          }else{
+            $template = str_replace($originalKeywords,$newKeywords,$template);
+          }
+          
         }
-
+        unset($matches);
         if(count(PageUtil::getVar("description"))>0){
           preg_match("#\<meta name=\"description\" content=\"(.*)\" \/\>#i",$template,$matches);
           if(!empty($matches[1])){
@@ -72,12 +83,12 @@ class MY_Parser extends CI_Parser {
             $newDescriptions .= " ".$description;
           }
           if(empty($originalDescriptions)){
-            $template = str_replace("content=\"".$originalDescriptions."\"","content=\"".trim($newDescriptions)."\"",$template);
+            $template = str_replace("name=\"description\" content=\"".$originalDescriptions."\"","name=\"description\" content=\"".trim($newDescriptions)."\"",$template);
           }else{
             $template = str_replace($originalDescriptions,$newDescriptions,$template);
           }
         }
-
+        unset($matches);
         if(count(PageUtil::getVar("stylesheet"))>0||count(PageUtil::getVar("javascript"))>0){
           $newHead = "";
           if(count(PageUtil::getVar("stylesheet"))>0){

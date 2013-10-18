@@ -1,5 +1,5 @@
 <?php
-if($_SERVER["HTTP_HOST"] == "xn--o3caa7bbc1ad9fyb2h4b8byc.com"){
+if($this->lang->lang() == "th"){
 ?>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -12,7 +12,7 @@ if($_SERVER["HTTP_HOST"] == "xn--o3caa7bbc1ad9fyb2h4b8byc.com"){
 
   </script>
 <?php
-}else if($_SERVER["HTTP_HOST"] == "packagethailandtour.com"){
+}else if($this->lang->lang() == "en"){
 ?>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

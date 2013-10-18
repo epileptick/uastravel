@@ -362,6 +362,26 @@ class Tour extends MY_Controller {
     $this->_assign("article",$articleResult[0]);
     unset($where);
 
+    //Add Keyword
+    $main_keyword = Util::keywordProduce(array());
+    PageUtil::addVar("keywords",$main_keyword);
+
+    //Add Description
+    if(!empty($articleResult[0]["body_column"][0])){
+      $max_length = 160;
+      $description_length = mb_strlen(strip_tags($articleResult[0]["body_column"][0]), 'UTF-8');
+        $readmore_length = mb_strlen($this->lang->line("global_lang_readmore_description"), 'UTF-8');
+        $total_lenght = (($readmore_length + 5)+$description_length);
+        if($total_lenght > $max_length){
+          $description = (mb_substr(strip_tags($articleResult[0]["body_column"][0]),0,($max_length-($readmore_length+4))))."... ".$this->lang->line("global_lang_readmore_description");
+        }else{
+          $description = strip_tags($articleResult[0]["body_column"][0])." ".$this->lang->line("global_lang_readmore_description");
+        }
+    }else{
+      $description = $this->lang->line("global_lang_home_desc");
+    }
+    PageUtil::addVar("description",$description);
+
     if(!empty($articleResult[0]["id"])){
       $this->load->model("images_model","imagesModel");
       $where["where"]["parent_id"] = $articleResult[0]["id"];
@@ -457,6 +477,28 @@ class Tour extends MY_Controller {
     $this->_assign("article",$articleResult[0]);
     unset($where);
 
+    //Add Keyword
+    $main_keyword = $tagQuery[0]["name"];
+    $main_keyword = Util::keywordProduce(array(0=>$main_keyword));
+    PageUtil::addVar("keywords",$main_keyword);
+
+    //Add Description
+    if(!empty($articleResult[0]["body_column"][0])){
+      $max_length = 160;
+      $description_length = mb_strlen(strip_tags($articleResult[0]["body_column"][0]), 'UTF-8');
+        $readmore_length = mb_strlen($this->lang->line("global_lang_readmore_description"), 'UTF-8');
+        $total_lenght = (($readmore_length + 5)+$description_length);
+        if($total_lenght > $max_length){
+          $description = (mb_substr(strip_tags($articleResult[0]["body_column"][0]),0,($max_length-($readmore_length+4))))."... ".$this->lang->line("global_lang_readmore_description");
+        }else{
+          $description = strip_tags($articleResult[0]["body_column"][0])." ".$this->lang->line("global_lang_readmore_description");
+        }
+    }else{
+      $description = $this->lang->line("global_lang_home_desc");
+    }
+    PageUtil::addVar("description",$description);
+
+
     if(!empty($articleResult[0]["id"])){
       $this->load->model("images_model","imagesModel");
       $where["where"]["parent_id"] = $articleResult[0]["id"];
@@ -508,17 +550,16 @@ class Tour extends MY_Controller {
     $typeQuery = $this->tagModel->get($argType);
 
     if(!empty($tagQuery)  && !empty($typeQuery)){
-
       $query["tag_id"] = $tagQuery[0]["id"];
       $query["type_id"] = $typeQuery[0]["id"];
       $query["join"] = true;
-
       //Tour
       $this->load->model("tagtour_model", "tagTourModel");
       $data["tour"] = $this->tagTourModel->getRecordByType($query);
     }else{
       $data["tour"] = false;
     }
+
 
 
     $this->load->model("article_model","articleModel");
@@ -552,6 +593,28 @@ class Tour extends MY_Controller {
     $articleResult[0]["body_column"] =  explode("<hr />",preg_replace("/<p[^>]*>[\s|&nbsp;]*<\/p>/", '', $articleResult[0]["body"]));
     $this->_assign("article",$articleResult[0]);
     unset($where);
+
+    //Add Keyword
+    $main_keyword = $tagQuery[0]["name"].$typeQuery[0]["name"];
+    $main_keyword = Util::keywordProduce(array(0=>$main_keyword));
+    PageUtil::addVar("keywords",$main_keyword);
+
+    //Add Description
+    if(!empty($articleResult[0]["body_column"][0])){
+      $max_length = 160;
+      $description_length = mb_strlen(strip_tags($articleResult[0]["body_column"][0]), 'UTF-8');
+        $readmore_length = mb_strlen($this->lang->line("global_lang_readmore_description"), 'UTF-8');
+        $total_lenght = (($readmore_length + 5)+$description_length);
+        if($total_lenght > $max_length){
+          $description = (mb_substr(strip_tags($articleResult[0]["body_column"][0]),0,($max_length-($readmore_length+4))))."... ".$this->lang->line("global_lang_readmore_description");
+        }else{
+          $description = strip_tags($articleResult[0]["body_column"][0])." ".$this->lang->line("global_lang_readmore_description");
+        }
+    }else{
+      $description = $this->lang->line("global_lang_home_desc");
+    }
+    PageUtil::addVar("description",$description);
+
 
     if(!empty($articleResult[0]["id"])){
       $this->load->model("images_model","imagesModel");
@@ -730,6 +793,31 @@ class Tour extends MY_Controller {
         if(!empty($tagProvinceID)){
           break;
         }
+      }
+      if(!empty($tagProvinceID["tag_id"])){
+        $this->load->model("tag_translate_model","tagTranslateModel");
+        $whereCurrentProvince["where"]["tag_id"] = $tagProvinceID["tag_id"];
+        $currentProvince = $this->tagTranslateModel->get($whereCurrentProvince);
+        if (!empty($currentProvince)) {
+          foreach ($currentProvince as $key => $value) {
+            $currentProvince[$value["lang"]] = $value;
+          }
+        }
+        $this->_assign("currentProvince",$currentProvince["en"]["name"]);
+      }else{
+        $this->_assign("currentProvince","Thailand");
+      }
+
+      if(!empty($data["tag"])){
+        foreach ($data["tag"] as $key => $value) {
+          if($currentProvince[$this->lang->lang()]["name"] != $value["tagt_name"]){
+            $keywordList[] = $value["tagt_name"];
+          }
+        }
+        $keywordString = Util::keywordProduce($keywordList);
+        PageUtil::addVar("keywords",$keywordString);
+      }else{
+        PageUtil::addVar("keywords",$this->lang->line("global_lang_home_keyword"));
       }
 
       //Price

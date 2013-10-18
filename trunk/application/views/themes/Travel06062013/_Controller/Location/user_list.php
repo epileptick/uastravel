@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="<?php echo $this->lang->lang();?>"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="<?php echo $this->lang->lang();?>"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="<?php echo $this->lang->lang();?>"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="<?php echo $this->lang->lang();?>"> <!--<![endif]-->
 <head>
   <title><?php
                 if(!empty($article["title"])){
@@ -52,7 +52,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
     {_widget menu}
 
 
-    <!-- Title -->
+    <!-- Title 
     <div class="row">
       <div class="twelve columns">
         <a href="" class="arrow previous tooltip_nw" title=""></a>
@@ -71,7 +71,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
         <a href="" class="arrow next south" title=""></a>
       </div>
     </div>
-    <!-- End Title -->
+     End Title -->
 
 
     <!-- Gallery -->
@@ -143,6 +143,9 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
     <!-- Tour Information -->
     <div class="row">
       <div class="twelve columns ">
+        <div class="breadcrumb">
+          <span></span>
+        </div>
         <div class="white_box">
           <div class="left_columns">
               <ul class="side_bar" id="mainmenu">
@@ -230,7 +233,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
             <?php
               if(!empty($article)){
             ?>
-            <h2><?php echo $article["title"];?></h2>
+            <h1 class="head_title"><?php echo $article["title"];?></h1>
               <div class="row">
                 <div class="four columns">
                   <?php
