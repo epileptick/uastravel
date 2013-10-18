@@ -46,8 +46,6 @@ h4,h5 {
 .customtour_step1 .btn-next img {
   vertical-align: top;
 }
-
-
 .customtour_step1 .input-append .add-on, .input-prepend .add-on {
   display: inline-block;
   width: auto;
@@ -62,7 +60,6 @@ h4,h5 {
   background-color: #eeeeee;
   border: 1px solid #ccc;
 }
-
 .grand_total_price {
   font-size: 30px;
   float: right;

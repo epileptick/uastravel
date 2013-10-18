@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="<?php echo $this->lang->lang();?>"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="<?php echo $this->lang->lang();?>"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="<?php echo $this->lang->lang();?>"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="<?php echo $this->lang->lang();?>"> <!--<![endif]-->
 <head>
   <title></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="ROBOTS" content="NOODP" />
   <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="geo.placename" content="<?php echo $currentProvince;?>" />
+  <meta name="geo.position" content="<?php echo $location["latitude"];?>;<?php echo $location["longitude"];?>" />
+  <meta name="ICBM" content="<?php echo $location["latitude"];?>,<?php echo $location["longitude"];?>" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <!-- Set the viewport width to device width for mobile -->
@@ -146,76 +150,28 @@ if(!empty($location['background_image'])){
     <!-- Tour Information -->
     <div class="row">
       <div class="twelve columns ">
+        <div class="breadcrumb">
+          <span></span>
+        </div>
         <div class="white_box">
           <div class="left_columns">
-              <ul class="side_bar">
-                {_include main_menu}
-              </ul>
+            <ul class="side_bar">
+              {_include main_menu}
+            </ul>
 
-            <script type="text/javascript">
-              var loading = false;
-              $(".side_bar a.ajax-click").click(function(){
-                if(!loading){
-                  $(".right_columns").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
-                  $("#gallery_row").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
-                  $("#gallery_row").css("height","448px")
-                  link = $(this).attr("href")+"?ajax=true";
-                  linkRedirect = $(this).attr("href");
-                  $(".side_bar a").removeClass("active");
-                  $(this).addClass("active");
-                  jqxhr = $.get(link);
-                  loading = true;
-                  jqxhr.success(function(data) {
-                                  loading = false;
-                                  var json = jQuery.parseJSON(data);
-                                  $(".right_columns").hide().html(json.bodyRedered).fadeIn(300);
-                                  $("#gallery_row").hide().html(json.imagesRedered).fadeIn(300).css("height","");
-                                  $("a#title").html(json.data.location.short_title);
-                                  $("span.subtitle").html(json.data.location.subtitle);
-                                  $("body").css('background-image',"url("+json.data.location.background_image+")");
-
-                                  initialize(json.data.location.latitude, json.data.location.longitude);
-                                  processAjaxData(json.data.location.title, json, $(".left_columns").html(), linkRedirect);
-                                });
-                }else{
-                  $(".right_columns").hide().html("<p style=\"width:100px; height:18px; margin:auto; margin-top: 50%; display: block;\">We're loading...</p><br /><img style=\"width:48px; height:48px; margin:auto; display: block;\" src=\"<?php echo Util::ThemePath();?>/images/loader.gif\" border=\"0\">").fadeIn(300);
-                }
-                return false;
-              });
-              $('#mainmenu li a').click(function () {
-                var count = $(this).parent().children('ul').length;
-                if(count > 0){
-                  $(this).parent().children('ul').toggle(200);
-                  $(this).children('img').toggleClass("rotate");
-                  return false;
-                }
-              });
-              $('ul.sub-menu').each(function (item) {
-                if($(this).attr("active") == "false"){
-                  $(this).toggle(200);
-                }else{
-                  $(this).parent().find('img:first').addClass("rotate");
-                }
-              });
-            </script>
             
           </div>
           <div class="right_columns">
             <div class="row">
               <section class="article">
                 <div class="row">
-                  <div class="twelve columns">
-                    <h3 id="detail"><?php echo $location['title'];?>
+                    <h2 class="head_title"><?php echo $location['title'];?>
                       <?php
                         if($this->session->userdata("logged_in")){
                           echo "[ <a href=\"".base_url("admin/location/create/".$location['id'])."\" target=\"_blank\">Edit</a> ]";
                         }
-                      ?></h3>
-                  </div>
-                  <div class="five columns">
-                  </div>
+                      ?></h2>
                 </div>
-                <div class="border"></div>
                 <div class="row">
                   <div class="four columns">
                     <?php
@@ -270,14 +226,47 @@ if(!empty($location['background_image'])){
                   <div class="twelve columns">
                     <h3>แผนที่</h3>
                     <div class="map">
+                        <script type="text/javascript">
+                              <?php
+                                if($location["latitude"] && $location["longitude"]){
+                              ?>
+                                  var lat = <?php echo $location["latitude"];?>;
+                                  var lon = <?php echo $location["longitude"];?>;
+                              <?php
+                                }else{
+                              ?>
+                                  var lat = 7.893989;
+                                  var lon = 98.407288;
+                              <?php
+                                }
+                              ?>
+                              var map;
+                              var latLng = new google.maps.LatLng(lat, lon);
+                              function initialize() {
+                                var myOptions = {
+                                  zoom: 13,
+                                  center: latLng,
+                                  mapTypeId: google.maps.MapTypeId.ROADMAP
+                                };
+                                map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+                                marker = new google.maps.Marker({
+                                  position: latLng,
+                                  title: '<?php echo $location["title"];?>',
+                                  map: map,
+                                  draggable: false
+                                });
+                              }
+
+                              google.maps.event.addDomListener(window, 'load', initialize);
+                        </script>
                       <?php
                         if(empty($location['suggestion']) AND empty($location['route'])):
                       ?>
-                      <div id="mapCanvas" style="height:650px;"></div>
+                      <div id="map_canvas" style="height:650px;"></div>
                       <?php
                         else:
                       ?>
-                      <div id="mapCanvas" style="height:277px;"></div>
+                      <div id="map_canvas" style="height:277px;"></div>
                       <div class="border"></div>
                       <?php
                         endif;
@@ -321,7 +310,7 @@ if(!empty($location['background_image'])){
                         <div class="row">
                           <div class="twelve columns">
                             <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value["tour"]->tout_url."-".$value["tour"]->tou_id);?>">
-                              <img src="<?php echo $value["tour"]->tou_banner_image; ?>">
+                              <img src="<?php echo $value["tour"]->tou_banner_image; ?>" alt="<?php echo $value["tour"]->tout_name; ?>">
                             </a>
                           </div>
                           <div class="twelve columns">
@@ -482,119 +471,7 @@ if(!empty($location['background_image'])){
       }
     </style>
   </noscript>
-
-  <script type="text/javascript">
-      (function($){
-          $.fn.GalleryRefresh = function(){
-            // We only want these styles applied when javascript is enabled
-            $('div.content').css('display', 'block');
-            if($("div.right_columns").outerHeight(true) > $(".side_bar").height()){
-              $(".left_columns").height(($("div.right_columns").outerHeight(true)+100));
-            }
-            // Initially set opacity on thumbs and add
-            // additional styling for hover effect on thumbs
-            var onMouseOutOpacity = 1;
-            // Initialize Advanced Galleriffic Gallery
-            var gallery = $('#thumbs').galleriffic({
-              delay:                     2500,
-              numThumbs:                 15,
-              preloadAhead:              40,
-              enableTopPager:            false,
-              enableBottomPager:         false,
-              maxPagesToShow:            7,
-              imageContainerSel:         '#slideshow',
-              controlsContainerSel:      '#controls',
-              captionContainerSel:       '#caption',
-              loadingContainerSel:       '#loading',
-              renderSSControls:          false,
-              renderNavControls:         true,
-              playLinkText:              'Play Slideshow',
-              pauseLinkText:             'Pause Slideshow',
-              prevLinkText:              'รูปก่อนหน้า',
-              nextLinkText:              'รูปถัดไป',
-              nextPageLinkText:          'Next &rsaquo;',
-              prevPageLinkText:          '&lsaquo; Prev',
-              enableHistory:             false,
-              autoStart:                 false,
-              syncTransitions:           true,
-              defaultTransitionDuration: 900,
-              onSlideChange:             function(prevIndex, nextIndex) {
-                // 'this' refers to the gallery, which is an extension of $('#thumbs')
-                this.find('ul.thumbs').children()
-                  .eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
-                  .eq(nextIndex).fadeTo('fast', 0.67);
-              },
-              onPageTransitionOut:       function(callback) {
-                this.fadeTo('fast', 0.0, callback);
-              },
-              onPageTransitionIn:        function() {
-                this.fadeTo('fast', 1.0);
-              }
-            });
-            (function(window, PhotoSwipe){
-
-              document.addEventListener('DOMContentLoaded', function(){
-
-                var
-                  options = {},
-                  instance = PhotoSwipe.attach( window.document.querySelectorAll('#gallery_mobile a'), options );
-
-              }, false);
-
-
-            }(window, window.Code.PhotoSwipe));
-            $('.thumbs > li a').hoverdir();
-          };
-      })(jQuery);
-      function initialize(latitude, longitude) {
-                            var latLng = new google.maps.LatLng(latitude,longitude);
-                            var map = new google.maps.Map(document.getElementById('mapCanvas'), {
-                              scrollwheel: false,
-                              zoom: 13,
-                              center: latLng,
-                              disableDefaultUI:false,
-                              streetViewControl:true,
-                              mapTypeId: google.maps.MapTypeId.ROADMAP
-                            });
-
-                            marker = new google.maps.Marker({
-                              position: latLng,
-                              title: '',
-                              map: map,
-                              draggable: false
-                            });
-                          }
-  </script>
-  <script type="text/javascript">
-      jQuery(document).ready(function($) {
-        $().GalleryRefresh();
-        initialize(<?php echo $location["latitude"];?>, <?php echo $location["longitude"];?>)
-      });
-      $(document).ajaxComplete(function(){
-          try{
-              FB.XFBML.parse();
-              $().GalleryRefresh();
-          }catch(ex){}
-      });
-      function processAjaxData(title, respond, left, urlPath){
-         document.title = title;
-         window.history.pushState({"respond":respond,"left":left,"pageTitle":title},"", urlPath);
-      }
-      window.onpopstate = function(e){
-                                      if(e.state){
-                                        console.dir(e.state);
-                                        //$("#wrapper").html(e.state.html)
-                                        document.title = e.state.pageTitle;
-                                        $(".right_columns").hide().html(e.state.respond.bodyRedered).fadeIn(300);
-                                        $(".left_columns").hide().html(e.state.left).fadeIn(300);
-                                        $("#gallery_row").hide().html(e.state.respond.imagesRedered).fadeIn(300).css("height","");
-                                        $("a#title").html(e.state.pageTitle);
-                                        initialize(e.state.respond.data.location.latitude, e.state.respond.data.location.longitude);
-                                        FB.XFBML.parse();
-                                        $().GalleryRefresh();
-                                      }
-                                    };
-  </script>
+  <script type="text/javascript" src="<?php echo $jspath.'/home.js';?>"></script>
 {_include tracker}
 </body>
 </html>

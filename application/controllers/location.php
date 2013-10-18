@@ -267,6 +267,27 @@ class Location extends MY_Controller {
     $this->_assign("allProvince",$tagProvinceList);
 
 
+    //Add Keyword
+    $main_keyword = Util::keywordProduce();
+    PageUtil::addVar("keywords",$main_keyword);
+
+    //Add Description
+    if(!empty($articleResult[0]["body_column"][0])){
+      $max_length = 160;
+      $description_length = mb_strlen(strip_tags($articleResult[0]["body_column"][0]), 'UTF-8');
+        $readmore_length = mb_strlen($this->lang->line("global_lang_readmore_description"), 'UTF-8');
+        $total_lenght = (($readmore_length + 5)+$description_length);
+        if($total_lenght > $max_length){
+          $description = (mb_substr(strip_tags($articleResult[0]["body_column"][0]),0,($max_length-($readmore_length+4))))."... ".$this->lang->line("global_lang_readmore_description");
+        }else{
+          $description = strip_tags($articleResult[0]["body_column"][0])." ".$this->lang->line("global_lang_readmore_description");
+        }
+    }else{
+      $description = $this->lang->line("global_lang_home_desc");
+    }
+    PageUtil::addVar("description",$description);
+
+
     if(!empty($location)){
       $data["location"] =  $location;
     }else{
@@ -355,6 +376,28 @@ class Location extends MY_Controller {
     }else{
       $data["location"] = false;
     }
+
+    //Add Keyword
+    $main_keyword = $tagQuery[0]["name"];
+    $main_keyword = Util::keywordProduce(array(0=>$main_keyword));
+    PageUtil::addVar("keywords",$main_keyword);
+
+    //Add Description
+    if(!empty($articleResult[0]["body_column"][0])){
+      $max_length = 160;
+      $description_length = mb_strlen(strip_tags($articleResult[0]["body_column"][0]), 'UTF-8');
+        $readmore_length = mb_strlen($this->lang->line("global_lang_readmore_description"), 'UTF-8');
+        $total_lenght = (($readmore_length + 5)+$description_length);
+        if($total_lenght > $max_length){
+          $description = (mb_substr(strip_tags($articleResult[0]["body_column"][0]),0,($max_length-($readmore_length+4))))."... ".$this->lang->line("global_lang_readmore_description");
+        }else{
+          $description = strip_tags($articleResult[0]["body_column"][0])." ".$this->lang->line("global_lang_readmore_description");
+        }
+    }else{
+      $description = $this->lang->line("global_lang_home_desc");
+    }
+    PageUtil::addVar("description",$description);
+
 
     $data["caconical"] = base_url($this->lang->line("url_lang_location")."/".$tag);
     $this->_assign("main_menu",Menu::main_menu());
@@ -590,7 +633,6 @@ class Location extends MY_Controller {
   }
 
   function user_view($tag= FALSE, $id=FALSE){
-
     if($id){
       $this->load->model("tag_model", "tagModel");
       $this->load->model("images_model", "imagesModel");
@@ -615,7 +657,6 @@ class Location extends MY_Controller {
       $query["per_page"] = 5;
       $query["offset"] = 0;
       $locationData["related"] = $this->locationModel->getRecordRelated($query);
-
 
       //Prepare for three column
       if(preg_match("#<blockquote>(.*)</blockquote>#smiU", $locationData["location"]['body'],$matches)){
@@ -648,16 +689,44 @@ class Location extends MY_Controller {
         }
       }
 
-      //Set Title and Description
+      if(!empty($tagProvinceID["tag_id"])){
+        $this->load->model("tag_translate_model","tagTranslateModel");
+        $whereCurrentProvince["where"]["tag_id"] = $tagProvinceID["tag_id"];
+        $currentProvince = $this->tagTranslateModel->get($whereCurrentProvince);
+        if (!empty($currentProvince)) {
+          foreach ($currentProvince as $key => $value) {
+            $currentProvince[$value["lang"]] = $value;
+          }
+        }
+        $this->_assign("currentProvince",$currentProvince["en"]["name"]);
+      }else{
+        $this->_assign("currentProvince","Thailand");
+      }
+
+      if(!empty($locationData["tag"])){
+        foreach ($locationData["tag"] as $key => $value) {
+          if($currentProvince[$this->lang->lang()]["name"] != $value["name"]){
+            $keywordList[] = $value["name"];
+          }
+        }
+        $keywordString = Util::keywordProduce($keywordList);
+        PageUtil::addVar("keywords",$keywordString);
+      }else{
+        PageUtil::addVar("keywords",$this->lang->line("global_lang_home_keyword"));
+      }
+
+      //Set Title
       if(!empty($locationData["location"]["title"])){
         PageUtil::addVar("title",$locationData["location"]["title"]);
       }else{
         PageUtil::addVar("title",$locationData["location"]["short_title"]);
       }
 
-      //Set Title and Description
-      if(!empty($locationData["location"]["short_description"])){
-        PageUtil::addVar("description",$locationData["location"]["short_description"]);
+      //Set  Description
+      if(!empty($locationData["location"]["subtitle"])){
+        $max_description = 160;
+        $description_length = mb_strlen($locationData["location"]["subtitle"]);
+        PageUtil::addVar("description",$locationData["location"]["subtitle"]);
       }
 
       if(!empty($locationData["location"]["short_title"])){
@@ -669,10 +738,8 @@ class Location extends MY_Controller {
       if(!empty($locationData)){
         if($this->input->get("ajax")){
           $ajaxReturn["imagesRedered"] = $this->_fetch("ajax_images", $locationData, TRUE, TRUE);
-
           $ajaxReturn["bodyRedered"] = $this->_fetch("ajax_body", $locationData, TRUE, TRUE);
           $ajaxReturn["data"] = $locationData;
-
           echo json_encode($ajaxReturn);exit;
         }else{
           $this->_fetch("user_view", $locationData, FALSE, TRUE);
@@ -680,8 +747,6 @@ class Location extends MY_Controller {
       }else{
         show_404();
       }
-
-
     }
   }
 

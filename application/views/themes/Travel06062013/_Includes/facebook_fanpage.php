@@ -3,7 +3,7 @@
     <div class="twelve columns">
       <div class="box_white_in_columns">
         <div class="button_like">
-          <img src="https://graph.facebook.com/UasTravelThailand/picture">
+          <img src="https://graph.facebook.com/UasTravelThailand/picture" alt="Uastravel.com Fanpage">
           <h3>Uastravel.com Fanpage</h3>
           <div class="fb-like" data-href="https://www.facebook.com/UasTravelThailand" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="verdana"></div>
           <a href="https://www.facebook.com/UasTravelThailand" rel="nofollow" target="_blank">เข้าสู่หน้าแฟนเพจ</a>

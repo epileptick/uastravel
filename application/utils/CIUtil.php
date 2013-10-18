@@ -164,6 +164,28 @@ class Util {
 
 		return $result[0]["name"];
 	}
+
+	function keywordProduce($keywordList = Array()){
+
+		$keywordString = implode(", ", $keywordList);
+    $main_keyword = $this->lang->line("global_lang_home_keyword");
+    $main_keyword = explode(",", $main_keyword);
+    foreach ($main_keyword as $key => $value) {
+      if(mb_strlen($keywordString,"UTF-8") > 150){
+        break;
+      }
+      if(mb_strlen(trim($value),"UTF-8") > (150 - mb_strlen($keywordString,"UTF-8"))){
+        continue;
+      }
+      if(count($keywordList) >= 10){
+      	break;
+      }
+      $main_keyword[$key] = trim($value);
+      $keywordList[] = $main_keyword[$key];
+      $keywordString = implode(", ", $keywordList);
+    }
+    return $keywordString;
+	}
 }
 
 ?>

@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="<?php echo $this->lang->lang();?>"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="<?php echo $this->lang->lang();?>"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="<?php echo $this->lang->lang();?>"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="<?php echo $this->lang->lang();?>"> <!--<![endif]-->
 <head>
   <title><?php echo $article["title"];?></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="ROBOTS" content="NOODP" />
-  <meta name="description" content="<?php echo $this->lang->line("global_lang_home_desc");?>" />
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  {_include meta}
+  <meta name="description" content="<?php echo $this->lang->line("global_lang_home_desc");?>" />
+  <meta name="keywords" content="<?php echo $this->lang->line("global_lang_home_keyword");?>" />
+  <meta name="geo.placename" content="Thailand" />
+  <meta name="geo.position" content="15.87003;100.99254" />
+  <meta name="geo.region" content="THA" />
+  <meta name="ICBM" content="15.87003,100.99254" />
+
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
   <link rel="stylesheet" href="<?php echo $themepath.'/bootstrap/css/bootstrap.css';?>">
@@ -36,7 +40,6 @@
         timerBarStroke: 0,
         timerColor: "#FFF",
         timerPosition: "bottom-right"
-
       });
     });
   </script>
@@ -55,9 +58,7 @@
   <?php 
   endif;
   ?>
-
 </head>
-
   <body style="background: #ededed url(<?php echo $imagepath.'/bg5.jpg';?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
     {_include user_tab}
 
@@ -73,7 +74,6 @@
             <div class="iview-caption caption1" data-width="550" data-height="50"  data-x="20" data-y="10" data-transition="wipeRight"><span class="caption-text-1">ดูโชว์ความเป็นไทยแบบอลังการ พร้อมรับประทานอาหารค่ำ ได้ที่ภูเก็ตแฟนตาซี</span></div>
             <div class="iview-caption caption3" data-width="310" data-height="55"  data-x="20" data-y="70" data-transition="wipeLeft"><span class="caption-text-2">ราคาพิเศษ! โทร 082-812-1146</span></div>
           </div>
-
           <div data-iview:thumbnail="<?php echo $imagepath;?>/banner/banner-02.jpg" data-iview:image="<?php echo $imagepath;?>/banner/banner-02.jpg">
             <div class="iview-caption caption1" data-width="330" data-height="130"  data-x="550" data-y="10" data-transition="wipeRight"><span class="caption-text-1">หาดกะตะคือชายหาดที่มีชื่อเสียงเป็นที่นิยมของนักท่องเที่ยว ทั้งชาวไทยและชาวต่างชาติ เพราะขึ้นชื่อในเรื่องของความขาวสะอาด และความละเอียดของเม็ดทราย</span></div>
           </div>
@@ -97,17 +97,16 @@
     <div class="row">
       <div class="twelve columns ">
         <div class="breadcrumb">
-          <span>Home / Tour / Phuket / 3 วัน 2 คืน </span>
+          <span></span>
         </div>
         <div class="white_box">
-          
           <div class="left_columns">
             <ul class="side_bar" id="mainmenu">
               {_include main_menu}
             </ul>
           </div>
           <div class="right_columns" id="detail">
-            <h2><?php echo $article["title"];?></h2>
+            <h1 class="head_title"><?php echo $article["title"];?></h1>
               <div class="row">
                 <div class="four columns">
                   <?php
@@ -177,12 +176,7 @@
   <script type="text/javascript" src="<?php echo $themepath.'/js/code.photoswipe/code.photoswipe-3.0.5.min.js';?>"></script>
   <!--Hover effect-->
   <script type="text/javascript" src="<?php echo $themepath.'/js/DirectionAwareHoverEffect/js/jquery.hoverdir.js';?>"></script>
-
-  <!-- We only want the thunbnails to display when javascript is disabled -->
-  <script type="text/javascript">
-    document.write('<style>.noscript { display: none; }</style>');
-  </script>
-
+  <script type="text/javascript" src="<?php echo $jspath.'/home.js';?>"></script>
   <noscript>
     <style>
       .thumbs > li  a div {
@@ -199,117 +193,6 @@
       }
     </style>
   </noscript>
-
-  <script type="text/javascript">
-      (function($){
-          $.fn.GalleryRefresh = function(){
-            // We only want these styles applied when javascript is enabled
-            $('div.content').css('display', 'block');
-            // Initially set opacity on thumbs and add
-            // additional styling for hover effect on thumbs
-            var onMouseOutOpacity = 1;
-            // Initialize Advanced Galleriffic Gallery
-            var gallery = $('#thumbs').galleriffic({
-              delay:                     2500,
-              numThumbs:                 15,
-              preloadAhead:              40,
-              enableTopPager:            false,
-              enableBottomPager:         false,
-              maxPagesToShow:            7,
-              imageContainerSel:         '#slideshow',
-              controlsContainerSel:      '#controls',
-              captionContainerSel:       '#caption',
-              loadingContainerSel:       '#loading',
-              renderSSControls:          false,
-              renderNavControls:         true,
-              playLinkText:              'Play Slideshow',
-              pauseLinkText:             'Pause Slideshow',
-              prevLinkText:              'รูปก่อนหน้า',
-              nextLinkText:              'รูปถัดไป',
-              nextPageLinkText:          'Next &rsaquo;',
-              prevPageLinkText:          '&lsaquo; Prev',
-              enableHistory:             false,
-              autoStart:                 false,
-              syncTransitions:           true,
-              defaultTransitionDuration: 900,
-              onSlideChange:             function(prevIndex, nextIndex) {
-                // 'this' refers to the gallery, which is an extension of $('#thumbs')
-                this.find('ul.thumbs').children()
-                  .eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
-                  .eq(nextIndex).fadeTo('fast', 0.67);
-              },
-              onPageTransitionOut:       function(callback) {
-                this.fadeTo('fast', 0.0, callback);
-              },
-              onPageTransitionIn:        function() {
-                this.fadeTo('fast', 1.0);
-              }
-            });
-            var myPhotoSwipe = $("#gallery_mobile a").photoSwipe({ enableMouseWheel: false , enableKeyboard: false });
-            $('.thumbs > li a').hoverdir();
-          };
-      })(jQuery);
-
-      function initialize(latitude, longitude) {
-        var latLng = new google.maps.LatLng(latitude,longitude);
-        var map = new google.maps.Map(document.getElementById('mapCanvas'), {
-          scrollwheel: false,
-          zoom: 13,
-          center: latLng,
-          disableDefaultUI:false,
-          streetViewControl:true,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-
-        marker = new google.maps.Marker({
-          position: latLng,
-          title: '',
-          map: map,
-          draggable: false
-        });
-      }
-
-      jQuery(document).ready(function($) {
-        if($("#gallery_row section").length > 0){
-          $().GalleryRefresh();
-        }
-      });
-      $(document).ajaxComplete(function(){
-          try{
-              FB.XFBML.parse();
-              if($("#gallery_row section").length > 0){
-                $().GalleryRefresh();
-              }
-          }catch(ex){}
-      });
-      function processAjaxData(title, respond, left, urlPath){
-         document.title = title;
-         window.history.pushState({"respond":respond,"left":left,"pageTitle":title},"", urlPath);
-      }
-      window.onpopstate = function(e){
-                                      if(e.state){
-                                        document.title = e.state.pageTitle;
-                                        $(".right_columns").hide().html(e.state.respond.bodyRedered).fadeIn(300);
-                                        $(".left_columns").hide().html(e.state.left).fadeIn(300);
-                                        $("#gallery_row").hide().html(e.state.respond.imagesRedered).fadeIn(300).css("height","");
-                                        $("a#title").html(e.state.pageTitle);
-                                        if(e.state.respond.data.location != undefined){
-                                          initialize(e.state.respond.data.location.latitude, e.state.respond.data.location.longitude);
-                                        }
-                                        FB.XFBML.parse();
-                                        if($("#gallery_row section").length > 0){
-                                          $().GalleryRefresh();
-                                        }
-                                        $('ul.sub-menu').each(function (item) {
-                                          if($(this).attr("active") == "false"){
-                                            $(this).toggle(200);
-                                          }else{
-                                            $(this).parent().find('img:first').addClass("rotate");
-                                          }
-                                        });
-                                      }
-                                    };
-  </script>
 {_include tracker}
 
 </body>

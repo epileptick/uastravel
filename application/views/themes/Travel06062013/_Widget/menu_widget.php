@@ -5,13 +5,12 @@
       <ul>
         <li class="name">
           <a href="<?php echo base_url();?>">
-            <img src="<?php echo $themepath.'/images/logo.png';?>">
+            <img src="<?php echo $themepath.'/images/logo.png';?>" alt="<?php echo $this->lang->line("global_lang_home_desc");?>">
           </a>
         </li>
         <li class="toggle-topbar"><a href="#"></a></li>
       </ul>
-
-
+      
       <section>
         <ul class="right">
           <li><a href="<?php echo base_url($this->lang->line("tour_lang_location"));?>"><?php echo $this->lang->line("global_lang_location"); ?></a></li>
