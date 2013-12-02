@@ -41,14 +41,17 @@ class Menu {
       $i++;
     }
     foreach ($result as $resultKey => $resultValue) {
+      $finalResult[$resultValue["tag_id"]] = $resultValue;
+      $finalResult[$resultValue["tag_id"]]["full_url"] = $resultValue["url"];
       foreach ($menuArray as $menuKey => $menuValue) {
         if($resultValue["tag_id"] == $menuValue["parent_id"]){
-          $result[$resultKey]["child"][] = $menuValue;
+          $menuValue["full_url"] = $resultValue["url"]."/".$menuValue["url"];
+          $finalResult[$resultValue["tag_id"]]["child"][$menuValue["tag_id"]] = $menuValue;
         }
       }
     }
 
-    return $result;
+    return $finalResult;
   }
 }
 

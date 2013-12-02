@@ -8,109 +8,93 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
-  <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/foundation.css');?>">
-  <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/style.css');?>">
-  <link rel="stylesheet" href="<?php echo base_url('themes/Travel/tour/stylesheets/app.css');?>">
-  <link rel="stylesheet" href="<?php echo base_url('themes/Travel/style/customtour.css');?>">
-  <script src="<?php echo base_url('themes/Travel/tour/javascripts/modernizr.foundation.js');?>"></script>
+  <link rel="stylesheet" href="<?php echo $themepath.'/bootstrap/css/bootstrap.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/foundation.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/userstyle.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/app.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/customtour.css';?>">
+  <script src="<?php echo $jspath.'/modernizr.foundation.js';?>"></script>
   <!--[if lt IE 9]>
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 
-  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-
-
-  <script src="<?php echo base_url('themes/Travel/tour/javascripts/foundation.min.js'); ?>"></script>
+  <script src="<?php echo $jspath;?>/jquery-1.9.1.js"></script>
+  <script src="<?php echo $jspath.'/foundation.min.js'; ?>"></script>
+  
   <!-- Initialize JS Plugins -->
-  <script src="<?php echo base_url('themes/Travel/tour/javascripts/app.js'); ?>"></script>
-  <!-- To top scrollbar  -->
-  <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/easing.js'); ?>" type="text/javascript"></script>
+  <script src="<?php echo $jspath;?>/app.js"></script>
   <!-- UItoTop plugin -->
-  <script src="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/js/jquery.ui.totop.js'); ?>" type="text/javascript"></script>
-  <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php echo base_url('themes/Travel/tour/javascripts/top-scrollbar/css/ui.totop.css'); ?>" />
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/powertip/jquery.powertip.js'); ?>"></script>
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url('themes/Travel/tour/javascripts/powertip/jquery.powertip.css'); ?>" />
+  <script src="<?php echo $jspath;?>/jquery.ui.totop.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php echo $jspath;?>/top-scrollbar/css/ui.totop.css" />
+  <script type="text/javascript" src="<?php echo $jspath;?>/powertip/jquery.powertip.js"></script>
+  <link rel="stylesheet" type="text/css" href="<?php echo $jspath;?>/powertip/jquery.powertip.css" />
 
-  <script src="<?php echo base_url('themes/Travel/tour/javascripts/jquery.nanoscroller.min.js'); ?>"></script>
-
-
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/selectik-master/js/jquery.mousewheel.js'); ?>"></script>
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/selectik-master/js/jquery.selectik.js'); ?>"></script>
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/jquery.easytabs.min.js'); ?>"></script>
-  <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/alertify.js'); ?>"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <script type="text/javascript" src="<?php echo base_url('themes/Travel/tour/javascripts/jquery.selectable.min.js'); ?>"></script>
-  <script>
-  // Tab
-  $(document).ready(function() {
-    $('.tabs').easytabs({
-      animate : true,
-      updateHash : false,
-      animationSpeed :'normal',
-      defaultTab: "li:last-child"
-    });
-  });
-
-</script>
+  <script src="<?php echo $jspath;?>/jquery.nanoscroller.min.js"></script>
+  <script type="text/javascript" src="<?php echo $jspath;?>/selectik-master/js/jquery.mousewheel.js"></script>
+  <script type="text/javascript" src="<?php echo $jspath;?>/selectik-master/js/jquery.selectik.js"></script>
+  <script type="text/javascript" src="<?php echo $jspath;?>/jquery.easytabs.min.js"></script>
+  <script type="text/javascript" src="<?php echo $jspath;?>/alertify.js"></script>
+  <script src="<?php echo $jspath;?>/jquery-ui.js"></script>
+  <script type="text/javascript" src="<?php echo $jspath;?>/jquery.selectable.min.js"></script>
+  <script type="text/javascript" src="<?php echo $jspath;?>/jQuery-slimScroll/jquery.slimscroll.js"></script>
+  <script src="<?php echo $jspath;?>/jquery.validate.js"></script>
 </head>
-<body style="background: #ededed url(<?php echo base_url('themes/Travel/tour/images/bg1.jpg');?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
+
+<body style="background: #ededed url(<?php echo $imagepath.'/bg5.jpg';?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
   <div class="overly-bg"></div>
   <div id="wrapper">
     <!-- Menu -->
-    <div class="row">
-      <div class="twelve columns">
-        <nav class="top-bar">
-          <ul>
-            <li class="name"><a href=""> <img src="<?php echo base_url('themes/Travel/tour/images/logo.png');?>"></a></li>
-            <li class="toggle-topbar"><a href="#"></a></li>
-          </ul>
-          <section>
-            <ul class="right">
-              <li><a href="http://uastravel.com/demo/">หน้าแรก</a></li>
-              <li><a class="active" href="#">แหล่งท่องเที่ยว</a></li>
-              <li><a href="#">แพ๊คเกจทัวร์</a></li>
-              <li><a href="#">เกี่ยวกับเรา</a></li>
-              <li><a href="#">ติดต่อเรา</a></li>
-              <li><a href="#">โปรโมชั่น</a></li>
-            </ul>
-          </section>
-        </nav>
-      </div>
-    </div>
+    {_widget menu}
     <!-- End Menu -->
     <br/><br/><br/><br/><br/>
 
-    <form name="package_customize"
-          id="form_package_customize"
-          action="<?php echo base_url('customtour/add');?>"
-          method="post"
-    >
+
 
     <div class="row">
       <section class="article darg_packet">
         <div class="row">
           <div class="eight mobile-three columns">
+            <form name="package_customize"
+                  id="form_package_customize"
+                  action="<?php echo base_url('customtour/add');?>"
+                  method="post"
+            >
+            <?php
+            foreach ($session as $key => $value) {
+              ?>
+              <input type="hidden" name="customtour[<?php echo $key;?>]" value="<?php echo $value;?>">
+              <?php
+            }
+            ?>
             <div class="packet">
               <h3>จัดทัวร์ </h3>
               <p class="action_button top_add_date">
-                <a class="button add_date">เพิ่มวัน</a>
+                <a class="btn add_date">เพิ่มวัน</a>
               </p>
               <input type="text" placeholder="ชื่อทัวร์" name="packageName">
-              <div class="packet_item" number="1">
-                <div class="sticker_date">วันที่ 1</div>
-                <ul class="connected list no1" >
-                </ul>
-                <a class="close tooltip_ne" title="ลบ"></a>
-              </div>
-
+              <?php
+              if(!empty($session["totalday"])){
+                for($i=1;$i<=$session["totalday"];$i++) {
+                  ?>
+                    <div class="packet_item" number="<?php echo $i;?>">
+                      <div class="sticker_date">วันที่ <?php echo $i;?></div>
+                      <ul class="connected list no1">
+                      </ul>
+                      <a class="close tooltip_ne" title="ลบ"></a>
+                    </div>
+                  <?php
+                }
+              }
+              
+              ?>
 
             </div>
             <div class="abstract">
               <div class="row">
                 <div class="six columns">
                   <h4>สรุปข้อมูลทัวร์</h4>
-                  <ul class="square">
+                  <ul class="summary_section">
                     <li>
                       จำนวนวัน <span id="summary_day">1</span> วัน /
                       <span id="summary_night">0</span> คืน
@@ -119,219 +103,79 @@
                 </div>
                 <div class="six columns">
                   <h4>สรุปราคา</h4>
-                  <ul class="square">
-                    <li>
-                      ราคาผู้ใหญ่ <span id="summary_adult_price">0</span> บาท
-                    </li>
-                    <li>
-                      ราคาเด็ก <span id="summary_child_price">0</span> บาท
-                    </li>
+                  <ul class="summary_section">
+                    <?php
+                    if(!empty($session["adult"])){
+                      ?>
+                      <li>
+                        ราคาสำหรับผู้ใหญ่ <?php echo $session["adult"];?> ท่าน <br/>รวมทั้งสิ้น <span id="summary_adult_price">0</span> บาท
+                      </li>
+                      <?php
+                    }
+                    ?>
+                    <?php
+                    if(!empty($session["child"])){
+                      ?>
+                      <li>
+                        ราคาสำหรับเด็ก <?php echo $session["child"];?> ท่าน <br/>รวมทั้งสิ้น <span id="summary_child_price">0</span> บาท
+                      </li>
+                      <?php
+                    }
+                    ?>
+                    
                   </ul>
-                  <!-- p class="totol_price">ราคารวม 6,000 บาท</p -->
+                  <h4>ราคารวมทั้งสิ้น <span id="summary_price">0</span> บาท</h4>
                 </div>
               </div>
             </div>
             <p class="action_button">
-
-                <a class="button clear_date">เคลียทั้งหมด</a>
-                <a class="button add_date">เพิ่มวัน</a>
+                <a class="btn btn-danger" href="<?php echo base_url("customtour/create/step2") ;?>">ย้อนกลับ</a>
+                <a class="btn clear_date">เคลียทั้งหมด</a>
+                <a class="btn add_date">เพิ่มวัน</a>
 
                 <!-- Booking data -->
                 <input type="hidden" name="id" value=""></input>
-                <input class="button"  type="submit" value="จัดทัวร์">
-              </form>
+                <input class="btn btn-success"  type="submit" value="จัดทัวร์">
+              
             </p>
+            </form>
           </div>
+
           <div class="four mobile-one columns sticky_content">
           <div class="tabs">
-            <ul class='etabs'>
-               <li><a href="#tabs3">ร้านอาหาร</a></li>
-               <li><a href="#tabs3">การเดินทาง</a></li>
-               <li><a href="#tabs2">ที่พัก</a></li>
-               <li><a href="#tabs1">แพ็กเก็จทัวร์</a></li>
-            </ul>
             <div class='tabs-container'>
-
-
-
               <!-- Tour -->
               <div id="tabs1">
-
-                <input type="hidden" id="example1-serialized" class="span6"></textarea>
-                <div class="search_package">
-                  <div class="selects">
-                    <div class="select-block">
-                      <h4>จำนวนวันที่ต้องการ</h4>
-                      <select name='day_tour' id='day_tour'>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                     </select>
-
-                      <h4>จังหวัด</h4>
-                      <select name='secondtag_tour' id='secondtag_tour'>
-                        <?php
-                          $count = 0;
-                          $secondtag_id = 0;
-                          foreach ($tours["filter"]["secondtag"] as $key => $value) {
-                        ?>
-                            <option value="<?php echo $value["tag_id"];?>">
-                              <?php echo $value["name"];?>
-                            </option>
-                        <?php
-                          }
-                        ?>
-                     </select>
-                    <h4>แพ็กเก็จทัวร์</h4>
-                      <form >
-                      <select name='firsttag_tour' id='firsttag_tour'>
-                        <?php
-                          $count = 0;
-                          $firttag_id = 0;
-                          foreach ($tours["filter"]["firsttag"] as $key => $value) {
-                            if($count == 0){
-                              $firttag_id = $value["tag_id"];
-                            }
-                        ?>
-                          <option value="<?php echo $value["tag_id"];?>">
-                            <?php echo $value["name"];?>
-                          </option>
-                        <?php
-                            $count++;
-                          }
-                        ?>
-                     </select>
-                     </form>
-                   </div>
-                  </div>
-
-                  <h4>ตัวกรอง</h4>
-                  <div class="tag" id="thirdtag_tour">
-                    <form class="search_thirdtag">
+                <h4 id="breadcrumb_menu"><?php echo $this->lang->line("global_lang_tour");?></h4>
+                <div class="tag" id="menuList">
+                  <select name='province_tag_id' id='province_tag_id'>
+                    <option value="0" selected data-tag-id="0">ทุกจังหวัด</option>
                     <?php
-                      foreach ($tours["filter"]["thirdtag"] as $key => $value) {
+                      foreach ($menuList as $key => $value) {
                     ?>
-                        <span class="btn" id="btn_tag">
+                        <option value="<?php echo $value["tag_id"];?>" data-full-url="<?php echo $value["full_url"];?>" data-tag-id="<?php echo $value["tag_id"];?>" data-parent-id="<?php echo $value["parent_id"];?>">
                           <?php echo $value["name"];?>
-                          <input  type="checkbox"
-                                  class="hide"
-                                  name="thirdtag[]"
-                                  value="<?php echo $value["tag_id"];?>"
-                                  id="thirdtag_checked"
-                            >
-                        </span>
+                        </option>
                     <?php
                       }
                     ?>
-                    </form>
-                  </div>
-                  <div class="input_search">
-                    <input type="text" placeholder="Search...">
-                    <input type="submit"class="button_search" value="ค้นหา">
-                    <div class="clearfix"></div>
-                  </div>
+                 </select>
+
                 </div>
+                <div class="tag" id="groupList">
+                  <select name='group_tag_id' id='group_tag_id'>
+                        <option value="0" selected data-tag-id="0">ประเภททัวร์</option>
+                  </select>
+                </div>
+
+                <h4 class="search_package">รายการทัวร์</h4>
                 <div class="scrollbar">
                   <div class="nano">
                     <div class="content">
-                      <form>
                       <ul class="connected list no2" id="data">
-                        <?php
-                          //print_r($tours); exit;
-                          if(!empty($tours["tour"]))
-                          foreach ($tours["tour"] as $key => $value) {
-                            if(!empty($value['price'])){
-                        ?>
-
-                          <li class="sortable_item">
-                            <div class="list_packet">
-                              <div class="row">
-                                <div class="twelve columns">
-                                  <a href="<?php echo base_url("tour/".$value["tour"]["tout_url"]."-".$value["tour"]["tour_id"]); ?>" target="_blank">
-                                    <img src="<?php echo $value["tour"]["banner_image"]; ?>">
-                                  </a>
-                                </div>
-                                <div class="twelve columns">
-                                  <div class="row">
-                                    <div class="nine columns">
-                                      <div class="title_tour">
-                                        <h4>
-                                          <a href=""><?php echo $value['tour']["tout_name"]; ?></a>
-                                          <?php
-                                            if($tours["filter"]["defaulttag_id"] == 85){
-                                              $day = 0.5;
-                                            }else if($tours["filter"]["defaulttag_id"] == 95){
-                                              $day = 1;
-                                            }else if($tours["filter"]["defaulttag_id"] == 166){
-                                              $day = 2;
-                                            }else if($tours["filter"]["defaulttag_id"] == 163){
-                                              $day = 3;
-                                            }
-                                          ?>
-                                          <input  class="item_property"
-                                                  type="hidden"
-                                                  id="packagedata"
-                                                  name="packagedata[]"
-                                                  value="<?php echo $value['tour']["tour_id"]; ?>"
-                                                  packagetype="tour"
-                                                  packageid="<?php echo $value['tour']["tour_id"]; ?>"
-                                                  title="<?php echo $value['tour']["tout_name"]; ?>"
-                                                  adultprice="<?php echo $value['price']->pri_sale_adult_price; ?>"
-                                                  childprice="<?php echo $value['price']->pri_sale_child_price; ?>"
-                                                  discountadultprice="<?php echo $value['price']->pri_discount_adult_price; ?>"
-                                                  discountchildprice="<?php echo $value['price']->pri_discount_child_price; ?>"
-                                                  tag="<?php echo $tours["filter"]["defaulttag"]; ?>"
-                                                  tagid="<?php echo $tours["filter"]["defaulttag_id"]; ?>"
-                                                  totalday="<?php echo $day; ?>"
-                                          />
-                                        </h4>
-                                      </div>
-                                    </div>
-                                    <div class="three columns">
-                                      <div class="rating three_star"></div>
-                                      <div class="clearfix"></div>
-                                    </div>
-                                  </div>
-                                  <div class="border"></div>
-                                </div>
-                                <div class="twelve columns">
-                                  <div class="icon time tooltip_se" title="เวลา">
-                                    <!-- <?php echo $value['tour']->tou_start_time1; ?> - <?php echo $value['tour']->tou_end_time1; ?> -->
-                                    08.00 - 15.30
-                                  </div>
-                                  <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด">
-                                    <a href="#" data-reveal-id="myTourModal_<?php echo $value['tour']["tour_id"]; ?>">รายละเอียด</a>
-                                  </div>
-                                  <div class="price"><span><?php echo $value['price']->pri_sale_adult_price; ?> B</span></div>
-                                </div>
-                              </div>
-                            </div>
-                            <a class="delete tooltip_ne" title="ลบ" packageid="<?php echo $value['tour']["tour_id"]; ?>"></a>
-                            <a class="add tooltip_ne" title="เพิ่ม"></a>
-                          </li>
-
-                        <?php
-                            }
-                        ?>
-
-                        <?php
-                          }
-                        ?>
+                        <h4 class="alert alert-info text-center">โปรดเลือกจังหวัดและประเภททัวร์</h4>
                       <div class="clearfix"></div>
                       </ul>
-                    </form>
                     </div>
                   </div>
                 </div>
@@ -339,552 +183,6 @@
               </div>
               <!-- END tabs1 -->
               <!-- End Tour-->
-
-
-
-              <!-- Hotel -->
-              <div id="tabs2">
-                <h3>ที่พัก</h3>
-                <form class="search_package">
-                  <div class="selects">
-                    <div class="select-block">
-                      <select id="firsttag_hotel" name="firsttag_hotel">
-                          <option value="ภูเก็ต">ภูเก็ต</option>
-                          <option value="กระบี่">กระบี่</option>
-                          <option value="พังงา">พังงา</option>
-                          <option value="ตรัง">ตรัง</option>
-                          <option value="ภูเก็ต">ภูเก็ต</option>
-                          <option value="กระบี่">กระบี่</option>
-                          <option value="พังงา">พังงา</option>
-                          <option value="ตรัง">ตรัง</option>
-                          <option value="ภูเก็ต">ภูเก็ต</option>
-                          <option value="กระบี่">กระบี่</option>
-                          <option value="พังงา">พังงา</option>
-                          <option value="ตรัง">ตรัง</option>
-                     </select>
-                   </div>
-                  </div>
-
-                  <div class="tag">
-                    <span class="btn">
-                      กะตะ
-                      <input type="checkbox" class="hide" name="example1[]" value="Hey">
-                    </span>
-                    <span class="btn">
-                      ในหาน
-                      <input type="checkbox" class="hide" name="example1[]" value="Hey">
-                    </span>
-                    <span class="btn">
-                      กะรน
-                      <input type="checkbox" class="hide" name="example1[]" value="Click">
-                    </span>
-                    <span class="btn">
-                      ป่าตอง
-                      <input type="checkbox" class="hide" name="example1[]" value="Should">
-                    </span>
-                  </div>
-                  <div class="input_search">
-                    <input type="text" placeholder="Search...">
-                    <input type="submit"class="button_search" value="ค้นหา">
-                    <div class="clearfix"></div>
-                  </div>
-                </form>
-                <div class="scrollbar">
-                  <div class="nano">
-                    <div class="content">
-                      <ul class="connected list no2">
-
-                        <?php
-                            //print_r($hotels); exit;
-                          if(!empty($hotels)){
-                            foreach ($hotels["hotel"] as $key => $value) {
-                              //print_r($value); exit;
-                              if(!empty($value['price'])){
-                        ?>
-                              <li>
-                                <div class="list_packet">
-                                <div class="ribbon_hotel"></div>
-                                  <div class="row">
-                                    <div class="twelve columns">
-                                      <a href="<?php echo base_url("hotel/".$value["hotel"]->hott_url."-".$value["hotel"]->hot_id); ?>" target="_blank">
-                                        <img src="<?php echo $value["hotel"]->hot_banner_image; ?>">
-                                      </a>
-                                    </div>
-                                    <div class="twelve columns">
-                                      <div class="row">
-                                        <div class="nine columns">
-                                          <div class="title_tour">
-                                            <h4><a href=""><?php echo $value['hotel']->hott_name; ?></a></h4>
-                                            <input  type="hidden"
-                                                    id="packagedata"
-                                                    packagetype="hotel"
-                                                    packageid="<?php echo $value['hotel']->hott_id; ?>"
-                                                    title="<?php echo $value['hotel']->hott_name; ?>"
-                                                    adultprice="<?php echo $value['price']->prh_sale_room_price; ?>"
-                                                    childprice="<?php echo $value['price']->prh_sale_room_price; ?>"
-                                                    discountadultprice="<?php echo $value['price']->prh_discount_room_price; ?>"
-                                                    discountchildprice="<?php echo $value['price']->prh_discount_room_price; ?>"
-                                                    tag="<?php echo $hotels["filter"]["defaulttag"]; ?>"
-                                                    day="1"
-                                            />
-                                          </div>
-                                        </div>
-                                        <div class="three columns">
-                                          <div class="rating three_star"></div>
-                                          <div class="clearfix"></div>
-                                        </div>
-                                      </div>
-                                      <div class="border"></div>
-                                    </div>
-                                    <div class="twelve columns">
-                                      <div class="icon time tooltip_se" title="เวลา">N/A</div>
-                                      <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด"><a href="#" data-reveal-id="myModal">รายละเอียด</a></div>
-                                      <div class="price"><span><?php echo $value['price']->prh_sale_room_price; ?> B</span> / <?php echo $day; ?> วัน</div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <a class="delete tooltip_ne" title="ลบ"></a>
-                                <a class="add tooltip_ne" title="เพิ่ม"></a>
-                              </li>
-
-                        <?php
-                              }
-                            }
-                          }
-                        ?>
-                        <div class="clearfix"></div>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <!-- END scrollbar -->
-              </div>
-              <!-- END Tab2-->
-              <!-- End Hotel -->
-
-
-              <div id="tabs3">
-                <h3>การเดินนทาง</h3>
-                <form class="search_package">
-                  <div class="selects">
-                    <div class="select-block">
-                      <select  name='firsttag_tranfer' id='firsttag_tranfer'>
-                          <option value="ภูเก็ต">ภูเก็ต</option>
-                          <option value="กระบี่">กระบี่</option>
-                          <option value="พังงา">พังงา</option>
-                          <option value="ตรัง">ตรัง</option>
-                          <option value="ภูเก็ต">ภูเก็ต</option>
-                          <option value="กระบี่">กระบี่</option>
-                          <option value="พังงา">พังงา</option>
-                          <option value="ตรัง">ตรัง</option>
-                          <option value="ภูเก็ต">ภูเก็ต</option>
-                          <option value="กระบี่">กระบี่</option>
-                          <option value="พังงา">พังงา</option>
-                          <option value="ตรัง">ตรัง</option>
-                     </select>
-                   </div>
-                  </div>
-
-                  <div class="tag">
-                    <span class="btn">
-                      กะตะ
-                      <input type="checkbox" class="hide" name="thirdtag[]" value="Hey">
-                    </span>
-                    <span class="btn">
-                      ในหาน
-                      <input type="checkbox" class="hide" name="thirdtag[]" value="Hey">
-                    </span>
-                    <span class="btn">
-                      กะรน
-                      <input type="checkbox" class="hide" name="thirdtag[]" value="Click">
-                    </span>
-                    <span class="btn">
-                      ป่าตอง
-                      <input type="checkbox" class="hide" name="thirdtag[]" value="Should">
-                    </span>
-                  </div>
-                  <div class="input_search">
-                    <input type="text" placeholder="Search...">
-                    <input type="submit"class="button_search" value="ค้นหา">
-                    <div class="clearfix"></div>
-                  </div>
-                </form>
-                <div class="scrollbar">
-                  <div class="nano">
-                    <div class="content">
-                      <ul class="connected list no2">
-                      <!--BEGIN List 1-->
-                        <li>
-                          <div class="list_packet">
-                            <div class="row">
-                              <div class="twelve columns">
-                                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/2.png'); ?>"></a>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="row">
-                                  <div class="nine columns">
-                                    <div class="title_tour">
-                                      <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                                    </div>
-                                  </div>
-                                  <div class="three columns">
-                                    <div class="rating three_star"></div>
-                                    <div class="clearfix"></div>
-                                  </div>
-                                </div>
-                                <div class="border"></div>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="icon time tooltip_se" title="เวลา">08.00 - 15.30 </div>
-                                <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด"><a href="#" data-reveal-id="myModal">รายละเอียด</a></div>
-                                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-                              </div>
-                            </div>
-                          </div>
-                          <a class="delete tooltip_ne" title="ลบ"></a>
-                          <a class="add tooltip_ne" title="เพิ่ม"></a>
-                        </li>
-                      <!--END List 1-->
-
-                      <!--BEGIN List 1-->
-                        <li>
-                          <div class="list_packet">
-                            <div class="row">
-                              <div class="twelve columns">
-                                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/1.png'); ?>"></a>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="row">
-                                  <div class="nine columns">
-                                    <div class="title_tour">
-                                      <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                                    </div>
-                                  </div>
-                                  <div class="three columns">
-                                    <div class="rating three_star"></div>
-                                    <div class="clearfix"></div>
-                                  </div>
-                                </div>
-                                <div class="border"></div>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="icon time tooltip_se" title="เวลา">08.00 - 15.30 </div>
-                                <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด"><a href="#" data-reveal-id="myModal">รายละเอียด</a></div>
-                                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-                              </div>
-                            </div>
-                          </div>
-                          <a class="delete tooltip_ne" title="ลบ"></a>
-                          <a class="add tooltip_ne" title="เพิ่ม"></a>
-                        </li>
-                      <!--END List 1-->
-
-                      <!--BEGIN List 1-->
-                        <li>
-                          <div class="list_packet">
-                            <div class="row">
-                              <div class="twelve columns">
-                                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/3.png'); ?>"></a>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="row">
-                                  <div class="nine columns">
-                                    <div class="title_tour">
-                                      <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                                    </div>
-                                  </div>
-                                  <div class="three columns">
-                                    <div class="rating three_star"></div>
-                                    <div class="clearfix"></div>
-                                  </div>
-                                </div>
-                                <div class="border"></div>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="icon time tooltip_se" title="เวลา">08.00 - 15.30 </div>
-                                <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด"><a href="#" data-reveal-id="myModal">รายละเอียด</a></div>
-                                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-                              </div>
-                            </div>
-                          </div>
-                          <a class="delete tooltip_ne" title="ลบ"></a>
-                          <a class="add tooltip_ne" title="เพิ่ม"></a>
-                        </li>
-                      <!--END List 1-->
-
-                      <!--BEGIN List 1-->
-                        <li>
-                          <div class="list_packet">
-                            <div class="row">
-                              <div class="twelve columns">
-                                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/4.png'); ?>"></a>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="row">
-                                  <div class="nine columns">
-                                    <div class="title_tour">
-                                      <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                                    </div>
-                                  </div>
-                                  <div class="three columns">
-                                    <div class="rating three_star"></div>
-                                    <div class="clearfix"></div>
-                                  </div>
-                                </div>
-                                <div class="border"></div>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="icon time tooltip_se" title="เวลา">08.00 - 15.30 </div>
-                                <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด"><a href="#" data-reveal-id="myModal">รายละเอียด</a></div>
-                                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-                              </div>
-                            </div>
-                          </div>
-                          <a class="delete tooltip_ne" title="ลบ"></a>
-                          <a class="add tooltip_ne" title="เพิ่ม"></a>
-                        </li>
-                      <!--END List 1-->
-
-                      <!--BEGIN List 1-->
-                        <li>
-                          <div class="list_packet">
-                            <div class="row">
-                              <div class="twelve columns">
-                                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/5.png'); ?>"></a>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="row">
-                                  <div class="nine columns">
-                                    <div class="title_tour">
-                                      <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                                    </div>
-                                  </div>
-                                  <div class="three columns">
-                                    <div class="rating three_star"></div>
-                                    <div class="clearfix"></div>
-                                  </div>
-                                </div>
-                                <div class="border"></div>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="icon time tooltip_se" title="เวลา">08.00 - 15.30 </div>
-                                <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด"><a href="#" data-reveal-id="myModal">รายละเอียด</a></div>
-                                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-                              </div>
-                            </div>
-                          </div>
-                          <a class="delete tooltip_ne" title="ลบ"></a>
-                          <a class="add tooltip_ne" title="เพิ่ม"></a>
-                        </li>
-                      <!--END List 1-->
-
-                      <!--BEGIN List 1-->
-                        <li>
-                          <div class="list_packet">
-                            <div class="row">
-                              <div class="twelve columns">
-                                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/1.png'); ?>"></a>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="row">
-                                  <div class="nine columns">
-                                    <div class="title_tour">
-                                      <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                                    </div>
-                                  </div>
-                                  <div class="three columns">
-                                    <div class="rating three_star"></div>
-                                    <div class="clearfix"></div>
-                                  </div>
-                                </div>
-                                <div class="border"></div>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="icon time tooltip_se" title="เวลา">08.00 - 15.30 </div>
-                                <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด"><a href="#" data-reveal-id="myModal">รายละเอียด</a></div>
-                                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-                              </div>
-                            </div>
-                          </div>
-                          <a class="delete tooltip_ne" title="ลบ"></a>
-                          <a class="add tooltip_ne" title="เพิ่ม"></a>
-                        </li>
-                      <!--END List 1-->
-
-                      <!--BEGIN List 1-->
-                        <li>
-                          <div class="list_packet">
-                            <div class="row">
-                              <div class="twelve columns">
-                                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/1.png');?>"></a>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="row">
-                                  <div class="nine columns">
-                                    <div class="title_tour">
-                                      <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                                    </div>
-                                  </div>
-                                  <div class="three columns">
-                                    <div class="rating three_star"></div>
-                                    <div class="clearfix"></div>
-                                  </div>
-                                </div>
-                                <div class="border"></div>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="icon time tooltip_se" title="เวลา">08.00 - 15.30 </div>
-                                <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด"><a href="#" data-reveal-id="myModal">รายละเอียด</a></div>
-                                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-                              </div>
-                            </div>
-                          </div>
-                          <a class="delete tooltip_ne" title="ลบ"></a>
-                          <a class="add tooltip_ne" title="เพิ่ม"></a>
-                        </li>
-                      <!--END List 1-->
-
-                      <!--BEGIN List 1-->
-                        <li>
-                          <div class="list_packet">
-                            <div class="row">
-                              <div class="twelve columns">
-                                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/1.png');?>"></a>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="row">
-                                  <div class="nine columns">
-                                    <div class="title_tour">
-                                      <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                                    </div>
-                                  </div>
-                                  <div class="three columns">
-                                    <div class="rating three_star"></div>
-                                    <div class="clearfix"></div>
-                                  </div>
-                                </div>
-                                <div class="border"></div>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="icon time tooltip_se" title="เวลา">08.00 - 15.30 </div>
-                                <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด"><a href="#" data-reveal-id="myModal">รายละเอียด</a></div>
-                                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-                              </div>
-                            </div>
-                          </div>
-                          <a class="delete tooltip_ne" title="ลบ"></a>
-                          <a class="add tooltip_ne" title="เพิ่ม"></a>
-                        </li>
-                      <!--END List 1-->
-
-                      <!--BEGIN List 1-->
-                        <li>
-                          <div class="list_packet">
-                            <div class="row">
-                              <div class="twelve columns">
-                                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/1.png');?>"></a>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="row">
-                                  <div class="nine columns">
-                                    <div class="title_tour">
-                                      <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                                    </div>
-                                  </div>
-                                  <div class="three columns">
-                                    <div class="rating three_star"></div>
-                                    <div class="clearfix"></div>
-                                  </div>
-                                </div>
-                                <div class="border"></div>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="icon time tooltip_se" title="เวลา">08.00 - 15.30 </div>
-                                <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด">
-                                  <a href="#" data-reveal-id="myModal">รายละเอียด</a>
-                                </div>
-                                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-                              </div>
-                            </div>
-                          </div>
-                          <a class="delete tooltip_ne" title="ลบ"></a>
-                          <a class="add tooltip_ne" title="เพิ่ม"></a>
-                        </li>
-                      <!--END List 1-->
-
-                      <!--BEGIN List 1-->
-                        <li>
-                          <div class="list_packet">
-                            <div class="row">
-                              <div class="twelve columns">
-                                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/1.png'); ?>"></a>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="row">
-                                  <div class="nine columns">
-                                    <div class="title_tour">
-                                      <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                                    </div>
-                                  </div>
-                                  <div class="three columns">
-                                    <div class="rating three_star"></div>
-                                    <div class="clearfix"></div>
-                                  </div>
-                                </div>
-                                <div class="border"></div>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="icon time tooltip_se" title="เวลา">08.00 - 15.30 </div>
-                                <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด"><a href="#" data-reveal-id="myModal">รายละเอียด</a></div>
-                                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-                              </div>
-                            </div>
-                          </div>
-                          <a class="delete tooltip_ne" title="ลบ"></a>
-                          <a class="add tooltip_ne" title="เพิ่ม"></a>
-                        </li>
-                      <!--END List 1-->
-
-                      <!--BEGIN List 1-->
-                        <li>
-                          <div class="list_packet">
-                            <div class="row">
-                              <div class="twelve columns">
-                                <a href=""><img src="<?php echo base_url('themes/Travel/tour/images/packet/1.png')?>"></a>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="row">
-                                  <div class="nine columns">
-                                    <div class="title_tour">
-                                      <h4><a href="">เกาะเมียงหรือเกาะสี่</a></h4>
-                                    </div>
-                                  </div>
-                                  <div class="three columns">
-                                    <div class="rating three_star"></div>
-                                    <div class="clearfix"></div>
-                                  </div>
-                                </div>
-                                <div class="border"></div>
-                              </div>
-                              <div class="twelve columns">
-                                <div class="icon time tooltip_se" title="เวลา">08.00 - 15.30 </div>
-                                <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด"><a href="#" data-reveal-id="myModal">รายละเอียด</a></div>
-                                <div class="price"><span>8,780 B</span> / 3 วัน</div>
-                              </div>
-                            </div>
-                          </div>
-                          <a class="delete tooltip_ne" title="ลบ"></a>
-                          <a class="add tooltip_ne" title="เพิ่ม"></a>
-                        </li>
-                      <!--END List 1-->
-                        <div class="clearfix"></div>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <!-- END scrollbar -->
-              </div>
-              <!-- END tab3-->
             </div>
           </div>
           </div>
@@ -892,8 +190,6 @@
 
       </section>
     </div>
-
-
     <?php
       if(!empty($tours["tour"]))
       foreach ($tours["tour"] as $key => $value) {
@@ -906,8 +202,6 @@
     <?php
       }
     ?>
-
-
 
     <footer>
       <div class="row">
@@ -946,11 +240,6 @@
       easingType: 'linear'
     };
 
-    $().UItoTop({ easingType: 'easeOutQuart' });
-
-  });
-
-  $(function() {
     // placement examples
     $('.tooltip_n').powerTip({placement: 'n'});
     $('.east').powerTip({placement: 'e'});
@@ -959,26 +248,11 @@
     $('.tooltip_nw').powerTip({placement: 'nw'});
     $('.tooltip_ne').powerTip({placement: 'ne'});
     $('.south-west').powerTip({placement: 'sw'});
+    -
     $('.tooltip_se').powerTip({placement: 'se'});
-    // api examples
-  });
 
-  $(function(){
-
-    $(".nano").nanoScroller(
-      {
-        scroll: 'top',
-        sliderMaxHeight: 200,
-        alwaysVisible: true,
-        sliderClass: 'pane'
-      }
-    );
-
-  });
-
-  $(function () {
     var offset = $(".sticky_content").offset();
-    var topPadding = 34;
+    var topPadding = 0;
     $(window).scroll(function () {
       if ($(window).scrollTop() > offset.top) {
         $(".sticky_content").stop().animate({
@@ -990,59 +264,44 @@
         });
       }
     });
-  });
 
-  $(document).ready(function() {
     $("#buttonForModal").click(function() {
       $("#myModal").reveal();
     });
-  });
 
-  $(document).ready(function() {
-    setDragAndDropDataForExternalFile();
-    /////////////////////////////////
-    //
-    // Search box use jquery
-    //
-    /////////////////////////////////
-
-    //First tag and Second tag
-    $("#secondtag_tour , #firsttag_tour").change(function() {
-      updateTab();
-    });
-
-    //Third tag
-    var count = 0;
-    $('.tag .btn').selectable({
-      class: 'btn-info',
-      onChange: function() {
-        //Request
-        if(count > 0){
-          var model = "tour";
-          var firsttag_id = $("#firsttag_tour").val();
-          var secondtag_id = $("#secondtag_tour").val();
-          var thirdtag_id = 0;
-          $('#thirdtag_tour :checkbox:checked').each(function() {
-            thirdtag_id += $(this).val()+",";
-          });
-
-          //Response
-          var responseData = data_filter(model, firsttag_id, secondtag_id, thirdtag_id);
-          $('#data').html("<div style=\"text-align:center;\"><img src=<?php echo Util::ThemePath().'/images/ajax-loader.gif'; ?> /></div>");
-          responseData.done(function(data) {
-            $('#data').hide().html(data).fadeIn("slow");
-
-            $("#data").append(function(){
-              setDragAndDropDataForExternalFile();
-              setDateDataForExternalFile();
-              //setCheckedBoxTagForExternalFile();
+    $("#menuList, #groupList").on("change","select",function(e){
+      e.preventDefault();
+      var selected = $(this).find('option:selected');
+      var group_selected_id = $("#group_tag_id").find('option:selected').data("tag-id");
+      //Response
+      var responseData = getMenuList($("#province_tag_id").find('option:selected').data("tag-id"),$("#group_tag_id").find('option:selected').data("tag-id"));
+      $('#data').html("<div style=\"text-align:center;\"><img src=\"<?php echo Util::ThemePath().'/images/ajax-loader.gif'; ?>\" /></div>");
+      responseData.done(function(data) {
+        var obj = jQuery.parseJSON(data);
+        if(obj.menuList){
+          if(Object.keys(obj.menuList).length > 0){
+            var groupListHTML = "<option value=\"0\" data-tag-id=\"0\">ทั้งหมด</option>";
+            var selected_or_not = "";
+            $.each(obj.menuList,function(index, item){
+              if(group_selected_id == item.tag_id){
+                selected_or_not = "selected";
+              }else{
+                selected_or_not = "";
+              }
+              groupListHTML += "<option value=\""+item.tag_id+"\" data-full-url=\""+item.full_url+"\" data-tag-id=\""+item.tag_id+"\" data-parent-id=\""+item.parent_id+"\" "+selected_or_not+">"+item.name+"</option>";
             });
-          });
+            $('#group_tag_id').html(groupListHTML);
+          }
         }
-        count++;
-      }
+        $('#data').hide().html(obj.packageTourList).fadeIn("slow");
+        $("#data").append(function(){
+          setDragAndDropDataForExternalFile();
+          setDateDataForExternalFile();
+        });
+      });
+      return false;
     });
-
+    setDragAndDropDataForExternalFile();
   });
 
   function setDateDataForExternalFile(){
@@ -1083,6 +342,16 @@
       return  $.post(url, data);
   }
 
+  function getMenuList(tag_id,type_id){
+      var data =  {
+                    tag_id : tag_id,
+                    type_id : type_id
+                  };
+      var url = "<?php echo base_url("customtour/ajax/get_menu_list");?>";
+
+      return  $.post(url, data);
+  }
+
   function setDragAndDropDataForExternalFile(){
     $(function() {
       $('.connected').sortable({
@@ -1092,6 +361,7 @@
         revert: true,
         start: function(event, ui){
           $(ui.item).find("input").attr("dragging","true");
+          $(ui).children(".package_price_list").fadeOut("slow");
           $(".packet_item").each(function(list_index, list_item) {
             if($(list_item).find("li input").attr("value") == $(ui.item).find("input").attr("value") && $(list_item).find("li input").attr("dragging") == "false"){
               $(list_item).find("li").fadeOut("slow",function(){
@@ -1102,32 +372,24 @@
         },
         stop: function(event, ui){
           $(ui.item).find("input").attr("dragging","false");
-          //console.log(ui.item);
+          $(ui).children(".package_price_list").fadeIn("slow");
           $(".packet_item").each(function(index, item) {
             if($(this).find("li").length > 1){
               var count_day = 0;
-              $(this).find("li input").each(function(index, item) {
+              $(this).find("li input.item_property").each(function(index, item) {
                 count_day = count_day+parseFloat($(item).attr("totalday"));
               });
-              console.log("count_day: "+count_day);
               if(count_day > 1){
                 alertify.error("ไม่สามารถเพิ่มทัวร์ได้เนื่องจากเกินเวลาที่กำหนดค่ะ")
                 $(ui.item).fadeOut("slow",function(){
                   $(this).prependTo("#tabs1 .connected.no2");
                   $(this).fadeIn("slow");
+
                 });
               }
             }
           });
           setCustomTourData(ui.item);
-        },
-        create:function(){
-            var list=this;
-            resize=function(){
-                jQuery(list).css("height","auto");
-                jQuery(list).height(jQuery(list).height());
-            };
-            jQuery(list).height(jQuery(list).height());
         }
       }).disableSelection();
       $(".sortable_item").disableSelection();
@@ -1140,8 +402,17 @@
     var Looped = false;
     var packageDay = $(thisObj).find("input").attr("totalday");
     if(packageDay > 1){
-      var objID = $(thisObj).find("input").attr("value");
+      var objID = $(thisObj).find("input.item_property").attr("value");
       $(".packet_item").each(function(list_index, list_item) {
+        if($(list_item).find("li input.item_property").attr("value") == objID){
+          $(list_item).find("input.price_list").each(function(index, item){
+            var current_status = $(item).prop('checked');
+            var price_id = $(item).data("price-id");
+            $(thisObj).find("input.price_list[data-price-id='" + price_id + "']").each(function(index, item){
+              $(item).prop('checked', current_status);
+            });
+          });
+        }
         if($(list_item).find("li input").attr("value") == objID && !Looped){
           Looped = true;
           for(var i = 1; i<packageDay;i++){
@@ -1150,7 +421,7 @@
                 var html = '<div class="packet_item" style="display:none"></a>';
                     html += '<div class="sticker_date"></div>';
                     html += '<ul class="connected list no1">';
-                    html += '<li draggable="true" class="" style="display: list-item;">';
+                    html += '<li draggable="true" class="sortable_item" style="display: list-item;">';
                     html += itemHtml;
                     html += '</li>';
                     html += '</ul>';
@@ -1160,7 +431,7 @@
                       setDateDataForExternalFile();
                     });
               }else{
-                var html = '<li draggable="true" class="" style="display: list-item;">';
+                var html = '<li draggable="true" class="sortable_item" style="display: list-item;">';
                     html += itemHtml;
                     html += '</li>';
                 $(".packet_item:eq("+parseInt((parseInt(list_index)+parseInt(i)))+") ul").append(html).fadeIn("slow");
@@ -1169,7 +440,6 @@
           }
           $(".packet_item").fadeIn("slow");
         }
-
       });
     }
     updateAllPackage();
@@ -1181,7 +451,7 @@
   $(".clear_date").click(function() {
     clearDate();
     updateTab();
-
+    window.setTimeout(updateAllPackage, 1000);
   });
 
   function clearDate(item){
@@ -1207,12 +477,9 @@
       $('.packet').append(html);
       $('.tooltip_ne').powerTip({placement: 'ne'});
       $(".packet_item").fadeIn("slow");
-
       $('.connected').sortable({
         connectWith: '.connected'
       });
-
-      $('.tooltip_ne').powerTip({placement: 'ne'});
     }else{
       //Init without data
       var html = '<div class="packet_item" style="display:none"></a>';
@@ -1220,33 +487,27 @@
       html += '<ul class="connected list no1"></ul>';
       html += '<a class="close tooltip_ne" title="ลบ"></a></div>';
       $('.packet').append(html);
-        $('.tooltip_ne').powerTip({placement: 'ne'});
+      $('.tooltip_ne').powerTip({placement: 'ne'});
       $(".packet_item").fadeIn("slow");
-
       $('.connected').sortable({
         connectWith: '.connected'
       });
-
-      $('.tooltip_ne').powerTip({placement: 'ne'});
     }
     alertify.success("เพิ่มวันสำเร็จ!");
-    window.setTimeout(updateAllPackage, 500);
+    window.setTimeout(updateAllPackage, 800);
   }
 
   $(document).on("click", ".packet_item a.close", function (e) {
     e.preventDefault();
     var isInList = false;
     $(this).closest(".packet_item").fadeOut(function () {
-      //console.log($(this));
       $(this).find(".no1 li").fadeOut(function () {
         isInList = false;
-        //console.log($(this));
-        $(this).find("input").each(function(index, item) {
-          //console.log(item);
+        $(this).find("input:first").each(function(index, item) {
           packageid = $(item).attr('packageid');
         });
         $("#tabs1 .connected.no2").find("li").each(function(index, no2Item) {
-          $(no2Item).find("input").each(function(index, inputItem) {
+          $(no2Item).find("input:first").each(function(index, inputItem) {
             if($(inputItem).attr('packageid') == packageid){
               isInList = true;
             }
@@ -1259,7 +520,7 @@
           $(this).remove();
         }
         $(".packet_item").find("li").each(function(index, inputItem) {
-          if($(inputItem).find('input').attr('packageid') == packageid){
+          if($(inputItem).find('input:first').attr('packageid') == packageid){
             $(inputItem).fadeOut("slow", function() {
               $(this).remove();
             });
@@ -1276,17 +537,16 @@
     var isInList = false;
     $(this).closest(".connected li").fadeOut(function () {
       isInList = false;
-      $(this).find("input").each(function(index, item) {
+      $(this).find("input:first").each(function(index, item) {
         packageid = $(item).attr('packageid');
       });
       $("#tabs1 .connected.no2").find("li").each(function(index, no2Item) {
-        $(no2Item).find("input").each(function(index, inputItem) {
+        $(no2Item).find("input:first").each(function(index, inputItem) {
           if($(inputItem).attr('packageid') == packageid){
             isInList = true;
           }
         });
       });
-      //console.log(isInList);
       if(!isInList){
         $(this).prependTo("#tabs1 .connected.no2");
         $(this).fadeIn("slow");
@@ -1294,7 +554,7 @@
         $(this).remove();
       }
       $(".packet_item").find("li").each(function(index, inputItem) {
-        if($(inputItem).find('input').attr('packageid') == packageid){
+        if($(inputItem).find('input:first').attr('packageid') == packageid){
           $(inputItem).fadeOut("slow", function() {
             $(this).remove();
           });
@@ -1313,32 +573,32 @@
   }
 
   function deletePackageItem(){
-    window.setTimeout(updateAllPackage, 500);
+    window.setTimeout(updateAllPackage, 1000);
   }
 
 
   function deleteDate(){
-    window.setTimeout(updateAllPackage, 500);
+    window.setTimeout(updateAllPackage, 1000);
   }
 
   function updateAllPackage(){
-    summaryDisplay();
     updateDate();
     updatePackgaeDate();
     updateDayOptions();
     updatePackageInput();
+    summaryDisplay();
   }
+
 
   function updatePackageInput(){
     $(".packet_item").each(function(index, item) {
-      $(item).find("input").each(function(liIndex,liItem){
+      $(item).find("input.item_property").each(function(liIndex,liItem){
         $(liItem).attr("name","packagedata["+index+"][]");
       });
     });
   }
 
   function updateDayOptions(){
-    console.log($(".packet_item").length);
     var package_count = $(".packet_item").length;
     $("#day_tour").val(package_count);
     $("span.custom-text:eq(0)").html(package_count);
@@ -1348,7 +608,33 @@
     var summaryAdultPrice = 0;
     var summaryChildPrice = 0;
     var packagePrice = new Array();
-    //console.dir(packagePrice);
+    $(".packet_item").find("li").each(function(index, item){
+      var adult_total_price = 0;
+      var child_total_price = 0;
+      var total_adult = <?php echo ($session["adult"]=="")? 0 : $session["adult"];?>;
+      var total_child = <?php echo ($session["child"]=="")? 0 : $session["child"];?>;
+      var currency_text = "<?php echo $this->lang->line("global_lang_money_sign");?>";
+      $(item).find("input.price_list").each(function(){
+        var current_status = this.checked;
+        if(current_status){
+          if($(this).data("is-charter") == 1) {
+            adult_total_price += $(this).data("adult-price");
+            if(total_child > 0){
+              child_total_price += $(this).data("child-price");
+            }
+          }else{
+            adult_total_price += ($(this).data("adult-price")*total_adult);
+            if(total_child > 0){
+              child_total_price += ($(this).data("child-price")*total_child);
+            }
+          }
+        }
+      });
+      $(item).find("input.item_property").each(function(input_index,input_item){
+        $(input_item).data("total-adult-price",(adult_total_price));
+        $(input_item).data("total-child-price",(child_total_price));
+      });
+    });
     $(".packet_item").find("input.item_property").each(function(index, item) {
       var isInArray = false;
       $.each(packagePrice, function(index, value) {
@@ -1357,20 +643,21 @@
         }
       });
       if(isInArray != true){
-        packagePrice.push(priceObject($(item).attr('packageid'),$(item).attr('adultprice'),$(item).attr('childprice')));
+        packagePrice.push(priceObject($(item).attr('packageid'),$(item).data('total-adult-price'),$(item).data('total-child-price')));
       }
     });
+
     $.each(packagePrice, function(index, value) {
       summaryAdultPrice += parseFloat(value.adultprice);
       summaryChildPrice += parseFloat(value.childprice);
     });
-
 
     $("#summary_day").text($(".packet_item").length);
     $("#summary_night").text(($(".packet_item").length-1));
 
     $("#summary_adult_price").text(addCommas(summaryAdultPrice));
     $("#summary_child_price").text(addCommas(summaryChildPrice));
+    $("#summary_price").html(addCommas(summaryAdultPrice+summaryChildPrice));
   }
 
   function priceObject(id,adultprice,childprice){
@@ -1383,7 +670,6 @@
 
   function updateDate(){
     $(".packet_item").find("div.sticker_date").each(function(index, item) {
-      //console.log(index);
       $(item).html("วันที่ "+(index+1));
     });
   }
@@ -1393,10 +679,6 @@
       $(packet_item).append(function(){
         setDragAndDropDataForExternalFile();
         setDateDataForExternalFile();
-      });
-
-      $(packet_item).find("li").each(function(list_index, list_item) {
-        //console.log(list_item);
       });
     });
   }
@@ -1422,13 +704,11 @@
     $('#data').html("<div style=\"text-align:center;\"><img src=<?php echo Util::ThemePath().'/images/ajax-loader.gif'; ?> /></div>");
     responseData.done(function(data) {
       $('#data').hide().html(data).fadeIn("slow");
-
       $("#data").append(function(){
           setDragAndDropDataForExternalFile();
           setDateDataForExternalFile();
       });
     });
-
   }
 
   function addCommas(nStr){
@@ -1444,6 +724,70 @@
   }
 
   $(document).ready(function() {
+    // validate signup form on keyup and submit
+    $("#form_package_customize").validate({
+      rules: {
+        packageName: 'required'
+      },
+      messages: {
+        packageName: 'กรุณาตั้งชื่อทัวร์ของท่าน'
+      }
+    });
+
+    $(".package_price_list tr").live("click",function(evt){
+      var cell = $(evt.target).closest('input');
+      if(cell.index()<0) {
+        $(this).find('input[type="checkbox"]').each(function(){
+          $(this).prop('checked', !$(this).prop('checked'));
+          var current_status = this.checked;
+          var current_id = $(this).data("price-id");
+          $(".packet_item").each(function(index, item) {
+            $(this).find("input.price_list[data-price-id='" + current_id + "']").each(function(index, item){
+              if(current_status){
+                //$(this).parent().parent().find("td").css("font-weight","bold");
+                $(this).parent().parent("tr").css("background","#FFF7A0");
+              }else{
+                //$(this).parent().parent().find("td").css("font-weight","normal");
+                $(this).parent().parent("tr").css("background","none");
+              }
+              $(item).prop('checked', current_status);
+              summaryDisplay();
+            });
+          });
+        });
+      }
+    });
+
+    $('.package_price_list .price_switch').live("click",function() {
+      if($(this).html() == "แสดงราคา"){
+        $(this).html("ซ่อนราคา");
+        $(this).parent().find(".price_table").fadeIn( "slow" );
+      }else{
+        $(this).html("แสดงราคา");
+        $(this).parent().find(".price_table").fadeOut( "slow" );
+      }
+      return false;        
+    });
+
+    $("input.price_list").live("change",function(){
+      var current_status = this.checked;
+      var current_id = $(this).data("price-id");
+      $(".packet_item").each(function(index, item) {
+        $(this).find("input.price_list[data-price-id='" + current_id + "']").each(function(index, item){
+          if(current_status){
+            //$(this).parent().parent().find("td").css("font-weight","bold");
+            $(this).parent().parent("tr").css("background","#FFF7A0");
+          }else{
+            //$(this).parent().parent().find("td").css("font-weight","normal");
+            $(this).parent().parent("tr").css("background","none");
+          }
+          $(item).prop('checked', current_status);
+          summaryDisplay()
+        });
+      });
+    });
+
+
     // attach the plugin to all selects
     $('.search_package .selects select').selectik({maxItems: 8});
     $('.date_tour .selects select').selectik({maxItems: 6});
@@ -1451,13 +795,13 @@
     $(".add").click(function() {
       alertify.set({ delay: 2000 });
       alertify.prompt("เลือกวันที", function (e, str) {
-          if (e) {
-            alertify.success("สำเร็จ " + str);
-          } else {
-            alertify.error("ยกเลิก");
-          }
-        });
-        return false;
+        if (e) {
+          alertify.success("สำเร็จ " + str);
+        } else {
+          alertify.error("ยกเลิก");
+        }
+      });
+      return false;
     });
 
     $("#day_tour").change(function() {
@@ -1482,6 +826,11 @@
       }
       window.setTimeout(updateAllPackage, 1000);
     });
+
+    $(".packet").bind("DOMSubtreeModified", function() {
+      updateAllPackage();
+    });
+    updateAllPackage();
   });
 </script>
 

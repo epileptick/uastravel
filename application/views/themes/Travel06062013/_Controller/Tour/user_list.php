@@ -143,12 +143,7 @@
     <div class="row">
       <div class="twelve columns ">
         <div class="breadcrumb">
-          <span><?php echo $this->lang->line("global_lang_home");?>
-            <?php
-            foreach ($this->uri->segment_array() as $key => $segment) {
-              echo " / ".$segment;
-            }
-            ?>
+          <span>
           </span>
         </div>
         <div class="white_box">

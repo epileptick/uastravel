@@ -422,8 +422,6 @@ $(document).ready(function() {
       <textarea cols="30"  class="mceEditor"  rows="10" name="remark"><?php echo set_value('remark');?></textarea>
       <div class="clearfix"></div>
 <br>
-
-
     <!-- Agency -->
     <script>
       var agencies = new Array();
@@ -653,20 +651,6 @@ $(document).ready(function() {
     <div class="half last" style="width:120px;">
       <label>End Month :</label><br>
       <?php
-        $options = array(
-                          '1'  => 'มกราคม',
-                          '2'  => 'กุมภาพันธ์',
-                          '3'  => 'มีนาคม',
-                          '4'  => 'เมษายน',
-                          '5'  => 'พฤษภาคม',
-                          '6'  => 'มิถุยายน',
-                          '7'  => 'กรกฎาคม',
-                          '8'  => 'สิงหาคม',
-                          '9'  => 'กันยายน',
-                          '10' => 'ตุลาคม',
-                          '11' => 'พฤศจิกายน',
-                          '12' => 'ธันวาคม',
-                        );
         echo form_dropdown('end_month', $options);
       ?>
     </div>

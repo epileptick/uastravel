@@ -163,7 +163,16 @@
           <!-- BEGIN Row Package-->
           <div class="row">
             <div class="twelve columns">
-              <h3><span>วันที่ <?php echo ++$day;?> </span></h3>
+              <h3>
+                <span>วันที่ <?php echo ++$day;?> <?php
+                      if(count($dayValue)>1){
+                        echo $dayValue[0]["name"]." และ ".$dayValue[1]["name"];
+                      }else{
+                        echo $dayValue[0]["name"];
+                      }
+                    ?>
+                </span>
+              </h3>
               <div class="row">
                 <div class="eight columns">
                   <div class="box_white_in_columns article_packagetour">

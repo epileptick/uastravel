@@ -12,7 +12,8 @@ class PriceTranslate_model extends MY_Model {
                      'discount_adult_price'  => 'pri_discount_adult_price',
                      'sale_child_price'      => 'pri_sale_child_price',
                      'net_child_price'       => 'pri_net_child_price',
-                     'discount_child_price'  => 'pri_discount_child_price'
+                     'discount_child_price'  => 'pri_discount_child_price',
+                     'charter'               => 'pri_charter'
     );
 
 

@@ -486,97 +486,90 @@ $(document).ready(function() {
               />]
           </div>
           <div class='clearfix'></div>
-
+          <script type="text/javascript">
+            $(document).ready(function() {
+              $("#display_icon").live("click", function(){
+                var url = '<?php echo base_url("admin/tour/setfisrtpageprice"); ?>'
+                var status = $(this).data("status");
+                var price_id = $(this).data("price-id");
+                console.log(status);
+                console.log(price_id);
+                //Check status
+                if(status){
+                  $(this).data("status", !status);
+                  $(this).attr("src","<?php echo $themepath.'/images/disable.png';?>");
+                  status = !status;
+                }else{
+                  $(this).data("status", !status);
+                  $(this).attr("src","<?php echo $themepath.'/images/enable.png';?>");
+                  status = !status;
+                }
+                //Send data
+                var data =  { id: price_id, display: status };
+                $.ajax({
+                  type: 'POST',
+                  url: url,
+                  data: data
+                });
+              });
+              $("#charter_icon").live("click",function(){
+                var url = '<?php echo base_url("admin/tour/setcharter"); ?>'
+                var status = $(this).data("status");
+                var price_id = $(this).data("price-id");
+                console.log(status);
+                if(status){
+                  $(this).data("status", !status);
+                  $(this).attr("src","<?php echo $themepath.'/images/disable.png';?>");
+                  status = !status;
+                }else{
+                  $(this).data("status", !status);
+                  $(this).attr("src","<?php echo $themepath.'/images/enable.png';?>");
+                  status = !status;
+                }
+                //Send data
+                var data =  { id: price_id, charter: status };
+                $.ajax({
+                  type: 'POST',
+                  url: url,
+                  data: data
+                });
+              });
+              
+            });
+          </script>
           <?php
 
           //print_r(count($valueAgency["price_data"])); exit;
           foreach ($valueAgency["price_data"] as $key => $value) {
           ?><br>
             <div id='price_<?php echo $value->agency_id;?>_<?php echo $countExtendPriceJS;?>'>
-              <div class='half'>
-
-                <script type="text/javascript">
-                  $(document).ready(function() {
-
-                    $("#display").live("click", function(){
-
-                      var url = '<?php echo base_url("admin/tour/setfisrtpageprice"); ?>'
-                      var status = $(this).attr("status");
-                      var id = $(this).attr("idval");
-                      var name = $(this).attr("idname");
-
-
-                      //Check status
-                      if(status == "show"){
-
-                        $("[idname="+name+"]").hide();
-                        $("[idname=display_hide_"+id+"]").show();
-                        status = "hide";
-
-                      }else{
-                        $("[idname="+name+"]").hide();
-                        $("[idname=display_show_"+id+"]").show();
-                        status = "show";
-                      }
-
-
-                      //Send data
-                      var data =  { id: id, display: status };
-                      $.ajax({
-                          type: 'POST',
-                          url: url,
-                          data: data
-                        });
-                      });
-
-
-                  });
-                </script>
+              <div>
                 <?php
                 if($value->show_firstpage == 0){
                 ?>
-
-                  <img src="<?php echo $themepath.'/images/enable.png';?>"
-                      valign="top"
-                      id="display"
-                      class="display_show"
-                      status="show"
-                      idval="<?php echo $value->id;?>"
-                      idname="display_show_<?php echo $value->id;?>"
-                      style="display:none;"
-                  >
-                  <img src="<?php echo $themepath.'/images/disable.png';?>"
-                      valign="top"
-                      id="display"
-                      class="display_hide"
-                      status="hide"
-                      idval="<?php echo $value->id;?>"
-                      idname="display_hide_<?php echo $value->id;?>"
-                  >
+                  <img src="<?php echo $themepath.'/images/disable.png';?>" valign="top" id="display_icon" data-price-id="<?php echo $value->id?>" data-status="false">
                 <?php
-                }else if($value->show_firstpage== 1){
+                }else if($value->show_firstpage == 1){
                 ?>
-                  <img src="<?php echo $themepath.'/images/enable.png';?>"
-                      valign="top"
-                      id="display"
-                      class="display_show"
-                      status="show"
-                      idval="<?php echo $value->id;?>"
-                      idname="display_show_<?php $value->id;?>"
-                  >
-                  <img src="<?php echo $themepath.'/images/disable.png';?>"
-                      valign="top"
-                      id="display"
-                      class="display_hide"
-                      status="hide"
-                      idval="<?php echo $value->id?>"
-                      idname="display_hide_<?php $value->id;?>"
-                      style="display:none;"
-                  >
+                  <img src="<?php echo $themepath.'/images/enable.png';?>" valign="top" id="display_icon" data-price-id="<?php echo $value->id?>" data-status="true">
                 <?php
                 }
                 ?>
                 <label>แสดงหน้าแรก</label>
+                &nbsp;&nbsp;| &nbsp;&nbsp;
+                <?php
+                if($value->charter == 0){
+                ?>
+                  <img src="<?php echo $themepath.'/images/disable.png';?>" valign="top" id="charter_icon" data-price-id="<?php echo $value->id?>" data-status="false">
+                <?php
+                }else if($value->charter == 1){
+                ?>
+                  <img src="<?php echo $themepath.'/images/enable.png';?>" valign="top" id="charter_icon" data-price-id="<?php echo $value->id?>" data-status="true">
+                  
+                <?php
+                }
+                ?>
+                <label><?php echo $value->charter;?>:ราคาเหมา</label>
                 &nbsp;&nbsp;| &nbsp;&nbsp;
                 <label>Price Name :</label>
                 <img
@@ -585,7 +578,6 @@ $(document).ready(function() {
                   id="delete_price"
                   onclick="deletePriceRow('delete','<?php echo $value->agency_id;?>_<?php echo $countExtendPriceJS;?>');"
                 >
-
                 <br>
                 <input type="text"
                         name='price[<?php echo $value->agency_id;?>][<?php echo $value->id;?>][<?php echo $countExtendPriceJS;?>][name]'

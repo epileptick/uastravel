@@ -274,14 +274,15 @@ class Location extends MY_Controller {
     //Add Description
     if(!empty($articleResult[0]["body_column"][0])){
       $max_length = 160;
+      $articleResult[0]["body_column"][0] = str_replace(array('\'', '"','“','”','&ldquo;','&rdquo;'),"",$articleResult[0]["body_column"][0]);
       $description_length = mb_strlen(strip_tags($articleResult[0]["body_column"][0]), 'UTF-8');
-        $readmore_length = mb_strlen($this->lang->line("global_lang_readmore_description"), 'UTF-8');
-        $total_lenght = (($readmore_length + 5)+$description_length);
-        if($total_lenght > $max_length){
-          $description = (mb_substr(strip_tags($articleResult[0]["body_column"][0]),0,($max_length-($readmore_length+4))))."... ".$this->lang->line("global_lang_readmore_description");
-        }else{
-          $description = strip_tags($articleResult[0]["body_column"][0])." ".$this->lang->line("global_lang_readmore_description");
-        }
+      $readmore_length = mb_strlen($this->lang->line("global_lang_readmore_description"), 'UTF-8');
+      $total_lenght = (($readmore_length + 5)+$description_length);
+      if($total_lenght > $max_length){
+        $description = (mb_substr(strip_tags($articleResult[0]["body_column"][0]),0,($max_length-($readmore_length+4))))."... ".$this->lang->line("global_lang_readmore_description");
+      }else{
+        $description = strip_tags($articleResult[0]["body_column"][0])." ".$this->lang->line("global_lang_readmore_description");
+      }
     }else{
       $description = $this->lang->line("global_lang_home_desc");
     }
@@ -385,6 +386,7 @@ class Location extends MY_Controller {
     //Add Description
     if(!empty($articleResult[0]["body_column"][0])){
       $max_length = 160;
+      $articleResult[0]["body_column"][0] = str_replace(array('\'', '"','“','”','&ldquo;','&rdquo;'),"",$articleResult[0]["body_column"][0]);
       $description_length = mb_strlen(strip_tags($articleResult[0]["body_column"][0]), 'UTF-8');
         $readmore_length = mb_strlen($this->lang->line("global_lang_readmore_description"), 'UTF-8');
         $total_lenght = (($readmore_length + 5)+$description_length);
@@ -724,10 +726,20 @@ class Location extends MY_Controller {
 
       //Set  Description
       if(!empty($locationData["location"]["subtitle"])){
-        $max_description = 160;
+        $max_length = 160;
+        $locationData["location"]["subtitle"] = str_replace(array('\'', '"','“','”','&ldquo;','&rdquo;'), "", $locationData["location"]["subtitle"]);
         $description_length = mb_strlen($locationData["location"]["subtitle"]);
-        PageUtil::addVar("description",$locationData["location"]["subtitle"]);
+        $readmore_length = mb_strlen($this->lang->line("global_lang_readmore_description"), 'UTF-8');
+        $total_lenght = (($readmore_length + 5)+$description_length);
+        if($total_lenght > $max_length){
+          $description = (mb_substr(strip_tags($locationData["location"]["subtitle"]),0,($max_length-($readmore_length+4))))."... ".$this->lang->line("global_lang_readmore_description");
+        }else{
+          $description = strip_tags($locationData["location"]["subtitle"])." ".$this->lang->line("global_lang_readmore_description");
+        }
+      }else{
+        $description = $this->lang->line("global_lang_home_desc");
       }
+      PageUtil::addVar("description",$description);
 
       if(!empty($locationData["location"]["short_title"])){
         $locationData["caconical"] = base_url($this->lang->line("url_lang_location")."/".trim(Util::url_title($locationData["location"]["short_title"]))."-".trim($locationData["location"]["loc_id"]));
