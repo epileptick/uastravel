@@ -17,11 +17,11 @@ class TagTour_model extends MY_Model {
                      'tag_id'            => 'tagt_tag_id',
                      'tagt_lang'              => 'tagt_lang',
                      'tagt_name'              => 'tagt_name',
-                     'tagt_short_name'        => 'tout_short_name',
                      'tagt_url'               => 'tagt_url',
                      'tout_lang'              => 'tout_lang',
                      'tout_url'               => 'tout_url',
                      'tout_name'              => 'tout_name',
+                     'tout_short_name'        => 'tout_short_name',
                      'short_description' => 'tout_short_description',
                      'description'       => 'tout_description',
                      'detail'            => 'tout_detail',
@@ -244,38 +244,39 @@ class TagTour_model extends MY_Model {
 
 
   function getRecordByType($args=false){
-    $where["where"]["tag_id"] = $args["type_id"];
-    $resultType = $this->get($where);
-    unset($where);
-    if(!empty($resultType)){
-      foreach ($resultType as $key => $value) {
-        $where["where_in"][] = $value["tour_id"];
-      }
+    if($args["tag_id"] == 0){
+      unset($args["tag_id"]);
     }else{
-      return false;
+      $where["where_in"]["tag_id"][] = $args["tag_id"];
     }
-
-    $where["where"]["tag_id"] = $args["tag_id"];
+    if(!empty($args['type_id'])){
+      $whereType["where"]["tag_id"] = $args["type_id"];
+      $resultType = $this->get($whereType);
+      unset($whereType);
+      if(!empty($resultType)){
+        foreach ($resultType as $key => $value) {
+          $whereIn[] = $value["tour_id"];
+        }
+        $where["where_in"]["tour_id"] = array_unique($whereIn);
+      }
+    }
     $where["where"]["display"] = 1;
     $where["where"]["tout_lang"] = $this->lang->lang();
-    $where["where_in"]["tour_id"] = array_unique($where["where_in"]);
+    
     $where["join_tour"] = true;
     $where["join_tag"] = false;
     $where["group"] = "tour_id";
-
     $tour = $this->get($where);
+
     if(!empty($tour)){
       foreach ($tour as $key => $value) {
         $result[$key]["tour"] = $value;
 
         //Get tag data
         $argsTag["where"]['tour_id'] = $value["tour_id"];
-        if(!empty($args["menu"])){
-          $argsTag["where_in"]['tag_id'] = $args["menu"];
-        }
-        $argsTag["join_tag"] = true;
-        $result[$key]["tag"] = $this->getTagTourList($argsTag);
 
+        $argsTag["join_tag"] = true;
+        $result[$key]["tags"] = $this->getTagTourList($argsTag);
         //Get price data
         unset($this->db);
         $this->db->where('pri_tour_id', $value["tour_id"]);
@@ -284,23 +285,22 @@ class TagTour_model extends MY_Model {
         if(!empty($priceTour)){
           //Min price
           $minSalePrice = 9999999;
-          foreach ($priceTour as $key => $value) {
+          foreach ($priceTour as $priceKey => $priceValue) {
             # code...
-            if($value->pri_show_firstpage == 1){
-              $minSalePrice = $value->pri_sale_adult_price;
-              $result[$key]["price"] = $value;
+            if($priceValue->pri_show_firstpage == 1){
+              $minSalePrice = $priceValue->pri_sale_adult_price;
+              $result[$key]["price"] = $priceValue;
               break;
             }else{
-              if($value->pri_sale_adult_price < $minSalePrice){
-                $result[$key]["price"] = $value;
-                $minSalePrice = $value->pri_sale_adult_price;
+              if($priceValue->pri_sale_adult_price < $minSalePrice){
+                $result[$key]["price"] = $priceValue;
+                $minSalePrice = $priceValue->pri_sale_adult_price;
               }
             }
           }
         }
       }
     }
-
     if(!empty($result)){
       return $result;
     }else{

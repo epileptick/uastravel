@@ -59,6 +59,7 @@ class User extends MY_Controller {
 
   function fblogin(){
     $user = $this->facebook->getUser();
+    
     if($user){
         try{
             $this->facebook->setFileUploadSupport(true);

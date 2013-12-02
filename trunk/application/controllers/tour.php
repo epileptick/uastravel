@@ -185,7 +185,6 @@ class Tour extends MY_Controller {
   }
 
   function _tour_menu($argTag=false, $argType=false, $argSubType=false){
-
     if($argTag){
       //tour & tag
       //Query tag_name by tag_url
@@ -193,7 +192,6 @@ class Tour extends MY_Controller {
       $this->load->model("tag_model", "tagModel");
       $tagQuery = $this->tagModel->get($tag);
       unset($tag);
-
 
       //Query tag not in database
       $empty = false;
@@ -229,35 +227,33 @@ class Tour extends MY_Controller {
       }else{
         $empty = true;
       }
-
     }else{
        $empty = true;
     }
 
+    //Not type & tag & argTag
+    if($empty){
+      //Query tagtype by type_id
+      $type["where"]["type_id"] = 4;
+      $this->load->model("tagtype_model", "tagtypeModel");
+      $menuQuery = $this->tagtypeModel->getTagTypeList($type);
+      //var_dump($menuQuery); exit;
 
-  //Not type & tag & argTag
-  if($empty){
-    //Query tagtype by type_id
-    $type["where"]["type_id"] = 4;
-    $this->load->model("tagtype_model", "tagtypeModel");
-    $menuQuery = $this->tagtypeModel->getTagTypeList($type);
-    //var_dump($menuQuery); exit;
+      //Query type_id by parent_id
+      $parent["parent_id"] = $type["where"]["type_id"];
+      $this->load->model("type_model", "typeModel");
+      $parenttypeQuery = $this->typeModel->getRecord($parent);
+      //print_r($parenttypeQuery); exit;
 
-    //Query type_id by parent_id
-    $parent["parent_id"] = $type["where"]["type_id"];
-    $this->load->model("type_model", "typeModel");
-    $parenttypeQuery = $this->typeModel->getRecord($parent);
-    //print_r($parenttypeQuery); exit;
+      //Query tagname by type_id (Submenu)
+      if(!empty($parenttypeQuery[0]->id)){
+        $type["where"]["type_id"] = $parenttypeQuery[0]->id;
+      }
 
-    //Query tagname by type_id (Submenu)
-    if(!empty($parenttypeQuery[0]->id)){
-      $type["where"]["type_id"] = $parenttypeQuery[0]->id;
+      $this->load->model("tagtype_model", "tagtypeModel");
+      $subMenuQuery = $this->tagtypeModel->getTagTypeList($type);
+      //print_r($subMenuQuery); exit;
     }
-
-    $this->load->model("tagtype_model", "tagtypeModel");
-    $subMenuQuery = $this->tagtypeModel->getTagTypeList($type);
-    //print_r($subMenuQuery); exit;
-  }
 
     //Query tagname by type_id (Menu)
     $count = 0;
@@ -280,12 +276,11 @@ class Tour extends MY_Controller {
       $count++;
     }
     $return["menu_selectall"] = $menu_select_all;
-
     if(!empty($subMenuQuery)){
       $count = 0;
       $submenu_select_all = true;
       foreach ($subMenuQuery as $key => $value) {
-    $return["submenu"][$count] = new stdClass();
+        $return["submenu"][$count] = new stdClass();
         $return["submenu"][$count]->tag_id = $value["tag_id"];
         $return["submenu"][$count]->name = $value["name"];
         $return["submenu"][$count]->url = $value["url"];
@@ -305,10 +300,7 @@ class Tour extends MY_Controller {
       $return["submenu_selectall"] = $submenu_select_all;
     }
 
-
-    //print_r($return); exit;
     return $return;
-
   }
 
 
@@ -325,7 +317,6 @@ class Tour extends MY_Controller {
   }
 
   function _tour_list($tags){
-
     $count = 0;
     $this->load->model("tagtour_model", "tagTourModel");
     $tour = $this->tagTourModel->getRecord($tags);
@@ -380,7 +371,7 @@ class Tour extends MY_Controller {
     }else{
       $description = $this->lang->line("global_lang_home_desc");
     }
-    PageUtil::addVar("description",$description);
+    PageUtil::addVar("description",str_replace(array('\'', '"','“','”','&ldquo;','&rdquo;'),"",$description));
 
     if(!empty($articleResult[0]["id"])){
       $this->load->model("images_model","imagesModel");
@@ -406,7 +397,6 @@ class Tour extends MY_Controller {
     $this->_assign("allProvince",$tagProvinceList);
     $this->_assign("main_menu",Menu::main_menu());
 
-
     $data["caconical"] = base_url($this->lang->line("url_lang_tour"));
 
     if(!empty($data)){
@@ -416,7 +406,6 @@ class Tour extends MY_Controller {
   }
 
   function user_listbytag($tag=false, $page=0){
-
     //echo "Call user_listbytag()"; exit;
     $this->load->model("type_model", "typeModel");
     $this->load->model("tagtype_model", "tagTypeModel");
@@ -496,8 +485,7 @@ class Tour extends MY_Controller {
     }else{
       $description = $this->lang->line("global_lang_home_desc");
     }
-    PageUtil::addVar("description",$description);
-
+    PageUtil::addVar("description",str_replace(array('\'', '"','“','”','&ldquo;','&rdquo;'), "", $description));
 
     if(!empty($articleResult[0]["id"])){
       $this->load->model("images_model","imagesModel");
@@ -515,6 +503,9 @@ class Tour extends MY_Controller {
         $ajaxReturn["imagesRedered"] = $this->_fetch("ajax_article_images", $data, TRUE, TRUE);
         $ajaxReturn["bodyRedered"] = $this->_fetch("ajax_article_body", $data, TRUE, TRUE);
         //$ajaxReturn["tourList"] = $this->_fetch("ajax_tour_list", $data, TRUE, TRUE);
+        if(empty($articleResult[0]["title"])){
+          $articleResult[0]["title"] = "";
+        }
         $articleResult[0]["name"] = $articleResult[0]["title"];
         $ajaxReturn["data"] = $articleResult[0];
 
@@ -559,8 +550,6 @@ class Tour extends MY_Controller {
     }else{
       $data["tour"] = false;
     }
-
-
 
     $this->load->model("article_model","articleModel");
     $where["where"]["tag_id"] = $tagQuery[0]["id"];
@@ -613,8 +602,7 @@ class Tour extends MY_Controller {
     }else{
       $description = $this->lang->line("global_lang_home_desc");
     }
-    PageUtil::addVar("description",$description);
-
+    PageUtil::addVar("description",str_replace(array('\'', '"','“','”','&ldquo;','&rdquo;'),"",$description));
 
     if(!empty($articleResult[0]["id"])){
       $this->load->model("images_model","imagesModel");
@@ -631,6 +619,9 @@ class Tour extends MY_Controller {
         $ajaxReturn["imagesRedered"] = $this->_fetch("ajax_article_images", $data, TRUE, TRUE);
         $ajaxReturn["bodyRedered"] = $this->_fetch("ajax_article_body", $data, TRUE, TRUE);
         $ajaxReturn["tourList"] = $this->_fetch("ajax_tour_list", $data, TRUE, TRUE);
+        if(empty($articleResult[0]["title"])){
+          $articleResult[0]["title"] = "";
+        }
         $articleResult[0]["name"] = $articleResult[0]["title"];
         $ajaxReturn["data"] = $articleResult[0];
 
@@ -808,7 +799,7 @@ class Tour extends MY_Controller {
         $this->_assign("currentProvince","Thailand");
       }
 
-      if(!empty($data["tag"])){
+      if(!empty($currentProvince[$this->lang->lang()]) AND !empty($data["tag"])){
         foreach ($data["tag"] as $key => $value) {
           if($currentProvince[$this->lang->lang()]["name"] != $value["tagt_name"]){
             $keywordList[] = $value["tagt_name"];
@@ -871,7 +862,7 @@ class Tour extends MY_Controller {
 
       //Set Title and Description
       if(!empty($data["tour"][0]["short_description"])){
-        PageUtil::addVar("description",$data["tour"][0]["short_description"]);
+        PageUtil::addVar("description",str_replace(array('\'', '"','“','”','&ldquo;','&rdquo;'), "", $data["tour"][0]["short_description"]));
       }
 
       //Images
@@ -1656,6 +1647,13 @@ class Tour extends MY_Controller {
     //Get argument from post page
     $args = $this->input->post();
     $this->tourModel->updateDisplayFirstpageRecord($args);
+    //print_r($args); exit();
+  }
+
+  function admin_setcharter(){
+    //Get argument from post page
+    $args = $this->input->post();
+    $this->tourModel->updateCharterPrice($args);
     //print_r($args); exit();
   }
 

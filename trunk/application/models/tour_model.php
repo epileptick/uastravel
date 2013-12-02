@@ -290,6 +290,13 @@ class Tour_model extends MY_Model {
     $response = $this->priceModel->updateDisplayFirstpageRecord($data);
     return $response;
   }
+  
+  function updateCharterPrice($data=false){
+
+    $this->load->model("price_model", "priceModel");
+    $response = $this->priceModel->updateCharterPrice($data);
+    return $response;
+  }
 
 
   function deleteRecord($id=false){

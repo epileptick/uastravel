@@ -84,7 +84,6 @@ class TourCustomer_model extends MY_Model {
 
 
   function addRecord($data=false){
-
     if(!empty($data)){
       $this->load->model("price_model", "priceModel");
       $this->load->model("tourbooking_model", "tourbookingModel");
@@ -151,7 +150,7 @@ class TourCustomer_model extends MY_Model {
       //print_r($tourBooking); exit;
 
       $tourPrice["price"] = $priceList;
-      $booking = $tourCustomer+ $tourPrice;
+      $booking = $tourCustomer+$tourPrice;
 
       return $booking;
     }else{
@@ -159,6 +158,7 @@ class TourCustomer_model extends MY_Model {
     }
 
   }
+
 
 
   function updateRecord($data=false){

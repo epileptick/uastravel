@@ -1,34 +1,16 @@
 <?php
-  if(!empty($tours["tour"])){
-    foreach ($tours["tour"] as $key => $value) {
+  if(!empty($tours)){
+    foreach ($tours as $key => $value) {
       if(!empty($value['price'])){
 ?>
 
     <li class="sortable_item">
-      <div class="list_packet">
-        <div class="row">
-          <div class="twelve columns">
-            <a href="<?php echo base_url("tour/".$value["tour"]["tout_url"]."-".$value["tour"]["tour_id"]); ?>" target="_blank">
-              <img src="<?php echo $value["tour"]["banner_image"]; ?>">
-            </a>
-          </div>
-          <div class="twelve columns">
+      <div class="list_package_tour">
             <div class="row">
-              <div class="nine columns">
+              <div class="twelve columns">
                 <div class="title_tour">
                   <h4>
-                    <a href=""><?php echo $value['tour']["tout_name"]; ?></a>
-                    <?php
-                      if($tours["filter"]["defaulttag_id"] == 85){
-                        $day = 0.5;
-                      }else if($tours["filter"]["defaulttag_id"] == 95){
-                        $day = 1;
-                      }else if($tours["filter"]["defaulttag_id"] == 166){
-                        $day = 2;
-                      }else if($tours["filter"]["defaulttag_id"] == 163){
-                        $day = 3;
-                      }
-                    ?>
+                    <a href="#" data-reveal-id="myTourModal_<?php echo $value['tour']["tour_id"]; ?>"> <img class="img_tour" src="<?php echo $value["tour"]["first_image"]; ?>"> <?php echo $value['tour']["tout_name"]; ?></a>
                     <input  class="item_property"
                             type="hidden"
                             id="packagedata"
@@ -41,32 +23,57 @@
                             childprice="<?php echo $value['price']->pri_sale_child_price; ?>"
                             discountadultprice="<?php echo $value['price']->pri_discount_adult_price; ?>"
                             discountchildprice="<?php echo $value['price']->pri_discount_child_price; ?>"
-                            tag="<?php echo $tours["filter"]["defaulttag"]; ?>"
-                            tagid="<?php echo $tours["filter"]["defaulttag_id"]; ?>"
-                            totalday="<?php echo $day; ?>"
+                            totalday="<?php echo $value['totalday']; ?>"
                     />
                   </h4>
                 </div>
               </div>
-              <div class="three columns">
-                <div class="rating three_star"></div>
-                <div class="clearfix"></div>
-              </div>
             </div>
             <div class="border"></div>
-          </div>
-          <div class="twelve columns">
-            <div class="icon time tooltip_se" title="เวลา">
-              <!-- <?php echo $value['tour']->tou_start_time1; ?> - <?php echo $value['tour']->tou_end_time1; ?> -->
-              N/A
+            <div class="package_price_list">
+              <div class="price_switch">ซ่อนราคา</div>
+              <table class="table table-hover table-condensed price_table">
+                <thead>
+                  <th></th>
+                  <th>รายการ</th>
+                  <th>ราคาผู้ใหญ่</th>
+                  <th>ราคาเด็ก</th>
+                </thead>
+                <tbody>
+                  <?php
+                  foreach ($value['price_list'] as $priceKey => $priceValue) {
+                    $isChecked = "";
+                    $style = "";
+                    if($priceValue["show_firstpage"] == 1){
+                      $isChecked = "checked";
+                      $style = "style='background:#FFF7A0;'";
+                    }
+                    ?>
+                    <tr  <?php echo $style;?>>
+                      <td width="5%">
+                        <input type="checkbox" class="price_list" name="price_selected[<?php echo $value['tour']["tour_id"]; ?>][]" value="<?php echo $priceValue['id'];?>" <?php echo $isChecked;?> data-price-id="<?php echo $priceValue['id'];?>" data-adult-price="<?php echo $priceValue['sale_adult_price']; ?>" data-child-price="<?php echo $priceValue['sale_child_price']; ?>" data-is-charter="<?php echo $priceValue['charter']; ?>">
+                      </td>
+                      <td>
+                        <?php echo $priceValue['name'];?>
+                      </td>
+                      <td class="price_list_price">
+                        <?php echo $priceValue['sale_adult_price'];?> <?php echo $this->lang->line("global_lang_money_sign"); ?>
+                      </td>
+                      <td class="price_list_price">
+                        <?php echo $priceValue['sale_child_price'];?> <?php echo $this->lang->line("global_lang_money_sign"); ?>
+                      </td>
+                    </tr>
+                    <?php
+                  }
+                ?>
+                </tbody>
+              </table>
             </div>
-            <div class="icon readmore tooltip_se" title="คลิกเพื่อดูรายละเอียด"><a href="#" data-reveal-id="myModal">รายละเอียด</a></div>
-            <div class="price"><span><?php echo $value['price']->pri_sale_adult_price; ?> B</span> / <?php echo $day; ?> วัน</div>
-          </div>
-        </div>
       </div>
       <a class="delete tooltip_ne" title="ลบ" packageid="<?php echo $value['tour']["tour_id"]; ?>"></a>
-      <a class="add tooltip_ne" title="เพิ่ม"></a>
+      <!--
+        <a class="add tooltip_ne" title="เพิ่ม"></a>
+      -->
     </li>
 
 <?php

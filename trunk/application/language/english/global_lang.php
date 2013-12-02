@@ -76,4 +76,7 @@ $lang["global_lang_accommodation"] = "Your Accommodation.";
 $lang["global_lang_hotel_name"] = "Hotel Name";
 $lang["global_lang_hotel_room_number"] = "Room No.";
 
+
+//Custom tour
+
 ?>

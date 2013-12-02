@@ -53,5 +53,10 @@ define('USER_ACCESS','200');
 define('GUEST_ACCESS','100');
 define('BAN_ACCESS','0');
 
+
+// Define Ajax Request
+define('IS_AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+// 
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

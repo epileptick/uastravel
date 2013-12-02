@@ -13,23 +13,15 @@ class Price_model extends MY_Model {
                      'discount_adult_price'  => 'pri_discount_adult_price',
                      'sale_child_price'      => 'pri_sale_child_price',
                      'net_child_price'       => 'pri_net_child_price',
-                     'discount_child_price'  => 'pri_discount_child_price'
-    );
-
-
-    $this->_joincolumn = array(
-                     'id'                    => 'prit_id',
-                     'lang'                  => 'prit_lang',
-                     'price_id'              => 'prit_price_id',
-                     'name'                  => 'prit_name'
+                     'discount_child_price'  => 'pri_discount_child_price',
+                     'charter'               => 'pri_charter'
     );
 
     $this->_join_column = array(
-                     'id'                    => 'prit_id',
                      'lang'                  => 'prit_lang',
                      'price_id'              => 'prit_price_id',
                      'name'                  => 'prit_name'
-    ); 
+    );
   }
  
   function get($options=""){
@@ -319,8 +311,8 @@ class Price_model extends MY_Model {
 
     //Insert price_translate
     foreach($data AS $columnJoinName=>$columnJoinValue){
-      if(array_key_exists($columnJoinName, $this->_joincolumn)){        
-        $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue); 
+      if(array_key_exists($columnJoinName, $this->_join_column)){        
+        $this->db->set($this->_join_column[$columnJoinName], $columnJoinValue); 
       } 
     }
     $this->db->set("prit_price_id", $data["price_id"]); 
@@ -345,12 +337,35 @@ class Price_model extends MY_Model {
   }     
 
   function updateDisplayFirstpageRecord($args=false){
+      if(empty($args["id"])){
+        return false;
+      }
 
       //Set data
-      if(!empty($args["id"]) && $args["display"] == "hide"){
+      if(!empty($args["id"]) && $args["display"] == "false"){
+        
         $this->db->set("pri_show_firstpage", 0);
-      }else if(!empty($args["id"]) && $args["display"] == "show"){
+      }else if(!empty($args["id"]) && $args["display"]  === "true"){
+
         $this->db->set("pri_show_firstpage", 1);
+      }
+
+      $query = $this->db->where("pri_id", $args["id"]);
+      $query = $this->db->update("ci_price");
+
+      return "succees";
+  }
+
+  function updateCharterPrice($args=false){
+      if(empty($args["id"])){
+        return false;
+      }
+
+      //Set data
+      if(!empty($args["id"]) && $args["charter"] == "false"){
+        $this->db->set("pri_charter", 0);
+      }else if(!empty($args["id"]) && $args["charter"]  == "true"){
+        $this->db->set("pri_charter", 1);
       }
             
       $query = $this->db->where("pri_id", $args["id"]);
@@ -493,8 +508,8 @@ class Price_model extends MY_Model {
 
     //Update tour_translate
     foreach($data AS $columnJoinName=>$columnJoinValue){
-      if(array_key_exists($columnJoinName, $this->_joincolumn)){        
-        $this->db->set($this->_joincolumn[$columnJoinName], $columnJoinValue);  
+      if(array_key_exists($columnJoinName, $this->_join_column)){        
+        $this->db->set($this->_join_column[$columnJoinName], $columnJoinValue);  
       }
     }
 

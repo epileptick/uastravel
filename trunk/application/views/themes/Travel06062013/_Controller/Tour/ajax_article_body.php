@@ -1,7 +1,13 @@
             <?php
               if(!empty($article)){
             ?>
-            <h2 class="head_title"><?php echo $article["title"];?></h2>
+            <h2 class="head_title">
+              <?php
+                  if(! empty($article['title'])){
+                    echo $article['title'];
+                  }
+                  ?>
+              </h2>
               <div class="row">
                 <div class="four columns">
                   <?php
