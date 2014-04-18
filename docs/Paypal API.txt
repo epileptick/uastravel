@@ -1,0 +1,22 @@
+﻿============= LIVE ===============
+Credential	API Signature
+API Username	payment_api1.uastravel.com
+API Password	RKRT2UFMT7P32DW3
+Signature		AR5BrLgE44AHr3wkrCRwHSOyKonYA.CI9.AVK5h0P7PT2fRW-n6m5.Vl
+Request Date	19 Dec, 2013 22:01:40 GMT+07:00
+
+============= Sandbox =============
+[Seller]
+payment_sandbox@uastravel.com
+Username:	payment_sandbox_api1.uastravel.com
+Password:		1387427484
+Signature:		ACJS5tJOEUmNZ1xiL.JnDTZ9qcmDAfyAmSt8Fh3HhNBggBjf8RlWOLmJ
+
+[Buyer]
+payment-facilitator@uastravel.com
+Username:	payment-facilitator_api1.uastravel.com
+Password:		ragther3943
+Signature:		An5ns1Kso7MWUdW4ErQKJJJ4qi4-ARETHgasu3Cxk6N3AHp3ik9ZnJMq
+
+
+You will receive ฿15,525.00 THB after a recipient fee of ฿475.00 THB is deducted
