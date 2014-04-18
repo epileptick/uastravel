@@ -1,3 +1,10 @@
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'thaisanslite';
+  color: #222222;
+  font-weight: normal;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
 
 /*
 side bar
@@ -142,4 +149,71 @@ span.hide-button {
 .table-price p {
   font-size: 20px;
   margin-bottom: 0px;
+}
+
+.price_list {
+  margin-bottom: 5px !important;
+}
+
+.columns_2 {
+  padding:0 8px;
+  float: left;
+}
+
+.print_page {
+  border-style:solid;
+  border-width:1px;
+  height:1000px;
+  background: #FFF;
+  margin-top: 10px;
+  box-sizing:border-box;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.print_page h4 {
+  margin-top: 0px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.invoice-status {
+  margin-top: 0px;
+  padding: 10px;
+  font-size: 30px;
+}
+
+table {
+  border: none;
+  table-layout:fixed;
+  width:100%;
+}
+.table th, .table td {
+  padding: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media print {
+  .print_page {
+    margin-top: 0px;
+  }
+}
+
+
+.article_tour h4 {
+  font-size: 16px;
+}
+
+.article_tour h5 {
+  font-size: 14px;
+}
+
+.alert h4 {
+  margin-bottom: 14px;
+}
+
+.table thead tr th, .table tfoot tr td {
+  font-size: 12px;
 }

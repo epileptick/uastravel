@@ -207,15 +207,10 @@ a.blogg-button:link, a.blogg-button:visited {
 
 #wrapper-editor {
   width: 672px;
-  background-color:#f3f3f3;
-  padding-top:20px;
-  padding-bottom:20px;
-  border-top: 1px solid #c1c1c1;
+  padding-top: 20px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #c1c1c1;
   -moz-box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.10);
-  -webkit-box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.10);
-  box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.10);
-
 }
 
 #editor {

@@ -2,13 +2,14 @@
 @import url('fonts/fonts.css');
 body{
 	font-size:62.5%; 
-	font-family: 'thaisanslite';
+	font-family: Verdana, Geneva, sans-serif;
 	color: #4E4E4E;
 }
 html, body {
     height: 100%;
     padding: 0px;
     margin: 0px;
+    text-align:justify;
 }
 ::selection, ::-moz-selection { 
 	background-color: rgba(243, 189, 0, .5);
@@ -29,17 +30,26 @@ img{
 	width: 0;
 }
 label{
-	font-size: 20px;
+	font-size: 14px;
 	margin-bottom: 5px;
 }
 
+.clr{clear:both;}
+
+
+/* ---------------------------------------------------------------------- */
+/*	Edti Bootstrap
+/* ---------------------------------------------------------------------- */
+.input-append .add-on, .input-append .btn, .input-append .btn-group {
+	padding: 5px 12px;
+}
 
 
 /* ---------------------------------------------------------------------- */
 /*	Edti jQuery
 /* ---------------------------------------------------------------------- */
 .ui-datepicker {
-	width: auto !important;
+	width: 300px !important;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -54,9 +64,9 @@ h3#detail{
 	color: #0CACE1;
 }
 p {
-	font-family: 'thaisanslite';
-	font-size: 20px;
-	line-height: 26px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 14px;
+	line-height: 20px;
 	color: #4e4e4e;
 	text-align: justify;
 	text-justify: newspaper;
@@ -81,7 +91,7 @@ ul.square {
 	margin: 0px;
 }
 
-.overly-bg{
+.overly-bg {
 	background: url(../images/overly_bg.png) repeat-x;
 	position: absolute;
 	top: 550px;
@@ -93,7 +103,7 @@ ul.square {
 	z-index: -1;
 }
 
-h1.title{
+h1.title {
 	font-family: 'thaisanslite';
 	text-align: center;
 	font-size: 48px;
@@ -102,32 +112,48 @@ h1.title{
 	padding: 0 40px;
 	height: 250px;
 	padding: 75px 40px 0 40px;
-	text-shadow:1px 1px 0px #000;
+	text-shadow:1px 1px 0px #FFFFFF;
 }
 h1.title a{
-	color: #fff;
+	color: #F3BD00;
+	
 }
 h1.title a:hover{
-	color: #F3BD00;
+	color: #F36B00;
 }
 span.subtitle{
 	display: block;
 	font-size: 26px;
+	color: #222222;
+
 }
 
 
 @media only screen and (min-width: 980px) {
 	.top-bar{
+		/*
 		margin: 40px 0 40px 0px;
+		*/
+		margin: 40px 0 0px 0px;
 		height: 75px;
 		line-height: 75px;
 		text-shadow: 0px 1px 1px black;
 		font-size: 13px;
+		/*
 		background: url(../images/menu_bg.png) repeat-x;
-		border: 1px solid black;
-		-moz-border-radius: 2px;
-		-webkit-border-radius: 2px;
-		border-radius: 2px;
+		*/
+		background: rgba(0, 0, 0, 0.7);
+		background-image: -o-linear-gradient(bottom, rgba(0,0,0,0) 35%, rgba(0,0,0,0.3) 86%) !important;
+		background-image: -moz-linear-gradient(bottom, rgba(0,0,0,0) 35%, rgba(0,0,0,0.3) 86%) !important;
+		background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0) 35%, rgba(0,0,0,0.3) 86%) !important;
+		background-image: -ms-linear-gradient(bottom, rgba(0,0,0,0) 35%, rgba(0,0,0,0.3) 86%) !important;
+		background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.35, rgba(0,0,0,0)), color-stop(0.86, rgba(0,0,0,0.3)) ) !important;
+		-moz-border-top-left-radius: 5px;
+		-moz-border-top-right-radius: 5px;
+		-webkit-border-top-left-radius: 5px;
+		-webkit-border-top-right-radius: 5px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
 	}
 	.top-bar ul > li a:not(.button) {
 		height: 75px;
@@ -264,16 +290,9 @@ a.next:hover{
 /*	Gallery
 /* ---------------------------------------------------------------------- */
 .gallery_pc{
-	margin: 0 15px 10px 15px;
-	background: #fff;
+	margin: 0 15px 0px 15px;
 	overflow: hidden;
-	height: 448px;
-	-webkit-border-radius: 2px;	
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-	-webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-	      -moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.2);
-	        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+	background: rgba(0, 0, 0, 0.1);
 }
 .lt-ie9 .gallery_pc{
 	border-radius: 2px;
@@ -291,9 +310,9 @@ a.next:hover{
 .gallery_pc div.content {
 	/* The display of content is enabled using jQuery so that the slideshow content won't display unless javascript is enabled. */
 	display: none;
-	float: right;
-	width: 627px; 
+	width: 687px;
 	position: relative;
+	float: left;
 }
 .gallery_pc div.content a, div.navigation a {
 	text-decoration: none;
@@ -365,22 +384,26 @@ div.slideshow span.image-wrapper {
 }
 div.slideshow a.advance-link {
 	display: block;
-	width: 625px;
+	width: 687px;
 	height: 441px; /* This should be set to be at least the height of the largest image in the slideshow */
 	line-height: 441px; /* This should be set to be at least the height of the largest image in the slideshow */
 	text-align: center;
+	overflow: hidden;
 }
 div.slideshow a.advance-link:hover, div.slideshow a.advance-link:active, div.slideshow a.advance-link:visited {
 	text-decoration: none;
 }
 div.slideshow img {
+	display: block;
+	width: 100%;
+	height: auto;
 }
 div.download {
 	display: none;
 }
 div.caption-container {
 	height: 60px;
-	width: 615px;
+	width: 678px;
 	position: absolute;
 	bottom: 0px;
 	left: 0;
@@ -427,22 +450,23 @@ div.image-desc {
 }
 div.navigation {
 	/* The navigation style is set using jQuery so that the javascript specific styles won't be applied unless javascript is enabled. */
+	margin-left: -7px;
 }
 ul.thumbs {
 	clear: both;
 	margin: 0;
 	padding: 0;
+	padding-left: 8px;
 }
 ul.thumbs li {
 	float: left;
 	padding: 0;
-	margin: 0px 0px 4px 4px;
+	margin: 0px 0px 2px 2px;
 	list-style: none;
+	width: 8%;
 }
 a.thumb {
-	display: block;
-	width: 100px;
-	height: 85px;
+
 }
 ul.thumbs li.selected{
 	background: #000;
@@ -453,8 +477,8 @@ a.thumb:focus {
 ul.thumbs img {
 	border: none;
 	display: block;
-	max-width: 100px;
-	min-height: 85px;
+	max-width: 55px;
+	min-height: 39px;
 }
 div.pagination {
 	clear: both;
@@ -586,7 +610,7 @@ div.pagination span.ellipsis {
 }
 #gallery_mobile li { 
 	float: left; 
-	width: 25%; 
+	width: 10%;
 }
 #gallery_mobile li:first-child{ 
 	width: 100%; 
@@ -608,7 +632,7 @@ div.pagination span.ellipsis {
 	background: #fff;
 	height: auto;
 	position: relative;
-	margin: 0px 15px 10px 15px;
+	margin: 0px 5px 10px 5px;
 	padding: 0 15px 0 15px;
 	-webkit-border-radius: 2px;	
 	-moz-border-radius: 2px;
@@ -693,7 +717,7 @@ h3.title_tour{
 	height:24px;
 	line-height:17px;
 	font-size:11px;
-	font-size: 20px;
+	font-size: 14px;
 	color: #4E4E4E;
 	padding: 0 8px 0 0px;
 }
@@ -874,6 +898,7 @@ footer{
 }
 footer p{
 	color: #757575;
+	font-size: 12px;
 }
 footer nav{
 	width: 100%;
@@ -894,9 +919,9 @@ ul.menu_footer li{
 	list-style: none;
 }
 ul.menu_footer li a{
-	font-size: 20px;
+	font-size: 12px;
 	color: #757575;
-	padding: 0 35px 0 0;
+	padding: 0 10px 0 0;
 	display: block;
 }
 ul.menu_footer li a:hover{
@@ -909,7 +934,7 @@ ul.menu_footer li a:hover{
 	color: #757575;
 	line-height: 20px;
 	text-align: right;
-	font-size: 20px;
+	font-size: 14px;
 	margin: 0px;
 }
 /* ---------------------------------------------------------------------- */
@@ -986,11 +1011,11 @@ ul.menu_footer li a:hover{
 }
 
 
-.list_packet .border{
+.list_packet .border {
 	margin: 0 5px 5px 5px;
 }
 
-.list_packet img{
+.list_packet img {
 	min-width: 100%;
 }
 .list_packet img:hover{
@@ -999,29 +1024,32 @@ ul.menu_footer li a:hover{
 
 .price{
 	float: right;
-	font-size: 20px;
+	font-size: 16px;
 	margin: -5px 5px 0 0;
 	line-height: 30px;
 	letter-spacing: -1px;
+	color:#FE5214;
 }
 
 .icon {
 	float: left;
-	min-width: 60px;
-	height: 30px;
-	background: url(../images/icon.png) no-repeat 0px 0px;
-	font-size: 14px;
-	line-height: 30px;
-	text-indent: 35px;
+	min-width: 50px;
+	height: 14px;
+	background: url(../images/icon.png);
+	background-repeat: no-repeat;
+	background-size: 30%;
+	font-size: 10px;
+	line-height: 13px;
+	text-indent: 24px;
 	margin: 0 0 0 5px;
 }
 .view{
-	background-position: 0px 0px;
-	margin: -5px 0 0 5px;
+	background-position: 0px -1px;
+	margin: 5px 0 0 5px;
 }
 .comment{
-	background-position: 0px -30px;
-	margin: -5px 0 0 5px;
+	background-position: 0px -16px;
+	margin: 5px 0 0 5px;
 }
 .time{
 	background-position: -8px -630px;
@@ -1056,8 +1084,7 @@ ul.menu_footer li a:hover{
 .social_network{
 	float: right;
 	width: 100%;
-	margin: 15px 0 9px 0;
-
+	margin: 0px 0 5px 0;
 }
 .addthis_button_google_plusone {
 	width: 65px;
@@ -1265,7 +1292,7 @@ li.sortable-placeholder {
 	top: 10px;
 	left: -4px;
 	z-index: 1;
-	font-size: 30px;
+	font-size: 22px;
 	line-height: 37px;
 	height: 42px;
 	width: 96px;
@@ -1655,7 +1682,7 @@ form.search_package .tag{
 }
 .darg_packet input[type="text"]{
 	text-indent: 10px;
-	height: 30px;
+	height: 40px;
 	border: solid 1px #d4d4d4;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#f3f3f3');
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#f3f3f3')";
@@ -2224,14 +2251,15 @@ a.share:hover{
 	padding:0 !important;
 	float: left;
 	width: 100%;
+	vertical-align:top;
 }
 .clear_padding {
 	padding:0 !important;
 }
 
 .left_columns {
+	float: none  !important;
 	width: 25%;
-	float: left !important;
 	background-color: rgba(238, 238, 238, 0.2);
 	-moz-box-shadow: inset -2px 0 5px rgba(170, 170, 170, 0.6);
 	-ms-box-shadow: inset -2px 0 5px rgba(170, 170, 170, 0.6);
@@ -2242,7 +2270,7 @@ a.share:hover{
 
 .right_columns {
 	width: 75%;
-	float: left !important;
+	float: right !important;
 	padding: 10px;
 }
 
@@ -2250,7 +2278,7 @@ a.share:hover{
 .tab_user {
 	height: 40px;
 	/*width: 100%;*/
-	width: 950px;
+	width: 970px;
 	margin-right: auto;
 	margin-left: auto;
 }
@@ -2617,12 +2645,12 @@ form.signin input::-webkit-input-placeholder {
 }
 
 .left_columns a {
-	font-size: 20px;
+	font-size: 16px;
 
 }
 .left_columns ul  {
 	list-style: none;
-
+	margin-bottom: 0px;
 }
 
 .left_columns .sub-menu a {
@@ -2837,11 +2865,10 @@ form.signin input::-webkit-input-placeholder {
 }
 
 .right_columns .head_title {
-	font-size: 2.2em;
-	margin-top: -8px;
+	font-size: 32px;
 	border-bottom: 1px #C7C7C7 dashed;
-	padding-bottom: 5px;
-
+	margin-bottom: 10px;
+	margin-top: 0px;
 }
 .breadcrumb {
 	background: rgba(0, 0, 0, 0.6) url(../images/menu_bg.png) repeat-x;
@@ -2865,14 +2892,192 @@ form.signin input::-webkit-input-placeholder {
 }
 
 .grand_total_price {
-  font-size: 30px;
+  font-size: 24px;
   float: right;
   margin-right: 10px;
   border-bottom: 1px double #C1C1C1;
 }
 .grand_total_price .total_number {
   color: #FE5214;
-  font-size: 36px;
+  font-size: 26px;
   font-weight: bold !important;
   border-bottom: 1px double #C1C1C1;
+}
+
+#gallery_row {
+	padding-bottom: 5px;
+	float: left;
+}
+
+.search_box {
+
+	background: url(../images/search_banner.png) center bottom no-repeat  rgba(51, 204, 173, 0.4);
+	padding: 10px;
+	margin-bottom: 10px;
+}
+.search_box h2 {
+	text-shadow: 0px 1px 0px rgba(0, 0, 0, 0), 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 1px 3px rgba(0, 0, 0, 0.5);
+	margin-top: 0px;
+}
+
+.customtour_banner {
+	background: url(../images/customtour_banner.png) center bottom no-repeat #99cc33;
+	height: 137px;
+	float: left;
+	width: 100%;
+}
+
+@media (min-width: 768px) {
+	.customtour_banner_column {
+		padding-left: 0px;
+	}
+}
+
+.customtour_banner:hover {
+	background-color: #a3d147;
+}
+.customtour_banner h2 {
+	color: #FFFFFF;
+	margin: 0px;
+	margin-left:10px; 
+}
+.customtour_banner h3 {
+	margin-top: 0px;
+	color: #FFFFFF;
+	margin-left: 10px;
+}
+
+.search_result_item {
+	border-bottom: 1px dashed #779bca;
+	padding: 8px 0;
+	min-height: 120px;
+	float: left;
+}
+
+.search_result_item_image {
+	overflow: hidden;
+	text-align: center;
+	display: block;
+	min-height: 100px;
+	background-repeat: no-repeat;
+}
+
+@media (min-width: 768px) {
+	.search_result_item_image {
+		height: 100px;
+		width: 20%;
+		float: left;
+	}
+}
+
+@media (max-width: 767px) {
+	.search_result_item_image {
+		width: 100%;
+	}
+}
+
+.search_result_item_image img {
+	display: none;
+}
+
+.search_result_item_detail {
+	width: 80%;
+	float: left;
+	padding: 10px;
+	padding-top: 0px;
+
+}
+.search_result_tour_name {
+	font-size: 26px;
+	border-bottom: 1px #F7F7F7 solid;
+	margin-bottom: 5px;
+	margin-top: 0px;
+	float: left;
+	width: 100%;
+}
+.search_result_tour_description {
+	font-size: 18px;
+	color: #003580;
+	float: left;
+	margin: 0px;
+}
+
+.search_result_tour_price h3 {
+	margin: 0px;
+	width: 100%;
+	text-align: center;
+	font-size: 22px;
+}
+
+.search_result_tour_price h3.search_result_tour_price_price {
+	color: #FE5214;
+	font-size: 32px;
+	font-weight: bold !important;
+	border-bottom: 1px double #C1C1C1;
+}
+
+.search_result_tour_price .rating {
+	float: none;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+/* First Page Customtour*/
+.customtour_item * {
+	font-family: Verdana, Geneva, sans-serif;
+}
+.customtour_item {
+	border-bottom: 1px dashed #779bca;
+	padding: 8px 0;
+	height: 90px;
+	float: left;
+	font-family: Verdana, Geneva, sans-serif;
+	overflow: hidden;
+}
+
+.customtour_tour_name {
+	font-size: 16px;
+	border-bottom: 1px #F7F7F7 solid;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	float: left;
+	width: 100%;
+	height: 20px;
+	overflow: hidden;
+	line-height: 20px;
+}
+.customtour_tour_description {
+	font-size: 12px;
+	color: #2A95AF;
+	float: left;
+	margin: 0px;
+	line-height: 16px;
+}
+
+.customtour_result_item_image {
+	overflow: hidden;
+	text-align: center;
+	display: block;
+	min-height: 75px;
+	background-repeat: no-repeat;
+}
+
+@media (min-width: 768px) {
+	.customtour_result_item_image {
+		height: 75px;
+		width: 20%;
+		float: left;
+	}
+}
+
+@media (max-width: 767px) {
+	.customtour_result_item_image {
+		width: 100%;
+	}
+	.customtour_item {
+		height: auto;
+	}
+	.customtour_result_item_image {
+		height: 100px;
+	}
 }

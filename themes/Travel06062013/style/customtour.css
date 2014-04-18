@@ -8,10 +8,10 @@ h4,h5 {
   margin-bottom: 20px;
 }
 .list_step_customtour li {
-  font-size: 30px;
-  line-height: 30px;
+  font-size: 18px;
+  line-height: 28px;
 }
-.customtour_step1 .page-header {
+.page-header {
   margin-bottom: 15px;
   margin-top: 0px;
   background-color: #B1B1B1;
@@ -31,7 +31,7 @@ h4,h5 {
   margin-left: -15px;
   margin-right: -15px;
 }
-.customtour_step1 .page-header h1 {
+.page-header h1 {
   font-size: 26px;
   margin-top: 5px;
   color: #FFFFFF;
@@ -52,7 +52,7 @@ h4,h5 {
   height: 32px;
   min-width: 16px;
   padding: 4px 5px;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: normal;
   line-height: 20px;
   text-align: center;
@@ -142,7 +142,7 @@ table {
   border: none;
 }
 
-h3,h4 {
+.customtour_step1 h3,h4 {
   text-shadow: 0px 1px 0px rgba(0, 0, 0, 0), 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 1px 1px rgba(0, 0, 0, 0.4);
 }
 
@@ -152,20 +152,20 @@ h3,h4 {
 }
 
 .summary_section {
-  font-size: 20px;
+  font-size: 14px;
   list-style: none;
   list-style-type: none;
 }
 
 .summary_section li {
-  font-size: 20px;
+  font-size: 14px;
   padding-bottom: 10px;
   border-bottom: 1px double #E0E0E0;
 }
 
 #summary_adult_price {
   color: #FE5214;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold !important;
   border-bottom: 1px double #C1C1C1;
 }
@@ -176,6 +176,38 @@ h3,h4 {
   border-bottom: 1px double #C1C1C1;
 }
 
+#summary_adult_price_person,#summary_child_price_person {
+  color: #FE5214;
+  font-weight: bold !important;
+  border-bottom: 1px double #C1C1C1;
+}
+
 .price_table td {
+  font-size: 12px;
+}
+
+.description_tour {
+  font-size: 20px;
+  border-bottom: 1px solid #CCCCCC;
+  display: block;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.booking_price td {
+  padding: 5px;
+}
+.booking_price td input[type="text"] {
+  height: 26px;
+  margin-bottom: 0px;
+}
+
+div.pagination {
+  clear: both;
+  display: block;
+}
+
+div.pagination a, div.pagination span.current, div.pagination span.ellipsis {
+  margin: 0px;
   font-size: 18px;
 }

@@ -19,7 +19,7 @@
       $(".side_bar a").removeClass("active");
       $(this).addClass("active");
       var parent = this;
-      $(".right_columns").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"themes/Travel06062013/images/loader.gif\" border=\"0\">").fadeIn(300);
+      $("#detail").hide().html("<img style=\"width:48px; height:48px; margin:auto; margin-top: 50%; display: block;\" src=\"../../themes/Travel06062013/images/loader.gif\" border=\"0\">").fadeIn(300);
       lastURL = link;
       linkRedirect = $(this).attr("href");
       jqxhr = $.get(link);
@@ -27,7 +27,7 @@
       jqxhr.success(function(data) {
                       loading = false;
                       var json = jQuery.parseJSON(data);
-                      $(".right_columns").hide().html(json.bodyRedered).fadeIn(300);
+                      $("#detail").hide().html(json.bodyRedered).fadeIn(300);
                       $("#gallery_row").hide().html(json.imagesRedered).fadeIn(300).css("height","");
                       if($(parent).parent().children("ul.tour-list").length == 0){
                         if(json.tourList != undefined){
@@ -52,7 +52,7 @@
                       processAjaxData(json.data.name, json, $(".left_columns").html(), linkRedirect);
                     });
     }else{
-      $(".right_columns").hide().html("<p style=\"width:100px; height:18px; margin:auto; margin-top: 50%; display: block;\">We're loading...</p><br /><img style=\"width:48px; height:48px; margin:auto; display: block;\" src=\"themes/Travel06062013/images/loader.gif\" border=\"0\">").fadeIn(300);
+      $("#detail").hide().html("<p style=\"width:100px; height:18px; margin:auto; margin-top: 50%; display: block;\">We're loading...</p><br /><img style=\"width:48px; height:48px; margin:auto; display: block;\" src=\"../../themes/Travel06062013/images/loader.gif\" border=\"0\">").fadeIn(300);
     }
     return false;
   });
