@@ -7,10 +7,12 @@ class CustomTour_model extends MY_Model {
     $this->_column = array(
                      'id'								=> 'cus_id',
                      'package_name'			=> 'cus_package_name',
-                     'tour_id'					=> 'cus_tour_id',
+                     'tour_id'          => 'cus_tour_id',
+                     'code'					    => 'cus_code',
                      'days'							=> 'cus_days',
                      'lang'             => 'cus_lang',
                      'url'              => 'cus_url',
+                     'view'             => 'cus_view',
                      'cr_date'          => 'cus_cr_date',
                    	 'cr_uid'           => 'cus_cr_uid',
                      'lu_date'          => 'cus_lu_date',

@@ -85,6 +85,7 @@ $(function() {
   <br /><br /><br /><br />
 
   <form class="custom" id="booking_validate" name="input" action="<?php echo base_url($this->lang->line("url_lang_tour")."/booking");?>" method="post">
+      <input type="hidden" name="type" value="<?php echo $tourType;?>">
       <input type="hidden" name="tour_id" value="<?php echo $tour[0]["id"];?>">
       <input type="hidden" name="tour_code" value="<?php echo $tour[0]["code"];?>">
       <input type="hidden" name="tour_name" value="<?php echo $tour[0]["name"];?>">

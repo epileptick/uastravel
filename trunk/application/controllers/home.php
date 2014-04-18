@@ -20,51 +20,6 @@ class Home extends MY_Controller {
     $this->user_list(false, $page);
   }
 
-  function _home_menu($select=false){
-      $type["where"]["type_id"] = 1;
-      $this->load->model("tagtype_model", "tagtypeModel");
-      $tagtypeQuery = $this->tagtypeModel->getTagTypeList($type);
-
-      $this->load->model("tag_model", "tagModel");
-
-      $count = 0;
-      foreach ($tagtypeQuery as $key => $value) {
-        $menu[$count] = new stdClass();
-        $menu[$count]->tag_id = $value["tag_id"];
-        $menu[$count]->name = $value["name"];
-        $menu[$count]->url = $value["url"];
-
-        //Select all
-        if($select){
-          $menu[$count]->select_all = 0;
-        }else{
-          $menu[$count]->select_all = 1;
-        }
-        //Select element
-        if($select && $select == $value["name"]){
-          $menu[$count]->select = 1;
-        }else{
-          $menu[$count]->select = 0;
-        }
-
-        $count++;
-      }
-      return $menu;
-  }
-
-  function _shuffle_assoc($list) {
-    if (!is_array($list)) return $list;
-
-    $keys = array_keys($list);
-    shuffle($keys);
-    $random = array();
-    foreach ($keys as $key) {
-      $random[] = $list[$key];
-    }
-    return $random;
-  }
-
-
   function user_list($tag=false, $page=0){
 
     $this->load->model("type_model", "typeModel");

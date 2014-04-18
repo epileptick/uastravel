@@ -20,19 +20,14 @@
   <![endif]-->
 
   <script src="<?php echo $jspath;?>/jquery-1.9.1.js"></script>
-  <script src="<?php echo $jspath.'/foundation.min.js'; ?>"></script>
+
   
   <!-- Initialize JS Plugins -->
-  <script src="<?php echo $jspath;?>/app.js"></script>
-  <!-- UItoTop plugin -->
-  <script src="<?php echo $jspath;?>/jquery.ui.totop.js" type="text/javascript"></script>
-  <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php echo $jspath;?>/top-scrollbar/css/ui.totop.css" />
   <script type="text/javascript" src="<?php echo $jspath;?>/powertip/jquery.powertip.js"></script>
   <link rel="stylesheet" type="text/css" href="<?php echo $jspath;?>/powertip/jquery.powertip.css" />
 
   <script src="<?php echo $jspath;?>/jquery.nanoscroller.min.js"></script>
   <script type="text/javascript" src="<?php echo $jspath;?>/selectik-master/js/jquery.mousewheel.js"></script>
-  <script type="text/javascript" src="<?php echo $jspath;?>/selectik-master/js/jquery.selectik.js"></script>
   <script type="text/javascript" src="<?php echo $jspath;?>/jquery.easytabs.min.js"></script>
   <script type="text/javascript" src="<?php echo $jspath;?>/alertify.js"></script>
   <script src="<?php echo $jspath;?>/jquery-ui.js"></script>
@@ -42,6 +37,7 @@
 </head>
 
 <body style="background: #ededed url(<?php echo $imagepath.'/bg5.jpg';?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
+  {_include user_tab}
   <div class="overly-bg"></div>
   <div id="wrapper">
     <!-- Menu -->
@@ -49,10 +45,11 @@
     <!-- End Menu -->
     <br/><br/><br/><br/><br/>
 
-
-
     <div class="row">
       <section class="article darg_packet">
+        <div class="page-header">
+          <h1>เริ่มต้นการจัดทัวร์ด้วยตัวท่านเอง!</h1>
+        </div>
         <div class="row">
           <div class="eight mobile-three columns">
             <form name="package_customize"
@@ -68,11 +65,12 @@
             }
             ?>
             <div class="packet">
-              <h3>จัดทัวร์ </h3>
-              <p class="action_button top_add_date">
-                <a class="btn add_date">เพิ่มวัน</a>
-              </p>
-              <input type="text" placeholder="ชื่อทัวร์" name="packageName">
+              <div class="control-group info">
+                <label class="control-label" for="inputWarning"></label>
+                  <div class="controls">
+                    <input type="text" placeholder="กรุณาใส่ชื่อทัวร์ของคุณก่อนนะคะ" name="packageName">
+                  </div>
+              </div>
               <?php
               if(!empty($session["totalday"])){
                 for($i=1;$i<=$session["totalday"];$i++) {
@@ -81,7 +79,9 @@
                       <div class="sticker_date">วันที่ <?php echo $i;?></div>
                       <ul class="connected list no1">
                       </ul>
+                      <!--
                       <a class="close tooltip_ne" title="ลบ"></a>
+                      -->
                     </div>
                   <?php
                 }
@@ -104,6 +104,24 @@
                 <div class="six columns">
                   <h4>สรุปราคา</h4>
                   <ul class="summary_section">
+                    <li>
+                      <?php
+                      if(!empty($session["adult"])){
+                        ?>
+                          ราคาสำหรับผู้ใหญ่ <span id="summary_adult_price_person">0</span> บาท/ท่าน
+                        <?php
+                      }
+                      ?>
+                      <br>
+                      <?php
+                      if(!empty($session["child"])){
+                        ?>
+                          ราคาสำหรับเด็ก <span id="summary_child_price_person">0</span> บาท/ท่าน
+                        <?php
+                      }
+                      ?>
+                    </li>
+
                     <?php
                     if(!empty($session["adult"])){
                       ?>
@@ -263,8 +281,13 @@
           marginTop: 0
         });
       }
-    });
 
+    });
+    $(window).resize(function(){
+        var newheight = $(window).height();      
+        $(".nano .content").height(newheight-200);
+        $(".scrollbar").height(newheight-200);
+    });
     $("#buttonForModal").click(function() {
       $("#myModal").reveal();
     });
@@ -358,6 +381,7 @@
         connectWith: '.connected',
         items: ".sortable_item",
         forcePlaceholderSize: true,
+        distance: 30,
         revert: true,
         start: function(event, ui){
           $(ui.item).find("input").attr("dragging","true");
@@ -376,7 +400,7 @@
           $(".packet_item").each(function(index, item) {
             if($(this).find("li").length > 1){
               var count_day = 0;
-              $(this).find("li input.item_property").each(function(index, item) {
+              $(this).find("li .item_property").each(function(index, item) {
                 count_day = count_day+parseFloat($(item).attr("totalday"));
               });
               if(count_day > 1){
@@ -402,13 +426,13 @@
     var Looped = false;
     var packageDay = $(thisObj).find("input").attr("totalday");
     if(packageDay > 1){
-      var objID = $(thisObj).find("input.item_property").attr("value");
+      var objID = $(thisObj).find(".item_property").attr("value");
       $(".packet_item").each(function(list_index, list_item) {
-        if($(list_item).find("li input.item_property").attr("value") == objID){
-          $(list_item).find("input.price_list").each(function(index, item){
+        if($(list_item).find("li .item_property").attr("value") == objID){
+          $(list_item).find(".price_list").each(function(index, item){
             var current_status = $(item).prop('checked');
             var price_id = $(item).data("price-id");
-            $(thisObj).find("input.price_list[data-price-id='" + price_id + "']").each(function(index, item){
+            $(thisObj).find(".price_list[data-price-id='" + price_id + "']").each(function(index, item){
               $(item).prop('checked', current_status);
             });
           });
@@ -497,11 +521,48 @@
     window.setTimeout(updateAllPackage, 800);
   }
 
-  $(document).on("click", ".packet_item a.close", function (e) {
-    e.preventDefault();
-    var isInList = false;
-    $(this).closest(".packet_item").fadeOut(function () {
-      $(this).find(".no1 li").fadeOut(function () {
+  $(document).ready(function() {
+    $(".packet").on("click", ".packet_item a.close", function (e) {
+      alert("Bang!!");
+      e.preventDefault();
+
+      var isInList = false;
+      $(this).closest(".packet_item").fadeOut(function () {
+        $(this).find(".no1 li").fadeOut(function () {
+          isInList = false;
+          $(this).find("input:first").each(function(index, item) {
+            packageid = $(item).attr('packageid');
+          });
+          $("#tabs1 .connected.no2").find("li").each(function(index, no2Item) {
+            $(no2Item).find("input:first").each(function(index, inputItem) {
+              if($(inputItem).attr('packageid') == packageid){
+                isInList = true;
+              }
+            });
+          });
+          if(!isInList){
+            $(this).prependTo("#tabs1 .connected.no2");
+            $(this).fadeIn("slow");
+          }else{
+            $(this).remove();
+          }
+          $(".packet_item").find("li").each(function(index, inputItem) {
+            if($(inputItem).find('input:first').attr('packageid') == packageid){
+              $(inputItem).fadeOut("slow", function() {
+                $(this).remove();
+              });
+            }
+          });
+        });
+        $(this).remove();
+      });
+      deleteDate();
+    });
+
+    $(document).on("click", ".connected li a.delete", function (e) {
+      e.preventDefault();
+      var isInList = false;
+      $(this).closest(".connected li").fadeOut(function () {
         isInList = false;
         $(this).find("input:first").each(function(index, item) {
           packageid = $(item).attr('packageid');
@@ -527,42 +588,9 @@
           }
         });
       });
-      $(this).remove();
+      var packageid = $(this).attr('packageid');
+      deletePackageItem();
     });
-    deleteDate();
-  });
-
-  $(document).on("click", ".connected li a.delete", function (e) {
-    e.preventDefault();
-    var isInList = false;
-    $(this).closest(".connected li").fadeOut(function () {
-      isInList = false;
-      $(this).find("input:first").each(function(index, item) {
-        packageid = $(item).attr('packageid');
-      });
-      $("#tabs1 .connected.no2").find("li").each(function(index, no2Item) {
-        $(no2Item).find("input:first").each(function(index, inputItem) {
-          if($(inputItem).attr('packageid') == packageid){
-            isInList = true;
-          }
-        });
-      });
-      if(!isInList){
-        $(this).prependTo("#tabs1 .connected.no2");
-        $(this).fadeIn("slow");
-      }else{
-        $(this).remove();
-      }
-      $(".packet_item").find("li").each(function(index, inputItem) {
-        if($(inputItem).find('input:first').attr('packageid') == packageid){
-          $(inputItem).fadeOut("slow", function() {
-            $(this).remove();
-          });
-        }
-      });
-    });
-    var packageid = $(this).attr('packageid');
-    deletePackageItem();
   });
 
   function deletePakckageFromDisplay(thisObj){
@@ -582,7 +610,6 @@
   }
 
   function updateAllPackage(){
-    updateDate();
     updatePackgaeDate();
     updateDayOptions();
     updatePackageInput();
@@ -592,7 +619,7 @@
 
   function updatePackageInput(){
     $(".packet_item").each(function(index, item) {
-      $(item).find("input.item_property").each(function(liIndex,liItem){
+      $(item).find(".item_property").each(function(liIndex,liItem){
         $(liItem).attr("name","packagedata["+index+"][]");
       });
     });
@@ -608,13 +635,16 @@
     var summaryAdultPrice = 0;
     var summaryChildPrice = 0;
     var packagePrice = new Array();
+
+    var total_adult = <?php echo ($session["adult"]=="")? 0 : $session["adult"];?>;
+    var total_child = <?php echo ($session["child"]=="")? 0 : $session["child"];?>;
+
     $(".packet_item").find("li").each(function(index, item){
       var adult_total_price = 0;
       var child_total_price = 0;
-      var total_adult = <?php echo ($session["adult"]=="")? 0 : $session["adult"];?>;
-      var total_child = <?php echo ($session["child"]=="")? 0 : $session["child"];?>;
+
       var currency_text = "<?php echo $this->lang->line("global_lang_money_sign");?>";
-      $(item).find("input.price_list").each(function(){
+      $(item).find(".price_list").each(function(){
         var current_status = this.checked;
         if(current_status){
           if($(this).data("is-charter") == 1) {
@@ -630,12 +660,12 @@
           }
         }
       });
-      $(item).find("input.item_property").each(function(input_index,input_item){
+      $(item).find(".item_property").each(function(input_index,input_item){
         $(input_item).data("total-adult-price",(adult_total_price));
         $(input_item).data("total-child-price",(child_total_price));
       });
     });
-    $(".packet_item").find("input.item_property").each(function(index, item) {
+    $(".packet_item").find(".item_property").each(function(index, item) {
       var isInArray = false;
       $.each(packagePrice, function(index, value) {
         if(value["id"] == $(item).attr('packageid')){
@@ -657,6 +687,14 @@
 
     $("#summary_adult_price").text(addCommas(summaryAdultPrice));
     $("#summary_child_price").text(addCommas(summaryChildPrice));
+
+    if(total_adult > 0){
+      $("#summary_adult_price_person").text(addCommas((summaryAdultPrice/total_adult)));
+    }
+    if(total_child > 0){
+      $("#summary_child_price_person").text(addCommas((summaryChildPrice/total_child)));
+    }
+    
     $("#summary_price").html(addCommas(summaryAdultPrice+summaryChildPrice));
   }
 
@@ -668,18 +706,13 @@
     }
   }
 
-  function updateDate(){
-    $(".packet_item").find("div.sticker_date").each(function(index, item) {
-      $(item).html("วันที่ "+(index+1));
-    });
-  }
-
   function updatePackgaeDate(){
     $(".packet_item").each(function(packet_item_index, packet_item) {
       $(packet_item).append(function(){
         setDragAndDropDataForExternalFile();
         setDateDataForExternalFile();
       });
+      $(packet_item).children("div.sticker_date").html("วันที่ "+(packet_item_index+1));
     });
   }
 
@@ -730,11 +763,11 @@
         packageName: 'required'
       },
       messages: {
-        packageName: 'กรุณาตั้งชื่อทัวร์ของท่าน'
+        packageName: 'กรุณาใส่ชื่อทัวร์ของคุณก่อนนะคะ'
       }
     });
 
-    $(".package_price_list tr").live("click",function(evt){
+    $(document).on("click",".package_price_list tr",function(evt){
       var cell = $(evt.target).closest('input');
       if(cell.index()<0) {
         $(this).find('input[type="checkbox"]').each(function(){
@@ -742,7 +775,7 @@
           var current_status = this.checked;
           var current_id = $(this).data("price-id");
           $(".packet_item").each(function(index, item) {
-            $(this).find("input.price_list[data-price-id='" + current_id + "']").each(function(index, item){
+            $(this).find(".price_list[data-price-id='" + current_id + "']").each(function(index, item){
               if(current_status){
                 //$(this).parent().parent().find("td").css("font-weight","bold");
                 $(this).parent().parent("tr").css("background","#FFF7A0");
@@ -758,7 +791,7 @@
       }
     });
 
-    $('.package_price_list .price_switch').live("click",function() {
+    $(document).on("click",".package_price_list .price_switch",function() {
       if($(this).html() == "แสดงราคา"){
         $(this).html("ซ่อนราคา");
         $(this).parent().find(".price_table").fadeIn( "slow" );
@@ -769,11 +802,11 @@
       return false;        
     });
 
-    $("input.price_list").live("change",function(){
+    $(document).on("change",".price_list",function(){
       var current_status = this.checked;
       var current_id = $(this).data("price-id");
       $(".packet_item").each(function(index, item) {
-        $(this).find("input.price_list[data-price-id='" + current_id + "']").each(function(index, item){
+        $(this).find(".price_list[data-price-id='" + current_id + "']").each(function(index, item){
           if(current_status){
             //$(this).parent().parent().find("td").css("font-weight","bold");
             $(this).parent().parent("tr").css("background","#FFF7A0");
@@ -788,9 +821,6 @@
     });
 
 
-    // attach the plugin to all selects
-    $('.search_package .selects select').selectik({maxItems: 8});
-    $('.date_tour .selects select').selectik({maxItems: 6});
 
     $(".add").click(function() {
       alertify.set({ delay: 2000 });

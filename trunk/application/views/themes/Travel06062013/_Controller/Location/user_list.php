@@ -25,6 +25,30 @@
   <link rel="stylesheet" href="<?php echo $stylepath.'/app.css';?>">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="<?php echo $jspath.'/iview/css/iview.css';?>">
+  <link rel="stylesheet" href="<?php echo $jspath.'/iview/css/skin 4/style.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/iview.css';?>">
+  <script type="text/javascript" src="<?php echo $jspath;?>/iview/js/raphael-min.js"></script>
+  <script type="text/javascript" src="<?php echo $jspath;?>/iview/js/iview.js"></script>
+  <script type="text/javascript">
+    (function( $ ) {   
+      $(document).ready(function(){
+        $('#iview').iView({
+          pauseTime: 10000,
+          pauseOnHover: true,
+          directionNavHoverOpacity: 0,
+          timer: "Bar",
+          timerDiameter: "50%",
+          timerPadding: 0,
+          timerStroke: 7,
+          timerBarStroke: 0,
+          timerColor: "#FFF",
+          timerPosition: "bottom-right"
+        });
+      });
+    })(jQuery);  
+  </script>
+  <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508ccf0302149b28"></script>
   <?php
 PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
   ?>
@@ -52,134 +76,126 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
     {_widget menu}
 
 
-    <!-- Title 
-    <div class="row">
-      <div class="twelve columns">
-        <a href="" class="arrow previous tooltip_nw" title=""></a>
-        <h1 class="title">
-            <a href="#detail" id="title">
-              <?php
-                if(!empty($article["title"])){
-                  echo $article["title"];
-                }else{
-                  echo $this->lang->line("global_lang_location");
-                }
-              ?>
-            <img src="<?php echo $imagepath.'/anchor.png';?>" width="1px" height="1px" align="absmiddle"/></a>
-          <span class="subtitle"></span>
-        </h1>
-        <a href="" class="arrow next south" title=""></a>
-      </div>
-    </div>
-     End Title -->
-
-
-    <!-- Gallery -->
-    <div class="row" id="gallery_row">
-    <?php
-    if(!empty($images)):
-    ?>
-      <section class="gallery_pc">
-        <div class="eight columns">
-          <div id="gallery" class="content">
-            <div id="controls" class="controls"></div>
-            <div class="slideshow-container">
-              <div id="loading" class="loader"></div>
-              <div id="slideshow" class="slideshow"></div>
-            </div>
-            <div id="caption" class="caption-container"></div>
-          </div>
-        </div>
-        <div class="four columns">
-          <div id="thumbs" class="navigation">
-            <ul class="thumbs noscript">
-              <?php
-                //print_r($images); exit;
-              if(!empty($images)){
-                foreach ($images as $key => $value) {
-              ?>
-              <li>
-                <a class="thumb"  href="<?php echo $value['url'];?>" >
-                  <img src="<?php echo $value['url'];?>" alt="<?php echo $article["title"];?>" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title"><?php echo $article["title"];?></div>
-                  <div class="image-desc"></div>
-                </div>
-              </li>
-              <?php
-                }
-              }
-              ?>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <section class="gallery_mobile">
-        <ul id="gallery_mobile">
-          <?php
-            //print_r($images); exit;
-          if(!empty($images)){
-            foreach ($images as $key => $value) {
-          ?>
-            <li>
-              <a href="<?php echo $value['url'];?>">
-                <img src="<?php echo $value['url'];?>" alt="<?php echo $article["title"];?>" />
-              </a>
-            </li>
-          <?php
-            }
-          }
-          ?>
-        </ul>
-      </section>
-    <?php
-      endif;
-    ?>
-    </div>
-    <!-- End Gallery -->
-
     <!-- Tour Information -->
     <div class="row">
       <div class="twelve columns ">
-        <div class="breadcrumb">
-          <span></span>
-        </div>
+        {_include slideshow}
         <div class="white_box">
+          <div class="right_columns" id="detail">
+            {_include searchbox}
+            <?php
+              if(!empty($article)){
+            ?>
+            <h1 class="head_title"><?php echo $article["title"];?></h1>
+            
+            <!-- Gallery -->
+            <div class="row" id="gallery_row">
+            <?php
+            if(!empty($images)):
+            ?>
+              <section class="gallery_pc">
+                <div class="twelve columns">
+                  <div id="gallery" class="content">
+                    <div id="controls" class="controls"></div>
+                    <div class="slideshow-container">
+                      <div id="loading" class="loader"></div>
+                      <div id="slideshow" class="slideshow"></div>
+                    </div>
+                    <div id="caption" class="caption-container"></div>
+                  </div>
+                </div>
+                <div class="twelve columns">
+                  <div id="thumbs" class="navigation">
+                    <ul class="thumbs noscript">
+                      <?php
+                        //print_r($images); exit;
+                      if(!empty($images)){
+                        foreach ($images as $key => $value) {
+                      ?>
+                      <li>
+                        <a class="thumb"  href="<?php echo $value['url'];?>" >
+                          <img src="<?php echo $value['url'];?>" alt="<?php echo $article["title"];?>" />
+                          <div><span></span></div>
+                        </a>
+                        <div class="captions">
+                          <div class="image-title"><?php echo $article["title"];?></div>
+                          <div class="image-desc"></div>
+                        </div>
+                      </li>
+                      <?php
+                        }
+                      }
+                      ?>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+              <section class="gallery_mobile">
+                <ul id="gallery_mobile">
+                  <?php
+                    //print_r($images); exit;
+                  if(!empty($images)){
+                    foreach ($images as $key => $value) {
+                  ?>
+                    <li>
+                      <a href="<?php echo $value['url'];?>">
+                        <img src="<?php echo $value['url'];?>" alt="<?php echo $article["title"];?>" />
+                      </a>
+                    </li>
+                  <?php
+                    }
+                  }
+                  ?>
+                </ul>
+              </section>
+            <?php
+              endif;
+            ?>
+            </div>
+            <!-- End Gallery -->
+            <div class="twelve">
+              <div class="social_network">
+                <!-- AddThis Button BEGIN -->
+                <div class="addthis_toolbox addthis_default_style ">
+                <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                <!--<a class="addthis_counter addthis_pill_style"></a>-->
+                </div>
+                <!-- AddThis Button END -->
+              </div>
+            </div>
+              <div class="row">
+                <div class="four columns">
+                  <?php
+                  if(! empty($article['body_column'][0])){
+                    echo $article['body_column'][0];
+                  }
+                  ?>
+                </div>
+                <div class="four columns">
+                  <?php
+                  if(! empty($article['body_column'][1])){
+                    echo $article['body_column'][1];
+                  }
+                  ?>
+                </div>
+                <div class="four columns">
+                  <?php
+                  if(! empty($article['body_column'][2])){
+                    echo $article['body_column'][2];
+                  }
+                  ?>
+                </div>
+              </div>
+            <?php
+            }
+            ?>
+          </div>
           <div class="left_columns">
               <ul class="side_bar" id="mainmenu">
                 {_include main_menu}
-                <?php
-                  if(!empty($tour)){
-                    foreach ($tour as $key => $value) {
-                      if(!empty($value["tour"])){
-                    ?>
-                      <li>
-
-                        <a class="ajax-click" href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$value["tour"]["tout_url"].'-'.$value["tour"]["tour_id"]);?>">
-                        <?php
-                          if($value["tour"]["first_image"]){
-                        ?>
-                          <img style="width:30px;height:30px;margin-top:-4px;" src="<?php echo $value["tour"]["first_image"];?>">
-                        <?php
-                          }else{
-                        ?>
-                          <img style="width:30px;height:30px;margin-top:-4px;" src="<?php echo $imagepath;?>/camera_icon.jpg">
-                        <?php
-                          }
-                        ?>
-                          <?php echo $value["tour"]["tout_name"]; ?>
-                        </a></li>
-                    <?php
-                      }
-                    }
-                  }
-                
-                ?>
-                </li>
               </ul>
-
+              <div class="clr"></div>
               <script type="text/javascript">
                 var loading = false;
                 $(".side_bar a.ajax-click").click(function(){
@@ -229,38 +245,6 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                 });
               </script>
           </div>
-          <div class="right_columns">
-            <?php
-              if(!empty($article)){
-            ?>
-            <h1 class="head_title"><?php echo $article["title"];?></h1>
-              <div class="row">
-                <div class="four columns">
-                  <?php
-                  if(! empty($article['body_column'][0])){
-                    echo $article['body_column'][0];
-                  }
-                  ?>
-                </div>
-                <div class="four columns">
-                  <?php
-                  if(! empty($article['body_column'][1])){
-                    echo $article['body_column'][1];
-                  }
-                  ?>
-                </div>
-                <div class="four columns">
-                  <?php
-                  if(! empty($article['body_column'][2])){
-                    echo $article['body_column'][2];
-                  }
-                  ?>
-                </div>
-              </div>
-            <?php
-            }
-            ?>
-          </div>
         </div>
       </div>
     </div>
@@ -269,55 +253,19 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
 
     {_include facebook_fanpage}
 
-    <footer>
-      <div class="row">
-        <div class="shadow"></div>
-        <div class="seven columns">
-          <nav>
-            <ul class="menu_footer">
-              <li><a href="">หน้าแรก</a></li>
-              <li><a href="">แพ็คเกจทัวร์</a></li>
-              <li><a href="">เกี่ยวกับเรา</a></li>
-              <li><a href="">ติดต่อเรา</a></li>
-              <li><a href="">โปรโมชั่น</a></li>
-            </ul>
-          </nav>
-          <div class="clearfix"></div>
-          <p>Copyright © Uastravel.com</p>
-        </div>
-        <div class="five columns">
-          <div class="address">
-            <p>Uastravel</p>
-            <p>uastravel@hotmail.com</p>
-            <p>80/86 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000</p>
-          </div>
-        </div>
-      </div>
-    </footer>
+    {_include footer}
 
   </div>
-  <script src="<?php echo $jspath.'/jquery.placeholder.js';?>"></script>
-  <script src="<?php echo $jspath.'/jquery.foundation.orbit.js';?>"></script>
   <script src="<?php echo $themepath.'/bootstrap/js/bootstrap.js';?>"></script>
-  <script src="<?php echo $jspath.'/foundation.min.js';?>"></script>
-  <script src="<?php echo $jspath.'/jquery.foundation.navigation.js';?>"></script>
-  <script src="<?php echo $jspath.'/modernizr.foundation.js';?>"></script>
-  <script src="<?php echo $jspath.'/app.js';?>"></script>
-  
   <!-- Gallery -->
   <script type="text/javascript" src="<?php echo $themepath.'/js/gallery/js/jquery.galleriffic.js';?>"></script>
   <!-- Gallery Mobile -->
   <link href="<?php echo $themepath.'/js/gallery_mobie/photoswipe.css';?>" type="text/css" rel="stylesheet"/>
-  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery_mobie/lib/klass.min.js';?>"></script>
-  <script type="text/javascript" src="<?php echo $themepath.'/js/gallery_mobie/code.photoswipe-3.0.5.min.js';?>"></script>
+  <script type="text/javascript" src="<?php echo $themepath.'/js/code.photoswipe/lib/klass.min.js';?>"></script>
+  <script type="text/javascript" src="<?php echo $themepath.'/js/code.photoswipe/code.photoswipe-3.0.5.min.js';?>"></script>
   <!--Hover effect-->
   <script type="text/javascript" src="<?php echo $themepath.'/js/DirectionAwareHoverEffect/js/jquery.hoverdir.js';?>"></script>
-
-  <!-- We only want the thunbnails to display when javascript is disabled -->
-  <script type="text/javascript">
-    document.write('<style>.noscript { display: none; }</style>');
-  </script>
-
+  <script type="text/javascript" src="<?php echo $jspath.'/home.js';?>"></script>
   <noscript>
     <style>
       .thumbs > li  a div {
@@ -334,119 +282,6 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
       }
     </style>
   </noscript>
-
-  <script type="text/javascript">
-      (function($){
-          $.fn.GalleryRefresh = function(){
-            // We only want these styles applied when javascript is enabled
-            $('div.content').css('display', 'block');
-            if($("div.right_columns").outerHeight(true) > $(".side_bar").height()){
-              $(".left_columns").height(($("div.right_columns").outerHeight(true)+100));
-            }
-
-            // Initially set opacity on thumbs and add
-            // additional styling for hover effect on thumbs
-            var onMouseOutOpacity = 1;
-            // Initialize Advanced Galleriffic Gallery
-            var gallery = $('#thumbs').galleriffic({
-              delay:                     2500,
-              numThumbs:                 15,
-              preloadAhead:              40,
-              enableTopPager:            false,
-              enableBottomPager:         false,
-              maxPagesToShow:            7,
-              imageContainerSel:         '#slideshow',
-              controlsContainerSel:      '#controls',
-              captionContainerSel:       '#caption',
-              loadingContainerSel:       '#loading',
-              renderSSControls:          false,
-              renderNavControls:         true,
-              playLinkText:              'Play Slideshow',
-              pauseLinkText:             'Pause Slideshow',
-              prevLinkText:              'รูปก่อนหน้า',
-              nextLinkText:              'รูปถัดไป',
-              nextPageLinkText:          'Next &rsaquo;',
-              prevPageLinkText:          '&lsaquo; Prev',
-              enableHistory:             false,
-              autoStart:                 false,
-              syncTransitions:           true,
-              defaultTransitionDuration: 900,
-              onSlideChange:             function(prevIndex, nextIndex) {
-                // 'this' refers to the gallery, which is an extension of $('#thumbs')
-                this.find('ul.thumbs').children()
-                  .eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
-                  .eq(nextIndex).fadeTo('fast', 0.67);
-              },
-              onPageTransitionOut:       function(callback) {
-                this.fadeTo('fast', 0.0, callback);
-              },
-              onPageTransitionIn:        function() {
-                this.fadeTo('fast', 1.0);
-              }
-            });
-            (function(window, PhotoSwipe){
-
-              document.addEventListener('DOMContentLoaded', function(){
-
-                var
-                  options = {},
-                  instance = PhotoSwipe.attach( window.document.querySelectorAll('#gallery_mobile a'), options );
-
-              }, false);
-
-
-            }(window, window.Code.PhotoSwipe));
-            $('.thumbs > li a').hoverdir();
-          };
-      })(jQuery);
-      function initialize(latitude, longitude) {
-                            var latLng = new google.maps.LatLng(latitude,longitude);
-                            var map = new google.maps.Map(document.getElementById('mapCanvas'), {
-                              scrollwheel: false,
-                              zoom: 13,
-                              center: latLng,
-                              disableDefaultUI:false,
-                              streetViewControl:true,
-                              mapTypeId: google.maps.MapTypeId.ROADMAP
-                            });
-
-                            marker = new google.maps.Marker({
-                              position: latLng,
-                              title: '',
-                              map: map,
-                              draggable: false
-                            });
-                          }
-  </script>
-  <script type="text/javascript">
-      jQuery(document).ready(function($) {
-        $().GalleryRefresh();
-      });
-      $(document).ajaxComplete(function(){
-          try{
-              FB.XFBML.parse();
-              $().GalleryRefresh();
-          }catch(ex){}
-      });
-      function processAjaxData(title, respond, left, urlPath){
-         document.title = title;
-         window.history.pushState({"respond":respond,"left":left,"pageTitle":title},"", urlPath);
-      }
-      window.onpopstate = function(e){
-                                      if(e.state){
-                                        console.dir(e.state);
-                                        //$("#wrapper").html(e.state.html)
-                                        document.title = e.state.pageTitle;
-                                        $(".right_columns").hide().html(e.state.respond.bodyRedered).fadeIn(300);
-                                        $(".left_columns").hide().html(e.state.left).fadeIn(300);
-                                        $("#gallery_row").hide().html(e.state.respond.imagesRedered).fadeIn(300).css("height","");
-                                        $("a#title").html(e.state.pageTitle);
-                                        initialize(e.state.respond.data.location.latitude, e.state.respond.data.location.longitude);
-                                        FB.XFBML.parse();
-                                        $().GalleryRefresh();
-                                      }
-                                    };
-  </script>
 {_include tracker}
 </body>
 </html>

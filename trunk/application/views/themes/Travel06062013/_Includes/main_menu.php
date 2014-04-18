@@ -189,6 +189,12 @@
                       echo "</li>";
                     }
                   }
+
+                  if($this->uri->segment(1) == "customtour" AND $this->uri->total_segments() == 1){
+                    echo "<li active=\"true\"><label><a class=\"active\" href=".base_url("customtour").">".$this->lang->line("customtour_lang_customtour")."</a></label></li>";
+                  }else{
+                    echo "<li><label><a href=".base_url("customtour").">".$this->lang->line("customtour_lang_customtour")."</a></label></li>";
+                  }
                 ?>
                 <li><label><a href="<?php echo base_url($this->lang->line("url_lang_location").'/'.Util::url_title($this->lang->line("global_lang_contact_us")).'-119');?>"><?php echo $this->lang->line("global_lang_contact_us");?></a></label></li>
-<script type="text/javascript" src="<?php echo $jspath.'/main_menu.js';?>"></script>
+                <script type="text/javascript" src="<?php echo $jspath.'/main_menu.js';?>"></script>

@@ -31,7 +31,7 @@ class Tour_model extends MY_Model {
     );
 
     $this->_join_column = array(
-                     'id'                => 'tout_id',
+                     'tout_id'           => 'tout_id',
                      'tour_id'           => 'tout_tour_id',
                      'lang'              => 'tout_lang',
                      'url'               => 'tout_url',
@@ -61,7 +61,6 @@ class Tour_model extends MY_Model {
 
 
   function mapField($result){
-
     foreach ($result as $key => $value) {
       $data = new stdClass();
 
@@ -182,14 +181,20 @@ class Tour_model extends MY_Model {
       $query = $this->db->where("tou_id", $id);
       $query = $this->db->update("ci_tour");
 
-
       //Insert tour_translate
+      if(empty($data["name"])){
+        $data["name"] = $data["short_name"];
+      }
+      if(empty($data["short_name"])){
+        $data["short_name"] = $data["name"];
+      }
+      if(!empty($data["name"])){
+        $data["url"] = Util::url_title($data["name"]);
+      }else{
+        $data["url"] = Util::url_title($data["short_name"]);
+      }
       foreach($data AS $columnJoinName=>$columnJoinValue){
         if(array_key_exists($columnJoinName, $this->_join_column)){
-          //print_r($columnJoinName); exit;
-          if($columnJoinName == "short_name"){
-            $this->db->set("tout_url", Util::url_title($columnJoinValue));
-          }
           $this->db->set($this->_join_column[$columnJoinName], $columnJoinValue);
         }
       }
@@ -228,21 +233,21 @@ class Tour_model extends MY_Model {
       $this->db->where("tout_lang", $this->lang->lang());
       $query = $this->db->get("ci_tour_translate");
 
-
-
-      //print_r($this->db->last_query()); exit;
+      //Insert tour_translate
+      if(empty($data["name"])){
+        $data["name"] = $data["short_name"];
+      }
+      if(empty($data["short_name"])){
+        $data["short_name"] = $data["name"];
+      }
+      if(!empty($data["name"])){
+        $data["url"] = Util::url_title($data["name"]);
+      }else{
+        $data["url"] = Util::url_title($data["short_name"]);
+      }
       foreach($data AS $columnJoinName=>$columnJoinValue){
         if(array_key_exists($columnJoinName, $this->_join_column)){
-          //print_r($columnJoinName); exit;
-          if($columnJoinName != "id"){
-            if($columnJoinName == "short_name"){
-              $this->db->set("tout_url", Util::url_title($columnJoinValue));
-            }
-            $this->db->set($this->_join_column[$columnJoinName], $columnJoinValue);
-          }else{
-
-            $this->db->set("tout_tour_id", $columnJoinValue);
-          }
+          $this->db->set($this->_join_column[$columnJoinName], $columnJoinValue);
         }
       }
 

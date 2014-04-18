@@ -78,5 +78,19 @@ $lang["global_lang_hotel_room_number"] = "Room No.";
 
 
 //Custom tour
+$lang["customtour_lang_more_tour_list"] = "See More";
+$lang["customtour_lang_customtour"] = "Customize your own tour";
 
+
+//Check out
+$lang["checkout_lang_success_head"] = "Thank you!";
+$lang["checkout_lang_success_text"] = "ทาง UAsTravel ขอขอบคุณท่านที่ไว้วางใจในบริการของเรา ทางเจ้าหน้าที่จะติดต่อกลับไปอีกครั้งในเพื่อยืนยันการเดินทางและแจ้งรายละเอียดให้ทราบ ภายใน 24 ชม. หากท่านมีข้อสงสัยเพิ่มเติมสามารถติดต่อเราได้ทาง info@uastravel.com หรือ โทร. 076-331-280, 093-741-8887";
+$lang["checkout_lang_success_text_redirect"] = "(Redirecting to homepage in 10 seconds.)";
+$lang["checkout_lang_success_text_redirect_btn"] = "Go to homepage immediatly";
+
+
+//Search
+$lang["search_result"] = "Search Result";
+$lang["search_lang_search_tour"] = "Search Result:";
+$lang["search_lang_no_result"] = "Data not found.";
 ?>

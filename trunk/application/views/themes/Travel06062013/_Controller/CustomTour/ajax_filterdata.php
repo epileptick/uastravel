@@ -51,16 +51,18 @@
                     ?>
                     <tr  <?php echo $style;?>>
                       <td width="5%">
-                        <input type="checkbox" class="price_list" name="price_selected[<?php echo $value['tour']["tour_id"]; ?>][]" value="<?php echo $priceValue['id'];?>" <?php echo $isChecked;?> data-price-id="<?php echo $priceValue['id'];?>" data-adult-price="<?php echo $priceValue['sale_adult_price']; ?>" data-child-price="<?php echo $priceValue['sale_child_price']; ?>" data-is-charter="<?php echo $priceValue['charter']; ?>">
+                        <input type="checkbox" class="price_list" name="price_selected[<?php echo $value['tour']["tour_id"]; ?>][]" value="<?php echo $priceValue['id'];?>" <?php echo $isChecked;?> data-price-id="<?php echo $priceValue['id'];?>" data-adult-price="<?php echo (($priceValue['discount_adult_price'] > 0)? $priceValue['discount_adult_price']:$priceValue['sale_adult_price']); ?>" data-child-price="<?php echo (($priceValue['discount_child_price'] > 0)? $priceValue['discount_child_price']:$priceValue['sale_child_price']); ?>" data-is-charter="<?php echo $priceValue['charter']; ?>">
                       </td>
                       <td>
                         <?php echo $priceValue['name'];?>
                       </td>
                       <td class="price_list_price">
-                        <?php echo $priceValue['sale_adult_price'];?> <?php echo $this->lang->line("global_lang_money_sign"); ?>
+                        <?php echo (($priceValue['discount_adult_price'] > 0)? $priceValue['discount_adult_price']:$priceValue['sale_adult_price']); ?>
+                        <?php echo $this->lang->line("global_lang_money_sign"); ?>
                       </td>
                       <td class="price_list_price">
-                        <?php echo $priceValue['sale_child_price'];?> <?php echo $this->lang->line("global_lang_money_sign"); ?>
+                        <?php echo (($priceValue['discount_child_price'] > 0)? $priceValue['discount_child_price']:$priceValue['sale_child_price']); ?>
+                        <?php echo $this->lang->line("global_lang_money_sign"); ?>
                       </td>
                     </tr>
                     <?php

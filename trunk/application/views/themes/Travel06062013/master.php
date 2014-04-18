@@ -15,7 +15,6 @@
 	<link rel="stylesheet" href="<?=$themepath?>/fancybox/jquery.fancybox-1.3.4.css">
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
   
-
 	<!-- Page icon -->
 	<link rel="shortcut icon" href="<?=$themepath?>/favicon.png">
 
@@ -28,8 +27,7 @@
 	<script src="<?=$jspath?>/script.js"></script>
 	<script src="<?=$themepath?>/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
-  <!-- Load TinyMCE -->
-  <script type="text/javascript" src="<?=$jspath?>/tiny_mce/tiny_mce.js"></script>
+	<script type="text/javascript" src="<?=$jspath?>/tinymce/tinymce.min.js"></script>
 </head>
 <body>
 <?php 

@@ -82,6 +82,7 @@ $route[LangUtil::line("url_lang_location")] = 'location/user_index';
 
 //tour admin
 $route['admin/tour/userbookingview/(:any)'] = 'tour/admin_userbookingview/$1';
+$route['admin/tour/bookinglist'] = 'tour/admin_bookinglist';
 $route['admin/tour/agencybookingview/(:any)'] = 'tour/admin_agencybookingview/$1';
 $route['admin/tour/setdisplay'] = 'tour/admin_setdisplay';
 $route['admin/tour/setfisrtpageprice'] = 'tour/admin_setfisrtpageprice';
@@ -96,9 +97,10 @@ $route['admin/tour/create/(:num)'] = 'tour/admin_create/$1';
 $route['admin/tour/(:any)/(:any)-(:num)'] = 'tour/admin_view/$3';
 $route['admin/tour/(:any)-(:num)'] = 'tour/admin_view/$2';
 $route['admin/tour/(:any)'] = 'tour/admin_list'; //for Tag
+
 //tour user
 $route[LangUtil::line("url_lang_tour").'/search'] = 'tour/user_search';
-$route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2';
+$route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2/$1';
 $route[LangUtil::line("url_lang_tour")."/(:any)"] = 'tour/user_index';
 $route[LangUtil::line("url_lang_tour")] = 'tour/user_index';
 
@@ -219,6 +221,17 @@ $route['admin/article/create'] = 'article/admin_create';
 $route['admin/article/create/(:any)'] = 'article/admin_create/$1';
 $route['admin/article/ajax_delete'] = 'article/ajax_delete';
 $route['admin/article/delete/(:any)'] = 'article/admin_delete/$1';
+
+//Checkout
+$route['checkout/success'] = 'checkout/user_success';
+$route['checkout/payment/(:any)'] = 'checkout/user_do_payment/$1';
+$route['checkout/payment_return/(:any)'] = 'checkout/user_payment_return/$1';
+$route['checkout/payment_cancel/(:any)'] = 'checkout/user_payment_cancel/$1';
+
+//Search
+$route['search?keyword=(:any)'] = 'search/user_index/$1';
+$route['search/(:any)'] = 'search/user_index/$1';
+$route['search'] = 'search/user_index';
 
 //Home
 $route['admin'] = 'home/admin_list';

@@ -546,7 +546,7 @@ class Tour extends MY_Controller {
       $query["join"] = true;
       //Tour
       $this->load->model("tagtour_model", "tagTourModel");
-      $data["tour"] = $this->tagTourModel->getRecordByType($query);
+      $data["tour"] = $this->tagTourModel->getTourListRecordByType($query);
     }else{
       $data["tour"] = false;
     }
@@ -724,7 +724,7 @@ class Tour extends MY_Controller {
   }
 
 
-  function user_view($id=false){
+  function user_view($id = false ,$tourUrl = NULL){
     if($id){
       $this->load->model("type_model", "typeModel");
       $this->load->model("tagtype_model", "tagTypeModel");
@@ -743,9 +743,22 @@ class Tour extends MY_Controller {
         show_404();
       }
 
+      if(empty($data["tour"][0]["url"])){
+        $dataToAdd["tout_id"] = $data["tour"][0]["tout_id"];
+        $dataToAdd["url"] = Util::url_title($data["tour"][0]["name"]);
+        $dataToAdd["lang"] = $this->lang->lang();
+        $data["tour"][0]["url"] = $dataToAdd["url"];
+        /*var_dump($this->tourModel->add($dataToAdd));
+        var_dump($this->db->last_query());
+        */
+      }
+      if(($tourUrl != $data["tour"][0]["url"]) AND !IS_AJAX){
+        redirect(base_url($this->lang->line("url_lang_tour")."/".$data["tour"][0]["url"]."-".$data["tour"][0]["tour_id"]),"location",301);
+      }
       //Update View
       $updateView["id"] = $data["tour"][0]["id"];
       $updateView["view"] = $data["tour"][0]["view"]+1;
+      $this->tourModel->add($updateView);
 
       //Tag
       $this->load->model("tagtour_model", "tagTourModel");
@@ -819,30 +832,17 @@ class Tour extends MY_Controller {
       $priceQuery = $this->priceModel->get($priceWhere);
 
       if(!empty($priceQuery)){
-        //Min price
-        $minSalePrice = 9999999;
-        $minSalePriceID = 0;
         $data["firstpage_price"] = 0;
         foreach ($priceQuery as $key => $value) {
-          # code...
           if($value["show_firstpage"] == 1){
               $data["firstpage_price"] = 1;
-              $minSalePriceID  = $value["agency_id"];
-              $minSalePrice = $value["sale_adult_price"];
             break;
-          }else{
-            if($value["sale_adult_price"] < $minSalePrice){
-              $minSalePriceID  = $value["agency_id"];
-              $minSalePrice = $value["sale_adult_price"];
-            }
           }
         }
 
         //Price selection
         foreach ($priceQuery as $key => $value) {
-          if($value["agency_id"] == $minSalePriceID){
-            $data["price"][] = $value;
-          }
+          $data["price"][] = $value;
         }
       }//End price
 
@@ -901,16 +901,23 @@ class Tour extends MY_Controller {
       $tour["id"] = $args["id"];
       $tagtour["tour_id"] = $args["id"];
       $agencytour["tour_id"] = $args["id"];
-
-      //Get Tour information
-      $whereTour["where"]["id"] = $args["id"];
-      $whereTour["where"]["lang"] = $this->lang->lang();
-      $data["tour"] = $this->tourModel->get($whereTour);
-
+      if(!empty($args["type"]) AND $args["type"] == "customtour"){
+        $this->load->model("customtour_model", "customTourModel");
+        //Get Tour information
+        $whereTour["where"]["id"] = $args["id"];
+        $data["tour"] = $this->customTourModel->get($whereTour);
+        $data["tour"][0]["name"] = $data["tour"][0]["package_name"];
+        $data["tourType"] = "customtour";
+      }else{
+        //Get Tour information
+        $whereTour["where"]["id"] = $args["id"];
+        $whereTour["where"]["lang"] = $this->lang->lang();
+        $data["tour"] = $this->tourModel->get($whereTour);
+        $data["tourType"] = "";
+      }
       if(count($data["tour"]) < 1  || empty($data["tour"])){
         show_404();
       }
-
       //Price compute
       if(!empty($args["price_id"])){
         $this->load->model("price_model", "priceModel");
@@ -936,7 +943,6 @@ class Tour extends MY_Controller {
           $data["price"][$queryPriceID]["adult_amount_booking"] = $adult_amount_booking;
           $data["price"][$queryPriceID]["child_amount_booking"] = $child_amount_booking;
 
-
           $total_adult_price = $adult_amount_booking * $dataPrice[$queryPriceID]["sale_adult_price"];
           $total_child_price = $child_amount_booking * $dataPrice[$queryPriceID]["sale_child_price"];
           $data["price"][$queryPriceID]["pri_total_adult_price"] = $total_adult_price;
@@ -958,34 +964,16 @@ class Tour extends MY_Controller {
     }else{ //id not send
       show_404();
     }
-
   }//End user_booking
 
 
   function user_booking($args){
-
     if(!empty($args)){
-      /*
-      $this->recaptcha->recaptcha_check_answer(
-              $_SERVER['REMOTE_ADDR'],
-              $this->input->post('recaptcha_challenge_field'),
-              $this->input->post('recaptcha_response_field'));
-      if(!$this->recaptcha->is_valid){
-        $this->_fetch("user_booking_error");
-      }
-      unset($args["recaptcha_challenge_field"]);
-      unset($args["recaptcha_response_field"]);
-      unset($args["price_id"]);
-      */
-
-
+      
       $this->load->model("tourcustomer_model", "tourcustomerModel");
       $booking = $this->tourcustomerModel->addRecord($args);
 
       //print_r($booking); exit;
-      //Send Mail
-      $this->sendmail_booking_user($booking);
-      $this->sendmail_booking_admin($booking);
 
       //Forward
       redirect(base_url($this->lang->line("url_lang_tour")."/booking/".$booking["hashcode"]));
@@ -995,208 +983,27 @@ class Tour extends MY_Controller {
       //Redirect
       redirect(base_url($this->lang->line("url_lang_tour")."/inquiry/".$args["id"]));
     }
-
-
-  }
-
-  function sendmail_booking_user($booking){
-
-/*
-    // To send HTML mail, the Content-type header must be set
-    $headers  = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-
-    // Additional headers
-    $headers .= 'To: คุณ '.$booking["firstname"].' <'.$booking["email"].'>' . "\r\n";
-    $headers .= 'From: uastravel.com <booking@uastravel.com>' . "\r\n";
-
-    $to = $booking["email"];
-*/
-
-    $subject = "รายละเอียดการจองทัวร์ - www.ทัวร์เที่ยวไทย.com";
-
-
-    $message = '<p>สวัสดีค่ะ คุณ '.$booking["firstname"].' '.$booking["lastname"].'</p>';
-    $message .='<p>ขอขอบคุณที่ไว้วางใจในบริการของ <a href="http://www.ทัวร์เที่ยวไทย.com">ทัวร์เที่ยวไทย.com</a></p>';
-    $message .='<p>รายละเอียดการจองทัวร์ของคุณมีดังนี้</p>';
-    $message .='<blockquote>';
-    $message .='  ##########  รายละเอียดการจอง ##########';
-    $message .='  <br />หมายเลขการจอง : '.$booking["code"];
-    $message .='  <br />ชื่อทัวร์ : '.$booking["tour_name"].'('.$booking["tour_code"].')';
-    $message .='  <br />ลิงค์ข้อมูลทัวร์ : <a href="'.base_url($this->lang->line("url_lang_tour").'/'.$booking["tour_url"].'-'.$booking["tour_id"].'">'.$booking["tour_name"]).'</a>';
-    $message .='  <br />';
-
-    $message .='  <br />##########  จำนวนผู้เดินทาง ##########';
-    $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["adult_amount_passenger"];
-    $message .='  <br />จำนวนเด็ก : '.$booking["child_amount_passenger"];
-    $message .='  <br />จำนวนเด็กทารก : '.$booking["infant_amount_passenger"];
-    $message .='  <br />';
-
-    $message .='  <br />##########  รายละเอียดราคา ##########';
-    foreach ($booking["price"] as $key => $value) {
-      $message .='  <br />';
-      $message .='  <br />ชื่อแพ็คเกจ : '.$value["price_name"];
-      $message .='  <br />ราคารวมของผู้ใหญ่ ('.$value["adult_amount_booking"].') : '.$value["total_adult_price"];
-      $message .='  <br />ราคารวมของเด็ก ('.$value["child_amount_booking"].') : '.$value["total_child_price"];
-      $message .='  <br />ราคารวมของทารก : ฟรี';
-      $message .='  <br />';
-    }
-
-    $message .='  <br />ราคารวมทั้งหมด : '.$booking["grand_total_price"];
-    $message .='  <br />';
-
-    $message .='  <br />##########  รายละเอียดผู้จอง ##########';
-    $message .='  <br />ชื่อผู้จอง : '.$booking["firstname"].' '.$booking["lastname"];
-    //$message .='  <br />สัญชาติ : '.$booking["nationality"];
-    $message .='  <br />ที่อยู่ : '.$booking["address"].', '.$booking["city"].', '.$booking["province"].', '.$booking["zipcode"];
-    $message .='  <br />เบอร์ติดต่อ : '.$booking["telephone"];
-    $message .='  <br />อีเมล : '.$booking["email"];
-    $message .='  <br />';
-    $message .='  <br />ชื่อโรงแรมที่พัก : '.$booking["hotel_name"];
-    $message .='  <br />หมายเลขห้อง : '.$booking["room_number"];
-    $message .='  <br />วันที่เดินทาง : '.$booking["tranfer_date"];
-    $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["request"];
-    $message .='  <br />';
-    $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
-    $message .='  <br />ลิงค์ข้อมูลการจอง : <a href="'.base_url($this->lang->line("url_lang_tour")."/booking/".$booking["hashcode"].'">'.$booking["code"]).'</a>';
-    $message .='  <br />';
-    $message .='</blockquote>';
-
-    $message .= '<p>หากมีข้อสงสัยกรุณาสอบถามเพิ่มเติม 082-812-1146 หรือ 076-331-280<br />
-        หจก.ยูแอสทราเวล (ใบอนุญาตเลขที่ 34/000837)<br />
-        เรายินดีให้บริการค่ะ</p>
-          <a href="'.base_url().'">ทัวร์เที่ยวไทย.com</a>
-          <br />โทร.  082-812-1146 หรือ 076-331-280
-          <br />แฟกซ์. 076-331-273
-          <br />80/86 หมู่บ้านศุภาลัยซิตี้ฮิลล์ ม.3
-          <br />ต.รัษฎา อ.เมือง ภูเก็ต 83000
-      ';
-
-
-
-    $this->load->library('email');
-
-    $config['mailtype'] = 'html';
-    $this->email->initialize($config);
-
-    $this->email->from('info@uastravel.com', 'ทัวร์เที่ยวไทย.com');
-    $this->email->to(trim($booking["email"]));
-    //$this->email->bcc('ottowan@gmail.com');
-
-    $this->email->subject($subject);
-    $this->email->message($message);
-
-    $this->email->send();
-
-    //echo $message; exit;
-    //mail($to,$subject,$message,$headers);
-  }
-
-  function sendmail_booking_admin($booking){
-
-
-/*
-    // To send HTML mail, the Content-type header must be set
-    $headers  = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-
-    // Additional headers
-    $headers .= 'To: booking@uastravel.com <booking@uastravel.com >' . "\r\n";
-    $headers .= 'From: uastravel.com <info@uastravel.com>' . "\r\n";
-
-    $to = "booking.uastravel@gmail.com";
-*/
-
-
-    // subject
-    $subject = 'ข้อมูลการจองทัวร์ของคุณ '.$booking["firstname"]." ".$booking["lastname"];
-
-    $message ='<p>รายละเอียดการจองทัวร์มีดังนี้</p>';
-    $message .='<blockquote>';
-    $message .='<blockquote>';
-    $message .='  ##########  รายละเอียดการจอง ##########';
-    $message .='  <br />หมายเลขการจอง : '.$booking["code"];
-    $message .='  <br />ชื่อทัวร์ : '.$booking["tour_name"].'('.$booking["tour_code"].')';
-    $message .='  <br />ลิงค์ข้อมูลทัวร์ : <a href="'.base_url($this->lang->line("url_lang_tour").'/'.$booking["tour_url"].'-'.$booking["tour_id"].'">'.$booking["tour_name"]).'</a>';
-
-
-    $message .='  <br />##########  จำนวนผู้เดินทาง ##########';
-    $message .='  <br />จำนวนผู้ใหญ่ : '.$booking["adult_amount_passenger"];
-    $message .='  <br />จำนวนเด็ก : '.$booking["child_amount_passenger"];
-    $message .='  <br />จำนวนเด็กทารก : '.$booking["infant_amount_passenger"];
-    $message .='  <br />';
-
-    $message .='  <br />##########  รายละเอียดราคา ##########';
-    foreach ($booking["price"] as $key => $value) {
-      $message .='  <br />';
-      $message .='  <br />ชื่อแพ็คเกจ : '.$value["price_name"];
-      $message .='  <br />ราคารวมของผู้ใหญ่ ('.$value["adult_amount_booking"].') : '.$value["total_adult_price"];
-      $message .='  <br />ราคารวมของเด็ก ('.$value["child_amount_booking"].') : '.$value["total_child_price"];
-      $message .='  <br />ราคารวมของทารก : ฟรี';
-      $message .='  <br />';
-    }
-
-    $message .='  <br />ราคารวมทั้งหมด : '.$booking["grand_total_price"];
-    $message .='  <br />';
-
-    $message .='  <br />##########  รายละเอียดผู้จอง ##########';
-    $message .='  <br />ชื่อผู้จอง : '.$booking["firstname"].' '.$booking["lastname"];
-    //$message .='  <br />สัญชาติ : '.$booking["nationality"];
-    $message .='  <br />ที่อยู่ : '.$booking["address"].', '.$booking["city"].', '.$booking["province"].', '.$booking["zipcode"];
-    $message .='  <br />เบอร์ติดต่อ : '.$booking["telephone"];
-    $message .='  <br />อีเมล : '.$booking["email"];
-    $message .='  <br />';
-    $message .='  <br />ชื่อโรงแรมที่พัก : '.$booking["hotel_name"];
-    $message .='  <br />หมายเลขห้อง : '.$booking["room_number"];
-    $message .='  <br />วันที่เดินทาง : '.$booking["tranfer_date"];
-    $message .='  <br />ความต้องการเพิ่มเติม : '.$booking["request"];
-    $message .='  <br />';
-    $message .='  <br />##########  ลิงค์รายละเอียดการจอง ##########';
-    $message .='  <br />ลิงค์ข้อมูลการจอง : <a href="'.base_url($this->lang->line("url_lang_tour")."/booking/".$booking["hashcode"].'">'.$booking["code"]).'</a>';
-    $message .='  <br />';
-    $message .='</blockquote>';
-
-
-    $this->load->library('email');
-
-    $config['mailtype'] = 'html';
-    $this->email->initialize($config);
-
-    $this->email->from('info@uastravel.com', 'ทัวร์เที่ยวไทย.com');
-    $this->email->to('booking.uastravel@gmail.com');
-    //$this->email->bcc('ottowan@gmail.com');
-
-    $this->email->subject($subject);
-    $this->email->message($message);
-
-    $this->email->send();
-
-    //echo $message; exit;
-    //mail($to,$subject,$message,$headers);
   }
 
 
   function user_bookingview($hashcode){
-
     $tourcustomerWhere["where"]["hashcode"] = $hashcode;
 
     $this->load->model("tourcustomer_model", "tourcustomerModel");
     $data["booking"] = $this->tourcustomerModel->get($tourcustomerWhere);
-
+    if(empty($data["booking"])){
+      show_404();
+    }
 
     $this->load->model("tourbooking_model", "tourbookingModel");
     $tourbookingWhere["where"]["tourcustomer_id"] = $data["booking"][0]["id"];
     $data["booking"][0]["price"] = $this->tourbookingModel->get($tourbookingWhere);
-
-
-    if(!empty($data["booking"] )){
-      $this->_fetch('user_bookingview', $data, false, true);
+    if(strpos($data["booking"][0]["tour_code"], "CT") === false){
+      $data["booking"][0]["tour_link"] = base_url($this->lang->line("url_lang_tour")."/".$data["booking"][0]["tour_url"]);
     }else{
-      show_404();
+      $data["booking"][0]["tour_link"] = base_url("customtour/".$data["booking"][0]["tour_url"]);
     }
-    //print_r($data); exit;
-
-
+    $this->_fetch('user_bookingview', $data, false, true);
   }
 
   /////////////////////////////////////////
@@ -1214,7 +1021,6 @@ class Tour extends MY_Controller {
       $this->admin_list();
     }
   }
-
 
   function admin_list(){
 
@@ -1657,6 +1463,10 @@ class Tour extends MY_Controller {
     //print_r($args); exit();
   }
 
+  function admin_bookinglist(){
+    
+  }
+
   function validate(){
 
     $this->load->helper(array('form', 'url'));
@@ -1825,6 +1635,10 @@ class Tour extends MY_Controller {
 
     $imgData["id"] = $TourID;
     return $this->tourModel->updateRecord($imgData);
+  }
+
+  function ajax_rating(){
+
   }
 
 }

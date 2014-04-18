@@ -24,7 +24,7 @@ class User extends MY_Controller {
       $userData = $this->userModel->get($_post);
       if($userData != FALSE){
         $this->session->set_userdata("logged_in",TRUE);
-        $this->session->set_userdata("userdata",$userData);
+        $this->session->set_userdata("user_data",$userData);
         redirect(base_url(),"refresh");
       }else{
         $data["error"] = $this->userModel->getError();
@@ -63,13 +63,15 @@ class User extends MY_Controller {
     if($user){
         try{
             $this->facebook->setFileUploadSupport(true);
+            $access_token_before = $this->facebook->getAccessToken();
             $this->facebook->setExtendedAccessToken();
             $access_token = $this->facebook->getAccessToken();
             $this->session->set_userdata("access_token",$access_token);
             $user_profile = $this->facebook->api('/me');
 
             $user_profile["forceAdd"] = FALSE;
-            if(!$getResult = $this->userModel->get(array("fbid"=>$user_profile["id"]))){
+            $getResult = $this->userModel->get(array("fbid"=>$user_profile["id"]));
+            if(empty($getResult)){
               $randPassword = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') , 0 , 8 );
               $user_profile["password"] = md5(md5($randPassword));
               $user_profile["forceAdd"] = TRUE;
@@ -93,7 +95,7 @@ class User extends MY_Controller {
                 if($user_profile["forceAdd"]){
                   $this->load->library('email');
                   $this->email->from('no-reply@uastravel.com', 'UAsTravel');
-                  $this->email->to($user_profile["email"]);
+                  $this->email->to($user_profile["email"]); 
 
                   $this->email->subject('UAsTravel Password');
                   $this->email->message('Testing the email class.\n password: '.$randPassword);

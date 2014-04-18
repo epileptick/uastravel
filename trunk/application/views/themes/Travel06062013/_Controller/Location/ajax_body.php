@@ -1,18 +1,26 @@
     <div class="row">
-      <section class="article">
-        <div class="row">
           <div class="twelve columns">
-            <h3 id="detail"><?php echo $location['title'];?>
-              <?php
-                if($this->session->userdata("logged_in")){
-                  echo "[ <a href=\"".base_url("admin/location/create/".$location['id'])."\" target=\"_blank\">Edit</a> ]";
-                }
-              ?></h3>
+            <h2 class="head_title" id="detail"><?php echo $location['title'];?>
+            <?php
+              if($this->session->userdata("logged_in")){
+                echo "[ <a href=\"".base_url("admin/location/create/".$location['id'])."\" target=\"_blank\">Edit</a> ]";
+              }
+            ?></h2>
           </div>
-          <div class="five columns">
+          <div id="gallery_row">
+          </div>
+          <div class="twelve columns">
+            <div class="social_network">
+              <!-- AddThis Button BEGIN -->
+              <div class="addthis_toolbox addthis_default_style ">
+              <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+              <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+              <!--<a class="addthis_counter addthis_pill_style"></a>-->
+              </div>
+              <!-- AddThis Button END -->
+            </div>
           </div>
         </div>
-        <div class="border"></div>
         <div class="row">
           <div class="four columns">
             <?php
@@ -60,9 +68,6 @@
           </div>
         </div>
         <!-- End Tag -->
-
-      </section>
-    </div>
     
     <div class="row">
       <div class="eight columns">

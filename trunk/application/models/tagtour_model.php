@@ -308,6 +308,43 @@ class TagTour_model extends MY_Model {
     }
   }
 
+  function getTourListRecordByType($args = false){
+    if($args["tag_id"] == 0){
+      unset($args["tag_id"]);
+    }else{
+      $where["where_in"]["tag_id"][] = $args["tag_id"];
+    }
+    if(!empty($args['type_id'])){
+      $whereType["where"]["tag_id"] = $args["type_id"];
+      $resultType = $this->get($whereType);
+      unset($whereType);
+      if(!empty($resultType)){
+        foreach ($resultType as $key => $value) {
+          $whereIn[] = $value["tour_id"];
+        }
+        $where["where_in"]["tour_id"] = array_unique($whereIn);
+      }
+    }
+    $where["where"]["display"] = 1;
+    $where["where"]["tout_lang"] = $this->lang->lang();
+    
+    $where["join_tour"] = true;
+    $where["join_tag"] = false;
+    $where["group"] = "tour_id";
+    $tour = $this->get($where);
+
+    if(!empty($tour)){
+      foreach ($tour as $key => $value) {
+        $result[$key]["tour"] = $value;
+      }
+    }
+    if(!empty($result)){
+      return $result;
+    }else{
+      return false;
+    }
+  }
+
 
   function getRecordBySubTypeIn($args=false){
 
