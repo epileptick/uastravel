@@ -263,6 +263,17 @@ class Report extends MY_Controller {
   }
  */ 
 
+  function tourlist() {
+    $this->load->model("tour_model","tourModel");
+    $where["where"]["lang"] = $this->lang->lang();
+    $tourList = $this->tourModel->get($where);
+
+    foreach ($tourList as $key => $value) {
+      echo $value["tour_id"].", ".$value["name"]."\n";
+    }
+    exit;
+  }
+
 }
 
 ?>

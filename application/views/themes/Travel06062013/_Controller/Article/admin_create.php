@@ -97,30 +97,23 @@ $(document).ready(function() {
   });
 
 
-    tinyMCE.init({
-        mode : "specific_textareas",
-        editor_selector : "mceEditor",
-        width: "100%",
-        theme : "advanced",
-        plugins : "youtube, inlinepopups,autoresize,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
-        //theme_advanced_buttons1 : "justifyleft,justifycenter,justifyright,justifyfull",
-        //theme_advanced_buttons2: ",tablecontrols,|,images,youtube,|,bold,italic,underline,strikethrough,|,undo,redo,|,cut,copy,paste,|,code",
-        theme_advanced_buttons1 : "fullscreen,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
-
-
-        theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-        theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
-        theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreakcut,|,copy,paste,pastetext,pasteword,|,image,youtube,|",
-        theme_advanced_toolbar_location : "external",
-        theme_advanced_toolbar_align : "left",
-        theme_advanced_statusbar_location : "bottom",
-        theme_advanced_resizing : false,
-        theme_advanced_source_editor_width: 712,
-        autoresize_min_height: 500,
-        autoresize_not_availible_height: 10,
-        autoresize_on_init: true,
-        autoresize_hide_scrollbars: false
-    });
+      tinyMCE.init({
+          mode : "specific_textareas",
+          editor_selector : "mceEditor",
+          width: "100%",
+          theme : "modern",
+          plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste textcolor autoresize hr"
+          ],
+          toolbar: "insertfile undo redo | styleselect | bold italic | fontselect | fontsizeselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor | hr",
+          autosave_ask_before_unload: true,
+          autoresize_min_height: 500,
+          autoresize_not_availible_height: 10,
+          autoresize_on_init: true,
+          autoresize_hide_scrollbars: false
+      });
 
 
   function successHandler(data){
@@ -270,7 +263,6 @@ if(count($base_url) > 2){
       <a href="<?php echo base_url("admin/article");?>" class="blogg-button">ปิด</a>
     </span>
   </div>
-  <div id="editorPanel"></div>
     <div id="wrapper-editor">
       <div id="editor">
         <textarea name="body" class="mceEditor" style="width:100%" id="txtBody" >
@@ -303,6 +295,7 @@ if(count($base_url) > 2){
             <option value="1" <?php if(!empty($post[0]['type']) AND $post[0]['type'] == 1)echo "selected";?>>สำหรับสถานที่ท่องเที่ยว</option>
             <option value="2" <?php if(!empty($post[0]['type']) AND $post[0]['type'] == 2)echo "selected";?>>สำหรับทัวร์</option>
             <option value="3" <?php if(!empty($post[0]['type']) AND $post[0]['type'] == 3)echo "selected";?>>สำหรับโรงแรม</option>
+            <option value="4" <?php if(!empty($post[0]['type']) AND $post[0]['type'] == 4)echo "selected";?>>สำหรับ Customtour</option>
 
       </select>
       </div>

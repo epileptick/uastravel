@@ -20,12 +20,13 @@
   <link rel="stylesheet" href="<?php echo $stylepath.'/foundation.css';?>">
   <link rel="stylesheet" href="<?php echo $stylepath.'/userstyle.css';?>">
   <link rel="stylesheet" href="<?php echo $stylepath.'/app.css';?>">
-  <link rel="stylesheet" href="<?php echo $jspath.'/iview/css/iview.css';?>">
-  <link rel="stylesheet" href="<?php echo $jspath.'/iview/css/skin 4/style.css';?>">
-  <link rel="stylesheet" href="<?php echo $stylepath.'/iview.css';?>">
+
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
   <script type="text/javascript" src="<?php echo $jspath;?>/iview/js/raphael-min.js"></script>
+  <link rel="stylesheet" href="<?php echo $jspath.'/iview/css/iview.css';?>">
+  <link rel="stylesheet" href="<?php echo $jspath.'/iview/css/skin 4/style.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/iview.css';?>">
   <script type="text/javascript" src="<?php echo $jspath;?>/iview/js/iview.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
@@ -43,7 +44,7 @@
       });
     });
   </script>
-
+  <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508ccf0302149b28"></script>
   <?php
     PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
   ?>
@@ -66,47 +67,17 @@
   <div id="wrapper">
     {_widget menu}
 
-    <!-- SlideShow -->
-    <div class="row">
-      <div class="twelve columns">
-        <div id="iview">
-          <div data-iview:thumbnail="<?php echo $imagepath;?>/banner/banner-01.jpg" data-iview:image="<?php echo $imagepath;?>/banner/banner-01.jpg">
-            <div class="iview-caption caption1" data-width="550" data-height="50"  data-x="20" data-y="10" data-transition="wipeRight"><span class="caption-text-1">ดูโชว์ความเป็นไทยแบบอลังการ พร้อมรับประทานอาหารค่ำ ได้ที่ภูเก็ตแฟนตาซี</span></div>
-            <div class="iview-caption caption3" data-width="310" data-height="55"  data-x="20" data-y="70" data-transition="wipeLeft"><span class="caption-text-2">ราคาพิเศษ! โทร 082-812-1146</span></div>
-          </div>
-          <div data-iview:thumbnail="<?php echo $imagepath;?>/banner/banner-02.jpg" data-iview:image="<?php echo $imagepath;?>/banner/banner-02.jpg">
-            <div class="iview-caption caption1" data-width="330" data-height="130"  data-x="550" data-y="10" data-transition="wipeRight"><span class="caption-text-1">หาดกะตะคือชายหาดที่มีชื่อเสียงเป็นที่นิยมของนักท่องเที่ยว ทั้งชาวไทยและชาวต่างชาติ เพราะขึ้นชื่อในเรื่องของความขาวสะอาด และความละเอียดของเม็ดทราย</span></div>
-          </div>
-          <!--
-          <div data-iview:thumbnail="<?php echo $imagepath;?>/banner/banner-03.jpg" data-iview:image="<?php echo $imagepath;?>/banner/banner-03.jpg">
-            <div class="iview-caption caption3" data-width="520" data-height="50" data-x="350" data-y="300" data-transition="expandLeft">GORGEOUS ANIMATED TIMERS WITH HIGH CUSTOMIZABLE OPTIONS</div>
-          </div>
-          -->
-          <div data-iview:thumbnail="<?php echo $imagepath;?>/banner/banner-04.jpg" data-iview:image="<?php echo $imagepath;?>/banner/banner-04.jpg">
-             <div class="iview-caption caption1" data-width="280" data-height="150"  data-x="55" data-y="50" data-transition="wipeRight"><span class="caption-text-3">โปรแกรมนำเที่ยวภูเก็ต แนะนำสถานที่สำคัญต่าง ๆ ที่ควรไปเยือน เก็บภาพความสวยงาม และเข้าถึงจังหวัดภูเก็ตอย่างแท้จริง!</span></div>
-            <div class="iview-caption caption1" data-easing="easeInOutElastic" data-width="380" data-height="55"  data-x="10" data-y="220" data-transition="wipeLeft"><span class="caption-text-2">สอบถามรายละเอียดโทร 082-812-1146</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End SlideShow -->
 
-    <div class="row" id="gallery_row">
-    </div>
     <!-- Main Menu -->
     <div class="row">
       <div class="twelve columns ">
-        <div class="breadcrumb">
-          <span></span>
-        </div>
+        {_include slideshow}
         <div class="white_box">
-          <div class="left_columns">
-            <ul class="side_bar" id="mainmenu">
-              {_include main_menu}
-            </ul>
-          </div>
-          <div class="right_columns" id="detail">
-            <h1 class="head_title"><?php echo $article["title"];?></h1>
+          <div class="right_columns">
+            {_include searchbox}
+           
+            <div id="detail">
+              <h1 class="head_title"><?php echo $article["title"];?></h1>
               <div class="row">
                 <div class="four columns">
                   <?php
@@ -130,6 +101,15 @@
                   ?>
                 </div>
               </div>
+            </div>
+            {_widget customtour}
+            
+          </div>
+          <div class="left_columns">
+            <ul class="side_bar" id="mainmenu">
+              {_include main_menu}
+            </ul>
+            <div class="clr"></div>
           </div>
         </div>
       </div>
@@ -139,32 +119,7 @@
 
     {_include facebook_fanpage}
 
-    <footer>
-      <div class="row">
-        <div class="shadow"></div>
-        <div class="seven columns">
-          <nav>
-            <ul class="menu_footer">
-              <li><a href="">หน้าแรก</a></li>
-              <li><a href="">แพ็คเกจทัวร์</a></li>
-              <li><a href="">เกี่ยวกับเรา</a></li>
-              <li><a href="">ติดต่อเรา</a></li>
-              <li><a href="">โปรโมชั่น</a></li>
-            </ul>
-          </nav>
-          <div class="clearfix"></div>
-          <p>Copyright © Uastravel.com</p>
-        </div>
-        <div class="five columns">
-          <div class="address">
-            <p>Uastravel</p>
-            <p>uastravel@hotmail.com</p>
-            <p>80/86 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000</p>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- End Gallery -->
+    {_include footer}
   </div>
 
   <script src="<?php echo $themepath.'/bootstrap/js/bootstrap.js';?>"></script>

@@ -33,10 +33,34 @@
   <link rel="stylesheet" href="<?php echo $stylepath.'/app.css';?>">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-  <?php
-PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
-  ?>
 
+  <link rel="stylesheet" href="<?php echo $jspath.'/iview/css/iview.css';?>">
+  <link rel="stylesheet" href="<?php echo $jspath.'/iview/css/skin 4/style.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/iview.css';?>">
+  <script type="text/javascript" src="<?php echo $jspath;?>/iview/js/raphael-min.js"></script>
+  <script type="text/javascript" src="<?php echo $jspath;?>/iview/js/iview.js"></script>
+  <script type="text/javascript">
+    (function( $ ) {   
+      $(document).ready(function(){
+        $('#iview').iView({
+          pauseTime: 10000,
+          pauseOnHover: true,
+          directionNavHoverOpacity: 0,
+          timer: "Bar",
+          timerDiameter: "50%",
+          timerPadding: 0,
+          timerStroke: 7,
+          timerBarStroke: 0,
+          timerColor: "#FFF",
+          timerPosition: "bottom-right"
+        });
+      });
+    })(jQuery);  
+  </script>
+  <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508ccf0302149b28"></script>
+  <?php
+    PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
+  ?>
 
   <!--[if lt IE 9]>
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
@@ -58,108 +82,12 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
   <div id="wrapper">
     {_widget menu}
 
-
-    <!-- Title -->
-    <div class="row">
-      <div class="twelve columns">
-        <a href="" class="arrow previous tooltip_nw" title=""></a>
-        <h1 class="title">
-            <a href="#detail" id="title">
-              <?php
-                if(!empty($tour[0]["name"])){
-                  echo $tour[0]["name"];
-                }else{
-                  echo $this->lang->line("global_lang_location");
-                }
-              ?>
-            <img src="<?php echo $imagepath.'/anchor.png';?>" width="1px" height="1px" align="absmiddle"/></a>
-          <span class="subtitle"><?php echo $tour[0]["short_description"]; ?></span>
-        </h1>
-        <a href="" class="arrow next south" title=""></a>
-      </div>
-    </div>
-    <!-- End Title -->
-
-
-    <!-- Gallery -->
-    <?php
-    if(!empty($images)):
-    ?>
-    <div class="row" id="gallery_row">
-      <section class="gallery_pc">
-        <div class="eight columns">
-          <div id="gallery" class="content">
-            <div id="controls" class="controls"></div>
-            <div class="slideshow-container">
-              <div id="loading" class="loader"></div>
-              <div id="slideshow" class="slideshow"></div>
-            </div>
-            <div id="caption" class="caption-container"></div>
-          </div>
-        </div>
-        <div class="four columns">
-          <div id="thumbs" class="navigation">
-            <ul class="thumbs noscript">
-              <?php
-                //print_r($images); exit;
-              if(!empty($images)){
-                foreach ($images as $key => $value) {
-              ?>
-              <li>
-                <a class="thumb"  href="<?php echo $value['url'];?>" >
-                  <img src="<?php echo $value['url'];?>" alt="<?php echo $tour[0]["name"];?>" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title"><?php echo $tour[0]["name"];?></div>
-                  <div class="image-desc"><?php echo $tour[0]["short_description"]; ?></div>
-                </div>
-              </li>
-              <?php
-                }
-              }
-              ?>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <section class="gallery_mobile">
-        <ul id="gallery_mobile">
-          <?php
-            //print_r($images); exit;
-          if(!empty($images)){
-            foreach ($images as $key => $value) {
-          ?>
-            <li>
-              <a href="<?php echo $value['url'];?>">
-                <img src="<?php echo $value['url'];?>" alt="<?php echo $tour[0]["name"];?>" />
-              </a>
-            </li>
-          <?php
-            }
-          }
-          ?>
-        </ul>
-      </section>
-    </div>
-    <?php
-      endif;
-    ?>
-    <!-- End Gallery -->
-
-    <!-- Tour Information -->
     <div class="row">
       <div class="twelve columns ">
-        <div class="breadcrumb">
-          <span></span>
-        </div>
+        {_include slideshow}
         <div class="white_box">
-          <div class="left_columns">
-              <ul class="side_bar" id="mainmenu">
-                {_include main_menu}
-              </ul>
-          </div>
           <div class="right_columns">
+            {_include searchbox}
             <!-- Tour Information -->
             <div class="row">
               <div class="twelve columns">
@@ -167,6 +95,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                   <!-- Title -->
                   <div class="row">
                     <div class="twelve columns">
+                      
                       <h2 class="head_title" id="detail">(<?php echo $tour[0]["code"];?>) <?php echo $tour[0]["name"];?>
                       <?php
                         $user_data = $this->session->userdata("user_data");
@@ -177,10 +106,78 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                         }
                       ?></h2>
                     </div>
-                    <div class="four columns">
+                  </div>
+                  <!-- End Title -->
+                  <!-- Gallery -->
+                      <?php
+                      if(!empty($images)):
+                      ?>
+                      <div class="row" id="gallery_row">
+                        <section class="gallery_pc">
+                          <div class="twelve columns">
+                            <div id="gallery" class="content">
+                              <div id="controls" class="controls"></div>
+                              <div class="slideshow-container">
+                                <div id="loading" class="loader"></div>
+                                <div id="slideshow" class="slideshow"></div>
+                              </div>
+                              <div id="caption" class="caption-container"></div>
+                            </div>
+                          </div>
+                          <div class="twelve columns">
+                            <div id="thumbs" class="navigation">
+                              <ul class="thumbs noscript">
+                                <?php
+                                  //print_r($images); exit;
+                                if(!empty($images)){
+                                  foreach ($images as $key => $value) {
+                                ?>
+                                <li>
+                                  <a class="thumb"  href="<?php echo $value['url'];?>" >
+                                    <img src="<?php echo $value['url'];?>" alt="<?php echo $tour[0]["name"];?>" />
+                                    <div><span></span></div>
+                                  </a>
+                                  <div class="captions">
+                                    <div class="image-title"><?php echo $tour[0]["name"];?></div>
+                                    <div class="image-desc"><?php echo $tour[0]["short_description"]; ?></div>
+                                  </div>
+                                </li>
+                                <?php
+                                  }
+                                }
+                                ?>
+                              </ul>
+                            </div>
+                          </div>
+                        </section>
+                        <section class="gallery_mobile">
+                          <ul id="gallery_mobile">
+                            <?php
+                              //print_r($images); exit;
+                            if(!empty($images)){
+                              foreach ($images as $key => $value) {
+                            ?>
+                              <li>
+                                <a href="<?php echo $value['url'];?>">
+                                  <img src="<?php echo $value['url'];?>" alt="<?php echo $tour[0]["name"];?>" />
+                                </a>
+                              </li>
+                            <?php
+                              }
+                            }
+                            ?>
+                          </ul>
+                        </section>
+                      </div>
+                      <?php
+                        endif;
+                      ?>
+                      <!-- End Gallery -->
+
+                    <div class="twelve">
                       <div class="social_network">
                         <!-- AddThis Button BEGIN -->
-                        <div class="addthis_toolbox addthis_default_style ">
+                        <div class="addthis_toolbox addthis_default_style" >
                         <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
                         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
 
@@ -190,9 +187,6 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                         <!-- AddThis Button END -->
                       </div>
                     </div>
-                  </div>
-                  <!-- End Title -->
-
                   <p><?php echo $tour[0]["description"];?></p>
                   <h3 style="padding:4px 4px 8px 4px; border:2px solid; border-color:#FAA20A; background-color:#FAA20A; color:#FFF; text-shadow: none !important;">
                     <?php echo $this->lang->line("tour_lang_program_and_itinerary");?>
@@ -425,7 +419,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                     ?>
                       <tr>
                         <td class="price_booking" colspan="5">
-                            <input type="hidden" name="id" value="<?php echo $tour[0]["tour_id"];?>"></input>
+                            <input type="hidden" name="id" value="<?php echo $tour[0]["tour_id"];?>">
                             <input class="btn btn-primary float-right"  type="submit" value="<?php echo $this->lang->line("tour_lang_tour_booking");?>">
                         </td>
                       </tr>
@@ -440,8 +434,8 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
                 <!-- Start contact -->
                 <div class="row">
                  <div class="twelve columns">
-                      <span style="font-size:30px; color:#FE5214; margin:-10px 0 10px 0; display:inline-block;" ><?php echo $this->lang->line("global_lang_contact_us");?> : </span>
-                      <span style="font-size:18px;"><b><?php echo $this->lang->line("global_lang_telephone");?>.</b> 082-8121146, 076-331280&nbsp;&nbsp;<b><?php echo $this->lang->line("global_lang_fax");?>.</b> 076-331273&nbsp;&nbsp;<b><?php echo $this->lang->line("global_lang_e_mail");?></b> info@uastravel.com</span>
+                      <span style="font-size:18px; color:#FE5214; margin:-10px 0 10px 0; display:inline-block;" ><?php echo $this->lang->line("global_lang_contact_us");?> : </span>
+                      <span style="font-size:14px;"><b><?php echo $this->lang->line("global_lang_telephone");?>.</b> 082-8121146, 076-331280&nbsp;&nbsp;<b><?php echo $this->lang->line("global_lang_fax");?>.</b> 076-331273&nbsp;&nbsp;<b><?php echo $this->lang->line("global_lang_e_mail");?></b> info@uastravel.com</span>
                   </div>
                 </div>
                 <!-- End contact -->
@@ -604,6 +598,12 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
               </div>
             </div>
           </div>
+          <div class="left_columns">
+            <ul class="side_bar" id="mainmenu">
+              {_include main_menu}
+            </ul>
+            <div class="clr"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -611,31 +611,7 @@ PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.
 
     {_include facebook_fanpage}
 
-    <footer>
-      <div class="row">
-        <div class="shadow"></div>
-        <div class="seven columns">
-          <nav>
-            <ul class="menu_footer">
-              <li><a href="">หน้าแรก</a></li>
-              <li><a href="">แพ็คเกจทัวร์</a></li>
-              <li><a href="">เกี่ยวกับเรา</a></li>
-              <li><a href="">ติดต่อเรา</a></li>
-              <li><a href="">โปรโมชั่น</a></li>
-            </ul>
-          </nav>
-          <div class="clearfix"></div>
-          <p>Copyright © Uastravel.com</p>
-        </div>
-        <div class="five columns">
-          <div class="address">
-            <p>Uastravel</p>
-            <p>uastravel@hotmail.com</p>
-            <p>80/86 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000</p>
-          </div>
-        </div>
-      </div>
-    </footer>
+    {_include footer}
 
   </div>
   <script src="<?php echo $jspath.'/jquery.placeholder.js';?>"></script>

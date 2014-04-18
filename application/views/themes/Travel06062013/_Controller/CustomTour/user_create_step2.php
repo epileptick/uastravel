@@ -24,6 +24,9 @@
   <script src="<?php echo $jspath.'/jquery-ui-timepicker-addon.js';?>"></script>
   <script type="text/javascript">
   $(function(){
+    jQuery('.adult, .child, .infant').keyup(function () {     
+      this.value = this.value.replace(/[^0-9\.]/g,'');
+    });
     var dateDiff = function ( start_actual_time, end_actual_time ) {
 
       start_actual_time = new Date(start_actual_time);
@@ -56,7 +59,8 @@
       if(departDate != "" && returnDate != ""){
         departDate = departDate.split("/");
         returnDate = returnDate.split("/");
-        var totalday = dateDiff(departDate[1]+"/"+departDate[0]+"/"+departDate[2]+" "+$("#timepicker1").val(),returnDate[1]+"/"+returnDate[0]+"/"+returnDate[2]+" "+$("#timepicker2").val());
+        var totalday = dateDiff(departDate[1]+"/"+departDate[0]+"/"+departDate[2],returnDate[1]+"/"+returnDate[0]+"/"+returnDate[2]);
+        totalday = totalday+1;
       }
       $(".total_number").html(totalday);
       $("#totalday").val(totalday);
@@ -76,7 +80,10 @@
       rules: {
         firstname: 'required',
         telephone: 'required',
-        email: 'required',
+        email: {
+          required: 'required',
+          email: true
+        },
         adult: 'required'
       },
       messages: {
@@ -87,15 +94,17 @@
       }
     });
 
-    $(".btn-success").on("click",function(){
+    $(".btn-success").on("click",function(e){
       $("#form").submit();
-      event.preventDefault();
+      e.preventDefault();
     });
   });
+
   </script>
 
 </head>
 <body style="background: #ededed url(<?php echo $imagepath.'/bg5.jpg';?>) no-repeat top center;"><!-- ใส่รูปพื้นหลังตรงนี้ แทน bg1.jpg-->
+  {_include user_tab}
   <div class="overly-bg"></div>
   <div id="wrapper">
     <!-- Menu -->
@@ -117,7 +126,7 @@
                     <div class="row">
                       <div class="ten">
                         <div class="ten">
-                          <h3>ข้อมูลผู้จัดทัวร์</h3>
+                          <h3>ข้อมูลของคุณ</h3>
                           <label for="firstname"><?php echo $this->lang->line("global_lang_firstname");?> - <?php echo $this->lang->line("global_lang_lastname");?> *</label>
                           <input type="text" placeholder="<?php echo $this->lang->line("global_lang_firstname");?>" id="firstname" name="firstname" value="<?php echo set_value('tob_firstname');?>"/>
                           <input type="text" placeholder="<?php echo $this->lang->line("global_lang_lastname");?>" id="lastname" name="lastname"/>
@@ -149,21 +158,21 @@
                           <div class="three pull-left">
                             <div class="four input-prepend input-append">
                               <span class="add-on">ผู้ใหญ่</span>
-                              <input class="span12" id="appendedPrependedInput" type="text" id="adult" name="adult">
+                              <input class="span12 adult" id="appendedPrependedInput" type="text" name="adult">
                               <span class="add-on">คน</span>
                             </div>
                           </div>
                           <div class="three pull-left">
                             <div class="four input-prepend input-append">
                               <span class="add-on">เด็ก</span>
-                              <input class="span12" id="appendedPrependedInput" type="text" id="child" name="child">
+                              <input class="span12 child" id="appendedPrependedInput" type="text" name="child">
                               <span class="add-on">คน</span>
                             </div>
                           </div>
                           <div class="three pull-left">
                             <div class="four input-prepend input-append">
                               <span class="add-on">ทารก</span>
-                              <input class="span12" id="appendedPrependedInput" type="text" id="child" name="infant">
+                              <input class="span12 infant" id="appendedPrependedInput" type="text" name="infant">
                               <span class="add-on">คน</span>
                             </div>
                           </div>

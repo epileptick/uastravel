@@ -257,10 +257,24 @@ class MY_Model extends CI_Model {
       if(!empty($options['like'])){
         foreach( $options['like'] AS $likeField=>$likeValue){
           if(! empty($likeValue)){
-            if($this->_getColumn($likeField)){
-              $this->db->like($this->_getColumn($likeField),$likeValue);
+            if($_getColumn = $this->_getColumn($likeField)){
+              $this->db->like($_getColumn,$likeValue);
+            }else if($_getJoinColumn = $this->_getJoinColumn($likeField)){
+              $this->db->like($_getJoinColumn,$likeValue);
             }
 
+          }
+        }
+      }
+
+      if(!empty($options['or_like'])){
+        foreach( $options['or_like'] AS $likeField=>$likeValue){
+          if(! empty($likeValue)){
+            if($_getColumn = $this->_getColumn($likeField)){
+              $this->db->or_like($_getColumn,$likeValue);
+            }else if($_getJoinColumn = $this->_getJoinColumn($likeField)){
+              $this->db->or_like($_getJoinColumn,$likeValue);
+            }
           }
         }
       }
@@ -299,6 +313,7 @@ class MY_Model extends CI_Model {
       return FALSE;
     }
     $user_data = $this->session->userdata("user_data");
+
     //Set data
     foreach($options AS $columnName=>$columnValue){
       if(array_key_exists($columnName, $this->_column)){
@@ -364,7 +379,6 @@ class MY_Model extends CI_Model {
         $this->db->set($this->_getColumn("lu_date"), date( 'Y-m-d H:i:s'));
       }
       if($this->_getColumn("cr_uid")){
-
         $this->db->set($this->_getColumn("cr_uid"), $user_data["id"]);
       }
       if($this->_getColumn("lu_uid")){
@@ -521,13 +535,13 @@ class MY_Model extends CI_Model {
         $data = array();
         if(is_array($_column)){
           foreach($_column AS $kColumn=>$vColumn){
-            if(isset($value[$vColumn])){
+            if(isset($value[$vColumn]) !== FALSE){
               $data[$kColumn] = $value[$vColumn];
             }
           }
           if(!isset($field) AND empty($field)){
             foreach($this->_join_column AS $kjColumn=>$vjColumn){
-              if(isset($value[$vjColumn])){
+              if(isset($value[$vjColumn])  !== FALSE){
                 $data[$kjColumn] = $value[$vjColumn];
               }
             }

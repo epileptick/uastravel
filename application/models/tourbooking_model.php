@@ -19,7 +19,7 @@ class TourBooking_model extends MY_Model {
                      'discount_child_price'  => $this->_prefix.'_discount_child_price',
                      'adult_amount_booking'  => $this->_prefix.'_adult_amount_booking',
                      'child_amount_booking'  => $this->_prefix.'_child_amount_booking',
-                     'infant_amount_booking'  => $this->_prefix.'_child_amount_booking',
+                     'infant_amount_booking' => $this->_prefix.'_infant_amount_booking',
                      'total_adult_price'     => $this->_prefix.'_total_adult_price',
                      'total_child_price'     => $this->_prefix.'_total_child_price',
                      'total_infant_price'    => $this->_prefix.'_total_infant_price',

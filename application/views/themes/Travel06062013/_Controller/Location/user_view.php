@@ -22,6 +22,30 @@
   <link rel="stylesheet" href="<?php echo $stylepath.'/app.css';?>">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="<?php echo $jspath.'/iview/css/iview.css';?>">
+  <link rel="stylesheet" href="<?php echo $jspath.'/iview/css/skin 4/style.css';?>">
+  <link rel="stylesheet" href="<?php echo $stylepath.'/iview.css';?>">
+  <script type="text/javascript" src="<?php echo $jspath;?>/iview/js/raphael-min.js"></script>
+  <script type="text/javascript" src="<?php echo $jspath;?>/iview/js/iview.js"></script>
+  <script type="text/javascript">
+    (function( $ ) {   
+      $(document).ready(function(){
+        $('#iview').iView({
+          pauseTime: 10000,
+          pauseOnHover: true,
+          directionNavHoverOpacity: 0,
+          timer: "Bar",
+          timerDiameter: "50%",
+          timerPadding: 0,
+          timerStroke: 7,
+          timerBarStroke: 0,
+          timerColor: "#FFF",
+          timerPosition: "bottom-right"
+        });
+      });
+    })(jQuery);  
+  </script>
+  <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508ccf0302149b28"></script>
   <?php
 PageUtil::addVar("javascript", '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
   ?>
@@ -57,120 +81,94 @@ if(!empty($location['background_image'])){
   <div id="wrapper">
     {_widget menu}
 
-
-    <!-- Title -->
-    <div class="row">
-      <div class="twelve columns">
-        <a href="" class="arrow previous tooltip_nw" title=""></a>
-        <h1 class="title">
-            <a href="#detail" id="title">
-              <?php
-                if(!empty($location["short_title"])){
-                  echo $location["short_title"];
-                }else{
-                  echo $location["title"];
-                }
-              ?>
-            <img src="<?php echo $imagepath.'/anchor.png';?>" width="1px" height="1px" align="absmiddle"/></a>
-          <?php if(!empty($location['subtitle'])): ?>
-          <span class="subtitle"><?php echo $location['subtitle'];?></span>
-          <?php endif; ?>
-        </h1>
-        <a href="" class="arrow next south" title=""></a>
-      </div>
-    </div>
-    <!-- End Title -->
-
-    <!-- Gallery -->
-    <div class="row" id="gallery_row">
-    <?php
-    if(!empty($images)):
-    ?>
-      <section class="gallery_pc">
-        <div class="eight columns">
-          <div id="gallery" class="content">
-            <div id="controls" class="controls"></div>
-            <div class="slideshow-container">
-              <div id="loading" class="loader"></div>
-              <div id="slideshow" class="slideshow"></div>
-            </div>
-            <div id="caption" class="caption-container"></div>
-          </div>
-        </div>
-        <div class="four columns">
-          <div id="thumbs" class="navigation">
-            <ul class="thumbs noscript">
-              <?php
-                //print_r($images); exit;
-              if(!empty($images)){
-                foreach ($images as $key => $value) {
-              ?>
-              <li>
-                <a class="thumb"  href="<?php echo $value['url'];?>" >
-                  <img src="<?php echo $value['url'];?>" alt="<?php echo $location["title"];?>" />
-                  <div><span></span></div>
-                </a>
-                <div class="captions">
-                  <div class="image-title"><?php echo $location["title"];?></div>
-                  <div class="image-desc"></div>
-                </div>
-              </li>
-              <?php
-                }
-              }
-              ?>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <section class="gallery_mobile">
-        <ul id="gallery_mobile">
-          <?php
-            //print_r($images); exit;
-          if(!empty($images)){
-            foreach ($images as $key => $value) {
-          ?>
-            <li>
-              <a href="<?php echo $value['url'];?>">
-                <img src="<?php echo $value['url'];?>" alt="<?php echo $location["title"];?>" />
-              </a>
-            </li>
-          <?php
-            }
-          }
-          ?>
-        </ul>
-      </section>
-    <?php
-      endif;
-    ?>
-    <!-- End Gallery -->
-    </div>
-
     <!-- Tour Information -->
     <div class="row">
       <div class="twelve columns ">
-        <div class="breadcrumb">
-          <span></span>
-        </div>
+        {_include slideshow}
         <div class="white_box">
-          <div class="left_columns">
-            <ul class="side_bar">
-              {_include main_menu}
-            </ul>
-
-            
-          </div>
           <div class="right_columns">
-            <div class="row">
-              <section class="article">
-                <div class="row">
-                    <h2 class="head_title"><?php echo $location['title'];?>
+            {_include searchbox}
+                <h2 class="head_title"><?php echo $location['title'];?>
+                <?php
+                  if($this->session->userdata("logged_in")){
+                    echo "[ <a href=\"".base_url("admin/location/create/".$location['id'])."\" target=\"_blank\">Edit</a> ]";
+                  }
+                ?></h2>
+                <!-- Gallery -->
+                <div class="row" id="gallery_row">
+                <?php
+                if(!empty($images)):
+                ?>
+                  <section class="gallery_pc">
+                    <div class="twelve columns">
+                      <div id="gallery" class="content">
+                        <div id="controls" class="controls"></div>
+                        <div class="slideshow-container">
+                          <div id="loading" class="loader"></div>
+                          <div id="slideshow" class="slideshow"></div>
+                        </div>
+                        <div id="caption" class="caption-container"></div>
+                      </div>
+                    </div>
+                    <div class="twelve columns">
+                      <div id="thumbs" class="navigation">
+                        <ul class="thumbs noscript">
+                          <?php
+                            //print_r($images); exit;
+                          if(!empty($images)){
+                            foreach ($images as $key => $value) {
+                          ?>
+                          <li>
+                            <a class="thumb"  href="<?php echo $value['url'];?>" >
+                              <img src="<?php echo $value['url'];?>" alt="<?php echo $location["title"];?>" />
+                              <div><span></span></div>
+                            </a>
+                            <div class="captions">
+                              <div class="image-title"><?php echo $location["title"];?></div>
+                              <div class="image-desc"></div>
+                            </div>
+                          </li>
+                          <?php
+                            }
+                          }
+                          ?>
+                        </ul>
+                      </div>
+                    </div>
+                  </section>
+                  <section class="gallery_mobile">
+                    <ul id="gallery_mobile">
                       <?php
-                        if($this->session->userdata("logged_in")){
-                          echo "[ <a href=\"".base_url("admin/location/create/".$location['id'])."\" target=\"_blank\">Edit</a> ]";
+                        //print_r($images); exit;
+                      if(!empty($images)){
+                        foreach ($images as $key => $value) {
+                      ?>
+                        <li>
+                          <a href="<?php echo $value['url'];?>">
+                            <img src="<?php echo $value['url'];?>" alt="<?php echo $location["title"];?>" />
+                          </a>
+                        </li>
+                      <?php
                         }
-                      ?></h2>
+                      }
+                      ?>
+                    </ul>
+                  </section>
+                <?php
+                  endif;
+                ?>
+                </div>
+                <!-- End Gallery -->
+                <div class="twelve">
+                  <div class="social_network">
+                    <!-- AddThis Button BEGIN -->
+                    <div class="addthis_toolbox addthis_default_style ">
+                    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+                    <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                    <!--<a class="addthis_counter addthis_pill_style"></a>-->
+                    </div>
+                    <!-- AddThis Button END -->
+                  </div>
                 </div>
                 <div class="row">
                   <div class="four columns">
@@ -217,9 +215,6 @@ if(!empty($location['background_image'])){
                   </div>
                 </div>
                 <!-- End Tag -->
-
-              </section>
-            </div>
             <div class="row">
               <div class="eight columns">
                 <div class="row">
@@ -398,6 +393,13 @@ if(!empty($location['background_image'])){
                 </div>
               </div>
           </div>
+          <div class="left_columns">
+            <ul class="side_bar">
+              {_include main_menu}
+            </ul>
+            <div class="clr"></div>
+          </div>
+          
         </div>
       </div>
     </div>
@@ -406,31 +408,7 @@ if(!empty($location['background_image'])){
 
     {_include facebook_fanpage}
 
-    <footer>
-      <div class="row">
-        <div class="shadow"></div>
-        <div class="seven columns">
-          <nav>
-            <ul class="menu_footer">
-              <li><a href="">หน้าแรก</a></li>
-              <li><a href="">แพ็คเกจทัวร์</a></li>
-              <li><a href="">เกี่ยวกับเรา</a></li>
-              <li><a href="">ติดต่อเรา</a></li>
-              <li><a href="">โปรโมชั่น</a></li>
-            </ul>
-          </nav>
-          <div class="clearfix"></div>
-          <p>Copyright © Uastravel.com</p>
-        </div>
-        <div class="five columns">
-          <div class="address">
-            <p>Uastravel</p>
-            <p>uastravel@hotmail.com</p>
-            <p>80/86 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000</p>
-          </div>
-        </div>
-      </div>
-    </footer>
+    {_include footer}
 
   </div>
   <script src="<?php echo $jspath.'/jquery.placeholder.js';?>"></script>

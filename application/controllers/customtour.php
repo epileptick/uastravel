@@ -9,8 +9,8 @@ class CustomTour extends MY_Controller {
   }
 
 
-  function user_index(){
-
+  function user_index() {
+    
     //print_r($this->lang->lang()); exit;
     //Default function for call read method
     if($this->uri->segment(1) == $this->router->class){
@@ -47,8 +47,11 @@ class CustomTour extends MY_Controller {
         $page = $this->uri->segment($index+3);
         $this->user_search($keyword, $page);
 
-    }else if($this->uri->total_segments() == 1){
+    }else if($this->uri->total_segments() == 1 ){
       $this->user_list();
+    }else if($this->uri->total_segments() == 2 AND is_numeric($this->uri->segment($index+1)) ){
+
+      $this->user_list($this->uri->segment($index+1));
     }else{
       ////////////////////////////
       // customtour
@@ -194,7 +197,7 @@ class CustomTour extends MY_Controller {
     $argTour["per_page"] = 20;
     $argTour["offset"] = 0;
     $dataToFetch["tours"] = $this->tagtourModel->getRecordByType($argTour);
-    if(!empty($dataToFetch)){
+    if(!empty($dataToFetch["tours"])){
       foreach ($dataToFetch["tours"] as $key => $value) {
         $wherePrice["where"]["tour_id"] = $value["tour"]["tour_id"];
         $wherePrice["where"]["lang"] = $this->lang->lang();
@@ -218,7 +221,6 @@ class CustomTour extends MY_Controller {
             }
           }
         }
-        
       }
     }else{
       $dataToFetch["tours"] = NULL;
@@ -234,8 +236,7 @@ class CustomTour extends MY_Controller {
       $_step = $this->session->userdata("step");
       if($_step == 2){
         redirect(base_url("customtour/create/step2"));
-      }
-      if($_step == 3){
+      }else if($_step == 3){
         redirect(base_url("customtour/create"));
       }
     }
@@ -380,9 +381,7 @@ class CustomTour extends MY_Controller {
       $data["hotels"]["hotel"] = $this->taghotelModel->getRecordByTag($argHotel);
 
     }
-
     $this->_fetch('user_create', $data, false, true);
-
   }
 
 
@@ -390,15 +389,25 @@ class CustomTour extends MY_Controller {
     $this->load->model("tour_model","tourModel");
 
     $post = $this->input->post();
+    
 
-    $query["package_name"] = trim($post["packageName"]);
+    $query["where"]["package_name"] = trim($post["packageName"]);
     $result = $this->customtourModel->get($query);
     if(!empty($result)){
       $addData["url"] = Util::url_title($post["packageName"]."-".(count($result)+1));
     }else{
       $addData["url"] = Util::url_title($post["packageName"]);
     }
+    //Generate Code
+    $last_id = $this->db->query("SELECT MAX(cus_id) as cus_id from ci_customtour")->row();
+    $next_id = $last_id->cus_id+1;
+    $digit = sprintf("%06d", $next_id);
+    $code = "CT".$digit;
 
+    $post["code"] = $code;
+    $post["url"] = $addData["url"];
+
+    $addData["code"] = $code;
     $addData["package_name"] = $post["packageName"];
     $addData["days"] = $post["customtour"]["totalday"];
 
@@ -406,18 +415,26 @@ class CustomTour extends MY_Controller {
     $addData["tour_id"] = serialize($post["packagedata"]);
     
     $addResult = $this->customtourModel->add($addData);
-
+    $post["tour_id"] = $addResult;
     if($addResult){
       $this->session->set_userdata("customtour","");
       $this->session->set_userdata("step",0);
+
+      //Pre-paring data and add to tourcustomer
+      $this->load->model("tourcustomer_model", "tourCustomerModel");
+      if(!$tourCustomer = $this->tourCustomerModel->addTourCustomer($post)){
+        log_message('error', '[Booking Error] - Can\'t add booking detail. ['.__FILE__.':'.__LINE__.']');
+      }
+
       $user_id = $this->facebook->getUser();
-      
+      log_message("debug","Facebook UserId[".__LINE__."]: ".$user_id);
+      $this->session->set_userdata("forword_booking",base_url(urlencode($this->lang->line("url_lang_tour"))."/booking/".$tourCustomer["hashcode"]));
       if($user_id){
         $this->_publish($addResult);
       }else{
-        $this->session->set_userdata("forword",base_url("customtour/publish/".$addData["url"]));
+        $this->session->set_userdata("forword",base_url(urlencode($this->lang->line("url_lang_tour"))."/booking/".$tourCustomer["hashcode"]));
         $params = array(
-          'scope' => 'email,read_stream,publish_stream,user_birthday,user_location,user_work_history,user_hometown,user_photos,photo_upload,user_photo_video_tags',
+          'scope' => $this->config->item("facebook_scope"),
           'fbconnect' => 1,
           'display' => "page",
           'redirect_uri' => base_url("user/fblogin")
@@ -427,9 +444,11 @@ class CustomTour extends MY_Controller {
         redirect($url);
         exit();
       }
-      redirect(base_url("/customtour/".$addData["url"]));
+      redirect(base_url($this->lang->line("url_lang_tour")."/booking/".$tourCustomer["hashcode"]));
+      exit();
     }else{
       redirect(base_url("/customtour/create"));
+      exit();
     }
   }
 
@@ -439,10 +458,18 @@ class CustomTour extends MY_Controller {
     }
     $result = $this->_publish($input);
     if($result){
-      redirect(base_url("/customtour/".$result[0]["url"]));
+      $forword = $this->session->userdata("forword_booking");
+      log_message("debug","Forword [".__LINE__."]: ".$forword);
+      if(!empty($forword)){
+        $this->session->unset_userdata("forword_booking");
+        redirect($forword,"refresh");
+      }else{
+        redirect(base_url("/customtour/".$result[0]["url"]));
+      }
     }else{
       redirect(base_url("/customtour/"));
     }
+    exit;
   }
 
   function _publish($input){
@@ -451,26 +478,39 @@ class CustomTour extends MY_Controller {
       if(is_numeric($input)){
         $customTourResult = $this->customtourModel->get($input);
       }else{
-        $where["where"]["url"] = $input;
+        $where["where"]["url"] = urldecode($input);
         $customTourResult = $this->customtourModel->get($where);
       }
 
       $tourPackage = unserialize($customTourResult[0]["tour_id"]);
       $rand_keys = array_rand($tourPackage, 1);
       $pickedTour = $tourPackage[$rand_keys][0];
-
       $tourResult = $this->tourModel->get($pickedTour);
       $args = array(
-                    'url' => "http://xn--o3caa7bbc1ad9fyb2h4b8byc.com/themes/Travel06062013/images/banner/banner-01.jpg",
-                    //'url' => base_url($tourResult[0]["background_image"]),
+                    //'url' => "http://xn--o3caa7bbc1ad9fyb2h4b8byc.com/themes/Travel06062013/images/banner/banner-01.jpg",
+                    'url' => base_url($tourResult[0]["background_image"]),
                     'message' => $this->lang->line("facebook_message_for_publishing_lead").$customTourResult[0]["package_name"].'
                     '.base_url("/customtour/".$customTourResult[0]["url"]).$this->lang->line("facebook_message_for_publishing").'
 
                     Click! >> '.base_url(),
                     'access_token' => $this->session->userdata("access_token")
                      );
-      $result = $this->facebook->api('/me/photos/', 'POST', $args);
-      return $tourResult;
+      try {
+        $result = $this->facebook->api('/me/photos/', 'POST', $args);
+      }catch (Exception $e) {
+        log_message("debug","Facebook Error: ".$e->getMessage());
+        $this->session->set_userdata("forword",base_url("customtour/publish/".$input));
+        $params = array(
+          'scope' => $this->config->item("facebook_scope"),
+          'fbconnect' => 1,
+          'display' => "page",
+          'redirect_uri' => base_url("user/fblogin")
+        );
+        $url = $this->facebook->getLoginUrl($params);
+        redirect($url);
+        exit();
+      }
+      return $customTourResult;
     }
     return FALSE;
   }
@@ -479,43 +519,191 @@ class CustomTour extends MY_Controller {
     $this->load->model("tour_model","tourModel");
     $this->load->model("price_model","priceModel");
     $this->load->model("images_model", "imagesModel");
+    $this->load->model("tagtour_model", "tagTourModel");
+    $this->load->model("type_model", "typeModel");
+    $this->load->model("tagtype_model", "tagTypeModel");
 
     $query["url"] = trim($page);
     $query["limit"] = 1;
     $buffer = $this->customtourModel->get($query);
+
+    if(empty($buffer)){
+      show_404();
+    }
+    //Update View
+    $updateView["id"] = $buffer[0]["id"];
+    $updateView["view"] = $buffer[0]["view"]+1;
+    $this->customtourModel->add($updateView);
+
     $result["packageData"] = $buffer[0];
     unset($buffer);
     $result["packageData"]["tour_id"] = unserialize($result["packageData"]["tour_id"]);
 
     foreach ($result["packageData"]["tour_id"] as $day => $dayValue) {
       foreach ($dayValue as $key => $item) {
-        $tourResult = $this->tourModel->get($item);
-        $wherePrice["tour_id"] = $item;
-        $wherePrice["event"] = "display";
-        $priceDummy = Util::objectToArray($this->priceModel->getRecord($wherePrice));
-        $tourResult[0]["price"] = $priceDummy[0];
+        $whereTour["where"]["id"] = $item;
+        $whereTour["where"]["lang"] = $this->lang->lang();
+        $tourResult = $this->tourModel->get($whereTour);
+        $wherePrice["where"]["tour_id"] = $item;
+        $wherePrice["where"]["lang"] = $this->lang->lang();
+        $tourResult[0]["price"] = $this->priceModel->get($wherePrice);
         //Images
-        $tourResult[0]["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$wherePrice["tour_id"],'table_id'=>2)));
+        $tourResult[0]["images"] = $this->imagesModel->get(array('where'=>array('parent_id'=>$item,'table_id'=>2)));
 
         $tourPackageData[$day][$key] = $tourResult[0];
         $tourPackageData[$day][$key] = $tourResult[0];
-        unset($priceDummy);
         unset($wherePrice);
         unset($tourResult);
+
+        $whereTagTour["where"]["tour_id"] = $item;
+        $tourPackageData[$day][$key]["tags"] = $this->tagTourModel->getTagTourList($whereTagTour);
+        unset($whereTagTour);
       }
     }
-    //var_dump($tourPackageData);exit;
-    $result["packageTour"] = $tourPackageData;
-    $this->_fetch('user_view', $result, false, true);
+
+    $typeProvinceId = $this->typeModel->get(array("where"=>array("name"=>"province")));
+    $tagProvinceList = $this->tagTypeModel->getTagTypeList(array("where"=>array("type_id"=>$typeProvinceId[0]["id"],"parent_id"=>0),"order"=>"index ASC"));
+
+    $this->_assign("allProvince",$tagProvinceList);
+    $this->_assign("main_menu",Menu::main_menu());
+    foreach ($tourPackageData[0][0]["tags"] as $tagKey => $tagValue) {
+      foreach ($tagProvinceList as $pKey => $pValue) {
+        if($tagValue["tag_id"] == $pValue["tag_id"]){
+          $tagProvinceID = $tagValue;
+          break;
+        }
+      }
+      if(!empty($tagProvinceID)){
+        break;
+      }
+    }
+    if(!empty($tagProvinceID["tag_id"])){
+      $this->load->model("tag_translate_model","tagTranslateModel");
+      $whereCurrentProvince["where"]["tag_id"] = $tagProvinceID["tag_id"];
+      $currentProvince = $this->tagTranslateModel->get($whereCurrentProvince);
+      if (!empty($currentProvince)) {
+        foreach ($currentProvince as $key => $value) {
+          $currentProvince[$value["lang"]] = $value;
+        }
+      }
+      $this->_assign("currentProvince",$currentProvince["en"]["name"]);
+    }else{
+      $this->_assign("currentProvince","Thailand");
+    }
+    if(!empty($tourPackageData[0][0]["tags"])){
+      foreach ($tourPackageData as $dayKey => $dayValue) {
+        foreach ($dayValue as $packageKey => $packageValue) {
+          foreach ($packageValue["tags"] as $key => $value) {
+            $keywordList[] = $value["tagt_name"];
+            $tagsList[$value["tag_id"]] = $value;
+          }
+        }
+      }
+      $keywordList = array_unique($keywordList);
+
+      $keywordString = Util::keywordProduce($keywordList);
+      PageUtil::addVar("keywords",$keywordString);
+    }else{
+      PageUtil::addVar("keywords",$this->lang->line("global_lang_home_keyword"));
+    }
+
+    //Set Description
+    if(!empty($tourPackageData[0][0]["description"])){
+      PageUtil::addVar("description",str_replace(array('\'', '"','“','”','&ldquo;','&rdquo;','&nbsp;'), "", trim(strip_tags($tourPackageData[0][0]["description"]))));
+    }
+    PageUtil::addVar("title",$result["packageData"]["package_name"]);
+    $this->_assign("tags",$tagsList);
+    $this->_assign("packageTour",$tourPackageData);
+    $this->_assign("packageData",$result["packageData"]);
+    $this->_fetch('user_view', "", false, true);
   }
 
   function user_search($keyword, $page){
     echo "user list : ".$keyword."+".$page;
   }
 
-  function user_list(){
-    $result = $this->customtourModel->get();
-    var_dump($result);exit;
+  function user_list($start = 0){
+    //Load Library
+    $this->load->library('pagination');
+
+    //Load Model
+    $this->load->model("article_model","articleModel");
+    $this->load->model("customtour_model","customtourModel");
+    $this->load->model("tour_model","tourModel");
+
+    $where["where"]["tag_id"] = 0;
+    $where["where"]["display"] = 1;
+    $where["where"]["type"] = 4;
+    $where["where"]["lang"] = $this->lang->lang();
+    $where["limit"] = 1 ;
+    $articleResult = $this->articleModel->get($where);
+    
+    unset($where);
+    if(empty($articleResult)){
+      $articleResult[0] = FALSE;
+    }else{
+      $articleResult[0]["body_column"] =  explode("<hr />",preg_replace("/<p[^>]*>[\s|&nbsp;]*<\/p>/", '', $articleResult[0]["body"]));
+    }
+    $this->_assign("article",$articleResult[0]);
+    unset($where);
+
+
+    //pagination
+    $config['prev_link'] = '&laquo;';
+    $config['prev_tag_open'] = '<li>';
+    $config['prev_tag_close'] = '</li>';
+
+    $config['next_link'] = '&raquo;';
+    $config['next_tag_open'] = '<li>';
+    $config['next_tag_close'] = '</li>';
+
+    $config['num_tag_open'] = '<li>';
+    $config['num_tag_close'] = '</li>';
+
+    $config['cur_tag_open'] = '<li class="active"><a href="#">';
+    $config['cur_tag_close'] = '</a></li>';
+
+    $config['first_tag_open'] = '<li>';
+    $config['first_tag_close'] = '</li>';
+
+    $config['last_tag_open'] = '<li>';
+    $config['last_tag_close'] = '</li>';
+    $config['base_url'] = base_url("customtour");
+    $config['total_rows'] = $this->customtourModel->count_rows();
+    $config['per_page'] = 20;
+    $config['uri_segment'] = $this->uri->total_segments();
+    $this->pagination->initialize($config);
+
+    $where['limit']['amount'] = $config['per_page'];
+    $where['limit']['start'] = $start;
+    $where["order"] = "cr_date DESC";
+    
+    $result = $this->customtourModel->get($where);
+    foreach ($result as $key => $value) {
+      $result[$key]["tour_id"] = unserialize($result[$key]["tour_id"]);
+      if(!empty($result[$key]["tour_id"])){
+        foreach ($result[$key]["tour_id"] as $dayKey => $dayValue) {
+          foreach ($dayValue as $tourListKey => $tourListValue) {
+            $whereTour["where"]["tour_id"] = $tourListValue;
+            $whereTour["where"]["lang"] = $this->lang->lang();
+            $resultTour = $this->tourModel->get($whereTour);
+            if(empty($resultTour)){
+              $resultTour[0] = FALSE;
+            }else{
+              //banner_image
+              $result[$key]["images"][] = base_url($resultTour[0]["banner_image"]);
+              $result[$key]["short_description"][] = $resultTour[0]["short_description"];
+            }
+            $result[$key]["tour_id"][$dayKey][$tourListKey] = $resultTour[0];            
+          }
+        }
+      }
+    }
+
+    $this->_assign("customtour",$result);
+
+
+    $this->_fetch("user_list", "", false, true);
   }
 }
 ?>

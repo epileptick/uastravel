@@ -3,7 +3,7 @@
     if(!empty($images)):
     ?>
       <section class="gallery_pc">
-        <div class="eight columns">
+        <div class="twelve columns">
           <div id="gallery" class="content">
             <div id="controls" class="controls"></div>
             <div class="slideshow-container">
@@ -13,7 +13,7 @@
             <div id="caption" class="caption-container"></div>
           </div>
         </div>
-        <div class="four columns">
+        <div class="twelve columns">
           <div id="thumbs" class="navigation">
             <ul class="thumbs noscript">
               <?php

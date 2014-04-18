@@ -18,7 +18,7 @@
         <?php
           }
         ?>
-          <?php echo $value["tour"]["tout_name"]; ?>
+          <?php echo (!empty($value['tour']["tout_short_name"]) ? $value['tour']["tout_short_name"] : $value['tour']["tout_name"]); ?>
         </a></li>
     <?php
       }

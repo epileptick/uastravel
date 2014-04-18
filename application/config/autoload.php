@@ -80,7 +80,7 @@ $autoload['helper'] = array('url','form','language');
 |
 */
 
-$autoload['config'] = array("facebook","theme");
+$autoload['config'] = array("facebook","theme","payment");
 
 
 /*

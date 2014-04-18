@@ -186,10 +186,11 @@ $('#login_form').submit(function() {
   <div class="tab_user">
     <?php
     $user_data = $this->session->userdata("user_data");
+
     if(($this->session->userdata("logged_in") == TRUE)):
     ?>
     <div class="user_message">
-      <img src="http://graph.facebook.com/<?php echo $user_data["username"];?>/picture" class="img-circle img-border" width="24" height="24"> Welcome back, <?php echo $user_data["name"];?>. (<?php echo $this->session->userdata("ip_address");?>)<span class="language_bar"><a href="<?php echo $this->lang->switch_uri("en");?>"><img src="<?php echo $themepath.'/images/flags/us.png';?>" border="0" /></a><a href="<?php echo $this->lang->switch_uri("th");?>"><img src="<?php echo $themepath.'/images/flags/th.png';?>" border="0" /></a></span><span class="user_logout"><a href="#logout-box" class="user_logout">Logout</a></span>
+      <img src="http://graph.facebook.com/<?php echo $user_data["username"];?>/picture" class="img-circle img-border" width="24" height="24"> Welcome back, <?php echo $user_data["name"];?>. (<?php echo $this->session->userdata("ip_address");?>)<span class="language_bar"><a href="http://www.packagethailandtour.com/"><img src="<?php echo $themepath.'/images/flags/us.png';?>" border="0" /></a><a href="http://www.xn--o3caa7bbc1ad9fyb2h4b8byc.com/"><img src="<?php echo $themepath.'/images/flags/th.png';?>" border="0" /></a></span><span class="user_logout"><a href="#logout-box" class="user_logout">Logout</a></span>
     </div>
     <?php
     else:

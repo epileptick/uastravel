@@ -1,7 +1,7 @@
-        <!-- Tour Information -->
+
+    <!-- Tour Information -->
     <div class="row">
       <div class="twlve columns">
-        <div class="box_white_in_columns article_tour">
           <!-- Title -->
           <div class="row">
             <div class="twelve columns">
@@ -15,16 +15,16 @@
                 }
               ?></h2>
             </div>
-            <div class="four columns">
+            <div id="gallery_row">
+            </div>
+            <div class="twelve columns">
               <div class="social_network">
                 <!-- AddThis Button BEGIN -->
                 <div class="addthis_toolbox addthis_default_style ">
-                <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-
+                  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+                  <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
                 <!--<a class="addthis_counter addthis_pill_style"></a>-->
                 </div>
-                <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508ccf0302149b28"></script>
                 <!-- AddThis Button END -->
               </div>
             </div>
@@ -283,7 +283,7 @@
           </div>
         </div>
         <!-- End tag -->
-      </div>
+
       <!-- End box_white_in_columns-->
       <!-- End Tour Information -->
 
