@@ -1,4 +1,4 @@
-  <!-- We only want the thunbnails to display when javascript is disabled -->
+
   document.write('<style>.noscript { display: none; }</style>');
       (function($){
           $.fn.GalleryRefresh = function(){
@@ -9,7 +9,7 @@
             var onMouseOutOpacity = 1;
             // Initialize Advanced Galleriffic Gallery
             var gallery = $('#thumbs').galleriffic({
-              delay:                     2500,
+              delay:                     6000,
               numThumbs:                 15,
               preloadAhead:              40,
               enableTopPager:            false,
@@ -28,9 +28,9 @@
               nextPageLinkText:          'Next &rsaquo;',
               prevPageLinkText:          '&lsaquo; Prev',
               enableHistory:             false,
-              autoStart:                 false,
+              autoStart:                 true,
               syncTransitions:           true,
-              defaultTransitionDuration: 900,
+              defaultTransitionDuration: 3000,
               onSlideChange:             function(prevIndex, nextIndex) {
                 // 'this' refers to the gallery, which is an extension of $('#thumbs')
                 this.find('ul.thumbs').children()
@@ -79,6 +79,9 @@
               if($("#gallery_row section").length > 0){
                 $().GalleryRefresh();
               }
+              addthis.update('share', 'url', window.location.href); // new url
+              addthis.update('share', 'title', window.document.title); // new title.
+              addthis.toolbox('.addthis_toolbox');
           }catch(ex){}
       });
       function processAjaxData(title, respond, left, urlPath){
@@ -106,5 +109,8 @@
                                             $(this).parent().find('img:first').addClass("rotate");
                                           }
                                         });
+                                        addthis.update('share', 'url', window.location.href); // new url
+                                        addthis.update('share', 'title', window.document.title); // new title.
+                                        addthis.button('.addthis_toolbox');
                                       }
                                     };
