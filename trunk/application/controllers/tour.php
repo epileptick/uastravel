@@ -400,7 +400,7 @@ class Tour extends MY_Controller {
     $data["caconical"] = base_url($this->lang->line("url_lang_tour"));
 
     if(!empty($data)){
-      $this->_fetch('user_list', $data, false, true);
+      $this->_fetch('user_list', $data);
     }
 
   }
@@ -511,7 +511,7 @@ class Tour extends MY_Controller {
 
         echo json_encode($ajaxReturn);exit;
       }else{
-        $this->_fetch('user_list', $data, false, true);
+        $this->_fetch('user_list', $data);
       }
     }
 
@@ -738,6 +738,7 @@ class Tour extends MY_Controller {
       $extendprice["pri_tour_id"] = $id;
       $data["tour"] = $this->tourModel->get($tour);
 
+       
       //Check has tour
       if(count($data["tour"]) < 1  || empty($data["tour"])){
         show_404();
@@ -763,7 +764,7 @@ class Tour extends MY_Controller {
       //Tag
       $this->load->model("tagtour_model", "tagTourModel");
       $data["tag"] = $this->tagTourModel->getTagTourList($tagtour);
-
+      //tongnee
       if(!empty($data["tag"])){
         //TagTour
         $count = 0;
@@ -882,7 +883,8 @@ class Tour extends MY_Controller {
 
           echo json_encode($ajaxReturn);exit;
         }else{
-          $this->_fetch('user_view',$data, false, true);
+
+          $this->_fetch('user_view',$data);
         }
       }else{
         show_404();

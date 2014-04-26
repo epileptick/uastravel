@@ -1,0 +1,367 @@
+.container{
+	background-color: white;
+
+
+}
+
+.marginpackket{
+	margin-top: 15px;
+}
+
+body{
+  font-family:"supermarketregular";
+  background-image:url(/themes/uastravel2014/image/parent5.jpg);
+	
+	background-repeat: repeat;
+}
+.header{
+	margin-top: 10px;
+}
+
+
+
+.bottom{
+	margin-bottom: 50px;
+}
+
+.navicon{
+	width: 20px;
+	height: 20px;
+	margin-top: 15px;
+	margin-left: 10px;
+
+}
+
+.magincol{
+
+	margin-bottom: 15px;
+	
+}
+
+.menubutton{
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+.pic{
+	background-image:url(samui.jpg);
+	position: relative;
+  height: 230px;
+}
+.pic2{
+	background-image:url(samiran3.jpg);
+	position: relative;
+  height: 230px;
+}
+.pic3{
+	background-image:url(racha.jpg);
+	position: relative;
+  height: 230px;
+}
+.pic4{
+	background-image:url(trachai.jpg);
+	position: relative;
+  height: 230px;
+}
+.pic5{
+	background-image:url(egg2.jpg);
+	position: relative;
+  height: 230px;
+}
+.pic6{
+	background-image:url(surin.jpg);
+	position: relative;
+  height: 230px;
+}
+
+.backribbon{
+	background-color: #3389d7;
+	 width: 120px;
+ height: 35px;
+}
+.backribbonsell{
+	background-color:#e9513c;
+	 width: 120px;
+ height: 50px;
+}
+
+.ribbon{
+	bottom: auto;
+  float: left;
+  left: -10px;
+  top: 10px;
+	position: absolute;
+}
+
+.gimmick{
+  float: left;
+	width: 0;
+	height:0;
+	border-width: 10px 0px 0px 10px;
+  border-color: #4F2D20;
+  border-style:solid;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+
+}
+
+.navactivity{
+  display: block;
+  min-height:50px;
+	border-radius:4px 4px 0px 0px;
+
+ border:1px solid transparent; 
+}
+
+.backnav{
+	position: relative;
+	background-color:transparent;
+	height: 200px;
+}
+
+.textbackribbon{
+	 padding: 5px;
+	 color:white;
+	 font-size: 17px;
+	 text-align: center;
+}
+.textbackribbonsell{
+	  
+	 padding: 0px;
+	 color:white;
+	 font-size: 17px;
+	 text-align: center;
+	 display: block;
+}
+.textbackribbonsell1{
+	text-align: left;
+	 padding: 4px;
+	 color:white;
+	 font-size: 12px;
+	 text-align: center;
+	 display: block;
+}
+
+
+
+
+.backbuttom{
+
+	background-color:#f9f9f9;
+	border-top:1px solid #ebebeb;
+	border-bottom:1px solid #ebebeb;
+	
+
+}
+
+.backbuttom2{
+
+	background-color:#f9f9f9;
+	border-top:1px solid #ebebeb;
+	border-bottom:1px solid #ebebeb;
+
+
+}
+
+.pac_titlewalpaper{
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	right: 5px;
+	padding: 0px 10px;	
+
+}
+.back_wall{
+	background-color: black;
+	opacity: 0.7;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right:0px;
+	top: 0px;
+
+}
+
+.title_wal{
+	top :-3;
+	font-size:18px;
+	position: relative;
+}
+
+ .title_wal a{
+	color:white;
+	position: relative;
+}
+
+.title_place{
+	position: absolute;
+	color: white;
+	display: inline;
+	right: 0px;
+	padding-top: 15px;
+	padding-right: 15px;
+	
+}
+
+.place{
+	margin-left: 10px;
+	font-size: 17px;
+ font-weight: bold;
+ color: #E85F0C;
+}
+
+.placesell{
+	margin-left: 10px;
+	font-size: 17px;
+ font-weight: bold;
+ color: #e9513c;
+}
+
+
+
+
+
+
+.imagepromo{
+ 
+	height:60px;
+}
+.subpacketpromo{
+	display: block;
+	position: absolute;
+}
+
+.hig{
+	
+	border-bottom:1px solid #e5e5e5;
+	padding-bottom:6px;
+
+}
+
+.detail{
+	margin-top:10px;
+
+}
+.viewmore{
+	position: absolute;
+	right:25px;
+	font-size: 10px;
+}
+
+.backyoutube{
+height: 280px;
+background-color: orange;
+}
+
+.navhead{
+	background-color: transparent;
+}
+
+.navtitle{
+	font-size: 25;
+	color:black !important;
+}
+
+.backfooter{
+	margin-top: 20px;
+	background-color:#f9f9f9;
+	border-top:1px solid #ebebeb;
+	border-bottom:1px solid #ebebeb;
+
+}
+
+.footerlabel{
+
+	display: block;
+	list-style-position: inside;
+
+}
+
+.footerlabel li{
+
+	margin-right: 5px;
+	float: left;
+	direction: ltr;
+}
+
+.footerlabel a{
+	color:black;
+}
+.stylefootter{
+	font-size: 15px;
+	padding:15px;
+	
+}
+.marginfootter p{
+	padding-bottom: 0px
+}
+.logouas{
+	padding-left: 30px;
+	padding-top: 3px;
+}
+
+.symbolicon{
+  font-size: 18px;
+  color:#3389d7;
+}
+
+.baacnewbox{
+	height: 100px;
+	background-color:#fff;
+ border:5px solid #ebebeb;
+	padding: 5px 5px 5px 5px;
+
+}
+
+.gimmick2{
+  float: left;
+	width: 0;
+	height:0;
+	border-width: 10px 0px 0px 10px;
+  border-color: #4F5E62;
+  border-style:solid;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  margin-bottom: 5px;
+
+ }
+ .editmargin_header{
+ 		margin-bottom: 10 !important;
+ }
+
+#search{
+	padding-top: 12px;
+	padding-right: 10px;
+}
+
+ #search input[type="text"] {
+
+	 	float: left;
+        background: url(/themes/uastravel2014/image/search-dark.png) no-repeat 10px 6px #fcfcfc;
+    border: 1px solid #d1d1d1;
+    font: bold 12px Arial,Helvetica,Sans-serif;
+    color: #bebebe;
+    width: 150px;
+    padding: 6px 15px 6px 35px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+    -webkit-transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+    transition: all 0.7s ease 0s;
+    }
+
+#search input[type="text"]:focus {
+    width: 200px;
+    }
+
+.fontmenubar{
+ color:white !important; 
+}

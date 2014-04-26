@@ -1,0 +1,39 @@
+.backbox1 {
+	margin-top: 30px;
+	margin-right: 20px;
+	position: relative;
+	background-color: #1aaad3;
+	width: 290px;
+	height: 200px;
+	border-radius: 8px 8px 8px 8px;
+
+}
+
+.backbox2{
+	position: absolute;
+	width: 289px;
+	height: 180px;
+	background-color: #aff3f7;
+	border-radius: 8px 8px 8px 8px;
+	top:0px;
+	right:15px;
+}
+
+.titlebox{
+
+	font-size: 30px;
+	color: white;
+}
+
+.gridstlyebox{
+
+	text-align: center;
+}
+.titletimepacket{
+border-bottom:1px solid #e5e5e5;
+
+}
+
+.detail{
+	margin-top: 10px;
+}
