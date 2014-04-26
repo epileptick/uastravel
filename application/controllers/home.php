@@ -6,21 +6,11 @@ class Home extends MY_Controller {
   }
 
   function index(){
-    //Default function for call read method
 
-    //print_r($this->lang->lang()); exit;
-    if($this->uri->segment(1) == $this->lang->lang()){
-      $index = 1;
-      //echo $index;
-    }else{
-      $index = 0;
-    }
-
-    $page = $this->uri->segment($index+1);//5;
-    $this->user_list(false, $page);
+    $this->user_list();
   }
 
-  function user_list($tag=false, $page=0){
+  function user_list(){
 
     $this->load->model("type_model", "typeModel");
     $this->load->model("price_model", "priceModel");
@@ -111,9 +101,45 @@ class Home extends MY_Controller {
       }
     }
 
-    $this->_assign("promotedTour",$promotedTour);
+    
 
-    $this->_fetch('user_list', "",false, true);
+
+
+
+
+
+
+
+  $this->load->model("type_model", "typeModel");
+  $provincename["where"]["typ_name"] ='province';
+  $resultname=$this->typeModel->get($provincename);
+
+  $this->load->model("tagtype_model", "tagTypeModel");
+  $provincetagtype["where"]["type_id"] =$resultname[0]['id'];
+  $provincetagtype["where"]["lang"] =$this->lang->lang();
+  $resulttagtypes=$this->tagTypeModel->get($provincetagtype);
+
+
+  foreach ($promotedTour as $key => $promot) {
+    $tourtag["where"]["tour_id"] = $promot['tour_id'];
+    $tourtag["where"]["tagt_lang"] = $this->lang->lang();
+    $promotedTour[$key]["tags"] = $this->tagTourModel->get($tourtag);
+
+    foreach ($resulttagtypes as $key2 => $tagtype) {
+      if(!empty($promotedTour[$key]["province"])){
+        break;
+      }
+
+      foreach ($promotedTour[$key]["tags"] as $key3 => $tours) {
+        if($tagtype['tag_id'] == $tours['tag_id']){
+          $promotedTour[$key]["province"] = $tours['tagt_name'];
+          break;
+        }
+      }
+    }
+  }
+  $this->_assign("promotedTour",$promotedTour);
+    $this->_fetch('user_list');
   }
 
   function admin_list(){
