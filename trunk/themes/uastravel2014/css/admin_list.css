@@ -1,0 +1,64 @@
+.packketstlyehead{
+	position: relative;
+}
+
+.headback{
+
+ background-color: #e9513c;
+}
+
+.headback span{
+	font-size: 37px;
+	color: white;
+	padding-left: 8px;
+	padding-top: 8px;
+	padding-right: 8px;
+	padding-bottom: 8px;
+}
+
+.gimmic{
+	
+	width: 0;
+	height:0;
+	border-width: 10px 0px 0px 10px;
+  border-color: #4F2D20;
+  border-style:solid;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.box-sh{
+
+	background:#30d5f9;
+	box-shadow:0 0 7px #63efff;
+	border-radius:12px;
+	padding: 9px 0 11px 28px;
+}
+
+.box-sh span{
+
+
+	padding: 9px 0 11px 28px;
+	font-size:26px;
+	color:#fff;
+	line-height:28px;
+	font-weight:700;
+	text-shadow:0 0 5px #fff;
+	
+}
+
+.tour{
+
+  background-color: white;
+
+  border-top: 1px solid #ebebeb;
+
+  border-bottom: 1px solid #ebebeb;
+
+}
+
+.margincol{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
