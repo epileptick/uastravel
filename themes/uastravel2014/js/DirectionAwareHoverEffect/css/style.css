@@ -1,0 +1,48 @@
+#attractions {
+	position: relative;
+	padding: 0;
+}
+.clickable > .list_attractions > a{
+	display: block;
+	position: relative;
+}
+.clickable > .list_attractions > a {
+	overflow: hidden;
+}
+.clickable > .list_attractions > a div {
+	position: absolute;
+	background: rgba(75,75,75,0.7);
+	width: 100%;
+	height: 100%;
+}
+.clickable .list_attractions a div.da-animate {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	-ms-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+/* Initial state classes: */
+.da-slideFromTop {
+	left: 0px;
+	top: -100%;
+}
+.da-slideFromBottom {
+	left: 0px;
+	top: 100%;
+}
+.da-slideFromLeft {
+	top: 0px; 
+	left: -100%;
+}
+.da-slideFromRight {
+	top: 0px;
+	left: 100%;
+}
+/* Final state classes: */
+.da-slideTop {
+	top: 0px;
+}
+.da-slideLeft {
+	left: 0px;
+}

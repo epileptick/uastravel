@@ -49,7 +49,7 @@
 }
 
 .tags a.tags_name{
-	padding:0 10px 0 12px;
+	padding:3 10px 0 12px;
 	margin:  0 10px 0 0;
 	background:#0089e0;
 	color:#fff;
@@ -89,3 +89,366 @@
 	-webkit-box-shadow:-1px -1px 2px #004977;
 	box-shadow:-1px -1px 2px #004977;
 	}
+
+.tags li.child{
+	padding-top: 4px;
+}
+
+.codepost{
+
+	margin-top: 25px;
+}
+
+
+
+
+/* ---------------------------------------------------------------------- */
+/*	Gallery
+/* ---------------------------------------------------------------------- */
+.gallery_pc{
+	margin: 0 15px 0px 15px;
+	overflow: hidden;
+	background: rgba(0, 0, 0, 0.1);
+}
+.lt-ie9 .gallery_pc{
+	border-radius: 2px;
+	box-shadow: 0px 1px 1px #8a8a8a;
+	behavior: url(stylesheets/PIE.htc);
+}
+.gallery_pc .columns{
+	padding: 3px;
+}
+.gallery_pc .four{
+	padding: 3px 0px 3px 2px
+
+}
+
+.gallery_pc div.content {
+	/* The display of content is enabled using jQuery so that the slideshow content won't display unless javascript is enabled. */
+	display: none;
+	width: 687px;
+	position: relative;
+	float: left;
+}
+.gallery_pc div.content a, div.navigation a {
+	text-decoration: none;
+	color: #777;
+}
+#gallery div.content a:focus, div.content a:hover, div.content a:active {
+	text-decoration: underline;
+}
+#gallery div.controls {
+	margin-top: 5px;
+	height: 40px;
+	position: absolute;
+	z-index: 2;
+	right: 17px;
+	bottom: 12px;
+}
+#gallery div.controls a.next{
+	height: 40px;
+	width: 20px;
+	background: url(../image/arrow_gallery.png) -20px -80px no-repeat;
+}
+#gallery div.controls a.prev{
+	height: 40px;
+	width: 20px;
+	background: url(../image/arrow_gallery.png) 0px -80px no-repeat;
+}
+#gallery div.controls a.next:hover{
+	background: url(../image/arrow_gallery.png) -20px 0px no-repeat;
+}
+#gallery div.controls a.prev:hover{
+	background: url(../image/arrow_gallery.png) 0px 0px no-repeat;
+}
+#gallery div.controls a.play{
+	display: none;
+}
+#gallery div.controls a {
+	display: inline-block;
+	text-indent: -9999px;
+}
+
+.image-wrapper.advance-link img{
+	width: 1000px;
+}
+
+div.ss-controls {
+	float: left;
+}
+div.nav-controls {
+	float: right;
+}
+div.slideshow-container {
+	position: relative;
+	clear: both;
+	height: 441px; /* This should be set to be at least the height of the largest image in the slideshow */
+}
+div.loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-image: url('../image/loader.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 625px;
+	height: 441px; /* This should be set to be at least the height of the largest image in the slideshow */
+}
+div.slideshow {
+
+}
+div.slideshow span.image-wrapper {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+div.slideshow a.advance-link {
+	display: block;
+	width: 687px;
+	height: 441px; /* This should be set to be at least the height of the largest image in the slideshow */
+	line-height: 441px; /* This should be set to be at least the height of the largest image in the slideshow */
+	text-align: center;
+	overflow: hidden;
+}
+div.slideshow a.advance-link:hover, div.slideshow a.advance-link:active, div.slideshow a.advance-link:visited {
+	text-decoration: none;
+}
+div.slideshow img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+div.download {
+	display: none;
+}
+div.caption-container {
+	height: 60px;
+	width: 678px;
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	border-left: 3px solid #FFC000;
+	background: #CBBFAE;
+	background: rgba(190, 176, 155, 0.4);
+	margin: 0 0 5px 5px;
+	-webkit-transition: all 200ms;
+	-moz-transition: all 200ms;
+	-o-transition: all 200ms;
+	-ms-transition: all 200ms;
+	transition: all 200ms;
+}
+
+.lt-ie9 div.caption-container {
+	background: url(../image/ie/caption.png);
+}
+.lt-ie9 div.caption-container:hover {
+	background: url(../image/ie/caption.png);
+}
+
+div.caption-container:hover {
+	background: rgba(190, 176, 155, 0.7);
+}
+
+span.img-caption {
+	display: block;
+	position: absolute;
+	height: 50px;
+	margin: 5px 0 0 5px;
+}
+div.caption {
+	padding: 12px;
+}
+div.image-title {
+	line-height: 30px;
+	font-size: 22px;
+	color: white;
+}
+div.image-desc {
+	font-size: 12px;
+	color: white;
+	font-family: Tahoma, "MS Sans Serif";
+}
+div.navigation {
+	/* The navigation style is set using jQuery so that the javascript specific styles won't be applied unless javascript is enabled. */
+	margin-left: -7px;
+}
+ul.thumbs {
+	clear: both;
+	margin: 0;
+	padding: 0;
+	padding-left: 8px;
+}
+ul.thumbs li {
+	float: left;
+	padding: 0;
+	margin: 0px 0px 2px 2px;
+	list-style: none;
+	width: 8%;
+}
+a.thumb {
+
+}
+ul.thumbs li.selected{
+	background: #000;
+}
+a.thumb:focus {
+	outline: none;
+}
+ul.thumbs img {
+	border: none;
+	display: block;
+	max-width: 55px;
+	min-height: 39px;
+}
+div.pagination {
+	clear: both;
+	display: none;
+}
+div.navigation div.top {
+	margin-bottom: 12px;
+	height: 11px;
+}
+div.navigation div.bottom {
+	margin-top: 12px;
+}
+div.pagination a, div.pagination span.current, div.pagination span.ellipsis {
+	display: block;
+	float: left;
+	margin-right: 2px;
+	padding: 4px 7px 2px 7px;
+	border: 1px solid #ccc;
+}
+div.pagination a:hover {
+	background-color: #eee;
+	text-decoration: none;
+}
+div.pagination span.current {
+	font-weight: bold;
+	background-color: #000;
+	border-color: #000;
+	color: #fff;
+}
+div.pagination span.ellipsis {
+	border: none;
+	padding: 5px 0 3px 2px;
+}
+
+@media only screen and (max-width: 980px) {
+	.gallery_pc{
+		display: none;
+	}
+
+}
+
+.thumbs > li > a{
+	display: block;
+	position: relative;
+	overflow: hidden;
+}
+.thumbs > li > a div {
+	position: absolute;
+	background: url(../image/hover_pattern.png);
+	width: 100%;
+	height: 100%;
+}
+.thumbs > li > a div span{
+	display: block;
+	position: relative;
+	background: url(../image/icon.png) 0px -420px;
+	width: 30px;
+	height: 30px;
+	left: 50%;
+	top: 50%;
+	margin: -15px 0 0 -15px;
+	-webkit-transition: all .2s ease;
+	   -moz-transition: all .2s ease;
+	    -ms-transition: all .2s ease;
+	     -o-transition: all .2s ease;
+	        transition: all .2s ease;
+}
+
+.thumbs > li a div.da-animate {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	-ms-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+
+/* Initial state classes: */
+.da-slideFromTop {
+	left: 0px;
+	top: -100%;
+}
+.da-slideFromBottom {
+	left: 0px;
+	top: 100%;
+}
+.da-slideFromLeft {
+	top: 0px; 
+	left: -100%;
+}
+.da-slideFromRight {
+	top: 0px;
+	left: 100%;
+}
+/* Final state classes: */
+.da-slideTop {
+	top: 0px;
+}
+.da-slideLeft {
+	left: 0px;
+}
+/* ---------------------------------------------------------------------- */
+/*	gallery_mobile
+/* ---------------------------------------------------------------------- */
+.gallery_mobile{
+	margin: 0 15px 10px 15px;
+	background: #fff;
+	overflow: hidden;
+	padding: 3px 3px 0px 0px;
+	-webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+	      -moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.2);
+	        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.gallery_mobile .columns{
+	padding: 3px;
+}
+
+.gallery_mobile{
+	display: none;
+}
+#gallery_mobile { 
+	list-style: none; padding: 0; margin: 0; 
+}
+#gallery_mobile:after { 
+	clear: both; content: "."; 
+	display: block; 
+	height: 0; 
+	visibility: hidden; 
+}
+#gallery_mobile li { 
+	float: left; 
+	width: 10%;
+}
+#gallery_mobile li:first-child{ 
+	width: 100%; 
+}
+#gallery_mobile li a { 
+	display: block; 
+	margin: 0px 0px 3px 3px;
+}
+#gallery_mobile li img { 
+	display: block; 
+	width: 100%; 
+	height: auto; 
+}
+
+
+.price_booking {
+
+padding: 8px 8px 8px 8px;
+
+}

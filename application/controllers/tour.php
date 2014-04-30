@@ -3,9 +3,9 @@
 class Tour extends MY_Controller {
 
   var $per_page = 20;
-
   function __construct(){
     parent::__construct();
+
   }
 
   function user_index(){
@@ -331,6 +331,7 @@ class Tour extends MY_Controller {
   }
 
   function user_list($page=0){
+
     $this->load->model("type_model", "typeModel");
     $this->load->model("tagtype_model", "tagTypeModel");
 
@@ -406,6 +407,10 @@ class Tour extends MY_Controller {
   }
 
   function user_listbytag($tag=false, $page=0){
+     // page user_list
+    $a='ball';
+
+    $this->_assign('aa',$a);
     //echo "Call user_listbytag()"; exit;
     $this->load->model("type_model", "typeModel");
     $this->load->model("tagtype_model", "tagTypeModel");
