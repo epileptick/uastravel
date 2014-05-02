@@ -15,7 +15,7 @@
 <a href="<?php echo base_url("admin/type");?>">type</a><br/>
 
 <ol class="breadcrumb">
-  <li><a href="<?php echo base_url('admin/new'); ?>">ข่าวสารทางเว็ป</a></li>
+  <li><a href="<?php echo base_url('new/new_index'); ?>">ข่าวสารทางเว็ป</a></li>
   <li><a href="<?php echo base_url(''); ?>">กิจกรรมลูกค้า</a></li>
   <li class="active">Data</li>
 </ol>
