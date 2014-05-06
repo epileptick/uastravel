@@ -3,7 +3,9 @@
 <link rel="stylesheet" href="<?php echo base_url('themes/uastravel2014/css/flexslider.css'); ?>" type="text/css" media="screen" />
   <!-- FlexSlider -->
   <script defer src="<?php echo base_url('themes/uastravel2014/js/jquery.flexslider.js'); ?>"></script>
-
+  <!-- ปุ่ม Like google facebook  -->
+  <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508ccf0302149b28"></script>
+  <!--END ปุ่ม -->
 
 <div class="row">
 	<div class="col-md-4">
@@ -48,7 +50,7 @@
 
 
       <!-- Gallery -->
-        <div class="col-md-11" style="margin-left:30px;">
+        <div class="col-md-12" style="">
           <?php
           if(!empty($images)):
           ?>
@@ -122,13 +124,21 @@
 
     <div class="row">
       <div class="col-md-6">
-        <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FUasTravelThailand%3Ffref%3Dts&amp;width&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:62px;" allowTransparency="true"></iframe>
-      </div>
-      <div class="col-md-4 col-md-offset-2">
-       <ul class="tags codepost"> 
+      <ul class="tags codepost"> 
         <li><a class="tags_name" href="#">รหัส</a></li>
-        <li class="child"><?php echo $tour[0]["code"];?></li>
+      <li class="child"><?php echo $tour[0]["code"];?></li>
       </ul>
+    </div>
+      <div class="col-md-4 col-md-offset-2">
+              <div class="social_network ">
+                <!-- AddThis Button BEGIN -->
+                <div class="addthis_toolbox addthis_default_style ">
+                <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                <!--<a class="addthis_counter addthis_pill_style"></a>-->
+                </div>
+                <!-- AddThis Button END -->
+              </div>
       </div>
     </div>
 

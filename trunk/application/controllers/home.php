@@ -144,6 +144,7 @@ class Home extends MY_Controller {
 
   function admin_list(){
     $this->_fetch('admin_list');
+    
   }
 }
 ?>

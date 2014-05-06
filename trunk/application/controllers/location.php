@@ -299,7 +299,7 @@ class Location extends MY_Controller {
     $this->_assign("main_menu",Menu::main_menu());
 
     if(!empty($data)){
-        $this->_fetch('user_list', $data, false, true);
+        $this->_fetch('user_list', $data);
     }
 
   }
@@ -754,7 +754,7 @@ class Location extends MY_Controller {
           $ajaxReturn["data"] = $locationData;
           echo json_encode($ajaxReturn);exit;
         }else{
-          $this->_fetch("user_view", $locationData, FALSE, TRUE);
+          $this->_fetch("user_view", $locationData);
         }
       }else{
         show_404();

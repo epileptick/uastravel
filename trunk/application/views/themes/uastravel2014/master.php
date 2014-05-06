@@ -20,6 +20,7 @@
 
 </head>
 <body class="loading">
+           <?php //var_dump($main_menu );  ?>
 	<div class="container header" >
   <div class="row">
     <div class="col-md-12 headerbar ">
@@ -43,20 +44,21 @@
       <div class="navbar navbar-inverse editmargin_header" role="navigation">
         <img src="<?php echo base_url('themes/uastravel2014/image/logo.png'); ?>" class="logouas">
         <nav class="navbar-header pull-right">
-        <a class="navbar-brand fontmenubar" href="#"  >Home</a>
+        <a class="navbar-brand fontmenubar" href="#"  >{_ global_lang_home}</a>
        <!-- <a class="navbar-brand fontmenubar">Package <span class="caret"></a> -->
          <!--new -->
+
 <ul id="nav" class="dropdown dropdown-horizontal">
-  <li id="n-movies"><span class=" navbar-brand fontmenubar " >Packket Tour&nbsp;<span class="caret pull-right" style="margin-top:8px;"></span></span >
+  <li id="n-movies"><span class=" navbar-brand fontmenubar " >{_ global_lang_tour} &nbsp;<span class="caret pull-right" style="margin-top:8px;"></span></span >
     <ul>
 
 <?php foreach ($main_menu as $key => $menu) {
 
 ?>
-<li><a href="<?php echo $menu['name']; ?>" class="dir"><?php echo $menu['name']; ?></a>
+<li><a href="<?php echo base_url($this->lang->line("url_lang_tour")."/".$menu['full_url']); ?>" class="dir"><?php echo $menu['name']; ?></a>
  <ul>
 <?php foreach ($menu['child'] as $key1 => $menuc) {    ?>    
-<li class="first"><a href="./"><?php echo $menuc['name'] ?></a></li>
+<li class="first"><a href="<?php echo base_url($this->lang->line("url_lang_tour")."/".$menuc['full_url']); ?>"><?php echo $menuc['name'] ?></a></li>
 
 
 <!--<li class="first"><?php echo $menuc['name'] ?></li>
@@ -116,31 +118,15 @@
         </ul>
       </li>
 -->
-      <li><a href="./" class="dir">Mobile</a>
-        <ul>
-          <li class="first"><span class="dir">MTV Shows</span>
-            <ul>
-              <li class="first"><a href="./">A.D.D. Bio</a></li>
-              <li><a href="./">Beavis and Butthead</a></li>
-              <li><a href="./">The Hills</a></li>
-              <li><a href="./">Kaya</a></li>
-              <li><a href="./">MTV2</a></li>
-              <li><a href="./">mtvU</a></li>
-              <li><a href="./">Run's House</a></li>
-              <li><a href="./">Sucker Free on MTV</a></li>
-              <li><a href="./">TRL</a></li>
-              <li><a href="./">Yo Momma</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
+
     </ul>
   </li>
   </ul>
         <!-- end-->
-        <a class="navbar-brand fontmenubar" href="#">Location</a>
-        <a class="navbar-brand fontmenubar" href="#">Contact</a>
-        <a class="navbar-brand fontmenubar" href="#" style="">Email</a>
+     <a class="navbar-brand fontmenubar" href="<?php echo base_url($this->lang->line("tour_lang_location"));?>"><?php echo $this->lang->line("global_lang_location"); ?></a>
+       <!-- <a class="navbar-brand fontmenubar" href="<?php echo base_url('localtion/user_view'); ?>"><?php echo $this->lang->line("global_lang_location"); ?></a>-->
+        <a class="navbar-brand fontmenubar" href="#">{_ global_lang_contact_us}</a>
+        
         <form method="get" action="/search" id="search" class="pull-left">
           <input name="q" type="text" size="" placeholder="Search..." />
         </form>

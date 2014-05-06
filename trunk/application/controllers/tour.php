@@ -632,7 +632,7 @@ class Tour extends MY_Controller {
 
         echo json_encode($ajaxReturn);exit;
       }else{
-        $this->_fetch('user_list', $data, false, true);
+        $this->_fetch('user_list', $data);
       }
     }else{
       show_404();

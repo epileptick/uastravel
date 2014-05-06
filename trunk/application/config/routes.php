@@ -232,10 +232,14 @@ $route['checkout/payment_cancel/(:any)'] = 'checkout/user_payment_cancel/$1';
 $route['search?keyword=(:any)'] = 'search/user_index/$1';
 $route['search/(:any)'] = 'search/user_index/$1';
 $route['search'] = 'search/user_index';
-
+//new
+$route['admin/new'] = 'Activity_new/new_index';
+$route['admin/form'] = 'Activity_new/new_add';
 //Home
 $route['admin'] = 'home/admin_list';
 $route['(:any)'] = 'home/index';
+
+
 
 ///////// Urls end
 
