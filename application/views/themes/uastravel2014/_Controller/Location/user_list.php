@@ -49,7 +49,7 @@
 
 
       <!-- Gallery -->
-        <div class="col-md-11" style="margin-left:30px;">
+        <div class="col-md-12" style="">
           <?php
           if(!empty($images)):
           ?>
@@ -141,100 +141,18 @@
 
       <div class="row">
 
-
+        <!--
         <div class="col-md-12">
+          <?php
+                  if(! empty($article['body_column'][0])){
+                    echo $article['body_column'][0];
+                    echo $article['body_column'][1];
+                    echo $article['body_column'][2];
+                  }
+                  ?>
+        </div>
 
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-
-              <!-- new -->
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-        <!--end-->
+      -->
       
         <div class="col-md-4">
           <?php
