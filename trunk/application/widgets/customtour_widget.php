@@ -8,7 +8,7 @@ class Customtour_widget extends MY_Widget {
   function run(){
     $this->load->model("customtour_model","customtourModel");
     $this->load->model("tour_model","tourModel");
-    $where["limit"] = 10;    
+    $where["limit"] = 2;    
     $where["order"] = "cr_date DESC";
     
     $result = $this->customtourModel->get($where);

@@ -3,7 +3,9 @@
   	<div class="col-md-4 ">
       <div class="backyoutube">
         <iframe width="360" height="210" src="http://www.youtube.com/embed/Rns13G5eMFc" frameborder="0" allowfullscreen></iframe>
-        <img src="<?php echo base_url('themes/uastravel2014/image/picyoutube.png'); ?>" />
+        <a href="<?php echo base_url("customtour/create/step2"); ?> " target="_blank">
+          <img src="<?php echo $imagepath.'/picyoutube.png' ?>" />
+        </a>
       </div>
 
       <!--
@@ -28,13 +30,14 @@
         </ol>
         <div class="carousel-inner">
           <div class="item active">
-            <img data-src="holder.js/900x500/auto/#777:#555/text:First slide" alt="First slide" src="<?php echo base_url('themes/uastravel2014/image/5.jpg'); ?>">
+            <img src="<?php echo $imagepath.'/ajax-loader.gif'; ?>" >
+            <img data-src="holder.js/900x500/auto/#777:#555/text:First slide" alt="First slide" src="<?php echo $imagepath.'/5.jpg' ?>">
           </div>
           <div class="item">
-            <img data-src="holder.js/900x500/auto/#666:#444/text:Second slide" alt="Second slide" src="<?php echo base_url('themes/uastravel2014/image/5.jpg'); ?>">
+            <img data-src="holder.js/900x500/auto/#666:#444/text:Second slide" alt="Second slide" src="<?php echo $imagepath.'/6.jpg' ?>">
           </div>
           <div class="item ">
-            <img data-src="holder.js/900x500/auto/#555:#333/text:Third slide" alt="Third slide" src="<?php echo base_url('themes/uastravel2014/image/5.jpg'); ?>">
+            <img data-src="holder.js/900x500/auto/#555:#333/text:Third slide" alt="Third slide" src="<?php echo $imagepath.'/5.jpg' ?>">
           </div>
         </div>
         <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
@@ -47,10 +50,155 @@
     </div>	
   </div>
   <!-- Line 3 -->
-  <div class ="row">
-    <div class="col-md-4  ">
+  <div class ="row marginmenutop">
+
+
+   {_widget customtour}
+    <!--
+    <div class="col-md-4 ">
+      <div class="box-menu">
+        <span>รายการจัดทัวร์โดยสมาชิก</span>
+      </div>   
+      <div class="packet" style="margin"> 
+        <div class="img-pecket">
+          <div class="row">
+            <div class="col-md-4">
+              <img src= "<?php echo $imagepath.'/egg2.jpg' ?>"  />
+            </div>
+            <div class="col-md-8" style="padding-left:0px; padding-right:0px;">
+            <div class="media-body">
+                <h4 class="media-heading hig">เที่ยวภูเก็ต</h4>
+                <span style="">ทัวร์เกาะตาชัย 1 วัน สัมผัสความบริสุทธิ์และธรรมชาติที่สมบูรณ์ที่สุดแห่งท้องทะเลอันดามัน</span>
+                 <div class="row viewmore">
+                  <div class="col-md-12">
+                    <a href="#">View More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="packet" style="margin"> 
+        <div class="img-pecket">
+          <div class="row">
+            <div class="col-md-4">
+              <img src= "<?php echo $imagepath.'/egg2.jpg' ?>"  />
+            </div>
+            <div class="col-md-8" style="padding-left:0px; padding-right:0px;">
+            <div class="media-body">
+                <h4 class="media-heading hig">เที่ยวภูเก็ต</h4>
+                <span style="">ทัวร์เกาะตาชัย 1 วัน สัมผัสความบริสุทธิ์และธรรมชาติที่สมบูรณ์ที่สุดแห่งท้องทะเลอันดามัน</span>
+                 <div class="row viewmore">
+                  <div class="col-md-12">
+                    <a href="#">View More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    -->
+    <div class="col-md-4 ">
+      <div class="box-menu">
+        <span>ข่าวสารจากทางเว็ป</span>
+      </div>   
+      <div class="packet" style="margin"> 
+        <div class="img-pecket">
+          <div class="row">
+            <div class="col-md-4">
+              <img src= "<?php echo $imagepath.'/egg2.jpg' ?>"  />
+            </div>
+            <div class="col-md-8" style="padding-left:0px; padding-right:0px;">
+            <div class="media-body">
+                <h4 class="media-heading hig">เที่ยวภูเก็ต</h4>
+                <span style="">ทัวร์เกาะตาชัย 1 วัน สัมผัสความบริสุทธิ์และธรรมชาติที่สมบูรณ์ที่สุดแห่งท้องทะเลอันดามัน</span>
+                 <div class="row viewmore">
+                  <div class="col-md-12">
+                    <a href="#">View More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="packet" style="margin"> 
+        <div class="img-pecket">
+          <div class="row">
+            <div class="col-md-4">
+              <img src= "<?php echo $imagepath.'/egg2.jpg' ?>"  />
+            </div>
+            <div class="col-md-8" style="padding-left:0px; padding-right:0px;">
+            <div class="media-body">
+                <h4 class="media-heading hig">เที่ยวภูเก็ต</h4>
+                <span style="">ทัวร์เกาะตาชัย 1 วัน สัมผัสความบริสุทธิ์และธรรมชาติที่สมบูรณ์ที่สุดแห่งท้องทะเลอันดามัน</span>
+                 <div class="row viewmore">
+                  <div class="col-md-12">
+                    <a href="#">View More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+
+    <div class="col-md-4 ">
+      <div class="box-menu">
+        <span>กิจกรรมลูกค้า</span>
+      </div>   
+      <div class="packet" style="margin"> 
+        <div class="img-pecket">
+          <div class="row">
+            <div class="col-md-4">
+              <img src= "<?php echo $imagepath.'/egg2.jpg' ?>"  />
+            </div>
+            <div class="col-md-8" style="padding-left:0px; padding-right:0px;">
+            <div class="media-body">
+                <h4 class="media-heading hig">เที่ยวภูเก็ต</h4>
+                <span style="">ทัวร์เกาะตาชัย 1 วัน สัมผัสความบริสุทธิ์และธรรมชาติที่สมบูรณ์ที่สุดแห่งท้องทะเลอันดามัน</span>
+                 <div class="row viewmore">
+                  <div class="col-md-12">
+                    <a href="#">View More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="packet" style="margin"> 
+        <div class="img-pecket">
+          <div class="row">
+            <div class="col-md-4">
+              <img src= "<?php echo $imagepath.'/egg2.jpg' ?>"  />
+            </div>
+            <div class="col-md-8" style="padding-left:0px; padding-right:0px;">
+            <div class="media-body">
+                <h4 class="media-heading hig">เที่ยวภูเก็ต</h4>
+                <span style="">ทัวร์เกาะตาชัย 1 วัน สัมผัสความบริสุทธิ์และธรรมชาติที่สมบูรณ์ที่สุดแห่งท้องทะเลอันดามัน</span>
+                 <div class="row viewmore">
+                  <div class="col-md-12">
+                    <a href="#">View More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  <!-- แบบที่1
+    <div class="col-md-4 ">
       <div class="navactivity navbar-inverse navhead" >
-        <span class="glyphicon glyphicon-list pull-left navicon symbolicon"></span>
+        <span class="pull-left navicon symbolicon"><img src="<?php echo $imagepath.'/tour_user2.png' ?>"></span>
         <nav class="navbar-header">
           <a class="navbar-brand navtitle" href="#" >รายการทัวร์ที่จัดโดยสมาชิก</a>
         </nav>
@@ -58,7 +206,7 @@
       <div class="backnav">
          <div class="media pull-left">
           <a class="pull-left" href="#">
-            <img class="media-object imagepromo" src="<?php echo base_url('themes/uastravel2014/image/juttow1.jpg');?>" alt="..." >
+            <img class="media-object imagepromo" src="<?php echo $imagepath.'/juttow1.jpg' ?>" alt="..." >
           </a>
           <div class="media-body">
             <h4 class="media-heading hig">เที่ยวภูเก็ต</h4>
@@ -72,7 +220,7 @@
         </div>
         <div class="media pull-left">
           <a class="pull-left" href="#">
-            <img class="media-object imagepromo" src="<?php echo base_url('themes/uastravel2014/image/juttow1.jpg');?>" alt="..." >
+            <img class="media-object imagepromo" src="<?php echo $imagepath.'/juttow1.jpg' ?>" alt="..." >
           </a>
           <div class="media-body">
             <h4 class="media-heading hig">เกาะตาชัย</h4>
@@ -86,9 +234,11 @@
         </div>
       </div>
     </div>
+
+
     <div class="col-md-4 ">
       <div class="navactivity navbar-inverse navhead" role="navigation">
-        <span class="glyphicon glyphicon-bullhorn pull-left navicon symbolicon"></span>
+        <span class="pull-left navicon symbolicon"><img src="<?php echo $imagepath.'/hotnew2.png' ?>"></span>
         <nav class="navbar-header">
           <a class="navbar-brand navtitle" href="#" >ข่าวสารทางเว็ป</a>
         </nav>
@@ -96,7 +246,7 @@
       <div class="backnav">
         <div class="media pull-left">
           <a class="pull-left" href="#">
-            <img class="media-object imagepromo" src="<?php echo base_url('themes/uastravel2014/image/ptee.png');?>" alt="..." >
+            <img class="media-object imagepromo" src="<?php echo $imagepath.'/juttow1.jpg' ?>" alt="..." >
           </a>
           <div class="media-body">
             <h4 class="media-heading hig">Seal!!Promotion</h4>
@@ -110,7 +260,7 @@
         </div>
         <div class="media pull-left">
           <a class="pull-left" href="#">
-            <img class="media-object imagepromo" src="<?php echo base_url('themes/uastravel2014/image/ptee.png');?>" alt="..." >
+            <img class="media-object imagepromo" src="<?php echo $imagepath.'/juttow1.jpg' ?>" alt="..." >
           </a>
           <div class="media-body">
             <h4 class="media-heading hig">Seal!!Promotion</h4>
@@ -126,7 +276,7 @@
     </div>
     <div class="col-md-4 ">
       <div class="navactivity navbar-inverse navhead" role="navigation">
-        <span class="glyphicon glyphicon-certificate pull-left navicon symbolicon"></span>
+        <span class="pull-left navicon symbolicon"><img src="<?php echo $imagepath.'/activity_user2.png' ?>"></span>
         <nav class="navbar-header">
           <a class="navbar-brand navtitle" href="#" >กิจกรรมลูกค้า</a>
         </nav>
@@ -134,7 +284,7 @@
       <div class="backnav">
         <div class="media pull-left">
           <a class="pull-left" href="#">
-            <img class="media-object imagepromo" src="<?php echo base_url('themes/uastravel2014/image/samiran2.jpg');?>" alt="..." >
+            <img class="media-object imagepromo" src="<?php echo $imagepath.'/samiran2.jpg' ?>" alt="..." >
           </a>
           <div class="media-body">
             <h4 class="media-heading hig">Seal!!Promotion</h4>
@@ -148,7 +298,7 @@
         </div>
         <div class="media pull-left">
           <a class="pull-left" href="#">
-            <img class="media-object imagepromo" src="<?php echo base_url('themes/uastravel2014/image/racha.jpg');?>" alt="..." >
+            <img class="media-object imagepromo" src="<?php echo $imagepath.'/racha.jpg' ?>" alt="..." >
           </a>
           <div class="media-body">
             <h4 class="media-heading hig">Seal!!Promotion</h4>
@@ -162,6 +312,14 @@
         </div>
       </div>
     </div>
+              end แยย1 -->
+
+
+
+
+
+
+
   </div>
   
 <!-- END Line 3 -->
@@ -184,9 +342,9 @@
 
         <?php 
           foreach( $promotedTour as $promo){ 
-
+            
          ?>
-
+         
          <div class="col-md-4 marginpackket">
          <div class="row">
          <div class=" col-md-12 ">
@@ -195,7 +353,7 @@
               <?php if(empty($promo['price']['discount_adult_price'])){ ?>
                 <div class="backribbon">
                   <div class="textbackribbon">
-                    <strong>$8600</strong>
+                    <strong><?php echo $promo['price']['sale_adult_price']?> {_ global_lang_money_sign}</strong>
                   </div>
                 </div>
               <?php }else{ ?>
@@ -228,10 +386,10 @@
         <?php
           }
         ?>
-<div class="col-md-4 marginpackket">
+    <div class="col-md-4 marginpackket">
       <div class="row">
         <div class=" col-md-12 ">
-          <div class="pic" style="background-image:url(<?php echo base_url('themes/uastravel2014/image/samiran3.jpg');?>);">
+          <div class="pic" style="background-image:url(<?php echo $imagepath.'/samiran3.jpg' ?>);">
             <div class="ribbon">
               <div class="backribbon">
                 <div class="textbackribbon">
@@ -256,10 +414,10 @@
     </div>
 
 
-            <div class="col-md-4 marginpackket">
+    <div class="col-md-4 marginpackket">
       <div class="row">
         <div class=" col-md-12 ">
-          <div class="pic" style="background-image:url(<?php echo base_url('themes/uastravel2014/image/samui.jpg');?>);">
+          <div class="pic" style="background-image:url(<?php echo $imagepath.'/samui.jpg' ?>);">
             <div class="ribbon">
               <div class="backribbonsell">
                 <div class="textbackribbonsell1">
@@ -383,6 +541,74 @@
 <!-- END Row2 -->
   <div class="row">
     <div class="col-md-4">
+      <div class="col-md-12">
+                 <div class="list_packet">
+                      <div class="row">
+                        <div class="col-md-12 columns">
+                          <h3>รับข่าวสารจากทางเรา</h3>
+                          <a href="" data-toggle="modal" data-target="#myModal">
+                            <img src="<?php echo $imagepath.'/page1_pic4.jpg'  ?>" style="width:100%;">
+                          </a>
+                        </div>
+
+                        <div class="col-md-12 columns">
+                              <div class="title_tour">
+                                <h4>
+                                  <a href="" data-toggle="modal" data-target="#myModal">
+                                     ท่านสามารถ รับข่าวสาร โปรโมชั้นต่างๆที่น้าสนใจได้ที่นี้
+                                  </a>
+                                </h4>
+                              </div>
+                        </div>
+                      </div>
+                    </div> 
+
+              <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form role="form">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email">
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">Save changes</button>
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+                </div> 
+
+
+
+                <!-- Modal2 
+                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
+                      </div>
+                      <div class="modal-body">
+                        ขอบคุณให้ร่มบริการ
+                      </div>
+                      <div class="modal-footer">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              -->
+
+
+      <!--
            <div class="navactivity navbar-inverse navhead">
         <span class="glyphicon glyphicon-user pull-left navicon symbolicon"></span>
         <nav class="navbar-header">
@@ -402,8 +628,9 @@
           <button type="submit" class="btn btn-primary btn-lg btn-block">ส่งข้อมูล</button>
           </form>
         </div>
-       
+      </div>
 
+  -->
       </div>
     </div>
     <div class="col-md-8">

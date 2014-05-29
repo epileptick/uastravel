@@ -1,6 +1,9 @@
 <?php
 $lang['global_lang_money_sign'] = "Baht";
 
+$lang['global_lang_title_money_sign'] = "Start";
+
+
 $lang['global_lang_select_all'] = "Select All";
 $lang['global_lang_unselect_all'] = "UnSelect All";
 $lang['global_lang_delete'] = "Delete";
@@ -11,6 +14,8 @@ $lang['global_lang_contact_us'] = "Contact us";
 $lang['global_lang_telephone'] = "Tel";
 $lang['global_lang_fax'] = "Fax";
 $lang['global_lang_e_mail'] = "E-Mail";
+$lang['global_lang_address'] = "80/86 Moo 3 T.Ratsada A.Muang, Phuket 83000";
+$lang['global_lang_company'] = "U As Travel Ltd";
 $lang['global_lang_map'] = "Map";
 $lang['global_lang_comment'] = "Comment";
 

@@ -12,7 +12,7 @@ class Init {
     PageUtil::registerVar("description",TRUE);
     PageUtil::registerVar("stylesheet",TRUE);
     PageUtil::registerVar("javascript",TRUE);
-
+    PageUtil::registerVar("javascript_body",TRUE);
   }
 
 }

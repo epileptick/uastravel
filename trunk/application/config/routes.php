@@ -97,12 +97,14 @@ $route['admin/tour/create/(:num)'] = 'tour/admin_create/$1';
 $route['admin/tour/(:any)/(:any)-(:num)'] = 'tour/admin_view/$3';
 $route['admin/tour/(:any)-(:num)'] = 'tour/admin_view/$2';
 $route['admin/tour/(:any)'] = 'tour/admin_list'; //for Tag
+$route['admin/tour/test'] = 'tour/test'; //for Tag
 
 //tour user
 $route[LangUtil::line("url_lang_tour").'/search'] = 'tour/user_search';
 $route[LangUtil::line("url_lang_tour").'/(:any)-(:num)'] = 'tour/user_view/$2/$1';
 $route[LangUtil::line("url_lang_tour")."/(:any)"] = 'tour/user_index';
 $route[LangUtil::line("url_lang_tour")] = 'tour/user_index';
+
 
 
 //Custom Tour user

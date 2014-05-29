@@ -1,3 +1,5 @@
+
+
 <?php PageUtil::addVar("stylesheet",'<link rel="stylesheet" media="all" type="text/css"  href="'.base_url('themes/uastravel2014/css/user_view.css').'">'); ?>
 <?php PageUtil::addVar("stylesheet",'<link rel="stylesheet" media="all" type="text/css"  href="'.base_url('themes/uastravel2014/css/tour_userview.css').'">'); ?>
 <link rel="stylesheet" href="<?php echo base_url('themes/uastravel2014/css/flexslider.css'); ?>" type="text/css" media="screen" />
@@ -8,6 +10,8 @@
   <!--END ปุ่ม -->
 <div class="row">
   <div class="col-md-4">
+
+    <!-- กล่องสีฟ้าซ้อนกัน
     <div class="backbox1 pull-right">
       <div class="col-md-12 gridstlyebox" >
         <span class="titlebox">ทัว์ยอดนิยม</span>
@@ -18,13 +22,72 @@
         </div>
       </div>
     </div>
+    -->
 
-{_widget menutoursmall}
+
+    <div class="row">
+      <div class="col-md-12">
+        <br / >
+        <h3><?php echo $this->lang->line("tour_lang_packages_tour_suggest");?></h3>
+
+                  <?php 
+                  if(!empty($promotedTour)):
+                    foreach ($promotedTour as $key => $promo):
+
+                  ?>
+                    <div class="list_packet">
+                      <div class="row">
+                        <div class="col-md-12 columns">
+                          <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$promo["tout_url"].'-'.$promo["tour_id"]);?>">
+                            <img src="<?php echo $promo["banner_image"]; ?>" style="width:100%;">
+                          </a>
+                        </div>
+
+                        <div class="col-md-7 columns">
+                          <div class="row">
+                            <div class="col-md-12 columns">
+                              <div class="title_tour">
+                                <h4>
+                                  <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$promo["tout_url"].'-'.$promo["tour_id"]);?>">
+                                    <?php echo $promo ["tout_name"]; ?>
+                                  </a>
+                                </h4>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-5 columns packetprice">
+                          <div class="price">
+                            <span class="pull-right priceprice">
+                            <?php
+                                if(!empty($promo["price"])){
+
+                                    echo $promo["price"]["sale_adult_price"];
+                                    echo " ".$this->lang->line("global_lang_baht");
+                                  //text-decoration: line-through; color: #โค้ดสีเส้น;
+                                }else{
+                                  echo "Call";
+                                  echo " ".$this->lang->line("global_lang_baht");
+                                }
+                              ?>
+                            </span>
+                            <span class="glyphicon glyphicon-tags pull-right"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  <?php
+                    endforeach;
+                  endif;
+                  ?>
+      </div>
+    </div>
 <!-- END col-md-4 and row  -->
 
   </div>
   <div class="col-md-8">
-     <h2 class="head_title pull-left col-md-12" ><span style="font-size:23px;"></span><?php echo $article["title"];?></h2>
+     <h2 class="head_title pull-left col-md-12" ><span style="font-size:23px;"></span><?php echo $article["title"]; ?></h2>
     <div class="row">
 
       <!--  Start  slide
@@ -47,9 +110,9 @@
       </div>
       end col-md-12 -->
 
-
+     
       <!-- Gallery -->
-        <div class="col-md-11" style="margin-left:30px;">
+        <div class="col-md-12" style="">
           <?php
           if(!empty($images)):
           ?>
@@ -136,106 +199,32 @@
     </div>
 
 
-
-
-
       <div class="row">
-
-
         <div class="col-md-12">
 
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
 
-              <!-- new -->
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
-          <div class="packetlist">
-            <div class="item">
-              <img src="<?php echo base_url('themes/uastravel2014/image/racha.jpg'); ?>" style="width:180px;"/>
-              <div class="box_mid">
-                <div class="title">
-                  Thailand
-                </div>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              </div> 
-            </div>
-          </div>
+          <!-- new -->
+
         <!--end-->
-      
+        
+
+          <?php
+                  if(!empty($type)){
+           ?>
+
+           <div class="">
+              <h3 style=" margin-top:0px; padding:8px 4px 8px 4px; border:2px solid; border-color:#FAA20A; background-color:#FAA20A; color:#FFF; text-shadow: none !important;">
+                <?php echo $article["title"];?>
+              </h3>
+                <?php
+                echo $article['body'];
+                ?>
+              </div>
+
+
+                <?php
+                  }else{
+                  ?>
         <div class="col-md-4">
           <?php
                   if(! empty($article['body_column'][0])){
@@ -258,12 +247,79 @@
                   }
                   ?>
         </div>
+
+        <?php } ?>
       </div>
-
-
-
         </div>
+
+
+        <div class="row">
+          <div class="col-md-12" style="padding-bottom:20px;">
+                          <h3 style=" margin-top:0px; padding:8px 4px 8px 4px; border:2px solid; border-color:#FAA20A; background-color:#FAA20A; color:#FFF; text-shadow: none !important;">
+                ชนิดโปรแกรมทัวร์
+              </h3>
+                <?php 
+                  foreach($packettours as $packettour){   
+                 ?>
+                 <div class="col-md-4 marginpackket">
+                 <div class="row">
+                 <div class=" col-md-12 ">
+                  <?php if(!empty($packettour['tour']['banner_image'])){ ?> 
+                  <div class="pic_programtour" style="background-image:url(<?php echo base_url($packettour['tour']['banner_image']);?>);">
+                  <!-- check img empty    delate dai -->
+                  <?php }else{  ?>
+                   <div class="pic_programtour" style="background-image:url(<?php echo base_url($packettour['tour']['first_image']);?>);">
+                  <?php } ?>
+                  <!-- -->
+                    <div class="ribbon">
+                      <?php if(empty($packettour['show_price']['discount_adult_price'])){ ?>
+                        <div class="backribbon_programtour">
+                          <div class="textbackribbon">
+                            <strong><?php echo $packettour['show_price']['sale_adult_price']?> {_ global_lang_money_sign}</strong>
+                          </div>
+                        </div>
+                      <?php }else{ ?>
+                        <div class="backribbonsell">
+                          <div class="textbackribbonsell1">
+                            <strong >Promotion</strong>
+                            <strong style="text-decoration: line-through;"><?php echo $packettour['show_price']['sale_adult_price']?> {_ global_lang_money_sign}</strong>
+                          </div>
+                          <div class="textbackribbonsell">
+                            <strong><?php echo $packettour['show_price']['discount_adult_price']?></strong>
+                          </div>
+                        </div>
+                      <?php } ?>
+                      <div class="gimmick"></div>
+                    </div>
+                     <div class="pac_titlewalpaper">
+                      <div class="back_wall"></div>
+                        <h4 class="title_wal_programtour pull-left">
+                          <a href="<?php echo base_url($this->lang->line("url_lang_tour").'/'.$packettour['tour']["tout_url"].'-'.$packettour['tour']["tour_id"]);?>" ><?php if(empty($packettour['tour']["tout_short_name"])){ echo $packettour['tour']["tout_name"]; }else{echo $packettour['tour']["tout_short_name"]; }?></a>
+                        </h4>
+                        <div class="title_place ">
+                          <!-- ไอค้น จีงหวัด
+                          <span class="glyphicon glyphicon-map-marker"></span> 
+                          
+                          <span class="placesell"> <?php echo $packettour['tour']['province']; ?> </span>
+                          -->
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+                <?php
+                  } 
+                ?>
+
+          </div>
+        </div>
+
+
+
       </div>
+    </div>
+
 
 
   <!-- Gallery -->

@@ -109,10 +109,13 @@ class Home extends MY_Controller {
 
 
 
-
   $this->load->model("type_model", "typeModel");
   $provincename["where"]["typ_name"] ='province';
   $resultname=$this->typeModel->get($provincename);
+
+
+
+
 
   $this->load->model("tagtype_model", "tagTypeModel");
   $provincetagtype["where"]["type_id"] =$resultname[0]['id'];
@@ -138,6 +141,7 @@ class Home extends MY_Controller {
       }
     }
   }
+
   $this->_assign("promotedTour",$promotedTour);
     $this->_fetch('user_list');
   }

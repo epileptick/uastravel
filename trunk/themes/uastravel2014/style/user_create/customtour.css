@@ -1,0 +1,213 @@
+h4,h5 {
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+.list_step_customtour {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.list_step_customtour li {
+  font-size: 18px;
+  line-height: 28px;
+}
+.page-header {
+  margin-bottom: 15px;
+  margin-top: 0px;
+  background-color: #B1B1B1;
+  background: url(../images/menu_bg.png) repeat-x #474747;
+  height: 42px;
+  line-height: 75px;
+  text-shadow: 0px 1px 1px black;
+  font-size: 13px;
+  border: 1px solid black;
+  padding-left: 15px;
+  -moz-border-top-left-radius: 2px;
+  -moz-border-top-right-radius: 2px;
+  -webkit-border-top-left-radius: 2px;
+  -webkit-border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.page-header h1 {
+  font-size: 26px;
+  margin-top: 5px;
+  color: #FFFFFF;
+}
+.customtour_step1 .alert-info h2, .customtour_step1 .alert-info p {
+  color: #3a87ad;
+}
+.customtour_step1 .btn-next {
+  font-size: 52px;
+  margin-bottom: 20px;
+}
+.customtour_step1 .btn-next img {
+  vertical-align: top;
+}
+.customtour_step1 .input-append .add-on, .input-prepend .add-on {
+  display: inline-block;
+  width: auto;
+  height: 32px;
+  min-width: 16px;
+  padding: 4px 5px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 20px;
+  text-align: center;
+  text-shadow: 0 1px 0 #ffffff;
+  background-color: #eeeeee;
+  border: 1px solid #ccc;
+}
+.grand_total_price {
+  font-size: 30px;
+  float: right;
+  margin-right: 10px;
+  border-bottom: 1px double #C1C1C1;
+}
+.grand_total_price .total_number {
+  color: #FE5214;
+  font-size: 36px;
+  font-weight: bold !important;
+  border-bottom: 1px double #C1C1C1;
+}
+input[readonly]
+{
+    cursor: pointer;
+    background-color: #FFFFFF;
+}
+.btn {
+  font-size: 18px;
+  font-family: 'thaisanslite';
+}
+.add_date {
+  margin-right: 10px;
+}
+
+#breadcrumb_menu,.search_package {
+  border-bottom: 1px solid #C7C7C7;
+  margin-bottom: 5px;
+  line-height: 34px;
+}
+
+.img_tour {
+  width: 30px;
+  height: 30px;
+  padding: 2px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+.list_package_tour {
+  width: 100%;
+}
+
+.title_tour a {
+  font-size: 18px;
+}
+.title_tour h4 {
+  height: 30px;
+  overflow: hidden;
+  text-align: left;
+}
+.connected.no1 li, .connected.no2 li {
+  background: #FFFFFF;
+  width: 100%;
+}
+.connected.no1 li:hover, .connected.no2 li:hover {
+  cursor: pointer;
+  background: #FFFFFF;
+}
+
+.price span {
+  color: #FF0000;
+  text-align: right;
+  letter-spacing: 0px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.tabs-container .package_price_list {
+  display: none;
+}
+
+.tabs-container .price span {
+  display: none;
+}
+
+table {
+  border: none;
+}
+
+.customtour_step1 h3,h4 {
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0), 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.price_list_price {
+  color: #FF8500;
+  font-size: 16px;
+}
+
+.summary_section {
+  font-size: 14px;
+  list-style: none;
+  list-style-type: none;
+}
+
+.summary_section li {
+  font-size: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px double #E0E0E0;
+}
+
+#summary_adult_price {
+  color: #FE5214;
+  font-size: 14px;
+  font-weight: bold !important;
+  border-bottom: 1px double #C1C1C1;
+}
+
+#summary_adult_price,#summary_child_price,#summary_price {
+  color: #FE5214;
+  font-weight: bold !important;
+  border-bottom: 1px double #C1C1C1;
+}
+
+#summary_adult_price_person,#summary_child_price_person {
+  color: #FE5214;
+  font-weight: bold !important;
+  border-bottom: 1px double #C1C1C1;
+}
+
+.price_table td {
+  font-size: 12px;
+}
+
+.description_tour {
+  font-size: 20px;
+  border-bottom: 1px solid #CCCCCC;
+  display: block;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.booking_price td {
+  padding: 5px;
+}
+.booking_price td input[type="text"] {
+  height: 26px;
+  margin-bottom: 0px;
+}
+
+div.pagination {
+  clear: both;
+  display: block;
+}
+
+div.pagination a, div.pagination span.current, div.pagination span.ellipsis {
+  margin: 0px;
+  font-size: 18px;
+}
