@@ -10,7 +10,7 @@
 
 body{
   font-family:"supermarketregular";
-  background-image:url(/themes/uastravel2014/image/parent5.jpg);
+  background-image:url(/themes/uastravel2014/images/parent5.jpg);
 	
 	background-repeat: repeat;
 }
@@ -24,10 +24,10 @@ body{
 	margin-bottom: 50px;
 }
 
-.navicon{
-	width: 20px;
-	height: 20px;
-	margin-top: 15px;
+.navicon img{
+	width: 40px;
+	height: 30px;
+	margin-top: 8px;
 	margin-left: 10px;
 
 }
@@ -74,6 +74,19 @@ body{
   height: 230px;
 }
 
+.pic_programtour{
+	background-image:url(samui.jpg);
+	position: relative;
+  height: 180px;
+}
+
+.backribbon_programtour{
+	background:url(/themes/uastravel2014/image/banner-bg2.gif) no-repeat 0 0 #ea9412;
+	 width: 120px;
+ height: 30px;
+}
+
+
 .backribbon{
 	background-color: #3389d7;
 	 width: 120px;
@@ -108,10 +121,10 @@ body{
 
 .navactivity{
   display: block;
-  min-height:50px;
 	border-radius:4px 4px 0px 0px;
 
- border:1px solid transparent; 
+ border:1px solid transparent;
+ min-height:50px; 
 }
 
 .backnav{
@@ -121,7 +134,7 @@ body{
 }
 
 .textbackribbon{
-	 padding: 5px;
+	 padding: 6px;
 	 color:white;
 	 font-size: 17px;
 	 text-align: center;
@@ -151,9 +164,13 @@ body{
 	background-color:#f9f9f9;
 	border-top:1px solid #ebebeb;
 	border-bottom:1px solid #ebebeb;
-	
-
 }
+
+.backbuttom h2{
+
+	margin-top:15px;
+}
+
 
 .backbuttom2{
 
@@ -172,6 +189,8 @@ body{
 	padding: 0px 10px;	
 
 }
+
+
 .back_wall{
 	background-color: black;
 	opacity: 0.7;
@@ -181,6 +200,17 @@ body{
 	right:0px;
 	top: 0px;
 
+}
+
+.title_wal_programtour{
+	top :0;
+	font-size:18px;
+	position: relative;
+}
+
+.title_wal_programtour a{
+	color:white;
+	position: relative;
 }
 
 .title_wal{
@@ -233,9 +263,9 @@ body{
 }
 
 .hig{
-	
-	border-bottom:1px solid #e5e5e5;
+		border-bottom:1px solid #e5e5e5;
 	padding-bottom:6px;
+	color:black;
 
 }
 
@@ -251,7 +281,11 @@ body{
 
 .backyoutube{
 height: 280px;
-background-color: orange;
+
+}
+.backyoutube img{
+	height:70px;
+	width: 360px;
 }
 
 .navhead{
@@ -264,7 +298,7 @@ background-color: orange;
 }
 
 .backfooter{
-	margin-top: 20px;
+	
 	background-color:#f9f9f9;
 	border-top:1px solid #ebebeb;
 	border-bottom:1px solid #ebebeb;
@@ -339,7 +373,7 @@ background-color: orange;
  #search input[type="text"] {
 
 	 	float: left;
-        background: url(/themes/uastravel2014/image/search-dark.png) no-repeat 10px 6px #fcfcfc;
+        background: url(/themes/uastravel2014/images/search-dark.png) no-repeat 10px 6px #fcfcfc;
     border: 1px solid #d1d1d1;
     font: bold 12px Arial,Helvetica,Sans-serif;
     color: #bebebe;
@@ -363,5 +397,96 @@ background-color: orange;
     }
 
 .fontmenubar{
- color:white !important; 
+	color: white !important; 
+}
+
+.marginmenutop{
+
+margin-top: 40px;
+margin-bottom: 40px;
+
+}
+
+/*model email */
+
+.modal-body{
+	padding-bottom:1px;
+}
+
+/*new รูปบบที่ 2 menu tour*/
+
+.box-menu{
+	margin-bottom: 20px;
+-webkit-border-radius:16px;
+box-shadow:0 0 7px #63efff;
+}
+
+.box-menu span{
+	background:#30d5f9;
+	padding:9px 0 11px 28px;
+	font-size:26px;
+	color:#fff;
+	line-height:28px;
+	display:block;
+	font-weight:700;
+	text-shadow:0 0 5px #fff;
+	-webkit-border-radius:16px;
+	-webkit-box-shadow:0 0 30px 2px #66e8fc inset;
+
+}
+
+.img-pecket{
+ height: 70px;
+ margin-bottom: 10px;
+}
+.img-pecket img{
+	height: 100%;
+	width: 100%;
+}
+
+.img-pecket span{
+	color: black;
+	height: 100%;
+	width: 100%;
+}
+
+/*end รูปแบบที่ 2 เมนู */
+
+.bordershadow{
+
+		-webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+	      -moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.2);
+	        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+
+	-webkit-border-radius: 2px;
+	   -moz-border-radius: 2px;
+	        border-radius: 2px;
+
+}
+
+/*สว่น header masster  hover เปลียนสี */
+
+a.hover1:hover { 
+color:#f95430 !important; /* โค๊ดสีที่ต้องการให้เปลี่ยน */
+text-decoration: none; 
+}
+
+span.hover2:hover { 
+color:#30d5f9 !important; /* โค๊ดสีที่ต้องการให้เปลี่ยน */
+text-decoration: none; 
+}
+
+a.hover3:hover { 
+color:#30f954 !important; /* โค๊ดสีที่ต้องการให้เปลี่ยน */
+text-decoration: none; 
+}
+
+a.hover4:hover { 
+color:yellow !important; /* โค๊ดสีที่ต้องการให้เปลี่ยน */
+text-decoration: none; 
+}
+
+a.hover5:hover { 
+color:#f99730 !important; /* โค๊ดสีที่ต้องการให้เปลี่ยน */
+text-decoration: none; 
 }

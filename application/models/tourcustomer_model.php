@@ -127,9 +127,13 @@ class TourCustomer_model extends MY_Model {
             $priceList[$key]["total_child_price"] = ($resultPrice[0]["sale_child_price"]*$value["child_amount"]);
           }
         }
-        $priceList[$key]["total_price"] = ($priceList[$key]["total_adult_price"]+$priceList[$key]["total_child_price"]);
+
+        if(!empty($priceList[$key]["total_adult_price"]) AND !empty($priceList[$key]["total_child_price"])){
+          $priceList[$key]["total_price"] = ($priceList[$key]["total_adult_price"]+$priceList[$key]["total_child_price"]);
+        }
         $tourCustomer["adult_amount_passenger"] = $value["adult_amount"];
         $tourCustomer["child_amount_passenger"] = $value["child_amount"];
+
       }
 
       unset($tourCustomer["grand_total_price"]);

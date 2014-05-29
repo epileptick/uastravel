@@ -88,6 +88,8 @@
                           }
                           echo "<ul class=\"sub-menu\" $isActive >";
                           foreach ($main_menuValue["child"] as $childKey => $childValue) {
+
+                            
                             $isActive = "";
                             if($this->uri->total_segments() == 3 AND $this->uri->segment(3) == $main_menuValue["url"]){
                               if($this->uri->segment(1) == $this->lang->line("url_lang_tour")){

@@ -457,27 +457,56 @@ padding: 8px 8px 8px 8px;
 
 .packetlist{
 	margin-left: 6px;
+	margin-top: 10px;
 	width:180px;
 	float:left;
 }
 
 .box_mid{
+	background-color: white;
 	border:1px solid #ededed;
 	padding:23px 20px 15px;
 }
 
 
 .box_mid .title{
+
 	color: #577f9f;
 	font: bold 20px/30px 'Roboto Condensed', sans-serif;
 }
 
 
+h3{
+	color:#577f9f;
+	font-weight:bold;
+	
+}
 
 
+.thumb-pad1{
+	width: 180px;
 
+	padding:33px 0 0 0;
+	margin-bottom:13px;
+
+}
+.thumb-pad1 .thumbnail{
+	position:relative;
+	background:none;
+	margin: 0;
+	padding:0;
+	border:none;
+	border-radius:0;
+	box-shadow:0;
+
+}
+.thumb-pad1 .thumbnail .caption{
+
+	background:#3e454c;
+	padding:24px 30px 24px 30px;
+}
 /* Location*/
-.col-md-8{
+.stylecol8{
 -webkit-box-shadow :0px 1px 1px 0px rgba(0, 0, 0, 0.2);
 
 }
@@ -537,3 +566,21 @@ padding: 8px 8px 8px 8px;
 /*	Sortable 
 /* ---------------------------------------------------------------------- */
 
+/* price packet tour  แนะนำ */
+
+.price{
+	font-size: 19px;
+	color: #FE5214;
+}
+.priceprice{
+	font-size: 19px;
+
+}
+
+.packetprice{
+padding-top: 17px;
+}
+
+.title_tour h4{
+	padding-left: 10px;
+}

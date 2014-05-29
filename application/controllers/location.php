@@ -224,6 +224,11 @@ class Location extends MY_Controller {
 
   function user_list($page=0){
 
+    $b = 1;
+    $this->_assign('bb',$b);
+
+
+
     $per_page = 20;
     $data["menu"]= $this->_location_menu();
 
@@ -297,6 +302,82 @@ class Location extends MY_Controller {
 
     $data["caconical"] = base_url($this->lang->line("url_lang_location"));
     $this->_assign("main_menu",Menu::main_menu());
+
+
+    // new 14/5/2557  เมนูแบบหน้าแรก
+    $this->load->model('price_model',"priceModel");
+    $this->load->model('tagtour_model','tagTourModel');
+        // ==================================================================
+    //
+    // Get "banner" type id.
+    //
+    // ------------------------------------------------------------------
+    $typeWhere["where"]['parent_id'] = 0;
+    $typeWhere["where"]['name'] = "banner";
+    $bannerType = $this->typeModel->get($typeWhere);
+    unset($typeWhere);
+
+    // ==================================================================
+    //
+    // Generating where for query tag_id from tagtypemodel for query banner (tour).
+    //
+    // ------------------------------------------------------------------
+    foreach ($bannerType as $typeKey => $typeValue) {
+      $tagIDForBannerWhere[] = $typeValue["id"];
+    }
+     // ==================================================================
+    //
+    // Get "tag_id" from tagType_model by type id for query banner (tour).
+    //
+    // ------------------------------------------------------------------
+    $whereTag["where_in"]["type_id"] = $tagIDForBannerWhere;
+    $whereTag["group"] = "tag_id";
+    $inCondition = $this->tagTypeModel->getTagTypeList($whereTag);
+    unset($whereTag);
+
+    if(!empty($inCondition)){
+      foreach ($inCondition as $inConditionKey => $inConditionValue) {
+        $conditions[] = $inConditionValue["tag_id"];
+      }
+      unset($inCondition);
+    }
+
+    $whereTag["where_in"]["tag_id"] = $conditions;
+    $whereTag["order"] = "tour_id DESC";
+    $whereTag["group"] = "tour_id";
+    $whereTag["where"]["tout_lang"] = $this->lang->lang();
+    $whereTag["join_tour"] = true;
+    $promotedTour = $this->tagTourModel->get($whereTag);
+    unset($whereTag);
+    unset($conditions);
+
+    if(!empty($promotedTour)){
+      foreach ($promotedTour as $promotedTourKey => $promotedTourValue) {
+        $priceTour = $this->priceModel->get(array("where"=>array("tour_id"=>$promotedTourValue["tour_id"])));
+        //$priceTour = $this->priceModel->get(array("where"=>array("tour_id"=>"72")));
+        if(!empty($priceTour)){
+          //Min price
+          $minSalePrice = 9999999;
+          foreach ($priceTour as $priceTourKey => $priceTourValue) {
+            if($priceTourValue["show_firstpage"] == 1){
+              $minSalePrice = $priceTourValue["sale_adult_price"];
+              $promotedTour[$promotedTourKey]["price"] = $priceTourValue;
+              break;
+            }else{
+              if($priceTourValue["sale_adult_price"] < $minSalePrice){
+                $promotedTour[$promotedTourKey]["price"] = $priceTourValue;
+                $minSalePrice = $priceTourValue["sale_adult_price"];
+              }
+            }
+          }
+        }
+      }
+    }
+  $this->_assign("promotedTour",$promotedTour);
+
+
+//end
+
 
     if(!empty($data)){
         $this->_fetch('user_list', $data);
@@ -404,6 +485,90 @@ class Location extends MY_Controller {
     $data["caconical"] = base_url($this->lang->line("url_lang_location")."/".$tag);
     $this->_assign("main_menu",Menu::main_menu());
 
+
+
+ // new 12/5/2557  เมนูแบบหน้าแรก
+    $this->load->model('price_model',"priceModel");
+    $this->load->model('tagtour_model','tagTourModel');
+        // ==================================================================
+    //
+    // Get "banner" type id.
+    //
+    // ------------------------------------------------------------------
+    $typeWhere["where"]['parent_id'] = 0;
+    $typeWhere["where"]['name'] = "banner";
+    $bannerType = $this->typeModel->get($typeWhere);
+    unset($typeWhere);
+
+    // ==================================================================
+    //
+    // Generating where for query tag_id from tagtypemodel for query banner (tour).
+    //
+    // ------------------------------------------------------------------
+    foreach ($bannerType as $typeKey => $typeValue) {
+      $tagIDForBannerWhere[] = $typeValue["id"];
+    }
+     // ==================================================================
+    //
+    // Get "tag_id" from tagType_model by type id for query banner (tour).
+    //
+    // ------------------------------------------------------------------
+    $whereTag["where_in"]["type_id"] = $tagIDForBannerWhere;
+    $whereTag["group"] = "tag_id";
+    $inCondition = $this->tagTypeModel->getTagTypeList($whereTag);
+    unset($whereTag);
+
+    if(!empty($inCondition)){
+      foreach ($inCondition as $inConditionKey => $inConditionValue) {
+        $conditions[] = $inConditionValue["tag_id"];
+      }
+      unset($inCondition);
+    }
+
+    $whereTag["where_in"]["tag_id"] = $conditions;
+    $whereTag["order"] = "tour_id DESC";
+    $whereTag["group"] = "tour_id";
+    $whereTag["where"]["tout_lang"] = $this->lang->lang();
+    $whereTag["join_tour"] = true;
+    $promotedTour = $this->tagTourModel->get($whereTag);
+    unset($whereTag);
+    unset($conditions);
+
+    if(!empty($promotedTour)){
+      foreach ($promotedTour as $promotedTourKey => $promotedTourValue) {
+        $priceTour = $this->priceModel->get(array("where"=>array("tour_id"=>$promotedTourValue["tour_id"])));
+        //$priceTour = $this->priceModel->get(array("where"=>array("tour_id"=>"72")));
+        if(!empty($priceTour)){
+          //Min price
+          $minSalePrice = 9999999;
+          foreach ($priceTour as $priceTourKey => $priceTourValue) {
+            if($priceTourValue["show_firstpage"] == 1){
+              $minSalePrice = $priceTourValue["sale_adult_price"];
+              $promotedTour[$promotedTourKey]["price"] = $priceTourValue;
+              break;
+            }else{
+              if($priceTourValue["sale_adult_price"] < $minSalePrice){
+                $promotedTour[$promotedTourKey]["price"] = $priceTourValue;
+                $minSalePrice = $priceTourValue["sale_adult_price"];
+              }
+            }
+          }
+        }
+      }
+    }
+  $this->_assign("promotedTour",$promotedTour);
+
+
+//end
+
+
+
+
+
+
+
+
+
     if(!empty($query["offset"])){
       if($query["offset"]>0){
         if(empty($data["location"])){
@@ -417,7 +582,7 @@ class Location extends MY_Controller {
 
     }else{
         //print_r($data);
-        $this->_fetch('user_list', $data, false, true);
+        $this->_fetch('user_list', $data);
     }
 
   }
@@ -635,6 +800,8 @@ class Location extends MY_Controller {
   }
 
   function user_view($tag= FALSE, $id=FALSE){
+
+
     if($id){
       $this->load->model("tag_model", "tagModel");
       $this->load->model("images_model", "imagesModel");
@@ -677,6 +844,7 @@ class Location extends MY_Controller {
       $this->_assign("allProvince",$tagProvinceList);
       $this->_assign("main_menu",Menu::main_menu());
 
+
       if(!empty($locationData["tag"])){
         foreach ($locationData["tag"] as $tagKey => $tagValue) {
           foreach ($tagProvinceList as $pKey => $pValue) {
@@ -691,6 +859,7 @@ class Location extends MY_Controller {
         }
       }
 
+ 
       if(!empty($tagProvinceID["tag_id"])){
         $this->load->model("tag_translate_model","tagTranslateModel");
         $whereCurrentProvince["where"]["tag_id"] = $tagProvinceID["tag_id"];
@@ -747,6 +916,108 @@ class Location extends MY_Controller {
         $locationData["caconical"] = base_url($this->lang->line("url_lang_location")."/".trim($locationData["location"]["url"])."-".trim($locationData["location"]["loc_id"]));
       }
 
+
+      //new 
+
+         // new 14/5/2557  เมนูแบบหน้าแรก
+    $this->load->model('price_model',"priceModel");
+    $this->load->model('tagtour_model','tagTourModel');
+        // ==================================================================
+    //
+    // Get "banner" type id.
+    //
+    // ------------------------------------------------------------------
+    $typeWhere["where"]['parent_id'] = 0;
+    $typeWhere["where"]['name'] = "banner";
+    $bannerType = $this->typeModel->get($typeWhere);
+    unset($typeWhere);
+
+    // ==================================================================
+    //
+    // Generating where for query tag_id from tagtypemodel for query banner (tour).
+    //
+    // ------------------------------------------------------------------
+    foreach ($bannerType as $typeKey => $typeValue) {
+      $tagIDForBannerWhere[] = $typeValue["id"];
+    }
+     // ==================================================================
+    //
+    // Get "tag_id" from tagType_model by type id for query banner (tour).
+    //
+    // ------------------------------------------------------------------
+    $whereTag["where_in"]["type_id"] = $tagIDForBannerWhere;
+    $whereTag["group"] = "tag_id";
+    $inCondition = $this->tagTypeModel->getTagTypeList($whereTag);
+    unset($whereTag);
+
+    if(!empty($inCondition)){
+      foreach ($inCondition as $inConditionKey => $inConditionValue) {
+        $conditions[] = $inConditionValue["tag_id"];
+      }
+      unset($inCondition);
+    }
+
+    $whereTag["where_in"]["tag_id"] = $conditions;
+    $whereTag["order"] = "tour_id DESC";
+    $whereTag["group"] = "tour_id";
+    $whereTag["where"]["tout_lang"] = $this->lang->lang();
+    $whereTag["join_tour"] = true;
+    $promotedTour = $this->tagTourModel->get($whereTag);
+    unset($whereTag);
+    unset($conditions);
+
+    if(!empty($promotedTour)){
+      foreach ($promotedTour as $promotedTourKey => $promotedTourValue) {
+        $priceTour = $this->priceModel->get(array("where"=>array("tour_id"=>$promotedTourValue["tour_id"])));
+        //$priceTour = $this->priceModel->get(array("where"=>array("tour_id"=>"72")));
+        if(!empty($priceTour)){
+          //Min price
+          $minSalePrice = 9999999;
+          foreach ($priceTour as $priceTourKey => $priceTourValue) {
+            if($priceTourValue["show_firstpage"] == 1){
+              $minSalePrice = $priceTourValue["sale_adult_price"];
+              $promotedTour[$promotedTourKey]["price"] = $priceTourValue;
+              break;
+            }else{
+              if($priceTourValue["sale_adult_price"] < $minSalePrice){
+                $promotedTour[$promotedTourKey]["price"] = $priceTourValue;
+                $minSalePrice = $priceTourValue["sale_adult_price"];
+              }
+            }
+          }
+        }
+      }
+    }
+  $this->_assign("promotedTour",$promotedTour);
+
+
+//end
+
+      //end
+
+
+
+
+
+
+
+
+
+
+
+      
+      $this->_assign("locationData",$locationData);
+
+
+
+
+
+
+
+
+
+
+
       if(!empty($locationData)){
         if($this->input->get("ajax")){
           $ajaxReturn["imagesRedered"] = $this->_fetch("ajax_images", $locationData, TRUE, TRUE);
@@ -754,6 +1025,7 @@ class Location extends MY_Controller {
           $ajaxReturn["data"] = $locationData;
           echo json_encode($ajaxReturn);exit;
         }else{
+
           $this->_fetch("user_view", $locationData);
         }
       }else{

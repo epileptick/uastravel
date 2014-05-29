@@ -8,10 +8,9 @@ class MY_Parser extends CI_Parser {
     private $_data = "";
 
 
-    public function parse($template, $data='', $return = FALSE,$piece=FALSE) {
-        $themeName = Config::getConfig('theme_name');
-
+    public function parse($template, $data='', $piece=FALSE) {
         $this->CI = get_instance();
+        $themeName = $this->CI->config->item('theme_name');
         $this->_data = $data;
         //prepare data
         $data['imagepath']  = base_url("/themes/".$themeName."/images");
@@ -30,7 +29,6 @@ class MY_Parser extends CI_Parser {
         $template = $this->replace_include_keys($template);
         $template = $this->replace_widget_keys($template);
         $template = $this->replace_lang_keys($template);
-
         if(count(PageUtil::getVar("title"))>0){
           preg_match("#\<title\>(.*)\<\/title\>#i",$template,$matches);
           if(!empty($matches[1])){
@@ -104,7 +102,15 @@ class MY_Parser extends CI_Parser {
           $template = str_replace("</head>",$newHead."\n</head>",$template);
         }
 
-        return $this->_parse($template, $data, $return);
+        if(count(PageUtil::getVar("javascript_body")) > 0){
+          $bodyScript = "";
+          foreach(PageUtil::getVar("javascript_body") AS $javascript){
+              $bodyScript .= "\n".$javascript;
+          }
+          $template = str_replace("</body>",$bodyScript."\n</body>",$template);
+        }
+
+        return $this->_parse($template, $data);
     }
 
     protected function replace_lang_keys($template) {
@@ -120,16 +126,15 @@ class MY_Parser extends CI_Parser {
     }
 
     protected function replace_lang_key($key) {
-
         return $this->CI->lang->line($key[1]);
     }
 
     protected function replace_include_key($key) {
-      $themeName = Config::getConfig('theme_name');
+      $themeName = $this->CI->config->item('theme_name');
       $template = $this->CI->load->view("themes/".$themeName."/_Includes/".$key["1"].".php", $this->_data, TRUE);
       $template = $this->replace_lang_keys($template);
 
-      return  $this->_parse($template,  $this->_data, TRUE);
+      return  $this->_parse($template,  $this->_data);
     }
 
     protected function replace_widget_key($key) {
@@ -145,33 +150,27 @@ class MY_Parser extends CI_Parser {
       }
     }
 
-    function _parse($template, $data, $return = FALSE)
+    function _parse($template, $data)
     {
-    	if ($template == '')
-    	{
-    		return FALSE;
-    	}
+      if ($template == '')
+      {
+        return FALSE;
+      }
 
       if($data != "")
-    	foreach ($data as $key => $val)
-    	{
-    		if (is_array($val))
-    		{
-    			$template = $this->_parse_pair($key, $val, $template);
-    		}
-    		else
-    		{
-    			$template = $this->_parse_single($key, (string)$val, $template);
-    		}
-    	}
+      foreach ($data as $key => $val)
+      {
+        if (is_array($val))
+        {
+          $template = $this->_parse_pair($key, $val, $template);
+        }
+        else
+        {
+          $template = $this->_parse_single($key, (string)$val, $template);
+        }
+      }
 
-    	if ($return == FALSE)
-    	{
-    		$CI =& get_instance();
-    		$CI->output->append_output($template);
-    	}
-
-    	return $template;
+      return $template;
     }
 }
 ?>

@@ -5,7 +5,7 @@
         <h3><?php echo $this->lang->line("tour_lang_packages_tour_suggest");?></h3>
 
                   <?php
-                  if(!empty($related )):
+                  if(!empty($related)):
                     foreach ($related as $key => $value):
                   ?>
                     <div class="list_packet">
@@ -16,7 +16,7 @@
                           </a>
                         </div>
 
-                        <div class="col-md-12 columns">
+                        <div class="col-md-7 columns">
                           <div class="row">
                             <div class="col-md-12 columns">
                               <div class="title_tour">
@@ -28,11 +28,10 @@
                               </div>
                             </div>
                           </div>
-                          <div class="border"></div>
                         </div>
-                        <div class="col-md-12 columns">
+                        <div class="col-md-5 columns packetprice">
 
-                          <div class="price">
+                          <div class="price priceprice">
                             
                             <span class="pull-right">
                             <?php

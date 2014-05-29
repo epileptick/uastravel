@@ -9,6 +9,7 @@
 
 <div class="row">
 	<div class="col-md-4">
+     <!-- กล่องสีฟ้าซ้อนกัน
 		<div class="backbox1 pull-right">
 			<div class="col-md-12 gridstlyebox" >
 				<span class="titlebox">ทัว์ยอดนิยม</span>
@@ -19,6 +20,7 @@
 				</div>
 			</div>
 		</div>
+    -->
 
 {_widget menutoursmall}
 <!-- END col-md-4 and row  -->
@@ -158,7 +160,7 @@
                   <!-- Table new-->
            			<div class="row">
            				<div class="col-md-12 ">
-
+                    <form name="form" action="<?php echo base_url($this->lang->line("url_lang_tour").'/inquiry');?>" method="post">
                   <table class="table table-hover">
                     <thead>
                       <tr >
@@ -334,6 +336,7 @@
                       </tr>
                     </tbody>
                   </table>
+                </form>
                 </div>
                 </div>
 

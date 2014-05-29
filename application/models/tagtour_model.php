@@ -193,10 +193,16 @@ class TagTour_model extends MY_Model {
 
   function getRecordByTag($args=false){
 
+    $pageLimit = $this->config->item("show_limit");
+    $startRecord = $pageLimit*$args["page"];
+
     //Get tour data
     $tourWhere["where"]["tag_id"] = $args["tag_id"];
     $tourWhere["where"]["display"] = 1;
     $tourWhere["where"]["tout_lang"] = $this->lang->lang();
+    $tourWhere["limit"]["start"] = $startRecord;
+    $tourWhere["limit"]["amount"] = $pageLimit;
+
     $tourWhere["group"] = parent::getColumn("tour_id");
     $tourWhere["join_tour"] = true;
     $tourWhere["join_tag"] = false;

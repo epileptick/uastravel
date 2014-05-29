@@ -6,7 +6,7 @@ $lang['global_lang_readmore_description'] = "คลิ๊กเพื่ออ�
 
 
 $lang['global_lang_money_sign'] = "บาท";
-
+$lang['global_lang_title_money_sign'] = "เริ่มที่";
 $lang['global_lang_select_all'] = "เลือกทั้งหมด";
 $lang['global_lang_unselect_all'] = "ยกเลิกทั้งหมด";
 $lang['global_lang_delete'] = "ลบ";
@@ -19,6 +19,8 @@ $lang['global_lang_contact_us'] = "ติดต่อเรา";
 $lang['global_lang_telephone'] = "โทร";
 $lang['global_lang_fax'] = "แฟกซ์";
 $lang['global_lang_e_mail'] = "อีเมลล์";
+$lang['global_lang_address'] = "80/86 หมู่บ้านศุภาลัยฮิล ซ.5 อ.เมือง จ.ภูเก็ต 83000";
+$lang['global_lang_company'] = "หจก.ยู แอส ทราเวล";
 $lang['global_lang_map'] = "แผนที่";
 $lang['global_lang_comment'] = "แสดงความคิดเห็น";
 

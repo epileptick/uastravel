@@ -208,6 +208,8 @@
 
       </section>
     </div>
+
+    
     <?php
       if(!empty($tours["tour"]))
       foreach ($tours["tour"] as $key => $value) {

@@ -1,0 +1,62 @@
+.search_result_item {
+	border-bottom: 1px dashed #779bca;
+	padding: 8px 0;
+	min-height: 120px;
+	float: left;
+}
+
+.search_result_item_image {
+
+	}
+
+.search_result_item_image img {
+	width:118px;
+	height: 100px;
+}
+
+.search_result_tour_name {
+	font-size: 26px;
+	border-bottom: 1px #F7F7F7 solid;
+	margin-bottom: 5px;
+	margin-top: 0px;
+	float: left;
+	width: 100%;
+}
+
+.search_result_tour_description {
+	font-size: 18px;
+}
+
+.search_result_item {
+	border-bottom: 1px dashed #779bca;
+	padding: 8px 0;
+	min-height: 120px;
+	float: left;
+}
+.search_result_item {
+	border-bottom: 1px dashed #779bca;
+	padding: 8px 0;
+	min-height: 120px;
+	float: left;
+}
+
+.search_result_tour_price h3 {
+	margin: 0px;
+	width: 100%;
+	text-align: center;
+	font-size: 22px;
+}
+
+.search_result_tour_price h3.search_result_tour_price_price {
+	padding: 7px 0;
+	color: #FE5214;
+	font-size: 32px;
+	font-weight: bold !important;
+
+}
+
+.search_result_tour_price .rating {
+	float: none;
+	margin-right: auto;
+	margin-left: auto;
+}
